@@ -6,8 +6,13 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import androidx.core.content.edit
+import android.annotation.SuppressLint
+import android.content.ComponentName
+import android.content.Context
+import android.content.pm.PackageManager
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.ext.isFirstInstall
@@ -65,6 +70,14 @@ object Settings {
                 .edit() {
                     putBoolean(key, value)
             }
+    }
+
+    fun setDefaultSearchEngine(context: Context, value: String) {
+        val key = context.getString(R.string.pref_key_default_search_engine)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putString(key, value)
+            .apply()
     }
 
     fun setShowOnboarding(context: Context, value: Boolean) {
@@ -407,4 +420,25 @@ object Settings {
             return null
         }
     }
+    private fun componentIsEnabled(context : Context, componentName: String): Boolean {
+        return getComponentState(context, componentName) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+
+    }
+
+    private fun getComponentState(context: Context, componentName: String) : Int {
+        return context.packageManager.getComponentEnabledSetting(
+            ComponentName(
+                BuildConfig.APPLICATION_ID,
+                componentName)
+        )
+    }
+
+    fun refetchAppIcon(context: Context) {
+        for (icon in AppIcon.values()){
+            if (componentIsEnabled(context, icon.componentName)){
+                setAppIcon(context, icon.componentName)
+            }
+        }
+    }
+
 }
