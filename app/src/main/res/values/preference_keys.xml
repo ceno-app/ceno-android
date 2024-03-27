@@ -88,6 +88,9 @@
     <string name="pref_key_clean_insights_backdate" translatable="false">pref_key_clean_insights_backdate</string>
     <string name="pref_key_background_metrics" translatable="false">pref_key_background_metrics</string>
     <string name="pref_key_metrics_ouinet" translatable="false">pref_key_metrics_ouinet</string>
+    <string name="pref_key_ouisync_enabled" translatable="false">pref_key_ouisync_enabled</string>
+    <string name="pref_key_backup_customizations" translatable="false">pref_key_backup_customizations</string>
+    <string name="pref_key_backup_top_sites" translatable="false">pref_key_backup_top_sites</string>
 
     <string name="pref_last_known_browsing_mode_personal" translatable="false">pref_last_known_browsing_mode_personal</string>
     <string name="pref_permissions_category" translatable="false">pref_permissions_category</string>
@@ -122,5 +125,8 @@
         <item>@string/pref_key_show_home_button</item>
         <item>@string/pref_key_selected_app_icon</item>
         <item>@string/pref_key_default_search_engine</item>
+        <item>@string/pref_key_ouisync_enabled</item>
+        <item>@string/pref_key_backup_customizations</item>
+        <item>@string/pref_key_backup_top_sites</item>
     </string-array>
 </resources>

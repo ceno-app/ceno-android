@@ -511,4 +511,17 @@
     <string name="preferences_ouinet_proxy_endpoint">Local proxy endpoint</string>
     <string name="preferences_ouinet_frontend_endpoint">Local frontend endpoint</string>
     <string name="pin_unpin_to_cache_failed">Error! Cache update failed.</string>
+    <string name="enable_ouisync_title">Enable Ouisync</string>
+    <string name="enable_ouisync_message">Ceno settings backup is powered by Ouisync. Enabling this may consume more battery.</string>
+    <string name="settings_backup_header">Backup your Ceno settings</string>
+    <string name="settings_backup_message">All of your customizations will be stored in a Ouisync repository.</string>
+    <!-- Text for the button to export profile -->
+    <string name="preferences_export_profile_button">Export profile</string>
+    <!-- Text for the button to import profile -->
+    <string name="preferences_import_profile_button">Import profile</string>
+    <string name="preferences_profile_customization_title">Customizations</string>
+    <string name="preferences_profile_customization_subtitle">Theme, toolbar options, etc.</string>
+    <string name="preferences_profile_top_sites_title">Top Sites</string>
+    <string name="preferences_profile_top_sites_subtitle">Links displayed on homepage</string>
+    <string name="preference_enable_ouisync">Enable Ouisync</string>
 </resources>

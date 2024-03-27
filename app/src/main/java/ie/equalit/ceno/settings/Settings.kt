@@ -210,6 +210,34 @@ object Settings {
             }
     }
 
+    fun backupCustomizations(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_backup_customizations), false
+        )
+    }
+
+    fun backupTopSites(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_backup_top_sites), false
+        )
+    }
+
+    fun setBackupCustomizations(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_backup_customizations)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun setBackupTopSites(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_backup_top_sites)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
     fun showCrashReportingPermissionNudge(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_crash_happened), false
@@ -420,6 +448,21 @@ object Settings {
             return null
         }
     }
+
+    fun setOuisyncEnabled(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_ouisync_enabled)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit()
+            .putBoolean(key, value)
+            .apply()
+    }
+
+    fun isOuisyncEnabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_ouisync_enabled), false
+        )
+    }
+
     private fun componentIsEnabled(context : Context, componentName: String): Boolean {
         return getComponentState(context, componentName) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 

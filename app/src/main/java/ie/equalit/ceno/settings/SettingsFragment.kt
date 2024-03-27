@@ -23,7 +23,10 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
+import androidx.core.content.ContextCompat.getSystemService
+import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
+import androidx.core.view.marginStart
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -43,6 +46,9 @@ import ie.equalit.ceno.R.string.developer_tools_disabled
 import ie.equalit.ceno.R.string.developer_tools_enabled
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
+import ie.equalit.ceno.R.string.enable_ouisync_message
+import ie.equalit.ceno.R.string.enable_ouisync_title
+import ie.equalit.ceno.R.string.no_external_storage
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.R.string.pref_data_category
@@ -75,6 +81,7 @@ import ie.equalit.ceno.R.string.preference_choose_search_engine
 import ie.equalit.ceno.R.string.preferences_about_page
 import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.preferences_metrics_campaign
+import ie.equalit.ceno.R.string.preferences_export_settings
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
 import ie.equalit.ceno.R.string.status_disabled
@@ -92,6 +99,8 @@ import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
+import ie.equalit.ceno.settings.Settings.isOuisyncEnabled
+import ie.equalit.ceno.settings.Settings.setOuisyncEnabled
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -288,6 +297,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             it.onPreferenceClickListener = getClickListenerForAdditionalDeveloperTools()
             it.isVisible = shouldShowDeveloperTools(requireContext())
         }
+        getPreference(pref_key_export_settings)?.onPreferenceClickListener = getClickListenerForProfileBackup()
 
         // Update notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -486,6 +496,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_settingsFragment_to_deleteBrowsingDataFragment
             )
             getActionBar().setTitle(preferences_delete_browsing_data)
+            true
+        }
+    }
+
+    private fun getClickListenerForProfileBackup(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_settingsFragment_to_profileBackupFragment
+            )
+            getActionBar().setTitle(preferences_export_settings)
             true
         }
     }

@@ -23,6 +23,7 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
+import androidx.compose.runtime.Composable
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
@@ -65,6 +66,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
@@ -168,6 +170,22 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
+
+        /* TODO: if ouisync enabled... */
+        if (Settings.isOuisyncEnabled(this)) {
+            Logger.info("OUISYNC ENABLED")
+            MainScope().launch {
+                components.ouisync.apply {
+                    createSession()
+                    session.initNetwork(true,true)
+                    session.bindNetwork(quicV4 = "0.0.0.0:0", quicV6 = "[::]:0")
+                    openRepositories()
+                    getProtocolVersion().let {
+                        Logger.info("OUSIYNC PROTO VERSION: $it")
+                    }
+                }
+            }
+        }
 
         /* CENO: Set default behavior for AppBar */
         supportActionBar!!.apply {
