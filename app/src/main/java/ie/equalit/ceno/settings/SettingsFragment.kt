@@ -39,6 +39,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.R.plurals.developer_tools_disable_alert
 import ie.equalit.ceno.R.plurals.developer_tools_enable_alert
 import ie.equalit.ceno.R.string.bridge_mode_ip_warning_text
+import ie.equalit.ceno.R.array.prefs_included_in_backup
 import ie.equalit.ceno.R.string.ceno_clear_dialog_cancel
 import ie.equalit.ceno.R.string.confirm_clear_cached_content
 import ie.equalit.ceno.R.string.confirm_clear_cached_content_desc
