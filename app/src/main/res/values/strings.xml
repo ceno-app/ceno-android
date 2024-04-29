@@ -515,13 +515,11 @@
     <string name="enable_ouisync_message">Ceno settings backup is powered by Ouisync. Enabling this may consume more battery.</string>
     <string name="settings_backup_header">Backup your Ceno settings</string>
     <string name="settings_backup_message">All of your customizations will be stored in a Ouisync repository.</string>
-    <!-- Text for the button to export profile -->
-    <string name="preferences_export_profile_button">Export profile</string>
-    <!-- Text for the button to import profile -->
-    <string name="preferences_import_profile_button">Import profile</string>
-    <string name="preferences_profile_customization_title">Customizations</string>
-    <string name="preferences_profile_customization_subtitle">Theme, toolbar options, etc.</string>
-    <string name="preferences_profile_top_sites_title">Top Sites</string>
-    <string name="preferences_profile_top_sites_subtitle">Links displayed on homepage</string>
-    <string name="preference_enable_ouisync">Enable Ouisync</string>
+    <string name="export_profile_title">Select location for export</string>
+    <string name="export_profile_text">Ceno needs access to a directory where the profile backup will be stored.\n\nIt is recommended to create a new directory in your Documents folder and give access only to that folder.</string>
+    <string name="export_profile_cancelled">Profile export cancelled</string>
+    <string name="import_profile_title">Select folder containing profile backup</string>
+    <string name="import_profile_cancelled">Profile import cancelled</string>
+    <string name="settings_restore_header">Restore your Ceno settings</string>
+    <string name="settings_restore_message">All customizations will be restored from the selected Ouisync repository. Any existing customizations will be overwritten.</string>
 </resources>

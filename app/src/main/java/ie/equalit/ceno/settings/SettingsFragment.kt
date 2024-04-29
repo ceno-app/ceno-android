@@ -26,7 +26,6 @@ import androidx.core.os.LocaleListCompat
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.content.FileProvider
 import androidx.core.os.bundleOf
-import androidx.core.view.marginStart
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference

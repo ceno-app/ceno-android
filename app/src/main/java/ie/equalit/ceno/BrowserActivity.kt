@@ -172,7 +172,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
 
         /* TODO: if ouisync enabled... */
-        if (Settings.isOuisyncEnabled(this)) {
+        if (Settings.isOuisyncEnabled(this) && components.ouisync.storeDir != null) {
             Logger.info("OUISYNC ENABLED")
             MainScope().launch {
                 components.ouisync.apply {
