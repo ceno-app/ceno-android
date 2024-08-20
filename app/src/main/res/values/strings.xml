@@ -501,4 +501,6 @@
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
+    <string name="preferences_personal_mode_only">Privacy features for public tabs</string>
+    <string name="preferences_personal_mode_only_summary">EXPERIMENTAL: Enabling this allows for authentication in public mode tabs</string>
 </resources>
