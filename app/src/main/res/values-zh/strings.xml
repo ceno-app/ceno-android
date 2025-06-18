@@ -424,4 +424,5 @@
     <string name="bookmark_folder_label">文件夹</string>
     <string name="edit_bookmark_fragment_title">编辑书签</string>
     <string name="bookmark_add_folder_fragment_label">新建文件夹</string>
+    <string name="metrics_ouinet_description">向开发人员提交匿名的、尊重隐私的指标</string>
 </resources>
