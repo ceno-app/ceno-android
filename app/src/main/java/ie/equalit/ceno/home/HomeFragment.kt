@@ -27,7 +27,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
-import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
@@ -44,7 +43,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.Request
 import mozilla.components.concept.storage.FrecencyThresholdOption
 import mozilla.components.feature.top.sites.TopSitesConfig
@@ -203,7 +201,7 @@ class HomeFragment : BaseHomeFragment() {
                 sessionControlView?.update(
                     it,
                     Settings.getAnnouncementData(context)?.items /* From local storage */,
-                    null
+                    Settings.getOuicrawlData(context)
                 )
                 updateUI(it.mode)
                 updateSearch(it.mode)
@@ -464,7 +462,8 @@ class HomeFragment : BaseHomeFragment() {
             Request("https://schedule.ceno.app/schedule.json")
         )
         ouicrawlResponse?.let {
-            Settings.saveOuicrawlData(requireContext(), ouicrawlResponse)
+            Log.d("Ouicrawl", ouicrawlResponse)
+            Settings.saveOuicrawlData(context, ouicrawlResponse)
 //            var responseObject = Json.decodeFromString<OuicrawledSitesListItem>(ouicrawlResponse)
 //            val ouicrawledSites = responseObject.Sites
         }
