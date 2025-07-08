@@ -42,7 +42,7 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
                     .setLocalOnly(true)
                     .setContentTitle(context.getString(R.string.reminder_notification_title))
                     .setContentText(context.getString(R.string.reminder_notification_text))
-                    .setSmallIcon(R.drawable.ic_launcher_white_foreground)
+                    .setSmallIcon(R.drawable.ic_notification)
                     .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, BrowserActivity::class.java), PendingIntent.FLAG_IMMUTABLE))
                     .build()
                 if (ActivityCompat.checkSelfPermission(
