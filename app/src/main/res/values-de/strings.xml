@@ -418,4 +418,7 @@
     <string name="bookmark_deletion_confirmation">Sind Sie sicher, dass Sie dieses Lesezeichen löschen möchten?</string>
     <string name="bookmark_add_folder_fragment_label">Ordner hinzufügen</string>
     <string name="bookmark_item_menu_button">Menüschaltfläche für Lesezeicheneinträge</string>
+    <string name="bookmark_folder_label">ORDNER</string>
+    <string name="add_or_remove_bookmark">Lesezeichen hinzufügen oder entfernen</string>
+    <string name="bookmark_delete_folder_confirmation_dialog">Sind Sie sicher, dass Sie diesen Ordner löschen wollen?</string>
 </resources>
