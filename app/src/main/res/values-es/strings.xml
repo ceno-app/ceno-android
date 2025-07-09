@@ -61,9 +61,9 @@
         <item quantity="other">Direcciones %d</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
-    <string name="preferences_delete_browsing_data_cookies_subtitle">Te sesión será cerrada de la mayoría de los sitios</string>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Su sesión será cerrada en la mayoría de sitios</string>
     <string name="preferences_delete_browsing_data_cached_files">Imágenes y archivos en caché</string>
-    <string name="preferences_delete_browsing_data_cached_files_subtitle">Libera espacio de almacenamiento</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Libere espacio de almacenamiento</string>
     <string name="preferences_delete_browsing_data_site_permissions">Permisos de sitios</string>
     <string name="preferences_delete_browsing_data_button">Eliminar datos de navegación</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Abrir pestañas</string>
@@ -99,7 +99,7 @@
     <string name="preferences_make_default_browser">Haz de Ceno tu navegador predeterminado</string>
     <string name="preferences_about_page">Acerca de</string>
     <string name="ceno_mode_manual_link">https://ceno.app/user-manual/es/concepts/public-private.html</string>
-    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puedes visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quieres saber más?&lt;/p&gt; &lt;p&gt;</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puede visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quiere saber más?&lt;/p&gt;</string>
     <string name="preferences_about_ceno_browser_service">Servicio del Navegador de Ceno</string>
     <string name="ceno_notification_description">Pulse para más detalles</string>
     <string name="ceno_notification_home_description">Inicio</string>
@@ -107,7 +107,7 @@
     <string name="ceno_notification_clear_do_description">Sí</string>
     <string name="ceno_notification_channel_name">Servicio de Ceno</string>
     <string name="ceno_on_mobile_data_dialog_title">Aviso del Navegador Ceno</string>
-    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar Ceno cuando tengas una conexión de Wi-Fi, ya que puedes consumir más datos de los que esperas. Tal vez prefiera detener Ceno cuando use datos móviles.</string>
+    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar Ceno cuando tenga una conexión de Wi-Fi, ya que puede consumir más datos de los que espera. Tal vez prefiera detener Ceno cuando use datos móviles.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Detener Ceno ahora</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuar</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
@@ -133,7 +133,7 @@
     <string name="onboarding_warning_button">Ok</string>
     <string name="onboarding_btn_get_started">Comenzar</string>
     <string name="onboarding_skip_button">Saltar</string>
-    <string name="onboarding_info_title">No es tu navegador normal</string>
+    <string name="onboarding_info_title">No es su navegador normal</string>
     <string name="onboarding_warning_title">Permiso denegado</string>
     <string name="onboarding_thanks_title">¡Gracias por hacer crecer la red!</string>
     <string name="preferences_toolbar_position">Colocar en la parte superior de la pantalla</string>
@@ -141,9 +141,9 @@
     <string name="preferences_show_onboarding">Mostrar información sobre herramientas en el próximo lanzamiento</string>
     <string name="preferences_disable_battery_opt">Optimizaciones de batería</string>
     <string name="preferences_customization">Personalización</string>
-    <string name="onboarding_thanks_text">Como usuari@ de Ceno, ayudas a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
+    <string name="onboarding_thanks_text">Como usuario de Ceno, ayuda a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
     <string name="ceno_clear_dialog_cancel">Cancelar</string>
-    <string name="ceno_clear_dialog_clear_cache_only">Borrar sólo caché de Ceno</string>
+    <string name="ceno_clear_dialog_clear_cache_only">Borrar sólo el caché de Ceno</string>
     <string name="ceno_clear_dialog_title">Limpiar Ceno</string>
     <string name="ceno_clear_action_description">Limpiar</string>
     <string name="preferences_clear_in_toolbar">Mostrar en la barra de herramientas</string>
@@ -151,7 +151,7 @@
     <string name="preferences_clear_behavior">Comportamiento Predeterminado</string>
     <string name="preferences_clear_behavior_summary">Establecer comportamiento al pulsar el botón de borrar</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="ceno_clear_dialog_clear_entire_app">Borra la caché y los datos de la aplicación de Ceno</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Borre la caché y los datos de la aplicación de Ceno</string>
     <string name="ceno_clear_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la app restablecerá la aplicación Ceno como si nunca se hubiera utilizado.</string>
     <string name="changeIconCtaCancel">Cancelar</string>
     <string name="changeIconCtaAccept">Aceptar</string>
@@ -229,7 +229,7 @@
     <string name="crash_reporting_always_send">Enviar siempre, mejorar Ceno</string>
     <string name="preferences_allow_crash_reporting">Informe de fallos</string>
     <string name="crash_reporting_opt_out">Has optado por no compartir los informes de los errores. Siempre puedes optar por hacerlo yendo a Ajustes &gt; Informes de errores.</string>
-    <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de los fallos para ayudar a mejorar Ceno! Siempre se puede desactivar esto yendo a Configuración&gt;Informes de errores.</string>
+    <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de fallo para ayudar a mejorar Ceno! Siempre se puede desactivar esto yendo a Configuración&gt;Informes de errores.</string>
     <string name="ouinet_client_fetch_success">Ajustes de Ceno actualizados</string>
     <string name="crash_reporting_dialog_title">¡Lo sentimos, parece que Ceno ha fallado!</string>
     <string name="ceno_support_link_url">https://ceno.app/es/support.html</string>
@@ -292,7 +292,7 @@
     <string name="shutdown_message_one">Borrar datos de la aplicación</string>
     <string name="shutdown_message_two">Cerrando Ceno</string>
     <string name="title_success">Éxito</string>
-    <string name="thank_you_bridge_mode_enabled">¡Gracias por convertirte en un puente y hacer crecer la red Ceno!</string>
+    <string name="thank_you_bridge_mode_enabled">¡Gracias por convertirse en puente y hacer crecer la red Ceno!</string>
     <string name="dialog_btn_positive_ok">De acuerdo</string>
     <string name="ceno_log_content_group_file_saved">Contenido compartido guardado exitosamente</string>
     <string name="download_site_content">Descargar contenido de la página</string>
