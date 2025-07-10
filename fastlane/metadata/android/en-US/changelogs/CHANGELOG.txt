@@ -1,6 +1,7 @@
 # v2.6.0
 This release:
 - Updates Android-Components to 140.0
+- Adds notification on Android 15+ to nudge user to reopen Ceno
 
 # v2.5.1
 This release:
