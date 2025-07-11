@@ -60,7 +60,8 @@ class SessionControlAdapter internal constructor(
                 interactor
             )
             SectionHeaderViewHolder.homepageCardType.value -> SectionHeaderViewHolder(
-                view
+                view,
+                interactor
             )
             OuicrawledSiteViewHolder.homepageCardType.value -> OuicrawledSiteViewHolder(view, interactor, viewLifecycleOwner)
             else -> throw IllegalStateException()

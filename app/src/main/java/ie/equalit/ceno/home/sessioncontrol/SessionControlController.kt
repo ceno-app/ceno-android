@@ -28,6 +28,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
+import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
 
 /**
@@ -77,6 +78,8 @@ interface SessionControlController {
     fun handleUrlClicked(homepageCardType: HomepageCardType, url: String)
 
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
+
+    fun handleOnSectionHeaderClicked(listIsHidden:Boolean)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -274,5 +277,9 @@ class DefaultSessionControlController(
             }
         }
 
+    }
+
+    override fun handleOnSectionHeaderClicked(listIsHidden: Boolean) {
+        appStore.dispatch(AppAction.OuicrawlSitesChange(listIsHidden))
     }
 }

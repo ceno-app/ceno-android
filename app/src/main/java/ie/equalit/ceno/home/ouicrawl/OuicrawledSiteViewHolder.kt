@@ -49,7 +49,7 @@ class OuicrawledSiteViewHolder(
                     }
                 }
             }
-            contextMenu.menuBuilder.build(itemView.context).show(it)
+            contextMenu.menuBuilder.build(itemView.context).show(binding.tvEllipsisMore)
             true
         }
     }

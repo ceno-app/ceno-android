@@ -79,6 +79,8 @@ interface HomePageInteractor {
     fun onMenuItemClicked(homepageCardType: HomepageCardType)
 
     fun onUrlClicked(homepageCardType: HomepageCardType, url: String)
+
+    fun onSectionHeaderClicked(listIsHidden: Boolean)
 }
 
 /**
@@ -185,6 +187,10 @@ class SessionControlInteractor(
 
         override fun onUrlClicked(homepageCardType: HomepageCardType, url: String) {
             controller.handleUrlClicked(homepageCardType, url)
+        }
+
+        override fun onSectionHeaderClicked(listIsHidden: Boolean) {
+            controller.handleOnSectionHeaderClicked(listIsHidden)
         }
 
         override fun onOuicrawlSiteMenuOpened() {

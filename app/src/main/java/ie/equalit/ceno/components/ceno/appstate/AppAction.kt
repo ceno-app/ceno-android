@@ -31,4 +31,5 @@ sealed class AppAction : Action {
     data class SourceCountsChange(
         val sourceCounts: MutableMap<String, JSONObject?>
     ) : AppAction()
+    data class OuicrawlSitesChange(val listIsHidden: Boolean) : AppAction()
 }
