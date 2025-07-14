@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
+import ie.equalit.ceno.ext.isFirstInstall
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
