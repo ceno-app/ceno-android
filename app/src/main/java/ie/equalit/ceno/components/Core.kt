@@ -56,6 +56,10 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
 import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
+import mozilla.components.feature.downloads.DateTimeProvider
+import mozilla.components.feature.downloads.DefaultDateTimeProvider
+import mozilla.components.feature.downloads.DefaultFileSizeFormatter
+import mozilla.components.feature.downloads.FileSizeFormatter
 import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -283,6 +287,10 @@ class Core(private val context: Context) {
     }
 
     private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }
+
+    val fileSizeFormatter: FileSizeFormatter by lazy { DefaultFileSizeFormatter(context.applicationContext) }
+
+    val dateTimeProvider: DateTimeProvider by lazy { DefaultDateTimeProvider() }
 
     companion object {
         private const val KEY_STORAGE_NAME = "core_prefs"

@@ -287,11 +287,11 @@
     <string name="source_code_button_link" translatable="false">https://gitlab.com/ceno-app/</string>
     <string name="support_button_text">Support</string>
     <string name="support_button_link" translatable="false">@string/ceno_support_link_url</string>
-    <string name="website_eq_button_link" translatable="false">https://equalit.ie/</string>
+    <string name="website_eq_button_link" translatable="false">https://equalitie.org/</string>
     <string name="eq_news_button_text">News</string>
-    <string name="eq_news_button_link" translatable="false">https://equalit.ie/blog/</string>
+    <string name="eq_news_button_link" translatable="false">https://equalitie.org/en/news</string>
     <string name="eq_values_button_text">Values</string>
-    <string name="eq_values_button_link" translatable="false">https://equalit.ie/values/</string>
+    <string name="eq_values_button_link" translatable="false">https://equalitie.org/our-values/</string>
     <string name="ceno_onboarding_start_title">Share the web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text" tools:ignore="UnusedResources">Ceno’s peer-to-peer backbone allows people to access and share website content in and across regions where connectivity has been interrupted or compromised.</string>
@@ -484,4 +484,21 @@
     <string name="bookmark_folder_label">FOLDER</string>
     <string name="add_or_remove_bookmark">add or remove Bookmark</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Are you sure you want to delete this folder?</string>
+    <string name="foreground_notification_reminder_channel">Ceno Reminder</string>
+    <string name="reminder_notification_title">Hey, it\'s been a while!</string>
+    <string name="reminder_notification_text">Reopen Ceno to keep your cache available to other users</string>
+    <string name="ouicrawl_sites_section_title">Free Media Feed</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="zero">a moment ago</item>
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
 </resources>

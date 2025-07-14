@@ -5,6 +5,8 @@
 package ie.equalit.ceno
 
 import android.app.ActivityManager
+import android.app.AlarmManager
+import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
@@ -118,6 +120,8 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     private var isActivityResumed = false
     private var lastCall: (() -> Unit)? = null
 
+    private lateinit var reminderNotificationIntent : PendingIntent
+    private lateinit var alarmManager:AlarmManager
     /**
      * Returns a new instance of [BrowserFragment] to display.
      */
@@ -217,6 +221,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         val notificationIntentFilter = IntentFilter()
         notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_CLEAR)
         notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_STOP)
+        notificationIntentFilter.addAction(ACTION_FORGROUND_REMIND)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.registerReceiver(cenoNotificationBroadcastReceiver, notificationIntentFilter, Context.RECEIVER_NOT_EXPORTED)
         }
@@ -269,6 +274,17 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             Settings.setCrashHappened(this@BrowserActivity, false) // reset the value of lastCrash
         }
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+            alarmManager = getSystemService(Context.ALARM_SERVICE) as AlarmManager
+
+            reminderNotificationIntent = Intent(ACTION_FORGROUND_REMIND).let {
+                it.setPackage(packageName)
+                PendingIntent.getBroadcast(
+                    applicationContext, 0, it,
+                    PendingIntent.FLAG_CANCEL_CURRENT or PendingIntent.FLAG_IMMUTABLE
+                )
+            }
+        }
         updateOuinetStatus()
     }
 
@@ -349,6 +365,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     override fun onPause() {
         super.onPause()
         isActivityResumed = false
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+            alarmManager.set(AlarmManager.RTC_WAKEUP,
+            System.currentTimeMillis() + FOREGROUND_TIMEOUT_REMINDER_DURATION, reminderNotificationIntent)
     }
 
     override fun onStart() {
@@ -405,6 +424,8 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                     R.color.ceno_action_bar
                 ).toDrawable())
         }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
+            alarmManager.cancel(reminderNotificationIntent)
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
@@ -675,10 +696,12 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         private const val TAG = "BrowserActivity"
         const val DELAY_TWO_SECONDS = 2000L
         fun isVersionForConsent(context: Context) : Boolean {
-            return Pattern.compile("\\A2\\.5\\.\\d\\z").matcher(
+            return Pattern.compile("\\A2\\.6\\.\\d\\z").matcher(
                 context.packageManager.getPackageInfo(context.packageName, 0).versionName.toString()
             ).matches()
         }
+        const val ACTION_FORGROUND_REMIND = "ie.equalit.ceno.browser.notification.action.REMIND"
+        const val FOREGROUND_TIMEOUT_REMINDER_DURATION: Long = 18000000L
     }
 
     override fun onStopTapped() {
