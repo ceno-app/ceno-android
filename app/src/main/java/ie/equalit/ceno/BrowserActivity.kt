@@ -51,7 +51,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isInstallFromUpdate
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.ConsentRequestDialog
-import ie.equalit.ceno.metrics.LocationMetrics
+import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
@@ -290,7 +290,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         updateOuinetStatus()
 
 //        if(Settings.isOuinetMetricsEnabled(this))
-            LocationMetrics(this, lifecycleScope).collectLocationMetrics()
+            NetworkMetrics(this, lifecycleScope).collectNetworkMetrics()
     }
 
     /* This function displays the popup that asks users if they want to opt in for

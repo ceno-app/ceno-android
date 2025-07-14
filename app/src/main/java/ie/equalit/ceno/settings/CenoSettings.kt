@@ -497,7 +497,11 @@ object CenoSettings {
                         }
                     }
                     OuinetKey.ADD_METRICS -> {
-
+                        if (response == null) {
+                            ouinetResponseListener?.onError()
+                        } else {
+                            ouinetResponseListener?.onSuccess(response)
+                        }
                     }
                 }
             }
