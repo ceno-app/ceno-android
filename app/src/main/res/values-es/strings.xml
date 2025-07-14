@@ -427,4 +427,5 @@
     </plurals>
     <string name="foreground_notification_reminder_channel">Recordatorio de Ceno</string>
     <string name="reminder_notification_title">Hola, ha pasado tiempo!</string>
+    <string name="reminder_notification_text">Abra nuevamente Ceno para mantener su caché disponible para otros usuarios</string>
 </resources>
