@@ -433,4 +433,9 @@
         <item quantity="many">Hace %d minutos</item>
         <item quantity="other">Hace %d minutos</item>
     </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">Hace %d hora</item>
+        <item quantity="many">Hace %d horas</item>
+        <item quantity="other">Hace %d horas</item>
+    </plurals>
 </resources>
