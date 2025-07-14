@@ -18,11 +18,11 @@
     <string name="remove_top_site">Eliminar</string>
     <string name="delete_from_history">Eliminar del historial</string>
     <string name="shortcut_max_limit_title">Límite de accesos directos alcanzado</string>
-    <string name="shortcut_max_limit_content">Elimina un acceso directo para agregar uno nuevo. Mantén presionado el acceso directo y selecciona \"Eliminar\".</string>
+    <string name="shortcut_max_limit_content">Elimine un acceso directo para agregar uno nuevo. Mantenga presionado el acceso directo y seleccione \"Eliminar\".</string>
     <string name="top_sites_max_limit_confirmation_button">OK, entendido</string>
     <string name="top_sites_rename_dialog_title">Nombre</string>
     <string name="shortcut_name_hint">Nombre de acceso directo</string>
-    <string name="dialog_ok">De acuerdo</string>
+    <string name="dialog_ok">OK</string>
     <string name="dialog_cancel">Cancelar</string>
     <string name="top_sites_sponsored_label">Patrocinado</string>
     <string name="browser_menu_forward">Avanzar</string>
@@ -63,7 +63,7 @@
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Su sesión será cerrada en la mayoría de sitios</string>
     <string name="preferences_delete_browsing_data_cached_files">Imágenes y archivos en caché</string>
-    <string name="preferences_delete_browsing_data_cached_files_subtitle">Libere espacio de almacenamiento</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Liberar espacio de almacenamiento</string>
     <string name="preferences_delete_browsing_data_site_permissions">Permisos de sitios</string>
     <string name="preferences_delete_browsing_data_button">Eliminar datos de navegación</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Abrir pestañas</string>
@@ -89,7 +89,7 @@
     <string name="customize_extra_bittorrent_bootstrap">Arranque adicional de BitTorrent</string>
     <string name="not_applicable">N/A</string>
     <string name="crash_report_sent">¡Informe de errores enviado!</string>
-    <string name="preferences_website_sources_summary">Seleccione de dónde desea cargar el contenido de la página web</string>
+    <string name="preferences_website_sources_summary">Seleccione desde dónde desea descargar el contenido de la página web</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Agregar programas de arranque personalizados</string>
     <string name="customize_custom_extra_bittorrent_bootstrap">Separe las IPs con comas</string>
     <string name="select_extra_bt_source">Seleccione un arranque BitTorrent adicional</string>
