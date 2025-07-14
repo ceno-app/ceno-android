@@ -426,4 +426,5 @@
         <item quantity="other">Hace %d días</item>
     </plurals>
     <string name="foreground_notification_reminder_channel">Recordatorio de Ceno</string>
+    <string name="reminder_notification_title">Hola, ha pasado tiempo!</string>
 </resources>
