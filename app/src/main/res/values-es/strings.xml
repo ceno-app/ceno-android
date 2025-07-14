@@ -419,7 +419,7 @@
     <string name="bookmark_deletion_confirmation">¿Está seguro que desea eliminar este marcador?</string>
     <string name="bookmark_delete_folder_confirmation_dialog">¿Está seguro que desea eliminar esta carpeta?</string>
     <string name="bookmark_add_folder_fragment_label">Agregar carpeta</string>
-    <string name="ouicrawl_sites_section_title">Medios Independientes</string>
+    <string name="ouicrawl_sites_section_title">Actualizaciones de Medios Independientes</string>
     <plurals name="last_crawl_status_days">
         <item quantity="one">Hace %d día</item>
         <item quantity="many">Hace %d días</item>
