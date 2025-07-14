@@ -425,4 +425,5 @@
         <item quantity="many">Hace %d días</item>
         <item quantity="other">Hace %d días</item>
     </plurals>
+    <string name="foreground_notification_reminder_channel">Recordatorio de Ceno</string>
 </resources>
