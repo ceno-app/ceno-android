@@ -139,4 +139,6 @@
     <string name="bookmark_menu_delete_button">Ta bort</string>
     <string name="bookmark_menu_save_button">Spara</string>
     <string name="tooltip_sources_title">Ceno-källor</string>
+    <string name="ceno_home_card_public_title">OFFENTLIG</string>
+    <string name="ceno_home_card_personal_title">PERSONLIG</string>
 </resources>
