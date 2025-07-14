@@ -428,4 +428,9 @@
     <string name="foreground_notification_reminder_channel">Recordatorio de Ceno</string>
     <string name="reminder_notification_title">Hola, ha pasado tiempo!</string>
     <string name="reminder_notification_text">Abra nuevamente Ceno para mantener su caché disponible para otros usuarios</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">Hace %d minuto</item>
+        <item quantity="many">Hace %d minutos</item>
+        <item quantity="other">Hace %d minutos</item>
+    </plurals>
 </resources>
