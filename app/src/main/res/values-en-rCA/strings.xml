@@ -3,4 +3,5 @@
     <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab">Open link in personal tab</string>
     <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
+    <string name="preferences_delete_browsing_data_cookies">Cookies</string>
 </resources>
