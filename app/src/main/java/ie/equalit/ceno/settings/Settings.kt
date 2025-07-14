@@ -367,13 +367,11 @@ object Settings {
     }
 
     fun isOuinetMetricsEnabled(context: Context) : Boolean {
-        /*
         if (context.isFirstInstall()) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
                 context.getString(R.string.pref_key_metrics_ouinet), true
             )
         }
-        */
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_metrics_ouinet), false
         )
