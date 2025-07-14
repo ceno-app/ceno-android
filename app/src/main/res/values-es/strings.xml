@@ -96,18 +96,18 @@
     <string name="setting_item_selected">%s seleccionado</string>
     <string name="set_default_search_engine">Establecer motor de búsqueda predeterminado</string>
     <string name="bridge_mode_category">Anuncios de puentes</string>
-    <string name="preferences_make_default_browser">Haz de Ceno tu navegador predeterminado</string>
+    <string name="preferences_make_default_browser">Convierta Ceno en su navegador predeterminado</string>
     <string name="preferences_about_page">Acerca de</string>
     <string name="ceno_mode_manual_link">https://ceno.app/user-manual/es/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Navegación personal&lt;/h1&gt; &lt;p&gt;Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Puede visitar con seguridad los sitios que requieran inicio de sesión. Sin embargo, se necesita una ruta a Internet.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;¿Quiere saber más?&lt;/p&gt;</string>
-    <string name="preferences_about_ceno_browser_service">Servicio del Navegador de Ceno</string>
+    <string name="preferences_about_ceno_browser_service">Servicio del Navegador Ceno</string>
     <string name="ceno_notification_description">Pulse para más detalles</string>
     <string name="ceno_notification_home_description">Inicio</string>
     <string name="ceno_notification_clear_description">Borrar⚠</string>
     <string name="ceno_notification_clear_do_description">Si</string>
     <string name="ceno_notification_channel_name">Servicio de Ceno</string>
     <string name="ceno_on_mobile_data_dialog_title">Aviso del Navegador Ceno</string>
-    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar Ceno cuando tenga una conexión de Wi-Fi, ya que puede consumir más datos de los que espera. Tal vez prefiera detener Ceno cuando use datos móviles.</string>
+    <string name="ceno_on_mobile_data_dialog_description">Se recomienda usar Ceno cuando tenga una conexión Wi-Fi, ya que puede consumir más datos de los que espera. Tal vez prefiera detener Ceno cuando use datos móviles.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Detener Ceno ahora</string>
     <string name="ceno_on_mobile_data_dialog_continue">Continuar</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
@@ -121,15 +121,9 @@
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_infobae_url</string>
     <string name="onboarding_welcome_title">Bienvenido a Ceno</string>
     <string name="onboarding_permissions_title">Permiso necesario</string>
-    <string name="onboarding_battery_text">En breve el sistema operativo te pedirá permiso para
-\n
-\n- Desactivar la optimización de la batería.
-\n
-\nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
+    <string name="onboarding_battery_text">En breve el sistema operativo le pedirá permiso para \n \n- Desactivar la optimización de la batería. \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
     <string name="onboarding_battery_button">Continuar</string>
-    <string name="onboarding_warning_text">La optimización de la batería sigue activada.
-\n
-\nVe a \"Ajustes &gt; Desactivar Optimización de Batería\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_text">La optimización de la batería sigue activada. \n \nVaya a \"Ajustes &gt; Desactivar Optimización de Batería\" para dar permisos nuevamente</string>
     <string name="onboarding_warning_button">Ok</string>
     <string name="onboarding_btn_get_started">Comenzar</string>
     <string name="onboarding_skip_button">Saltar</string>
@@ -141,7 +135,7 @@
     <string name="preferences_show_onboarding">Mostrar información sobre herramientas en el próximo inicio</string>
     <string name="preferences_disable_battery_opt">Optimizaciones de batería</string>
     <string name="preferences_customization">Personalización</string>
-    <string name="onboarding_thanks_text">Como usuario de Ceno, ayuda a hacer crecer la red de puentes disponibles que permiten acceder a contenidos censurados.</string>
+    <string name="onboarding_thanks_text">Como usuario de Ceno, Usted ayuda a hacer crecer la red de Puentes disponibles, los cuales permiten acceder a contenidos censurados.</string>
     <string name="ceno_clear_dialog_cancel">Cancelar</string>
     <string name="ceno_clear_dialog_clear_cache_only">Borrar sólo el caché de Ceno</string>
     <string name="ceno_clear_dialog_title">Limpiar Ceno</string>
@@ -151,7 +145,7 @@
     <string name="preferences_clear_behavior">Comportamiento Predeterminado</string>
     <string name="preferences_clear_behavior_summary">Establecer comportamiento al pulsar el botón de borrar</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="ceno_clear_dialog_clear_entire_app">Borre la caché y los datos de la aplicación de Ceno</string>
+    <string name="ceno_clear_dialog_clear_entire_app">Borre la caché y los datos de la aplicación Ceno</string>
     <string name="ceno_clear_dialog_description">ADVERTENCIA: Borrar la caché y los datos de la app restablecerá la aplicación Ceno como si nunca se hubiera utilizado.</string>
     <string name="changeIconCtaCancel">Cancelar</string>
     <string name="changeIconCtaAccept">Aceptar</string>
@@ -192,19 +186,10 @@
     <string name="preferences_show_home_button">Mostrar el botón de inicio</string>
     <string name="preferences_ceno_network_config">Detalles de la Red</string>
     <string name="ouinet_client_fetch_fail">Falló al cambiar la configuración de Ceno</string>
-    <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas.
-\n
-\nVe a \"Ajustes &gt; Permitir Notificaciones\" para dar permiso más tarde</string>
-    <string name="onboarding_warning_text_v33_2">Notificaciones no están permitidas y la optimización de la batería sigue activada.
-\n
-\nVe a la \"Configuración\" para dar permiso más tarde</string>
+    <string name="onboarding_warning_text_v33_1">Las notificaciones no están permitidas. \n \nVaya a \"Ajustes &gt; Permitir Notificaciones\" para dar permisos nuevamente</string>
+    <string name="onboarding_warning_text_v33_2">Las notificaciones no están permitidas y la optimización de la batería sigue activada. \n \nVaya a la \"Configuración\" para dar permisos nuevamente</string>
     <string name="preferences_allow_notifications">Notificaciones</string>
-    <string name="onboarding_battery_text_v33">En breve, el sistema operativo te pedirá permiso para
-\n
-\n• Permitir las notificaciones
-\n• Desactivar la optimización de la batería
-\n
-\nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
+    <string name="onboarding_battery_text_v33">En breve, el sistema operativo le pedirá permiso para \n \n• Permitir las notificaciones \n• Desactivar la optimización de la batería \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
     <string name="ceno_onboarding_start_title">Comparte la web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text">La red troncal entre personas de Ceno permite acceder y compartir el contenido de sitios web dentro y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
@@ -224,12 +209,12 @@
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>
     <string name="onboarding_finish_button">Terminar</string>
-    <string name="crash_reporting_dialog_description">Ayúdanos a mejorar Ceno enviándonos el informe del error.</string>
+    <string name="crash_reporting_dialog_description">Ayúdenos a mejorar Ceno enviándonos los reportes de error.</string>
     <string name="crash_reporting_never_send">Nunca enviar</string>
     <string name="crash_reporting_always_send">Enviar siempre, mejorar Ceno</string>
     <string name="preferences_allow_crash_reporting">Informe de fallos</string>
-    <string name="crash_reporting_opt_out">Has optado por no compartir los informes de los errores. Siempre puedes optar por hacerlo yendo a Ajustes &gt; Informes de errores.</string>
-    <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de fallo para ayudar a mejorar Ceno! Siempre se puede desactivar esto yendo a Configuración&gt;Informes de errores.</string>
+    <string name="crash_reporting_opt_out">Ha optado por no compartir los informes de error. Podrá optar nuevamente por compartirlos visitando Ajustes &gt; Informes de error.</string>
+    <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de error para ayudar a mejorar Ceno! Siempre se puede desactivar esto visitando Configuración &gt; Informes de error.</string>
     <string name="ouinet_client_fetch_success">Ajustes de Ceno actualizados</string>
     <string name="crash_reporting_dialog_title">¡Lo sentimos, parece que Ceno ha fallado!</string>
     <string name="ceno_support_link_url">https://ceno.app/es/support.html</string>
@@ -292,8 +277,8 @@
     <string name="shutdown_message_one">Borrar datos de la aplicación</string>
     <string name="shutdown_message_two">Cerrando Ceno</string>
     <string name="title_success">Éxito</string>
-    <string name="thank_you_bridge_mode_enabled">¡Gracias por convertirse en puente y hacer crecer la red Ceno!</string>
-    <string name="dialog_btn_positive_ok">De acuerdo</string>
+    <string name="thank_you_bridge_mode_enabled">¡Gracias por convertirse en Puente y hacer crecer la red Ceno!</string>
+    <string name="dialog_btn_positive_ok">OK</string>
     <string name="ceno_log_content_group_file_saved">Contenido compartido guardado exitosamente</string>
     <string name="download_site_content">Descargar contenido de la página</string>
     <string name="confirm_groups_file_download_desc">Se guardará un archivo .txt en su almacenamiento local.</string>
@@ -334,11 +319,11 @@
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Descargar</string>
     <string name="website_button_link">https://ceno.app/es/index.html</string>
     <string name="about_content_title">¡Compartir la Web!</string>
-    <string name="about_content_para_1">Ceno es el primer navegador móvil del mundo que elude los actuales métodos de censura en Internet. Su red troncal de igual a igual permite a la gente acceder y compartir información web en y a través de regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
+    <string name="about_content_para_1">Ceno es el primer navegador móvil del mundo que elude los actuales métodos de censura en Internet. Su red troncal entre personas permite a la gente acceder y compartir información web desde y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
     <string name="support_button_text">Ayuda</string>
     <string name="eq_news_button_text">Noticias</string>
     <string name="eq_values_button_text">Valores</string>
-    <string name="about_content_para_2">El Navegador Ceno es un proyecto de eQualitie, una organización canadiense sin ánimo de lucro que crea servicios de Internet descentralizados en apoyo de una red más igualitaria y equitativa. Las soluciones de eQualitie son de código abierto, están probadas en batallas y se desarrollan teniendo en cuenta nuestros valores. Cada día hacen posible la libertad de asociación de millones de personas en la red.</string>
+    <string name="about_content_para_2">El Navegador Ceno es un proyecto de eQualitie, una organización canadiense sin ánimo de lucro que crea servicios de Internet descentralizados en apoyo de una red más igualitaria y equitativa. Las soluciones de eQualitie son de código abierto, están probadas en campo y desarrolladas teniendo en cuenta nuestros valores. Cada día hacen posible en internet la libertad de asociación de millones de personas.</string>
     <string name="enable_debug_logs">Activar registros de depuración</string>
     <string name="top_sites_title">Atajos</string>
     <string name="preferences_change_language">Cambiar idioma</string>
