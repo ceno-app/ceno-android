@@ -4,6 +4,7 @@ This release:
 - Adds notification on Android 15+ to nudge user to reopen Ceno
 - Updates default suggested site for RU
 - Updates links to eQualitie website on About page
+- Introduces homepage section to display crawled sites
 
 # v2.5.1
 This release:

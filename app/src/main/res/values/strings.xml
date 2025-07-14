@@ -487,4 +487,18 @@
     <string name="foreground_notification_reminder_channel">Ceno Reminder</string>
     <string name="reminder_notification_title">Hey, it\'s been a while!</string>
     <string name="reminder_notification_text">Reopen Ceno to keep your cache available to other users</string>
+    <string name="ouicrawl_sites_section_title">Free Media Feed</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="zero">a moment ago</item>
+        <item quantity="one">%d minute ago</item>
+        <item quantity="other">%d minutes ago</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d hour ago</item>
+        <item quantity="other">%d hours ago</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d day ago</item>
+        <item quantity="other">%d days ago</item>
+    </plurals>
 </resources>
