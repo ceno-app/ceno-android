@@ -45,7 +45,7 @@
     <string name="customization_settings">سفارشی‌سازی</string>
     <string name="browser_menu_library">کتابخانه</string>
     <string name="delete_browsing_data_prompt_cancel">لغو</string>
-    <string name="delete_browsing_data_prompt_allow">حذف</string>
+    <string name="delete_browsing_data_prompt_allow">حذف‌</string>
     <string name="preferences_delete_browsing_data_snackbar">داده‌های مرورگری حذف شد</string>
     <string name="deleting_browsing_data_in_progress">در حال حذف داده‌های مرورگری</string>
     <string name="preferences_delete_browsing_data">حذف داده‌های مرورگری</string>
@@ -147,7 +147,7 @@
     <string name="preferences_toolbar_position">قرار دادن در بالای صفحه</string>
     <string name="preferences_customization">سفارشی‌سازی</string>
     <string name="preferences_about_ceno">مرورگر سنو</string>
-    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_about_geckoview">GeckoView‌</string>
     <string name="preferences_about_ouinet">Ouinet</string>
     <string name="about_category">درباره</string>
     <string name="preferences_about_ouinet_protocol">پروتکل وی‌نت</string>
@@ -206,7 +206,7 @@
     <string name="preferences_ceno_sources_reachability">وضعیت دسترس‌پذیری</string>
     <string name="preferences_ceno_sources_upnp">وضعیت UPnP</string>
     <string name="preferences_ceno_sources_local_udp">نقطه‌های انتهایی UDP محلی</string>
-    <string name="preferences_ceno_sources_external_udp">نقطه‌های انتهایی UDP خارجی</string>
+    <string name="preferences_ceno_sources_external_udp">نقطه‌های انتهایی UDP خارجی‌</string>
     <string name="preferences_ceno_sources_public_udp">نقطه‌های انتهایی UDP عمومی</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">بوت‌استرپ اضافی بیت‌تورنت</string>
     <string name="preferences_ceno_enable_log">فعال‌سازی فایل گزارش</string>
@@ -311,7 +311,7 @@
     <string name="preferences_theme_option_3">تنظیم با حالت صرفه‌جویی در باتری</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">دانلود</string>
     <string name="website_button_link">https://ceno.app/fa/index.html</string>
-    <string name="about_content_title">!وب را ‌دست‌به‌دست کن</string>
+    <string name="about_content_title">وب را ‌دست‌به‌دست کن!</string>
     <string name="about_content_para_1">اولین مرورگر موبایل در جهان است که روش‌های فعلی سانسور اینترنت را بی‌اثر می‌کند. زیرساخت همتا‌به‌همتای آن به افراد اجازه می‌دهد تا به اطلاعات وب در مناطقی که اتصال اینترنتی قطع شده یا به خطر افتاده، دسترسی داشته باشند و آن را به اشتراک بگذارند.</string>
     <string name="about_content_para_2">مرورگر سنو پروژه‌ای از شرکت eQualit.ie است؛ یک سازمان غیرانتفاعی کانادایی که به منظور حمایت از شبکه‌ای برابر و عادلانه‌تر، مجموعه‌ای از خدمات اینترنتی غیرمتمرکز ارائه می‌دهد. راه‌حل‌های eQualitie متن‌باز هستند، امتحان خود را در عمل پس داده‌اند و هماهنگ با ارزش‌های ما شکل گرفته‌اند. این راه‌حل‌ها هر روز میلیون‌ها نفر را به صورت آنلاین از حق آزادی انجمن برخوردار می‌کنند.</string>
     <string name="support_button_text">پشتیبانی</string>
