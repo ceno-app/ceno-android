@@ -20,6 +20,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import java.util.TimeZone
 
 class NetworkMetrics(
     val context:Context,
@@ -60,6 +61,8 @@ class NetworkMetrics(
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_TYPE, getNetworkType())
                 //vpn usage
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_VPN_ENABLED, isUsingVPN().toString())
+                //timezone
+                addMetricToRecord(recordId, MetricsKeys.TIMEZONE, getTimeZone())
             }
         }
     }
@@ -116,6 +119,10 @@ class NetworkMetrics(
             }
         }
         return false
+    }
+
+    private fun getTimeZone():String {
+        return TimeZone.getDefault().displayName
     }
 
     companion object {
