@@ -433,4 +433,5 @@
         <item quantity="other">Está a %d cliques de desativar as ferramentas de programador</item>
     </plurals>
     <string name="foreground_notification_reminder_channel">Lembrete Ceno</string>
+    <string name="reminder_notification_title">Olá, quanto tempo!</string>
 </resources>
