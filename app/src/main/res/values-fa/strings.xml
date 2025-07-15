@@ -416,5 +416,5 @@
     <string name="ceno_sources_shared_by_local_cache">از کَش مرورگر</string>
     <string name="foreground_notification_reminder_channel">یادآور سنو</string>
     <string name="reminder_notification_title">کجایی؟ خیلی وقته اینجا نیومدی!</string>
-    <string name="reminder_notification_text">سنو رو دوباره باز کن تا</string>
+    <string name="reminder_notification_text">سنو رو دوباره باز کن تا بقیه هم بتونن از محتوای حافظه‌ی پنهانت استفاده کنن</string>
 </resources>
