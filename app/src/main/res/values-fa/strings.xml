@@ -85,7 +85,7 @@
     <string name="crash_report_sent">گزارش اشکال ارسال شد!</string>
     <string name="preferences_website_sources_summary">انتخاب کنید که می‌خواهید محتوای وب‌سایت را از کجا بارگذاری کنید</string>
     <string name="browser_menu_back">بازگشت</string>
-    <string name="general_category">عمومی</string>
+    <string name="general_category">عمومی‌</string>
     <string name="preference_choose_search_engine">انتخاب موتور جست‌وجو</string>
     <string name="customize_extra_bittorrent_bootstrap">بوت‌استرپ‌های اضافی بیت‌تورنت</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">افزودن بوت‌استرپ‌های سفارشی</string>
