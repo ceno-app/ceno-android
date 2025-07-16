@@ -449,9 +449,15 @@
     <string name="reminder_notification_text">Откройте Ceno, чтобы продолжать делиться кешем с другими пользователями</string>
     <string name="ouicrawl_sites_section_title">Независимые СМИ</string>
     <plurals name="last_crawl_status_minutes">
-        <item quantity="one">минуту назад</item>
-        <item quantity="few">минуты назад</item>
-        <item quantity="many">минут назад</item>
-        <item quantity="other">минут назад</item>
+        <item quantity="one">%d минуту назад</item>
+        <item quantity="few">%d минуты назад</item>
+        <item quantity="many">%d минут назад</item>
+        <item quantity="other">%d минут назад</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d час назад</item>
+        <item quantity="few">%d часа назад</item>
+        <item quantity="many">"%d  часов назад"</item>
+        <item quantity="other">"%d  часов назад"</item>
     </plurals>
 </resources>
