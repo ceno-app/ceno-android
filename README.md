@@ -12,7 +12,7 @@ Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefo
 
 ## ▶️ Access
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+[<img src="https://ceno.app/static/img/index/google-play.png"
       alt="Get it on Play Store"
       height="80">](https://play.google.com/store/apps/details?id=ie.equalit.ceno)
 [<img src="https://ceno.app/static/img/index/paskoocheh.png"
