@@ -446,4 +446,5 @@
     <string name="bookmark_deletion_confirmation">Вы уверены, что хотите удалить эту закладку?</string>
     <string name="reminder_notification_title">Привет, давно не виделись!</string>
     <string name="foreground_notification_reminder_channel">Оповещение Ceno</string>
+    <string name="reminder_notification_text">Откройте Ceno, чтобы продолжать делиться кешем с другими пользователями.</string>
 </resources>
