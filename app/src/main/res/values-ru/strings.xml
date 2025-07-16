@@ -457,7 +457,13 @@
     <plurals name="last_crawl_status_hrs">
         <item quantity="one">%d час назад</item>
         <item quantity="few">%d часа назад</item>
-        <item quantity="many">"%d  часов назад"</item>
-        <item quantity="other">"%d  часов назад"</item>
+        <item quantity="many">%d часов назад</item>
+        <item quantity="other">%d часов назад</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d день назад</item>
+        <item quantity="few">%d дня назад</item>
+        <item quantity="many">%d дней назад</item>
+        <item quantity="other">%d дней назад</item>
     </plurals>
 </resources>
