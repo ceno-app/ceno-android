@@ -421,4 +421,16 @@
     <string name="bookmark_folder_label">ORDNER</string>
     <string name="add_or_remove_bookmark">Lesezeichen hinzufügen oder entfernen</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Sind Sie sicher, dass Sie diesen Ordner löschen wollen?</string>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">vor %d Tag</item>
+        <item quantity="other">vor %d Tagen</item>
+    </plurals>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">vor %d Minute</item>
+        <item quantity="other">vor %d Minuten</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">vor %d Stunde</item>
+        <item quantity="other">vor %d Stunden</item>
+    </plurals>
 </resources>
