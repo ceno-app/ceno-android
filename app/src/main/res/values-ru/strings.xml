@@ -446,5 +446,12 @@
     <string name="bookmark_deletion_confirmation">Вы уверены, что хотите удалить эту закладку?</string>
     <string name="reminder_notification_title">Привет, давно не виделись!</string>
     <string name="foreground_notification_reminder_channel">Оповещение Ceno</string>
-    <string name="reminder_notification_text">Откройте Ceno, чтобы продолжать делиться кешем с другими пользователями.</string>
+    <string name="reminder_notification_text">Откройте Ceno, чтобы продолжать делиться кешем с другими пользователями</string>
+    <string name="ouicrawl_sites_section_title">Независимые СМИ</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">минуту назад</item>
+        <item quantity="few">минуты назад</item>
+        <item quantity="many">минут назад</item>
+        <item quantity="other">минут назад</item>
+    </plurals>
 </resources>
