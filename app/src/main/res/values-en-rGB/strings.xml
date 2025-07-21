@@ -7,7 +7,7 @@
         <item quantity="one">%d tab</item>
         <item quantity="other">%d tabs</item>
     </plurals>
-    <string name="preferences_tracking_protection_normal">Enable in Public browsing mode</string>
+    <string name="preferences_tracking_protection_normal">Enable tracking protection Public browsing mode</string>
     <string name="shortcut_max_limit_content">Remove a shortcut to add a new one. Touch and hold the shortcut, then select \"Remove\".</string>
     <string name="preferences_delete_browsing_data">Delete browsing data</string>
     <string name="settings">Settings</string>
@@ -15,10 +15,10 @@
     <string name="preferences_delete_browsing_data_cached_files">Cached images and files</string>
     <string name="toast_copied">Copied!</string>
     <string name="toolbar_hint">Search or enter address</string>
-    <string name="menu_action_add_tab">Add New Tab</string>
+    <string name="menu_action_add_tab">Open New Tab</string>
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
-    <string name="preferences_tracking_protection_private">Enable in Personal browsing mode</string>
+    <string name="preferences_tracking_protection_private">Enable tracking protection in Personal browsing mode</string>
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
     <string name="customization_settings">Customisation</string>
@@ -37,7 +37,7 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="top_sites_sponsored_label">Sponsored</string>
     <string name="browser_menu_desktop_site">Request desktop site</string>
-    <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
+    <string name="preferences_website_sources_summary">Select where you want to load content from</string>
     <string name="open_links_in_apps">Open links in apps</string>
     <string name="toolbar_category">Toolbar Options</string>
     <string name="udp_category">UDP</string>
