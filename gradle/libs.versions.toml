@@ -13,7 +13,7 @@ androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.10.2"
 
 # Android Components
-android_components = "140.0.4"
+android_components = "141.0"
 
 # Google
 google_composecompiler = "1.5.14"
@@ -115,8 +115,6 @@ mozilla-servicesynclogins = { group = "org.mozilla.components", name = "service-
 
 mozilla-supportutils = { group = "org.mozilla.components", name = "support-utils", version.ref = "android_components" }
 mozilla-supportktx = { group = "org.mozilla.components", name = "support-ktx", version.ref = "android_components" }
-mozilla-supportrustlog = { group = "org.mozilla.components", name = "support-rustlog", version.ref = "android_components" }
-mozilla-supportrusthttp = { group = "org.mozilla.components", name = "support-rusthttp", version.ref = "android_components" }
 mozilla-supportwebextensions = { group = "org.mozilla.components", name = "support-webextensions", version.ref = "android_components" }
 
 mozilla-libpublicsuffixlist = { group = "org.mozilla.components", name = "lib-publicsuffixlist", version.ref = "android_components" }
