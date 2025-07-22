@@ -59,6 +59,7 @@ import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
 import mozilla.components.feature.downloads.DateTimeProvider
 import mozilla.components.feature.downloads.DefaultDateTimeProvider
 import mozilla.components.feature.downloads.DefaultFileSizeFormatter
+import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.FileSizeFormatter
 import java.util.concurrent.TimeUnit
 
@@ -290,7 +291,8 @@ class Core(private val context: Context) {
 
     val fileSizeFormatter: FileSizeFormatter by lazy { DefaultFileSizeFormatter(context.applicationContext) }
 
-    val dateTimeProvider: DateTimeProvider by lazy { DefaultDateTimeProvider() }
+    private val dateTimeProvider: DateTimeProvider by lazy { DefaultDateTimeProvider() }
+    val downloadEstimator: DownloadEstimator by lazy { DownloadEstimator(dateTimeProvider = dateTimeProvider) }
 
     companion object {
         private const val KEY_STORAGE_NAME = "core_prefs"
