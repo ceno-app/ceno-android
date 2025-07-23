@@ -10,7 +10,6 @@ import mozilla.components.concept.engine.EngineView
 import ie.equalit.ceno.R
 import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior
 import mozilla.components.ui.widgets.behavior.EngineViewScrollingBehavior
-import mozilla.components.ui.widgets.behavior.ToolbarPosition as engineToolbarPosition
 import mozilla.components.ui.widgets.behavior.ViewPosition as browserToolbarPosition
 
 /**
@@ -64,14 +63,16 @@ fun BrowserToolbar.enableDynamicBehavior(context: Context, swipeRefresh: SwipeRe
 
 
     val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
+    val topToolbarHeight = if (shouldUseTopToolbar) toolbarHeight else 0
+    val bottomToolbarHeight = if (shouldUseTopToolbar) 0 else toolbarHeight
     engineView.setDynamicToolbarMaxHeight(toolbarHeight)
     (swipeRefresh.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
         behavior = EngineViewClippingBehavior(
             context,
             null,
             swipeRefresh,
-            toolbarHeight,
-            if (shouldUseTopToolbar) engineToolbarPosition.TOP else engineToolbarPosition.BOTTOM,
+            topToolbarHeight,
+            bottomToolbarHeight,
         )
     }
 }
