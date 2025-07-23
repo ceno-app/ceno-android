@@ -423,4 +423,26 @@
     <string name="bookmark_item_menu_button">кнопка меню елемента закладки</string>
     <string name="metrics_consent_dialog_description">Ми запускаємо систему показників, що поважає конфіденційність, щоб краще зрозуміти потреби користувачів Ceno.\n\nВи можете ознайомитися з детальною інформацією про те, що ми збираємо та як ми обробляємо ваші дані, у нашій Політиці конфіденційності.\n\nВи також можете будь-коли відмовитися від цієї функції в розділі «Налаштування» &gt; «Фонові показники».</string>
     <string name="metrics_campaign_view_privacy_policy">Політика конфіденційності</string>
+    <string name="foreground_notification_reminder_channel">Нагадування про Ceno</string>
+    <string name="reminder_notification_title">Гей, минуло вже деякий час!</string>
+    <string name="reminder_notification_text">Знову відкрийте Ceno, щоб ваш кеш був доступним для інших користувачів</string>
+    <string name="ouicrawl_sites_section_title">Безкоштовна медіа-стрічка</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">%d хвилину тому</item>
+        <item quantity="few">%d хвилини тому</item>
+        <item quantity="many">%d хвилин тому</item>
+        <item quantity="other">%d хвилин тому</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d годину тому</item>
+        <item quantity="few">%d години тому</item>
+        <item quantity="many">%d годин тому</item>
+        <item quantity="other">%d годин тому</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d день тому</item>
+        <item quantity="few">%d дня тому</item>
+        <item quantity="many">%d днів тому</item>
+        <item quantity="other">%d днів тому</item>
+    </plurals>
 </resources>
