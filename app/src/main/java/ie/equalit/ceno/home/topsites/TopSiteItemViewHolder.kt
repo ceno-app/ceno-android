@@ -22,7 +22,6 @@ import ie.equalit.ceno.ext.ceno.bitmapForUrl
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.ceno.loadIntoView
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
-import ie.equalit.ceno.settings.CenoSupportUtils
 import ie.equalit.ceno.utils.view.CenoViewHolder
 
 class TopSiteItemViewHolder(
@@ -51,8 +50,6 @@ class TopSiteItemViewHolder(
                     is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTopSiteClicked(
                         topSite
                     )
-                    is TopSiteItemMenu.Item.Settings -> interactor.onSettingsClicked()
-                    is TopSiteItemMenu.Item.SponsorPrivacy -> interactor.onSponsorPrivacyClicked()
                 }
             }
             topSiteMenu.menuBuilder.build(view.context).show(anchor = it)
@@ -133,8 +130,8 @@ class TopSiteItemViewHolder(
                 resources.getString(R.string.suggestedsites_meduza_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_meduza))
                 }
-                resources.getString(R.string.suggestedsites_moscowtimes_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_moscowtimes))
+                resources.getString(R.string.suggestedsites_kavkazuzel_url) -> {
+                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_kavkazuzel))
                 }
                 resources.getString(R.string.suggestedsites_truestory_url) -> {
                     binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_truestory))

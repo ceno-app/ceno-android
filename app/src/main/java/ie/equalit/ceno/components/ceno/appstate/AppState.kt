@@ -23,5 +23,6 @@ data class AppState(
     val mode: BrowsingMode = BrowsingMode.Normal,
     val ouinetStatus: RunningState = RunningState.Started,
     val showBridgeCard: Boolean = true,
-    val sourceCounts: MutableMap<String, JSONObject?> = mutableMapOf()
+    val sourceCounts: MutableMap<String, JSONObject?> = mutableMapOf(),
+    val ouicrawlListIsHidden: Boolean = true
 ) : State

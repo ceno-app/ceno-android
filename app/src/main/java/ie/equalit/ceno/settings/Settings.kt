@@ -4,16 +4,19 @@
 
 package ie.equalit.ceno.settings
 
-import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
-import ie.equalit.ceno.home.RssAnnouncementResponse
-import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
-import androidx.core.content.edit
 import ie.equalit.ceno.ext.isFirstInstall
+import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
+import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
+import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
+import kotlinx.serialization.json.Json
+import java.util.Locale
 
 object Settings {
     fun shouldShowOnboarding(context: Context): Boolean =
@@ -365,13 +368,11 @@ object Settings {
     }
 
     fun isOuinetMetricsEnabled(context: Context) : Boolean {
-        /*
         if (context.isFirstInstall()) {
             return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
                 context.getString(R.string.pref_key_metrics_ouinet), true
             )
         }
-        */
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_metrics_ouinet), false
         )
@@ -384,4 +385,31 @@ object Settings {
             }
     }
 
+    fun saveOuicrawlData(context: Context, ouicrawlData: String) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(context.getString(R.string.pref_key_ouicrawl_data), ouicrawlData)
+            }
+    }
+
+    fun getOuicrawlData(context: Context) : List<OuicrawlSite>? {
+        val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_ouicrawl_data), null)
+        try {
+            val ouicrawlSites = ouicrawlData?.let {
+                Json.decodeFromString<OuicrawledSitesListItem>(
+                    it
+                ).Sites
+            }
+            //filter by locale
+            val localeCode = Locale.getDefault().language
+            if (setOf("ru", "ua", "fa").contains(localeCode)) {
+                val sites =
+                    ouicrawlSites?.filter { it.Language == localeCode }
+                return sites
+            }
+            return ouicrawlSites
+        } catch (e:IllegalArgumentException) {
+            return null
+        }
+    }
 }

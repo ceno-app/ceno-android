@@ -333,14 +333,14 @@
     <string name="about_content_para_2">Ceno Browser é um projeto da eQualitie – uma organização canadense sem fins lucrativos que cria serviços de internet descentralizados para apoiar uma rede mais igualitária e justa. As soluções da eQualitie são de código aberto, testadas em campo e desenvolvidas com os nossos valores em mente. Todos os dias, elas possibilitam a liberdade de associação para milhões de pessoas online.</string>
     <string name="ceno_notification_title">Compartilhamento de abas em cache</string>
     <string name="ceno_notification_confirm_description">Deseja excluir todos os seus dados conosco da Ceno?</string>
-    <string name="preferences_clear_behavior_option_3">Limpar dados do aplicativo e cache de Ceno</string>
+    <string name="preferences_clear_behavior_option_3">Limpar os dados da aplicação e a cache de Ceno</string>
     <string name="preferences_theme_option_1">Escuro</string>
     <string name="preferences_theme_option_2">Claro</string>
     <string name="preferences_theme_option_3">Ajustado pelo modo Economia de Bateria</string>
     <string name="support_button_text">Suporte</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Baixar</string>
     <string name="ceno_permissions_category">Permissões</string>
-    <string name="preferences_clear_behavior_option_2">Limpar o cache de Ceno apenas</string>
+    <string name="preferences_clear_behavior_option_2">Limpar apenas a cache de Ceno</string>
     <string name="preferences_change_language">Mudar idioma</string>
     <string name="eq_news_button_text">Notícias</string>
     <string name="eq_values_button_text">Valores</string>
@@ -432,4 +432,6 @@
         <item quantity="many">Está a %d cliques de desativar as ferramentas de programador</item>
         <item quantity="other">Está a %d cliques de desativar as ferramentas de programador</item>
     </plurals>
+    <string name="foreground_notification_reminder_channel">Lembrete Ceno</string>
+    <string name="reminder_notification_title">Olá, quanto tempo!</string>
 </resources>
