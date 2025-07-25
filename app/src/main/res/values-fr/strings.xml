@@ -439,4 +439,23 @@
     <string name="edit_bookmark_folder_fragment_title">Modifier le dossier</string>
     <string name="metrics_consent_dialog_description">Nous lançons un système de mesure respectueux de la vie privée pour nous aider à mieux comprendre les besoins des utilisateurs de Ceno.\n\nVous pouvez passer en revue les détails de ce que nous allons collecter et comment nous traitons vos données dans notre politique de confidentialité.\n\nVous pouvez également vous désabonner à tout moment via Paramètres &gt; Mesures d\'arrière-plan.</string>
     <string name="bookmark_item_menu_button">bouton de menu d\'élément de signet</string>
+    <string name="foreground_notification_reminder_channel">Rappel Ceno</string>
+    <string name="reminder_notification_title">Hé, ça fait un bail !</string>
+    <string name="reminder_notification_text">Rouvrez Ceno pour garder votre cache disponible pour les autres utilisateurs</string>
+    <string name="ouicrawl_sites_section_title">Flux multimédia gratuit</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">Il y a %d minute</item>
+        <item quantity="many">Il y a %d minutes</item>
+        <item quantity="other">Il y a %d minutes</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">Il y a %d heure</item>
+        <item quantity="many">Il y a %d heures</item>
+        <item quantity="other">Il y a %d heures</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">Il y a %d jour</item>
+        <item quantity="many">Il y a %d jours</item>
+        <item quantity="other">Il y a %d jours</item>
+    </plurals>
 </resources>
