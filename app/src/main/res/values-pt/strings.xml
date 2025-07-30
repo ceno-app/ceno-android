@@ -434,4 +434,6 @@
     </plurals>
     <string name="foreground_notification_reminder_channel">Lembrete Ceno</string>
     <string name="reminder_notification_title">Olá, quanto tempo!</string>
+    <string name="reminder_notification_text">Reabrir Ceno para manter o seu cache disponível para outros usuários</string>
+    <string name="ouicrawl_sites_section_title">Feed livre de mídia</string>
 </resources>
