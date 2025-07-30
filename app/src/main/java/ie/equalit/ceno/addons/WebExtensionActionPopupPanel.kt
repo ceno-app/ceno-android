@@ -43,6 +43,7 @@ class WebExtensionActionPopupPanel(
         expand()
         updateTitle()
         updateConnectionState()
+        updateBrowsingMode()
         sourceCounts?.let { c -> onCountsFetched(c) }
     }
 
@@ -131,5 +132,23 @@ class WebExtensionActionPopupPanel(
         if(distCache > 0) binding.sourcesProgressBar.addView(context.createSegment(((distCache / sum) * 100), R.color.ceno_sources_blue))
 //                if(localCache > 0) binding.sourcesProgressBar.addView(createSegment((localCache / sum) * 100, R.color.ceno_sources_yellow))
         //}
+    }
+
+    fun updateBrowsingMode() {
+        //set the browsing mode selected - public is default
+        binding.publicModeCardCheckmark.visibility = View.VISIBLE
+        binding.personalModeCardCheckmark.visibility = View.GONE
+        //set click listeners
+        binding.publicModeCard.setOnClickListener {
+            binding.publicModeCardCheckmark.visibility = View.VISIBLE
+            binding.personalModeCardCheckmark.visibility = View.GONE
+
+            //reload the page
+
+        }
+        binding.personalModeCard.setOnClickListener {
+            binding.publicModeCardCheckmark.visibility = View.GONE
+            binding.personalModeCardCheckmark.visibility = View.VISIBLE
+        }
     }
 }
