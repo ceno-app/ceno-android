@@ -436,4 +436,19 @@
     <string name="reminder_notification_title">Olá, quanto tempo!</string>
     <string name="reminder_notification_text">Reabrir Ceno para manter o seu cache disponível para outros usuários</string>
     <string name="ouicrawl_sites_section_title">Feed livre de mídia</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">%d minuto atrás</item>
+        <item quantity="many">%d minutos atrás</item>
+        <item quantity="other">%d minutos atrás</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d hora atrás</item>
+        <item quantity="many">%d horas atrás</item>
+        <item quantity="other"></item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d dia atrás</item>
+        <item quantity="many">%d dias atrás</item>
+        <item quantity="other">%d dias atrás</item>
+    </plurals>
 </resources>
