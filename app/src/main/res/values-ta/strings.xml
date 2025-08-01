@@ -4,7 +4,7 @@
     <string name="about_category">பற்றி</string>
     <string name="preferences_make_default_browser">உங்கள் இயல்புநிலை உலாவலாக Ceno அமைக்கவும்</string>
     <string name="preferences_about_page">பற்றி</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/ta/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/ta/faq.html#bridgemode</string>
     <string name="preferences_remote_debugging">யூ.எச்.பி வழியாக தொலை பிழைத்திருத்தம்</string>
     <string name="preferences_tracking_protection_normal">பொது உலாவல் பயன்முறையில் இயக்கவும்</string>
     <string name="preferences_tracking_protection_private">தனிப்பட்ட உலாவல் பயன்முறையில் இயக்கவும்</string>
@@ -284,7 +284,7 @@
     <string name="ceno_sources_shared_by_ceno_cache">Ceno கேச்</string>
     <string name="personal_home_learn_more">மேலும் அறிய விரும்புகிறீர்களா?</string>
     <string name="change_bt_bootstrap_server">BT தொடக்கவார் சேவையகத்தை மாற்றவும்</string>
-    <string name="ceno_support_link_url">https://ceno.app/en/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/en/faq.html</string>
     <string name="public_mode_icon">பொது பயன்முறை படவுரு</string>
     <string name="personal_browsing_mode_selected">தனிப்பட்ட உலாவல் முறை தேர்ந்தெடுக்கப்பட்டது</string>
     <string name="personal_mode_icon">தனிப்பட்ட பயன்முறை படவுரு</string>

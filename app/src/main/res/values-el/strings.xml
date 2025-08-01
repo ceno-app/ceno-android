@@ -90,7 +90,7 @@
     <string name="ceno_notification_clear_description">Διαγραφή⚠</string>
     <string name="ceno_on_mobile_data_dialog_stop_now">Διακοπή Ceno τώρα</string>
     <string name="ceno_on_mobile_data_dialog_stop_showing">Να μην εμφανιστεί ξανά</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/en/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/en/faq.html#bridgemode</string>
     <string name="browser_menu_share">Κοινή χρήση</string>
     <string name="share_header_2">Κοινή χρήση</string>
     <string name="share_copy_link_to_clipboard">Αντιγραφή στο πρόχειρο</string>
