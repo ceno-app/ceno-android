@@ -43,12 +43,34 @@
         app:layout_constraintTop_toBottomOf="@+id/title" />
 
     <TextView
-        android:id="@+id/modify_privacy_settings"
+        android:id="@+id/tv_view_privacy_policy"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="16dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:clickable="true"
+        android:drawablePadding="8dp"
+        android:focusable="true"
+        android:gravity="start"
+        android:importantForAutofill="no"
+        android:text="@string/metrics_campaign_view_privacy_policy"
+        android:textColor="@color/accent"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/modify_privacy_settings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/description" />
+
+    <TextView
+        android:id="@+id/modify_privacy_settings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="8dp"
         android:layout_marginEnd="16dp"
         android:clickable="true"
         android:drawablePadding="8dp"
@@ -61,7 +83,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/description" />
+        app:layout_constraintTop_toBottomOf="@id/tv_view_privacy_policy" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

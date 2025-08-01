@@ -8,7 +8,7 @@ import ie.equalit.ceno.R
 
 class ConsentRequestDialog(val context: Context) {
 
-    fun show(complete: (Boolean) -> Unit, openMetricsSettings: () -> Unit) {
+    fun show(complete: (Boolean) -> Unit, openMetricsSettings: () -> Unit, openPrivacyPolicy: () -> Unit) {
 
         val dialogView = View.inflate(context, R.layout.dialog_metrics_campaign001, null)
         val dialog = AlertDialog.Builder(context)
@@ -28,6 +28,11 @@ class ConsentRequestDialog(val context: Context) {
             dialog.dismiss()
             complete(true)
             openMetricsSettings()
+        }
+        dialogView.findViewById<TextView>(R.id.tv_view_privacy_policy).setOnClickListener {
+            dialog.dismiss()
+            complete(true)
+            openPrivacyPolicy()
         }
         dialog.show()
     }
