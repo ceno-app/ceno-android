@@ -35,7 +35,7 @@
     <string name="browser_menu_find_in_page">Найти на странице</string>
     <string name="browser_menu_add_to_shortcuts">Добавить в ярлыки</string>
     <string name="browser_menu_remove_from_shortcuts">Удалить из ярлыков</string>
-    <string name="button_content_readerview">Вид читателя</string>
+    <string name="button_content_readerview">Режим чтения</string>
     <string name="preferences_tracking_protection_normal">Включить в Публичном режиме</string>
     <string name="menu_share_with">Поделиться с …</string>
     <string name="toast_copied">Скопировано!</string>
@@ -66,7 +66,7 @@
         <item quantity="other">%d адресов</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies">Файлы cookie</string>
-    <string name="preferences_delete_browsing_data_cached_files">Вы выйдете из большинства сайтов</string>
+    <string name="preferences_delete_browsing_data_cached_files">Кэшированные изображения и файлы</string>
     <string name="preferences_delete_browsing_data_cached_files_subtitle">Так освободится немного места</string>
     <string name="deleting_browsing_data_in_progress">Удаление данных просмотра веб-страниц…</string>
     <string name="preferences_delete_browsing_data_cookies_subtitle">Если вы логинились где-то, это будет удалено</string>
