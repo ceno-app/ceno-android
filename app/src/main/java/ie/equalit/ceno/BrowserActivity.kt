@@ -178,7 +178,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                         },
                         openMetricsSettings = {
                             navHost.navController.navigate(R.id.action_global_metricsCampaignFragment)
-                        }
+                        },
                     )
                 }
 

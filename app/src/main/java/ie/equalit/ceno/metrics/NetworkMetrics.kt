@@ -2,14 +2,11 @@ package ie.equalit.ceno.metrics
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.ConnectivityManager.NetworkCallback
 import android.net.Network
 import android.net.NetworkCapabilities
-import android.net.NetworkRequest
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
-import androidx.annotation.RequiresApi
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.settings.CenoSettings
@@ -20,6 +17,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import java.util.Date
 import java.util.TimeZone
 
 class NetworkMetrics(
@@ -30,7 +28,6 @@ class NetworkMetrics(
         var previousRecordid = ""
         while(true) {
             CenoSettings.ouinetClientRequest(context, OuinetKey.API_STATUS, forMetrics = true)
-            Log.d(TAG, CenoSettings.currentMetricsRecordId)
             if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
                 emit(CenoSettings.currentMetricsRecordId)
                 previousRecordid = CenoSettings.currentMetricsRecordId
@@ -122,7 +119,7 @@ class NetworkMetrics(
     }
 
     private fun getTimeZone():String {
-        return TimeZone.getDefault().displayName
+        return TimeZone.getDefault().getDisplayName(TimeZone.getDefault().inDaylightTime(Date()), TimeZone.SHORT)
     }
 
     companion object {

@@ -1,3 +1,9 @@
+# v2.6.1
+This release:
+- Updates Android-Components to 141.0.1
+- Fixes minor bugs
+- Updates announcement handling to prevent crashes
+
 # v2.6.0
 This release:
 - Updates Android-Components to 141.0
