@@ -7,7 +7,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import androidx.annotation.VisibleForTesting
-import androidx.compose.material.Snackbar
+//import androidx.compose.material.Snackbar
 import androidx.navigation.NavController
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope

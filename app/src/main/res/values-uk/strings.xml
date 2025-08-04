@@ -204,7 +204,7 @@
     <string name="preferences_ceno_sources_upnp">Статус UPnP</string>
     <string name="preferences_ceno_sources_reachability">Статус доступності</string>
     <string name="onboarding_finish_button">Завершити</string>
-    <string name="ceno_support_link_url">https://ceno.app/uk/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/uk/faq.html</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Додаткові завантажувальні файли BitTorrent</string>
     <string name="personal_home_learn_more">Хочете дізнатися більше?</string>
     <string name="ouinet_client_fetch_success">Ceno налаштування оновлено</string>
@@ -268,7 +268,7 @@
     <string name="home_go_to_settings">Перейдіть до налаштувань</string>
     <string name="enable_bridge_card_title">Увімкнути режим мосту</string>
     <string name="ceno_sources_shared_by_ceno_cache">З Ceno кешу</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/uk/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/uk/faq.html#bridgemode</string>
     <string name="browser_menu_share">Поділіться</string>
     <string name="share_header_2">Поділіться</string>
     <string name="share_copy_link_to_clipboard">Копіювати у буфер обміну</string>
@@ -422,6 +422,7 @@
     <string name="library_desktop_bookmarks_unfiled">Інші закладки</string>
     <string name="bookmark_item_menu_button">кнопка меню елемента закладки</string>
     <string name="metrics_consent_dialog_description">Ми запускаємо систему показників, що поважає конфіденційність, щоб краще зрозуміти потреби користувачів Ceno.\n\nВи можете ознайомитися з детальною інформацією про те, що ми збираємо та як ми обробляємо ваші дані, у нашій Політиці конфіденційності.\n\nВи також можете будь-коли відмовитися від цієї функції в розділі «Налаштування» &gt; «Фонові показники».</string>
+    <string name="metrics_consent_dialog_description_link">Політиці конфіденційності</string>
     <string name="metrics_campaign_view_privacy_policy">Політика конфіденційності</string>
     <string name="foreground_notification_reminder_channel">Нагадування про Ceno</string>
     <string name="reminder_notification_title">Гей, минуло вже деякий час!</string>

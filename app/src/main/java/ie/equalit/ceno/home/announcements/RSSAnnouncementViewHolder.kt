@@ -109,10 +109,12 @@ class RSSAnnouncementViewHolder(
                 append(it)
                 if (index < allATags.size) {
                     val pair = allATags[index].getContentFromATag()
-                    click(true, onClick = {
-                        interactor.onUrlClicked(homepageCardType, pair.first.toString())
-                    }) {
-                        append(pair.second)
+                    if(pair.first!= null && pair.second!= null) {
+                        click(true, onClick = {
+                            interactor.onUrlClicked(homepageCardType, pair.first.toString())
+                        }) {
+                            append(pair.second)
+                        }
                     }
                     index++
                 }
