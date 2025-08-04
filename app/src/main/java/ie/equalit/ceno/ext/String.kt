@@ -69,7 +69,7 @@ fun String.extractIpv6Addresses(): List<String> {
  * Helper function for getting `url` as well as `content-text` from an HTML a-tag
  */
 fun String.getContentFromATag(): Pair<String?, String?> {
-    val regex = "<a\\s+href=['\"](.*?)['\"].*?>(.*?)</a>".toRegex()
+    val regex = "<a\\s+href=['“\"](.*?)['”\"].*?>(.*?)</a>".toRegex()
     val matchResult = regex.find(this)
     val url = matchResult?.groupValues?.getOrNull(1)
     val text = matchResult?.groupValues?.getOrNull(2)

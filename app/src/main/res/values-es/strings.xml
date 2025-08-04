@@ -215,7 +215,7 @@
     <string name="crash_reporting_opt_in">¡Gracias por compartir los informes de error para ayudar a mejorar Ceno! Siempre se puede desactivar esto visitando Configuración &gt; Informes de error.</string>
     <string name="ouinet_client_fetch_success">Ajustes de Ceno actualizados</string>
     <string name="crash_reporting_dialog_title">¡Lo sentimos, parece que Ceno ha fallado!</string>
-    <string name="ceno_support_link_url">https://ceno.app/es/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/es/faq.html</string>
     <string name="personal_home_learn_more">¿Quiere saber más?</string>
     <string name="ceno_personal_browsing_description">Ceno no compartirá el contenido de las pestañas personales con otros usuarios. Usted puede visitar páginas que requieran inicio de sesión.</string>
     <string name="bt_invalid_ip_error">IP no válida</string>
@@ -267,7 +267,7 @@
     <string name="standby_restarting_text">Reiniciando…</string>
     <string name="learn_more_title">Más información</string>
     <string name="ceno_sources_shared_by_ceno_cache">Desde la caché de Ceno</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/es/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/es/faq.html#bridgemode</string>
     <string name="no_content_shared">Actualmente, no está compartiendo ningún contenido</string>
     <string name="shutdown_message_one">Borrar datos de la aplicación</string>
     <string name="shutdown_message_two">Cerrando Ceno</string>
@@ -404,6 +404,7 @@
     <string name="metrics_ouinet_title">Métricas de Ceno</string>
     <string name="metrics_ouinet_description">Envíe anónimamente a los desarrolladores métricas que respetan su privacidad</string>
     <string name="metrics_consent_dialog_description">Para comprender mejor las necesidades de los usuarios de Ceno, estamos lanzando un sistema de métricas respetuoso de la privacidad .\n\nPuede consultar los detalles sobre qué recopilamos y cómo gestionamos sus datos en nuestra Política de Privacidad.\n\nTambién puede darse de alta en cualquier momento a través de Configuración &gt; Métricas en segundo plano.</string>
+    <string name="metrics_consent_dialog_description_link">Política de Privacidad</string>
     <string name="bookmark_menu_edit_button">Editar</string>
     <string name="bookmark_menu_copy_button">Copiar</string>
     <string name="bookmark_menu_open_in_new_tab_button">Abrir en una nueva pestaña</string>

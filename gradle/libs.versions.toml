@@ -6,14 +6,14 @@ androidx_appcompat = "1.7.1"
 androidx_compose = "1.8.3"
 androidx_constraintlayout = "2.2.1"
 androidx_core = "1.16.0"
-androidx_lifecycle = "2.9.1"
-androidx_navigation = "2.9.1"
+androidx_lifecycle = "2.9.2"
+androidx_navigation = "2.9.3"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.1.0"
-androidx_work = "2.10.2"
+androidx_work = "2.10.3"
 
 # Android Components
-android_components = "141.0"
+android_components = "141.0.1"
 
 # Google
 google_composecompiler = "1.5.14"
@@ -40,7 +40,7 @@ testing_jacoco = "0.8.10"
 testing_mockwebserver = "4.10.0"
 
 # Third Party
-sentry = "8.16.0"
+sentry = "8.17.0"
 gson = "2.11.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"

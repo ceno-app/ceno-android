@@ -37,7 +37,7 @@
     <string name="menu_action_close_tabs">Fechar Todas as Abas</string>
     <string name="privacy">Privacidade</string>
     <string name="menu_action_close_tabs_private">Fechar Abas Pessoais</string>
-    <string name="preferences_tracking_protection_private">Ativar no modo de navegação Pessoal</string>
+    <string name="preferences_tracking_protection_private">Ativar no Modo de Navegação Pessoal</string>
     <string name="delete_browsing_data_prompt_allow">Apagar</string>
     <string name="preferences_delete_browsing_data">Apagar dados de navegação</string>
     <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
@@ -91,7 +91,7 @@
     <string name="customize_custom_extra_bittorrent_bootstrap">IPs separados com vírgulas</string>
     <string name="preferences_website_sources_summary">Selecione onde você deseja carregar o conteúdo do site de</string>
     <string name="set_default_search_engine">Definir mecanismo de pesquisa padrão</string>
-    <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstraps</string>
+    <string name="customize_extra_bittorrent_bootstrap">BitTorrent bootstraps adicionais</string>
     <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adicionar bootstraps personalizados</string>
     <string name="bit_torrent_bootstraps_category">BitTorrent Bootstraps</string>
     <string name="select_extra_bt_source">Selecionar bootstrap extra do BitTorrent</string>
@@ -223,7 +223,7 @@
     <string name="ceno_onboarding_start_text">O backbone ponto a ponto do Ceno permite que as pessoas acessem e compartilhem o conteúdo do site em regiões onde a conectividade foi interrompida ou comprometida.</string>
     <string name="crash_reporting_opt_in">Obrigado por compartilhar relatórios de falhas para ajudar a melhorar o Ceno! Você sempre pode desativar essa opção em Configurações &gt; Relatórios de falhas.</string>
     <string name="ceno_home_card_personal_text">Boa conectividade, mais privacidade. Para fazer login em contas, não deixar rastros, não compartilhar</string>
-    <string name="ceno_support_link_url">https://ceno.app/pt_BR/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/pt_BR/faq.html</string>
     <string name="personal_home_learn_more">Quer aprender mais?</string>
     <string name="ouinet_client_fetch_success">Configuração do Ceno atualizada</string>
     <string name="crash_reporting_dialog_title">Desculpe, parece que o Ceno travou!</string>
@@ -246,7 +246,7 @@
     <string name="standby_try_again">Tentar novamente</string>
     <string name="ceno_ouinet_connecting">Conectando-se à rede Ceno</string>
     <string name="ceno_ouinet_connected">Conectado à rede Ceno</string>
-    <string name="ceno_sources_direct_from_website">Direto do site</string>
+    <string name="ceno_sources_direct_from_website">Diretamente do site</string>
     <string name="ceno_sources_via_ceno_network">Usando a rede Ceno</string>
     <string name="change_bt_bootstrap_server">Alterar servidor BT Bootstrap</string>
     <string name="browsing_mode_card_title">Modo de navegação</string>
@@ -279,9 +279,9 @@
     <string name="ceno_log_file_saved_desc">Para priorizar a sua privacidade, todas as informações de identificação pessoal foram cuidadosamente removidas deste registro.</string>
     <string name="bridge_announcement_dialog_text">Aguarde enquanto o serviço do navegador Ceno é reiniciado para que suas alterações tenham efeito.</string>
     <string name="learn_more_title">Saber mais</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/pt_BR/faq.html#bridgemode</string>
     <string name="standby_restarting_text">Reiniciando…</string>
     <string name="ceno_sources_shared_by_ceno_cache">A partir do cache armazenado no Ceno</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/en/support.html#bridgemode</string>
     <string name="shutdown_message_one">Limpando dados do aplicativo</string>
     <string name="title_success">Sucesso</string>
     <string name="thank_you_bridge_mode_enabled">Obrigado por se tornar uma ponte e aumentar a rede Ceno!</string>
@@ -363,9 +363,9 @@
     <string name="ceno_permissions_category">Permissões</string>
     <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
     <string name="device_type">Tipo de dispositivo</string>
-    <string name="clean_insights_header">Ajude a melhorar o Ceno!</string>
-    <string name="clean_insights_sub_header">Nos gostaríamos de armazenar as seguintes métricas até 31 de Janeiro de 2025:</string>
-    <string name="clean_insights_explainer">Sua contribuição será anônima, e você pode cancelá-la a qualquer momento.</string>
+    <string name="clean_insights_header">Ajude-nos a melhorar o Ceno!</string>
+    <string name="clean_insights_sub_header">Gostaríamos de armazenar as seguintes métricas:</string>
+    <string name="clean_insights_explainer">Sua contribuição será anônima e você poderá desativá-la a qualquer momento em Configurações &gt; Métricas em segundo plano.</string>
     <string name="optional_metrics">Métricas opcionais:</string>
     <string name="device_locale">Configuração regional do dispositivo (idioma)</string>
     <string name="clean_insights_opt_in">SIM, QUERO CONTRIBUIR</string>
@@ -407,4 +407,48 @@
     <string name="bookmark_name_label">Nome</string>
     <string name="library_bookmarks">Marcadores</string>
     <string name="bookmark_menu_save_button">Salvar</string>
+    <string name="preferences_allow_crash_reporting_description">Enviar relatórios para os desenvolvedores após ocorrências de falhas</string>
+    <string name="preferences_metrics_campaign">Métricas em segundo plano</string>
+    <string name="metrics_campaign_more_info">Mais informações</string>
+    <string name="metrics_campaign_view_privacy_policy">Política de privacidade</string>
+    <string name="metrics_ouinet_title">Métricas do Ceno</string>
+    <string name="metrics_ouinet_description">Enviar métricas anônimas e que respeitam a privacidade para os desenvolvedores</string>
+    <string name="metrics_consent_dialog_description">Estamos lançando um sistema de métricas que respeita a privacidade para nos ajudar a entender melhor as necessidades dos usuários do Ceno.\n\nVocê pode revisar os detalhes sobre o que será coletado e como tratamos seus dados em nossa Política de Privacidade.\n\nVocê também pode desativar essa opção a qualquer momento em Configurações &gt; Métricas em segundo plano.</string>
+    <string name="metrics_consent_accept">Aceito</string>
+    <string name="consent_dialog_modify_privacy_settings">Modificar configurações de privacidade</string>
+    <string name="bookmarks_empty_message">Não há marcadores</string>
+    <string name="bookmark_menu_edit_button">Editar</string>
+    <string name="bookmark_menu_copy_button">Copiar</string>
+    <string name="bookmark_menu_open_in_new_tab_button">Abrir em uma nova janela</string>
+    <string name="bookmark_url_label">URL</string>
+    <string name="edit_bookmark_folder_fragment_title">Editar pasta</string>
+    <string name="edit_bookmark_fragment_title">Editar favorito</string>
+    <string name="bookmark_add_folder">Adicionar pasta</string>
+    <string name="library_desktop_bookmarks_unfiled">Outros marcadores</string>
+    <string name="bookmark_invalid_url_error">URL inválida</string>
+    <string name="bookmark_deletion_confirmation">Tem certeza de que deseja excluir este favorito?</string>
+    <string name="bookmark_add_folder_fragment_label">Adicionar pasta</string>
+    <string name="bookmark_item_menu_button">Botão de menu do item favorito</string>
+    <string name="bookmark_folder_label">PASTA</string>
+    <string name="add_or_remove_bookmark">Adicionar ou remover favorito</string>
+    <string name="bookmark_delete_folder_confirmation_dialog">Tem certeza que deseja apagar essa pasta?</string>
+    <string name="foreground_notification_reminder_channel">Lembrete do Ceno</string>
+    <string name="reminder_notification_title">Ei, faz um tempo que não nos vemos!</string>
+    <string name="reminder_notification_text">Reabra o Ceno para manter seu cache disponível para outros usuários</string>
+    <string name="ouicrawl_sites_section_title">Feed de Mídia Livre</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">Há %d minuto</item>
+        <item quantity="many">Há %d minutos</item>
+        <item quantity="other">Há %d minutos</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">Há %d hora</item>
+        <item quantity="many">Há %d horas</item>
+        <item quantity="other">Há %d horas</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">Há %d dia</item>
+        <item quantity="many">Há %d dias</item>
+        <item quantity="other">Há %d dias</item>
+    </plurals>
 </resources>
