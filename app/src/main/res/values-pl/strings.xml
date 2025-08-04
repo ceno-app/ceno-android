@@ -437,4 +437,5 @@
     <string name="edit_bookmark_fragment_title">Edytuj zakładkę</string>
     <string name="bookmark_item_menu_button">przycisk dodania zakładki menu</string>
     <string name="metrics_consent_dialog_description">Uruchamiamy system metryk szanujących prywatność, który pomoże nam lepiej zrozumieć potrzeby użytkowników Ceno\n\nMożesz przejrzeć szczegóły jakie dane zbieramy i jak ja przetwarzamy w naszej Polityce Prywatności\n\nMożesz także wystąpić z programy w dowolnym czasie poprzez Ustawienia &gt; Metryki w tle.</string>
+    <string name="metrics_consent_dialog_description_link">Polityce Prywatności</string>
 </resources>

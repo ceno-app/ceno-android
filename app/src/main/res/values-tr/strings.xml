@@ -407,6 +407,7 @@
     <string name="add_or_remove_bookmark">yer imi ekle ya da kaldır</string>
     <string name="metrics_ouinet_description">Geliştiricilere anonim, gizliliğe saygı duyan ölçümler gönderilsin</string>
     <string name="metrics_consent_dialog_description">Ceno kullanıcılarının gereksinimlerini daha iyi anlamamıza yardımcı olması için gizliliğe saygılı bir ölçüm sistemi başlatıyoruz.\n\nGizlilik ilkemizde neleri toplayacağımız ve verilerinizi nasıl işlediğimizle ilgili ayrıntıları bulabilirsiniz.\n\nAyrıca istediğiniz zaman Ayarlar &gt; Arka plan ölçümleri üzerinden bu verilerin paylaşılmasını durdurabilir ya da başlatabilirsiniz.</string>
+    <string name="metrics_consent_dialog_description_link">Gizlilik ilkemizde</string>
     <string name="reminder_notification_title">Hey, uzun zaman oldu!</string>
     <string name="reminder_notification_text">Önbelleğinizi diğer kullanıcıların kullanımına açık tutmak için Ceno\'yu yeniden açın</string>
     <string name="ouicrawl_sites_section_title">Ücretsiz Medya Akışı</string>

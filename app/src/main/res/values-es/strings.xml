@@ -404,6 +404,7 @@
     <string name="metrics_ouinet_title">Métricas de Ceno</string>
     <string name="metrics_ouinet_description">Envíe anónimamente a los desarrolladores métricas que respetan su privacidad</string>
     <string name="metrics_consent_dialog_description">Para comprender mejor las necesidades de los usuarios de Ceno, estamos lanzando un sistema de métricas respetuoso de la privacidad .\n\nPuede consultar los detalles sobre qué recopilamos y cómo gestionamos sus datos en nuestra Política de Privacidad.\n\nTambién puede darse de alta en cualquier momento a través de Configuración &gt; Métricas en segundo plano.</string>
+    <string name="metrics_consent_dialog_description_link">Política de Privacidad</string>
     <string name="bookmark_menu_edit_button">Editar</string>
     <string name="bookmark_menu_copy_button">Copiar</string>
     <string name="bookmark_menu_open_in_new_tab_button">Abrir en una nueva pestaña</string>

@@ -404,6 +404,7 @@
     <string name="metrics_ouinet_title">Ceno Metriken</string>
     <string name="metrics_ouinet_description">Übermittle anonyme, die Privatsphäre achtende Metriken an Entwickler</string>
     <string name="metrics_consent_dialog_description">Wir führen ein datenschutzfreundliches Metriksystem ein, um die Bedürfnisse der Ceno-Nutzer besser zu verstehen.\n\nIn unserer Datenschutzbestimmung können Sie nachlesen, welche Daten wir sammeln und wie wir mit Ihren Daten umgehen.\n\nSie können sich auch jederzeit über Einstellungen &gt; Hintergrund-Metriken abmelden.</string>
+    <string name="metrics_consent_dialog_description_link">Datenschutzbestimmung</string>
     <string name="metrics_consent_accept">Ich akzeptiere</string>
     <string name="consent_dialog_modify_privacy_settings">Ändern der Datenschutzeinstellungen</string>
     <string name="bookmarks_empty_message">Keine Lesezeichen hier</string>

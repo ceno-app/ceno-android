@@ -179,9 +179,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                         openMetricsSettings = {
                             navHost.navController.navigate(R.id.action_global_metricsCampaignFragment)
                         },
-                        openPrivacyPolicy = {
-                            openToBrowser(getString(R.string.privacy_policy_url), true)
-                        }
                     )
                 }
 

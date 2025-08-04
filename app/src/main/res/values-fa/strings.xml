@@ -413,6 +413,7 @@
     <string name="bookmark_delete_folder_confirmation_dialog">مطمئنید که می‌خواید این پوشه را حذف کنید؟</string>
     <string name="bookmark_add_folder">افزودن پوشه</string>
     <string name="metrics_consent_dialog_description">ما داریم یک سیستم آماری با رعایت حریم خصوصی راه‌اندازی می‌کنیم تا نیازهای کاربران سِنو را بهتر درک کنیم.\n\nمی‌توانید جزئیات چیزهایی را که جمع‌آوری می‌کنیم و نحوه مدیریت داده‌هایتان را در «سیاست حریم خصوصی» ما بررسی کنید.\n\nهمچنین می‌توانید هر زمان خواستید از طریق مسیر «تنظیمات &gt; آمارهای پس‌زمینه» این گزینه را غیرفعال کنید.</string>
+    <string name="metrics_consent_dialog_description_link">سیاست حریم خصوصی</string>
     <string name="ceno_sources_shared_by_local_cache">از کَش مرورگر</string>
     <string name="foreground_notification_reminder_channel">یادآور سنو</string>
     <string name="reminder_notification_title">کجایی؟ خیلی وقته نیستی!</string>

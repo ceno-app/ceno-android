@@ -438,6 +438,7 @@
     <string name="bookmark_delete_folder_confirmation_dialog">Est-ce que vous êtes sûr de vouloir supprimer ce dossier?</string>
     <string name="edit_bookmark_folder_fragment_title">Modifier le dossier</string>
     <string name="metrics_consent_dialog_description">Nous lançons un système de mesure respectueux de la vie privée pour nous aider à mieux comprendre les besoins des utilisateurs de Ceno.\n\nVous pouvez passer en revue les détails de ce que nous allons collecter et comment nous traitons vos données dans notre politique de confidentialité.\n\nVous pouvez également vous désabonner à tout moment via Paramètres &gt; Mesures d\'arrière-plan.</string>
+    <string name="metrics_consent_dialog_description_link">politique de confidentialité</string>
     <string name="bookmark_item_menu_button">bouton de menu d\'élément de signet</string>
     <string name="foreground_notification_reminder_channel">Rappel Ceno</string>
     <string name="reminder_notification_title">Hé, ça fait un bail !</string>
