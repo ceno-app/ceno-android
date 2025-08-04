@@ -223,7 +223,7 @@
     <string name="ceno_onboarding_start_text">O backbone ponto a ponto do Ceno permite que as pessoas acessem e compartilhem o conteúdo do site em regiões onde a conectividade foi interrompida ou comprometida.</string>
     <string name="crash_reporting_opt_in">Obrigado por compartilhar relatórios de falhas para ajudar a melhorar o Ceno! Você sempre pode desativar essa opção em Configurações &gt; Relatórios de falhas.</string>
     <string name="ceno_home_card_personal_text">Boa conectividade, mais privacidade. Para fazer login em contas, não deixar rastros, não compartilhar</string>
-    <string name="ceno_support_link_url">https://ceno.app/pt_BR/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/pt_BR/faq.html</string>
     <string name="personal_home_learn_more">Quer aprender mais?</string>
     <string name="ouinet_client_fetch_success">Configuração do Ceno atualizada</string>
     <string name="crash_reporting_dialog_title">Desculpe, parece que o Ceno travou!</string>
@@ -279,9 +279,9 @@
     <string name="ceno_log_file_saved_desc">Para priorizar a sua privacidade, todas as informações de identificação pessoal foram cuidadosamente removidas deste registro.</string>
     <string name="bridge_announcement_dialog_text">Aguarde enquanto o serviço do navegador Ceno é reiniciado para que suas alterações tenham efeito.</string>
     <string name="learn_more_title">Saber mais</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/pt_BR/faq.html#bridgemode</string>
     <string name="standby_restarting_text">Reiniciando…</string>
     <string name="ceno_sources_shared_by_ceno_cache">A partir do cache armazenado no Ceno</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/en/support.html#bridgemode</string>
     <string name="shutdown_message_one">Limpando dados do aplicativo</string>
     <string name="title_success">Sucesso</string>
     <string name="thank_you_bridge_mode_enabled">Obrigado por se tornar uma ponte e aumentar a rede Ceno!</string>

@@ -420,8 +420,6 @@ dependencies {
 
     implementation libs.mozilla.supportutils
     implementation libs.mozilla.supportktx
-    implementation libs.mozilla.supportrustlog
-    implementation libs.mozilla.supportrusthttp
     implementation libs.mozilla.supportwebextensions
 
     implementation libs.mozilla.libpublicsuffixlist
@@ -462,6 +460,7 @@ dependencies {
         implementation libs.ouinet.omni
     }
     implementation libs.relinker
+    implementation libs.androidx.material3.android
     /* CENO: End implement additional dependencies */
 
     androidTestImplementation libs.uiautomator

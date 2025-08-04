@@ -1,6 +1,12 @@
+# v2.6.1
+This release:
+- Updates Android-Components to 141.0.1
+- Fixes minor bugs
+- Updates announcement handling to prevent crashes
+
 # v2.6.0
 This release:
-- Updates Android-Components to 140.0
+- Updates Android-Components to 141.0
 - Adds notification on Android 15+ to nudge user to reopen Ceno
 - Updates default suggested site for RU
 - Updates links to eQualitie website on About page
