@@ -3,6 +3,7 @@ This release:
 - Updates Android-Components to 141.0.1
 - Fixes minor bugs
 - Updates announcement handling to prevent crashes
+- Major copy edits to RU translations
 
 # v2.6.0
 This release:
