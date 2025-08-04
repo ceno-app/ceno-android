@@ -415,4 +415,13 @@
         <item quantity="one">%d dakika önce</item>
         <item quantity="other">%d dakika önce</item>
     </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d saat önce</item>
+        <item quantity="other">%d saat önce</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d gün önce</item>
+        <item quantity="other">%d gün önce</item>
+    </plurals>
+    <string name="foreground_notification_reminder_channel">Ceno Hatırlatıcısı</string>
 </resources>
