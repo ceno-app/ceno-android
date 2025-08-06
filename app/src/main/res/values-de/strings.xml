@@ -434,4 +434,7 @@
         <item quantity="one">vor %d Stunde</item>
         <item quantity="other">vor %d Stunden</item>
     </plurals>
+    <string name="foreground_notification_reminder_channel">Ceno Erinnerung</string>
+    <string name="reminder_notification_title">Hey, lange nicht gesehen!</string>
+    <string name="reminder_notification_text">Öffne Ceno erneut um deinen Zwischenspeicher für andere Nutzer zugänglich zu behalten</string>
 </resources>
