@@ -206,7 +206,7 @@
     <string name="crash_reporting_opt_in">Ceno uygulamasını geliştirmemize yardımcı olmak için çökme bildirimlerini paylaştığınız için teşekkür ederiz! Bu durumu istediğiniz zaman Ayarlar &gt; Çökme bildirimleri bölümünden değiştirebilirsiniz.</string>
     <string name="ouinet_client_fetch_success">Ceno ayarı güncellendi</string>
     <string name="crash_reporting_dialog_title">Ne yazık ki Ceno uygulaması çöktü!</string>
-    <string name="ceno_support_link_url">https://ceno.app/tr/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/tr/faq.html</string>
     <string name="personal_home_learn_more">Ayrıntılı bilgi almak ister misiniz?</string>
     <string name="ceno_personal_browsing_description">Ceno, Kişisel sekmelerdeki içeriği diğer kullanıcılarla paylaşmaz. Oturum açılması gereken siteleri ziyaret edebilirsiniz.</string>
     <string name="bt_invalid_ip_error">IP adresi geçersiz</string>
@@ -258,7 +258,7 @@
     <string name="learn_more_title">Ayrıntılı bilgi alın</string>
     <string name="standby_restarting_text">Yeniden başlatılıyor…</string>
     <string name="ceno_sources_shared_by_ceno_cache">Ceno ön belleğinden</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/tr/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/tr/faq.html#bridgemode</string>
     <string name="shutdown_message_one">Uygulama verilerini temizle</string>
     <string name="shutdown_message_two">Ceno\'nun kapatılması</string>
     <string name="title_success">Başarılı</string>
@@ -407,6 +407,7 @@
     <string name="add_or_remove_bookmark">yer imi ekle ya da kaldır</string>
     <string name="metrics_ouinet_description">Geliştiricilere anonim, gizliliğe saygı duyan ölçümler gönderilsin</string>
     <string name="metrics_consent_dialog_description">Ceno kullanıcılarının gereksinimlerini daha iyi anlamamıza yardımcı olması için gizliliğe saygılı bir ölçüm sistemi başlatıyoruz.\n\nGizlilik ilkemizde neleri toplayacağımız ve verilerinizi nasıl işlediğimizle ilgili ayrıntıları bulabilirsiniz.\n\nAyrıca istediğiniz zaman Ayarlar &gt; Arka plan ölçümleri üzerinden bu verilerin paylaşılmasını durdurabilir ya da başlatabilirsiniz.</string>
+    <string name="metrics_consent_dialog_description_link">Gizlilik ilkemizde</string>
     <string name="reminder_notification_title">Hey, uzun zaman oldu!</string>
     <string name="reminder_notification_text">Önbelleğinizi diğer kullanıcıların kullanımına açık tutmak için Ceno\'yu yeniden açın</string>
     <string name="ouicrawl_sites_section_title">Ücretsiz Medya Akışı</string>
@@ -414,4 +415,13 @@
         <item quantity="one">%d dakika önce</item>
         <item quantity="other">%d dakika önce</item>
     </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d saat önce</item>
+        <item quantity="other">%d saat önce</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d gün önce</item>
+        <item quantity="other">%d gün önce</item>
+    </plurals>
+    <string name="foreground_notification_reminder_channel">Ceno Hatırlatıcısı</string>
 </resources>

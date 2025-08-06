@@ -114,7 +114,7 @@
     <string name="crash_reporting_always_send">Skicka alltid, förbättra Ceno</string>
     <string name="crash_reporting_never_send">Skicka aldrig</string>
     <string name="onboarding_info_title">Inte en vanlig webbläsare</string>
-    <string name="bridge_mode_faq_url">https://ceno.app/en/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/en/faq.html#bridgemode</string>
     <string name="browser_menu_share">Dela</string>
     <string name="share_header_2">Dela</string>
     <string name="share_copy_link_to_clipboard">Kopiera till urklipp</string>
