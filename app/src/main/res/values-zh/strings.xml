@@ -394,7 +394,7 @@
         <item quantity="other">还需要 %d 次点击来禁用开发者工具</item>
     </plurals>
     <string name="developer_tools_enabled">开发者工具已启用</string>
-    <string name="developer_tools_disabled">开发者工具以禁用</string>
+    <string name="developer_tools_disabled">开发者工具已禁用</string>
     <string name="ceno_base_url">https://ceno.app</string>
     <string name="preferences_announcement_source_default">1</string>
     <string name="ceno_notification_title">分享已缓存的标签页</string>
@@ -425,4 +425,23 @@
     <string name="edit_bookmark_fragment_title">编辑书签</string>
     <string name="bookmark_add_folder_fragment_label">新建文件夹</string>
     <string name="metrics_ouinet_description">向开发人员提交匿名的、尊重隐私的指标</string>
+    <string name="metrics_consent_dialog_description_link">隐私政策</string>
+    <string name="bookmark_url_label">URL</string>
+    <string name="bookmark_item_menu_button">书签项目菜单按钮</string>
+    <string name="add_or_remove_bookmark">添加或删除书签</string>
+    <string name="foreground_notification_reminder_channel">Ceno 提醒</string>
+    <string name="reminder_notification_title">嘿，好久不见了！</string>
+    <string name="reminder_notification_text">重新打开 Ceno 以使其他用户能够使用您的缓存</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="other">%d 分钟前</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="other">%d 小时前</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="other">%d 天前</item>
+    </plurals>
+    <string name="metrics_ouinet_title">Ceno 统计（Metrics）</string>
+    <string name="metrics_consent_dialog_description">我们正在推出一个尊重隐私的统计（metrics）系统来帮助我们更好理解 Ceno 用户的需求。\n\n您可以在我们的隐私政策中查看我们将收集的信息以及我们如何处理您的数据的详细信息。\n\n您也可以在任何时候通过 设置 &gt; 背景调查 退出该系统。</string>
+    <string name="ouicrawl_sites_section_title">免费媒体流</string>
 </resources>
