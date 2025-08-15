@@ -400,4 +400,7 @@
     <string name="preferences_allow_crash_reporting_description">Kirim laporan kepada pengembang setelah terjadi kerusakan tak terduga</string>
     <string name="ceno_sources_shared_by_local_cache">Dari cache browser</string>
     <string name="preferences_metrics_campaign">Metrik latar belakang</string>
+    <string name="metrics_campaign_more_info">Info lebih lanjut</string>
+    <string name="metrics_campaign_view_privacy_policy">Kebijakan privasi</string>
+    <string name="metrics_ouinet_description">Kirim metrik secara anonim ke pengembang</string>
 </resources>
