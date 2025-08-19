@@ -79,7 +79,7 @@ private fun AppState.toAdapterList(
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?
 ): List<AdapterItem> = when (mode) {
-    BrowsingMode.Normal ->
+    BrowsingMode.Normal, BrowsingMode.Shared ->
         normalModeAdapterItems(
             prefs,
             topSites,

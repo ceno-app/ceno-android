@@ -66,7 +66,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleBookmarkTapped(item: BookmarkNode) {
-        activity.openToBrowser(url = item.url, true, false)
+        activity.openToBrowser(url = item.url, true, BrowsingMode.Shared)
     }
 
     override fun handleBookmarkExpand(folder: BookmarkNode) {
@@ -119,7 +119,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleOpeningBookmark(item: BookmarkNode, mode: BrowsingMode) {
-        activity.openToBrowser(url = item.url, true, mode == BrowsingMode.Personal)
+        activity.openToBrowser(url = item.url, true, mode)
     }
 
     override fun handleOpeningFolderBookmarks(folder: BookmarkNode, mode: BrowsingMode) {

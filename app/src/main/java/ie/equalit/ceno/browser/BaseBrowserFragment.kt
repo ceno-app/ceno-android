@@ -606,6 +606,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
 
         webExtensionActionPopupPanel = WebExtensionActionPopupPanel(
             context = requireContext(),
+            activity = activity as BrowserActivity,
             lifecycleOwner = this,
             tabUrl = tab.content.url,
             isConnectionSecure = tab.content.securityInfo.secure,
@@ -922,7 +923,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             it.setDelegate(portDelegate)
             val message = JSONObject()
             message.put("requestSources", "true")
-            message.put("personalModeOnly", Settings.isPersonalModeOnlyEnabled(requireContext()).toString())
+            message.put("isShared", browsingModeManager.mode.isShared)
             it.postMessage(message)
         }
     }

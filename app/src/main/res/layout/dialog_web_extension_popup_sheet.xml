@@ -26,16 +26,13 @@
         </LinearLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layout_sources"
+            android:id="@+id/sources_layout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingStart="@dimen/panel_horizontal_margin"
             android:paddingTop="@dimen/panel_vertical_margin"
             android:paddingEnd="@dimen/panel_horizontal_margin"
             android:paddingBottom="@dimen/panel_vertical_margin"
-            app:layout_constraintBottom_toTopOf="@+id/constraintLayout"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/sourcesProgressBar">
 
             <ImageView
@@ -221,121 +218,83 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/constraintLayout"
-            android:layout_width="match_parent"
+            android:id="@+id/shared_mode_card"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/browsing_mode_card_outline"
+            android:padding="@dimen/ceno_mode_inner_padding"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/normal_mode_card"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/layout_sources">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/public_mode_card"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/ceno_mode_margin_top"
-                android:layout_marginStart="@dimen/ceno_mode_margin_horizontal"
-                android:layout_marginEnd="4dp"
-                android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
-                android:background="@drawable/browsing_mode_card_outline"
-                android:padding="@dimen/ceno_mode_inner_padding"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/personal_mode_card"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toBottomOf="@+id/sources_layout">
 
 
-                <ImageView
-                    android:id="@+id/public_mode_card_checkmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/public_browsing_mode_selected"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_home_card_public_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/check_circle_outline" />
-
-                <ImageView
-                    android:id="@+id/iv_public_mode_card_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/public_mode_icon"
-                    app:layout_constraintBottom_toTopOf="@id/tv_home_card_public_title"
-                    app:layout_constraintEnd_toStartOf="@+id/public_mode_card_checkmark"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ceno_home_card_public_icon" />
-
-                <TextView
-                    android:id="@+id/tv_home_card_public_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center_vertical"
-                    android:text="@string/ceno_home_card_public_title"
-                    android:textColor="@color/ceno_home_card_public_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_public_mode_card_icon" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/personal_mode_card"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="@dimen/ceno_mode_margin_top"
-                android:layout_marginEnd="@dimen/ceno_mode_margin_horizontal"
-                android:layout_marginBottom="@dimen/ceno_mode_margin_bottom"
-                android:layout_weight="1"
-                android:background="@drawable/browsing_mode_card_outline"
-                android:padding="@dimen/ceno_mode_inner_padding"
-                app:layout_constraintBottom_toBottomOf="parent"
+            <ImageView
+                android:id="@+id/shared_mode_card_checkmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/public_browsing_mode_selected"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/public_mode_card"
-                app:layout_constraintTop_toTopOf="parent">
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/check_circle_outline" />
 
-                <ImageView
-                    android:id="@+id/personal_mode_card_checkmark"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/personal_browsing_mode_selected"
-                    app:layout_constraintBottom_toTopOf="@+id/tv_home_card_personal_title"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/check_circle_outline" />
+            <TextView
+                android:id="@+id/tv_home_card_public_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:text="SHARED"
+                android:textColor="@color/ceno_home_card_public_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/shared_mode_card_checkmark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-                <ImageView
-                    android:id="@+id/iv_personal_mode_card_icon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:contentDescription="@string/personal_mode_icon"
-                    app:layout_constraintBottom_toTopOf="@id/tv_home_card_personal_title"
-                    app:layout_constraintEnd_toStartOf="@+id/personal_mode_card_checkmark"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@drawable/ceno_home_card_personal_icon" />
-
-                <TextView
-                    android:id="@+id/tv_home_card_personal_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:drawablePadding="4dp"
-                    android:fontFamily="sans-serif-medium"
-                    android:gravity="center_vertical"
-                    android:text="@string/ceno_home_card_personal_title"
-                    android:textColor="@color/ceno_home_card_personal_text"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/iv_personal_mode_card_icon" />
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/normal_mode_card"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/browsing_mode_card_outline"
+            android:padding="@dimen/ceno_mode_inner_padding"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/shared_mode_card"
+            app:layout_constraintTop_toTopOf="@+id/shared_mode_card">
 
+            <ImageView
+                android:id="@+id/normal_mode_card_checkmark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/personal_browsing_mode_selected"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/check_circle_outline" />
+
+            <TextView
+                android:id="@+id/tv_home_card_personal_title"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:drawablePadding="4dp"
+                android:fontFamily="sans-serif-medium"
+                android:gravity="center_vertical"
+                android:text="NORMAL"
+                android:textColor="@color/ceno_home_card_personal_text"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/normal_mode_card_checkmark"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>

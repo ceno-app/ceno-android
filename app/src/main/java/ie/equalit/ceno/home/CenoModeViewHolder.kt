@@ -37,7 +37,7 @@ class CenoModeViewHolder(
 
     private fun updateUI() {
         when(mode) {
-            BrowsingMode.Normal -> {
+            BrowsingMode.Shared -> {
                 binding.personalModeCard.setOnClickListener {
                     interactor.onClicked(homepageCardType, mode)
                 }
@@ -77,6 +77,9 @@ class CenoModeViewHolder(
                 binding.tvHomeCardPersonalText.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_grey_300))
                 binding.tvHomeCardPersonalTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
                 binding.ivPersonalModeCardIcon.drawable.setTint(ContextCompat.getColor(itemView.context, R.color.ceno_purple_300))
+            }
+            BrowsingMode.Normal -> {
+
             }
         }
     }

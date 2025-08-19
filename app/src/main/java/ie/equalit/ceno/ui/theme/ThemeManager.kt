@@ -139,6 +139,7 @@ class DefaultThemeManager(
             BrowsingMode.Personal -> {
                 updateDarkSystemBars(activity.window, currentContext)
             }
+            BrowsingMode.Shared -> {}
         }
     }
 

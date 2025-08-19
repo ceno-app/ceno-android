@@ -13,8 +13,10 @@ import androidx.savedstate.SavedStateRegistryOwner
 import androidx.savedstate.setViewTreeSavedStateRegistryOwner
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BaseBrowserFragment
+import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.databinding.DialogWebExtensionPopupSheetBinding
 import ie.equalit.ceno.ext.components
 import mozilla.components.browser.icons.IconRequest
@@ -28,6 +30,7 @@ import java.util.Locale
 
 class WebExtensionActionPopupPanel(
     context: Context,
+    val activity: BrowserActivity,
     private val lifecycleOwner: LifecycleOwner,
     private val tabUrl: String,
     private val isConnectionSecure: Boolean,
@@ -43,8 +46,8 @@ class WebExtensionActionPopupPanel(
         expand()
         updateTitle()
         updateConnectionState()
-        updateBrowsingMode()
         sourceCounts?.let { c -> onCountsFetched(c) }
+        setBrowsingMode(activity.browsingModeManager.mode)
     }
 
     private fun initWindow() {
@@ -134,21 +137,34 @@ class WebExtensionActionPopupPanel(
         //}
     }
 
-    fun updateBrowsingMode() {
-        //set the browsing mode selected - public is default
-        binding.publicModeCardCheckmark.visibility = View.VISIBLE
-        binding.personalModeCardCheckmark.visibility = View.GONE
-        //set click listeners
-        binding.publicModeCard.setOnClickListener {
-            binding.publicModeCardCheckmark.visibility = View.VISIBLE
-            binding.personalModeCardCheckmark.visibility = View.GONE
-
-            //reload the page
-
-        }
-        binding.personalModeCard.setOnClickListener {
-            binding.publicModeCardCheckmark.visibility = View.GONE
-            binding.personalModeCardCheckmark.visibility = View.VISIBLE
+    private fun setBrowsingMode(mode:BrowsingMode) {
+        when(mode) {
+            BrowsingMode.Personal -> {
+                binding.normalModeCard.visibility = View.GONE
+                binding.sharedModeCard.visibility = View.GONE
+            }
+            BrowsingMode.Normal -> {
+                binding.normalModeCard.visibility = View.VISIBLE
+                binding.sharedModeCard.visibility = View.VISIBLE
+                binding.normalModeCardCheckmark.visibility = View.VISIBLE
+                binding.sharedModeCardCheckmark.visibility = View.GONE
+                binding.sharedModeCard.setOnClickListener {
+                    activity.switchBrowsingModeHome(BrowsingMode.Shared)
+                    setBrowsingMode(BrowsingMode.Shared)
+                }
+                binding.normalModeCard.setOnClickListener(null)
+            }
+            BrowsingMode.Shared -> {
+                binding.normalModeCard.visibility = View.VISIBLE
+                binding.sharedModeCard.visibility = View.VISIBLE
+                binding.normalModeCardCheckmark.visibility = View.GONE
+                binding.sharedModeCardCheckmark.visibility = View.VISIBLE
+                binding.normalModeCard.setOnClickListener {
+                    activity.switchBrowsingModeHome(BrowsingMode.Normal)
+                    setBrowsingMode(BrowsingMode.Normal)
+                }
+                binding.sharedModeCard.setOnClickListener(null)
+            }
         }
     }
 }

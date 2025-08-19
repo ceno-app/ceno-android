@@ -137,29 +137,22 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
      * Save browsing mode in preferences
      * From Fenix
      */
-    var lastKnownBrowsingMode: BrowsingMode = BrowsingMode.Normal
+    var lastKnownBrowsingMode: BrowsingMode = BrowsingMode.Shared
         get() {
-            val lastKnownModeWasPersonal = preferences.getBoolean(
+            return BrowsingMode.from( preferences.getInt(
                 appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
-                false,
-            )
-
-            return if (lastKnownModeWasPersonal) {
-                BrowsingMode.Personal
-            } else {
-                BrowsingMode.Normal
-            }
+                0,
+            ))!!
         }
-        set(value) {
-            val lastKnownModeWasPersonal = (value == BrowsingMode.Personal)
+        set(mode) {
 
             preferences.edit() {
-                putBoolean(
+                putInt(
                     appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
-                    lastKnownModeWasPersonal,
+                    mode.value
                 )
             }
 
-            field = value
+            field = mode
         }
 }

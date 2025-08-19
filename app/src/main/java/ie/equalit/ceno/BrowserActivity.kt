@@ -70,6 +70,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import mozilla.components.browser.state.action.BrowserAction
 import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.SessionState
@@ -189,7 +190,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         }
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
-            openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
+            openToBrowser(url, newTab = true, mode = themeManager.currentMode)
         }
 
         Logger.info(" --------- Starting ouinet service")
@@ -561,15 +562,15 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     }
 
     /* CENO: Add function to open requested site in BrowserFragment */
-    fun openToBrowser(url : String? = null, newTab : Boolean = false, private: Boolean = false){
+    fun openToBrowser(url : String? = null, newTab : Boolean = false, mode: BrowsingMode = BrowsingMode.Shared){
         if (url != null) {
             if (newTab) {
                 //set browsingMode
-                browsingModeManager.mode = BrowsingMode.fromBoolean(private)
+                browsingModeManager.mode = mode
                 components.useCases.tabsUseCases.addTab(
                     url = url,
                     selectTab = true,
-                    private = private,
+                    private = browsingModeManager.mode.isPersonal,
                 )
             } else {
                 components.useCases.sessionUseCases.loadUrl(
@@ -588,10 +589,11 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
         navHost.navController.navigate(R.id.action_global_browser)
     }
-    fun switchBrowsingModeHome(currentMode: BrowsingMode) {
-        browsingModeManager.mode = BrowsingMode.fromBoolean(!currentMode.isPersonal)
+    fun switchBrowsingModeHome(mode: BrowsingMode) {
+        browsingModeManager.mode = mode
 
         components.appStore.dispatch(AppAction.ModeChange(browsingModeManager.mode))
+        components.useCases.sessionUseCases.reload.invoke()
     }
 
     fun updateView(action: () -> Unit){

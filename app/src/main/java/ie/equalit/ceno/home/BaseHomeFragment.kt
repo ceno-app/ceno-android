@@ -243,7 +243,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         /* Redefine onStopListener to open browser fragment in addition to closing toolbar */
         awesomeBar.setOnStopListener {
             toolbar.displayMode()
-            (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
+            (activity as BrowserActivity).openToBrowser(mode = themeManager.currentMode, newTab = true)
         }
 
         tabConterView = TabCounterView(

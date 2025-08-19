@@ -186,7 +186,7 @@ class DefaultSessionControlController(
             openToBrowser(
                 url = url,
                 newTab = true,
-                private = true
+                mode = BrowsingMode.Personal
             )
         }
     }
@@ -203,11 +203,12 @@ class DefaultSessionControlController(
     override fun handleCardClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {
         if (homepageCardType == HomepageCardType.PERSONAL_MODE_CARD) {
             activity.apply{
-                openToBrowser(getString(R.string.ceno_support_link_url), newTab = true, private = true)
+                openToBrowser(getString(R.string.ceno_support_link_url), newTab = true, mode)
             }
         }
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
-            activity.switchBrowsingModeHome(mode)
+            val newMode =  if(mode.isPersonal) BrowsingMode.Shared else BrowsingMode.Personal
+            activity.switchBrowsingModeHome(newMode)
         }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
             activity.apply{

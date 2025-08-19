@@ -468,7 +468,7 @@ class ToolbarIntegration(
                     parentSessionId = null
                 )
             }
-            context.openToBrowser(private = context.themeManager.currentMode.isPersonal)
+            context.openToBrowser(mode = context.themeManager.currentMode)
         },
         sessionId,
     )

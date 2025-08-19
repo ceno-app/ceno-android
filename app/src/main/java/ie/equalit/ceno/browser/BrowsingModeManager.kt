@@ -9,13 +9,18 @@ interface BrowsingModeManager {
 /**
  * Enum that represents whether or not private browsing is active.
  */
-enum class BrowsingMode {
-    Normal, Personal;
+enum class BrowsingMode(val value: Int) {
+    Normal(0), Personal(1), Shared(2);
 
     /**
      * Returns true if the [BrowsingMode] is [Personal]
      */
     val isPersonal get() = this == Personal
+
+    /**
+     * Returns true if the [BrowsingMode] is [Shared]
+     */
+    val isShared get() = this == Shared
 
     companion object {
 
@@ -23,7 +28,10 @@ enum class BrowsingMode {
          * Convert a boolean into a [BrowsingMode].
          * True corresponds to [Personal] and false corresponds to [Normal].
          */
-        fun fromBoolean(isPersonal: Boolean) = if (isPersonal) Personal else Normal
+        fun fromBoolean(isPersonal: Boolean) = if (isPersonal) Personal else Shared
+
+        private val map = entries.associateBy { it.value }
+        infix fun from(value: Int) = map[value]
     }
 }
 
