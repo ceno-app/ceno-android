@@ -12,7 +12,7 @@ import androidx.core.content.ContextCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
+import ie.equalit.ouinet.Constants.MILLISECOND
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.support.utils.PendingIntentUtils
 
