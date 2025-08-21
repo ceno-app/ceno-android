@@ -214,7 +214,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
-                    requireContext(),
                     requireComponents.core.store,
                     searchUseCase = if (themeManager.currentMode.isPersonal) {
                         requireComponents.useCases.searchUseCases.newPrivateTabSearch
@@ -309,7 +308,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
             awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
             awesomeBar.addProviders(
                 SearchSuggestionProvider(
-                    requireContext(),
                     requireComponents.core.store,
                     searchUseCase = if (themeManager.currentMode.isPersonal) {
                         requireComponents.useCases.searchUseCases.newPrivateTabSearch
