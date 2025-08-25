@@ -165,7 +165,7 @@
     <string name="ceno_home_card_public_title">ÖFFENTLICH</string>
     <string name="onboarding_cleanup_title">Alles löschen,
 \nüberall, auf einmal</string>
-    <string name="crash_reporting_dialog_title">Ceno ist abgestürzt! Wir bitten um Entschuldigung.</string>
+    <string name="crash_reporting_dialog_title">Oh nein, es sieht aus, als ob Ceno abgestürzt ist!</string>
     <string name="ceno_clear_dialog_clear_cache_only">Löschen Ceno nur Cache</string>
     <string name="bt_invalid_ip_error">Ungültige IP</string>
     <string name="preferences_toolbar_position">Am oberen Bildschirmrand platzieren</string>
@@ -333,7 +333,7 @@
     <string name="ceno_permissions_category">Berechtigungen</string>
     <string name="support_button_text">Hilfe</string>
     <string name="clean_insights_header">Hilf uns Ceno besser zu machen!</string>
-    <string name="clean_insights_explainer">Ihr Beitrag ist anonym, und Sie können sich jederzeit abmelden.</string>
+    <string name="clean_insights_explainer">Ihr Beitrag ist anonym, und Sie können sich jederzeit unter Einstellungen &gt; Hintergrundinformationen abmelden.</string>
     <string name="device_locale">Gerätelokalisierung (Sprache)</string>
     <string name="clean_insights_opt_in">JA, NEHME TEIL</string>
     <string name="clean_insights_maybe_later">NEIN, VIELEICHT SPÄTER</string>
@@ -437,4 +437,5 @@
     <string name="foreground_notification_reminder_channel">Ceno Erinnerung</string>
     <string name="reminder_notification_title">Hey, lange nicht gesehen!</string>
     <string name="reminder_notification_text">Öffne Ceno erneut um deinen Zwischenspeicher für andere Nutzer zugänglich zu behalten</string>
+    <string name="ouicrawl_sites_section_title">Kostenloser Medienfeed</string>
 </resources>
