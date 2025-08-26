@@ -27,6 +27,7 @@ buildscript {
         classpath libs.tools.androidgradle
         classpath libs.tools.kotlingradle
         classpath libs.androidx.safeargs
+        classpath libs.androidx.r8
         classpath libs.snakeyaml
     }
 }

@@ -11,6 +11,7 @@ androidx_navigation = "2.9.3"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.10.3"
+androidx_r8 = "8.11.18"
 
 # Android Components
 android_components = "142.0"
@@ -141,6 +142,7 @@ androidx-safeargs = { group = "androidx.navigation", name = "navigation-safe-arg
 androidx-navigationfragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx_navigation" }
 androidx-navigationui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "androidx_navigation" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
+androidx-r8 = { group = "com.android.tools", name = "r8", version.ref = "androidx_r8" }
 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google_material" }
 
