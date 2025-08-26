@@ -20,7 +20,6 @@ import kotlin.math.ln
 import kotlin.math.pow
 import kotlin.random.Random
 import androidx.core.content.edit
-import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.concept.fetch.MutableHeaders
 
 
