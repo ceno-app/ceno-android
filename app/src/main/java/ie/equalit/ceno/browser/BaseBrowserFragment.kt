@@ -441,7 +441,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         AwesomeBarFeature(awesomeBar, toolbar, engineView).let {
             if (Settings.shouldShowSearchSuggestions(requireContext())) {
                 it.addSearchProvider(
-                    requireContext(),
                     requireComponents.core.store,
                     requireComponents.useCases.searchUseCases.defaultSearch,
                     fetchClient = requireComponents.core.client,
