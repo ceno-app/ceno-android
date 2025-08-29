@@ -6,6 +6,7 @@ This release:
 - Remove remaining uses of OuinetNotification
 - Fixes app not responding error due to network metrics
 - Update cacert.pem with bundle generated on Tue Aug 12 2025
+- Updates Ceno logo
 
 # v2.6.1
 This release:
