@@ -188,6 +188,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         /* CENO: Add purge button to toolbar */
         val clearButtonFeature = ClearButtonFeature(
             requireContext(),
+            viewLifecycleOwner,
             prefs.getString(
                 requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                 .toInt()

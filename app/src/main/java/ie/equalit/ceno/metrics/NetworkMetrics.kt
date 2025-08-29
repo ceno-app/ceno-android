@@ -7,6 +7,7 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
+import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.settings.CenoSettings
@@ -27,7 +28,11 @@ class NetworkMetrics(
     private val metricsRecordId:Flow<String> = flow {
         var previousRecordid = ""
         while(true) {
-            CenoSettings.ouinetClientRequest(context, OuinetKey.API_STATUS, forMetrics = true)
+            CenoSettings.ouinetClientRequest(
+                context,
+                lifecycleScope,
+                OuinetKey.API_STATUS,
+                forMetrics = true)
             if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
                 emit(CenoSettings.currentMetricsRecordId)
                 previousRecordid = CenoSettings.currentMetricsRecordId
@@ -67,6 +72,7 @@ class NetworkMetrics(
     private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
         CenoSettings.ouinetClientRequest(
             context,
+            lifecycleScope,
             OuinetKey.ADD_METRICS,
             stringValue = value,
             ouinetResponseListener = object : OuinetResponseListener {

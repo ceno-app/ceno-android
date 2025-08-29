@@ -20,6 +20,9 @@ import kotlin.math.ln
 import kotlin.math.pow
 import kotlin.random.Random
 import androidx.core.content.edit
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.CoroutineScope
 import mozilla.components.concept.fetch.MutableHeaders
 
 
@@ -366,6 +369,7 @@ object CenoSettings {
                         Logger.debug("webClientRequest failed on try $tries")
                         delay(500)
                     }
+                    response.close()
                 }
             } catch (ex: Exception) {
                 tries++
@@ -408,6 +412,7 @@ object CenoSettings {
 
     fun ouinetClientRequest(
         context: Context,
+        lifecycleScope: CoroutineScope,
         key : OuinetKey,
         newValue: OuinetValue? = null,
         stringValue: String? = null,
@@ -416,7 +421,7 @@ object CenoSettings {
         forMetrics : Boolean = false,
         metricsKey : String? = null
     ) {
-        MainScope().launch {
+        lifecycleScope.launch {
             val request : String = if (metricsKey != null) {
                 "${SET_VALUE_ENDPOINT}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
             } else {

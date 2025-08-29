@@ -13,6 +13,8 @@ import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
@@ -243,6 +245,7 @@ class ToolbarIntegration(
 
         val clearButtonFeature = ClearButtonFeature(
             context,
+            activity as LifecycleOwner,
             prefs.getString(
                 context.getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                 .toInt()

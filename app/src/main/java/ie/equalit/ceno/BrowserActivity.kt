@@ -161,6 +161,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                             //web api call
                             CenoSettings.ouinetClientRequest(
                                 context = this,
+                                lifecycleScope = lifecycleScope,
                                 key = OuinetKey.CENO_METRICS,
                                 newValue = if (granted) OuinetValue.ENABLE else OuinetValue.DISABLE,
                                 stringValue = null,
