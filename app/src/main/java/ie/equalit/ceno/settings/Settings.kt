@@ -367,16 +367,16 @@ object Settings {
         }
     }
 
-    fun isPersonalModeOnlyEnabled(context: Context) : Boolean {
+    fun isSafeModeEnabled(context: Context) : Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_personal_mode_only), false
+            context.getString(R.string.pref_key_safe_mode_enabled), false
         )
     }
 
-    fun enablePersonalModeOnly(context: Context, newValue: Boolean) {
+    fun enableSafeMode(context: Context, newValue: Boolean) {
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
-                putBoolean(context.getString(R.string.pref_key_personal_mode_only), newValue)
+                putBoolean(context.getString(R.string.pref_key_safe_mode_enabled), newValue)
             }
     }
 

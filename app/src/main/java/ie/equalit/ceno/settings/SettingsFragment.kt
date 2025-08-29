@@ -68,6 +68,7 @@ import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_privacy
+import ie.equalit.ceno.R.string.pref_key_safe_mode_enabled
 import ie.equalit.ceno.R.string.pref_key_search_engine
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_reload
 import ie.equalit.ceno.R.string.pref_key_shared_prefs_update
@@ -83,6 +84,8 @@ import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
 import ie.equalit.ceno.R.string.tracker_category
+import ie.equalit.ceno.components.ceno.CenoLocationUtils
+import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceCategory
@@ -274,6 +277,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         getPreference(pref_key_additional_developer_tools)?.let {
             it.onPreferenceClickListener = getClickListenerForAdditionalDeveloperTools()
             it.isVisible = shouldShowDeveloperTools(requireContext())
+        }
+
+        // Show safe mode option only for RU locale
+        if (Locale.getDefault().language == "ru" ||
+            CenoLocationUtils(requireContext().application).currentCountry == "RU"
+            ) {
+            getPreference(pref_key_safe_mode_enabled)?.apply {
+                isVisible = true
+                onPreferenceChangeListener = getChangeListenerForSafeModeEnable()
+            }
+        }
+        else {
+            getPreference(pref_key_safe_mode_enabled)?.isVisible = false
         }
 
         // Update notifications
@@ -663,6 +679,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
                 bridgeAnnouncementDialog.show()
             }
+            true
+        }
+    }
+
+    private fun getChangeListenerForSafeModeEnable(): OnPreferenceChangeListener? {
+        return OnPreferenceChangeListener { _, newValue ->
+            ie.equalit.ceno.settings.Settings.enableSafeMode(requireContext(), newValue as Boolean)
             true
         }
     }
