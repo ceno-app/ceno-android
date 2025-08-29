@@ -4,15 +4,19 @@
 
 package ie.equalit.ceno.settings
 
-import android.annotation.SuppressLint
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
+import ie.equalit.ceno.ext.isFirstInstall
 import ie.equalit.ceno.home.RssAnnouncementResponse
+import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
+import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
-import androidx.core.content.edit
+import kotlinx.serialization.json.Json
+import java.util.Locale
 
 object Settings {
     fun shouldShowOnboarding(context: Context): Boolean =
@@ -45,6 +49,11 @@ object Settings {
             context.getString(R.string.pref_key_show_developer_tools), false
         )
 
+    fun shouldShowConsentDialog(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_show_metrics_consent_dialog), false
+        )
+
     fun shouldBackdateCleanInsights(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_clean_insights_backdate), false
@@ -53,8 +62,8 @@ object Settings {
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putBoolean(key, value)
+                .edit() {
+                    putBoolean(key, value)
             }
     }
 
@@ -211,63 +220,6 @@ object Settings {
             }
     }
 
-    fun getLaunchCount(context: Context) : Long {
-        return PreferenceManager.getDefaultSharedPreferences(context).getLong(
-            context.getString(R.string.pref_key_app_launch_count), 0
-        )
-    }
-
-    fun incrementLaunchCount(context: Context) {
-        val key = context.getString(R.string.pref_key_app_launch_count)
-        var currentValue = getLaunchCount(context)
-        if (currentValue == Long.MAX_VALUE) currentValue = 0
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putLong(key, currentValue + 1)
-            }
-    }
-
-    fun setCleanInsightsEnabled(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_clean_insights_enabled)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putBoolean(key, value)
-            }
-    }
-
-    fun isCleanInsightsEnabled(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_clean_insights_enabled), false
-        )
-    }
-
-    fun setCleanInsightsDeviceType(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_clean_insights_include_device_type)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putBoolean(key, value)
-            }
-    }
-
-    fun isCleanInsightsDeviceTypeIncluded(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_clean_insights_include_device_type), false
-        )
-    }
-
-    fun setCleanInsightsDeviceLocale(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_clean_insights_include_device_locale)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putBoolean(key, value)
-            }
-    }
-
-    fun isCleanInsightsDeviceLocaleIncluded(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_clean_insights_include_device_locale), false
-        )
-    }
 
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)
@@ -428,4 +380,49 @@ object Settings {
             }
     }
 
+    fun isOuinetMetricsEnabled(context: Context) : Boolean {
+        if (context.isFirstInstall()) {
+            return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_metrics_ouinet), true
+            )
+        }
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_metrics_ouinet), false
+        )
+    }
+
+    fun setOuinetMetricsEnabled(context: Context, newValue:Boolean) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putBoolean(context.getString(R.string.pref_key_metrics_ouinet), newValue)
+            }
+    }
+
+    fun saveOuicrawlData(context: Context, ouicrawlData: String) {
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(context.getString(R.string.pref_key_ouicrawl_data), ouicrawlData)
+            }
+    }
+
+    fun getOuicrawlData(context: Context) : List<OuicrawlSite>? {
+        val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_ouicrawl_data), null)
+        try {
+            val ouicrawlSites = ouicrawlData?.let {
+                Json.decodeFromString<OuicrawledSitesListItem>(
+                    it
+                ).Sites
+            }
+            //filter by locale
+            val localeCode = Locale.getDefault().language
+            if (setOf("ru", "ua", "fa").contains(localeCode)) {
+                val sites =
+                    ouicrawlSites?.filter { it.Language == localeCode }
+                return sites
+            }
+            return ouicrawlSites
+        } catch (e:IllegalArgumentException) {
+            return null
+        }
+    }
 }

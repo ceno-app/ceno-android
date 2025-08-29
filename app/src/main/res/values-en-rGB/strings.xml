@@ -7,7 +7,7 @@
         <item quantity="one">%d tab</item>
         <item quantity="other">%d tabs</item>
     </plurals>
-    <string name="preferences_tracking_protection_normal">Enable in Public browsing mode</string>
+    <string name="preferences_tracking_protection_normal">Enable tracking protection Public browsing mode</string>
     <string name="shortcut_max_limit_content">Remove a shortcut to add a new one. Touch and hold the shortcut, then select \"Remove\".</string>
     <string name="preferences_delete_browsing_data">Delete browsing data</string>
     <string name="settings">Settings</string>
@@ -15,10 +15,10 @@
     <string name="preferences_delete_browsing_data_cached_files">Cached images and files</string>
     <string name="toast_copied">Copied!</string>
     <string name="toolbar_hint">Search or enter address</string>
-    <string name="menu_action_add_tab">Add New Tab</string>
+    <string name="menu_action_add_tab">Open New Tab</string>
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
-    <string name="preferences_tracking_protection_private">Enable in Personal browsing mode</string>
+    <string name="preferences_tracking_protection_private">Enable tracking protection in Personal browsing mode</string>
     <string name="privacy" tools:ignore="UnusedResources">Privacy</string>
     <string name="preferences_privacy_summary">Enable for Personal and Public Browsing</string>
     <string name="customization_settings">Customisation</string>
@@ -37,7 +37,7 @@
     <string name="dialog_cancel">Cancel</string>
     <string name="top_sites_sponsored_label">Sponsored</string>
     <string name="browser_menu_desktop_site">Request desktop site</string>
-    <string name="preferences_website_sources_summary">Select where you want to load website content from</string>
+    <string name="preferences_website_sources_summary">Select where you want to load content from</string>
     <string name="open_links_in_apps">Open links in apps</string>
     <string name="toolbar_category">Toolbar Options</string>
     <string name="udp_category">UDP</string>
@@ -70,7 +70,7 @@
     <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
     <string name="preferences_announcement_source_option_1">Production</string>
     <string name="preferences_ceno_sources_origin_summary">Load content directly from website</string>
-    <string name="website_button_link">https://censorship.no/en/index.html</string>
+    <string name="website_button_link">https://ceno.app/en/index.html</string>
     <string name="personal_browsing_mode_selected">personal browsing mode selected</string>
     <string name="preferences_theme_option_3">Set by Battery Saver</string>
     <string name="preferences_ceno_sources_peers_summary">Load content shared by other users</string>
@@ -82,7 +82,7 @@
     <string name="ceno_notification_description">Tap for more details</string>
     <string name="share_link_all_apps_subheader">All actions</string>
     <string name="progress_dialog_log_export_message">Computing your logs…</string>
-    <string name="privacy_policy_url">https://censorship.no/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
     <string name="setting_item_selected">%s selected</string>
     <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <string name="preferences_ceno_sources_public">Publicly</string>
@@ -101,7 +101,6 @@
     <string name="ouinet_client_fetch_success">Ceno setting updated</string>
     <string name="source_code_button_text">Source Code</string>
     <string name="support_button_text">Support</string>
-    <string name="ouinet_startup_time_2">2</string>
     <string name="error_page_title">Error Page</string>
     <string name="standby_tip_title">Tip</string>
     <string name="standby_message_one">Connecting to Ceno network</string>
@@ -109,13 +108,11 @@
     <string name="share_logs">Share</string>
     <string name="personal_mode_icon">personal mode icon</string>
     <string name="select_log_scope_header">Select your preferred scope</string>
-    <string name="ouinet_startup_time_quick">Quick</string>
     <string name="error_page_learn_more_3">Your device has a working connection to the network, i.e. your normal Web browser is able to open some websites. Ceno and Ouinet cannot work when all network connectivity is shut down.</string>
-    <string name="ouinet_startup_time_header">How long do you feel it typically takes for Ceno to start?</string>
     <string name="error_page_learn_more_2">All access mechanisms in the Settings are enabled. Otherwise Ceno will not be able to circumvent some connectivity issues when accessing content.</string>
     <string name="select_language">Select Language:</string>
     <string name="standby_take_me_anyway">Take me to Ceno anyway</string>
-    <string name="ceno_base_url">https://censorship.no</string>
+    <string name="ceno_base_url">https://ceno.app</string>
     <string name="preferences_additional_developer_tools">Additional developer tools</string>
     <string name="preferences_announcement_source">Announcement source</string>
     <string name="onboarding_battery_text_v33" tools:ignore="UnusedResources">Shortly the OS will ask you for permission to \n \n• Allow notifications \n• Disable battery optimisation \n \nThis is required to keep sharing websites while the app is in the background</string>
@@ -139,7 +136,7 @@
     <string name="crash_reporting_always_send">Always send, improve Ceno</string>
     <string name="preferences_ceno_sources_peers">Shared</string>
     <string name="preference_search_summary">Set default</string>
-    <string name="about_content_para_1">Ceno (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.</string>
+    <string name="about_content_para_1">Ceno is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised.</string>
     <string name="eq_news_button_text">News</string>
     <string name="preferences_ceno_sources_origin">Website</string>
     <string name="preferences_ceno_sources_private_summary">Load content via the private Ceno network</string>
@@ -170,13 +167,10 @@
     <string name="addon_placeholder" tools:ignore="UnusedResources">No Add-ons Available</string>
     <string name="ceno_sources_via_ceno_network">Using Ceno network</string>
     <string name="last_5_minutes">Last 5 minutes</string>
-    <string name="ouinet_startup_time_1">1</string>
     <string name="error_page_header">Oops! Failed to load webpage.</string>
     <string name="website_button_text">Website</string>
     <string name="eq_values_button_text">Values</string>
     <string name="empty_log_text">Looks like your log is empty</string>
-    <string name="ouinet_startup_time_3">3</string>
-    <string name="ouinet_startup_time_4">4</string>
     <string name="ceno_onboarding_start_title">Share the web, \npeer-to-peer</string>
     <string name="onboarding_cleanup_text">Clear your browsing history, credentials and any trace you left on Ceno with one single button.</string>
     <string name="change_bt_bootstrap_server">Change BT Bootstrap Server</string>
@@ -196,9 +190,6 @@
     <string name="start_tooltip_description">Unlock Ceno\'s full potential – Take a guided tour to discover key features, and allow permissions to help share the web even when the app is in the background.</string>
     <string name="public_mode_icon">public mode icon</string>
     <string name="last_10_minutes">Last 10 minutes</string>
-    <string name="clean_insights_successful_opt_out">Disabled background analytics</string>
-    <string name="ouinet_startup_time_too_long">Too long</string>
-    <string name="ouinet_startup_time_5">5</string>
     <string name="onboarding_battery_text" tools:ignore="UnusedResources">Shortly the OS will ask you for permission to \n \n• Disable battery optimisation. \n \nThis is required to keep sharing websites while the app is in the background</string>
     <string name="ceno_network_status_disconnected">Disconnected. Check your network settings or export logs for additional information.</string>
     <string name="onboarding_warning_text" tools:ignore="UnusedResources">Battery optimisation is still enabled. \n \nGo to \"Settings &gt; Disable Battery Optimisation\" to give permission later</string>
@@ -249,9 +240,8 @@
     <string name="preferences_about_page">About</string>
     <string name="about_category">About</string>
     <string name="about_content_title">Share the Web!</string>
-    <string name="ceno_mode_manual_link">https://censorship.no/user-manual/en/concepts/public-private.html</string>
+    <string name="ceno_mode_manual_link">https://ceno.app/user-manual/en/concepts/public-private.html</string>
     <string name="ceno_private_browsing_body">&lt;h1&gt;Personal Browsing&lt;/h1&gt; &lt;p&gt;Ceno will not share content from personal tabs with other users. You can safely visit sites that require login. A path to the Internet is needed, though.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Want to learn more?&lt;/p&gt;</string>
-    <string name="about_content" tools:ignore="UnusedResources">&lt;p&gt;%1$s - Share the Web!&lt;/p&gt; &lt;p&gt;Ceno (short for censorship.no!) is the world’s first mobile browser that side-steps current Internet censorship methods. Its peer-to-peer backbone allows people to access and share web information in and across regions where connectivity has been interrupted or compromised. &lt;/p&gt; &lt;p&gt;%1$s is a project of &lt;a href=https://equalit.ie/&gt;eQualit.ie&lt;/a&gt;, – a not-for-profit Canadian organisation that creates decentralised internet services in support of a more equal and equitable network. eQualitie\'s solutions are open source, battle proven and developed in mind of our values. Everyday, they enable freedom of association for millions of people online.&lt;/p&gt;</string>
     <string name="ceno_clear_action_description">Clear</string>
     <string name="preferences_allow_crash_reporting">Crash reporting</string>
     <string name="preferences_allow_notifications">Notifications</string>
@@ -285,7 +275,6 @@
     <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings &gt; Crash reporting.</string>
     <string name="bt_sources_none">None</string>
     <string name="bt_invalid_ip_error">Invalid IP</string>
-    <string name="browser_menu_ceno_ext" tools:ignore="UnusedResources">Ceno Settings</string>
     <string name="default_top_site_1_title">Ceno Manual</string>
     <string name="onboarding_warning_button">Okay</string>
     <string name="onboarding_thanks_title" tools:ignore="UnusedResources">Thanks for growing the network!</string>
@@ -294,7 +283,6 @@
     <string name="preferences_toolbar_hide">Scroll to hide</string>
     <string name="preferences_show_home_button">Show home button</string>
     <string name="preferences_show_onboarding">Show tooltips on next launch</string>
-    <string name="preferences_allow_clean_insights_tracking">Allow background analytics</string>
     <string name="preferences_clear_behavior_option_1">Prompt</string>
     <string name="preferences_theme">Set app theme</string>
     <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
@@ -324,7 +312,7 @@
     <string name="ouinet_taking_too_long_title">Taking too long?</string>
     <string name="network_settings">Network Settings</string>
     <string name="personal_home_learn_more">Want to learn more?</string>
-    <string name="ceno_support_link_url">https://censorship.no/en/support.html</string>
+    <string name="ceno_support_link_url">https://ceno.app/en/faq.html</string>
     <string name="ceno_android_logs_file_name">Ceno Logs</string>
     <string name="ceno_log_content_group_file_saved">Shared content saved successfully</string>
     <string name="ceno_android_content_group_file_name">Ceno shared content</string>
@@ -337,7 +325,7 @@
     <string name="enable_bridge_card_title">Enable Bridge Mode</string>
     <string name="bridge_mode_ip_warning_text">Note that this will make your public IP address visible to other Ceno users.</string>
     <string name="learn_more_title">Learn More</string>
-    <string name="bridge_mode_faq_url">https://censorship.no/en/support.html#bridgemode</string>
+    <string name="bridge_mode_faq_url">https://ceno.app/en/faq.html#bridgemode</string>
     <string name="ceno_log_file_saved_desc">To prioritise your privacy, all personally identifiable information has been carefully removed from this log.</string>
     <string name="canceled">Cancelled</string>
     <string name="standby_restarting_text">Restarting…</string>
@@ -352,11 +340,9 @@
     <string name="clean_insights_explainer">Your contribution will be anonymous, and you can opt out at any time.</string>
     <string name="optional_metrics">Optional metrics:</string>
     <string name="device_type">Device type</string>
-    <string name="load_times">App startup time</string>
     <string name="device_locale">Device locale (language)</string>
     <string name="clean_insights_opt_in">YES, OPT ME IN</string>
     <string name="clean_insights_maybe_later">NO, MAYBE LATER</string>
-    <string name="clean_insights_successful_opt_in">Enabled background analytics</string>
     <string name="thank_you_for_feedback">Thank you for your feedback!</string>
     <string name="submit">Submit</string>
     <string name="browser_menu_enable_reader_view">Show Reader View</string>
@@ -389,4 +375,5 @@
         <item quantity="one">You are %d tap away from enabling developer tools</item>
         <item quantity="other">You are %d taps away from enabling developer tools</item>
     </plurals>
+    <string name="bookmark_menu_delete_button">Delete</string>
 </resources>

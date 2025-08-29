@@ -26,6 +26,7 @@ import androidx.fragment.app.Fragment
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAboutBinding
+import ie.equalit.ceno.ext.components
 import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
@@ -64,9 +65,9 @@ class AboutFragment : Fragment() {
         val versionInfo = String.format(
             "%s \uD83D\uDCE6: %s, %s\n\uD83D\uDEA2: %s",
             aboutText,
-            Build.version,
-            Build.gitHash,
-            Build.applicationServicesVersion,
+            Build.VERSION,
+            Build.GIT_HASH,
+            Build.APPLICATION_SERVICES_VERSION,
         )
 
         setLinkTextView(requireContext(), binding.btnWebsite, resources.getString(R.string.website_button_text))
@@ -101,6 +102,8 @@ class AboutFragment : Fragment() {
     }
 
     companion object {
+        private const val TAG = "AboutFragment"
+
         @SuppressLint("ClickableViewAccessibility")
         fun setLinkTextView (context: Context, textView : TextView, text : String) {
             val notClickedString = SpannableString(text)

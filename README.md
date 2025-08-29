@@ -1,4 +1,4 @@
-<img src="https://ceno.app/img/logo_ceno.png" width=250px alt="Ceno Browser">
+<img src="https://ceno.app/static/img/logos/ceno-logo.png" width=250px alt="Ceno Browser">
 
 
 [![pipeline status](https://gitlab.com/ceno-app/ceno-android/badges/main/pipeline.svg)](https://gitlab.com/ceno-app/ceno-android/commits/main)
@@ -12,18 +12,12 @@ Built from [Mozilla Android Components](https://github.com/mozilla-mobile/firefo
 
 ## ▶️ Access
 
-[<img src="https://play.google.com/intl/en_us/badges/images/generic/en_badge_web_generic.png"
+[<img src="https://ceno.app/static/img/index/google-play.png"
       alt="Get it on Play Store"
       height="80">](https://play.google.com/store/apps/details?id=ie.equalit.ceno)
-[<img src="https://ceno.app/img/paskoocheh_badge.png"
+[<img src="https://ceno.app/static/img/index/paskoocheh.png"
       alt="Get it on Paskoocheh" 
       height="80">](https://paskoocheh.com/tools/124/android.html?utm_source=UpdatePage)
-[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
-     alt="Get it on F-Droid"
-     height="80">](https://f-droid.org/packages/ie.equalit.ceno/)
-[<img src="https://ceno.app/img/dcomms_badge.png"
-     alt="Get it on dComms"
-     height="80">](https://dcomm.net.ua/package/ceno/)
 
 ## 🚀 Features
 
@@ -43,7 +37,11 @@ Fight censorship by becoming a bridge! Install and run Ceno Browser to instantly
 Ceno Browser is powered by [Ouinet](https://ouinet.work), an open source library enabling third party developers to incorporate the Ceno network into their apps for peer-to-peer connectivity.
 
 ## ❗ Important Notice:
-Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://ceno.app/en/support.html) or [User Manual](https://ceno.app/user-manual/en/) for more details on Ceno usage.
+Ceno has two modes of operation - **Public** and **Personal**. You can easily toggle between them. Public mode offers the best connectivity but the least privacy - websites that you visit or share are recorded in a publicly accessible registry (BitTorrent). Private mode eliminates this record but may be slower and less efficient at retrieving content. See the [FAQ](https://ceno.app/en/faq.html) or [User Manual](https://ceno.app/user-manual/en/) for more details on Ceno usage.
+
+By default, Ceno collects anonymized application and network metrics to help us understand issues and improve application performance and user experience. The metrics records are encrypted-at-rest on your device and in-transit to eQualitie's self-hosted metrics endpoint. Metrics records are submitted at least once per-hour and are deleted from your device after submission. The collected data is aggregated on a weekly-basis and then deleted from our servers. No personal information is collected and the data is never shared with third-parties. Users can opt-out of metrics collection at any time via the `Settings > Background metrics > Ceno Metrics` toggle.
+
+Read more about the technical details of what we collect in the Ouinet repo's [record_format.md](https://gitlab.com/equalitie/ouinet/-/blob/main/rust/record_format.md).
 
 ## ❣️ Contributing
 From testing to translations to bug reporting and merge requests, there are lots of ways to contribute to this project! Please see [the contributing guidelines](CONTRIBUTING.md) for more information.
@@ -60,11 +58,6 @@ The resulting apks will be copied to the `output/debug/` directory.
 The Ouinet client configuration is currently hardcoded at build time and cannot be changed at run time. You may customize the `local.properties` file with your own values and rebuild as needed.
 
 By default, the latest versions of the [Ouinet library](https://gitlab.com/equalitie/ouinet/-/releases) and our forks of [Mozilla's GeckoView and Android-Components](https://github.com/mozilla-mobile/firefox-android/releases) (built with our [Mozilla Build Scripts](https://gitlab.com/ceno-app/mozilla-build-scripts)) are automatically downloaded from the [Maven Central repository](https://repo.maven.apache.org/maven2/ie/equalit/ouinet/) and used for building both the debug and release variants of Ceno Browser.
-
-### F-Droid Build
-To build the F-Droid version of Ceno Browser, which requires that the Mozilla libraries are built from scratch without any prebuilts or proprietary blobs, follow the instructions in the [cenobuild repo](https://gitlab.com/ceno-app/cenobuild).
-
-Note: the use of Mozilla's prebuilt libraries in the official release of Ceno Browser means that F-Droid requires we disclose the "Upstream Non-Free" Anti-Feature, for more on this, see [#77](https://gitlab.com/ceno-app/ceno-android/-/issues/77).
 
 # Accessibility
 

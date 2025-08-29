@@ -2,7 +2,7 @@ Share the Web! Ceno is the world's first web browser that gets better with every
 
 Ceno is a completely free and open source browser that doesn’t require registration. It is completely ad-free.
 
-We collect only opt-in, anonymized data regarding app performance and do not share it with third parties.
+We collect some anonymized app and network metrics. No personal information is collected and the data is never shared with third-parties. Metrics collection is enabled by default, users can opt-out of it any time via the `Settings > Background metrics > Ceno Metrics` toggle. Please refer to our <a href="https://ceno.app/en/privacy_policy.html">Privacy Policy</a> for more information about what we collect.
 
 🔓 👀 Access blocked media and other websites. Free and anonymous in Personal Mode.
 

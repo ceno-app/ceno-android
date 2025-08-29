@@ -7,6 +7,7 @@ import android.content.Intent
 import android.net.ConnectivityManager
 import android.net.Network
 import android.net.NetworkCapabilities
+import android.net.NetworkCapabilities.NET_CAPABILITY_INTERNET
 import android.net.NetworkInfo
 import android.os.Build
 import android.os.Bundle
@@ -95,12 +96,12 @@ class StandbyFragment : Fragment() {
         val cm : ConnectivityManager = requireContext().getSystemService() ?: return false
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             val cap = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-            return cap.hasCapability(NetworkCapabilities.NET_CAPABILITY_INTERNET)
+            return cap.hasCapability(NET_CAPABILITY_INTERNET)
         } else {
             val networks: Array<Network> = cm.allNetworks
             for (n in networks) {
-                val nInfo: NetworkInfo = cm.getNetworkInfo(n) ?: return false
-                if (nInfo != null && nInfo.isConnected) return true
+                if (cm.getNetworkCapabilities(n)?.hasCapability(NET_CAPABILITY_INTERNET) == true)
+                    return true
             }
         }
         return false

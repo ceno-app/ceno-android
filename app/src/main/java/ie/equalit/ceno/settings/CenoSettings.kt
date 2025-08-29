@@ -18,29 +18,34 @@ import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
+import kotlin.random.Random
 import androidx.core.content.edit
+import mozilla.components.concept.fetch.MutableHeaders
 
 
 @Serializable
-data class OuinetStatus(val auto_refresh : Boolean,
-                        val bt_extra_bootstraps : Array<String>,
-                        val distributed_cache : Boolean,
-                        val external_udp_endpoints : Array<String>? = null,
-                        val injector_access : Boolean,
-                        val is_upnp_active : String,
-                        val local_cache_size : Long? = null,
-                        val bridge_announcement : Boolean,
-                        val local_udp_endpoints : Array<String>? = null,
-                        val logfile : Boolean,
-                        val max_cached_age : Int,
-                        val origin_access : Boolean,
-                        val ouinet_build_id : String,
-                        val ouinet_protocol : Int,
-                        val ouinet_version: String,
-                        val proxy_access : Boolean,
-                        val public_udp_endpoints: Array<String>? = null,
-                        val state: String,
-                        val udp_world_reachable : String? = null
+data class OuinetStatus(
+    val auto_refresh : Boolean,
+    val bt_extra_bootstraps : Array<String>,
+    val distributed_cache : Boolean,
+    val external_udp_endpoints : Array<String>? = null,
+    val injector_access : Boolean,
+    val is_upnp_active : String,
+    val local_cache_size : Long? = null,
+    val bridge_announcement : Boolean,
+    val local_udp_endpoints : Array<String>? = null,
+    val logfile : Boolean,
+    val max_cached_age : Int,
+    val metrics_enabled: Boolean,
+    val origin_access : Boolean,
+    val ouinet_build_id : String,
+    val ouinet_protocol : Int,
+    val ouinet_version: String,
+    val proxy_access : Boolean,
+    val public_udp_endpoints: Array<String>? = null,
+    val state: String,
+    val udp_world_reachable : String? = null,
+    val current_metrics_record_id: String
 )
 
 enum class OuinetKey(val command : String) {
@@ -53,19 +58,24 @@ enum class OuinetKey(val command : String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
-    LOG_LEVEL("log_level")
+    LOG_LEVEL("log_level"),
+    CENO_METRICS("?metrics"),
+    ADD_METRICS("api/metrics/set_key_value?record_id")
 }
 
 enum class OuinetValue(val string: String) {
-    DISABLED("disabled"),
-    ENABLED("enabled"),
-    OTHER("other")
+    OTHER("other"),
+    ENABLE("enable"),
+    DISABLE("disable")
 }
 
 object CenoSettings {
 
     const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
     const val LOGFILE_TXT = "logfile.txt"
+    private const val TOKEN_LENGTH = 27
+
+    var currentMetricsRecordId:String = ""
 
     private fun log2(n: Double): Double {
         return ln(n) / ln(2.0)
@@ -108,7 +118,7 @@ object CenoSettings {
     fun setOuinetState(context: Context, text : String) {
         val key = context.getString(R.string.pref_key_ouinet_state)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
@@ -153,7 +163,7 @@ object CenoSettings {
     fun setCenoCacheSize(context: Context, text : String) {
         val key = context.getString(R.string.pref_key_ceno_cache_size)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
@@ -166,7 +176,7 @@ object CenoSettings {
     private fun setReachabilityStatus(context: Context, text : String?) {
         val key = context.getString(R.string.pref_key_ouinet_reachability_status)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
@@ -179,7 +189,7 @@ object CenoSettings {
     private fun setUpnpStatus(context: Context, text : String?) {
         val key = context.getString(R.string.pref_key_ouinet_upnp_status)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
@@ -213,7 +223,7 @@ object CenoSettings {
         texts?.forEach { formattedText += "${it.trim()} " }
 
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, formattedText.ifEmpty { null })
             }
     }
@@ -385,6 +395,7 @@ object CenoSettings {
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
+        currentMetricsRecordId = status.current_metrics_record_id
         if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
@@ -401,22 +412,35 @@ object CenoSettings {
         newValue: OuinetValue? = null,
         stringValue: String? = null,
         ouinetResponseListener: OuinetResponseListener? = null,
-        shouldRefresh: Boolean = true
+        shouldRefresh: Boolean = true,
+        forMetrics : Boolean = false,
+        metricsKey : String? = null
     ) {
         MainScope().launch {
-            val request : String = if (newValue != null)
-                "${SET_VALUE_ENDPOINT}/${key.command}=${if(newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
-            else
-                "${SET_VALUE_ENDPOINT}/${key.command}"
+            val request : String = if (metricsKey != null) {
+                "${SET_VALUE_ENDPOINT}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
+            } else {
+                if (newValue != null)
+                    "${SET_VALUE_ENDPOINT}/${key.command}=${if (newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
+                else
+                    "${SET_VALUE_ENDPOINT}/${key.command}"
+            }
 
-            webClientRequest(context, Request(request)).let { response ->
+            webClientRequest (
+                context,
+                Request(request, headers = MutableHeaders(Pair("X-Ouinet-Front-End-Token",
+                    context.components.ouinet.METRICS_FRONTEND_TOKEN)))
+            ).let { response ->
 
                 if(response == null) ouinetResponseListener?.onError()
 
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
-                            updateOuinetStatus(context, response, shouldRefresh)
+                            if(forMetrics)
+                                currentMetricsRecordId = Json.decodeFromString<OuinetStatus>(response).current_metrics_record_id
+                            else
+                                updateOuinetStatus(context, response, shouldRefresh)
                         else
                             ouinetResponseListener?.onError()
                     }
@@ -465,9 +489,29 @@ object CenoSettings {
                         else
                             ouinetResponseListener?.onError()
                     }
+                    OuinetKey.CENO_METRICS -> {
+                        if (response == null) {
+                            ouinetResponseListener?.onError()
+                        } else {
+                            ouinetResponseListener?.onSuccess(response)
+                        }
+                    }
+                    OuinetKey.ADD_METRICS -> {
+                        if (response == null) {
+                            ouinetResponseListener?.onError()
+                        } else {
+                            ouinetResponseListener?.onSuccess(response)
+                        }
+                    }
                 }
             }
             return@launch
         }
+    }
+    fun generateRandomToken() : String{
+        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        return (1..TOKEN_LENGTH)
+            .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
+            .joinToString("")
     }
 }

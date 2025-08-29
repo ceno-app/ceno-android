@@ -3,6 +3,7 @@ package ie.equalit.ceno.home
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -199,7 +200,8 @@ class HomeFragment : BaseHomeFragment() {
             context?.let { context ->
                 sessionControlView?.update(
                     it,
-                    Settings.getAnnouncementData(context)?.items /* From local storage */
+                    Settings.getAnnouncementData(context)?.items /* From local storage */,
+                    Settings.getOuicrawlData(context)
                 )
                 updateUI(it.mode)
                 updateSearch(it.mode)
@@ -213,38 +215,19 @@ class HomeFragment : BaseHomeFragment() {
                 // Switch context to make network call
                 withContext(Dispatchers.IO) {
 
-                    // Get language code or fall back to 'en'
-                    val languageCode = Locale.getDefault().language.ifEmpty { "en" }
+                    getAnnouncements(context)
+                    getOuicrawlSites(context)
 
-                    var response = CenoSettings.webClientRequest(
-                        context,
-                        Request(Settings.getRSSAnnouncementUrl(context, languageCode))
-                    )
-
-                    // if the network call fails, try to load 'en' locale
-                    if (response == null) {
-                        response = CenoSettings.webClientRequest(
-                            context,
-                            Request(Settings.getRSSAnnouncementUrl(context, "en"))
-                        )
-                    }
-
-                    response?.let { result ->
-                        val rssResponse = XMLParser.parseRssXml(result)
-
-                        // perform null-check and save announcement data in local
-                        rssResponse?.let { Settings.saveAnnouncementData(context, it) }
-
-                        // check for null and refresh homepage adapter if necessary
-                        // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
-                        if (Settings.getAnnouncementData(context) != null) {
-                            withContext(Dispatchers.Main) {
-                                val state = context.components.appStore.state
-                                sessionControlView?.update(
-                                    state,
-                                    Settings.getAnnouncementData(context)?.items
-                                )
-                            }
+                    // check for null and refresh homepage adapter if necessary
+                    // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
+                    if (Settings.getAnnouncementData(context) != null && Settings.getOuicrawlData(context) != null) {
+                        withContext(Dispatchers.Main) {
+                            val state = context.components.appStore.state
+                            sessionControlView?.update(
+                                state,
+                                Settings.getAnnouncementData(context)?.items,
+                                Settings.getOuicrawlData(context)
+                            )
                         }
                     }
                 }
@@ -304,7 +287,6 @@ class HomeFragment : BaseHomeFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        updateUI(themeManager.currentMode)
         binding.sessionControlRecyclerView.visibility = View.VISIBLE
 
         binding.sessionControlRecyclerView.itemAnimator = null
@@ -449,6 +431,44 @@ class HomeFragment : BaseHomeFragment() {
         Settings.setShowOnboarding(requireContext(), false)
     }
 
+    private suspend fun getAnnouncements(context: Context) {
+        // Get language code or fall back to 'en'
+        val languageCode = Locale.getDefault().language.ifEmpty { "en" }
+
+        var response = CenoSettings.webClientRequest(
+            context,
+            Request(Settings.getRSSAnnouncementUrl(context, languageCode))
+        )
+
+        // if the network call fails, try to load 'en' locale
+        if (response == null) {
+            response = CenoSettings.webClientRequest(
+                context,
+                Request(Settings.getRSSAnnouncementUrl(context, "en"))
+            )
+        }
+
+        response?.let { result ->
+            val rssResponse = XMLParser.parseRssXml(result)
+
+            // perform null-check and save announcement data in local
+            rssResponse?.let { Settings.saveAnnouncementData(context, it) }
+        }
+    }
+
+    private suspend fun getOuicrawlSites(context: Context) {
+        var ouicrawlResponse = CenoSettings.webClientRequest(
+            context,
+            Request("https://schedule.ceno.app/schedule.json")
+        )
+        ouicrawlResponse?.let {
+            Log.d("Ouicrawl", ouicrawlResponse)
+            Settings.saveOuicrawlData(context, ouicrawlResponse)
+//            var responseObject = Json.decodeFromString<OuicrawledSitesListItem>(ouicrawlResponse)
+//            val ouicrawledSites = responseObject.Sites
+        }
+    }
+
     private fun askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
@@ -465,6 +485,6 @@ class HomeFragment : BaseHomeFragment() {
         const val TOOLBAR_TOOLTIP = 4
         const val BEGIN_TOUR_TOOLTIP = 1
 
-        const val TAG = "HOMEPAGE"
+        private const val TAG = "HomeFragment"
     }
 }

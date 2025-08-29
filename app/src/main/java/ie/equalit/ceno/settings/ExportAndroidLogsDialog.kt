@@ -24,7 +24,6 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
-import ie.equalit.ceno.settings.SettingsFragment.Companion.TAG
 import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ouinet.Config
@@ -70,7 +69,7 @@ class ExportAndroidLogsDialog (
                         CenoSettings.ouinetClientRequest(
                             context = this@ExportAndroidLogsDialog.context,
                             key = OuinetKey.LOGFILE,
-                            newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLED else OuinetValue.DISABLED,
+                            newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
                             stringValue = null,
                             object : OuinetResponseListener {
                                 override fun onSuccess(message: String, data: Any?) {
@@ -222,5 +221,9 @@ class ExportAndroidLogsDialog (
 
     fun getDialog(): AlertDialog {
         return builder.create()
+    }
+
+    companion object {
+        private const val TAG = "ExportAndroidLogsDialog"
     }
 }
