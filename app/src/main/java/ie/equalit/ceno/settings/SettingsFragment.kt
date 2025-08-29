@@ -186,7 +186,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
             getPreference(pref_key_ouinet_state)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {
-                    CenoSettings.getOuinetState(requireContext())
+                    CenoSettings.getOuinetStateLocalized(requireContext())
                 }
             if (it.ouinetStatus == Ouinet.RunningState.Started) {
                 bridgeAnnouncementDialog.dismiss()
@@ -371,7 +371,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             /* Enable Ceno related options */
             getPreference(pref_key_ouinet_state)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {
-                    CenoSettings.getOuinetState(requireContext())
+                    CenoSettings.getOuinetStateLocalized(requireContext())
                 }
             getPreference(pref_key_ceno_cache_size)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {

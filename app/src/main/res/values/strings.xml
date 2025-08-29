@@ -504,4 +504,11 @@
         <item quantity="other">%d days ago</item>
     </plurals>
     <string name="ceno_support_link_url">https://ceno.app/en/faq.html</string>
+    <string name="ouinet_state_created">Created</string>
+    <string name="ouinet_state_failed">Failed</string>
+    <string name="ouinet_state_starting">Starting</string>
+    <string name="ouinet_state_degraded">Degraded</string>
+    <string name="ouinet_state_started">Started</string>
+    <string name="ouinet_state_stopping">Stopping</string>
+    <string name="ouinet_state_stopped">Stopped</string>
 </resources>
