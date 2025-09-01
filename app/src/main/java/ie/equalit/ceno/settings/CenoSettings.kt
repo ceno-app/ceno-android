@@ -79,6 +79,16 @@ object CenoSettings {
     const val LOGFILE_TXT = "logfile.txt"
     private const val TOKEN_LENGTH = 27
 
+    private val runningState = mapOf(
+        "Created" to R.string.ouinet_state_created,
+        "Failed" to R.string.ouinet_state_failed,
+        "Starting" to R.string.ouinet_state_starting,
+        "Degraded" to R.string.ouinet_state_degraded,
+        "Started" to R.string.ouinet_state_started,
+        "Stopping" to R.string.ouinet_state_stopping,
+        "Stopped" to R.string.ouinet_state_stopped,
+        )
+
     var currentMetricsRecordId:String = ""
 
     private fun log2(n: Double): Double {
@@ -118,6 +128,11 @@ object CenoSettings {
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_state), null
         )
+
+    fun getOuinetStateLocalized(context: Context) : String? {
+        val state = getOuinetState(context)
+        return runningState[state]?.let { context.getString(it) }
+    }
 
     fun setOuinetState(context: Context, text : String) {
         val key = context.getString(R.string.pref_key_ouinet_state)
