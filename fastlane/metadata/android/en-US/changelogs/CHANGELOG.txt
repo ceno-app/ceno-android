@@ -3,6 +3,7 @@ This release:
 - Updates Android-Components to 142.0.1
 - Updates Sentry to 8.18.0
 - Updates Ouinet to v1.3.1
+- Update cacert.pem with bundle generated on Tue Aug 12 2025
 
 # v2.6.1
 This release:
