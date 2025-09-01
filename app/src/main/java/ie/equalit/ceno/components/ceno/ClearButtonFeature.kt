@@ -3,6 +3,8 @@ package ie.equalit.ceno.components.ceno
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.CenoSettings
@@ -11,6 +13,7 @@ import mozilla.components.support.base.log.logger.Logger
 
 class ClearButtonFeature(
     private val context: Context,
+    private val lifecycleOwner: LifecycleOwner,
     private val behavior: Int)
 {
     /* CENO: Function to create popup opened by purge toolbar button */
@@ -26,7 +29,11 @@ class ClearButtonFeature(
                 }
                 DialogInterface.BUTTON_NEGATIVE -> {
                     Logger.debug("Clear CENO cache only selected")
-                    CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE_CACHE)
+                    CenoSettings.ouinetClientRequest(
+                        context,
+                        lifecycleOwner.lifecycleScope,
+                        OuinetKey.PURGE_CACHE
+                    )
                 }
             }
         }
@@ -42,7 +49,11 @@ class ClearButtonFeature(
     fun onClick() {
         return when (behavior){
             CLEAR_PROMPT -> createClearDialog().show()
-            CLEAR_CACHE -> CenoSettings.ouinetClientRequest(context, OuinetKey.PURGE_CACHE)
+            CLEAR_CACHE -> CenoSettings.ouinetClientRequest(
+                context,
+                lifecycleOwner.lifecycleScope,
+                OuinetKey.PURGE_CACHE
+            )
             CLEAR_APP -> (context as BrowserActivity).beginShutdown(true)
             else -> {}
         }

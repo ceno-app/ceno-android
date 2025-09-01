@@ -4,6 +4,7 @@ This release:
 - Updates Sentry to 8.18.0
 - Updates Ouinet to v1.3.1
 - Remove remaining uses of OuinetNotification
+- Fixes app not responding error due to network metrics
 
 # v2.6.1
 This release:
