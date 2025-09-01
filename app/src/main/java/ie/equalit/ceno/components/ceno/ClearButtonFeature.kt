@@ -9,6 +9,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
+import kotlinx.coroutines.MainScope
 import mozilla.components.support.base.log.logger.Logger
 
 class ClearButtonFeature(
@@ -31,7 +32,7 @@ class ClearButtonFeature(
                     Logger.debug("Clear CENO cache only selected")
                     CenoSettings.ouinetClientRequest(
                         context,
-                        lifecycleOwner.lifecycleScope,
+                        MainScope(),
                         OuinetKey.PURGE_CACHE
                     )
                 }
@@ -51,7 +52,7 @@ class ClearButtonFeature(
             CLEAR_PROMPT -> createClearDialog().show()
             CLEAR_CACHE -> CenoSettings.ouinetClientRequest(
                 context,
-                lifecycleOwner.lifecycleScope,
+                MainScope(),
                 OuinetKey.PURGE_CACHE
             )
             CLEAR_APP -> (context as BrowserActivity).beginShutdown(true)

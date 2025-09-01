@@ -60,7 +60,7 @@ class ExtraBTBootstrapsDialog(
 
                 CenoSettings.ouinetClientRequest(
                     context,
-                    lifecycleScope = lifecycleOwner.lifecycleScope,
+                    coroutineScope = lifecycleOwner.lifecycleScope,
                     OuinetKey.EXTRA_BOOTSTRAPS,
                     OuinetValue.OTHER,
                     URLEncoder.encode(allSelectedIPs.joinToString(" "), "UTF-8"),

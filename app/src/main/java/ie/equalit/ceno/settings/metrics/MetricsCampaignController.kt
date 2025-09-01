@@ -51,7 +51,7 @@ class DefaultMetricsCampaignController(
         //web api call
         CenoSettings.ouinetClientRequest(
             context = context,
-            lifecycleScope = lifecycleOwner.lifecycleScope,
+            coroutineScope = lifecycleOwner.lifecycleScope,
             key = OuinetKey.CENO_METRICS,
             newValue = if (newValue) OuinetValue.ENABLE else OuinetValue.DISABLE,
             stringValue = null,

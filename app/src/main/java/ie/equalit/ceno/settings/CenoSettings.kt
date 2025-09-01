@@ -23,6 +23,7 @@ import androidx.core.content.edit
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import mozilla.components.concept.fetch.MutableHeaders
 
 
@@ -412,7 +413,7 @@ object CenoSettings {
 
     fun ouinetClientRequest(
         context: Context,
-        lifecycleScope: CoroutineScope,
+        coroutineScope: CoroutineScope,
         key : OuinetKey,
         newValue: OuinetValue? = null,
         stringValue: String? = null,
@@ -421,7 +422,7 @@ object CenoSettings {
         forMetrics : Boolean = false,
         metricsKey : String? = null
     ) {
-        lifecycleScope.launch {
+        coroutineScope.launch {
             val request : String = if (metricsKey != null) {
                 "${SET_VALUE_ENDPOINT}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
             } else {

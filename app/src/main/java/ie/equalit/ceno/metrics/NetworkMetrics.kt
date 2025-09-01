@@ -14,6 +14,7 @@ import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -30,7 +31,7 @@ class NetworkMetrics(
         while(true) {
             CenoSettings.ouinetClientRequest(
                 context,
-                lifecycleScope,
+                CoroutineScope(Dispatchers.IO),
                 OuinetKey.API_STATUS,
                 forMetrics = true)
             if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
@@ -72,7 +73,7 @@ class NetworkMetrics(
     private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
         CenoSettings.ouinetClientRequest(
             context,
-            lifecycleScope,
+            CoroutineScope(Dispatchers.IO),
             OuinetKey.ADD_METRICS,
             stringValue = value,
             ouinetResponseListener = object : OuinetResponseListener {

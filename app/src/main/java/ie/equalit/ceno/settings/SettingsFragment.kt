@@ -562,7 +562,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // network request to update preference value
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
-                lifecycleScope = viewLifecycleOwner.lifecycleScope,
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOGFILE,
                 newValue = if (newValue == true) OuinetValue.ENABLE else OuinetValue.DISABLE,
                 stringValue = null,
@@ -580,7 +580,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // network request to update log level based on preference value
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
-                lifecycleScope = viewLifecycleOwner.lifecycleScope,
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOG_LEVEL,
                 stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
@@ -612,7 +612,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceClickListener {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
-                lifecycleScope = viewLifecycleOwner.lifecycleScope,
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.GROUPS_TXT,
                 ouinetResponseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
@@ -752,7 +752,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // network request to update preference value
         CenoSettings.ouinetClientRequest(
             context = requireContext(),
-            lifecycleScope = viewLifecycleOwner.lifecycleScope,
+            coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOGFILE,
             newValue = if (newValue) OuinetValue.ENABLE else OuinetValue.DISABLE,
             null,
@@ -770,7 +770,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // network request to update log level based on preference value
         CenoSettings.ouinetClientRequest(
             context = requireContext(),
-            lifecycleScope = viewLifecycleOwner.lifecycleScope,
+            coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
             stringValue = if (newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
