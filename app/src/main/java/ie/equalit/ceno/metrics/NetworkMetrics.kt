@@ -7,14 +7,12 @@ import android.net.NetworkCapabilities
 import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
-import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -23,15 +21,15 @@ import java.util.Date
 import java.util.TimeZone
 
 class NetworkMetrics(
-    val context:Context,
-    val lifecycleScope: CoroutineScope
+    val context: Context,
+    private val coroutineScope: CoroutineScope
 ) {
     private val metricsRecordId:Flow<String> = flow {
         var previousRecordid = ""
         while(true) {
             CenoSettings.ouinetClientRequest(
                 context,
-                CoroutineScope(Dispatchers.IO),
+                coroutineScope,
                 OuinetKey.API_STATUS,
                 forMetrics = true)
             if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
@@ -53,7 +51,7 @@ class NetworkMetrics(
     }
 
     fun collectNetworkMetrics() {
-        lifecycleScope.launch {
+        coroutineScope.launch {
             metricsRecordId.collect { recordId ->
                 //send metrics
                 //network country
@@ -73,7 +71,7 @@ class NetworkMetrics(
     private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
         CenoSettings.ouinetClientRequest(
             context,
-            CoroutineScope(Dispatchers.IO),
+            coroutineScope,
             OuinetKey.ADD_METRICS,
             stringValue = value,
             ouinetResponseListener = object : OuinetResponseListener {
