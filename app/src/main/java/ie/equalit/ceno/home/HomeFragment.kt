@@ -293,7 +293,7 @@ class HomeFragment : BaseHomeFragment() {
 
         binding.cenoNetworkStatusIcon.setOnClickListener {
             if(!isNetworkStatusDialogVisible) {
-                CenoNetworkStatusDialog(requireContext(), this, ouinetStatus) {
+                CenoNetworkStatusDialog(requireContext(), viewLifecycleOwner, this, ouinetStatus) {
                     isNetworkStatusDialogVisible = false
                 }.getDialog().show()
                 isNetworkStatusDialogVisible = true

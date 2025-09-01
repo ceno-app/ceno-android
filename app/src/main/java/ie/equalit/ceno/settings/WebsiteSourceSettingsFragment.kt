@@ -13,6 +13,8 @@ import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreference
 import androidx.core.graphics.drawable.toDrawable
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.ext.requireComponents
 
 class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
@@ -45,7 +47,10 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(R.string.pref_key_ceno_sources_public), false)
             setPreference(getPreference(R.string.pref_key_ceno_sources_shared), false)
             /* Fetch ouinet status */
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
+            CenoSettings.ouinetClientRequest(
+                requireContext(),
+                viewLifecycleOwner.lifecycleScope,
+                OuinetKey.API_STATUS)
         } else {
             /* Enable Ceno related options */
             setPreference(
@@ -78,7 +83,11 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             } else {
                 OuinetValue.DISABLE
             }
-            CenoSettings.ouinetClientRequest(requireContext(), key, value)
+            CenoSettings.ouinetClientRequest(
+                requireContext(),
+                viewLifecycleOwner.lifecycleScope,
+                key,
+                value)
             true
         }
     }

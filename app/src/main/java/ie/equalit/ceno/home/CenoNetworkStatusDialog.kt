@@ -15,9 +15,11 @@ import ie.equalit.ceno.settings.AboutFragment
 import ie.equalit.ceno.settings.ExportAndroidLogsDialog
 import ie.equalit.ouinet.Ouinet.RunningState
 import androidx.core.net.toUri
+import androidx.lifecycle.LifecycleOwner
 
 class CenoNetworkStatusDialog(
     val context: Context,
+    val lifecycleOwner: LifecycleOwner,
     val fragment: Fragment,
     val status: RunningState,
     onDismissListener: DialogInterface.OnDismissListener
@@ -52,7 +54,7 @@ class CenoNetworkStatusDialog(
                 //add additional buttons
                 setNegativeButton("EXPORT LOGS") { dialog, _ ->
                     dialog.dismiss()
-                    ExportAndroidLogsDialog(context, fragment).getDialog().show()
+                    ExportAndroidLogsDialog(context, lifecycleOwner, fragment).getDialog().show()
                 }
                 setView(getContactSupportView())
             }

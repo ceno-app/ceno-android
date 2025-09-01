@@ -283,14 +283,6 @@
             android:foregroundServiceType="mediaPlayback"
             />
 
-        <service
-            android:name="ie.equalit.ouinet.OuinetService"
-            android:enabled="true"
-            android:exported="false"
-            android:isolatedProcess="false"
-            android:process=":ouinetService"
-            />
-
         <service android:name=".browser.notification.PublicNotificationService"
             android:exported="false"
             android:foregroundServiceType="dataSync"/>

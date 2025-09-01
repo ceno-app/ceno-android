@@ -6,7 +6,8 @@ package ie.equalit.ceno.settings.metrics
 
 import android.content.Context
 import android.util.Log
-import ie.equalit.ceno.Components
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
@@ -22,8 +23,8 @@ interface MetricsCampaignController {
 
 @Suppress("LongParameterList")
 class DefaultMetricsCampaignController(
-    private var context: Context,
-    private val components: Components
+    private val context: Context,
+    private val lifecycleOwner: LifecycleOwner,
 ) : MetricsCampaignController {
 
     override fun crashReporting(newValue: Boolean) {
@@ -50,6 +51,7 @@ class DefaultMetricsCampaignController(
         //web api call
         CenoSettings.ouinetClientRequest(
             context = context,
+            coroutineScope = lifecycleOwner.lifecycleScope,
             key = OuinetKey.CENO_METRICS,
             newValue = if (newValue) OuinetValue.ENABLE else OuinetValue.DISABLE,
             stringValue = null,

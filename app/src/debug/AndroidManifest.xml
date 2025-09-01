@@ -274,13 +274,6 @@
         <service android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false" />
 
-        <service
-            android:name="ie.equalit.ouinet.OuinetService"
-            android:enabled="true"
-            android:exported="false"
-            android:isolatedProcess="false"
-            android:process=":ouinetService"/>
-
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.provider"

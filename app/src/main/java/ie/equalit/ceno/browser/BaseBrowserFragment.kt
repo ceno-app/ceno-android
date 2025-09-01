@@ -396,6 +396,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
             val clearButtonFeature = ClearButtonFeature(
                 requireContext(),
+                viewLifecycleOwner,
                 prefs.getString(
                     requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
                     .toInt()
