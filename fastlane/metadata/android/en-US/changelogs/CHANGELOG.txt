@@ -1,10 +1,11 @@
 # v2.6.2
 This release:
-- Updates Android-Components to 142.0
+- Updates Android-Components to 142.0.1
 - Updates Sentry to 8.18.0
 - Updates Ouinet to v1.3.1
 - Remove remaining uses of OuinetNotification
 - Fixes app not responding error due to network metrics
+- Update cacert.pem with bundle generated on Tue Aug 12 2025
 
 # v2.6.1
 This release:
