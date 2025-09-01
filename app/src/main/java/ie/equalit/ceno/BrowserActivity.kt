@@ -63,7 +63,6 @@ import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
-import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -501,11 +500,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
             val bundle = bundleOf(SettingsFragment.SCROLL_TO_CACHE to true)
             navHost.navController.navigate(R.id.action_global_settings, bundle)
-        }
-        if (safeIntent.action == Intent.ACTION_MAIN &&
-            safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
-        ) {
-            navHost.navController.navigate(R.id.action_global_home)
         }
         if (safeIntent.action == Intent.ACTION_VIEW) {
             navHost.navController.navigate(R.id.action_global_browser)
