@@ -451,4 +451,5 @@
         <item quantity="many">Há %d dias</item>
         <item quantity="other">Há %d dias</item>
     </plurals>
+    <string name="metrics_consent_dialog_description_link">Política de Privacidade</string>
 </resources>
