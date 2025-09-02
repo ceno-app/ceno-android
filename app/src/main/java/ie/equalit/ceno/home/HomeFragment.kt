@@ -266,11 +266,13 @@ class HomeFragment : BaseHomeFragment() {
                     ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
                 binding.sessionControlRecyclerView.background =
                     ContextCompat.getDrawable(it, R.color.fx_mobile_private_layer_color_3)
+                binding.wordmark.drawable.setTint(ContextCompat.getColor(it, R.color.photonWhite))
             } else {
                 binding.homeAppBar.background =
                     ContextCompat.getDrawable(it, R.color.ceno_home_background)
                 binding.sessionControlRecyclerView.background =
                     ContextCompat.getDrawable(it, R.color.ceno_home_background)
+                binding.wordmark.drawable.setTintList(null)
             }
         }
         applyTheme()
