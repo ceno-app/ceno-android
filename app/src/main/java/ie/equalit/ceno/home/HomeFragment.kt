@@ -272,12 +272,7 @@ class HomeFragment : BaseHomeFragment() {
                     ContextCompat.getDrawable(it, R.color.ceno_home_background)
                 binding.sessionControlRecyclerView.background =
                     ContextCompat.getDrawable(it, R.color.ceno_home_background)
-                binding.wordmark.drawable.setTint(
-                    ContextCompat.getColor(
-                        it,
-                        R.color.ceno_home_card_public_text
-                    )
-                )
+                binding.wordmark.drawable.setTintList(null)
             }
         }
         applyTheme()
