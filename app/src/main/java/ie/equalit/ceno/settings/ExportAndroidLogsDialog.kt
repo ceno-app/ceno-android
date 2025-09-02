@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
@@ -36,6 +37,7 @@ import mozilla.components.concept.engine.prompt.ShareData
 
 class ExportAndroidLogsDialog (
     val context: Context,
+    val lifecycleOwner: LifecycleOwner,
     val fragment: Fragment,
     var onDismiss: () -> Unit = {}
 ) {
@@ -68,6 +70,7 @@ class ExportAndroidLogsDialog (
                         // network request to update preference value
                         CenoSettings.ouinetClientRequest(
                             context = this@ExportAndroidLogsDialog.context,
+                            coroutineScope = lifecycleOwner.lifecycleScope,
                             key = OuinetKey.LOGFILE,
                             newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
                             stringValue = null,
@@ -85,6 +88,7 @@ class ExportAndroidLogsDialog (
                         // network request to update log level based on preference value
                         CenoSettings.ouinetClientRequest(
                             context = this@ExportAndroidLogsDialog.context,
+                            coroutineScope = lifecycleOwner.lifecycleScope,
                             key = OuinetKey.LOG_LEVEL,
                             stringValue = if (checkboxDebugLogs.isChecked) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
                             ouinetResponseListener = object : OuinetResponseListener {

@@ -192,7 +192,11 @@ class StandbyFragment : Fragment() {
             dialog?.dismiss()
             val btSourcesMap = mutableMapOf<String, String>()
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale("", entry[0]).displayCountry] = entry[1]
-            val extraBTDialog = ExtraBTBootstrapsDialog(requireContext(), btSourcesMap).getDialog()
+            val extraBTDialog = ExtraBTBootstrapsDialog(
+                requireContext(),
+                viewLifecycleOwner,
+                btSourcesMap
+            ).getDialog()
             extraBTDialog.setOnDismissListener {
                 tryAgain()
                 isAnyDialogVisible = false
@@ -204,7 +208,7 @@ class StandbyFragment : Fragment() {
         val btnExportLogs = timeoutDialogView.findViewById<Button>(R.id.btn_export_logs)
         btnExportLogs.setOnClickListener {
             dialog?.dismiss()
-            val exportLogsDialog = ExportAndroidLogsDialog(requireContext(), this) {
+            val exportLogsDialog = ExportAndroidLogsDialog(requireContext(), viewLifecycleOwner, this) {
                 isAnyDialogVisible = false
             }.getDialog()
             exportLogsDialog.setOnCancelListener {

@@ -44,6 +44,10 @@ enum class AppIcon(
 ) {
     DEFAULT(
         componentName = "$QUALIFIER.Launcher",
+        icon = R.mipmap.ic_launcher_default,
+    ),
+    BLUE(
+        componentName = "$QUALIFIER.LauncherBlue",
         icon = R.drawable.ic_app_icon_blue_round,
     ),
     WHITE(
