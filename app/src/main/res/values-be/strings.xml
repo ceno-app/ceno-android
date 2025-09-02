@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="preferences_delete_browsing_data_cookies">Кукі</string>
+    <string name="preference_category_search" tools:ignore="UnusedResources">Пошук</string>
+</resources>

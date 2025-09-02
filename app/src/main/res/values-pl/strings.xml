@@ -59,7 +59,7 @@
     <string name="preferences_privacy_summary">Zezwalaj w publicznym i prywatnym trybie przeglądania</string>
     <string name="preferences_tracking_protection_private">Zezwalaj w prywatnym trybie przeglądania</string>
     <string name="preferences_customization_summary">Ikona aplikacji, Pasek narzędzi, przycisk Wyczyść</string>
-    <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrenta</string>
+    <string name="bit_torrent_bootstraps_category">Bootstrapy BitTorrent</string>
     <string name="general_category">Ogólne</string>
     <string name="tracker_category">Ochrona przed śledzeniem</string>
     <string name="clear_button_category">Przycisk Wyczyść</string>
@@ -438,4 +438,26 @@
     <string name="bookmark_item_menu_button">przycisk dodania zakładki menu</string>
     <string name="metrics_consent_dialog_description">Uruchamiamy system metryk szanujących prywatność, który pomoże nam lepiej zrozumieć potrzeby użytkowników Ceno\n\nMożesz przejrzeć szczegóły jakie dane zbieramy i jak ja przetwarzamy w naszej Polityce Prywatności\n\nMożesz także wystąpić z programy w dowolnym czasie poprzez Ustawienia &gt; Metryki w tle.</string>
     <string name="metrics_consent_dialog_description_link">Polityce Prywatności</string>
+    <string name="foreground_notification_reminder_channel">Przypomnienie Ceno</string>
+    <string name="reminder_notification_title">Hey, Minęło trochę czasu!</string>
+    <string name="reminder_notification_text">Otwórz ponownie Ceno, aby cache była dostępna dla innych użytkowników</string>
+    <string name="ouicrawl_sites_section_title">Bezpłatny kanał multimedialny</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="one">%d minutę temu</item>
+        <item quantity="few">%d minut temu</item>
+        <item quantity="many">%d minut temu</item>
+        <item quantity="other">%d minut temu</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="one">%d godzinę temu</item>
+        <item quantity="few">%d godzin temu</item>
+        <item quantity="many">%d godzin temu</item>
+        <item quantity="other">%d godzin temu</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="one">%d dzień temu</item>
+        <item quantity="few">%d dni temu</item>
+        <item quantity="many">%d dni temu</item>
+        <item quantity="other">%d dni temu</item>
+    </plurals>
 </resources>
