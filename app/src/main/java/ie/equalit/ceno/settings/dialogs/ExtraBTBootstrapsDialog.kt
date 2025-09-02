@@ -12,6 +12,8 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.iterator
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.CenoSettings
@@ -26,6 +28,7 @@ import java.util.regex.Pattern
 
 class ExtraBTBootstrapsDialog(
     val context: Context,
+    val lifecycleOwner: LifecycleOwner,
     val btSourcesMap:MutableMap<String, String>,
     val updatePrefs : () -> Unit = {}
 ) {
@@ -57,6 +60,7 @@ class ExtraBTBootstrapsDialog(
 
                 CenoSettings.ouinetClientRequest(
                     context,
+                    coroutineScope = lifecycleOwner.lifecycleScope,
                     OuinetKey.EXTRA_BOOTSTRAPS,
                     OuinetValue.OTHER,
                     URLEncoder.encode(allSelectedIPs.joinToString(" "), "UTF-8"),

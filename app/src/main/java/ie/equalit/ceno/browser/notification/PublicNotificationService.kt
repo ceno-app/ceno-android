@@ -12,7 +12,6 @@ import androidx.core.content.ContextCompat
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import ie.equalit.ouinet.OuinetNotification.Companion.MILLISECOND
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.support.utils.PendingIntentUtils
 
@@ -127,5 +126,9 @@ class PublicNotificationService:AbstractPublicNotificationService() {
     override fun onTimeout(startId: Int, fgsType: Int) {
         stopSelf()
         super.onTimeout(startId, fgsType)
+    }
+
+    companion object {
+        const val MILLISECOND : Long = 1000
     }
 }

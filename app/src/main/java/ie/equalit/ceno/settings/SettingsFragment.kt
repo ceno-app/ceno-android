@@ -183,7 +183,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
             getPreference(pref_key_ouinet_state)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {
-                    CenoSettings.getOuinetState(requireContext())
+                    CenoSettings.getOuinetStateLocalized(requireContext())
                 }
             if (it.ouinetStatus == Ouinet.RunningState.Started) {
                 bridgeAnnouncementDialog.dismiss()
@@ -350,18 +350,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_download_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
             /* Fetch ouinet status */
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.API_STATUS)
+            CenoSettings.ouinetClientRequest(
+                requireContext(),
+                viewLifecycleOwner.lifecycleScope,
+                OuinetKey.API_STATUS
+            )
         } else {
             /* Enable Ceno related options */
             getPreference(pref_key_ouinet_state)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {
-                    CenoSettings.getOuinetState(requireContext())
+                    CenoSettings.getOuinetStateLocalized(requireContext())
                 }
             getPreference(pref_key_ceno_cache_size)?.summaryProvider =
                 Preference.SummaryProvider<Preference> {
                     CenoSettings.getCenoCacheSize(requireContext())
                 }
-            CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.GROUPS_TXT)
+            CenoSettings.ouinetClientRequest(
+                requireContext(),
+                viewLifecycleOwner.lifecycleScope,
+                OuinetKey.GROUPS_TXT
+            )
             getPreference(pref_key_ceno_groups_count)?.summaryProvider = Preference.SummaryProvider<Preference> {
                 resources.getQuantityString(
                     R.plurals.preferences_ceno_groups_count_subtitle,
@@ -554,6 +562,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // network request to update preference value
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOGFILE,
                 newValue = if (newValue == true) OuinetValue.ENABLE else OuinetValue.DISABLE,
                 stringValue = null,
@@ -571,6 +580,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             // network request to update log level based on preference value
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOG_LEVEL,
                 stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
@@ -586,7 +596,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 setMessage(getString(confirm_clear_cached_content_desc))
                 setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
                 setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
-                    CenoSettings.ouinetClientRequest(requireContext(), OuinetKey.PURGE_CACHE)
+                    CenoSettings.ouinetClientRequest(
+                        requireContext(),
+                        viewLifecycleOwner.lifecycleScope,
+                        OuinetKey.PURGE_CACHE)
                     //ClearButtonFeature.createClearDialog(requireContext()).show()
                 }
                 create()
@@ -599,6 +612,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceClickListener {
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.GROUPS_TXT,
                 ouinetResponseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
@@ -738,6 +752,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // network request to update preference value
         CenoSettings.ouinetClientRequest(
             context = requireContext(),
+            coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOGFILE,
             newValue = if (newValue) OuinetValue.ENABLE else OuinetValue.DISABLE,
             null,
@@ -755,6 +770,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         // network request to update log level based on preference value
         CenoSettings.ouinetClientRequest(
             context = requireContext(),
+            coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
             stringValue = if (newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
@@ -805,7 +821,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 //                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
         // Ask user to choose log filter
-        val exportDialog = ExportAndroidLogsDialog(requireContext(), this)
+        val exportDialog = ExportAndroidLogsDialog(requireContext(), viewLifecycleOwner, this)
         exportDialog.getDialog().show()
     }
 

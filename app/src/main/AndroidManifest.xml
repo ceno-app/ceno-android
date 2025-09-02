@@ -38,8 +38,8 @@
         android:allowBackup="true"
         android:fullBackupContent="@xml/backup_rules"
         android:dataExtractionRules="@xml/data_extraction_rules"
-        android:icon="@mipmap/ic_launcher_blue"
-        android:roundIcon="@mipmap/ic_launcher_blue_round"
+        android:icon="@mipmap/ic_launcher_default"
+        android:roundIcon="@mipmap/ic_launcher_default_round"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true"
@@ -52,8 +52,8 @@
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleTask"
-            android:icon="@mipmap/ic_launcher_blue"
-            android:roundIcon="@mipmap/ic_launcher_blue_round"
+            android:icon="@mipmap/ic_launcher_default"
+            android:roundIcon="@mipmap/ic_launcher_default_round"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|layoutDirection|smallestScreenSize|screenLayout"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
@@ -84,6 +84,21 @@
         <activity-alias
             android:name="ie.equalit.ceno.Launcher"
             android:enabled="true"
+            android:exported="true"
+            android:icon="@mipmap/ic_launcher_default"
+            android:roundIcon="@mipmap/ic_launcher_default_round"
+            android:targetActivity="ie.equalit.ceno.BrowserActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.APP_BROWSER" />
+            </intent-filter>
+        </activity-alias>
+
+        <activity-alias
+            android:name="ie.equalit.ceno.LauncherBlue"
+            android:enabled="false"
             android:exported="true"
             android:icon="@mipmap/ic_launcher_blue"
             android:roundIcon="@mipmap/ic_launcher_blue_round"
@@ -281,14 +296,6 @@
         <service android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false"
             android:foregroundServiceType="mediaPlayback"
-            />
-
-        <service
-            android:name="ie.equalit.ouinet.OuinetService"
-            android:enabled="true"
-            android:exported="false"
-            android:isolatedProcess="false"
-            android:process=":ouinetService"
             />
 
         <service android:name=".browser.notification.PublicNotificationService"

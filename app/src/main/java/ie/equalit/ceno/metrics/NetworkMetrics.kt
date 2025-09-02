@@ -21,13 +21,17 @@ import java.util.Date
 import java.util.TimeZone
 
 class NetworkMetrics(
-    val context:Context,
-    val lifecycleScope: CoroutineScope
+    val context: Context,
+    private val coroutineScope: CoroutineScope
 ) {
     private val metricsRecordId:Flow<String> = flow {
         var previousRecordid = ""
         while(true) {
-            CenoSettings.ouinetClientRequest(context, OuinetKey.API_STATUS, forMetrics = true)
+            CenoSettings.ouinetClientRequest(
+                context,
+                coroutineScope,
+                OuinetKey.API_STATUS,
+                forMetrics = true)
             if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
                 emit(CenoSettings.currentMetricsRecordId)
                 previousRecordid = CenoSettings.currentMetricsRecordId
@@ -47,7 +51,7 @@ class NetworkMetrics(
     }
 
     fun collectNetworkMetrics() {
-        lifecycleScope.launch {
+        coroutineScope.launch {
             metricsRecordId.collect { recordId ->
                 //send metrics
                 //network country
@@ -67,6 +71,7 @@ class NetworkMetrics(
     private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
         CenoSettings.ouinetClientRequest(
             context,
+            coroutineScope,
             OuinetKey.ADD_METRICS,
             stringValue = value,
             ouinetResponseListener = object : OuinetResponseListener {
