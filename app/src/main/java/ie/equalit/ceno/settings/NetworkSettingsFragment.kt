@@ -68,7 +68,11 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForExtraBitTorrentBootstraps(): Preference.OnPreferenceClickListener {
         return Preference.OnPreferenceClickListener {
-            val extraBTBootstrapsDialog = ExtraBTBootstrapsDialog(requireContext(), btSourcesMap) {
+            val extraBTBootstrapsDialog = ExtraBTBootstrapsDialog(
+                requireContext(),
+                viewLifecycleOwner,
+                btSourcesMap
+            ) {
                 getPreference(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)?.summary =
                     getBTPreferenceSummary()
             }

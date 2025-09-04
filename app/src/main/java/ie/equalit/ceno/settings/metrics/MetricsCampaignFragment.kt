@@ -14,9 +14,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.settings
 import ie.equalit.ceno.databinding.FragmentMetricsCampaignBinding
-import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.dialogs.WebViewPopupPanel
 
@@ -30,7 +28,10 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
         super.onViewCreated(view, savedInstanceState)
 
         _binding = FragmentMetricsCampaignBinding.bind(view)
-        controller = DefaultMetricsCampaignController(requireContext(), requireComponents)
+        controller = DefaultMetricsCampaignController(
+            requireContext(),
+            viewLifecycleOwner
+        )
 
         binding.campaignCrashReporting.isChecked = Settings.isCrashReportingPermissionGranted(requireContext())
         binding.campaignOuinetMetrics.isChecked = Settings.isOuinetMetricsEnabled(requireContext())
