@@ -63,8 +63,8 @@ import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
-import ie.equalit.ouinet.OuinetNotification
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -161,6 +161,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                             //web api call
                             CenoSettings.ouinetClientRequest(
                                 context = this,
+                                coroutineScope = lifecycleScope,
                                 key = OuinetKey.CENO_METRICS,
                                 newValue = if (granted) OuinetValue.ENABLE else OuinetValue.DISABLE,
                                 stringValue = null,
@@ -290,7 +291,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         updateOuinetStatus()
 
 //        if(Settings.isOuinetMetricsEnabled(this))
-            NetworkMetrics(this, lifecycleScope).collectNetworkMetrics()
+            NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
     }
 
     /* This function displays the popup that asks users if they want to opt in for
@@ -499,11 +500,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
             val bundle = bundleOf(SettingsFragment.SCROLL_TO_CACHE to true)
             navHost.navController.navigate(R.id.action_global_settings, bundle)
-        }
-        if (safeIntent.action == Intent.ACTION_MAIN &&
-            safeIntent.hasExtra(OuinetNotification.FROM_NOTIFICATION_EXTRA)
-        ) {
-            navHost.navController.navigate(R.id.action_global_home)
         }
         if (safeIntent.action == Intent.ACTION_VIEW) {
             navHost.navController.navigate(R.id.action_global_browser)

@@ -1,8 +1,20 @@
+# v2.6.2
+This release:
+- Updates Android-Components to 142.0.1
+- Updates Sentry to 8.18.0
+- Updates Ouinet to v1.3.1
+- Removes remaining uses of OuinetNotification
+- Fixes app not responding error due to network metrics
+- Updates cacert.pem with bundle generated on Tue Aug 12 2025
+- Updates Ceno logo
+- Minor updates to various translations
+
 # v2.6.1
 This release:
 - Updates Android-Components to 141.0.1
 - Fixes minor bugs
 - Updates announcement handling to prevent crashes
+- Major copy edits to RU translations
 
 # v2.6.0
 This release:

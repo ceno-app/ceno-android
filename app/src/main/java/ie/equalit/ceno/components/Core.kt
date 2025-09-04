@@ -100,7 +100,7 @@ class Core(private val context: Context) {
     val store by lazy {
         BrowserStore(
             middleware = listOf(
-                DownloadMiddleware(context, DownloadService::class.java),
+                DownloadMiddleware(context, DownloadService::class.java, { false }),
                 ThumbnailsMiddleware(thumbnailStorage),
                 ReaderViewMiddleware(),
                 RegionMiddleware(
