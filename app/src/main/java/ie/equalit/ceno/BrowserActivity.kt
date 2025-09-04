@@ -25,8 +25,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -292,6 +296,16 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
 //        if(Settings.isOuinetMetricsEnabled(this))
             NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment))
+        {
+                v:View, insets: WindowInsetsCompat ->
+            val systemBars: Insets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                    or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
     }
 
     /* This function displays the popup that asks users if they want to opt in for
