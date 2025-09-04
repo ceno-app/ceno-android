@@ -446,4 +446,11 @@
         <item quantity="many">%d днів тому</item>
         <item quantity="other">%d днів тому</item>
     </plurals>
+    <string name="ouinet_state_created">Створено</string>
+    <string name="ouinet_state_failed">Не вдалося</string>
+    <string name="ouinet_state_starting">Початок</string>
+    <string name="ouinet_state_degraded">Деградований</string>
+    <string name="ouinet_state_started">Розпочато</string>
+    <string name="ouinet_state_stopping">Зупинка</string>
+    <string name="ouinet_state_stopped">Зупинено</string>
 </resources>
