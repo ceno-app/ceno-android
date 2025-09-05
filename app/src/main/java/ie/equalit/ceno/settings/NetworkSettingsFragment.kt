@@ -47,6 +47,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
         val preferenceAboutOuinetProtocol = getPreference(R.string.pref_key_about_ouinet_protocol)
         val preferenceReachabilityStatus = getPreference(R.string.pref_key_ouinet_reachability_status)
+        val preferenceOuinetProxyEndpoint = getPreference(R.string.pref_key_ouinet_proxy_endpoint)
+        val preferenceOuinetFrontendEndpoint = getPreference(R.string.pref_key_ouinet_frontend_endpoint)
         val preferenceLocalUdpEndpoint = getPreference(R.string.pref_key_ouinet_local_udp_endpoints)
         val preferenceExternalUdpEndpoint = getPreference(R.string.pref_key_ouinet_external_udp_endpoints)
         val preferencePublicUdpEndpoint = getPreference(R.string.pref_key_ouinet_public_udp_endpoints)
@@ -58,6 +60,8 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
         preferenceAboutOuinetProtocol?.summary = "${CenoSettings.getOuinetProtocol(requireContext())}"
         preferenceReachabilityStatus?.summary = CenoSettings.getReachabilityStatus(requireContext())
+        preferenceOuinetProxyEndpoint?.summary = "${CenoSettings.getProxyEndpoint(requireContext())}"
+        preferenceOuinetFrontendEndpoint?.summary = "${CenoSettings.getFrontendEndpoint(requireContext())}"
         preferenceLocalUdpEndpoint?.summary = CenoSettings.getLocalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceExternalUdpEndpoint?.summary = CenoSettings.getExternalUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }

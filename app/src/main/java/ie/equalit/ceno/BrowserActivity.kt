@@ -360,7 +360,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
                             hasOuinetStarted = true
                         }
-
+                        if (status == RunningState.Started || status == RunningState.Degraded) {
+                            components.ouinet.updateEndpoints()
+                        }
                     }
                     delay(DELAY_TWO_SECONDS)
                 }
