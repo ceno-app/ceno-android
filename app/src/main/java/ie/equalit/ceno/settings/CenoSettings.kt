@@ -75,7 +75,6 @@ enum class OuinetValue(val string: String) {
 
 object CenoSettings {
 
-    const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
     const val LOGFILE_TXT = "logfile.txt"
     private const val TOKEN_LENGTH = 27
 
