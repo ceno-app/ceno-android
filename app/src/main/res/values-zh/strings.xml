@@ -444,4 +444,11 @@
     <string name="metrics_ouinet_title">Ceno 统计（Metrics）</string>
     <string name="metrics_consent_dialog_description">我们正在推出一个尊重隐私的统计（metrics）系统来帮助我们更好理解 Ceno 用户的需求。\n\n您可以在我们的隐私政策中查看我们将收集的信息以及我们如何处理您的数据的详细信息。\n\n您也可以在任何时候通过 设置 &gt; 背景调查 退出该系统。</string>
     <string name="ouicrawl_sites_section_title">免费媒体流</string>
+    <string name="ouinet_state_created">创建</string>
+    <string name="ouinet_state_failed">未完成</string>
+    <string name="ouinet_state_starting">现在开始</string>
+    <string name="ouinet_state_degraded">下调</string>
+    <string name="ouinet_state_started">已经开始</string>
+    <string name="ouinet_state_stopping">停止中</string>
+    <string name="ouinet_state_stopped">已经停止</string>
 </resources>
