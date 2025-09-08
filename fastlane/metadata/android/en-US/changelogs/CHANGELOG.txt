@@ -4,6 +4,8 @@ This release:
 - Updates Sentry to 8.20.0
 - Updates AndroidX Core to 1.17
 - Applies workaround for edge-to-edge display support
+- Updates Ouinet to 1.4.0
+- Enables dynamic port selection for frontend and proxy endpoints
 
 # v2.6.2
 This release:
