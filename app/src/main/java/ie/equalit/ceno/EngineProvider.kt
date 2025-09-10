@@ -33,11 +33,6 @@ object EngineProvider {
             // Set the root certificate for ouinet proxy
             builder.rootCertificate(rootCertificate)
 
-            // Set proxy configuration to local ouinet client
-            builder.proxyType("manual")
-            builder.httpProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
-            builder.sslProxy("127.0.0.1:${BuildConfig.PROXY_PORT}")
-
             runtime = GeckoRuntime.create(context, builder.build().apply { setConsoleOutputEnabled(true) })
         }
 

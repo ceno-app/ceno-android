@@ -50,8 +50,8 @@ android {
         buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS",  localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
-        buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "8077"
-        buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "8078"
+        buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
+        buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
         buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
 
