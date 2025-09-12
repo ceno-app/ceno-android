@@ -464,4 +464,5 @@
         <item quantity="many">%d дней назад</item>
         <item quantity="other">%d дней назад</item>
     </plurals>
+    <string name="ouinet_state_created">Создан</string>
 </resources>
