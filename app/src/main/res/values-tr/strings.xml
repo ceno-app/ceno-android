@@ -116,7 +116,6 @@
     <string name="preferences_toolbar_position">Ekranın en üstüne yerleştir</string>
     <string name="preferences_clear_in_toolbar">Araç çubuğunda görüntülensin</string>
     <string name="preferences_theme">Uygulama temasını ayarla</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_ceno_network_config">Ağ bilgileri</string>
     <string name="preferences_ceno_enable_log">Günlük tutulsun</string>
     <string name="preferences_ceno_download_log">Ouinet günlüğünü dışa aktar</string>

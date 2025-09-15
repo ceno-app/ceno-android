@@ -157,7 +157,6 @@
     <string name="clear_cache_success">Caché borrada exitosamente</string>
     <string name="clear_cache_fail">Limpieza de cache fallida, inténtelo nuevamente pronto</string>
     <string name="preferences_theme_summary">Oscuro, Claro, Ahorro de Batería</string>
-    <string name="preferences_theme_default">2</string>
     <string name="addon_placeholder">No hay Complementos Disponibles</string>
     <string name="preferences_about_ceno">Navegador Ceno</string>
     <string name="preferences_about_geckoview">GeckoView</string>

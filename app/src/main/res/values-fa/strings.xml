@@ -172,7 +172,6 @@
     <string name="onboarding_warning_text_v33_2">اعلان‌ها مجاز نیستند و سیستم بهینه‌سازی باتری همچنان فعال است. \n \nبه «تنظیمات» بروید تا بعدا این مجوز را بدهید</string>
     <string name="preferences_change_app_icon">تغییر آیکون برنامه</string>
     <string name="preferences_allow_notifications">اعلان‌ها</string>
-    <string name="preferences_theme_default">۲</string>
     <string name="ceno_sources_header">منابع محتوا</string>
     <string name="changeIconCtaAccept">اعمال کردن</string>
     <string name="changeIconCtaCancel">لغو</string>

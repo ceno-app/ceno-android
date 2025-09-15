@@ -164,7 +164,6 @@
     <string name="preferences_allow_crash_reporting">崩溃报告</string>
     <string name="preferences_allow_notifications">通知</string>
     <string name="preferences_theme_summary">深色，浅色，省电模式</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_clear_in_toolbar">在工具栏显示</string>
     <string name="preferences_clear_in_menu">在菜单中显示</string>
     <string name="preferences_disable_battery_opt">电池优化</string>

@@ -157,7 +157,6 @@
     <string name="preferences_clear_behavior_default">0</string>
     <string name="preferences_theme">Ustaw motyw aplikacji</string>
     <string name="preferences_theme_summary">Ciemny, Jasny, Oszczędzanie energii</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_ceno_sources_private">Prywatnie</string>
     <string name="preferences_ceno_sources_private_summary">Załaduj zawartość z prywatnej sieci Ceno</string>
     <string name="preferences_ceno_sources_public">Publicznie</string>

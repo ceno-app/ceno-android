@@ -150,7 +150,6 @@
     <string name="preferences_clear_behavior">Поведінка за замовчуванням</string>
     <string name="preferences_clear_behavior_summary">Налаштувати поведінку при натисканні кнопки очищення</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_about_ceno">Ceno браузером</string>
     <string name="preferences_about_ouinet_protocol">Протокол Ouinet</string>
     <string name="about_category">Про</string>

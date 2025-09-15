@@ -154,7 +154,6 @@
     <string name="preferences_clear_behavior">Действие по умолчанию</string>
     <string name="preferences_clear_behavior_summary">Установить быстрое действие при нажатии кнопки</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_about_ceno">Ceno Браузер</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>

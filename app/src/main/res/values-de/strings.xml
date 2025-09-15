@@ -123,7 +123,6 @@
     <string name="crash_reporting_always_send">Immer senden, um Ceno zu verbessern</string>
     <string name="default_top_site_1_title">Ceno Anleitung</string>
     <string name="preferences_ceno_network_config">Netzwerk-Details</string>
-    <string name="preferences_theme_default">2</string>
     <string name="ouinet_client_fetch_fail">Ändern der Einstellungen von Ceno fehlgeschlagen</string>
     <string name="clear_cache_fail">Löschen des Zwischenspeichers fehlgeschlagen. Versuchen Sie es erneut.</string>
     <string name="website_button_text">Webseite</string>

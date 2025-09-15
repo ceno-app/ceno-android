@@ -228,17 +228,20 @@
     <string name="preferences_change_app_icon">Change app icon</string>
     <string name="preferences_theme">Set app theme</string>
     <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
-    <string name="preferences_theme_default">2</string>
+    <string name="preferences_theme_default" translatable="false">-1</string>
     <string-array name="preferences_theme_values">
+        <item>-1</item>
         <item>2</item>
         <item>1</item>
         <item>3</item>
     </string-array>
     <string-array name="preferences_theme_options">
+        <item>@string/preferences_theme_option_0</item>
         <item>@string/preferences_theme_option_1</item>
         <item>@string/preferences_theme_option_2</item>
         <item>@string/preferences_theme_option_3</item>
     </string-array>
+    <string name="preferences_theme_option_0">Follow system theme</string>
     <string name="preferences_theme_option_1">Dark</string>
     <string name="preferences_theme_option_2">Light</string>
     <string name="preferences_theme_option_3">Set by Battery Saver</string>
