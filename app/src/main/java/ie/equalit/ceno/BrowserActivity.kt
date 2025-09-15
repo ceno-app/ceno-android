@@ -447,6 +447,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                     R.color.ceno_action_bar
                 ).toDrawable())
         }
+//        publicNotificationObserver?.start()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.cancel(reminderNotificationIntent)
     }
@@ -623,7 +624,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                 val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                 am.clearApplicationUserData()
             }
-            exitOuinetServiceProcess()
             exitProcess(0)
         }
     }
@@ -644,18 +644,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                 StandbyFragment.DO_CLEAR to doClear,
                 StandbyFragment.shutdownCeno to true
             ))
-        }
-    }
-
-    fun exitOuinetServiceProcess() {
-        getSystemService(Context.ACTIVITY_SERVICE).let { am ->
-            (am as ActivityManager).runningAppProcesses?.let { processes ->
-                for (process in processes) {
-                    if (process.processName.contains("ouinetService")){
-                        Process.killProcess(process.pid)
-                    }
-                }
-            }
         }
     }
 
