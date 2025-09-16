@@ -28,6 +28,7 @@ object FailedToRetrieveResource {
             .use { it.readText() }
             .replace("%body_theme%", if (isDarkThemeEnabled()) "#39393B" else "#FFFFFF")
             .replace("%text_theme%", if (isDarkThemeEnabled()) "#FFFFFF" else "#000000")
+            .replace("%logo_theme%", if (isDarkThemeEnabled()) "#FFFFFF" else "#0C4A6E")
             .replace("%zero%", String.format(getCurrentLocale(), "%d",0))
             .replace("%language%", getCurrentLocale().toLanguageTag())
             .replace("%direction%", if (isRTL(getCurrentLocale())) "rtl" else "ltr")
