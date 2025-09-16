@@ -8,6 +8,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.HomeOuicrawSiteItemBinding
 import ie.equalit.ceno.ext.ceno.bitmapForUrl
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.dateTimeDifference
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.OuicrawlSiteInteractor
 import kotlinx.coroutines.Dispatchers.IO
@@ -15,10 +16,6 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.feature.top.sites.TopSite
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
-import java.util.TimeZone
 
 class OuicrawledSiteViewHolder(
     itemView: View,
@@ -77,12 +74,9 @@ class OuicrawledSiteViewHolder(
     }
 
     private fun getLastCrawlUpdateTime(lastCrawlUpdatedTS: String):String {
-        val format = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).apply {
-            timeZone = TimeZone.getTimeZone("UTC")
-        }
-        val lastCrawlTS = format.parse(lastCrawlUpdatedTS)
-        lastCrawlTS?.let { lastCrawl ->
-            val minutes = ((Date().time - lastCrawlTS.time) / 60000).toInt()
+        val difference = lastCrawlUpdatedTS.dateTimeDifference()
+        difference?.let {
+            val minutes = (it.toInt() / 60000)
 
             if (minutes < 60) {
                 return itemView.context.resources.getQuantityString(R.plurals.last_crawl_status_minutes,

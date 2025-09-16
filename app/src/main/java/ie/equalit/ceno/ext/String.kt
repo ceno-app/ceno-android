@@ -6,9 +6,13 @@
 
 package ie.equalit.ceno.ext
 
+import android.os.Build
 import android.util.Patterns
 import mozilla.components.support.ktx.kotlin.sanitizeURL
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.util.*
 import kotlin.math.abs
 
@@ -114,6 +118,22 @@ fun String.isDatePast(): Boolean {
     } catch (e: Exception) {
         e.printStackTrace()
         return false
+    }
+}
+
+fun String.dateTimeDifference() : Long? {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+        return Duration.between(OffsetDateTime.parse(this), OffsetDateTime.now(ZoneOffset.UTC)).toMillis()
+    }
+    else {
+        val parsedDate = SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'", Locale.getDefault()).apply {
+            timeZone = TimeZone.getTimeZone("UTC")
+        }.parse(this)
+        return if (parsedDate != null) {
+            (Date().time - parsedDate.time)
+        } else {
+            null
+        }
     }
 }
 
