@@ -131,8 +131,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.clickToolbar {
-            longClickToolbar()
-            clickPasteText()
+            typePasteText()
             verifyLinkFromClipboard(defaultWebPage.url.toString())
         }
     }
@@ -235,6 +234,7 @@ class BookmarksTest {
             saveNewFolder()
             navigateUp()
             saveEditBookmark()
+            verifyFolderTitle(bookmarksFolderName)
             selectFolder(bookmarksFolderName)
             verifyBookmarkedURL(defaultWebPage.url.toString())
         }
