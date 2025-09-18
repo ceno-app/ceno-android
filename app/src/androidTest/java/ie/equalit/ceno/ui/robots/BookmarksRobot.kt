@@ -145,6 +145,7 @@ class BookmarksRobot {
     }
 
     fun cancelFolderDeletion() {
+        mDevice.findObject(UiSelector().text("Cancel")).waitForExists(waitingTime)
         onView(withText(R.string.delete_browsing_data_prompt_cancel))
             .inRoot(RootMatchers.isDialog())
             .check(matches(isDisplayed()))
