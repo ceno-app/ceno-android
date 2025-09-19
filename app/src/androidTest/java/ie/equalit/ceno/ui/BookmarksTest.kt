@@ -265,7 +265,7 @@ class BookmarksTest {
             navigateUp()
             waitForBookmarksFolderContentToExist("1", "2")
             verifyCurrentFolderTitle("1")
-            mDevice.pressBack()
+            navigateUp()
             verifyBookmarksView()
         }
     }
