@@ -55,7 +55,6 @@ import ie.equalit.ceno.R.string.pref_key_background_metrics
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
-import ie.equalit.ceno.R.string.pref_key_ceno_download_log
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
@@ -145,11 +144,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                         it.isEnabled = !(it.isEnabled)
                     }
                     getPreference(pref_key_ceno_groups_count)?.let {
-                        it.isEnabled = !(it.isEnabled)
-                        it.isEnabled = !(it.isEnabled)
-                    }
-                    getPreference(pref_key_ceno_download_log)?.let {
-                        it.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
                         it.isEnabled = !(it.isEnabled)
                         it.isEnabled = !(it.isEnabled)
                     }
@@ -322,7 +316,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupCenoSettings() {
-        getPreference(pref_key_ceno_download_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         getPreference(pref_key_ceno_download_android_log)?.isVisible = CenoSettings.isCenoLogEnabled(requireContext())
         (getPreference(pref_key_about_ceno) as LongClickPreference).let { preference ->
             preference.summary = CenoSettings.getCenoVersionString(requireContext())
@@ -347,7 +340,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_clear_ceno_cache), false)
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
-            setPreference(getPreference(pref_key_ceno_download_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(
@@ -585,6 +577,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
 
+            // Immediately enable the export log button
+            getPreference(pref_key_ceno_download_android_log)?.let {
+                it.isVisible = newValue as Boolean
+                it.isEnabled = !(it.isEnabled)
+                it.isEnabled = !(it.isEnabled)
+            }
             true
         }
     }

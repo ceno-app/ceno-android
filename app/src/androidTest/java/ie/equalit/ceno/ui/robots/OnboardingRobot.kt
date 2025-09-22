@@ -14,6 +14,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
+import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import ie.equalit.ceno.R
@@ -101,9 +102,16 @@ private fun assertPublicPersonalTooltip() {
 }
 
 private fun assertShortcutsTooltip() {
+    val textEnUs = "Shortcuts. Save your favorite sites as shortcuts for easy access from your homepage."
+    val textEnGb = "Shortcuts. Save your favourite sites as shortcuts for easy access from your homepage."
     tooltipView().check(matches(isDisplayed()))
     exitButton().check(matches(isDisplayed()))
-    tooltipView().check(matches(withContentDescription("Shortcuts. Save your favorite sites as shortcuts for easy access from your homepage.")))
+    if (mDevice.findObject(By.textContains(textEnUs)) != null) {
+        tooltipView().check(matches(withContentDescription(textEnUs)))
+    }
+    else {
+        tooltipView().check(matches(withContentDescription(textEnGb)))
+    }
     nextButton().check(matches(isDisplayed()))
 }
 

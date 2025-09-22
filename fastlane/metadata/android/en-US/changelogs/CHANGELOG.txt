@@ -6,6 +6,8 @@ This release:
 - Applies workaround for edge-to-edge display support
 - Updates Ouinet to 1.4.0
 - Enables dynamic port selection for frontend and proxy endpoints
+- Adds option to follow system theme
+- Fixes bug with export log option
 
 # v2.6.2
 This release:

@@ -36,7 +36,6 @@ class BookmarksRobot {
     fun verifyEditBookmarksView() = assertEditBookmarksView()
 
     fun verifyBookmarkTitle(title:String) = assertBookmarkTitle(title)
-    fun verifyBookmarkedURL(url : String) = assertBookmarkUrl(url)
     fun verifyBookmarkFavicon(url : Uri) = assertBookmarkFavicon(url.toString())
 
     fun verifyFolderTitle(title: String) {
@@ -60,9 +59,6 @@ class BookmarksRobot {
     }
     private fun assertBookmarkTitle(title: String) {
         onView(withText(title)).check(matches(isDisplayed()))
-    }
-    private fun assertBookmarkUrl(url: String) {
-        onView(withText(url)).check(matches(isDisplayed()))
     }
     private fun assertBookmarkFavicon(url:String) = onView(
         allOf(
@@ -101,6 +97,7 @@ class BookmarksRobot {
     }
 
     fun verifyBookmarkIsDeleted(expectedTitle: String) {
+        mDevice.findObject(UiSelector().textContains(expectedTitle)).waitUntilGone(waitingTimeShort)
         onView(withText(expectedTitle)).check(doesNotExist())
     }
 
@@ -148,6 +145,7 @@ class BookmarksRobot {
     }
 
     fun cancelFolderDeletion() {
+        mDevice.findObject(UiSelector().text("Cancel")).waitForExists(waitingTime)
         onView(withText(R.string.delete_browsing_data_prompt_cancel))
             .inRoot(RootMatchers.isDialog())
             .check(matches(isDisplayed()))
@@ -160,6 +158,11 @@ class BookmarksRobot {
     fun waitForBookmarksFolderContentToExist(parentFolderName: String, childFolderName: String) {
         mDevice.findObject(UiSelector().text(parentFolderName)).waitForExists(waitingTime)
         mDevice.findObject(UiSelector().text(childFolderName)).waitForExists(waitingTime)
+    }
+
+    fun verifyBookmarkedURL(url: String) {
+        mDevice.findObject(UiSelector().textContains(url)).waitForExists(waitingTimeShort)
+        onView(withText(url)).check(matches(isDisplayed()))
     }
 
     fun verifyCurrentFolderTitle(title: String) {

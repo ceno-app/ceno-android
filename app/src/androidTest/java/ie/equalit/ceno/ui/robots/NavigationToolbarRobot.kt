@@ -45,6 +45,7 @@ class NavigationToolbarRobot {
                     .textContains("Search or enter address"),
             ).waitForExists(waitingTime)
             awesomeBar().setText(url.toString())
+            Thread.sleep(2000)
             mDevice.pressEnter()
 
             mDevice.findObject(
