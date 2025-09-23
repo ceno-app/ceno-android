@@ -220,9 +220,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             applicationContext,
             components.core.store,
             PublicNotificationService::class,
-        ).also {
-            it.start()
-        }
+        )
 
         cenoNotificationBroadcastReceiver = CenoNotificationBroadcastReceiver(this)
         val notificationIntentFilter = IntentFilter()
@@ -447,7 +445,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                     R.color.ceno_action_bar
                 ).toDrawable())
         }
-//        publicNotificationObserver?.start()
+        publicNotificationObserver?.start()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.cancel(reminderNotificationIntent)
     }
