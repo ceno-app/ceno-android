@@ -327,14 +327,14 @@ class ScreenshotGenerator {
             clickDownRecyclerView(15)
             Thread.sleep(1000)
             verifyClearCachedContentButton()
-            Screengrab.screenshot("041_cache_with_data")
+            Screengrab.screenshot("040_cache_with_data")
         }.openSettingsViewCachedContent {
             Thread.sleep(1000)
-            Screengrab.screenshot("042_cached_content")
+            Screengrab.screenshot("041_cached_content")
         }.goBack {
             clickClearCacheButton()
             Thread.sleep(1000)
-            Screengrab.screenshot("043_clear_cache_dialog")
+            Screengrab.screenshot("042_clear_cache_dialog")
             clickCancel()
         }.goBack {
         }
@@ -356,12 +356,12 @@ class ScreenshotGenerator {
         }.enterUrlAndEnterToBrowser("https://meduza.io".toUri()){
             // TODO: implement check that page has finished loading
             Thread.sleep(30000)
-            Screengrab.screenshot("039_browser_dcache_source")
+            Screengrab.screenshot("038_browser_dcache_source")
         }
         navigationToolbar {
         }.openContentSourcesSheet {
             mDevice.waitForIdle(waitingTime)
-            Screengrab.screenshot("040_content_dcache_injector")
+            Screengrab.screenshot("039_content_sources_dcache")
         }.closeContentSourcesSheet {
         }
     }
@@ -375,7 +375,7 @@ class ScreenshotGenerator {
             verifyChangeLanguageButton()
         }.openSettingsViewChangeLanguage {
             Thread.sleep(1000)
-            Screengrab.screenshot("044_change_language")
+            Screengrab.screenshot("043_change_language")
         }.goBack {
         }.goBack {
         }
