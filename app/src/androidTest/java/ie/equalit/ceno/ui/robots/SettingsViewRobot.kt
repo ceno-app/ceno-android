@@ -91,25 +91,33 @@ class SettingsViewRobot {
     fun verifyAllowNotification(): Unit = assertAllowNotificationButton()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
-
+    fun clickClearCacheButton() = clearCachedContentButton().click()
     fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickBridgeModeToggle() = bridgeModeToggle().click()
+    fun clickOk() = onView(withText(R.string.dialog_btn_positive_ok)).click()
+    fun clickCancel() = onView(withText(R.string.dialog_cancel)).click()
     fun clickChangeLanguageButton() {
         changeLanguageButton().click()
     }
     fun clickCenoVersionDisplay() = cenoVersionDisplay().click()
 
+    fun waitForBridgeModeDialogToExist() {
+        mDevice.findObject(
+            UiSelector()
+                .resourceId("$packageName:id/progressBar2")
+        ).waitForExists(waitingTime)
+    }
+
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
             UiSelector()
-                .textContains("Updating Bridge Mode settings"),
+                .resourceId("$packageName:id/progressBar2")
         ).waitUntilGone(waitingTime)
     }
 
     fun waitForThankYouDialog() {
         onView(withText(R.string.title_success)).check(matches(isDisplayed()))
-        onView(withText(R.string.dialog_btn_positive_ok)).click()
     }
 
     fun clickDownRecyclerView(count: Int) {
@@ -194,6 +202,20 @@ class SettingsViewRobot {
             backgroundMetricsButton().click()
             SettingsViewMetricsRobot().interact()
             return SettingsViewMetricsRobot.Transition()
+        }
+
+        fun openSettingsViewCachedContent(interact: SettingsViewCachedContentRobot.() -> Unit):
+                SettingsViewCachedContentRobot.Transition {
+            contentsSharedButton().click()
+            SettingsViewCachedContentRobot().interact()
+            return SettingsViewCachedContentRobot.Transition()
+        }
+
+        fun openSettingsViewChangeLanguage(interact: SettingsViewChangeLanguageRobot.() -> Unit):
+                SettingsViewChangeLanguageRobot.Transition {
+            changeLanguageButton().click()
+            SettingsViewChangeLanguageRobot().interact()
+            return SettingsViewChangeLanguageRobot.Transition()
         }
 
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
