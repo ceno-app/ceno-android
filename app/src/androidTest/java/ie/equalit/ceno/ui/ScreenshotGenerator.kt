@@ -62,67 +62,63 @@ class ScreenshotGenerator {
         mockWebServer.shutdown()
     }
 
+    fun takeScreenshotWithWait(name : String, wait: Long = 1000 ) {
+        Thread.sleep(wait)
+        Screengrab.screenshot(name)
+    }
+
     fun onboardingScreenshots() {
         standby {
             waitForStandbyLogo()
-            Screengrab.screenshot("030_standby_screen")
+            Screengrab.screenshot("onboarding_standby")
             waitForStandbyLogoGone()
         }
         onboarding {
-            Thread.sleep(1000)
-            Screengrab.screenshot("000_tooltip_begin_tour")
+            takeScreenshotWithWait("onboarding_welcome")
             //click get started
             beginTooltipsTour()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("001_tooltip_browsing_modes")
+            takeScreenshotWithWait("onboarding_tour_1")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("002_tooltip_shortcuts")
+            takeScreenshotWithWait("onboarding_tour_2")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("003_tooltip_address_bar")
+            takeScreenshotWithWait("onboarding_tour_3")
         }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
         }
         onboarding {
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("004_tooltip_ceno_sources")
+            takeScreenshotWithWait("onboarding_tour_4")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("005_tooltip_clear_ceno")
+            takeScreenshotWithWait("onboarding_tour_5")
             clickNext()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
                 //wait for permissions tooltip
                 waitForPermissionsTooltip()
-                Thread.sleep(1000)
-                Screengrab.screenshot("006_tooltip_permissions")
+                takeScreenshotWithWait("onboarding__permissions")
                 clickPermissions()
                 permissionAllowButton().waitForExists(waitingTime)
-                Screengrab.screenshot("028_tooltip_permissions_notifications")
+                takeScreenshotWithWait("onboarding_permissions_notifications")
                 permissionAllowButton().click()
                 if(backgroundAllowButton().waitForExists(waitingTime)) {
-                    Screengrab.screenshot("029_tooltip_permissions_battery_optimization")
+                    takeScreenshotWithWait("onboarding_permissions_optimisation")
                     backgroundAllowButton().click()
                 }
             }
         }
         navigationToolbar {
-            Thread.sleep(1000)
-            Screengrab.screenshot("007_fragment_browser")
+            takeScreenshotWithWait("origin_source_browser")
         }.openContentSourcesSheet {
-            Thread.sleep(1000)
-            Screengrab.screenshot("035_content_sources_origin")
+            takeScreenshotWithWait("origin_source_popup")
         }.closeContentSourcesSheet {
         }
     }
@@ -130,20 +126,15 @@ class ScreenshotGenerator {
     fun settingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-            Thread.sleep(1000)
-            Screengrab.screenshot("008_fragment_browser_threedot")
+            takeScreenshotWithWait("settings_three_dot")
         }.openSettings {
-            Thread.sleep(1000)
-            Screengrab.screenshot("009_preferences_general")
+            takeScreenshotWithWait("settings_general")
             clickDownRecyclerView(15)
-            Thread.sleep(1000)
-            Screengrab.screenshot("010_preferences_data")
+            takeScreenshotWithWait("settings_data")
             clickDownRecyclerView(4)
-            Thread.sleep(1000)
-            Screengrab.screenshot("011_preferences_developertools")
+            takeScreenshotWithWait("settings_developer_tools")
             clickDownRecyclerView(4)
-            Thread.sleep(1000)
-            Screengrab.screenshot("031_preferences_about")
+            takeScreenshotWithWait("settings_about")
         }.goBack {
         }
     }
@@ -153,8 +144,7 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }.openSettings {
         }.openSettingsViewSearch {
-            Thread.sleep(1000)
-            Screengrab.screenshot("012_search_engine_settings")
+            takeScreenshotWithWait("search_settings")
         }.goBack {
         }.goBack {
         }
@@ -165,19 +155,15 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }.openSettings {
         }.openSettingsViewCustomization {
-            Thread.sleep(1000)
-            Screengrab.screenshot("013_customization_preferences")
+            takeScreenshotWithWait("customization")
         }.openSettingsViewChangeAppIcon {
-            Thread.sleep(1000)
-            Screengrab.screenshot("014_fragment_change_icon")
+            takeScreenshotWithWait("customization_change_icon")
         }.goBack {
             clickSetAppTheme()
-            Thread.sleep(1000)
-            Screengrab.screenshot("015_customization_preferences_setapptheme")
+            takeScreenshotWithWait("customization_set_app_theme")
             clickCancelDialog()
             clickDefaultBehavior()
-            Thread.sleep(1000)
-            Screengrab.screenshot("016_customization_preferences_defaultbehavior")
+            takeScreenshotWithWait("customization_default_behavior")
             clickCancelDialog()
         }.goBack {
         }.goBack {
@@ -191,8 +177,7 @@ class ScreenshotGenerator {
             clickDownRecyclerView(13)
             Thread.sleep(1000)
         }.openSettingsViewDeleteBrowsingData {
-            Thread.sleep(1000)
-            Screengrab.screenshot("017_fragment_delete_browsing_data")
+            takeScreenshotWithWait("delete_browsing_data_settings")
         }.goBack {
         }.goBack {
         }
@@ -205,8 +190,7 @@ class ScreenshotGenerator {
             clickDownRecyclerView(16)
             Thread.sleep(1000)
         }.openSettingsViewSources {
-            Thread.sleep(1000)
-            Screengrab.screenshot("019_sources_preferences")
+            takeScreenshotWithWait("website_sources_settings")
         }.goBack {
         }.goBack {
         }
@@ -219,8 +203,7 @@ class ScreenshotGenerator {
             clickDownRecyclerView(11)
             Thread.sleep(1000)
         }.openSettingsViewMetrics {
-            Thread.sleep(1000)
-            Screengrab.screenshot("027_metrics_preferences")
+            takeScreenshotWithWait("metrics_settings")
         }.goBack {
         }.goBack {
         }
@@ -233,14 +216,13 @@ class ScreenshotGenerator {
             clickDownRecyclerView(25)
             Thread.sleep(1000)
         }.openSettingsViewAboutPage {
-            Thread.sleep(1000)
-            Screengrab.screenshot("020_fragment_about")
+            takeScreenshotWithWait("about_settings")
         }.goBack {
         }.goBack {
         }
     }
 
-    fun developerToolsScreenshots() {
+    fun additionalDeveloperToolsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
         }.openSettings {
@@ -248,16 +230,16 @@ class ScreenshotGenerator {
             for (i in 0..7) {
                 clickCenoVersionDisplay()
             }
-            Screengrab.screenshot("023_preferences_additionaldevelopertools")
+            Screengrab.screenshot("additional_developer_tools")
             // Wait for developer tool toasts to disappear
             Thread.sleep(10000)
         }.openSettingsViewDeveloperTools {
-            Screengrab.screenshot("024_fragment_developer_tools")
+            Screengrab.screenshot("additional_developer_tools_settings")
             clickExportOuinetLog()
-            Screengrab.screenshot("025_developer_tools_export_ouinet_log")
+            Screengrab.screenshot("additional_developer_tools_export_log")
             mDevice.pressBack()
             clickAnnouncementSource()
-            Screengrab.screenshot("026_developer_tools_announcement_source")
+            Screengrab.screenshot("additional_developer_tools_announcement_source")
             clickCancelDialog()
         }.goBack {
         }.goBack {
@@ -282,14 +264,12 @@ class ScreenshotGenerator {
             verifyBridgeModeToggle()
             clickBridgeModeToggle()
             waitForBridgeModeDialogToExist()
-            Screengrab.screenshot("032_bridgemode_dialog")
+            takeScreenshotWithWait("enable_bridge_mode_dialog", 0)
             waitForBridgeModeDialog()
             // TODO: localize checking for success dialog instead of sleeping
-            Thread.sleep(5000)
-            Screengrab.screenshot("033_bridgemode_success")
+            takeScreenshotWithWait("enable_bridge_mode_success", 5000)
             clickOk()
-            Thread.sleep(1000)
-            Screengrab.screenshot("034_bridgemode_enabled")
+            takeScreenshotWithWait("enable_bridge_mode_enabled")
         }.goBack {
         }
     }
@@ -308,13 +288,12 @@ class ScreenshotGenerator {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser("https://wikipedia.org".toUri()){
             // TODO: implement check that page has finished loading
-            Thread.sleep(15000)
-            Screengrab.screenshot("036_browser_injector_source")
+            takeScreenshotWithWait("injector_source_browser", 15000)
         }
         navigationToolbar {
         }.openContentSourcesSheet {
             mDevice.waitForIdle(waitingTime)
-            Screengrab.screenshot("037_content_sources_injector")
+            takeScreenshotWithWait("injector_source_popup")
         }.closeContentSourcesSheet {
         }
     }
@@ -327,14 +306,12 @@ class ScreenshotGenerator {
             clickDownRecyclerView(15)
             Thread.sleep(1000)
             verifyClearCachedContentButton()
-            Screengrab.screenshot("040_cache_with_data")
+            takeScreenshotWithWait("cached_content_with_data")
         }.openSettingsViewCachedContent {
-            Thread.sleep(1000)
-            Screengrab.screenshot("041_cached_content")
+            takeScreenshotWithWait("cached_content_list")
         }.goBack {
             clickClearCacheButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("042_clear_cache_dialog")
+            takeScreenshotWithWait("cached_content_clear_dialog")
             clickCancel()
         }.goBack {
         }
@@ -355,13 +332,12 @@ class ScreenshotGenerator {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser("https://meduza.io".toUri()){
             // TODO: implement check that page has finished loading
-            Thread.sleep(30000)
-            Screengrab.screenshot("038_browser_dcache_source")
+            takeScreenshotWithWait("dcache_source_browser", 30000)
         }
         navigationToolbar {
         }.openContentSourcesSheet {
             mDevice.waitForIdle(waitingTime)
-            Screengrab.screenshot("039_content_sources_dcache")
+            takeScreenshotWithWait("dcache_source_popup")
         }.closeContentSourcesSheet {
         }
     }
@@ -374,8 +350,7 @@ class ScreenshotGenerator {
             Thread.sleep(1000)
             verifyChangeLanguageButton()
         }.openSettingsViewChangeLanguage {
-            Thread.sleep(1000)
-            Screengrab.screenshot("043_change_language")
+            takeScreenshotWithWait("change_language")
         }.goBack {
         }.goBack {
         }
@@ -385,12 +360,11 @@ class ScreenshotGenerator {
         navigationToolbar {
         }.openTabTrayMenu {
         }.openNewTab {
-            Screengrab.screenshot("021_fragment_public_home")
+            takeScreenshotWithWait("homepage_public")
         }
         homepage {
         }.openPersonalHomepage {
-            Thread.sleep(1000)
-            Screengrab.screenshot("022_fragment_personal_home")
+            takeScreenshotWithWait("homepage_personal")
         }
     }
 
@@ -412,7 +386,7 @@ class ScreenshotGenerator {
         websiteSourcesSettingsScreenshots()
         metricsSettingsScreenshots()
         aboutSettingsScreenshots()
-        developerToolsScreenshots()
+        additionalDeveloperToolsScreenshots()
         changeLanguageScreenshots()
         enableBridgeModeScreenshots()
         injectorSourceScreenshots()
