@@ -397,13 +397,9 @@
     <string name="preferences_metrics_campaign">Métricas de fondo</string>
     <string name="metrics_campaign_more_info">Más información</string>
     <string name="metrics_campaign_view_privacy_policy">Política de privacidad</string>
-    <string name="metrics_consent_accept">Acepto</string>
-    <string name="consent_dialog_modify_privacy_settings">Modificar ajustes de privacidad</string>
     <string name="bookmarks_empty_message">No hay marcadores</string>
     <string name="metrics_ouinet_title">Métricas de Ceno</string>
     <string name="metrics_ouinet_description">Envíe anónimamente a los desarrolladores métricas que respetan su privacidad</string>
-    <string name="metrics_consent_dialog_description">Para comprender mejor las necesidades de los usuarios de Ceno, estamos lanzando un sistema de métricas respetuoso de la privacidad .\n\nPuede consultar los detalles sobre qué recopilamos y cómo gestionamos sus datos en nuestra Política de Privacidad.\n\nTambién puede darse de alta en cualquier momento a través de Configuración &gt; Métricas en segundo plano.</string>
-    <string name="metrics_consent_dialog_description_link">Política de Privacidad</string>
     <string name="bookmark_menu_edit_button">Editar</string>
     <string name="bookmark_menu_copy_button">Copiar</string>
     <string name="bookmark_menu_open_in_new_tab_button">Abrir en una nueva pestaña</string>

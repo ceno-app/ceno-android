@@ -403,7 +403,6 @@
     <string name="metrics_campaign_more_info">Більше інформації</string>
     <string name="metrics_ouinet_title">Цінові показники</string>
     <string name="metrics_ouinet_description">Надсилайте розробникам анонімні показники, що відповідають конфіденційності</string>
-    <string name="metrics_consent_accept">Я приймаю</string>
     <string name="edit_bookmark_folder_fragment_title">Редагувати папку</string>
     <string name="bookmark_menu_open_in_new_tab_button">Відкрити в новій вкладці</string>
     <string name="bookmark_url_label">URL</string>
@@ -414,14 +413,11 @@
     <string name="add_or_remove_bookmark">додати або видалити закладку</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Ви впевнені, що хочете видалити цю папку?</string>
     <string name="preferences_metrics_campaign">Фонові показники</string>
-    <string name="consent_dialog_modify_privacy_settings">Змінити налаштування конфіденційності</string>
     <string name="bookmarks_empty_message">Тут немає закладок</string>
     <string name="bookmark_menu_copy_button">Копіювати</string>
     <string name="bookmark_add_folder">Додати папку</string>
     <string name="library_desktop_bookmarks_unfiled">Інші закладки</string>
     <string name="bookmark_item_menu_button">кнопка меню елемента закладки</string>
-    <string name="metrics_consent_dialog_description">Ми запускаємо систему показників, що поважає конфіденційність, щоб краще зрозуміти потреби користувачів Ceno.\n\nВи можете ознайомитися з детальною інформацією про те, що ми збираємо та як ми обробляємо ваші дані, у нашій Політиці конфіденційності.\n\nВи також можете будь-коли відмовитися від цієї функції в розділі «Налаштування» &gt; «Фонові показники».</string>
-    <string name="metrics_consent_dialog_description_link">Політиці конфіденційності</string>
     <string name="metrics_campaign_view_privacy_policy">Політика конфіденційності</string>
     <string name="foreground_notification_reminder_channel">Нагадування про Ceno</string>
     <string name="reminder_notification_title">Гей, минуло вже деякий час!</string>

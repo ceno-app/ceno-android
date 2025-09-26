@@ -395,9 +395,6 @@
     <string name="bookmark_menu_delete_button">Smazat</string>
     <string name="bookmark_name_label">Jméno</string>
     <string name="library_bookmarks">Záložky</string>
-    <string name="metrics_consent_dialog_description_link">Zásady ochrany osobních údajů</string>
-    <string name="metrics_consent_accept">Přijímám</string>
-    <string name="consent_dialog_modify_privacy_settings">Upravit nastavení soukromí</string>
     <string name="bookmarks_empty_message">Zde nejsou žádné záložky</string>
     <string name="bookmark_menu_edit_button">Upravit</string>
     <string name="bookmark_menu_copy_button">Kopírovat</string>

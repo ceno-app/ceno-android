@@ -460,10 +460,6 @@
     <string name="metrics_campaign_view_privacy_policy">Privacy policy</string>
     <string name="metrics_ouinet_title">Ceno Metrics</string>
     <string name="metrics_ouinet_description">Submit anonymous, privacy respecting metrics to developers</string>
-    <string name="metrics_consent_dialog_description">We\'re launching a privacy respecting metrics system to help us better understand Ceno users\' needs.\n\nYou can review the details of what we\'ll collect and how we handle your data in our Privacy Policy.\n\nYou can also opt out at any time via Settings > Background metrics.</string>
-    <string name="metrics_consent_dialog_description_link">Privacy Policy</string>
-    <string name="metrics_consent_accept">I Accept</string>
-    <string name="consent_dialog_modify_privacy_settings">Modify Privacy Settings</string>
 
     <string name="bookmarks_empty_message">No bookmarks here</string>
     <string name="bookmark_menu_edit_button">Edit</string>
