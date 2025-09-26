@@ -8,6 +8,7 @@ This release:
 - Enables dynamic port selection for frontend and proxy endpoints
 - Adds option to follow system theme
 - Fixes bug with export log option
+- Fixes bug with notifications and error page
 - Updates Android-Components to v143.0.2
 
 # v2.6.2
