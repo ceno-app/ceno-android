@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Process
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
@@ -52,14 +51,8 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.isInstallFromUpdate
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
-import ie.equalit.ceno.metrics.ConsentRequestDialog
 import ie.equalit.ceno.metrics.NetworkMetrics
-import ie.equalit.ceno.settings.CenoSettings
-import ie.equalit.ceno.settings.OuinetKey
-import ie.equalit.ceno.settings.OuinetResponseListener
-import ie.equalit.ceno.settings.OuinetValue
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -157,35 +150,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
             if((destination.id == R.id.homeFragment || destination.id == R.id.browserFragment) && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
-
-                if( isInstallFromUpdate() && isVersionForConsent(this) && cenoPreferences().showMetricsConsentDialog) {
-                    val dialog = ConsentRequestDialog(this)
-                    dialog.show (
-                        complete = { granted ->
-                            //web api call
-                            CenoSettings.ouinetClientRequest(
-                                context = this,
-                                coroutineScope = lifecycleScope,
-                                key = OuinetKey.CENO_METRICS,
-                                newValue = if (granted) OuinetValue.ENABLE else OuinetValue.DISABLE,
-                                stringValue = null,
-                                object : OuinetResponseListener {
-                                    override fun onSuccess(message: String, data: Any?) {
-                                        Settings.setOuinetMetricsEnabled(this@BrowserActivity, granted)
-                                    }
-                                    override fun onError() {
-                                        Log.e(TAG, "Failed to set metrics to newValue: $granted")
-                                    }
-                                },
-                                forMetrics = true
-                            )
-                            cenoPreferences().showMetricsConsentDialog = false
-                        },
-                        openMetricsSettings = {
-                            navHost.navController.navigate(R.id.action_global_metricsCampaignFragment)
-                        },
-                    )
-                }
 
                 if (Settings.showCrashReportingPermissionNudge(this)) {
                     showCrashReportingPermission()
