@@ -67,7 +67,7 @@ class OuicrawledSiteViewHolder(
             }
         }
         binding.ouicrawledSite.setOnClickListener {
-            interactor.onOuicrawlSiteClicked(ouicrawlSite.SiteURL)
+            interactor.onOuicrawlSiteClicked("https://${ouicrawlSite.SiteURL}")
         }
 
         this.ouicrawlSite = ouicrawlSite
