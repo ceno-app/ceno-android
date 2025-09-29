@@ -455,4 +455,11 @@
         <item quantity="many">%d dni temu</item>
         <item quantity="other">%d dni temu</item>
     </plurals>
+    <string name="ouinet_state_created">Stworzony</string>
+    <string name="ouinet_state_failed">Nieudany</string>
+    <string name="ouinet_state_starting">Uruchamianie</string>
+    <string name="ouinet_state_degraded">Zdegradowany</string>
+    <string name="ouinet_state_started">Uruchomiony</string>
+    <string name="ouinet_state_stopping">Zatrzymywanie</string>
+    <string name="ouinet_state_stopped">Zatrzymany</string>
 </resources>

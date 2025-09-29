@@ -310,7 +310,7 @@
     <string name="preferences_theme_option_3">تنظیم با حالت صرفه‌جویی در باتری</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">دانلود</string>
     <string name="website_button_link">https://ceno.app/fa/index.html</string>
-    <string name="about_content_title">!وب را ‌دست‌به‌دست کن</string>
+    <string name="about_content_title">وب را ‌دست‌به‌دست کن!</string>
     <string name="about_content_para_1">اولین مرورگر موبایل در جهان است که روش‌های فعلی سانسور اینترنت را بی‌اثر می‌کند. زیرساخت همتا‌به‌همتای آن به افراد اجازه می‌دهد تا به اطلاعات وب در مناطقی که اتصال اینترنتی قطع شده یا به خطر افتاده، دسترسی داشته باشند و آن را به اشتراک بگذارند.</string>
     <string name="about_content_para_2">مرورگر سنو پروژه‌ای از شرکت eQualit.ie است؛ یک سازمان غیرانتفاعی کانادایی که به منظور حمایت از شبکه‌ای برابر و عادلانه‌تر، مجموعه‌ای از خدمات اینترنتی غیرمتمرکز ارائه می‌دهد. راه‌حل‌های eQualitie متن‌باز هستند، امتحان خود را در عمل پس داده‌اند و هماهنگ با ارزش‌های ما شکل گرفته‌اند. این راه‌حل‌ها هر روز میلیون‌ها نفر را به صورت آنلاین از حق آزادی انجمن برخوردار می‌کنند.</string>
     <string name="support_button_text">پشتیبانی</string>
@@ -426,4 +426,11 @@
         <item quantity="one">%d روز پیش‌</item>
         <item quantity="other">%d روز پیش</item>
     </plurals>
+    <string name="ouinet_state_created">ایجاد شد</string>
+    <string name="ouinet_state_failed">ناموفق</string>
+    <string name="ouinet_state_starting">در حال شروع</string>
+    <string name="ouinet_state_degraded">تضعیف‌شده</string>
+    <string name="ouinet_state_started">شروع شد</string>
+    <string name="ouinet_state_stopping">در حال توقف</string>
+    <string name="ouinet_state_stopped">متوقف شد</string>
 </resources>

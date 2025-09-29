@@ -10,7 +10,7 @@
     <string name="open_links_in_apps">Відкривати посилання у застосунках</string>
     <string name="developer_tools_category">Інструменти розробника</string>
     <string name="tracker_category">Захист від стеження</string>
-    <string name="settings">Налаштування</string>
+    <string name="settings">Налаштуваннях</string>
     <string name="private_browsing_title">Персональний перегляд</string>
     <string name="content_description_private_browsing_button">Увімкнути режим персонального перегляду</string>
     <string name="bookmark_menu_open_in_private_tab_button">Відкрити у персональній вкладці</string>
@@ -29,7 +29,7 @@
     <string name="browser_menu_refresh">Оновити</string>
     <string name="browser_menu_stop">Зупинити</string>
     <string name="preferences_add_ons">Розширення</string>
-    <string name="browser_menu_settings">Налаштування</string>
+    <string name="browser_menu_settings">Налаштуваннях</string>
     <string name="browser_menu_desktop_site">Запит на версію на десктопі</string>
     <string name="browser_menu_add_to_homescreen">Додати на головний екран</string>
     <string name="browser_menu_find_in_page">Знайти на сторінці</string>
@@ -151,7 +151,7 @@
     <string name="preferences_clear_behavior_summary">Налаштувати поведінку при натисканні кнопки очищення</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="preferences_about_ceno">Ceno браузером</string>
-    <string name="preferences_about_ouinet_protocol">Протокол Ouinet</string>
+    <string name="preferences_about_ouinet_protocol">Протокол Ouinet\'</string>
     <string name="about_category">Про</string>
     <string name="preferences_ceno_sources_private_summary">Завантажити контент через приватну мережу Сeno</string>
     <string name="preferences_ceno_sources_origin">Вебсайт</string>
@@ -441,4 +441,11 @@
         <item quantity="many">%d днів тому</item>
         <item quantity="other">%d днів тому</item>
     </plurals>
+    <string name="ouinet_state_created">Створено</string>
+    <string name="ouinet_state_failed">Не вдалося</string>
+    <string name="ouinet_state_starting">Початок</string>
+    <string name="ouinet_state_degraded">Деградований</string>
+    <string name="ouinet_state_started">Розпочато</string>
+    <string name="ouinet_state_stopping">Зупинка</string>
+    <string name="ouinet_state_stopped">Зупинено</string>
 </resources>

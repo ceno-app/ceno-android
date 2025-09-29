@@ -447,4 +447,11 @@
         <item quantity="many">Há %d dias</item>
         <item quantity="other">Há %d dias</item>
     </plurals>
+    <string name="ouinet_state_created">Criado</string>
+    <string name="ouinet_state_failed">Falhou</string>
+    <string name="ouinet_state_starting">Iniciando</string>
+    <string name="ouinet_state_degraded">Degradado</string>
+    <string name="ouinet_state_started">Iniciado</string>
+    <string name="ouinet_state_stopping">Interrompendo</string>
+    <string name="ouinet_state_stopped">Interrompido</string>
 </resources>

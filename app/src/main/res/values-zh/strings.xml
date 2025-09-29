@@ -439,4 +439,11 @@
     </plurals>
     <string name="metrics_ouinet_title">Ceno 统计（Metrics）</string>
     <string name="ouicrawl_sites_section_title">免费媒体流</string>
+    <string name="ouinet_state_created">创建</string>
+    <string name="ouinet_state_failed">未完成</string>
+    <string name="ouinet_state_starting">现在开始</string>
+    <string name="ouinet_state_degraded">下调</string>
+    <string name="ouinet_state_started">已经开始</string>
+    <string name="ouinet_state_stopping">停止中</string>
+    <string name="ouinet_state_stopped">已经停止</string>
 </resources>

@@ -419,4 +419,10 @@
         <item quantity="other">%d gün önce</item>
     </plurals>
     <string name="foreground_notification_reminder_channel">Ceno Hatırlatıcısı</string>
+    <string name="ouinet_state_created">Oluşturuldu</string>
+    <string name="ouinet_state_failed">Başarısız</string>
+    <string name="ouinet_state_starting">Başlıyor</string>
+    <string name="ouinet_state_started">Başladı</string>
+    <string name="ouinet_state_stopping">Durduruluyor</string>
+    <string name="ouinet_state_stopped">Durduruldu</string>
 </resources>
