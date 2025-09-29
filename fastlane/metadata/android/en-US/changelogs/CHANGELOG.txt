@@ -10,6 +10,7 @@ This release:
 - Fixes bug with export log option
 - Fixes bug with notifications and error page
 - Updates Android-Components to v143.0.2
+- Update cacert.pem with bundle generated on Tue Sep 9 03:12:01 2025 GMT
 
 # v2.6.2
 This release:
