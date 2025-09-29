@@ -438,4 +438,11 @@
     <string name="reminder_notification_title">Hey, lange nicht gesehen!</string>
     <string name="reminder_notification_text">Öffne Ceno erneut um deinen Zwischenspeicher für andere Nutzer zugänglich zu behalten</string>
     <string name="ouicrawl_sites_section_title">Kostenloser Medienfeed</string>
+    <string name="ouinet_state_created">erstellt</string>
+    <string name="ouinet_state_failed">Fehlgeschlagen</string>
+    <string name="ouinet_state_starting">Starten</string>
+    <string name="ouinet_state_started">gestartet</string>
+    <string name="ouinet_state_stopping">stoppen</string>
+    <string name="ouinet_state_stopped">gestoppt</string>
+    <string name="ouinet_state_degraded">Degradiert</string>
 </resources>

@@ -1,0 +1,1 @@
+Ceno源代码使用Mozilla预先构建的库,这些库并非完全免费。对于 Ceno Browser 的 F-Droid 版本,我们修补非免费部件并从头开始构建这些库。

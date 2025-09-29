@@ -459,4 +459,11 @@
         <item quantity="many">Il y a %d jours</item>
         <item quantity="other">Il y a %d jours</item>
     </plurals>
+    <string name="ouinet_state_created">Créé</string>
+    <string name="ouinet_state_failed">Échec</string>
+    <string name="ouinet_state_starting">En cours de démarrage</string>
+    <string name="ouinet_state_degraded">Dégradé</string>
+    <string name="ouinet_state_started">Démarré</string>
+    <string name="ouinet_state_stopping">En cours d\'arrêt</string>
+    <string name="ouinet_state_stopped">Arrêté</string>
 </resources>
