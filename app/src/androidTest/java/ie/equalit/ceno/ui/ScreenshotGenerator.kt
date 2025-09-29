@@ -3,6 +3,7 @@ package ie.equalit.ceno.ui
 import android.os.Build
 import androidx.core.net.toUri
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.rule.ActivityTestRule
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
@@ -40,6 +41,9 @@ class ScreenshotGenerator {
 
     @get:Rule
     var activityRule = ActivityScenarioRule(BrowserActivity::class.java)
+
+    @get:Rule
+    var activityTestRule = ActivityTestRule(BrowserActivity::class.java)
 
     @Rule
     @JvmField
@@ -155,7 +159,9 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }.openSettings {
         }.openSettingsViewCustomization {
+            toggleShowHomeButton()
             takeScreenshotWithWait("customization")
+            toggleShowHomeButton()
         }.openSettingsViewChangeAppIcon {
             takeScreenshotWithWait("customization_change_icon")
         }.goBack {
@@ -177,6 +183,8 @@ class ScreenshotGenerator {
             clickDownRecyclerView(13)
             Thread.sleep(1000)
         }.openSettingsViewDeleteBrowsingData {
+            verifyCookiesCheckbox()
+            toggleCookiesCheckbox()
             takeScreenshotWithWait("delete_browsing_data_settings")
         }.goBack {
         }.goBack {
@@ -203,6 +211,8 @@ class ScreenshotGenerator {
             clickDownRecyclerView(11)
             Thread.sleep(1000)
         }.openSettingsViewMetrics {
+            verifyCrashReportingButton()
+            toggleCrashReporting()
             takeScreenshotWithWait("metrics_settings")
         }.goBack {
         }.goBack {
@@ -361,13 +371,45 @@ class ScreenshotGenerator {
         }.openTabTrayMenu {
         }.openNewTab {
             takeScreenshotWithWait("homepage_public")
+        }.openThreeDotMenu {
+            takeScreenshotWithWait("homepage_three_dot")
+        }.closeMenu {
         }
         homepage {
         }.openPersonalHomepage {
             takeScreenshotWithWait("homepage_personal")
         }
+        homepage {
+        }.openPublicHomepage {
+        }
     }
 
+    fun tabsTrayScreenshots() {
+        navigationToolbar {
+        }.openTabTrayMenu {
+            takeScreenshotWithWait("tabs_tray_public")
+        }.openNewTab {
+        }
+        navigationToolbar {
+        }.openTabTrayMenu {
+        }.openMoreOptionsMenu(activityTestRule.activity) {
+            verifyCloseAllTabsButton()
+            takeScreenshotWithWait("tabs_tray_three_dot")
+        }.closeMenu {
+        }.goBackFromTabTray {
+        }
+        homepage {
+        }.openPersonalHomepage {
+        }
+        navigationToolbar {
+        }.openTabTrayMenu {
+            takeScreenshotWithWait("tabs_tray_private")
+        }.openNewTab {
+        }
+        homepage {
+        }.openPublicHomepage {
+        }
+    }
 
     @Test
     fun testScreenshots() {
@@ -379,6 +421,7 @@ class ScreenshotGenerator {
         }.skipOnboardingIfNeeded()
         */
         onboardingScreenshots()
+        homepageScreenshots()
         settingsScreenshots()
         searchSettingsScreenshots()
         customizationSettingsScreenshots()
@@ -392,7 +435,7 @@ class ScreenshotGenerator {
         injectorSourceScreenshots()
         cachedContentScreenshots()
         dcacheSourceScreenshots()
-        homepageScreenshots()
+        tabsTrayScreenshots()
     }
 }
 
