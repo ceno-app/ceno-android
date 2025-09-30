@@ -11,6 +11,7 @@ This release:
 - Fixes bug with notifications and error page
 - Updates Android-Components to v143.0.2
 - Update cacert.pem with bundle generated on Tue Sep 9 03:12:01 2025 GMT
+- Updates Ceno extension to 1.10.0
 
 # v2.6.2
 This release:
