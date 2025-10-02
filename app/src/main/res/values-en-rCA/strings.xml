@@ -6,4 +6,5 @@
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
     <string name="toolbar_hint">Search or enter address</string>
     <string name="ouinet_state_stopped">Stopped</string>
+    <string name="preferences_ceno_sources_external_udp">External UDP endpoints</string>
 </resources>
