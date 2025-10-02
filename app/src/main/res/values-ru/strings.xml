@@ -158,7 +158,7 @@
     <string name="preferences_about_ceno">Ceno Браузер</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>
-    <string name="preferences_about_ouinet_protocol">Протoкол Ouinet</string>
+    <string name="preferences_about_ouinet_protocol">Протокол Ouinet</string>
     <string name="about_category">О приложении</string>
     <string name="preferences_ceno_sources_origin">Сайт</string>
     <string name="preferences_ceno_sources_public_summary">Через публичную сеть Ceno</string>
