@@ -14,7 +14,7 @@ androidx_work = "2.10.3"
 androidx_r8 = "8.11.18"
 
 # Android Components
-android_components = "143.0.2"
+android_components = "143.0.3"
 
 # Google
 google_composecompiler = "1.5.14"
