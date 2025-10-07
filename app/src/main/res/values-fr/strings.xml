@@ -154,7 +154,6 @@
     <string name="preferences_clear_behavior">Comportement par défaut</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="preferences_clear_behavior_summary">Définir le comportement du bouton Effacer</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_about_ceno">Navigateur Ceno</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>
@@ -424,9 +423,7 @@
     <string name="preferences_allow_crash_reporting_description">Envoyer des rapports aux développeurs après des plantages</string>
     <string name="metrics_campaign_more_info">Plus d\'informations</string>
     <string name="preferences_metrics_campaign">Mesures d\'arrière-plan</string>
-    <string name="consent_dialog_modify_privacy_settings">Modifier les paramètres de confidentialité</string>
     <string name="bookmarks_empty_message">Pas de signets ici</string>
-    <string name="metrics_consent_accept">J\'accepte</string>
     <string name="metrics_campaign_view_privacy_policy">Politique de confidentialité</string>
     <string name="metrics_ouinet_description">Soumettre des mesures anonymes et respectueuses de la vie privée aux développeurs</string>
     <string name="bookmark_menu_edit_button">Modifier</string>
@@ -437,8 +434,6 @@
     <string name="add_or_remove_bookmark">ajouter ou supprimer le signet</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Est-ce que vous êtes sûr de vouloir supprimer ce dossier?</string>
     <string name="edit_bookmark_folder_fragment_title">Modifier le dossier</string>
-    <string name="metrics_consent_dialog_description">Nous lançons un système de mesure respectueux de la vie privée pour nous aider à mieux comprendre les besoins des utilisateurs de Ceno.\n\nVous pouvez passer en revue les détails de ce que nous allons collecter et comment nous traitons vos données dans notre politique de confidentialité.\n\nVous pouvez également vous désabonner à tout moment via Paramètres &gt; Mesures d\'arrière-plan.</string>
-    <string name="metrics_consent_dialog_description_link">politique de confidentialité</string>
     <string name="bookmark_item_menu_button">bouton de menu d\'élément de signet</string>
     <string name="foreground_notification_reminder_channel">Rappel Ceno</string>
     <string name="reminder_notification_title">Hé, ça fait un bail !</string>
@@ -459,4 +454,11 @@
         <item quantity="many">Il y a %d jours</item>
         <item quantity="other">Il y a %d jours</item>
     </plurals>
+    <string name="ouinet_state_created">Créé</string>
+    <string name="ouinet_state_failed">Échec</string>
+    <string name="ouinet_state_starting">En cours de démarrage</string>
+    <string name="ouinet_state_degraded">Dégradé</string>
+    <string name="ouinet_state_started">Démarré</string>
+    <string name="ouinet_state_stopping">En cours d\'arrêt</string>
+    <string name="ouinet_state_stopped">Arrêté</string>
 </resources>

@@ -85,7 +85,7 @@ class ReaderViewRobot {
 
     class Transition {
         fun dismissAppearanceMenu(interact: ReaderViewRobot.() -> Unit): Transition {
-            mDevice.pressBack()
+            onView( withId(R.id.engineView)).click()
 
             ReaderViewRobot().interact()
             return Transition()

@@ -154,11 +154,10 @@
     <string name="preferences_clear_behavior">Действие по умолчанию</string>
     <string name="preferences_clear_behavior_summary">Установить быстрое действие при нажатии кнопки</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_about_ceno">Ceno Браузер</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_about_ouinet">Ouinet</string>
-    <string name="preferences_about_ouinet_protocol">Протокол Ouinet</string>
+    <string name="preferences_about_ouinet_protocol">Протoкол Ouinet</string>
     <string name="about_category">О приложении</string>
     <string name="preferences_ceno_sources_origin">Сайт</string>
     <string name="preferences_ceno_sources_public_summary">Через публичную сеть Ceno</string>
@@ -384,7 +383,7 @@
     <string name="thank_you_for_feedback">Спасибо вам!</string>
     <string name="device_locale">Язык</string>
     <string name="clean_insights_header">Помогите нам сделать Ceno лучше!</string>
-    <string name="clean_insights_sub_header">"Мы хотим собирать данные  нескольких показателей до 31 января 2025:"</string>
+    <string name="clean_insights_sub_header">Мы хотим собирать данные нескольких показателей до 31 января 2025:</string>
     <string name="clean_insights_explainer">Мы собираем данные в анонимном режиме. В любой момент Вы можете отказаться (пункт «Сбор данных» в Настройках).</string>
     <string name="clean_insights_opt_in">ДА, Я ХОЧУ УЧАСТВОВАТЬ</string>
     <string name="clean_insights_maybe_later">НЕТ, МОЖЕТ, В ДРУГОЙ РАЗ</string>
@@ -423,12 +422,10 @@
     <string name="bookmark_menu_open_in_new_tab_button">Откройте в новой вкладке</string>
     <string name="bookmark_url_label">URL</string>
     <string name="bookmark_folder_label">ПАПКА</string>
-    <string name="consent_dialog_modify_privacy_settings">Изменить настройки приватности</string>
     <string name="bookmark_add_folder">Добавить папку</string>
     <string name="bookmark_add_folder_fragment_label">Добавить папку</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Вы точно хотите удалить эту папку?</string>
     <string name="metrics_campaign_view_privacy_policy">Политика конфиденциальности</string>
-    <string name="metrics_consent_accept">Согласен</string>
     <string name="bookmark_invalid_url_error">Неправильный URL</string>
     <string name="bookmark_menu_copy_button">Копировать</string>
     <string name="bookmark_menu_edit_button">Изменить</string>
@@ -439,8 +436,6 @@
     <string name="bookmark_item_menu_button">кнопка меню пункта закладки</string>
     <string name="add_or_remove_bookmark">добавить или удалить Закладку</string>
     <string name="library_desktop_bookmarks_unfiled">Другие закладки</string>
-    <string name="metrics_consent_dialog_description">Мы собираем некоторые данные, чтобы лучше понять потребности пользователей Ceno. Мы уважаем вашу конфиденциальность, поэтому метрики глубоко анонимизированы.\n\nПодробную информацию о том, что мы собираем и как обрабатываем, вы можете найти в политике конфиденциальности..\n\nВы также можете в любой момент отказаться сбора данных через Настройки &gt; Сбор данных.</string>
-    <string name="metrics_consent_dialog_description_link">политике конфиденциальности</string>
     <string name="bookmark_deletion_confirmation">Вы уверены, что хотите удалить эту закладку?</string>
     <string name="reminder_notification_title">Привет! Давно не виделись)</string>
     <string name="foreground_notification_reminder_channel">Оповещение Ceno</string>
@@ -464,4 +459,11 @@
         <item quantity="many">%d дней назад</item>
         <item quantity="other">%d дней назад</item>
     </plurals>
+    <string name="ouinet_state_created">Создан</string>
+    <string name="ouinet_state_failed">Не удалось</string>
+    <string name="ouinet_state_starting">Запуск</string>
+    <string name="ouinet_state_degraded">Деградация</string>
+    <string name="ouinet_state_started">Начaло</string>
+    <string name="ouinet_state_stopping">Остановка</string>
+    <string name="ouinet_state_stopped">Остановлено</string>
 </resources>

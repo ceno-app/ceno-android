@@ -286,7 +286,6 @@
     <string name="preferences_clear_behavior_option_1">Prompt</string>
     <string name="preferences_theme">Set app theme</string>
     <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_theme_option_1">Dark</string>
     <string name="preferences_theme_option_2">Light</string>
     <string name="preferences_ceno_sources_upnp">UPnP status</string>

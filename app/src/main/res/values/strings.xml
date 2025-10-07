@@ -228,17 +228,20 @@
     <string name="preferences_change_app_icon">Change app icon</string>
     <string name="preferences_theme">Set app theme</string>
     <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
-    <string name="preferences_theme_default">2</string>
+    <string name="preferences_theme_default" translatable="false">-1</string>
     <string-array name="preferences_theme_values">
+        <item>-1</item>
         <item>2</item>
         <item>1</item>
         <item>3</item>
     </string-array>
     <string-array name="preferences_theme_options">
+        <item>@string/preferences_theme_option_0</item>
         <item>@string/preferences_theme_option_1</item>
         <item>@string/preferences_theme_option_2</item>
         <item>@string/preferences_theme_option_3</item>
     </string-array>
+    <string name="preferences_theme_option_0">Follow system theme</string>
     <string name="preferences_theme_option_1">Dark</string>
     <string name="preferences_theme_option_2">Light</string>
     <string name="preferences_theme_option_3">Set by Battery Saver</string>
@@ -457,10 +460,6 @@
     <string name="metrics_campaign_view_privacy_policy">Privacy policy</string>
     <string name="metrics_ouinet_title">Ceno Metrics</string>
     <string name="metrics_ouinet_description">Submit anonymous, privacy respecting metrics to developers</string>
-    <string name="metrics_consent_dialog_description">We\'re launching a privacy respecting metrics system to help us better understand Ceno users\' needs.\n\nYou can review the details of what we\'ll collect and how we handle your data in our Privacy Policy.\n\nYou can also opt out at any time via Settings > Background metrics.</string>
-    <string name="metrics_consent_dialog_description_link">Privacy Policy</string>
-    <string name="metrics_consent_accept">I Accept</string>
-    <string name="consent_dialog_modify_privacy_settings">Modify Privacy Settings</string>
 
     <string name="bookmarks_empty_message">No bookmarks here</string>
     <string name="bookmark_menu_edit_button">Edit</string>
@@ -509,4 +508,6 @@
     <string name="ouinet_state_started">Started</string>
     <string name="ouinet_state_stopping">Stopping</string>
     <string name="ouinet_state_stopped">Stopped</string>
+    <string name="preferences_ouinet_proxy_endpoint">Local proxy endpoint</string>
+    <string name="preferences_ouinet_frontend_endpoint">Local frontend endpoint</string>
 </resources>

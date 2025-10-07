@@ -28,6 +28,8 @@ class SettingsViewNetworkDetailsRobot {
     fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
     fun verifyReachabilityStatusDisplay(): ViewInteraction = assertReachabilityStatusDisplay()
     fun verifyUpnpStatusDisplay(): ViewInteraction = assertUpnpStatusDisplay()
+    fun verifyLocalProxyEndpointDisplay(): ViewInteraction = assertLocalProxyEndpointDisplay()
+    fun verifyLocalFrontendEndpointDisplay(): ViewInteraction = assertLocalFrontendEndpointDisplay()
 
     fun verifyUdpHeading(): ViewInteraction = assertUdpHeading()
     fun verifyLocalUdpEndpointsDisplay(): ViewInteraction = assertLocalUdpEndpointsDisplay()
@@ -69,6 +71,8 @@ private fun generalHeading() = Espresso.onView(ViewMatchers.withText(R.string.ge
 private fun ouinetProtocolDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_about_ouinet_protocol))
 private fun reachabilityStatusDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_reachability))
 private fun upnpStatusDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_upnp))
+private fun localProxyEndpointDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ouinet_proxy_endpoint))
+private fun localFrontendEndpointDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ouinet_frontend_endpoint))
 
 private fun udpHeading() = Espresso.onView(ViewMatchers.withText(R.string.udp_category))
 private fun localUdpEndpointsDisplay() = Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_local_udp))
@@ -96,6 +100,12 @@ private fun assertReachabilityStatusDisplay() = reachabilityStatusDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUpnpStatusDisplay() = upnpStatusDisplay()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertLocalProxyEndpointDisplay() = localProxyEndpointDisplay()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertLocalFrontendEndpointDisplay() = localFrontendEndpointDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUdpHeading() = udpHeading()
