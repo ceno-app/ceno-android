@@ -57,6 +57,7 @@ class BookmarksTest {
         mDevice.waitForIdle()
         navigationToolbar  {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyAddFolderButton()
@@ -80,6 +81,7 @@ class BookmarksTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksListView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -95,6 +97,7 @@ class BookmarksTest {
         createBookmarkItem(defaultWebPage.url.toString(), defaultWebPage.title, null)
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -120,6 +123,7 @@ class BookmarksTest {
         createBookmarkItem(defaultWebPage.url.toString(), defaultWebPage.title, null)
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -131,8 +135,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.clickToolbar {
-            longClickToolbar()
-            clickPasteText()
+            typePasteText()
             verifyLinkFromClipboard(defaultWebPage.url.toString())
         }
     }
@@ -143,6 +146,7 @@ class BookmarksTest {
         createBookmarkItem(defaultWebPage.url.toString(), defaultWebPage.title, null)
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -159,6 +163,7 @@ class BookmarksTest {
         createBookmarkItem(defaultWebPage.url.toString(), defaultWebPage.title, null)
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -180,6 +185,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksView()
             verifyBookmarkTitle(defaultWebPage.title)
@@ -203,6 +209,7 @@ class BookmarksTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
             verifyAddBookmarksButtonExists()
         }.bookmarkPage {
         }
@@ -225,6 +232,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksListView()
         }.openThreeDotMenu(defaultWebPage.title) {
@@ -235,6 +243,7 @@ class BookmarksTest {
             saveNewFolder()
             navigateUp()
             saveEditBookmark()
+            verifyFolderTitle(bookmarksFolderName)
             selectFolder(bookmarksFolderName)
             verifyBookmarkedURL(defaultWebPage.url.toString())
         }
@@ -243,6 +252,7 @@ class BookmarksTest {
     fun navigateBookmarksFoldersTest() {
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             createFolder("1")
             waitForBookmarksFolderContentToExist("Bookmarks", "1")
@@ -255,7 +265,7 @@ class BookmarksTest {
             navigateUp()
             waitForBookmarksFolderContentToExist("1", "2")
             verifyCurrentFolderTitle("1")
-            mDevice.pressBack()
+            navigateUp()
             verifyBookmarksView()
         }
     }
@@ -267,6 +277,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
             verifyBookmarksListView()
         }.openThreeDotMenu(defaultWebPage.title) {
@@ -289,6 +300,7 @@ class BookmarksTest {
 
         navigationToolbar {
         }.openThreeDotMenu {
+            mDevice.waitForIdle(5000)
         }.openBookmarks {
         }.openThreeDotMenu("My Folder") {
         }.clickDelete {

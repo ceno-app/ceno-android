@@ -43,6 +43,12 @@ class SettingsViewMetricsRobot {
             SettingsViewRobot().interact()
             return SettingsViewRobot.Transition()
         }
+
+        fun goBack(interact: SettingsViewRobot.() -> Unit): SettingsViewRobot.Transition {
+            mDevice.pressBack()
+            SettingsViewRobot().interact()
+            return SettingsViewRobot.Transition()
+        }
     }
 }
 

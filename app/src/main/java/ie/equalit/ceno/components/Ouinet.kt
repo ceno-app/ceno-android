@@ -2,6 +2,7 @@ package ie.equalit.ceno.components
 
 import android.content.Context
 import ie.equalit.ceno.BuildConfig
+import ie.equalit.ceno.EngineProvider
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
@@ -33,8 +34,8 @@ class Ouinet (
             .setTlsCaCertStorePath(context.resources.getString(R.string.cacert_file_path))
             .setCacheType(context.resources.getString(R.string.cache_type))
             .setBtBootstrapExtras(getBtBootstrapExtras())
-            .setListenOnTcp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
-            .setFrontEndEp(context.resources.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
+            .setListenOnTcp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
+            .setFrontEndEp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
             .setErrorPagePath(getErrorPagePath())
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
@@ -51,6 +52,20 @@ class Ouinet (
         background = OuinetBackground.Builder(ctx)
             .setOuinetConfig(config)
             .build()
+    }
+
+    fun updateEndpoints() {
+        background.getProxyEndpoint()?.also {
+            EngineProvider.getOrCreateRuntime(context).settings.setProxyConfig(
+                "manual",
+                it.toString(),
+                it.toString(),
+            )
+            CenoSettings.setProxyEndpoint(context, it.toString())
+        } ?: Logger.error("Failed to set proxyEndpoint in CenoSettings")
+        background.getFrontendEndpoint()?.also {
+            CenoSettings.setFrontendEndpoint(context, it.toString())
+        } ?: Logger.error("Failed to set frontendEndpoint in CenoSettings")
     }
 
     private fun getBtBootstrapExtras() : Set<String>? {

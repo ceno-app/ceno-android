@@ -9,8 +9,10 @@ package ie.equalit.ceno.tabs
 import android.content.Context
 import android.os.Build
 import android.text.TextUtils
+import android.util.Log
 import android.view.View
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import ie.equalit.ceno.R
 import java.util.Locale
 import androidx.core.text.layoutDirection
@@ -26,8 +28,9 @@ object FailedToRetrieveResource {
         return context.resources.openRawResource(R.raw.server500)
             .bufferedReader()
             .use { it.readText() }
-            .replace("%body_theme%", if (isDarkThemeEnabled()) "#39393B" else "#FFFFFF")
-            .replace("%text_theme%", if (isDarkThemeEnabled()) "#FFFFFF" else "#000000")
+            .replace("%body_theme%", getHexColor(ContextCompat.getColor(context, R.color.fx_mobile_layer_color_2)))
+            .replace("%text_theme%", getHexColor(ContextCompat.getColor(context, R.color.fx_mobile_text_color_primary)))
+            .replace("%logo_theme%", getHexColor(ContextCompat.getColor(context, R.color.logo_text_color)))
             .replace("%zero%", String.format(getCurrentLocale(), "%d",0))
             .replace("%language%", getCurrentLocale().toLanguageTag())
             .replace("%direction%", if (isRTL(getCurrentLocale())) "rtl" else "ltr")
@@ -44,11 +47,8 @@ object FailedToRetrieveResource {
             .replace("%error_page_learn_more_3%", context.getString(R.string.error_page_learn_more_3))
     }
 
-    private fun isDarkThemeEnabled(): Boolean {
-        return when (AppCompatDelegate.getDefaultNightMode()) {
-            AppCompatDelegate.MODE_NIGHT_NO -> false
-            else -> true
-        }
+    private fun getHexColor(color: Int): String {
+        return String.format("#%06x", color and 0xffffff)
     }
 
     private fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
