@@ -439,4 +439,11 @@
         <item quantity="many">Hace %d horas</item>
         <item quantity="other">Hace %d horas</item>
     </plurals>
+    <string name="ouinet_state_created">Creado</string>
+    <string name="ouinet_state_failed">Fallido</string>
+    <string name="ouinet_state_starting">Iniciando</string>
+    <string name="ouinet_state_degraded">Degradado</string>
+    <string name="ouinet_state_started">Iniciado</string>
+    <string name="ouinet_state_stopping">Interrumpiendo</string>
+    <string name="ouinet_state_stopped">Interrumpido</string>
 </resources>
