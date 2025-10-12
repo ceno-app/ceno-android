@@ -108,7 +108,7 @@ class ScreenshotGenerator {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
                 //wait for permissions tooltip
                 waitForPermissionsTooltip()
-                takeScreenshotWithWait("onboarding__permissions")
+                takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
                 permissionAllowButton().waitForExists(waitingTime)
                 takeScreenshotWithWait("onboarding_permissions_notifications")
@@ -393,7 +393,6 @@ class ScreenshotGenerator {
         navigationToolbar {
         }.openTabTrayMenu {
         }.openMoreOptionsMenu(activityTestRule.activity) {
-            verifyCloseAllTabsButton()
             takeScreenshotWithWait("tabs_tray_three_dot")
         }.closeMenu {
         }.goBackFromTabTray {
@@ -403,7 +402,7 @@ class ScreenshotGenerator {
         }
         navigationToolbar {
         }.openTabTrayMenu {
-            takeScreenshotWithWait("tabs_tray_private")
+            takeScreenshotWithWait("tabs_tray_personal")
         }.openNewTab {
         }
         homepage {
@@ -421,8 +420,8 @@ class ScreenshotGenerator {
         }.skipOnboardingIfNeeded()
         */
         onboardingScreenshots()
-        homepageScreenshots()
         settingsScreenshots()
+        homepageScreenshots()
         searchSettingsScreenshots()
         customizationSettingsScreenshots()
         deleteBrowsingDataSettingsScreenshots()
