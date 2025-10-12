@@ -237,7 +237,7 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }.openSettings {
             clickDownRecyclerView(24)
-            for (i in 0..7) {
+            for (i in 0..8) {
                 clickCenoVersionDisplay()
             }
             Screengrab.screenshot("additional_developer_tools")
@@ -258,7 +258,7 @@ class ScreenshotGenerator {
             clickDownRecyclerView(24)
             Thread.sleep(1000)
             // Disable developer tools before finishing test
-            for (i in 0..7) {
+            for (i in 0..8) {
                 clickCenoVersionDisplay()
             }
             Thread.sleep(10000)
