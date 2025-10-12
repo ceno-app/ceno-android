@@ -60,11 +60,12 @@ class OnboardingRobot {
         }
         fun skipOnboardingIfNeeded() {
             if (Settings.shouldShowOnboarding(TestHelper.appContext)) {
-                skipCenoTourButton().waitForExists(TestAssetHelper.waitingTime)
-                skipCenoTourButton().click()
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    givePermissionsIfNeeded()
+                skipCenoTourButton().waitForExists(waitingTime)
+                if (skipCenoTourButton().exists()) {
+                    skipCenoTourButton().click()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        givePermissionsIfNeeded()
+                    }
                 }
             }
         }
