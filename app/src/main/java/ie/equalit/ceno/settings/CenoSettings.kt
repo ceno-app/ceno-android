@@ -7,7 +7,6 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -20,10 +19,7 @@ import kotlin.math.ln
 import kotlin.math.pow
 import kotlin.random.Random
 import androidx.core.content.edit
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import mozilla.components.concept.fetch.MutableHeaders
 
 
@@ -64,7 +60,10 @@ enum class OuinetKey(val command : String) {
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
     LOG_LEVEL("log_level"),
     CENO_METRICS("?metrics"),
-    ADD_METRICS("api/metrics/set_key_value?record_id")
+    ADD_METRICS("api/metrics/set_key_value?record_id"),
+    PINNED_GROUPS("api/groups/pinned"),
+    PIN_TO_CACHE("api/groups/pin?name"),
+    UNPIN_FROM_CACHE("api/groups/unpin?name")
 }
 
 enum class OuinetValue(val string: String) {
@@ -542,11 +541,28 @@ object CenoSettings {
                             ouinetResponseListener?.onSuccess(response)
                         }
                     }
-                    OuinetKey.ADD_METRICS -> {
+                    OuinetKey.ADD_METRICS,
+                    OuinetKey.PINNED_GROUPS-> {
                         if (response == null) {
                             ouinetResponseListener?.onError()
                         } else {
                             ouinetResponseListener?.onSuccess(response)
+                        }
+                    }
+                    OuinetKey.PIN_TO_CACHE,
+                    OuinetKey.UNPIN_FROM_CACHE -> {
+                        if (response != null) {
+                            Toast.makeText(
+                                context,
+                                context.resources.getString(R.string.title_success),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                context.resources.getString(R.string.pin_unpin_to_cache_failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

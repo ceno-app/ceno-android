@@ -21,19 +21,22 @@
         android:layout_marginEnd="8dp"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/arrow"
+        app:layout_constraintEnd_toStartOf="@id/btn_pin_to_cache"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/arrow"
+        android:id="@+id/btn_pin_to_cache"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
         android:contentDescription="@string/download_site_content"
-        android:src="@drawable/ic_proceed_arrow"
+        android:drawablePadding="0dp"
+        android:src="@drawable/ic_pin_cache"
+        android:textAllCaps="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/childNameTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

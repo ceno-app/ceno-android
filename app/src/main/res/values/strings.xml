@@ -510,4 +510,5 @@
     <string name="ouinet_state_stopped">Stopped</string>
     <string name="preferences_ouinet_proxy_endpoint">Local proxy endpoint</string>
     <string name="preferences_ouinet_frontend_endpoint">Local frontend endpoint</string>
+    <string name="pin_unpin_to_cache_failed">Error! Cache update failed.</string>
 </resources>

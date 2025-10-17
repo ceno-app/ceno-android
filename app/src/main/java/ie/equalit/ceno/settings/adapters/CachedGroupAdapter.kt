@@ -9,6 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseExpandableListAdapter
+import androidx.core.content.ContextCompat
+import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.ExpandableListChildItemBinding
 import ie.equalit.ceno.databinding.ExpandableListGroupItemBinding
 
@@ -67,16 +69,46 @@ class CachedGroupAdapter(private val context: Context, private val groupList: Li
         parent: ViewGroup?
     ): View {
         val binding = ExpandableListChildItemBinding.inflate(LayoutInflater.from(context), parent, false)
-        binding.childNameTextView.text = groupList[groupPosition].children[childPosition]
+        val cacheItem = groupList[groupPosition].children[childPosition]
+        binding.childNameTextView.text = cacheItem.url
         binding.root.setOnClickListener {
-            clickListener?.onLinkClicked(groupList[groupPosition].children[childPosition])
+            clickListener?.onLinkClicked(cacheItem.url)
+        }
+        setIsPinned(cacheItem.isPinned, binding)
+        binding.btnPinToCache.setOnClickListener() { _ ->
+            clickListener?.onPinChanged(cacheItem.url, !cacheItem.isPinned)
+            setIsPinned(!cacheItem.isPinned, binding)
         }
         return binding.root
     }
 
-    data class GroupItem(val name: String, val children: List<String>)
+    private fun setIsPinned(
+        isPinned: Boolean,
+        binding: ExpandableListChildItemBinding
+    ) {
+        if (isPinned) {
+            binding.btnPinToCache.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.ic_unpin
+                )
+            )
+        } else {
+            binding.btnPinToCache.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context,
+                    R.drawable.ic_pin_cache
+                )
+            )
+        }
+    }
+
+    data class GroupItem(val name: String, val children: List<GroupChildItem>)
+
+    data class GroupChildItem(val url: String, val isPinned:Boolean)
 
     interface GroupClickListener {
         fun onLinkClicked(url: String)
+        fun onPinChanged(url: String, isPinned: Boolean)
     }
 }
