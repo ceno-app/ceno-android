@@ -298,9 +298,7 @@
     <string name="thank_you_bridge_mode_enabled">Terima kasih telah menjadi Bridge dan membantu jaringan Ceno berkembang!</string>
     <string name="dialog_btn_positive_ok">OKE</string>
     <string name="preferences_about_geckoview">GeckoView</string>
-    <string name="ceno_log_content_group_file_saved">Konten yang dibagian berhasil disimpan</string>
     <string name="udp_category">UDP</string>
-    <string name="ceno_android_content_group_file_name">Konten terbagi Ceno</string>
     <string name="canceled">Dibatalkan</string>
     <string name="download_site_content">Unduh konten situs</string>
     <string name="setting_item_selected">%s terpilih</string>
@@ -321,7 +319,6 @@
     <string name="clean_insights_maybe_later">TIDAK, NANTI SAJA</string>
     <string name="error_page_title">Halaman Eror</string>
     <string name="thank_you_for_feedback">Terima kasih atas masukan anda!</string>
-    <string name="confirm_groups_file_download">Ekspor daftar konten yang dibagikan?</string>
     <string name="confirm_groups_file_download_desc">Sebuah file .txt akan tersimpan dalam penyimpanan lokal.</string>
     <string name="confirm_clear_cached_content">Bersihkan cache konten?</string>
     <string name="confirm_clear_cached_content_desc">Cache konten mu akan segera dihapus</string>
