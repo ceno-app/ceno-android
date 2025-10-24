@@ -47,10 +47,7 @@ object TestHelper {
         val appContext = InstrumentationRegistry.getInstrumentation()
             .targetContext
             .applicationContext
-        var flags = PendingIntent.FLAG_UPDATE_CURRENT
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            flags = flags or PendingIntent.FLAG_IMMUTABLE
-        }
+        val flags = PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         val pendingIntent = PendingIntent.getActivity(appContext, 0, Intent(), flags)
         val customTabsIntent = CustomTabsIntent.Builder()
             .setShareState(CustomTabsIntent.SHARE_STATE_ON)

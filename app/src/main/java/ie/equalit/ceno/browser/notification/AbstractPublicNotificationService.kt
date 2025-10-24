@@ -61,11 +61,9 @@ abstract class AbstractPublicNotificationService : Service() {
             this,
             NOTIFICATION_CHANNEL,
             onSetupChannel = {
-                if (SDK_INT >= Build.VERSION_CODES.O) {
-                    enableLights(false)
-                    enableVibration(false)
-                    setShowBadge(false)
-                }
+                enableLights(false)
+                enableVibration(false)
+                setShowBadge(false)
             },
         )
     }
