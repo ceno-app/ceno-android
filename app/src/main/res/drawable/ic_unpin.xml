@@ -1,9 +1,13 @@
-<vector xmlns:android="http://schemas.android.com/apk/res/android"
-    android:width="24dp"
-    android:height="24dp"
-    android:viewportWidth="960"
-    android:viewportHeight="960">
-  <path
-      android:pathData="M680,120v80h-40v327l-80,-80v-247L400,200v87l-87,-87 -33,-33v-47h400ZM480,920l-40,-40v-240L240,640v-80l80,-80v-46L56,168l56,-56 736,736 -58,56 -264,-264h-6v240l-40,40ZM354,560h92l-44,-44 -2,-2 -46,46ZM480,367ZM402,516Z"
-      android:fillColor="@color/ceno_ui_icons_fill"/>
+<vector xmlns:android="http://schemas.android.com/apk/res/android" android:height="24dp" android:viewportHeight="56" android:viewportWidth="56" android:width="24dp">
+      
+    <path android:fillColor="@color/ceno_ui_icons_fill" android:pathData="M28,28m-26.5,0a26.5,26.5 0,1 1,53 0a26.5,26.5 0,1 1,-53 0" android:strokeColor="@color/ceno_ui_icons_fill" android:strokeWidth="3"/>
+      
+    <group>
+            
+        <clip-path android:pathData="M4,4h48v48h-48z"/>
+            
+        <path android:fillColor="@color/fx_mobile_layer_color_1" android:pathData="M36,28L40,32V36H30V48L28,50L26,48V36H16V32L20,28V14H18V10H38V14H36V28Z"/>
+          
+    </group>
+    
 </vector>

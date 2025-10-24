@@ -1,9 +1,18 @@
 <vector xmlns:android="http://schemas.android.com/apk/res/android"
     android:width="24dp"
     android:height="24dp"
-    android:viewportWidth="960"
-    android:viewportHeight="960">
+    android:viewportWidth="56"
+    android:viewportHeight="56">
   <path
-      android:pathData="m640,480 l80,80v80L520,640v240l-40,40 -40,-40v-240L240,640v-80l80,-80v-280h-40v-80h400v80h-40v280ZM354,560h252l-46,-46v-314L400,200v314l-46,46ZM480,560Z"
-      android:fillColor="@color/ceno_ui_icons_fill"/>
+      android:pathData="M28,28m-26.5,0a26.5,26.5 0,1 1,53 0a26.5,26.5 0,1 1,-53 0"
+      android:strokeWidth="3"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/ceno_ui_icons_fill"/>
+  <group>
+    <clip-path
+        android:pathData="M4.163,4.358h48v48h-48z"/>
+    <path
+        android:pathData="M36.163,28.358L40.163,32.358V36.358H30.163V48.358L28.163,50.358L26.163,48.358V36.358H16.163V32.358L20.163,28.358V14.358H18.163V10.358H38.163V14.358H36.163V28.358ZM21.863,32.358H34.463L32.163,30.058V14.358H24.163V30.058L21.863,32.358Z"
+        android:fillColor="@color/ceno_ui_icons_fill"/>
+  </group>
 </vector>
