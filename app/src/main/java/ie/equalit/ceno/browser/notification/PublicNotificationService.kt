@@ -13,7 +13,6 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.support.utils.PendingIntentUtils
 
 class PublicNotificationService:AbstractPublicNotificationService() {
     override val store: BrowserStore by lazy { components.core.store }
@@ -95,22 +94,20 @@ class PublicNotificationService:AbstractPublicNotificationService() {
     private fun getConfirmIntent() :PendingIntent{
         return Intent(ACTION_CONFIRM).let {
             it.setClass(this, this::class.java)
-            PendingIntent.getService(this, 0, it, PendingIntentUtils.defaultFlags or FLAG_ONE_SHOT)
+            PendingIntent.getService(this, 0, it, PendingIntent.FLAG_IMMUTABLE or FLAG_ONE_SHOT)
         }
     }
 
     private fun getCancelIntent() :PendingIntent{
         return Intent(ACTION_CANCEL).let {
             it.setClass(this, this::class.java)
-            PendingIntent.getService(this, 0, it, PendingIntentUtils.defaultFlags or FLAG_ONE_SHOT)
+            PendingIntent.getService(this, 0, it, PendingIntent.FLAG_IMMUTABLE or FLAG_ONE_SHOT)
         }
     }
 
     private fun getFlags() : Int {
         var flags = PendingIntent.FLAG_CANCEL_CURRENT
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            flags = flags or PendingIntent.FLAG_IMMUTABLE
-        }
+        flags = flags or PendingIntent.FLAG_IMMUTABLE
         return flags
     }
 
