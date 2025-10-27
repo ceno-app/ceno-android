@@ -528,7 +528,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             OnPreferenceClickListener {
