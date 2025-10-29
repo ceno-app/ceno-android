@@ -120,7 +120,6 @@
     <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_justicemy_url</string>
     <string name="preferences_about_ouinet">Ouinet</string>
     <string name="preferences_about_geckoview">GeckoView</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="onboarding_warning_button">ဟုတ်ပြီ</string>
     <string name="preferences_about_ceno">Ceno ဘရောက်ဇာ</string>

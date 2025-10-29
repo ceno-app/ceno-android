@@ -145,7 +145,6 @@
     <string name="preferences_customization">Personalização</string>
     <string name="ceno_clear_dialog_cancel">Cancelar</string>
     <string name="preferences_about_page">Sobre</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_ceno_network_config">Detalhes da Rede</string>
     <string name="preferences_ceno_download_log">Exportar registro do Ouinet</string>
     <string name="website_button_text">Website</string>
@@ -413,9 +412,6 @@
     <string name="metrics_campaign_view_privacy_policy">Política de privacidade</string>
     <string name="metrics_ouinet_title">Métricas do Ceno</string>
     <string name="metrics_ouinet_description">Enviar métricas anônimas e que respeitam a privacidade para os desenvolvedores</string>
-    <string name="metrics_consent_dialog_description">Estamos lançando um sistema de métricas que respeita a privacidade para nos ajudar a entender melhor as necessidades dos usuários do Ceno.\n\nVocê pode revisar os detalhes sobre o que será coletado e como tratamos seus dados em nossa Política de Privacidade.\n\nVocê também pode desativar essa opção a qualquer momento em Configurações &gt; Métricas em segundo plano.</string>
-    <string name="metrics_consent_accept">Aceito</string>
-    <string name="consent_dialog_modify_privacy_settings">Modificar configurações de privacidade</string>
     <string name="bookmarks_empty_message">Não há marcadores</string>
     <string name="bookmark_menu_edit_button">Editar</string>
     <string name="bookmark_menu_copy_button">Copiar</string>
@@ -451,7 +447,6 @@
         <item quantity="many">Há %d dias</item>
         <item quantity="other">Há %d dias</item>
     </plurals>
-    <string name="metrics_consent_dialog_description_link">Política de Privacidade</string>
     <string name="ouinet_state_created">Criado</string>
     <string name="ouinet_state_failed">Falhou</string>
     <string name="ouinet_state_starting">Iniciando</string>

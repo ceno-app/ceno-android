@@ -4,7 +4,9 @@
 
 package ie.equalit.ceno.ui.robots
 
+import android.view.KeyEvent
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
@@ -27,6 +29,7 @@ class AwesomeBarRobot {
     fun verifySearchSuggestion(searchSuggestionTitle: String) = assertSearchSuggestion(searchSuggestionTitle)
     fun verifyLinkFromClipboard(clipboardLink: String) = assertLinkFromClipboard(clipboardLink)
     fun verifyPastedToolbarText(expectedText: String) = assertPastedToolbarText(expectedText)
+    fun verifyAwesomeBarExists() = assertAwesomeBarExists()
 
     fun typeText(searchTerm: String) {
         mDevice.findObject(
@@ -44,10 +47,7 @@ class AwesomeBarRobot {
 
     fun longClickToolbar() {
         mDevice.waitForWindowUpdate(packageName, waitingTime)
-        mDevice.findObject(UiSelector().resourceId("$packageName:id/awesomeBar"))
-            .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().resourceId("$packageName:id/toolbar"))
-            .waitForExists(waitingTime)
+        verifyAwesomeBarExists()
         val toolbar = mDevice.findObject(By.res("$packageName:id/toolbar"))
         toolbar.click(LONG_CLICK_DURATION)
     }
@@ -61,6 +61,12 @@ class AwesomeBarRobot {
             pasteText = mDevice.findObject(By.textContains("PASTE"))
         }
         pasteText.click()
+    }
+
+    fun typePasteText() {
+        verifyAwesomeBarExists()
+        val toolbar = onView(withId(R.id.toolbar))
+        toolbar.perform(ViewActions.pressKey(KeyEvent.KEYCODE_PASTE))
     }
 
     fun pasteAndLoadCopiedLink() {
@@ -130,4 +136,13 @@ private fun assertPastedToolbarText(expectedText: String) {
             withId(R.id.mozac_browser_toolbar_edit_url_view),
         ),
     ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+}
+
+private fun assertAwesomeBarExists() {
+    mDevice.waitForIdle()
+    mDevice.waitForWindowUpdate(packageName, waitingTime)
+    assertTrue(
+        mDevice.findObject(UiSelector().resourceId("$packageName:id/awesomeBar"))
+            .waitForExists(waitingTime)
+    )
 }

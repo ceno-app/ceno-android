@@ -44,6 +44,7 @@ class ThreeDotMenuBookmarksRobot {
         }
 
         fun clickDelete(interact: BookmarksRobot.() -> Unit): BookmarksRobot.Transition {
+            mDevice.waitForIdle(5000)
             deleteButton().click()
 
             BookmarksRobot().interact()

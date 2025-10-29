@@ -205,7 +205,7 @@ class ScreenshotGenerator {
             }.openSettingsViewMetrics {
                 Thread.sleep(1000)
                 Screengrab.screenshot("027_metrics_preferences")
-            }.clickNegative {
+            }.goBack {
             }.goBack {
             }.openThreeDotMenu {
             }.openSettings {

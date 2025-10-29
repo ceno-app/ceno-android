@@ -198,7 +198,7 @@ class SessionControlInteractor(
         }
 
         override fun onOpenInPersonalTabClicked(ouicrawlSite: OuicrawlSite) {
-            controller.handleOpenInPrivateTabClicked(ouicrawlSite.SiteURL)
+            controller.handleOpenInPrivateTabClicked("https://${ouicrawlSite.SiteURL}")
         }
 
         override fun onShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean) {

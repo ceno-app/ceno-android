@@ -6,9 +6,13 @@
 
 package ie.equalit.ceno.ext
 
+import android.os.Build
 import android.util.Patterns
 import mozilla.components.support.ktx.kotlin.sanitizeURL
 import java.text.SimpleDateFormat
+import java.time.Duration
+import java.time.OffsetDateTime
+import java.time.ZoneOffset
 import java.util.*
 import kotlin.math.abs
 
@@ -115,6 +119,10 @@ fun String.isDatePast(): Boolean {
         e.printStackTrace()
         return false
     }
+}
+
+fun String.dateTimeDifference() : Long? {
+    return Duration.between(OffsetDateTime.parse(this), OffsetDateTime.now(ZoneOffset.UTC)).toMillis()
 }
 
 /**

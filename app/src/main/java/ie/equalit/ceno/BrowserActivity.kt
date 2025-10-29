@@ -15,7 +15,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.os.Process
 import android.util.AttributeSet
 import android.util.Log
 import android.view.MenuItem
@@ -25,8 +24,12 @@ import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.bundleOf
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -48,14 +51,8 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.isInstallFromUpdate
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
-import ie.equalit.ceno.metrics.ConsentRequestDialog
 import ie.equalit.ceno.metrics.NetworkMetrics
-import ie.equalit.ceno.settings.CenoSettings
-import ie.equalit.ceno.settings.OuinetKey
-import ie.equalit.ceno.settings.OuinetResponseListener
-import ie.equalit.ceno.settings.OuinetValue
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.standby.StandbyFragment
@@ -154,35 +151,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             if((destination.id == R.id.homeFragment || destination.id == R.id.browserFragment) && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
 
-                if( isInstallFromUpdate() && isVersionForConsent(this) && cenoPreferences().showMetricsConsentDialog) {
-                    val dialog = ConsentRequestDialog(this)
-                    dialog.show (
-                        complete = { granted ->
-                            //web api call
-                            CenoSettings.ouinetClientRequest(
-                                context = this,
-                                coroutineScope = lifecycleScope,
-                                key = OuinetKey.CENO_METRICS,
-                                newValue = if (granted) OuinetValue.ENABLE else OuinetValue.DISABLE,
-                                stringValue = null,
-                                object : OuinetResponseListener {
-                                    override fun onSuccess(message: String, data: Any?) {
-                                        Settings.setOuinetMetricsEnabled(this@BrowserActivity, granted)
-                                    }
-                                    override fun onError() {
-                                        Log.e(TAG, "Failed to set metrics to newValue: $granted")
-                                    }
-                                },
-                                forMetrics = true
-                            )
-                            cenoPreferences().showMetricsConsentDialog = false
-                        },
-                        openMetricsSettings = {
-                            navHost.navController.navigate(R.id.action_global_metricsCampaignFragment)
-                        },
-                    )
-                }
-
                 if (Settings.showCrashReportingPermissionNudge(this)) {
                     showCrashReportingPermission()
                 }
@@ -216,9 +184,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             applicationContext,
             components.core.store,
             PublicNotificationService::class,
-        ).also {
-            it.start()
-        }
+        )
 
         cenoNotificationBroadcastReceiver = CenoNotificationBroadcastReceiver(this)
         val notificationIntentFilter = IntentFilter()
@@ -292,6 +258,17 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
 //        if(Settings.isOuinetMetricsEnabled(this))
             NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
+
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment))
+        {
+                v:View, insets: WindowInsetsCompat ->
+            val systemBars: Insets = insets.getInsets(
+                WindowInsetsCompat.Type.systemBars()
+                        or WindowInsetsCompat.Type.displayCutout())
+            v.updatePadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            WindowInsetsCompat.CONSUMED
+        }
+
     }
 
     /* This function displays the popup that asks users if they want to opt in for
@@ -360,7 +337,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                             ouinetStartupTime = (System.currentTimeMillis() - screenStartTime) / 1000.0
                             hasOuinetStarted = true
                         }
-
+                        if (status == RunningState.Started || status == RunningState.Degraded) {
+                            components.ouinet.updateEndpoints()
+                        }
                     }
                     delay(DELAY_TWO_SECONDS)
                 }
@@ -430,6 +409,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                     R.color.ceno_action_bar
                 ).toDrawable())
         }
+        publicNotificationObserver?.start()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.cancel(reminderNotificationIntent)
     }
@@ -606,7 +586,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                 val am = getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
                 am.clearApplicationUserData()
             }
-            exitOuinetServiceProcess()
             exitProcess(0)
         }
     }
@@ -627,18 +606,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
                 StandbyFragment.DO_CLEAR to doClear,
                 StandbyFragment.shutdownCeno to true
             ))
-        }
-    }
-
-    fun exitOuinetServiceProcess() {
-        getSystemService(Context.ACTIVITY_SERVICE).let { am ->
-            (am as ActivityManager).runningAppProcesses?.let { processes ->
-                for (process in processes) {
-                    if (process.processName.contains("ouinetService")){
-                        Process.killProcess(process.pid)
-                    }
-                }
-            }
         }
     }
 

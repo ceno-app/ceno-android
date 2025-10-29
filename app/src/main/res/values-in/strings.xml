@@ -55,7 +55,6 @@
 \n
 \nBuka \"Pengaturan &gt; Nonaktifkan Pengoptimalan Baterai\" untuk memberikan izin nanti</string>
     <string name="preferences_customization">Kustomisasi</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_disable_battery_opt">Optimisasi Baterai</string>
     <string name="preferences_ceno_sources_origin">Situs Web</string>
     <string name="preferences_ceno_sources_private">Secara Privat</string>

@@ -29,6 +29,16 @@
             android:enabled="true"
             android:title="@string/preferences_ceno_sources_upnp" />
 
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_proxy_endpoint"
+            android:title="@string/preferences_ouinet_proxy_endpoint" />
+
+        <androidx.preference.Preference
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_ouinet_frontend_endpoint"
+            android:title="@string/preferences_ouinet_frontend_endpoint" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

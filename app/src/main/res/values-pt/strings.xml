@@ -118,7 +118,6 @@
     <string name="preferences_ceno_enable_log">Ativar arquivo de registro</string>
     <string name="preferences_show_home_button">Mostrar botão de início</string>
     <string name="preferences_theme_summary">Escuro, Claro, Economia de Pilha</string>
-    <string name="preferences_theme_default">2</string>
     <string name="preferences_ceno_sources_peers">Compartilhado</string>
     <string name="preferences_ceno_download_log">Exportar o registo Ouinet</string>
     <string name="changeIconCtaAccept">Aplicar</string>
@@ -388,8 +387,6 @@
     <string name="metrics_campaign_view_privacy_policy">Política de privacidade</string>
     <string name="bookmark_add_folder">Adicionar pasta</string>
     <string name="library_bookmarks">Marcadores</string>
-    <string name="metrics_consent_accept">Aceito</string>
-    <string name="consent_dialog_modify_privacy_settings">Modificar as definições de privacidade</string>
     <string name="bookmarks_empty_message">Não há marcadores aqui</string>
     <string name="bookmark_menu_edit_button">Editar</string>
     <string name="bookmark_menu_copy_button">Copiar</string>
@@ -426,8 +423,6 @@
     </plurals>
     <string name="preferences_clean_insights_backdate">Ativar retroatividade de métricas</string>
     <string name="ceno_network_status_title">Estado da rede Ceno</string>
-    <string name="metrics_consent_dialog_description">Estamos a lançar um sistema de métricas que respeita a privacidade para nos ajudar a compreender melhor as necessidades dos utilizadores do Ceno.\n\nPode consultar os detalhes sobre o que iremos recolher e como iremos tratar os seus dados na nossa Política de Privacidade.\n\nTambém pode desativar esta funcionalidade a qualquer momento em Definições &gt; Métricas em segundo plano.</string>
-    <string name="metrics_consent_dialog_description_link">Política de Privacidade</string>
     <plurals name="developer_tools_disable_alert">
         <item quantity="one">Está a %d clique de desativar as ferramentas de programador</item>
         <item quantity="many">Está a %d cliques de desativar as ferramentas de programador</item>

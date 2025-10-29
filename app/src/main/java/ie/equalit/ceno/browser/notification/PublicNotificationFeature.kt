@@ -1,7 +1,10 @@
 package ie.equalit.ceno.browser.notification
 
+import android.Manifest
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import androidx.core.app.ActivityCompat
 import ie.equalit.ceno.ext.ifChanged
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
@@ -27,6 +30,13 @@ class PublicNotificationFeature<T:AbstractPublicNotificationService>(
                 .ifChanged()
                 .collect { hasPublicTabs ->
                     if (hasPublicTabs) {
+                        if (ActivityCompat.checkSelfPermission(
+                                applicationContext,
+                                Manifest.permission.POST_NOTIFICATIONS
+                            ) != PackageManager.PERMISSION_GRANTED
+                        ) {
+                            return@collect
+                        }
                         applicationContext.startService(Intent(applicationContext, notificationServiceClass.java))
                     }
                 }

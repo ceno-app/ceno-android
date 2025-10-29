@@ -48,14 +48,6 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
         preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
         preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()
-
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.N_MR1) {
-            /* In Android 7, the toolbar position can not be put in bottom position
-             * due to issue with the direction that the menu pops up, see this issue,
-             * for more details, https://gitlab.com/censorship-no/ceno-browser/-/issues/172
-             */
-            preferenceToolbarPosition?.isEnabled = false
-        }
     }
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {

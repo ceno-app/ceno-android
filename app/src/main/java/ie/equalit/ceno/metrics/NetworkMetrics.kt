@@ -94,33 +94,17 @@ class NetworkMetrics(
     }
 
     private fun getNetworkType(): String {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
-                    NetworkCapabilities.TRANSPORT_WIFI) == true)
-                return "wifi"
-            if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
-                    NetworkCapabilities.TRANSPORT_CELLULAR) == true)
-                return "cellular"
-        } else {
-            if(connectivityManager.activeNetworkInfo?.type == ConnectivityManager.TYPE_WIFI)
-                return "wifi"
-            if(connectivityManager.activeNetworkInfo?.type == ConnectivityManager.TYPE_MOBILE)
-                return "cellular"
-        }
+        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
+                NetworkCapabilities.TRANSPORT_WIFI) == true)
+            return "wifi"
+        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
+                NetworkCapabilities.TRANSPORT_CELLULAR) == true)
+            return "cellular"
         return "unknown"
     }
 
     private fun isUsingVPN() : Boolean? {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-        }  else {
-            val networks: Array<Network> = connectivityManager.allNetworks
-            for (n in networks) {
-                if (connectivityManager.getNetworkCapabilities(n)?.hasTransport(NetworkCapabilities.TRANSPORT_VPN) == true)
-                    return true
-            }
-        }
-        return false
+        return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
     }
 
     private fun getTimeZone():String {

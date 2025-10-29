@@ -75,7 +75,6 @@ enum class OuinetValue(val string: String) {
 
 object CenoSettings {
 
-    const val SET_VALUE_ENDPOINT = "http://127.0.0.1:" + BuildConfig.FRONTEND_PORT
     const val LOGFILE_TXT = "logfile.txt"
     private const val TOKEN_LENGTH = 27
 
@@ -368,6 +367,32 @@ object CenoSettings {
         }
     }
 
+    fun setFrontendEndpoint(context: Context, text: String) {
+        val key = context.getString(R.string.pref_key_ouinet_frontend_endpoint)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(key, text)
+            }
+    }
+
+    fun getFrontendEndpoint(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_frontend_endpoint), null
+        )
+
+    fun setProxyEndpoint(context: Context, text: String) {
+        val key = context.getString(R.string.pref_key_ouinet_proxy_endpoint)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(key, text)
+            }
+    }
+
+    fun getProxyEndpoint(context: Context) : String? =
+        PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
+        )
+
     suspend fun webClientRequest (context: Context, request: Request): String? {
         var responseBody : String? = null
         var tries = 0
@@ -439,12 +464,12 @@ object CenoSettings {
     ) {
         coroutineScope.launch {
             val request : String = if (metricsKey != null) {
-                "${SET_VALUE_ENDPOINT}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
+                "http://${getFrontendEndpoint(context)}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
             } else {
                 if (newValue != null)
-                    "${SET_VALUE_ENDPOINT}/${key.command}=${if (newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
+                    "http://${getFrontendEndpoint(context)}/${key.command}=${if (newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"
                 else
-                    "${SET_VALUE_ENDPOINT}/${key.command}"
+                    "http://${getFrontendEndpoint(context)}/${key.command}"
             }
 
             webClientRequest (
