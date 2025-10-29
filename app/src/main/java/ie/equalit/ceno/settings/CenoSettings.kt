@@ -464,7 +464,7 @@ object CenoSettings {
     ) {
         coroutineScope.launch {
             val request : String = if (metricsKey != null) {
-                "http://${getFrontendEndpoint(context)}}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
+                "http://${getFrontendEndpoint(context)}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
             } else {
                 if (newValue != null)
                     "http://${getFrontendEndpoint(context)}/${key.command}=${if (newValue == OuinetValue.OTHER && stringValue != null) stringValue else newValue.string}"

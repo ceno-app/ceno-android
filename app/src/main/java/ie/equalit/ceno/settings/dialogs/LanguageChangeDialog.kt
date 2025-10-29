@@ -28,11 +28,8 @@ class LanguageChangeDialog(
 
     init {
 
-        currentLocale = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+        currentLocale =
             AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
-        } else {
-            Locale.getDefault()
-        }
 
         val languageChangeDialogView = View.inflate(context, R.layout.language_change_dialog, null)
         val radioGroup = languageChangeDialogView.findViewById<RadioGroup>(R.id.radio_group)

@@ -31,46 +31,24 @@ abstract class ThemeManager {
     }
 
     fun clearLightSystemBars(window: Window) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            window.createWindowInsetsController().isAppearanceLightStatusBars = false
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            // API level can display handle light navigation bar color
-            window.createWindowInsetsController().isAppearanceLightNavigationBars = false
-        }
+        window.createWindowInsetsController().isAppearanceLightStatusBars = false
+        window.createWindowInsetsController().isAppearanceLightNavigationBars = false
     }
 
     abstract fun applyTheme(toolbar: BrowserToolbar)
 
     fun updateLightSystemBars(window: Window, context: Context) {
-        if (SDK_INT >= Build.VERSION_CODES.M) {
-            window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.createWindowInsetsController().isAppearanceLightStatusBars = true
-        } else {
-            window.statusBarColor = Color.BLACK
-        }
-
-        if (SDK_INT >= Build.VERSION_CODES.O) {
-            // API level can display handle light navigation bar color
-            window.createWindowInsetsController().isAppearanceLightNavigationBars = true
-            updateNavigationBar(window, context)
-        }
+        window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+        window.createWindowInsetsController().isAppearanceLightStatusBars = true
+        window.createWindowInsetsController().isAppearanceLightNavigationBars = true
+        updateNavigationBar(window, context)
     }
 
     fun updateDarkSystemBars(window: Window, context: Context) {
-        if (SDK_INT >= Build.VERSION_CODES.M) {
-            window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
-            window.createWindowInsetsController().isAppearanceLightStatusBars = false
-        } else {
-            window.statusBarColor = Color.BLACK
-        }
-
-        if (SDK_INT >= Build.VERSION_CODES.O) {
-            // API level can display handle light navigation bar color
-            window.createWindowInsetsController().isAppearanceLightNavigationBars = false
-            updateNavigationBar(window, context)
-        }
+        window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+        window.createWindowInsetsController().isAppearanceLightStatusBars = false
+        window.createWindowInsetsController().isAppearanceLightNavigationBars = false
+        updateNavigationBar(window, context)
     }
 
     abstract fun applyStatusBarThemeTabsTray()
