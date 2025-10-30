@@ -51,11 +51,9 @@ object FailedToRetrieveResource {
         return String.format("#%06x", color and 0xffffff)
     }
 
-    private fun getCurrentLocale() = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-        AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
-    } else {
-        Locale.getDefault()
-    })
+    private fun getCurrentLocale() = (
+            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+            )
 
     private fun isRTL(locale: Locale): Boolean {
         return locale.layoutDirection == View.LAYOUT_DIRECTION_RTL

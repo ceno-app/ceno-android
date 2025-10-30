@@ -422,16 +422,12 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
     private fun getClickListenerForMakeDefaultBrowser(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            OnPreferenceClickListener {
-                val intent = Intent(
-                    Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS,
-                )
-                startActivity(intent)
-                true
-            }
-        } else {
-            defaultClickListener
+        return OnPreferenceClickListener {
+            val intent = Intent(
+                Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS,
+            )
+            startActivity(intent)
+            true
         }
     }
 
@@ -532,7 +528,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             OnPreferenceClickListener {
@@ -840,10 +835,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val TAPS_TO_ALERT_DEVELOPER_TOOLS = 4
         const val TAPS_TO_TOGGLE_DEVELOPER_TOOLS = 7
 
-        fun getCurrentLocale(): Locale = (if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
-        } else {
-            Locale.getDefault()
-        })
+        fun getCurrentLocale(): Locale = (
+                AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+                )
     }
 }
