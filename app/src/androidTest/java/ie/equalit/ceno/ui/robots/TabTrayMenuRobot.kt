@@ -28,7 +28,7 @@ import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.helpers.assertIsSelected
 import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.helpers.matchers.TabMatcher
-import org.hamcrest.Matchers.allOf
+import org.hamcrest.CoreMatchers.allOf
 
 /**
  * Implementation of Robot Pattern for the tab tray menu.
