@@ -7,8 +7,10 @@ package ie.equalit.ceno.downloads
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.downloads.AbstractFetchDownloadService
 import ie.equalit.ceno.ext.components
+import mozilla.components.feature.downloads.DefaultPackageNameProvider
 import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.FileSizeFormatter
+import mozilla.components.feature.downloads.PackageNameProvider
 import mozilla.components.support.base.android.NotificationsDelegate
 
 class DownloadService : AbstractFetchDownloadService() {
@@ -17,4 +19,5 @@ class DownloadService : AbstractFetchDownloadService() {
     override val notificationsDelegate: NotificationsDelegate by lazy { components.notificationsDelegate }
     override val fileSizeFormatter: FileSizeFormatter by lazy { components.core.fileSizeFormatter }
     override val downloadEstimator: DownloadEstimator by lazy { components.core.downloadEstimator }
+    override val packageNameProvider: PackageNameProvider by lazy { DefaultPackageNameProvider(applicationContext) }
 }

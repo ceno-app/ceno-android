@@ -1,0 +1,13 @@
+This release:
+- Updates compile SDK to version 36
+- Updates Sentry to 8.20.0
+- Updates AndroidX Core to 1.17
+- Applies workaround for edge-to-edge display support
+- Updates Ouinet to 1.4.0
+- Enables dynamic port selection for frontend and proxy endpoints
+- Adds option to follow system theme
+- Fixes bug with export log option
+- Fixes bug with notifications and error page
+- Updates Android-Components to v143.0.3
+- Update cacert.pem with bundle generated on Tue Sep 9 03:12:01 2025 GMT
+- Updates Ceno extension to 1.10.0

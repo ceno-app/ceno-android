@@ -1,3 +1,10 @@
+# v2.7.0
+This release:
+- Updates Ouinet to v1.4.1
+- Updates Android-Components to v144.0
+- Updates minSdk to 26
+- Fixes bug with metrics collection
+
 # v2.6.3
 This release:
 - Updates compile SDK to version 36
@@ -8,6 +15,10 @@ This release:
 - Enables dynamic port selection for frontend and proxy endpoints
 - Adds option to follow system theme
 - Fixes bug with export log option
+- Fixes bug with notifications and error page
+- Updates Android-Components to v143.0.3
+- Update cacert.pem with bundle generated on Tue Sep 9 03:12:01 2025 GMT
+- Updates Ceno extension to 1.10.0
 
 # v2.6.2
 This release:

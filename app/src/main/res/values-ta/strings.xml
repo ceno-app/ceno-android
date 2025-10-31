@@ -350,10 +350,6 @@
     <string name="ceno_network_status_connected">CENO நெட்வொர்க்குடன் முழுமையாக இணைக்கப்பட்டுள்ளது. தடுக்கப்பட்ட வலைத்தளங்களை அணுக வேண்டும்.</string>
     <string name="ceno_network_status_disconnected">துண்டிக்கப்பட்டது. கூடுதல் தகவலுக்கு உங்கள் பிணைய அமைப்புகள் அல்லது ஏற்றுமதி பதிவுகளை சரிபார்க்கவும்.</string>
     <string name="ceno_notification_confirm_description">உங்கள் எல்லா தரவையும் செனோவிலிருந்து அழிக்க விரும்புகிறீர்களா?</string>
-    <string name="metrics_consent_dialog_description">செனோ பயனர்களின் தேவைகளை நன்கு புரிந்துகொள்ள உதவும் அளவீட்டு முறையை மதிக்கும் தனியுரிமையை நாங்கள் தொடங்குகிறோம். \n\nநாங்கள் எதைச் சேகரிப்போம், எங்கள் தனியுரிமைக் கொள்கையில் உங்கள் தரவை எவ்வாறு கையாளுகிறோம் என்பதற்கான விவரங்களை நீங்கள் மதிப்பாய்வு செய்யலாம். \n\nஅமைப்புகள்&gt; பின்னணி அளவீடுகள் வழியாக நீங்கள் எந்த நேரத்திலும் விலகலாம்.</string>
-    <string name="metrics_consent_dialog_description_link">மதிப்பாய்வு செய்யலாம்</string>
-    <string name="metrics_consent_accept">நான் ஏற்றுக்கொள்கிறேன்</string>
-    <string name="consent_dialog_modify_privacy_settings">தனியுரிமை அமைப்புகளை மாற்றவும்</string>
     <string name="bookmarks_empty_message">இங்கே புக்மார்க்குகள் இல்லை</string>
     <string name="bookmark_menu_edit_button">தொகு</string>
     <string name="bookmark_menu_copy_button">நகலெடு</string>

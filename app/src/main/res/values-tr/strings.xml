@@ -397,16 +397,12 @@
     <string name="bookmark_add_folder_fragment_label">Klasör ekle</string>
     <string name="bookmark_folder_label">KLASÖR</string>
     <string name="bookmark_delete_folder_confirmation_dialog">Bu klasörü silmek istediğinize emin misiniz?</string>
-    <string name="metrics_consent_accept">Onaylıyorum</string>
-    <string name="consent_dialog_modify_privacy_settings">Gizlilik ayarlarını değiştir</string>
     <string name="bookmarks_empty_message">Burada herhangi bir yer imi yok</string>
     <string name="edit_bookmark_fragment_title">Yer imini düzenle</string>
     <string name="library_desktop_bookmarks_unfiled">Diğer yer imleri</string>
     <string name="bookmark_item_menu_button">ögeyi yer imlerine ekle menü düğmesi</string>
     <string name="add_or_remove_bookmark">yer imi ekle ya da kaldır</string>
     <string name="metrics_ouinet_description">Geliştiricilere anonim, gizliliğe saygı duyan ölçümler gönderilsin</string>
-    <string name="metrics_consent_dialog_description">Ceno kullanıcılarının gereksinimlerini daha iyi anlamamıza yardımcı olması için gizliliğe saygılı bir ölçüm sistemi başlatıyoruz.\n\nGizlilik ilkemizde neleri toplayacağımız ve verilerinizi nasıl işlediğimizle ilgili ayrıntıları bulabilirsiniz.\n\nAyrıca istediğiniz zaman Ayarlar &gt; Arka plan ölçümleri üzerinden bu verilerin paylaşılmasını durdurabilir ya da başlatabilirsiniz.</string>
-    <string name="metrics_consent_dialog_description_link">Gizlilik ilkemizde</string>
     <string name="reminder_notification_title">Hey, uzun zaman oldu!</string>
     <string name="reminder_notification_text">Önbelleğinizi diğer kullanıcıların kullanımına açık tutmak için Ceno\'yu yeniden açın</string>
     <string name="ouicrawl_sites_section_title">Ücretsiz Medya Akışı</string>
@@ -423,4 +419,11 @@
         <item quantity="other">%d gün önce</item>
     </plurals>
     <string name="foreground_notification_reminder_channel">Ceno Hatırlatıcısı</string>
+    <string name="ouinet_state_created">Oluşturuldu</string>
+    <string name="ouinet_state_failed">Başarısız</string>
+    <string name="ouinet_state_starting">Başlıyor</string>
+    <string name="ouinet_state_started">Başladı</string>
+    <string name="ouinet_state_stopping">Durduruluyor</string>
+    <string name="ouinet_state_stopped">Durduruldu</string>
+    <string name="ouinet_state_degraded">bozulmuş</string>
 </resources>

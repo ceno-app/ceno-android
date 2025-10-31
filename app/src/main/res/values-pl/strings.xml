@@ -417,8 +417,6 @@
     <string name="preferences_metrics_campaign">Metryki w tle</string>
     <string name="metrics_ouinet_title">Metryki Ceno</string>
     <string name="metrics_ouinet_description">Wyślij deweloperom anonimowe, szanujące prywatność metryki</string>
-    <string name="metrics_consent_accept">Akceptuje</string>
-    <string name="consent_dialog_modify_privacy_settings">Dostosuj ustawienia prywatności</string>
     <string name="bookmark_url_label">URL</string>
     <string name="bookmark_add_folder">Dodaj folder</string>
     <string name="library_desktop_bookmarks_unfiled">Inne zakładki</string>
@@ -435,8 +433,6 @@
     <string name="edit_bookmark_folder_fragment_title">Edytuj folder</string>
     <string name="edit_bookmark_fragment_title">Edytuj zakładkę</string>
     <string name="bookmark_item_menu_button">przycisk dodania zakładki menu</string>
-    <string name="metrics_consent_dialog_description">Uruchamiamy system metryk szanujących prywatność, który pomoże nam lepiej zrozumieć potrzeby użytkowników Ceno\n\nMożesz przejrzeć szczegóły jakie dane zbieramy i jak ja przetwarzamy w naszej Polityce Prywatności\n\nMożesz także wystąpić z programy w dowolnym czasie poprzez Ustawienia &gt; Metryki w tle.</string>
-    <string name="metrics_consent_dialog_description_link">Polityce Prywatności</string>
     <string name="foreground_notification_reminder_channel">Przypomnienie Ceno</string>
     <string name="reminder_notification_title">Hey, Minęło trochę czasu!</string>
     <string name="reminder_notification_text">Otwórz ponownie Ceno, aby cache była dostępna dla innych użytkowników</string>
@@ -459,4 +455,11 @@
         <item quantity="many">%d dni temu</item>
         <item quantity="other">%d dni temu</item>
     </plurals>
+    <string name="ouinet_state_created">Stworzony</string>
+    <string name="ouinet_state_failed">Nieudany</string>
+    <string name="ouinet_state_starting">Uruchamianie</string>
+    <string name="ouinet_state_degraded">Zdegradowany</string>
+    <string name="ouinet_state_started">Uruchomiony</string>
+    <string name="ouinet_state_stopping">Zatrzymywanie</string>
+    <string name="ouinet_state_stopped">Zatrzymany</string>
 </resources>
