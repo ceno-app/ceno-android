@@ -58,32 +58,10 @@ class StandbyFragment : Fragment() {
 
     private var index = 0
 
-    private val displayText: List<Int> = listOf(
-        R.string.standby_message_one,
-        R.string.standby_message_one,
-        R.string.standby_message_one,
-        R.string.standby_message_one,
-        R.string.standby_message_two,
-        R.string.standby_message_two,
-        R.string.standby_message_two,
-        R.string.standby_message_two,
-        R.string.standby_message_three,
-        R.string.standby_message_three,
-        R.string.standby_message_three,
-        R.string.standby_message_three
-    )
-
     private var displayTextStopping: MutableList<Int> = mutableListOf(
         R.string.shutdown_message_two,
         R.string.shutdown_message_two,
         R.string.shutdown_message_two,
-    )
-
-    private var extraInfoList: List<Int> = listOf(
-        R.string.standby_tip_bridge,
-        R.string.standby_tip_icon,
-        R.string.standby_tip_announcements,
-        R.string.standby_tip_pdf
     )
 
     private var dialog: AlertDialog? = null
@@ -91,21 +69,6 @@ class StandbyFragment : Fragment() {
 
     private var _binding : FragmentStandbyBinding? = null
     private val binding get() = _binding!!
-
-    private fun isNetworkAvailable(): Boolean {
-        val cm : ConnectivityManager = requireContext().getSystemService() ?: return false
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            val cap = cm.getNetworkCapabilities(cm.activeNetwork) ?: return false
-            return cap.hasCapability(NET_CAPABILITY_INTERNET)
-        } else {
-            val networks: Array<Network> = cm.allNetworks
-            for (n in networks) {
-                if (cm.getNetworkCapabilities(n)?.hasCapability(NET_CAPABILITY_INTERNET) == true)
-                    return true
-            }
-        }
-        return false
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -131,7 +94,6 @@ class StandbyFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        var infoIndex = (System.currentTimeMillis() % 4).toInt()
         if (isCenoStopping == true) {
             binding.llStandbyExtraInfo.visibility = View.GONE
             lifecycleScope.launch {
@@ -141,16 +103,6 @@ class StandbyFragment : Fragment() {
                     index += 1
                     delay(refreshIntervalMS)
                 }
-            }
-        } else {
-            binding.root.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-                if (getView() == null)
-                    return@consumeFrom
-                currentStatus = it.ouinetStatus
-                context?.let { ctx ->
-                    updateDisplayText(ctx, infoIndex)
-                }
-
             }
         }
     }
@@ -220,7 +172,7 @@ class StandbyFragment : Fragment() {
         }
         val btnTakeMeAnyway = timeoutDialogView.findViewById<Button>(R.id.btn_take_me_anyway)
         btnTakeMeAnyway?.setOnClickListener {
-            navigateToBrowser()
+//            navigateToBrowser()
         }
         val dontShowAgain = timeoutDialogView.findViewById<CheckBox>(R.id.chk_dont_show_again)
         dontShowAgain.setOnCheckedChangeListener { _, isChecked ->
@@ -242,79 +194,15 @@ class StandbyFragment : Fragment() {
         }
     }
 
-    private fun navigateToBrowser() {
-        dialog?.dismiss()
-        findNavController().popBackStack(R.id.standbyFragment, true)
-        // go to home or browser
-        if (requireComponents.core.store.state.selectedTab == null)
-            findNavController().navigate(R.id.action_global_home)
-        else
-            findNavController().navigate((R.id.action_global_browser))
-    }
-
     private fun updateDisplayText(ctx: Context, infoIndex:Int) {
         viewLifecycleOwner.lifecycleScope.launch{
             Log.d("StandbyFragment", "Update display text $currentStatus")
             Log.d("StandbyFragment", "Current setting of standby warning: ${Settings.shouldShowStandbyWarning(ctx)}")
             when(currentStatus) {
-                RunningState.Starting, RunningState.Degraded -> {
-                    while (currentStatus == RunningState.Starting || currentStatus == RunningState.Degraded) {
-                        if(!isAnyDialogVisible) {
-                            if (isNetworkAvailable()) {
-                                binding.ivExtraInfo.setImageDrawable(ContextCompat
-                                    .getDrawable(requireContext(), R.drawable.lightbulb_icon))
-                                binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.ceno_standby_logo_color))
-                                binding.tvExtraInfoTitle.visibility = View.VISIBLE
-                                //randomly select text
-                                binding.tvExtraInfoText.text = getString(extraInfoList[infoIndex])
-                            } else {
-                                binding.ivExtraInfo.setImageDrawable(ContextCompat
-                                    .getDrawable(requireContext(), R.drawable.ic_no_internet))
-                                binding.ivExtraInfo.drawable.setTint(ContextCompat.getColor(requireContext(), R.color.fx_mobile_icon_color_warning))
-                                binding.tvExtraInfoTitle.visibility = View.GONE
-                                binding.tvExtraInfoText.text = getString(R.string.standby_no_internet_text)
-                            }
-                            if (index < displayText.size) {
-                                binding.tvStatus.text = getString(displayText[index])
-                                index += 1
-                            } else {
-                                if (Settings.shouldShowStandbyWarning(ctx)) {
-                                    displayTimeoutDialog(ctx)
-                                }
-                                else {
-                                    navigateToBrowser()
-                                }
-                                break
-                            }
-                        }
-                        delay(refreshIntervalMS)
-                    }
-                }
-                RunningState.Started -> {
-                    //Navigate away
-                    navigateToBrowser()
-                }
                 RunningState.Stopping -> {
                     if (isCenoStopping == true) {
                         binding.tvStatus.text = getString(R.string.shutdown_message_two)
                         binding.llStandbyExtraInfo.visibility = View.INVISIBLE
-                    } else {
-                        binding.tvStatus.text = getString(R.string.standby_restarting_text)
-                        binding.llStandbyExtraInfo.visibility = View.INVISIBLE
-                    }
-                }
-                RunningState.Stopped -> {
-                    if(isCenoStopping == false) {
-                        if (isNetworkAvailable())
-                            tryAgain()
-                        else {
-                            if (Settings.shouldShowStandbyWarning(ctx)) {
-                                displayTimeoutDialog(ctx)
-                            }
-                            else {
-                                navigateToBrowser()
-                            }
-                        }
                     }
                 }
                 else -> cancel()

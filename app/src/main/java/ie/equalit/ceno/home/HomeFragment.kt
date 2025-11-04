@@ -299,7 +299,6 @@ class HomeFragment : BaseHomeFragment() {
     override fun onStart() {
         super.onStart()
         updateSessionControlView()
-        if (requireComponents.ouinet.background.getState() == RunningState.Started.name)
             showTooltip()
     }
 
