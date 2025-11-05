@@ -236,8 +236,6 @@
 \n
 \nO desempenho do Ceno pode ser limitado.
 \nVerifique as suas ligações de rede e tente recarregar o Ceno.</string>
-    <string name="standby_message_two">Inicialização da cache</string>
-    <string name="standby_message_three">Encontrar nós bootstrap</string>
     <string name="standby_try_again">Tentar de novo</string>
     <string name="ceno_ouinet_connecting">Ligação à rede Ceno</string>
     <string name="ceno_ouinet_connected">Ligado à rede Ceno</string>
@@ -249,7 +247,6 @@
     <string name="ouinet_taking_too_long_title">Demora demasiado tempo?</string>
     <string name="ouinet_timeout_dialog_text">O Ceno necessita de uma ligação à Internet para funcionar. Verifique as suas definições de rede.</string>
     <string name="network_settings">Definições de rede</string>
-    <string name="standby_message_one">Ligação à rede Ceno</string>
     <string name="ceno_sources_direct_from_website">Diretamente do sítio Web</string>
     <string name="ceno_sources_via_ceno_network">Utilizando Ceno rede</string>
     <string name="change_bt_bootstrap_server">Alterar o servidor BT Bootstrap</string>
@@ -350,11 +347,9 @@
     <string name="clean_insights_maybe_later">Não, talvez depois</string>
     <string name="thank_you_for_feedback">Obrigado pela colaboração!</string>
     <string name="submit">Enviar</string>
-    <string name="standby_tip_pdf">Compartilhe páginas web como PDFs</string>
     <string name="select_language">Selecione a língua:</string>
     <string name="status_disabled">Desativado</string>
     <string name="tooltip_shortcuts_description">Salve seus sites favoritos como atalhos para fácil acesso na sua página principal.</string>
-    <string name="standby_tip_icon">Mude o ícone do app para ocultar o Ceno</string>
     <string name="btn_exit">Sair</string>
     <string name="tooltip_toolbar_title">Vamos navegar!</string>
     <string name="tooltip_toolbar_description">Coloque o endereço de um site para começar a navegar</string>
@@ -398,8 +393,6 @@
     <string name="add_or_remove_bookmark">adicionar ou remover Marcador</string>
     <string name="ceno_sources_shared_by_local_cache">Da cache do navegador</string>
     <string name="tooltip_permission_text">Para continuar a partilhar sites sem interrupções, mesmo quando a aplicação estiver em segundo plano, permita que o Ceno envie notificações e desative as otimizações da bateria. Pode ajustar essas permissões posteriormente nas definições do seu telemóvel</string>
-    <string name="standby_tip_bridge">Torne-se uma ponte, ajude outras pessoas a aceder a sites</string>
-    <string name="standby_tip_announcements">Verifique se há atualizações na secção de anúncios</string>
     <string name="standby_take_me_anyway">Leve-me para Ceno de qualquer maneira</string>
     <string name="startup_category">Inicialização</string>
     <string name="preferences_show_standby_warning">Mostrar aviso sobre tempo limite de inicialização</string>

@@ -264,9 +264,6 @@
 \n
 \nقد يكون أداء سنو محدودًا.
 \nيرجى التحقق من اتصالات الشبكة ومحاولة إعادة تحميل سنو.</string>
-    <string name="standby_message_one">الاتصال بشبكة ceno</string>
-    <string name="standby_message_two">تهيئة ذاكرة التخزين المؤقت</string>
-    <string name="standby_message_three">العثور على عقد التمهيد</string>
     <string name="standby_try_again">حاول مجددا</string>
     <string name="ceno_ouinet_connecting">الاتصال بشبكة ceno</string>
     <string name="ceno_ouinet_disconnected">مفصولة عن شبكة ceno</string>

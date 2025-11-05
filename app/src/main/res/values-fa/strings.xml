@@ -236,9 +236,6 @@
     <string name="ouinet_taking_too_long_title">زیاد طول کشیده است؟</string>
     <string name="network_settings">تنظمیات شبکه</string>
     <string name="standby_no_internet_text">بدون اتصال به اینترنت \n \nممکن است عملکرد سنو محدود باشد. \nلطفا اتصالات شبکه خود را بررسی کنید و سعی کنید سنو را دوباره راه‌اندازی کنید.</string>
-    <string name="standby_message_one">اتصال به شبکه سنو</string>
-    <string name="standby_message_two">در حال راه‌اندازی کش</string>
-    <string name="standby_message_three">‪یافتن گره‌های بوت‌استرپ</string>
     <string name="standby_try_again">تلاش دوباره</string>
     <string name="ceno_ouinet_connected">به شبکه سنو متصل شد</string>
     <string name="ceno_ouinet_disconnected">از شبکه سنو قطع شد</string>
@@ -329,10 +326,6 @@
     <string name="tooltip_toolbar_description">برای شروع وب‌گردی، آدرس یک سایت را تایپ کنید</string>
     <string name="tooltip_sources_description">به‌راحتی ببینید محتوای سایت از کجا دریافت شده - مستقیم از وب‌سایت، از طریق شبکه سنو، یا از حافظه کش سنو</string>
     <string name="tooltip_permission_text">برای این که وب‌سایت‌ها حتی در پس‌زمینه هم‌چنان بدون وقفه به اشتراک گذاشته شوند، لطفا به سنو اجازه ارسال اعلان‌ها را بدهید و بهینه‌سازی باتری را غیرفعال کنید. همیشه می‌توانید این گزینه‌ها را بعدا در تنظیمات گوشی خود تغییر دهید.</string>
-    <string name="standby_tip_icon">برای مخفی کردن سنو، آیکون برنامه را تغییر دهید</string>
-    <string name="standby_tip_bridge">تبدیل به پل شوید و دسترسی دیگران به وب‌سایت‌ها را آسان کنید</string>
-    <string name="standby_tip_announcements">برای آگاهی از به‌روزرسانی‌ها بخش اعلان‌ها را چک کنید</string>
-    <string name="standby_tip_pdf">وب‌سایت‌ها را به‌شکل فایل PDF به اشتراک بگذارید</string>
     <string name="select_language">انتخاب زبان:</string>
     <string name="standby_take_me_anyway">در هر صورت وارد سنو شو</string>
     <string name="standby_dont_show">این هشدار را دوباره نشان نده</string>

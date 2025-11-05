@@ -89,11 +89,9 @@
     <string name="preferences_ceno_download_log">Export Ouinet log</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Open tabs</string>
     <string name="onboarding_skip_button" tools:ignore="UnusedResources">Skip</string>
-    <string name="standby_tip_bridge">Become a bridge, help others access websites</string>
     <string name="preferences_announcement_source_summary">Set source of homepage announcements</string>
     <string name="preference_choose_search_engine">Choose search engine</string>
     <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
-    <string name="standby_tip_pdf">Share webpages as PDFs</string>
     <string name="ceno_sources_category" tools:ignore="UnusedResources">Sources</string>
     <string name="error_page_learn_more_1">You are running a recent version of Ceno Browser. Obsolete versions may not be able to communicate with newer injectors or other clients. Check the <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">Download page</a> to find the latest version.</string>
     <string name="preferences_ceno_cache_size">Local cache</string>
@@ -103,7 +101,6 @@
     <string name="support_button_text">Support</string>
     <string name="error_page_title">Error Page</string>
     <string name="standby_tip_title">Tip</string>
-    <string name="standby_message_one">Connecting to Ceno network</string>
     <string name="ceno_ouinet_connected">Connected to Ceno Network</string>
     <string name="share_logs">Share</string>
     <string name="personal_mode_icon">personal mode icon</string>
@@ -126,7 +123,6 @@
     <string name="share_link_recent_apps_subheader">Recently used</string>
     <string name="ceno_notification_home_description">Home</string>
     <string name="onboarding_warning_title" tools:ignore="UnusedResources">Permission denied</string>
-    <string name="standby_message_three">Finding bootstrap nodes</string>
     <string name="share_save_to_pdf">Save as PDF</string>
     <string name="ceno_notification_clear_do_description" tools:ignore="UnusedResources">Yes</string>
     <string name="crash_reporting_never_send">Never send</string>
@@ -153,8 +149,6 @@
     <string name="preferences_ceno_sources_private">Privately</string>
     <string name="preferences_clear_ceno_cache_summary">Clear locally cached web content</string>
     <string name="preferences_ceno_sources_public_summary">Load content via the public Ceno network</string>
-    <string name="standby_tip_icon">Change the app icon to hide Ceno</string>
-    <string name="standby_tip_announcements">Check for updates in the announcements section</string>
     <string name="preferences_ceno_groups_count">Content shared by you</string>
     <string name="preferences_change_language">Change language</string>
     <string name="ceno_log_file_saved">Log file saved successfully</string>
@@ -174,7 +168,6 @@
     <string name="ceno_onboarding_start_title">Share the web, \npeer-to-peer</string>
     <string name="onboarding_cleanup_text">Clear your browsing history, credentials and any trace you left on Ceno with one single button.</string>
     <string name="change_bt_bootstrap_server">Change BT Bootstrap Server</string>
-    <string name="standby_message_two">Initialising cache</string>
     <string name="onboarding_cleanup_title">Clear everything, \neverywhere, all at once</string>
     <string name="standby_no_internet_text">No internet connection. \n \nPerformance of Ceno may be limited. \nPlease check your network connections and try reloading Ceno.</string>
     <string name="standby_try_again">Try Again</string>
