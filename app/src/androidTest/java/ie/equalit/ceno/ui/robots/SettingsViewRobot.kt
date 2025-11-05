@@ -18,6 +18,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withChild
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
@@ -219,7 +220,7 @@ class SettingsViewRobot {
         }
 
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            mDevice.pressBack()
+            goBackButton().click()
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
@@ -238,6 +239,8 @@ private fun assertSettingsView() {
     onView(withText(R.string.settings))
         .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
+
+private fun goBackButton() = onView(withContentDescription("Navigate up"))
 
 private fun recycleView() = onView(withId(R.id.recycler_view))
 private fun generalHeading() = onView(withText(R.string.general_category))
