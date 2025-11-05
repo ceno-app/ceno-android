@@ -337,7 +337,6 @@ class ThreeDotMenuTest {
         }
     }
 
-    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun uBlockOriginTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
@@ -369,7 +368,6 @@ class ThreeDotMenuTest {
         }.goBack{}
     }
 
-    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun httpsByDefaultTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
