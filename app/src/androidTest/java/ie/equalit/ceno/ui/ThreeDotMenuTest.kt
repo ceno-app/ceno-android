@@ -350,6 +350,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
         }.openUblockOrigin {
+            Thread.sleep(2000)
             verifyPageContent("Blocked on this page")
         }.goBack{}
 
@@ -364,6 +365,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
         }.openUblockOrigin {
+            Thread.sleep(2000)
             verifyPageContent("Blocked on this page")
         }.goBack{}
     }
@@ -381,6 +383,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
         }.openHttpsByDefault {
+            Thread.sleep(2000)
             verifyPageContent("HTTPS is enabled by default for all navigations")
         }.goBack{}
 
@@ -395,6 +398,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
         }.openHttpsByDefault {
+            Thread.sleep(2000)
             verifyPageContent("HTTPS is enabled by default for all navigations")
         }.goBack{}
     }

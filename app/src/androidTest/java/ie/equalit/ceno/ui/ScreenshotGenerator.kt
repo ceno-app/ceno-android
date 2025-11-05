@@ -168,6 +168,7 @@ class ScreenshotGenerator {
             clickSetAppTheme()
             takeScreenshotWithWait("customization_set_app_theme")
             clickCancelDialog()
+            Thread.sleep(1000)
             clickDefaultBehavior()
             takeScreenshotWithWait("customization_default_behavior")
             clickCancelDialog()
