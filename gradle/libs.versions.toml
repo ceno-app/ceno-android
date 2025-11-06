@@ -149,10 +149,8 @@ google-material = { group = "com.google.android.material", name = "material", ve
 tools-androidgradle = { group = "com.android.tools.build", name = "gradle", version.ref = "gradle_android_plugin" }
 tools-kotlingradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plugin", version.ref = "gradle_kotlin_plugin" }
 
-espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "testing_androidx_espresso" }
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "testing_androidx_espresso" }
 espresso-idlingresources = { group = "androidx.test.espresso", name = "espresso-idling-resource", version.ref = "testing_androidx_espresso" }
-espresso-web = { group = "androidx.test.espresso", name = "espresso-web", version.ref = "testing_androidx_espresso" }
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "testing_mockwebserver" }
 orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "testing_androidx_orchestrator" }
 tools-testrules = { group = "androidx.test", name = "rules", version.ref = "testing_androidx_core" }

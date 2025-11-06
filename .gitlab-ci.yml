@@ -99,11 +99,22 @@ assembleDebug:
     paths:
       - output/
 
+assembleAndroidTest:
+  tags:
+    - docker
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew assembleAndroidTest
+  artifacts:
+    paths:
+      - output/
+
 # Run all tests, if any fails, interrupt the pipeline(fail it)
 debugTests:
   tags:
       - docker
-  needs: [lintDebug, assembleDebug]
+  needs: [lintDebug, assembleDebug, assembleAndroidTest]
   interruptible: true
   stage: test
   script:
