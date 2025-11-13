@@ -6,9 +6,11 @@ package ie.equalit.ceno.ext.ceno
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.fetch.Client
+import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import java.io.IOException
 
@@ -18,11 +20,11 @@ import java.io.IOException
  *
  * @param url The image URL to fetch from.
  */
-suspend fun Client.bitmapForUrl(url: String): Bitmap? = withContext(Dispatchers.IO) {
+suspend fun Client.bitmapForUrl(url: String, headers: MutableHeaders): Bitmap? = withContext(Dispatchers.IO) {
     // Code below will cache it in Gecko's cache, which ensures that as long as we've fetched it once,
     // we will be able to display this avatar as long as the cache isn't purged (e.g. via 'clear user data').
     val body = try {
-        fetch(Request(url, useCaches = true)).body
+        fetch(Request(url, headers = headers, useCaches = true)).body
     } catch (e: IOException) {
         return@withContext null
     }

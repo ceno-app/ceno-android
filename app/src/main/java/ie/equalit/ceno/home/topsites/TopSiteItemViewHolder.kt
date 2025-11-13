@@ -23,6 +23,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.ceno.loadIntoView
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
+import mozilla.components.concept.fetch.MutableHeaders
 
 class TopSiteItemViewHolder(
     view: View,
@@ -75,7 +76,12 @@ class TopSiteItemViewHolder(
             binding.topSiteSubtitle.isVisible = true
 
             viewLifecycleOwner.lifecycleScope.launch(IO) {
-                itemView.context.components.core.client.bitmapForUrl(topSite.imageUrl)?.let { bitmap ->
+                itemView.context.components.core.client.bitmapForUrl(
+                    url = topSite.imageUrl,
+                    headers = MutableHeaders(
+                        "X-Ouinet-Proxy-Token" to itemView.context.components.ouinet.PROXY_ACCESS_TOKEN
+                    )
+                )?.let { bitmap ->
                     withContext(Main) {
                         binding.faviconImage.setImageBitmap(bitmap)
                     }

@@ -24,6 +24,7 @@ class Ouinet (
     lateinit var config: Config
     val METRICS_FRONTEND_TOKEN = CenoSettings.generateRandomToken()
     val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
+    val PROXY_ACCESS_TOKEN = CenoSettings.generateRandomToken()
 
     fun setConfig() {
 
@@ -44,6 +45,7 @@ class Ouinet (
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setFrontEndAccessToken(METRICS_FRONTEND_TOKEN)
+            .setProxyAccessToken(PROXY_ACCESS_TOKEN)
             .build()
     }
 

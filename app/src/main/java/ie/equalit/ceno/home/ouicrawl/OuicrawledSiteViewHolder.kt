@@ -15,6 +15,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.feature.top.sites.TopSite
 
 class OuicrawledSiteViewHolder(
@@ -60,7 +61,12 @@ class OuicrawledSiteViewHolder(
         binding.tvWebsiteUrl.text = ouicrawlSite.SiteURL
         binding.tvLastUpdatedStatus.text = getLastCrawlUpdateTime(ouicrawlSite.LastCrawlUpdatedTS)
         viewLifecycleOwner.lifecycleScope.launch(IO) {
-            itemView.context.components.core.client.bitmapForUrl(ouicrawlSite.FaviconURL)?.let { bitmap ->
+            itemView.context.components.core.client.bitmapForUrl(
+                url = ouicrawlSite.FaviconURL,
+                headers = MutableHeaders(
+                    "X-Ouinet-Proxy-Token" to itemView.context.components.ouinet.PROXY_ACCESS_TOKEN
+                )
+            )?.let { bitmap ->
                 withContext(Main) {
                     binding.ivFavicon.setImageBitmap(bitmap)
                 }
