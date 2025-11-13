@@ -474,8 +474,12 @@ object CenoSettings {
 
             webClientRequest (
                 context,
-                Request(request, headers = MutableHeaders(Pair("X-Ouinet-Front-End-Token",
-                    context.components.ouinet.METRICS_FRONTEND_TOKEN)))
+                Request(
+                    url = request,
+                    headers = MutableHeaders(
+                        "X-Ouinet-Front-End-Token" to context.components.ouinet.METRICS_FRONTEND_TOKEN,
+                    )
+                )
             ).let { response ->
 
                 if(response == null) ouinetResponseListener?.onError()
