@@ -43,6 +43,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import mozilla.components.concept.storage.FrecencyThresholdOption
 import mozilla.components.feature.top.sites.TopSitesConfig
@@ -432,14 +433,24 @@ class HomeFragment : BaseHomeFragment() {
 
         var response = CenoSettings.webClientRequest(
             context,
-            Request(Settings.getRSSAnnouncementUrl(context, languageCode))
+            Request(
+                url = Settings.getRSSAnnouncementUrl(context, languageCode),
+                headers = MutableHeaders(
+                    "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
+                )
+            )
         )
 
         // if the network call fails, try to load 'en' locale
         if (response == null) {
             response = CenoSettings.webClientRequest(
                 context,
-                Request(Settings.getRSSAnnouncementUrl(context, "en"))
+                Request(
+                    url = Settings.getRSSAnnouncementUrl(context, "en"),
+                    headers = MutableHeaders(
+                        "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
+                    )
+                )
             )
         }
 
@@ -454,7 +465,12 @@ class HomeFragment : BaseHomeFragment() {
     private suspend fun getOuicrawlSites(context: Context) {
         var ouicrawlResponse = CenoSettings.webClientRequest(
             context,
-            Request("https://schedule.ceno.app/schedule.json")
+            Request(
+                url = "https://schedule.ceno.app/schedule.json",
+                headers = MutableHeaders(
+                    "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
+                )
+            )
         )
         ouicrawlResponse?.let {
             Log.d("Ouicrawl", ouicrawlResponse)

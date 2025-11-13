@@ -24,6 +24,7 @@ class Ouinet (
 
     lateinit var config: Config
     val metricsFrontendToken = generateRandomToken()
+    val proxyAccessToken = generateRandomToken()
 
     fun setConfig() {
         val isDohDisabled = if (isDohDisabledForLocale()) true else !Settings.isDohEnabled(context)
@@ -45,6 +46,7 @@ class Ouinet (
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setFrontEndAccessToken(metricsFrontendToken)
+            .setProxyAccessToken(proxyAccessToken)
             .setDisableDoH(isDohDisabled)
             .build()
     }
