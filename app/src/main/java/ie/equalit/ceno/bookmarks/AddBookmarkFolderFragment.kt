@@ -24,6 +24,7 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
+import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.support.ktx.android.view.hideKeyboard
 
 class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProvider {
@@ -48,8 +49,11 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
         viewLifecycleOwner.lifecycleScope.launch(Main) {
             val context = requireContext()
             sharedViewModel.selectedFolder = withContext(IO) {
-                sharedViewModel.selectedFolder
-                    ?: requireComponents.core.bookmarksStorage.getBookmark(BookmarkRoot.Mobile.id)
+                (sharedViewModel.selectedFolder
+                    ?: requireComponents.core.bookmarksStorage
+                        .getBookmark(BookmarkRoot.Mobile.id)
+                        .getOrNull()
+                )
             }
 
             binding.bookmarkParentFolderSelector.text =
@@ -88,13 +92,13 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
                 }
                 this.view?.hideKeyboard()
                 viewLifecycleOwner.lifecycleScope.launch(IO) {
-                    val newGuid = requireComponents.core.bookmarksStorage.addFolder(
+                    val newGuid: String = requireComponents.core.bookmarksStorage.addFolder(
                         sharedViewModel.selectedFolder!!.guid,
                         binding.bookmarkNameEdit.text.toString(),
                         null,
-                    )
+                    ).toString()
                     sharedViewModel.selectedFolder =
-                        requireComponents.core.bookmarksStorage.getTree(newGuid)
+                        requireComponents.core.bookmarksStorage.getTree(newGuid).getOrNull()
                     withContext(Main) {
                         findNavController().popBackStack()
                     }
