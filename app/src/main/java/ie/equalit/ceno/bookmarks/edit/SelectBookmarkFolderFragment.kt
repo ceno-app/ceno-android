@@ -66,8 +66,9 @@ class SelectBookmarkFolderFragment : Fragment(), MenuProvider {
 
         viewLifecycleOwner.lifecycleScope.launch(Main) {
             bookmarkNode = withContext(IO) {
-                var node = requireComponents.core.bookmarksStorage
+                val node = requireComponents.core.bookmarksStorage
                     .getTree(BookmarkRoot.Mobile.id, recursive = true)
+                    .getOrNull()
                 node?.copy(
                     title = friendlyRootTitle(requireContext(), node)
                 )
