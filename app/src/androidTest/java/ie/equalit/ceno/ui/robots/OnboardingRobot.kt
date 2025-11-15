@@ -60,11 +60,12 @@ class OnboardingRobot {
         }
         fun skipOnboardingIfNeeded() {
             if (Settings.shouldShowOnboarding(TestHelper.appContext)) {
-                skipCenoTourButton().waitForExists(TestAssetHelper.waitingTime)
-                skipCenoTourButton().click()
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    givePermissionsIfNeeded()
+                skipCenoTourButton().waitForExists(waitingTime)
+                if (skipCenoTourButton().exists()) {
+                    skipCenoTourButton().click()
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                        givePermissionsIfNeeded()
+                    }
                 }
             }
         }
@@ -170,7 +171,7 @@ private fun goToNextTooltipButton() = mDevice.findObject(
 )
 
 
-private fun permissionAllowButton() = mDevice.findObject(
+fun permissionAllowButton() = mDevice.findObject(
     UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")
 )
 
@@ -178,7 +179,7 @@ private fun permissionDenyButton() = mDevice.findObject(
     UiSelector().resourceId("com.android.permissioncontroller:id/permission_deny_button")
 )
 
-private fun backgroundAllowButton() = mDevice.findObject(
+fun backgroundAllowButton() = mDevice.findObject(
 UiSelector().resourceId("android:id/button1")
 )
 

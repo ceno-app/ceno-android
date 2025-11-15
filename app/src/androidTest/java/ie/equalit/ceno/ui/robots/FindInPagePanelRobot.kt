@@ -10,13 +10,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiSelector
-import org.hamcrest.Matchers.not
 import org.junit.Assert.assertTrue
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.TestHelper.waitForObjects
 import ie.equalit.ceno.helpers.click
+import org.hamcrest.CoreMatchers.not
 
 /**
  * Implementation of Robot Pattern for the FindInPage Panel.

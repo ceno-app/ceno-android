@@ -30,7 +30,12 @@ class BookmarksUseCase (
             parentGuid: String? = null,
         ): Boolean {
             return try {
-                val canAdd = storage.getBookmarksWithUrl(url).firstOrNull { it.url == url } == null
+                val canAdd = storage
+                    .getBookmarksWithUrl(url)
+                    .getOrDefault(listOf())
+                    .firstOrNull {
+                        it.url == url
+                    } == null
 
                 if (canAdd) {
                     storage.addItem(

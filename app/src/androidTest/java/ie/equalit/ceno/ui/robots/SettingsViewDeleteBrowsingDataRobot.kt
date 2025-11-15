@@ -1,12 +1,13 @@
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
+import ie.equalit.ceno.helpers.click
 
 /**
  * Implementation of Robot Pattern for the settings delete browsing data menu.
@@ -15,6 +16,9 @@ class SettingsViewDeleteBrowsingDataRobot {
 
     fun verifyDeleteBrowsingDataUpButton() = assertDeleteBrowsingDataUpButton()
     fun verifyDeleteBrowsingDataSettings() = assertDeleteBrowsingDataSettingsView()
+    fun verifyCookiesCheckbox() = assertCookiesCheckbox()
+
+    fun toggleCookiesCheckbox() = cookiesCheckbox().click()
 
     class Transition {
         fun settingsViewSearch(interact: SettingsViewDeleteBrowsingDataRobot.() -> Unit): Transition {
@@ -29,10 +33,15 @@ class SettingsViewDeleteBrowsingDataRobot {
     }
 }
 
-private fun deleteBrowsingDataSettingsView() = Espresso.onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data))
+private fun deleteBrowsingDataSettingsView() = onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data))
+
+private fun cookiesCheckbox() = onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data_cookies))
 
 private fun assertDeleteBrowsingDataUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
 private fun assertDeleteBrowsingDataSettingsView() = deleteBrowsingDataSettingsView()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertCookiesCheckbox() = cookiesCheckbox()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

@@ -40,6 +40,12 @@ class TabTrayMoreOptionsMenuRobot {
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
+
+        fun closeMenu(interact: TabTrayMenuRobot.() -> Unit): TabTrayMenuRobot.Transition {
+            mDevice.pressBack()
+            TabTrayMenuRobot().interact()
+            return TabTrayMenuRobot.Transition()
+        }
     }
 }
 

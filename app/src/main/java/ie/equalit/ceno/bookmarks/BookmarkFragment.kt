@@ -163,7 +163,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
         // Only runs if the fragment is attached same as [runIfFragmentIsAttached]
         context?.let {
             requireComponents.core.bookmarksStorage
-                .getTree(guid, recursive)
+                .getTree(guid, recursive).getOrNull()
 //                ?.let { desktopFolders.withOptionalDesktopFolders(it) }
         }
     }

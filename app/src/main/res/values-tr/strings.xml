@@ -426,4 +426,7 @@
     <string name="ouinet_state_stopping">Durduruluyor</string>
     <string name="ouinet_state_stopped">Durduruldu</string>
     <string name="ouinet_state_degraded">bozulmuş</string>
+    <string name="preferences_theme_option_0">Sistem temasını kullan</string>
+    <string name="preferences_ouinet_proxy_endpoint">Yerel proxy uç noktası</string>
+    <string name="preferences_ouinet_frontend_endpoint">Yerel ön uç noktası</string>
 </resources>

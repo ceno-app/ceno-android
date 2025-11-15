@@ -325,7 +325,7 @@
     <string name="confirm_groups_file_download_desc">Sebuah file .txt akan tersimpan dalam penyimpanan lokal.</string>
     <string name="confirm_clear_cached_content">Bersihkan cache konten?</string>
     <string name="confirm_clear_cached_content_desc">Cache konten mu akan segera dihapus</string>
-    <string name="clean_insights_header">Bantu Ceno menjadi lebih baik!</string>
+    <string name="clean_insights_header">Bantu kami memperbaiki Ceno!</string>
     <string name="clean_insights_sub_header">Kami ingin mencatat metrik sebagai berikut:</string>
     <string name="clean_insights_explainer">Kontribusi Anda akan bersifat anonim, dan Anda dapat memilih keluar kapan saja melalui Pengaturan &gt; Latar belakang Metrik.</string>
     <string name="optional_metrics">Metrik opsional:</string>
@@ -348,7 +348,7 @@
     <string name="standby_dont_show">Jangan munculkan peringatan lagi</string>
     <string name="error_page_sub_header">Ceno telah mencoba segala mekanisme untuk mengakses konten ini, namun tidak ada yang berhasil:</string>
     <string name="standby_tip_pdf">Bagikan halaman web sebagai PDF</string>
-    <string name="error_page_learn_more_1">Anda memiliki versi terbaru dari browser Ceno. Versi yang usang mungkin tidak dapat berkomunikasi dengan injektor baru atau klien lain. Cek &lt;/a&gt;halaman unduh &lt;a href=\"https://play.google.com/store/apps/details?id=ie.equalit.ceno\"&gt; untuk melihat versi terbarunya.</string>
+    <string name="error_page_learn_more_1">Anda menggunakan versi terbaru dari Ceno Browser. Versi yang sudah usang mungkin tidak dapat berkomunikasi dengan injector atau klien lain yang lebih baru. Periksa <a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">halaman Unduhan</a> untuk menemukan versi terbaru.</string>
     <string name="skip_the_tour_button">Lewati tur</string>
     <string name="btn_next">Berikutnya</string>
     <string name="btn_exit">Keluar</string>
@@ -402,4 +402,42 @@
     <string name="metrics_campaign_more_info">Info lebih lanjut</string>
     <string name="metrics_campaign_view_privacy_policy">Kebijakan privasi</string>
     <string name="metrics_ouinet_description">Kirim metrik secara anonim ke pengembang</string>
+    <string name="preferences_theme_option_0">Ikuti tema sistem</string>
+    <string name="metrics_ouinet_title">Metrik Ceno</string>
+    <string name="bookmarks_empty_message">Tidak ada markah di sini</string>
+    <string name="bookmark_menu_copy_button">Salin</string>
+    <string name="bookmark_menu_open_in_new_tab_button">Buka di tab baru</string>
+    <string name="bookmark_url_label">URL</string>
+    <string name="edit_bookmark_folder_fragment_title">Edit folder</string>
+    <string name="edit_bookmark_fragment_title">Edit markah</string>
+    <string name="bookmark_add_folder">Tambahkan folder</string>
+    <string name="library_desktop_bookmarks_unfiled">Markah Lainnya</string>
+    <string name="bookmark_invalid_url_error">URL tidak valid</string>
+    <string name="bookmark_add_folder_fragment_label">Tambahkan folder</string>
+    <string name="bookmark_item_menu_button">Tombol menu markah item</string>
+    <string name="bookmark_folder_label">FOLDER</string>
+    <string name="add_or_remove_bookmark">Tambahkan atau hapus Markah</string>
+    <string name="bookmark_delete_folder_confirmation_dialog">Apakah Anda yakin ingin menghapus folder ini?</string>
+    <string name="foreground_notification_reminder_channel">Pengingat Ceno</string>
+    <string name="reminder_notification_title">Hai, sudah lama tidak bertemu!</string>
+    <string name="reminder_notification_text">Buka kembali Ceno agar cache Anda tetap tersedia bagi pengguna lain</string>
+    <string name="ouicrawl_sites_section_title">Saluran Media Gratis</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="other">%d menit yang lalu</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="other">%d jam yang lalu</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="other">%d hari yang lalu</item>
+    </plurals>
+    <string name="ouinet_state_created">Dibuat</string>
+    <string name="ouinet_state_failed">Gagal</string>
+    <string name="ouinet_state_starting">Mulai</string>
+    <string name="ouinet_state_degraded">Terdegradasi</string>
+    <string name="ouinet_state_started">Dimulai</string>
+    <string name="ouinet_state_stopping">Berhenti</string>
+    <string name="ouinet_state_stopped">Dihentikan</string>
+    <string name="preferences_ouinet_proxy_endpoint">Titik akhir proxy lokal</string>
+    <string name="preferences_ouinet_frontend_endpoint">Titik akhir frontend lokal</string>
 </resources>

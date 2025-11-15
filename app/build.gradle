@@ -466,31 +466,14 @@ dependencies {
     androidTestImplementation libs.uiautomator
     androidTestImplementation libs.junit.ktx
 
-    androidTestImplementation libs.espresso.core, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
-
-    androidTestImplementation(libs.espresso.contrib) {
-        exclude module: 'appcompat-v7'
-        exclude module: 'support-v4'
-        exclude module: 'support-annotations'
-        exclude module: 'recyclerview-v7'
-        exclude module: 'design'
-        exclude module: 'espresso-core'
-    }
+    androidTestImplementation libs.espresso.core
 
     androidTestImplementation libs.espresso.idlingresources
-    androidTestImplementation libs.espresso.web, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
 
     androidTestImplementation libs.mockwebserver
     androidTestImplementation libs.tools.testrunner
     androidTestImplementation libs.tools.testrules
     androidTestUtil libs.orchestrator
-    androidTestImplementation libs.espresso.core, {
-        exclude group: 'com.android.support', module: 'support-annotations'
-    }
     androidTestImplementation libs.fastlane.screengrab
 }
 
