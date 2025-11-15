@@ -94,4 +94,5 @@
     <string name="bookmark_name_label">שם</string>
     <string name="library_bookmarks">סימניות</string>
     <string name="bookmark_menu_share_button">שיתוף</string>
+    <string name="button_content_readerview">‌</string>
 </resources>
