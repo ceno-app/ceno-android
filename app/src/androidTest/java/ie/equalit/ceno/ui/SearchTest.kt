@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.ui
 
-import androidx.test.filters.SdkSuppress
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -18,7 +17,6 @@ import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
 
-@SdkSuppress(minSdkVersion = 26)
 class SearchTest {
 
     private lateinit var mockWebServer: MockWebServer

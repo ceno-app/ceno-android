@@ -14,6 +14,7 @@ import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
+import ie.equalit.ceno.ui.robots.navigateToSourcesAndSet
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
@@ -44,22 +45,6 @@ class WebRequestTest {
     @After
     fun tearDown() {
         mockWebServer.shutdown()
-    }
-
-    private fun navigateToSourcesAndSet(website: Boolean, private: Boolean, public: Boolean, shared : Boolean){
-        navigationToolbar {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(18)
-            Thread.sleep(5000)
-            verifyWebsiteSourcesButton()
-            verifyWebsiteSourcesSummary()
-        }.openSettingsViewSources {
-            setWebsiteSources(website, private, public, shared)
-        }.goBack {
-        }.goBack {
-        }
     }
 
     private fun verifyWebRequestList(

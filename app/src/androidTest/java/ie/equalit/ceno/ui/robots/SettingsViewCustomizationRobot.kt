@@ -28,6 +28,10 @@ class SettingsViewCustomizationRobot {
         setAppThemeButton().click()
     }
 
+    fun toggleShowHomeButton() {
+        showHomeButtonToggle().click()
+    }
+
     fun clickDefaultBehavior() {
         defaultBehaviorButton().click()
     }
@@ -60,6 +64,8 @@ private fun customizationSettingsView() = Espresso.onView(ViewMatchers.withText(
 private fun changeAppIconButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
 private fun setAppThemeButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme))
 private fun setAppThemeSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme_summary))
+
+private fun showHomeButtonToggle() = Espresso.onView(ViewMatchers.withText(R.string.preferences_show_home_button))
 private fun defaultBehaviorButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
 private fun defaultBehaviorSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
 
@@ -74,6 +80,8 @@ private fun assertChangeAppIconButton() = changeAppIconButton()
 private fun assertSetAppThemeButton() = setAppThemeButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertSetAppThemeSummary() = setAppThemeSummary()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertShowHomeButtonToggle() = showHomeButtonToggle()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertDefaultBehaviorButton() = defaultBehaviorButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

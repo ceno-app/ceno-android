@@ -1,16 +1,22 @@
 package ie.equalit.ceno.ui.robots
 
+import android.view.View
+import android.widget.Checkable
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.Until
 import ie.equalit.ceno.helpers.TestAssetHelper
-import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.hasCousin
+import org.hamcrest.BaseMatcher
 import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.isA
+import org.hamcrest.Description
 
 /**
  * Implementation of Robot Pattern for the settings privacy menu.
@@ -29,36 +35,28 @@ class SettingsViewSourcesRobot {
     fun verifySharedCheckbox(): ViewInteraction = assertSharedCheckbox()
     fun verifySharedSummary(): ViewInteraction = assertSharedSummary()
 
-    fun toggleWebsiteCheckbox() {
-        websiteCheckbox().click()
+    fun toggleWebsiteCheckbox(value : Boolean) {
+        websiteCheckbox().perform(setChecked(value))
     }
-    fun togglePrivatelyCheckbox() {
-        privatelyCheckbox().click()
+    fun togglePrivatelyCheckbox(value : Boolean) {
+        privatelyCheckbox().perform(setChecked(value))
     }
-    fun togglePubliclyCheckbox() {
-        publiclyCheckbox().click()
+    fun togglePubliclyCheckbox(value : Boolean) {
+        publiclyCheckbox().perform(setChecked(value))
     }
-    fun toggleSharedCheckbox() {
-        sharedCheckbox().click()
+    fun toggleSharedCheckbox(value : Boolean) {
+        sharedCheckbox().perform(setChecked(value))
     }
 
     fun setWebsiteSources(website: Boolean, private: Boolean, public: Boolean, shared : Boolean){
-        if (!website) {
-            verifyWebsiteCheckbox()
-            toggleWebsiteCheckbox()
-        }
-        if (!private) {
-            verifyPrivatelyCheckbox()
-            togglePrivatelyCheckbox()
-        }
-        if (!public) {
-            verifyPubliclyCheckbox()
-            togglePubliclyCheckbox()
-        }
-        if (!shared) {
-            verifySharedCheckbox()
-            toggleSharedCheckbox()
-        }
+        verifyWebsiteCheckbox()
+        toggleWebsiteCheckbox(website)
+        verifyPrivatelyCheckbox()
+        togglePrivatelyCheckbox(private)
+        verifyPubliclyCheckbox()
+        togglePubliclyCheckbox(public)
+        verifySharedCheckbox()
+        toggleSharedCheckbox(shared)
     }
 
 
@@ -130,3 +128,32 @@ private fun assertSharedCheckbox() = sharedCheckbox()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertSharedSummary() = sharedSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+fun setChecked(checked: Boolean): ViewAction {
+    return object : ViewAction {
+        override fun getConstraints(): BaseMatcher<View?> {
+            return object : BaseMatcher<View?>() {
+                override fun matches(item: Any?): Boolean {
+                    return isA(Checkable::class.java).matches(item)
+                }
+
+                override fun describeMismatch(
+                    item: Any?,
+                    mismatchDescription: Description?
+                ) {
+                }
+
+                override fun describeTo(description: Description?) {}
+            }
+        }
+
+        override fun getDescription(): String? {
+            return null
+        }
+
+        override fun perform(uiController: UiController?, view: View?) {
+            val checkableView = view as Checkable
+            checkableView.isChecked = checked
+        }
+    }
+}

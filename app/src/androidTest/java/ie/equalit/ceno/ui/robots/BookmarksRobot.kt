@@ -25,8 +25,7 @@ import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTimeShort
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
-import org.hamcrest.Matchers.allOf
-import org.hamcrest.Matchers.not
+import org.hamcrest.CoreMatchers.allOf
 
 class BookmarksRobot {
     fun verifyBookmarksView() = assertBookmarksView()

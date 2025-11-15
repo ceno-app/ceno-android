@@ -124,6 +124,24 @@ fun navigationToolbar(interact: NavigationToolbarRobot.() -> Unit): NavigationTo
     return NavigationToolbarRobot.Transition()
 }
 
+
+fun navigateToSourcesAndSet(website: Boolean, private: Boolean, public: Boolean, shared : Boolean){
+    navigationToolbar {
+    }.openThreeDotMenu {
+    }.openSettings {
+        Thread.sleep(5000)
+        clickDownRecyclerView(18)
+        Thread.sleep(5000)
+        verifyWebsiteSourcesButton()
+        verifyWebsiteSourcesSummary()
+    }.openSettingsViewSources {
+        setWebsiteSources(website, private, public, shared)
+    }.goBack {
+    }.goBack {
+    }
+}
+
+
 private fun openTabTray() = mDevice.findObject(UiSelector().resourceId("$packageName:id/tab_counter_box"))
 private var numberOfOpenTabsTabCounter = onView(withId(R.id.counter_text))
 private fun urlBar() =

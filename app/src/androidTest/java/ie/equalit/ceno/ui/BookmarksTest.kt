@@ -241,6 +241,7 @@ class BookmarksTest {
             clickAddNewFolderButtonFromSelectFolderView()
             addNewFolderName(bookmarksFolderName)
             saveNewFolder()
+            selectFolder(bookmarksFolderName)
             navigateUp()
             saveEditBookmark()
             verifyFolderTitle(bookmarksFolderName)
