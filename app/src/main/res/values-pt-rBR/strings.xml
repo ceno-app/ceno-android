@@ -454,4 +454,7 @@
     <string name="ouinet_state_started">Iniciado</string>
     <string name="ouinet_state_stopping">Interrompendo</string>
     <string name="ouinet_state_stopped">Interrompido</string>
+    <string name="preferences_theme_option_0">Seguir tema do sistema</string>
+    <string name="preferences_ouinet_proxy_endpoint">Ponto de extremidade do proxy local</string>
+    <string name="preferences_ouinet_frontend_endpoint">Ponto de extremidade de front-end local</string>
 </resources>

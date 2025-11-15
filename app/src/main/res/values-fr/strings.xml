@@ -461,4 +461,7 @@
     <string name="ouinet_state_started">Démarré</string>
     <string name="ouinet_state_stopping">En cours d\'arrêt</string>
     <string name="ouinet_state_stopped">Arrêté</string>
+    <string name="preferences_theme_option_0">Suivre le thème du système</string>
+    <string name="preferences_ouinet_proxy_endpoint">Point de terminaison proxy local</string>
+    <string name="preferences_ouinet_frontend_endpoint">Point de terminaison frontal local</string>
 </resources>

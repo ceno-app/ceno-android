@@ -32,7 +32,7 @@
     <string name="menu_action_add_tab">إضافة علامة تبويب جديدة</string>
     <string name="menu_action_close_tabs">إغلاق كافة علامات التبويب</string>
     <string name="preferences_remote_debugging">تصحيح الأخطاء عن بعد باستخدام USB</string>
-    <string name="preferences_tracking_protection_normal">التمكين في وضع التصفح العادي</string>
+    <string name="preferences_tracking_protection_normal">التمكين في وضع التصفح العام</string>
     <string name="preferences_tracking_protection_private">التمكين في وضع التصفح الشخصي</string>
     <string name="general_category">عام</string>
     <string name="settings">الإعدادات</string>
