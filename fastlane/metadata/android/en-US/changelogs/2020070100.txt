@@ -1,0 +1,5 @@
+This release:
+- Updates Ouinet to v1.4.2
+- Updates Android-Components to v145.0
+- Update cacert.pem with bundle generated on Tue Nov  4 04:12:02 2025 GMT
+- Minor updates to various translations

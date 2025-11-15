@@ -137,13 +137,18 @@ class DefaultBookmarkController(
     override fun handleBackPressed() {
         scope.launch {
             val parentGuid = store.state.guidBackstack.findLast { guid ->
-                store.state.tree?.guid != guid && activity.components.core.bookmarksStorage.getBookmark(guid) != null
+                store.state.tree?.guid != guid
+                        && activity.components.core.bookmarksStorage
+                            .getBookmark(guid)
+                            .getOrNull() != null
             }
             if (parentGuid == null) {
                 navController.popBackStack()
             } else {
-                val parent = activity.components.core.bookmarksStorage.getBookmark(parentGuid)!!
-                handleBookmarkExpand(parent)
+                val parent = activity.components.core.bookmarksStorage
+                    .getBookmark(parentGuid)
+                    .getOrNull()
+                handleBookmarkExpand(parent!!)
             }
         }
     }

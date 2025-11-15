@@ -2,7 +2,6 @@ package ie.equalit.ceno.bookmarks
 
 import android.content.Context
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 import mozilla.components.browser.menu2.BrowserMenuController
 import mozilla.components.concept.menu.MenuController
 import mozilla.components.concept.menu.candidate.TextMenuCandidate
@@ -25,9 +24,7 @@ class BookmarkItemMenu (
     }
     val menuController: MenuController by lazy { BrowserMenuController() }
 
-    internal suspend fun menuItems(itemType: BookmarkNodeType, itemId: String): List<TextMenuCandidate> {
-        val hasAtLeastOneChild = !context.components.core.bookmarksStorage.getTree(itemId)?.children.isNullOrEmpty()
-
+    internal fun menuItems(itemType: BookmarkNodeType): List<TextMenuCandidate> {
         return listOfNotNull(
             if (itemType != BookmarkNodeType.SEPARATOR) {
                 TextMenuCandidate(
@@ -87,6 +84,6 @@ class BookmarkItemMenu (
      * Update the menu items for the type of bookmark.
      */
     suspend fun updateMenu(itemType: BookmarkNodeType, itemId: String) {
-        menuController.submitList(menuItems(itemType, itemId))
+        menuController.submitList(menuItems(itemType))
     }
 }

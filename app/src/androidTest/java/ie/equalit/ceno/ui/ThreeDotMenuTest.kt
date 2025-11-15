@@ -337,7 +337,6 @@ class ThreeDotMenuTest {
         }
     }
 
-    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun uBlockOriginTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
@@ -351,6 +350,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
         }.openUblockOrigin {
+            Thread.sleep(2000)
             verifyPageContent("Blocked on this page")
         }.goBack{}
 
@@ -365,11 +365,11 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
         }.openUblockOrigin {
+            Thread.sleep(2000)
             verifyPageContent("Blocked on this page")
         }.goBack{}
     }
 
-    @SdkSuppress(minSdkVersion = 26)
     @Test
     fun httpsByDefaultTest() {
         /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
@@ -383,6 +383,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
         }.openHttpsByDefault {
+            Thread.sleep(2000)
             verifyPageContent("HTTPS is enabled by default for all navigations")
         }.goBack{}
 
@@ -397,6 +398,7 @@ class ThreeDotMenuTest {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
         }.openHttpsByDefault {
+            Thread.sleep(2000)
             verifyPageContent("HTTPS is enabled by default for all navigations")
         }.goBack{}
     }

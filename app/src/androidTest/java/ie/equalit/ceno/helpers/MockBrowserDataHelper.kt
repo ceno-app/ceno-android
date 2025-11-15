@@ -56,7 +56,7 @@ object MockBrowserDataHelper {
                     parentGuid = parentGuid,
                     title = title,
                     position = position,
-                )
+                ).toString()
         }
     }
 }
