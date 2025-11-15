@@ -74,7 +74,7 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
             val bookmarksStorage = context.components.core.bookmarksStorage
 
             bookmarkNode = withContext(Dispatchers.IO) {
-                guidToEdit?.let { bookmarksStorage.getBookmark(it) }
+                guidToEdit?.let { bookmarksStorage.getBookmark(it).getOrNull() }
             }
 
             if (initialParentGuid == null) {
@@ -83,11 +83,13 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
 
             bookmarkParent = withContext(Dispatchers.IO) {
                 // Use user-selected parent folder if it's set, or node's current parent otherwise.
-                if (sharedViewModel.selectedFolder != null) {
+                (if (sharedViewModel.selectedFolder != null) {
                     sharedViewModel.selectedFolder
                 } else {
-                    bookmarkNode?.parentGuid?.let { bookmarksStorage.getBookmark(it) }
-                }
+                    bookmarkNode?.parentGuid?.let {
+                        bookmarksStorage.getBookmark(it).getOrNull()
+                    }
+                })
             }
 
             when (bookmarkNode?.type) {

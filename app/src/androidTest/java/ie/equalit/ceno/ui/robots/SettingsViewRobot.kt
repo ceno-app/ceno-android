@@ -18,6 +18,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withChild
+import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withParent
@@ -91,25 +92,33 @@ class SettingsViewRobot {
     fun verifyAllowNotification(): Unit = assertAllowNotificationButton()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
-
+    fun clickClearCacheButton() = clearCachedContentButton().click()
     fun clickEnableLogFile() = enableLogFile().click()
 
     fun clickBridgeModeToggle() = bridgeModeToggle().click()
+    fun clickOk() = onView(withText(R.string.dialog_btn_positive_ok)).click()
+    fun clickCancel() = onView(withText(R.string.dialog_cancel)).click()
     fun clickChangeLanguageButton() {
         changeLanguageButton().click()
     }
     fun clickCenoVersionDisplay() = cenoVersionDisplay().click()
 
+    fun waitForBridgeModeDialogToExist() {
+        mDevice.findObject(
+            UiSelector()
+                .resourceId("$packageName:id/progressBar2")
+        ).waitForExists(waitingTime)
+    }
+
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
             UiSelector()
-                .textContains("Updating Bridge Mode settings"),
+                .resourceId("$packageName:id/progressBar2")
         ).waitUntilGone(waitingTime)
     }
 
     fun waitForThankYouDialog() {
         onView(withText(R.string.title_success)).check(matches(isDisplayed()))
-        onView(withText(R.string.dialog_btn_positive_ok)).click()
     }
 
     fun clickDownRecyclerView(count: Int) {
@@ -196,8 +205,22 @@ class SettingsViewRobot {
             return SettingsViewMetricsRobot.Transition()
         }
 
+        fun openSettingsViewCachedContent(interact: SettingsViewCachedContentRobot.() -> Unit):
+                SettingsViewCachedContentRobot.Transition {
+            contentsSharedButton().click()
+            SettingsViewCachedContentRobot().interact()
+            return SettingsViewCachedContentRobot.Transition()
+        }
+
+        fun openSettingsViewChangeLanguage(interact: SettingsViewChangeLanguageRobot.() -> Unit):
+                SettingsViewChangeLanguageRobot.Transition {
+            changeLanguageButton().click()
+            SettingsViewChangeLanguageRobot().interact()
+            return SettingsViewChangeLanguageRobot.Transition()
+        }
+
         fun goBack(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
-            mDevice.pressBack()
+            goBackButton().click()
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
@@ -216,6 +239,8 @@ private fun assertSettingsView() {
     onView(withText(R.string.settings))
         .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
+
+private fun goBackButton() = onView(withContentDescription("Navigate up"))
 
 private fun recycleView() = onView(withId(R.id.recycler_view))
 private fun generalHeading() = onView(withText(R.string.general_category))

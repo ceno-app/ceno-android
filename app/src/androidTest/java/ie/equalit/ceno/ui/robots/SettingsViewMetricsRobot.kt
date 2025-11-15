@@ -32,6 +32,8 @@ class SettingsViewMetricsRobot {
     fun verifyCrashReportingButton() = assertCrashReportingButton()
     fun verifyMetricsButton() = assertMetricsButton()
 
+    fun toggleCrashReporting() = crashReportingButton().click()
+
 
     class Transition {
         fun settingsViewMetrics(interact: SettingsViewMetricsRobot.() -> Unit): Transition {

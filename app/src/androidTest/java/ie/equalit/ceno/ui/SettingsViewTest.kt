@@ -383,6 +383,7 @@ class SettingsViewTest {
             waitForBridgeModeDialog()
             Thread.sleep(15000)
             waitForThankYouDialog()
+            clickOk()
         }.goBack {
         }.openThreeDotMenu {
         }.openSettings {

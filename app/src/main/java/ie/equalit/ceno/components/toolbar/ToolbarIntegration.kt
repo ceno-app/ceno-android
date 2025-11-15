@@ -412,6 +412,7 @@ class ToolbarIntegration(
                     isCurrentUrlBookmarked = newUrl?.let { url->
                         context.components.core.bookmarksStorage
                             .getBookmarksWithUrl(url)
+                            .getOrDefault(listOf())
                             .any {it.url == url}
                     } == true
                 }

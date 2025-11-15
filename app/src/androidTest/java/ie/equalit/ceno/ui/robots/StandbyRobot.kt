@@ -14,6 +14,7 @@ class StandbyRobot {
         fun waitForStandbyIfNeeded() {
             waitForStandbyLogo()
             waitForStandbyLogoGone()
+            openAnywayIfNeeded()
         }
     }
 }
@@ -31,6 +32,16 @@ fun waitForStandbyLogoGone() {
     standbyLogo().waitUntilGone(TestAssetHelper.waitingTime)
 }
 
+fun openAnywayIfNeeded() {
+    if (openAnywayButton().exists()) {
+        openAnywayButton().click()
+    }
+}
+
 private fun standbyLogo() = mDevice.findObject(
     UiSelector().resourceId("${TestHelper.packageName}:id/iv_standby_logo"),
+)
+
+private fun openAnywayButton() = mDevice.findObject(
+    UiSelector().resourceId("${TestHelper.packageName}:id/btn_take_me_anyway"),
 )
