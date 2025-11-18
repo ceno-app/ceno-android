@@ -8,11 +8,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
@@ -25,7 +27,9 @@ import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.*
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ext.showAsFixed
 import ie.equalit.ceno.search.AwesomeBarWrapper
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
@@ -44,6 +48,7 @@ import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+
 
 /**
  * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
@@ -265,6 +270,17 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
             owner = this,
             view = view
         )
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Custom back press logic
+                this@BaseHomeFragment.onBackPressed()
+                isEnabled = false
+                findNavController().popBackStack()
+                requireActivity().onBackPressedDispatcher.onBackPressed()
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+
     }
 
     override fun onStart() {
@@ -325,7 +341,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         }
     }
 
-    @CallSuper
     override fun onBackPressed(): Boolean {
         return backButtonHandler.any { it.onBackPressed() }
     }

@@ -422,34 +422,21 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         else -> super.onOptionsItemSelected(item)
     }
 
-    override fun onBackPressed() {
-        /* If coming from settings fragment, always clear back stack and go back to root fragment */
-        if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
-            if (components.core.store.state.selectedTabId == "" ||
-                components.core.store.state.selectedTabId == null
-            ) {
-                navHost.navController.popBackStack(R.id.homeFragment, true)
-                navHost.navController.navigate(R.id.action_global_home)
-            }
-            else {
-                navHost.navController.navigate(R.id.action_global_browser)
-            }
-            return
-        }
-        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
-            navHost.navController.navigate(R.id.action_global_settings)
-            return
-        }
-
-        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
-            return
-        }
-
-        super.onBackPressed()
-
-        removeSessionIfNeeded()
-    }
+//    override fun onBackPressed() {
+//        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
+//            navHost.navController.navigate(R.id.action_global_settings)
+//            return
+//        }
+//
+//        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
+//        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
+//            return
+//        }
+//
+//        super.onBackPressed()
+//
+//        removeSessionIfNeeded()
+//    }
 
     val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         Settings.setAllowNotifications(this, isGranted)
@@ -495,7 +482,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
      *
      * Eventually we may want to move this functionality into one of our feature components.
      */
-    private fun removeSessionIfNeeded(): Boolean {
+    fun removeSessionIfNeeded(): Boolean {
         val session = tab ?: return false
 
         return if (session.source is SessionState.Source.External && !session.restored) {

@@ -16,6 +16,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.activity.addCallback
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -197,7 +198,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
-
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+            if (requireComponents.core.store.state.selectedTabId == "" ||
+                requireComponents.core.store.state.selectedTabId == null
+            ) {
+                findNavController().navigate(R.id.action_global_home)
+            } else {
+                findNavController().navigate(R.id.action_global_browser)
+            }
+        }
+        callback.isEnabled = true
     }
 
     private fun showThankyouDialog() {
