@@ -75,8 +75,9 @@ android {
     }
 
     def releaseTemplate = {
-        minifyEnabled false
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        shrinkResources = false
+        minifyEnabled = false
+        proguardFiles = [getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro']
         matchingFallbacks = ['release'] // Use on the "release" build type in dependencies (AARs)
     }
 
@@ -96,7 +97,7 @@ android {
             applicationIdSuffix ".debug"
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
-        release {
+        release releaseTemplate >> {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
