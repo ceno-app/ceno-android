@@ -75,8 +75,8 @@ android {
     }
 
     def releaseTemplate = {
-        shrinkResources = false
-        minifyEnabled = false
+        shrinkResources = !project.hasProperty("disableOptimization")
+        minifyEnabled = !project.hasProperty("disableOptimization")
         proguardFiles = [getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro']
         matchingFallbacks = ['release'] // Use on the "release" build type in dependencies (AARs)
     }
