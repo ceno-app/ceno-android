@@ -31,6 +31,7 @@ import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.EngineProvider
 import ie.equalit.ceno.R
 import ie.equalit.ceno.R.plurals.developer_tools_disable_alert
 import ie.equalit.ceno.R.plurals.developer_tools_enable_alert
@@ -571,6 +572,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 key = OuinetKey.LOG_LEVEL,
                 stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
             )
+
+            // Set console output for GeckoRuntime,
+            // debugLogging can only be set when EngineProvider is initialized
+            EngineProvider.getOrCreateRuntime(requireContext()).settings
+                .consoleOutputEnabled = newValue as Boolean
 
             // Immediately enable the export log button
             getPreference(pref_key_ceno_download_android_log)?.let {
