@@ -416,27 +416,11 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         }
         else -> super.onOptionsItemSelected(item)
     }
-
-//    override fun onBackPressed() {
-//        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
-//            navHost.navController.navigate(R.id.action_global_settings)
-//            return
-//        }
-//
-//        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
-//        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
-//            return
-//        }
-//
-//        super.onBackPressed()
-//
-//        removeSessionIfNeeded()
-//    }
 
     val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
         Settings.setAllowNotifications(this, isGranted)
