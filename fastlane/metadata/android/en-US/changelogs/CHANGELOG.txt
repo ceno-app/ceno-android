@@ -1,3 +1,10 @@
+# v2.8.0
+This release:
+- Refactors custom back button navigation to use OnBackPressedDispatcher
+- Update BrowserActivity to launch as singleInstance
+- Replace FLAG_ACTIVITY_NEW_TASK with FLAG_ACTIVITY_CLEAR_TASK
+- Updates Android Gradle Plugin to 8.13.0
+
 # v2.7.1
 This release:
 - Updates Ouinet to v1.4.2
