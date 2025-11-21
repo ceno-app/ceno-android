@@ -5,8 +5,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
 import android.net.ConnectivityManager
-import android.net.Network
-import android.net.NetworkRequest
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.appcompat.content.res.AppCompatResources
@@ -59,7 +57,7 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch(ioDispatcher) {
             val shareIntent = Intent(Intent.ACTION_SEND).apply {
                 type = "text/plain"
-                flags = Intent.FLAG_ACTIVITY_NEW_TASK
+                flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             }
             val shareAppsActivities = getIntentActivities(shareIntent, context)
 

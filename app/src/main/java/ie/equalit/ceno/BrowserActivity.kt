@@ -503,7 +503,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
         intent.putExtra("web_extension_id", webExtensionState.id)
         intent.putExtra("web_extension_name", webExtensionState.name)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
 

@@ -17,7 +17,6 @@ import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.addCallback
-import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -529,7 +528,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             OnPreferenceClickListener {
                 Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     requireActivity().startActivity(this)
                 }
@@ -544,7 +543,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             OnPreferenceClickListener {
                 Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     requireActivity().startActivity(this)
                 }
