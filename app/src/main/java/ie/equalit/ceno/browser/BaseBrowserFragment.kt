@@ -69,6 +69,7 @@ import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.concept.engine.EngineView
+import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.awesomebar.AwesomeBarFeature
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
@@ -945,7 +946,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private suspend fun bookmarkTapped(sessionUrl: String, sessionTitle: String) = withContext(IO) {
         val bookmarksStorage = requireComponents.core.bookmarksStorage
         val existing =
-            bookmarksStorage.getBookmarksWithUrl(sessionUrl).firstOrNull { it.url == sessionUrl }
+            bookmarksStorage
+                .getBookmarksWithUrl(sessionUrl)
+                .getOrDefault(listOf())
+                .firstOrNull {
+                    it.url == sessionUrl
+                }
         if (existing != null) {
             // Bookmark exists, go to edit bookmark
             withContext(Main) {
@@ -957,21 +963,22 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 val parentNode = Result.runCatching {
                     val parentGuid = bookmarksStorage
                         .getRecentBookmarks(1)
+                        .getOrDefault(listOf())
                         .firstOrNull()
                         ?.parentGuid
                         ?: BookmarkRoot.Mobile.id
 
-                    bookmarksStorage.getBookmark(parentGuid)!!
+                    bookmarksStorage.getBookmark(parentGuid)
+
+                    val guid = bookmarksStorage.addItem(
+                        parentGuid,
+                        url = sessionUrl,
+                        title = sessionTitle,
+                        position = null,
+                    )
                 }.getOrElse {
                     throw PlacesApiException.UrlParseFailed(reason = "no parent node")
                 }
-
-                val guid = bookmarksStorage.addItem(
-                    parentNode.guid,
-                    url = sessionUrl,
-                    title = sessionTitle,
-                    position = null,
-                )
             } catch (e: PlacesApiException.UrlParseFailed) {
                 withContext(Main) {
                     view?.let {

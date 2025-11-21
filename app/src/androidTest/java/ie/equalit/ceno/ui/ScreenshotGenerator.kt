@@ -3,20 +3,25 @@ package ie.equalit.ceno.ui
 import android.os.Build
 import androidx.core.net.toUri
 import androidx.test.ext.junit.rules.ActivityScenarioRule
+import androidx.test.rule.ActivityTestRule
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
+import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
+import ie.equalit.ceno.ui.robots.backgroundAllowButton
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
-import ie.equalit.ceno.ui.robots.denyPermissions
-import ie.equalit.ceno.ui.robots.giveNotificationAndBatteryOptimizationPermissions
 import ie.equalit.ceno.ui.robots.hasPermissions
 import ie.equalit.ceno.ui.robots.homepage
 import ie.equalit.ceno.ui.robots.mDevice
+import ie.equalit.ceno.ui.robots.navigateToSourcesAndSet
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import ie.equalit.ceno.ui.robots.permissionAllowButton
 import ie.equalit.ceno.ui.robots.standby
 import ie.equalit.ceno.ui.robots.waitForNextTooltipButton
 import ie.equalit.ceno.ui.robots.waitForPermissionsTooltip
+import ie.equalit.ceno.ui.robots.waitForStandbyLogo
+import ie.equalit.ceno.ui.robots.waitForStandbyLogoGone
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -36,6 +41,9 @@ class ScreenshotGenerator {
 
     @get:Rule
     var activityRule = ActivityScenarioRule(BrowserActivity::class.java)
+
+    @get:Rule
+    var activityTestRule = ActivityTestRule(BrowserActivity::class.java)
 
     @Rule
     @JvmField
@@ -58,179 +66,376 @@ class ScreenshotGenerator {
         mockWebServer.shutdown()
     }
 
-    @Test
-    fun testTakeScreenshots() {
+    fun takeScreenshotWithWait(name : String, wait: Long = 1000 ) {
+        Thread.sleep(wait)
+        Screengrab.screenshot(name)
+    }
+
+    fun onboardingScreenshots() {
         standby {
-        }.waitForStandbyIfNeeded()
+            waitForStandbyLogo()
+            Screengrab.screenshot("onboarding_standby")
+            waitForStandbyLogoGone()
+        }
         onboarding {
-            Thread.sleep(1000)
-            Screengrab.screenshot("000_tooltip_begin_tour")
+            takeScreenshotWithWait("onboarding_welcome")
             //click get started
             beginTooltipsTour()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("001_tooltip_browsing_modes")
+            takeScreenshotWithWait("onboarding_tour_1")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("002_tooltip_shortcuts")
+            takeScreenshotWithWait("onboarding_tour_2")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("003_tooltip_address_bar")
+            takeScreenshotWithWait("onboarding_tour_3")
         }
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser("https://abcd.efg/".toUri()){
+        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
         }
         onboarding {
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("004_tooltip_ceno_sources")
+            takeScreenshotWithWait("onboarding_tour_4")
             clickNext()
 
             waitForNextTooltipButton()
-            Thread.sleep(1000)
-            Screengrab.screenshot("005_tooltip_clear_ceno")
+            takeScreenshotWithWait("onboarding_tour_5")
             clickNext()
 
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S && !hasPermissions()) {
                 //wait for permissions tooltip
                 waitForPermissionsTooltip()
-                Thread.sleep(1000)
-                Screengrab.screenshot("006_tooltip_permissions")
+                takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
-
-                // TODO: on Android 13, clicking deny double clicks the continue btn?
-                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.TIRAMISU) {
-                    giveNotificationAndBatteryOptimizationPermissions()
+                permissionAllowButton().waitForExists(waitingTime)
+                takeScreenshotWithWait("onboarding_permissions_notifications")
+                permissionAllowButton().click()
+                if(backgroundAllowButton().waitForExists(waitingTime)) {
+                    takeScreenshotWithWait("onboarding_permissions_optimisation")
+                    backgroundAllowButton().click()
                 }
-                else {
-                    denyPermissions()
-//                    waitForNextTooltipButton()
-//                    Thread.sleep(1000)
-//                    Screengrab.screenshot("004_fragment_onboarding_warning")
-//                    clickContinue()
-                }
-            }
-            navigationToolbar {
-                Thread.sleep(1000)
-                Screengrab.screenshot("007_fragment_browser")
-            }.openThreeDotMenu {
-                Thread.sleep(1000)
-                Screengrab.screenshot("008_fragment_browser_threedot")
-            }.openSettings {
-                // TODO: improve how all the settings are captured
-                Thread.sleep(1000)
-                Screengrab.screenshot("009_preferences_general")
-                clickDownRecyclerView(16)
-                Thread.sleep(1000)
-                Screengrab.screenshot("010_preferences_data")
-                clickDownRecyclerView(8)
-                Thread.sleep(1000)
-                Screengrab.screenshot("011_preferences_developertools")
-                for (i in 0..7) {
-                    clickCenoVersionDisplay()
-                }
-                Screengrab.screenshot("023_preferences_additionaldevelopertools")
-                // Wait for developer tool toasts to disappear
-                Thread.sleep(10000)
-            }.openSettingsViewDeveloperTools {
-                Screengrab.screenshot("024_fragment_developer_tools")
-                clickExportOuinetLog()
-                Screengrab.screenshot("025_developer_tools_export_ouinet_log")
-                mDevice.pressBack()
-                clickAnnouncementSource()
-                Screengrab.screenshot("026_developer_tools_announcement_source")
-                clickCancelDialog()
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-            }.openSettingsViewSearch {
-                Thread.sleep(1000)
-                Screengrab.screenshot("012_search_engine_settings")
-            }.goBack {
-            }.openSettingsViewCustomization {
-                Thread.sleep(1000)
-                Screengrab.screenshot("013_customization_preferences")
-            }.openSettingsViewChangeAppIcon {
-                Thread.sleep(1000)
-                Screengrab.screenshot("014_fragment_change_icon")
-            }.goBack {
-                clickSetAppTheme()
-                Thread.sleep(1000)
-                Screengrab.screenshot("015_customization_preferences_setapptheme")
-                clickCancelDialog()
-                clickDefaultBehavior()
-                Thread.sleep(1000)
-                Screengrab.screenshot("016_customization_preferences_defaultbehavior")
-                clickCancelDialog()
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(13)
-                Thread.sleep(1000)
-            }.openSettingsViewDeleteBrowsingData {
-                Thread.sleep(1000)
-                Screengrab.screenshot("017_fragment_delete_browsing_data")
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(18)
-                Thread.sleep(1000)
-            }.openSettingsViewNetworkDetails {
-                Thread.sleep(1000)
-                // TODO: hide public IP address info in this screenshot
-                //Screengrab.screenshot("018_network_detail_preference")
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(16)
-                Thread.sleep(1000)
-            }.openSettingsViewSources {
-                Thread.sleep(1000)
-                Screengrab.screenshot("019_sources_preferences")
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(11)
-                Thread.sleep(1000)
-            }.openSettingsViewMetrics {
-                Thread.sleep(1000)
-                Screengrab.screenshot("027_metrics_preferences")
-            }.goBack {
-            }.goBack {
-            }.openThreeDotMenu {
-            }.openSettings {
-                clickDownRecyclerView(25)
-                Thread.sleep(1000)
-                // Disable developer tools before finishing test
-                for (i in 0..7) {
-                    clickCenoVersionDisplay()
-                }
-                Thread.sleep(10000)
-            }.openSettingsViewAboutPage {
-                Thread.sleep(1000)
-                Screengrab.screenshot("020_fragment_about")
-            }.goBack {
-            }.goBack {
-            }.openTabTrayMenu {
-            }.openNewTab {
-                Screengrab.screenshot("021_fragment_public_home")
-            }
-            homepage {
-            }.openPersonalHomepage {
-                Thread.sleep(1000)
-                Screengrab.screenshot("022_fragment_personal_home")
             }
         }
+        navigationToolbar {
+            takeScreenshotWithWait("origin_source_browser")
+        }.openContentSourcesSheet {
+            takeScreenshotWithWait("origin_source_popup")
+        }.closeContentSourcesSheet {
+        }
+    }
+
+    fun settingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+            takeScreenshotWithWait("settings_three_dot")
+        }.openSettings {
+            takeScreenshotWithWait("settings_general")
+            clickDownRecyclerView(15)
+            takeScreenshotWithWait("settings_data")
+            clickDownRecyclerView(4)
+            takeScreenshotWithWait("settings_developer_tools")
+            clickDownRecyclerView(4)
+            takeScreenshotWithWait("settings_about")
+        }.goBack {
+        }
+    }
+
+    fun searchSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+        }.openSettingsViewSearch {
+            takeScreenshotWithWait("search_settings")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun customizationSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+        }.openSettingsViewCustomization {
+            toggleShowHomeButton()
+            takeScreenshotWithWait("customization")
+            toggleShowHomeButton()
+        }.openSettingsViewChangeAppIcon {
+            takeScreenshotWithWait("customization_change_icon")
+        }.goBack {
+            clickSetAppTheme()
+            takeScreenshotWithWait("customization_set_app_theme")
+            clickCancelDialog()
+            Thread.sleep(1000)
+            clickDefaultBehavior()
+            takeScreenshotWithWait("customization_default_behavior")
+            clickCancelDialog()
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun deleteBrowsingDataSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(13)
+            Thread.sleep(1000)
+        }.openSettingsViewDeleteBrowsingData {
+            verifyCookiesCheckbox()
+            toggleCookiesCheckbox()
+            takeScreenshotWithWait("delete_browsing_data_settings")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun websiteSourcesSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(16)
+            Thread.sleep(1000)
+        }.openSettingsViewSources {
+            takeScreenshotWithWait("website_sources_settings")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun metricsSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(11)
+            Thread.sleep(1000)
+        }.openSettingsViewMetrics {
+            verifyCrashReportingButton()
+            toggleCrashReporting()
+            takeScreenshotWithWait("metrics_settings")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun aboutSettingsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(25)
+            Thread.sleep(1000)
+        }.openSettingsViewAboutPage {
+            takeScreenshotWithWait("about_settings")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun additionalDeveloperToolsScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(24)
+            for (i in 0..8) {
+                clickCenoVersionDisplay()
+            }
+            Screengrab.screenshot("additional_developer_tools")
+            // Wait for developer tool toasts to disappear
+            Thread.sleep(10000)
+        }.openSettingsViewDeveloperTools {
+            Screengrab.screenshot("additional_developer_tools_settings")
+            clickExportOuinetLog()
+            Screengrab.screenshot("additional_developer_tools_export_log")
+            mDevice.pressBack()
+            clickAnnouncementSource()
+            Screengrab.screenshot("additional_developer_tools_announcement_source")
+            clickCancelDialog()
+        }.goBack {
+        }.goBack {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(24)
+            Thread.sleep(1000)
+            // Disable developer tools before finishing test
+            for (i in 0..8) {
+                clickCenoVersionDisplay()
+            }
+            Thread.sleep(10000)
+        }.goBack {
+        }
+    }
+
+    fun enableBridgeModeScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            verifySettingsRecyclerViewToExist()
+            verifyBridgeModeToggle()
+            clickBridgeModeToggle()
+            waitForBridgeModeDialogToExist()
+            takeScreenshotWithWait("enable_bridge_mode_dialog", 0)
+            waitForBridgeModeDialog()
+            // TODO: localize checking for success dialog instead of sleeping
+            takeScreenshotWithWait("enable_bridge_mode_success", 5000)
+            clickOk()
+            takeScreenshotWithWait("enable_bridge_mode_enabled")
+        }.goBack {
+        }
+    }
+
+    fun injectorSourceScreenshots() {
+        navigateToSourcesAndSet(
+            website = false,
+            private = true,
+            public = true,
+            shared = true
+        )
+        navigationToolbar {
+        }.openTabTrayMenu {
+        }.openNewTab {
+        }
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser("https://wikipedia.org".toUri()){
+            // TODO: implement check that page has finished loading
+            takeScreenshotWithWait("injector_source_browser", 15000)
+        }
+        navigationToolbar {
+        }.openContentSourcesSheet {
+            mDevice.waitForIdle(waitingTime)
+            takeScreenshotWithWait("injector_source_popup")
+        }.closeContentSourcesSheet {
+        }
+    }
+
+
+    fun cachedContentScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(15)
+            Thread.sleep(1000)
+            verifyClearCachedContentButton()
+            takeScreenshotWithWait("cached_content_with_data")
+        }.openSettingsViewCachedContent {
+            takeScreenshotWithWait("cached_content_list")
+        }.goBack {
+            clickClearCacheButton()
+            takeScreenshotWithWait("cached_content_clear_dialog")
+            clickCancel()
+        }.goBack {
+        }
+    }
+
+
+    fun dcacheSourceScreenshots() {
+        navigateToSourcesAndSet(
+            website = false,
+            private = false,
+            public = false,
+            shared = true
+        )
+        navigationToolbar {
+        }.openTabTrayMenu {
+        }.openNewTab {
+        }
+        navigationToolbar {
+        }.enterUrlAndEnterToBrowser("https://meduza.io".toUri()){
+            // TODO: implement check that page has finished loading
+            takeScreenshotWithWait("dcache_source_browser", 30000)
+        }
+        navigationToolbar {
+        }.openContentSourcesSheet {
+            mDevice.waitForIdle(waitingTime)
+            takeScreenshotWithWait("dcache_source_popup")
+        }.closeContentSourcesSheet {
+        }
+    }
+
+    fun changeLanguageScreenshots() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }.openSettings {
+            clickDownRecyclerView(10)
+            Thread.sleep(1000)
+            verifyChangeLanguageButton()
+        }.openSettingsViewChangeLanguage {
+            takeScreenshotWithWait("change_language")
+        }.goBack {
+        }.goBack {
+        }
+    }
+
+    fun homepageScreenshots() {
+        navigationToolbar {
+        }.openTabTrayMenu {
+        }.openNewTab {
+            takeScreenshotWithWait("homepage_public")
+        }.openThreeDotMenu {
+            takeScreenshotWithWait("homepage_three_dot")
+        }.closeMenu {
+        }
+        homepage {
+        }.openPersonalHomepage {
+            takeScreenshotWithWait("homepage_personal")
+        }
+        homepage {
+        }.openPublicHomepage {
+        }
+    }
+
+    fun tabsTrayScreenshots() {
+        navigationToolbar {
+        }.openTabTrayMenu {
+            takeScreenshotWithWait("tabs_tray_public")
+        }.openNewTab {
+        }
+        navigationToolbar {
+        }.openTabTrayMenu {
+        }.openMoreOptionsMenu(activityTestRule.activity) {
+            takeScreenshotWithWait("tabs_tray_three_dot")
+        }.closeMenu {
+        }.goBackFromTabTray {
+        }
+        homepage {
+        }.openPersonalHomepage {
+        }
+        navigationToolbar {
+        }.openTabTrayMenu {
+            takeScreenshotWithWait("tabs_tray_personal")
+        }.openNewTab {
+        }
+        homepage {
+        }.openPublicHomepage {
+        }
+    }
+
+    @Test
+    fun testScreenshots() {
+        // For testing, uncomment to skip onboarding screenshots
+        /*
+        standby {
+        }.waitForStandbyIfNeeded()
+        onboarding {
+        }.skipOnboardingIfNeeded()
+        */
+        onboardingScreenshots()
+        settingsScreenshots()
+        homepageScreenshots()
+        searchSettingsScreenshots()
+        customizationSettingsScreenshots()
+        deleteBrowsingDataSettingsScreenshots()
+        websiteSourcesSettingsScreenshots()
+        metricsSettingsScreenshots()
+        aboutSettingsScreenshots()
+        additionalDeveloperToolsScreenshots()
+        changeLanguageScreenshots()
+        enableBridgeModeScreenshots()
+        injectorSourceScreenshots()
+        cachedContentScreenshots()
+        dcacheSourceScreenshots()
+        tabsTrayScreenshots()
     }
 }
 

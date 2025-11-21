@@ -29,6 +29,12 @@ class HomepageRobot {
 
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
+        fun openPublicHomepage(interact: HomepageRobot.() -> Unit): Transition {
+            publicModeToggle().click()
+            HomepageRobot().interact()
+            return Transition()
+        }
+
         fun openPersonalHomepage(interact: HomepageRobot.() -> Unit): Transition {
             personalModeToggle().click()
             HomepageRobot().interact()
@@ -42,6 +48,7 @@ fun homepage(interact: HomepageRobot.() -> Unit): HomepageRobot.Transition {
     return HomepageRobot.Transition()
 }
 
+private fun publicModeToggle() = mDevice.findObject(UiSelector().resourceId("$packageName:id/public_mode_card"))
 private fun personalModeToggle() = mDevice.findObject(UiSelector().resourceId("$packageName:id/personal_mode_card"))
 private fun cenoNetworkStatusIcon() =  onView(withId(R.id.ceno_network_status_icon))
 

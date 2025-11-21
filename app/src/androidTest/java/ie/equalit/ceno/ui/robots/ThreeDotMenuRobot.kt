@@ -224,6 +224,12 @@ class ThreeDotMenuRobot {
             ReaderViewRobot().interact()
             return ReaderViewRobot.Transition()
         }
+
+        fun closeMenu(interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
+            mDevice.pressBack()
+            NavigationToolbarRobot().interact()
+            return NavigationToolbarRobot.Transition()
+        }
     }
 }
 
