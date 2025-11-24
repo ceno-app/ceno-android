@@ -24,6 +24,7 @@ import mozilla.components.support.base.log.sink.AndroidLogSink
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
 import mozilla.components.support.webextensions.WebExtensionSupport
+import java.lang.Thread.getDefaultUncaughtExceptionHandler
 import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
@@ -41,8 +42,10 @@ open class BrowserApplication : Application() {
                 Settings.getAppTheme(this)
         )
 
+        val existingHandler = getDefaultUncaughtExceptionHandler()
         // Record exceptions as well as app crashes
-        Thread.setDefaultUncaughtExceptionHandler { _, _ ->
+        Thread.setDefaultUncaughtExceptionHandler { thread: Thread, throwable: Throwable ->
+            existingHandler?.uncaughtException(thread, throwable)
             if(!Settings.isCrashReportingPermissionGranted(this)) {
                 Settings.setCrashHappenedCommit(this, true)
             }

@@ -19,14 +19,17 @@ import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.PackageInfoCompat
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAboutBinding
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.requireComponents
 import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
@@ -99,6 +102,13 @@ class AboutFragment : Fragment() {
         )
 
         binding.versionInfo.text = versionInfo
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+            findNavController().navigate(R.id.action_global_settings)
+        }
+        callback.isEnabled = true
     }
 
     companion object {

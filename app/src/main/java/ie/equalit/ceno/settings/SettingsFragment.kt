@@ -16,7 +16,7 @@ import android.util.Log
 import android.view.View
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.annotation.RequiresApi
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
@@ -198,7 +198,18 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
-
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+            if (requireComponents.core.store.state.selectedTabId == "" ||
+                requireComponents.core.store.state.selectedTabId == null
+            ) {
+                findNavController().navigate(R.id.action_global_home)
+            } else {
+                findNavController().navigate(R.id.action_global_browser)
+            }
+        }
+        callback.isEnabled = true
     }
 
     private fun showThankyouDialog() {
@@ -518,7 +529,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             OnPreferenceClickListener {
                 Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     requireActivity().startActivity(this)
                 }
@@ -533,7 +544,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             OnPreferenceClickListener {
                 Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                     putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
                     requireActivity().startActivity(this)
                 }

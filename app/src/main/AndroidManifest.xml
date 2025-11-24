@@ -51,7 +51,7 @@
             android:value="false" />
 
         <activity android:name="ie.equalit.ceno.BrowserActivity"
-            android:launchMode="singleTask"
+            android:launchMode="singleInstance"
             android:icon="@mipmap/ic_launcher_default"
             android:roundIcon="@mipmap/ic_launcher_default_round"
             android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|layoutDirection|smallestScreenSize|screenLayout"

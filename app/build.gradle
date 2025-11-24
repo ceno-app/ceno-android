@@ -28,10 +28,6 @@ android {
 
     compileSdkVersion Config.compileSdkVersion
 
-    aaptOptions {
-        ignoreAssetsPattern '!._'
-        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
-    }
 
     defaultConfig {
         applicationId "ie.equalit.ceno"
@@ -141,10 +137,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
+
 
     splits {
         abi {
@@ -155,6 +153,9 @@ android {
             //noinspection ChromeOsAbiSupport
             include "armeabi-v7a", "arm64-v8a", "x86_64"
         }
+    }
+    androidResources {
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
     }
 }
 

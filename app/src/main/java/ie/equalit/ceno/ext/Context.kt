@@ -10,18 +10,18 @@ import android.content.Intent
 import android.content.Intent.ACTION_SEND
 import android.content.Intent.EXTRA_SUBJECT
 import android.content.Intent.EXTRA_TEXT
-import android.content.Intent.FLAG_ACTIVITY_NEW_TASK
+import android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
 import android.content.pm.PackageManager
 import android.view.View
 import android.widget.LinearLayout
 import androidx.annotation.ColorRes
-import androidx.core.content.ContextCompat
 import androidx.annotation.StringRes
-import mozilla.components.support.base.log.Log
-import mozilla.components.support.base.log.Log.Priority.WARN
+import androidx.core.content.ContextCompat
 import ie.equalit.ceno.BrowserApplication
 import ie.equalit.ceno.Components
 import ie.equalit.ceno.R
+import mozilla.components.support.base.log.Log
+import mozilla.components.support.base.log.Log.Priority.WARN
 
 /**
  * Get the BrowserApplication object from a context.
@@ -53,11 +53,11 @@ fun Context.share(text: String, subject: String = ""): Boolean {
             type = "text/plain"
             putExtra(EXTRA_SUBJECT, subject)
             putExtra(EXTRA_TEXT, text)
-            flags = FLAG_ACTIVITY_NEW_TASK
+            flags = FLAG_ACTIVITY_CLEAR_TASK
         }
 
         val shareIntent = Intent.createChooser(intent, getString(R.string.menu_share_with)).apply {
-            flags = FLAG_ACTIVITY_NEW_TASK
+            flags = FLAG_ACTIVITY_CLEAR_TASK
         }
 
         startActivity(shareIntent)
