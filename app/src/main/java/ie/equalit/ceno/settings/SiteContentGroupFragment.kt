@@ -108,7 +108,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
     }
 
     override fun onLinkClicked(url: String) {
-        (activity as BrowserActivity).openToBrowser(url = url, newTab = true)
+        (activity as BrowserActivity).openToBrowser(url = "https://$url", newTab = true)
     }
 
     override fun onPinChanged(url: String, isPinned: Boolean) {

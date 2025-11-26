@@ -491,6 +491,7 @@ object CenoSettings {
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
+                            ouinetResponseListener?.onSuccess(response.toString())
                             setCenoCacheSize(context, bytesToString(0))
                             setCenoGroupsCount(context, 0)
                             context.components.cenoPreferences.sharedPrefsUpdate = true
