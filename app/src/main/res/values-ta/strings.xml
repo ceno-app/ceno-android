@@ -278,7 +278,6 @@
     <string name="ceno_sources_via_ceno_network">நெட்வொர்க்கின் விலையைப் பயன்படுத்துதல்</string>
     <string name="ceno_sources_shared_by_ceno_cache">Ceno கேச்</string>
     <string name="personal_home_learn_more">மேலும் அறிய விரும்புகிறீர்களா?</string>
-    <string name="change_bt_bootstrap_server">BT தொடக்கவார் சேவையகத்தை மாற்றவும்</string>
     <string name="ceno_support_link_url">https://ceno.app/en/faq.html</string>
     <string name="public_mode_icon">பொது பயன்முறை படவுரு</string>
     <string name="personal_browsing_mode_selected">தனிப்பட்ட உலாவல் முறை தேர்ந்தெடுக்கப்பட்டது</string>
@@ -334,7 +333,6 @@
     <string name="clean_insights_opt_in">ஆம், என்னைத் தேர்வுசெய்க</string>
     <string name="tooltip_sources_description">தளத்தின் உள்ளடக்கம் எங்கிருந்து பெறப்படுகிறது என்பதை எளிதாகக் காண்க - வலைத்தளத்திலிருந்து, செனோ பிணையம் வழியாக அல்லது செனோ கேச் வழியாக</string>
     <string name="tooltip_permission_text">பயன்பாடு பின்னணியில் இருக்கும்போது கூட வலைத்தளங்களை தடையின்றி பகிர, தயவுசெய்து செனோவை அறிவிப்புகளை அனுப்பவும் பேட்டரி மேம்படுத்தல்களை முடக்கவும் அனுமதிக்கவும். உங்கள் தொலைபேசியின் அமைப்புகளில் இந்த அனுமதிகளை நீங்கள் எப்போதும் சரிசெய்யலாம்</string>
-    <string name="preferences_show_standby_warning">தொடக்க நேரம் முடிந்தது குறித்து எச்சரிக்கையைக் காட்டு</string>
     <string name="preferences_announcement_source">அறிவிப்பு சான்று</string>
     <string name="preferences_announcement_source_summary">முகப்புப்பக்க அறிவிப்புகளின் மூலத்தை அமைக்கவும்</string>
     <string name="developer_tools_enabled">உருவாக்குபவர் கருவிகள் இயக்கப்பட்டன</string>
@@ -361,7 +359,6 @@
     <string name="add_or_remove_bookmark">புக்மார்க்கைச் சேர்க்கவும் அல்லது அகற்றவும்</string>
     <string name="bookmark_delete_folder_confirmation_dialog">இந்த கோப்புறையை நீக்க விரும்புகிறீர்களா?</string>
     <string name="standby_dont_show">மீண்டும் எச்சரிக்கையைக் காட்ட வேண்டாம்</string>
-    <string name="standby_take_me_anyway">எப்படியும் என்னை செனோவுக்கு அழைத்துச் செல்லுங்கள்</string>
     <string name="ceno_sources_shared_by_local_cache">உலாவி தற்காலிக சேமிப்பிலிருந்து</string>
     <string name="device_type">சாதன வகை</string>
     <string name="device_locale">சாதன இடம் (மொழி)</string>
@@ -370,8 +367,6 @@
     <string name="skip_the_tour_button">சுற்றுப்பயணத்தைத் தவிர்க்கவும்</string>
     <string name="tooltip_toolbar_description">உலாவலைத் தொடங்க வலைத்தள முகவரியில் தட்டச்சு செய்க</string>
     <string name="tooltip_sources_title">விலை ஆதாரங்கள்</string>
-    <string name="standby_tip_title">உதவிக்குறிப்பு</string>
-    <string name="startup_category">தொடங்கு</string>
     <string name="status_enabled">இயக்கப்பட்டது</string>
     <string name="status_disabled">முடக்கப்பட்டது</string>
     <string name="ceno_base_url">https://ceno.app</string>

@@ -223,7 +223,6 @@
     <string name="ceno_ouinet_disconnected">Ceno ağı bağlantısı kesildi</string>
     <string name="ceno_sources_direct_from_website">Doğrudan siteden</string>
     <string name="ceno_sources_via_ceno_network">Ceno ağı kullanılıyor</string>
-    <string name="change_bt_bootstrap_server">BT ön yükleyici sunucusunu değiştir</string>
     <string name="public_browsing_mode_selected">herkese açık gezinme kipi seçildi</string>
     <string name="public_mode_icon">herkese açık kip simgesi</string>
     <string name="personal_mode_icon">kişisel kip simgesi</string>
@@ -307,7 +306,6 @@
     <string name="btn_exit">Çık</string>
     <string name="tooltip_shortcuts_description">Sık kullandığınız sitelere giriş sayfanızdan kolayca erişmek için kısayollar olarak kaydedin.</string>
     <string name="tooltip_sources_description">Site içeriğinin nereden alındığını kolayca görün - Doğrudan siteden, Ceno ağı üzerinden ya da Ceno ön belleğinden</string>
-    <string name="standby_tip_title">İpucu</string>
     <string name="change_language">Dili değiştir</string>
     <string name="update">Güncelle</string>
     <string name="top_sites_title">Kısayollar</string>
@@ -320,10 +318,7 @@
     <string name="tooltip_permission_text">Uygulama arka planda olsa bile siteleri sorunsuz olarak paylaşmayı sürdürmek için lütfen Ceno uygulamasının bildirim göndermesine ve pil optimizasyonlarını devre dışı bırakmasına izin verin. Bu izinleri daha sonra istediğiniz zaman telefonunuzun ayarlarından değiştirebilirsiniz</string>
     <string name="select_language">Dili seçin:</string>
     <string name="privacy_policy_url">https://ceno.app/tr/privacy_policy.html</string>
-    <string name="standby_take_me_anyway">Yine de Ceno uygulamasına git</string>
     <string name="standby_dont_show">Uyarıyı yeniden gösterme</string>
-    <string name="startup_category">Başlangıç</string>
-    <string name="preferences_show_standby_warning">Başlangıç zaman aşımında uyarı görüntülensin</string>
     <string name="ceno_permissions_category">İzinler</string>
     <string name="status_enabled">Açık</string>
     <string name="status_disabled">Kapalı</string>

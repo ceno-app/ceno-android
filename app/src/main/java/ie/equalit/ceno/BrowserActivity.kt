@@ -55,7 +55,6 @@ import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
-import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -559,12 +558,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         components.ouinet.background.shutdown(doClear) {
             handler.removeCallbacks(callback)
             callback.run()
-        }
-        updateView {
-            navHost.navController.navigate(R.id.action_global_standbyFragment, bundleOf(
-                StandbyFragment.DO_CLEAR to doClear,
-                StandbyFragment.shutdownCeno to true
-            ))
         }
     }
 
