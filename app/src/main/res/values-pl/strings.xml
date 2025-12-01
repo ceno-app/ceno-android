@@ -301,9 +301,6 @@
     <string name="no_content_shared">Obecnie nie udostępniasz żadnych treści</string>
     <string name="about_content_title">Dziel się siecią!</string>
     <string name="preferences_clear_behavior_option_2">Wyczyść tylko pamięć podręczną Ceno</string>
-    <string name="ceno_log_content_group_file_saved">Udostępnione treści zostały pomyślnie zapisane</string>
-    <string name="ceno_android_content_group_file_name">Udostępnione treści Ceno</string>
-    <string name="confirm_groups_file_download">Wyeksportować listę udostępnionych treści?</string>
     <string name="content_description_close_button">Zamknij</string>
     <string name="about_content_para_1">Ceno to pierwsza na świecie mobilna przeglądarka która omija obecne metody cenzury Internetu. Dzięki sieci peer-to-peer użytkownicy mogą uzyskiwać dostęp do informacji w sieci i udostępniać je w regionach, w których łączność została przerwana lub naruszona.</string>
     <string name="eq_values_button_text">Wartości</string>
