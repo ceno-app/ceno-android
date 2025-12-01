@@ -5,6 +5,7 @@ This release:
 - Replace FLAG_ACTIVITY_NEW_TASK with FLAG_ACTIVITY_CLEAR_TASK
 - Updates Android Gradle Plugin to 8.13.0
 - Introduces option to pin websites to cache
+- Reduces amount of default logging in release builds
 
 # v2.7.1
 This release:
