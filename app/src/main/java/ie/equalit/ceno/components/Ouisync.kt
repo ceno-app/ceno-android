@@ -6,7 +6,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import org.equalitie.ouisync.service.Service
 import org.equalitie.ouisync.session.AccessMode
+import org.equalitie.ouisync.session.OuisyncException
 import org.equalitie.ouisync.session.Repository
 import org.equalitie.ouisync.session.Session
 import org.equalitie.ouisync.session.ShareToken
@@ -18,6 +20,7 @@ import java.nio.charset.Charset
 class Ouisync (
     context : Context
 ) {
+    lateinit var service : Service
     lateinit var session : Session
     var storeDir : String? = null
     var writeToken : ShareToken? = null
@@ -29,6 +32,15 @@ class Ouisync (
     private var repositories by mutableStateOf<Map<String, Repository>>(mapOf())
 
     suspend fun createSession() {
+        try {
+            service = Service.start(configDir)
+        } catch (e: OuisyncException.ServiceAlreadyRunning) {
+            Log.d(TAG, "Service already running")
+        } catch (e: Exception) {
+            Log.e(TAG, "Service.start failed", e)
+            sessionError = e.toString()
+        }
+
         try {
             session = Session.create(configDir)
             sessionError = null
@@ -69,6 +81,14 @@ class Ouisync (
             writeSecret = null,
             token = shareToken,
         )
+
+        // Syncing is initially disabled, need to enable it.
+        repo.setSyncEnabled(true)
+
+        // Enable DHT and PEX for discovering peers. These settings are persisted so it's not
+        // necessary to set them again when opening the repository later.
+        repo.setDhtEnabled(true)
+        repo.setPexEnabled(true)
 
         writeToken = repo.share(accessMode = AccessMode.WRITE)
 
