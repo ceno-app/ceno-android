@@ -47,8 +47,6 @@ import ie.equalit.ceno.R.string.developer_tools_enabled
 import ie.equalit.ceno.R.string.dialog_btn_positive_ok
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.enable_ouisync_message
-import ie.equalit.ceno.R.string.enable_ouisync_title
-import ie.equalit.ceno.R.string.no_external_storage
 import ie.equalit.ceno.R.string.onboarding_battery_button
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.R.string.pref_data_category
@@ -71,6 +69,7 @@ import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
 import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_export_settings
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_privacy

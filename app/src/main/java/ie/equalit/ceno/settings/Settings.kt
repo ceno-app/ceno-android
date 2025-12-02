@@ -4,12 +4,11 @@
 
 package ie.equalit.ceno.settings
 
-import android.content.Context
-import androidx.core.content.edit
 import android.annotation.SuppressLint
 import android.content.ComponentName
 import android.content.Context
 import android.content.pm.PackageManager
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.BuildConfig
@@ -75,9 +74,9 @@ object Settings {
     fun setDefaultSearchEngine(context: Context, value: String) {
         val key = context.getString(R.string.pref_key_default_search_engine)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putString(key, value)
-            .apply()
+            .edit {
+                putString(key, value)
+            }
     }
 
     fun setShowOnboarding(context: Context, value: Boolean) {
@@ -225,17 +224,17 @@ object Settings {
     fun setBackupCustomizations(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_backup_customizations)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
+            .edit {
+                putBoolean(key, value)
+            }
     }
 
     fun setBackupTopSites(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_backup_top_sites)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
+            .edit {
+                putBoolean(key, value)
+            }
     }
 
     fun showCrashReportingPermissionNudge(context: Context): Boolean =

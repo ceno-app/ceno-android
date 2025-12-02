@@ -29,6 +29,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import mozilla.components.support.base.log.logger.Logger
+import org.equalitie.ouisync.session.close
 import java.io.File
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
@@ -110,18 +111,18 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
     private fun enableOuisyncDialog() {
         AlertDialog.Builder(requireContext()).apply {
-            setTitle(R.string.enable_ouisync_title)
+            setTitle(R.string.preference_enable_ouisync)
             setMessage(R.string.enable_ouisync_message)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
                 requireComponents.ouisync.apply {
-                    createSession()
                     Settings.setOuisyncEnabled(requireContext(), true)
                     updateCheckboxes()
                     updateButtons()
                     viewLifecycleOwner.lifecycleScope.launch {
-                        session.initNetwork(true,true)
-                        session.bindNetwork(quicV4 = "0.0.0.0:0", quicV6 = "[::]:0")
+                        createSession()
+                        //session.initNetwork(true)
+                        session.bindNetwork(listOf("quic/0.0.0.0:0", "quic/[::]:0"))
                         getProtocolVersion().let {
                             Logger.info("OUISYNC PROTO VERSION: $it")
                         }
@@ -146,9 +147,9 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
     private fun exportPrefsDialog(context : Context) {
         AlertDialog.Builder(context).apply {
-            setTitle(R.string.settings_backup_header)
+            setTitle(R.string.preferences_export_settings)
             setMessage(R.string.settings_backup_message)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
                 val backupPrefs: MutableMap<String, *>? =
                     PreferenceManager.getDefaultSharedPreferences(context)?.all
@@ -193,7 +194,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         AlertDialog.Builder(context).apply {
             setTitle(R.string.settings_restore_header)
             setMessage(R.string.settings_restore_message)
-            setNegativeButton(R.string.customize_addon_collection_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
+            setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
                 var content = ""
                 viewLifecycleOwner.lifecycleScope.launch {
@@ -338,9 +339,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
             // Optionally, specify a URI for the directory that should be opened in
             // the system file picker when it loads.
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                putExtra(DocumentsContract.EXTRA_INITIAL_URI, Environment.getExternalStorageDirectory())
-            }
+            putExtra(DocumentsContract.EXTRA_INITIAL_URI, Environment.getExternalStorageDirectory())
         }
         startActivityForResult(intent, requestCode)
     }
