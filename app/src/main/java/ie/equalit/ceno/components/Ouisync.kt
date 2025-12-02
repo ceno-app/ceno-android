@@ -22,13 +22,12 @@ class Ouisync (
 ) {
     lateinit var service : Service
     lateinit var session : Session
-    var storeDir : String? = null
     var writeToken : ShareToken? = null
     private var sessionError by mutableStateOf<String?>(null)
     private var protocolVersion: Long by mutableLongStateOf(0)
     private val rootDir : File? = context.filesDir
     private var configDir : String = "$rootDir/config"
-    //TODO: allow storeDir to be chosen by user
+    private var storeDir : String = "$rootDir/store"
     private var repositories by mutableStateOf<Map<String, Repository>>(mapOf())
 
     suspend fun createSession() {

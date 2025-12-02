@@ -171,8 +171,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU)
             Settings.setAllowNotifications(this, components.permissionHandler.isAllowingPostNotifications())
 
-        /* TODO: if ouisync enabled... */
-        if (Settings.isOuisyncEnabled(this) && components.ouisync.storeDir != null) {
+        if (Settings.isOuisyncEnabled(this)) {
             Logger.info("OUISYNC ENABLED")
             MainScope().launch {
                 components.ouisync.apply {

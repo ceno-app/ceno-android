@@ -4,16 +4,9 @@
 
 package ie.equalit.ceno.settings.profilebackup
 
-import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.DialogInterface
-import android.content.Intent
-import android.net.Uri
-import android.os.Build
 import android.os.Bundle
-import android.os.Environment
-import android.provider.DocumentsContract
-import android.util.Log
 import android.view.View
 import android.widget.TextView
 import android.widget.Toast
@@ -30,7 +23,6 @@ import kotlinx.coroutines.cancel
 import kotlinx.coroutines.launch
 import mozilla.components.support.base.log.logger.Logger
 import org.equalitie.ouisync.session.close
-import java.io.File
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
 class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
@@ -334,17 +326,6 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         )
     }
 
-    private fun openDirectory(requestCode: Int) {
-        // Choose a directory using the system's file picker.
-        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
-            // Optionally, specify a URI for the directory that should be opened in
-            // the system file picker when it loads.
-            putExtra(DocumentsContract.EXTRA_INITIAL_URI, Environment.getExternalStorageDirectory())
-        }
-        startActivityForResult(intent, requestCode)
-    }
-
-
     private fun getOnClickListenerForExportProfile(): View.OnClickListener {
         return View.OnClickListener {
             AlertDialog.Builder(requireContext()).apply {
@@ -359,7 +340,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     ).show()
                 }
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    openDirectory(EXPORT_REQUEST_CODE)
+                    askToExport()
                 }
                 create()
             }.show()
@@ -379,37 +360,10 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     ).show()
                 }
                 setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    openDirectory(IMPORT_REQUEST_CODE)
+                    askToImport()
                 }
                 create()
             }.show()
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK &&
-            (requestCode == EXPORT_REQUEST_CODE || requestCode == IMPORT_REQUEST_CODE)) {
-            Log.d("ProfileBackupFragment", "Got resultCode: $resultCode and requestCode: $requestCode")
-            if (data != null) {
-                val uri: Uri? = data.data
-                uri?.path?.let { path ->
-                    Log.d("ProfileBackupFragment", "uri.path $path")
-                    val split: List<String> = path.split(":".toRegex())
-                    // TODO: handle other possible storage locations/types
-                    val file = File(Environment.getExternalStorageDirectory(), split[1])
-                    requireComponents.ouisync.storeDir = file.path
-                    if (requestCode == EXPORT_REQUEST_CODE) {
-                        Log.d("ProfileBackupFragment", "export to ${file.path}")
-                        askToExport()
-                    }
-                    else {
-                        Log.d("ProfileBackupFragment", "import from ${file.path}")
-                        askToImport()
-                    }
-                }
-            }
         }
     }
 
@@ -419,7 +373,5 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
         private const val CUSTOMIZATIONS_INDEX = 0
         private const val TOP_SITES_INDEX = 1
-        private const val EXPORT_REQUEST_CODE = 41
-        private const val IMPORT_REQUEST_CODE = 42
     }
 }
