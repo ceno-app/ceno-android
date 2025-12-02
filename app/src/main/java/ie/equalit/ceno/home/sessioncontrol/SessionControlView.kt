@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
-import mozilla.components.feature.top.sites.TopSite
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
@@ -19,6 +18,7 @@ import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
+import mozilla.components.feature.top.sites.TopSite
 
 // This method got a little complex with the addition of the tab tray feature flag
 // When we remove the tabs from the home screen this will get much simpler again.
@@ -31,7 +31,8 @@ internal fun normalModeAdapterItems(
     mode: BrowsingMode,
     announcements: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean,
-    ouicrawlSites : List<OuicrawlSite>?
+    ouicrawlSites: List<OuicrawlSite>?,
+    hideOuicrawlFeed: Boolean
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
 
@@ -51,7 +52,7 @@ internal fun normalModeAdapterItems(
     if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
     }
-    if(ouicrawlSites != null) {
+    if(!hideOuicrawlFeed && ouicrawlSites != null) {
         items.add(AdapterItem.SectionHeaderItem)
         ouicrawlSites?.forEach {
             items.add(AdapterItem.OuicrawledSiteItem(it))
@@ -77,7 +78,8 @@ private fun AppState.toAdapterList(
     messageCard: CenoMessageCard,
     announcement: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean,
-    ouicrawlSites: List<OuicrawlSite>?
+    ouicrawlSites: List<OuicrawlSite>?,
+    hideOuicrawlFeed: Boolean
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
@@ -87,7 +89,8 @@ private fun AppState.toAdapterList(
             mode,
             announcement,
             isBridgeAnnouncementEnabled,
-            if (ouicrawlListIsHidden) ouicrawlSites?.subList(0, 5) else ouicrawlSites
+            if (ouicrawlListIsPartial) ouicrawlSites?.subList(0, 5) else ouicrawlSites,
+            hideOuicrawlFeed
         )
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
 }
@@ -139,7 +142,8 @@ class SessionControlView(
                 messageCard,
                 announcements,
                 CenoSettings.isBridgeAnnouncementEnabled(view.context),
-                ouicrawlSites
+                ouicrawlSites,
+                CenoSettings.hideOuicrawlFeed(view.context)
             )
         )
         sessionControlAdapter.notifyDataSetChanged()
