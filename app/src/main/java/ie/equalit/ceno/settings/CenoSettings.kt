@@ -3,24 +3,24 @@ package ie.equalit.ceno.settings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
+import java.security.SecureRandom
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
-import kotlin.random.Random
-import androidx.core.content.edit
-import kotlinx.coroutines.CoroutineScope
-import mozilla.components.concept.fetch.MutableHeaders
 
 
 @Serializable
@@ -592,7 +592,7 @@ object CenoSettings {
     fun generateRandomToken() : String{
         val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
         return (1..TOKEN_LENGTH)
-            .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
+            .map { SecureRandom().nextInt(0, charPool.size).let { charPool[it] } }
             .joinToString("")
     }
 }
