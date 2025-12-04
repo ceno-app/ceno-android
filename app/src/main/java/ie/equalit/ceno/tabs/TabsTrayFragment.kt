@@ -7,7 +7,6 @@ package ie.equalit.ceno.tabs
 import android.content.Context
 import android.graphics.Color
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -17,23 +16,21 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.browser.BrowsingModeManager
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.ui.theme.ThemeManager
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
-import mozilla.components.browser.tabstray.TabsAdapter
 import mozilla.components.browser.tabstray.TabsTray
 import mozilla.components.browser.tabstray.TabsTrayStyling
 import mozilla.components.browser.tabstray.ViewHolderProvider
 import mozilla.components.browser.thumbnails.loader.ThumbnailLoader
 import mozilla.components.feature.tabs.tabstray.TabsFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
-import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowsingMode
-import ie.equalit.ceno.browser.BrowsingModeManager
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.ui.theme.DefaultThemeManager
-import ie.equalit.ceno.ui.theme.ThemeManager
 
 /**
  * A fragment for displaying the tabs tray.
@@ -74,13 +71,14 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
         tabsPanel.initialize(tabsFeature, browsingModeManager, updateTabsToolbar = ::updateTabsToolbar)
         tabsToolbar.initialize(tabsFeature, browsingModeManager, ::closeTabsTray)
-
     }
 
     override fun onStart() {
         super.onStart()
         tabsFeature?.start()
         themeManager.applyStatusBarThemeTabsTray()
+        val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)
+        tabsTray.layoutManager?.scrollToPosition(requireComponents.core.store.state.tabs.indexOf(requireComponents.core.store.state.selectedTab))
     }
 
     override fun onStop() {
@@ -132,7 +130,8 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
             DefaultTabViewHolder(view, thumbnailLoader)
         }
-        val tabsAdapter = TabsAdapter(
+        val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)
+        val tabsAdapter = CenoTabsAdapter(
             thumbnailLoader = thumbnailLoader,
             viewHolderProvider = viewHolderProvider,
             styling = trayStyling,
@@ -147,9 +146,11 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
                     requireComponents.useCases.tabsUseCases.removeTab(tab.id)
                 }
             },
+            onUpdateList = {
+                tabsTray.scrollToPosition(requireComponents.core.store.state.tabs.indexOf(requireComponents.core.store.state.selectedTab))
+            }
         )
 
-        val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)
         tabsTray.layoutManager = layoutManager
         tabsTray.adapter = tabsAdapter
 
