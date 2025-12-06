@@ -137,6 +137,10 @@ class Ouisync (
         fileW.close()
     }
 
+    suspend fun importRepo(name: String, token : String) {
+        createOrOpenRepository(name, token)
+    }
+
     suspend fun openAndReadFromRepo(name: String) : String {
         Log.d(TAG, "Opening repository $storeDir/$name")
         val session = this.session

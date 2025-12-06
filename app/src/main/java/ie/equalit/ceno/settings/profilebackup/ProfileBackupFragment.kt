@@ -8,9 +8,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
+import android.widget.EditText
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
@@ -67,6 +69,7 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
         binding.exportProfile.setOnClickListener(getOnClickListenerForExportProfile())
         binding.importProfile.setOnClickListener(getOnClickListenerForImportProfile())
+        binding.updateProfile.setOnClickListener(getOnClickListenerForUpdateProfile())
         updateCheckboxes()
         updateButtons()
     }
@@ -113,8 +116,8 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     updateButtons()
                     viewLifecycleOwner.lifecycleScope.launch {
                         createSession()
-                        //session.initNetwork(true)
                         session.bindNetwork(listOf("quic/0.0.0.0:0", "quic/[::]:0"))
+                        session.addUserProvidedPeers(listOf("quic/51.79.21.142:20209"))
                         getProtocolVersion().let {
                             Logger.info("OUISYNC PROTO VERSION: $it")
                         }
@@ -154,9 +157,13 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                         }
                     }
                 }
+                var prefsString = backupPrefs.toString().replace(", ", "\n")
+                prefsString = prefsString.replace("{", "")
+                prefsString = prefsString.replace("}", "")
+                Logger.debug("Got json pref string: $prefsString")
                 viewLifecycleOwner.lifecycleScope.launch {
                     requireComponents.ouisync.apply {
-                        createAndWriteToRepo("cenoProfile", backupPrefs.toString())
+                        createAndWriteToRepo("cenoProfile", prefsString)
                     }
                 }
                 /* TODO: intermediate dialog is workaround to wait for writeToken to be set
@@ -165,7 +172,8 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
                     setTitle("Get your share token!")
                     setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
                         val showText = TextView(requireContext())
-                        showText.text = "${requireComponents.ouisync.writeToken}"
+                        showText.text = requireComponents.ouisync.writeToken?.value
+                        binding.syncProfile.text = requireComponents.ouisync.writeToken?.value
                         showText.setTextIsSelectable(true)
                         AlertDialog.Builder(requireContext()).apply {
                             setTitle("Here's your share token!")
@@ -185,30 +193,29 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
     private fun importPrefsDialog(context : Context) {
         AlertDialog.Builder(context).apply {
             setTitle(R.string.settings_restore_header)
+            val input = EditText(context)
+            setView(input)
             setMessage(R.string.settings_restore_message)
             setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
                 var content = ""
                 viewLifecycleOwner.lifecycleScope.launch {
                     requireComponents.ouisync.apply {
-                        content = openAndReadFromRepo("cenoProfile")
+                        importRepo("cenoProfile", input.getText().toString())
                     }
                 }
-                /* TODO: intermediate dialog is workaround to wait for content to be set
-                 *   instead should use a callback or coroutine */
+                /* TODO: need to check if repo is synced before trying to open files from it
+                 */
                 AlertDialog.Builder(requireContext()).apply {
                     setTitle("Backup found!")
                     setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
-                        val showText = TextView(requireContext())
-                        showText.text = content
-                        showText.setTextIsSelectable(true)
-                        AlertDialog.Builder(requireContext()).apply {
-                            setTitle("Here's the settings to be restored!")
-                            setView(showText)
-                            setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
+                        viewLifecycleOwner.lifecycleScope.launch {
+                            requireComponents.ouisync.apply {
+                                content = openAndReadFromRepo("cenoProfile")
                             }
-                            create()
-                        }.show()
+                            binding.syncProfile.text = requireComponents.ouisync.writeToken?.value
+                            binding.profileSettingsView.text = content
+                        }
                     }
                     create()
                 }.show()
@@ -225,7 +232,6 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
             it.alpha =  if (enabled) ENABLED_ALPHA else DISABLED_ALPHA
         }
     }
-
 
     private fun updateButtons() {
         val enabled =  Settings.isOuisyncEnabled(requireContext()) &&
@@ -250,6 +256,55 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         }
     }
 
+    private fun updateSettings(context: Context) {
+        var prefsString: String?
+        var theme = -1
+        viewLifecycleOwner.lifecycleScope.launch {
+            requireComponents.ouisync.apply {
+                prefsString =
+                    openAndReadFromRepo("cenoProfile")
+            }
+            prefsString?.split("\n")?.forEach {
+                Logger.debug("string: $it")
+                if (it != "") {
+                    val kv: List<String> = it.split("=")
+                    Logger.debug("key: ${kv[0]}, val: ${kv[1]}")
+                    when (kv[0]) {
+                        "pref_key_theme" -> {
+                            theme = kv[1].toInt()
+                            PreferenceManager.getDefaultSharedPreferences(context)
+                                .edit() {
+                                    putString(kv[0], kv[1])
+                                }
+                        }
+                        "pref_key_clear_behavior",
+                        "pref_key_default_search_engine",
+                        "pref_key_backup_top_sites",
+                        "pref_key_selected_app_icon" -> {
+                            PreferenceManager.getDefaultSharedPreferences(context)
+                                .edit() {
+                                    putString(kv[0], kv[1])
+                                }
+                        }
+
+                        else -> {
+                            if (kv[0] != "") {
+                                PreferenceManager.getDefaultSharedPreferences(context)
+                                    .edit() {
+                                        putBoolean(kv[0], kv[1].toBoolean())
+                                    }
+                            }
+                        }
+                    }
+                }
+            }
+            if (AppCompatDelegate.getDefaultNightMode() != theme) {
+                AppCompatDelegate.setDefaultNightMode(theme)
+                activity?.recreate()
+            }
+        }
+    }
+
     /*
     private fun backupSelected() {
         lifecycleScope.launch(IO) {
@@ -268,26 +323,6 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
         }
     }
     */
-
-    private fun startImport() {
-        //binding.progressBar.visibility = View.VISIBLE
-        binding.profileBackupWrapper.isEnabled = false
-        binding.profileBackupWrapper.isClickable = false
-        binding.profileBackupWrapper.alpha = DISABLED_ALPHA
-        Toast.makeText(context, resources.getString(R.string.deleting_browsing_data_in_progress), Toast.LENGTH_SHORT).show()
-    }
-
-    private fun finishImport() {
-        val popAfter = binding.customizationItem.isChecked
-        //binding.progressBar.visibility = View.GONE
-        binding.profileBackupWrapper.isEnabled = true
-        binding.profileBackupWrapper.isClickable = true
-        binding.profileBackupWrapper.alpha = ENABLED_ALPHA
-
-        //updateItemCounts()
-
-        Toast.makeText(context, resources.getString(R.string.preferences_delete_browsing_data_snackbar), Toast.LENGTH_SHORT).show()
-    }
 
     override fun onPause() {
         super.onPause()
@@ -328,42 +363,19 @@ class ProfileBackupFragment : Fragment(R.layout.fragment_profile_backup) {
 
     private fun getOnClickListenerForExportProfile(): View.OnClickListener {
         return View.OnClickListener {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(getString(R.string.export_profile_title))
-                setMessage(getString(R.string.export_profile_text))
-                setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
-                    // show toast for permission denied
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.export_profile_cancelled),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    askToExport()
-                }
-                create()
-            }.show()
+            askToExport()
         }
     }
 
     private fun getOnClickListenerForImportProfile(): View.OnClickListener {
         return View.OnClickListener {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(getString(R.string.import_profile_title))
-                setNegativeButton(getString(R.string.ceno_clear_dialog_cancel)) { _, _ ->
-                    // show toast for permission denied
-                    Toast.makeText(
-                        requireContext(),
-                        getString(R.string.import_profile_cancelled),
-                        Toast.LENGTH_LONG
-                    ).show()
-                }
-                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                    askToImport()
-                }
-                create()
-            }.show()
+            askToImport()
+        }
+    }
+
+    private fun getOnClickListenerForUpdateProfile(): View.OnClickListener {
+        return View.OnClickListener {
+            updateSettings(requireContext())
         }
     }
 

@@ -69,6 +69,38 @@
                 android:layout_gravity="center"
                 android:text="@string/preferences_import_profile_button"
                 android:textAlignment="center" />
+            <TextView
+                android:id="@+id/sync_profile"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:textIsSelectable="true"
+                android:text="@string/preferences_sync_profile_default"
+                android:textAlignment="center" />
+            <Button
+                android:id="@+id/update_profile"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/preferences_update_profile_button"
+                android:textAlignment="center" />
+            <TextView
+                android:id="@+id/profile_settings_title"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@string/preferences_profile_settings_title"
+                android:textAlignment="center" />
+            <TextView
+                android:id="@+id/profile_settings_view"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@string/preferences_profile_settings_default"
+                android:textAlignment="center" />
         </LinearLayout>
 
     </ScrollView>
