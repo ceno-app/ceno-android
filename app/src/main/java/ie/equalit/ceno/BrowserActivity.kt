@@ -176,13 +176,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             MainScope().launch {
                 components.ouisync.apply {
                     createSession()
-                    //session.initNetwork(true)
-                    session.bindNetwork(listOf("quic/0.0.0.0:0", "quic/[::]:0"))
-                    session.addUserProvidedPeers(listOf("quic/51.79.21.142:20209"))
-                    openRepositories()
-                    getProtocolVersion().let {
-                        Logger.info("OUSIYNC PROTO VERSION: $it")
-                    }
                 }
             }
         }

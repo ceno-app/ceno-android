@@ -16,20 +16,25 @@ import org.equalitie.ouisync.session.create
 import java.io.File
 import java.nio.charset.Charset
 
-
+/**
+ * Single repo, single file implementation of Ouisync
+ */
 class Ouisync (
-    context : Context
+    context: Context
 ) {
-    lateinit var service : Service
-    lateinit var session : Session
-    var writeToken : ShareToken? = null
+    var service: Service? = null
+    var session: Session? = null
+    var writeToken: ShareToken? = null
     private var sessionError by mutableStateOf<String?>(null)
     private var protocolVersion: Long by mutableLongStateOf(0)
-    private val rootDir : File? = context.filesDir
-    private var configDir : String = "$rootDir/config"
-    private var storeDir : String = "$rootDir/store"
-    private var repositories by mutableStateOf<Map<String, Repository>>(mapOf())
+    private val rootDir: File? = context.filesDir
+    private var configDir: String = "$rootDir/config"
+    private var storeDir: String = "$rootDir/store"
 
+    /**
+     * Starts Ouisync service and creates a new session.
+     * Binds to network interface and adds cache server from settings.
+     */
     suspend fun createSession() {
         try {
             service = Service.start(configDir)
@@ -43,6 +48,11 @@ class Ouisync (
         try {
             session = Session.create(configDir)
             sessionError = null
+            session?.let {
+                it.bindNetwork(listOf("quic/0.0.0.0:0", "quic/[::]:0"))
+                it.addUserProvidedPeers(listOf("quic/51.79.21.142:20209"))
+                protocolVersion = it.getCurrentProtocolVersion()
+            }
         } catch (e: Exception) {
             Log.e(TAG, "Session.create failed", e)
             sessionError = e.toString()
@@ -52,30 +62,45 @@ class Ouisync (
         }
     }
 
-    suspend fun getProtocolVersion() : Long {
-        session.let {
-            protocolVersion = it.getCurrentProtocolVersion()
+    /**
+     * Open repository
+     */
+    private suspend fun openRepository() : Repository? {
+        val session = this.session
+        if (session == null)
+            return null
+        val file = File("$storeDir/$REPO_NAME.$DB_EXTENSION")
+        if (file.exists()) {
+            Log.i(TAG, "Opening repository $REPO_NAME")
+            return session.openRepository(file.path)
         }
-        return protocolVersion
+        return null
     }
 
-    private suspend fun createOrOpenRepository(name: String, token: String = "") : Repository {
+    /**
+     * Creates or imports new repo depending on parameters provided
+     *
+     * @param token Optional, token of repo you to import, if left blank, new repo is created.
+     * @param contentW Optional, content to write into the new repo, if left blank, no file is written.
+     * @param charset Optional, defaults to UTF_8, charset for the content to be written.
+     */
+    suspend fun createOrImportRepo(token: String = "", contentW: String = "", charset: Charset = Charsets.UTF_8) {
         val session = this.session
-        Log.d(TAG, "creating repository named \"$name\" in $storeDir")
-
-        if (repositories.containsKey(name)) {
-            Log.e(TAG, "repository named \"$name\" already exists")
-            return openRepository(name)
+        var repo = openRepository()
+        if (repo != null) {
+            Log.e(TAG, "repository named \"$REPO_NAME\" already exists")
+            return
         }
-
+        if (session == null)
+            return
+        Log.d(TAG, "creating repository named \"$REPO_NAME\" in $storeDir")
         var shareToken: ShareToken? = null
-
         if (token.isNotEmpty()) {
             shareToken =  ShareToken(token)
         }
 
-        val repo = session.createRepository(
-            "$storeDir/$name.$DB_EXTENSION",
+        repo = session.createRepository(
+            "$storeDir/$REPO_NAME.$DB_EXTENSION",
             readSecret = null,
             writeSecret = null,
             token = shareToken,
@@ -89,75 +114,46 @@ class Ouisync (
         repo.setDhtEnabled(true)
         repo.setPexEnabled(true)
 
+        // TODO: implement options for access modes
         writeToken = repo.share(accessMode = AccessMode.WRITE)
 
-        Log.d(TAG, writeToken.toString())
-
-        repositories = repositories + (name to repo)
-        return repo
-    }
-
-    private suspend fun openRepository(name: String) : Repository {
-        val session = this.session
-        val file = File("$storeDir/$name.$DB_EXTENSION")
-        val repo = session.openRepository(file.path)
-        Log.i(TAG, "Opened repository $name")
-        return repo
-    }
-
-    suspend fun openRepositories() {
-        val session = this.session
-        val files = File(storeDir!!).listFiles() ?: arrayOf()
-
-        for (file in files) {
-            if (file.name.endsWith(".$DB_EXTENSION")) {
-                try {
-                    val name = file
-                        .name
-                        .substring(0, file.name.length - DB_EXTENSION.length - 1)
-                    val repo = session.openRepository(file.path)
-
-                    Log.i(TAG, "Opened repository $name")
-
-                    repositories = repositories + (name to repo)
-                } catch (e: Exception) {
-                    Log.e(TAG, "Failed to open repository at ${file.path}")
-                    continue
-                }
-            }
+        if (contentW == "") {
+           return
         }
-    }
-
-    suspend fun createAndWriteToRepo(name: String, contentW : String, charset: Charset = Charsets.UTF_8) {
-        val repo = createOrOpenRepository(name)
-        Log.i(TAG, "Opened repository $name")
-        val fileW = repo.createFile("prefs.txt")
+        val fileW = repo.createFile(FILENAME)
         fileW.write(0, contentW.toByteArray(charset))
         fileW.flush()
         fileW.close()
     }
 
-    suspend fun importRepo(name: String, token : String) {
-        createOrOpenRepository(name, token)
-    }
-
-    suspend fun openAndReadFromRepo(name: String) : String {
-        Log.d(TAG, "Opening repository $storeDir/$name")
-        val session = this.session
-        val repo = session.openRepository("$storeDir/$name.$DB_EXTENSION")
-        Log.i(TAG, "Opened repository $name")
-        val fileR = repo.openFile("prefs.txt")
+    /**
+     * Open repository and returns contents of profile.txt
+     */
+    suspend fun openAndReadFromRepo() : String? {
+        val repo = openRepository()
+        if (repo == null) {
+            Log.e(TAG, "repository does not not exist")
+            return null
+        }
+        val fileR = repo.openFile(FILENAME)
         val len = fileR.getLength()
-        Log.d(TAG, "prefs.txt is $len bytes long")
         val contentR = fileR.read(0, len).toString(Charsets.UTF_8)
-        Log.d(TAG, "Got content: $contentR")
         fileR.close()
         return contentR
     }
 
+    /**
+     * Delete repository
+     */
+    suspend fun deleteRepository() {
+        val session = this.session
+        session?.deleteRepositoryByName(REPO_NAME)
+    }
 
     companion object {
         private const val TAG = "OUISYNC"
-        private val DB_EXTENSION = "ouisyncdb"
+        private const val DB_EXTENSION = "ouisyncdb"
+        private const val REPO_NAME = "cenoProfile"
+        private const val FILENAME = "profile.txt"
     }
 }

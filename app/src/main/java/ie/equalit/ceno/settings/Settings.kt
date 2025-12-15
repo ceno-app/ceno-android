@@ -451,9 +451,9 @@ object Settings {
     fun setOuisyncEnabled(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ouisync_enabled)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit()
-            .putBoolean(key, value)
-            .apply()
+            .edit {
+                putBoolean(key, value)
+            }
     }
 
     fun isOuisyncEnabled(context: Context) : Boolean {
