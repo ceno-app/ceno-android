@@ -6,6 +6,7 @@ This release:
 - Updates Android Gradle Plugin to 8.13.0
 - Introduces option to pin websites to cache
 - Reduces amount of default logging in release builds
+- Removes standby page are related resources
 
 # v2.7.1
 This release:

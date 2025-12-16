@@ -111,8 +111,8 @@
     <string name="crash_report_sent">Crash report sent!</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Open link in personal tab</string>
     <string name="bridge_mode_category">Bridge Announcements</string>
-    <string name="shutdown_message_one">Clearing app data</string>
-    <string name="shutdown_message_two">Shutting down Ceno</string>
+    <string name="shutdown_message_one" tools:ignore="UnusedResources">Clearing app data</string>
+    <string name="shutdown_message_two" tools:ignore="UnusedResources">Shutting down Ceno</string>
     <string name="title_success">Success</string>
     <string name="thank_you_bridge_mode_enabled">Thank you for becoming a bridge and growing the Ceno network!</string>
     <string name="dialog_btn_positive_ok">OK</string>
@@ -295,7 +295,7 @@
     <string name="eq_news_button_link" translatable="false">https://equalitie.org/en/news</string>
     <string name="eq_values_button_text">Values</string>
     <string name="eq_values_button_link" translatable="false">https://equalitie.org/our-values/</string>
-    <string name="ceno_onboarding_start_title">Share the web,
+    <string name="ceno_onboarding_start_title" tools:ignore="UnusedResources">Share the web,
 \npeer-to-peer</string>
     <string name="ceno_onboarding_start_text" tools:ignore="UnusedResources">Ceno’s peer-to-peer backbone allows people to access and share website content in and across regions where connectivity has been interrupted or compromised.</string>
     <string name="onboarding_public_or_personal_title">Public or Personal?</string>
@@ -308,17 +308,14 @@
     <string name="ceno_home_card_personal_title">PERSONAL</string>
     <string name="ceno_home_card_personal_text">Good connectivity, more privacy. For logging into accounts, not leaving traces, no sharing</string>
     <string name="onboarding_finish_button">Finish</string>
-    <string name="ouinet_taking_too_long_title">Taking too long?</string>
-    <string name="ouinet_timeout_dialog_text">Ceno requires a connection to the internet to work. Please check your network settings.</string>
-    <string name="network_settings">Network Settings</string>
-    <string name="standby_no_internet_text">No internet connection.
+    <string name="ouinet_taking_too_long_title" tools:ignore="UnusedResources">Taking too long?</string>
+    <string name="ouinet_timeout_dialog_text" tools:ignore="UnusedResources">Ceno requires a connection to the internet to work. Please check your network settings.</string>
+    <string name="network_settings" tools:ignore="UnusedResources">Network Settings</string>
+    <string name="standby_no_internet_text" tools:ignore="UnusedResources">No internet connection.
 \n
 \nPerformance of Ceno may be limited.
 \nPlease check your network connections and try reloading Ceno.</string>
-    <string name="standby_message_one">Connecting to Ceno network</string>
-    <string name="standby_message_two">Initializing cache</string>
-    <string name="standby_message_three">Finding bootstrap nodes</string>
-    <string name="standby_try_again">Try Again</string>
+    <string name="standby_try_again" tools:ignore="UnusedResources">Try Again</string>
     <string name="ceno_ouinet_connecting">Connecting to Ceno Network</string>
     <string name="ceno_ouinet_connected">Connected to Ceno Network</string>
     <string name="ceno_ouinet_disconnected">Disconnected from Ceno Network</string>
@@ -328,7 +325,6 @@
     <string name="ceno_sources_shared_by_local_cache">From browser cache</string>
     <string name="ceno_personal_browsing_description">Ceno will not share content from personal tabs with other users. You can visit sites that require login.</string>
     <string name="personal_home_learn_more">Want to learn more?</string>
-    <string name="change_bt_bootstrap_server">Change BT Bootstrap Server</string>
     <string name="browsing_mode_card_title">Browsing Mode</string>
     <string name="public_browsing_mode_selected">public browsing mode selected</string>
     <string name="public_mode_icon">public mode icon</string>
@@ -360,7 +356,7 @@
     <string name="bridge_mode_ip_warning_text">Note that this will make your public IP address visible to other Ceno users.</string>
     <string name="learn_more_title">Learn More</string>
     <string name="bridge_mode_faq_url">https://ceno.app/en/faq.html#bridgemode</string>
-    <string name="standby_restarting_text">Restarting…</string>
+    <string name="standby_restarting_text" tools:ignore="UnusedResources">Restarting…</string>
     <string name="download_site_content">Download site content</string>
     <string name="no_content_shared">Currently, you\'re not sharing any content</string>
     <string name="dismiss" tools:ignore="UnusedResources">Dismiss</string>
@@ -405,16 +401,8 @@
     <string name="tooltip_sources_title">Ceno Sources</string>
     <string name="tooltip_sources_description">Easily see where the site\'s content is fetched from - directly from the website, via the Ceno network, or from the Ceno cache</string>
     <string name="tooltip_permission_text">To keep sharing websites seamlessly even when the app is in the background, please allow Ceno to send notifications and disable battery optimizations. You can always adjust these permissions later in your phone\'s settings</string>
-    <string name="standby_tip_title">Tip</string>
-    <string name="standby_tip_bridge">Become a bridge, help others access websites</string>
-    <string name="standby_tip_icon">Change the app icon to hide Ceno</string>
-    <string name="standby_tip_pdf">Share webpages as PDFs</string>
-    <string name="standby_tip_announcements">Check for updates in the announcements section</string>
     <string name="select_language">Select Language:</string>
-    <string name="standby_take_me_anyway">Take me to Ceno anyway</string>
-    <string name="standby_dont_show">Don\'t show warning again</string>
-    <string name="startup_category">Startup</string>
-    <string name="preferences_show_standby_warning">Show warning on startup timeout</string>
+    <string name="standby_dont_show" tools:ignore="UnusedResources">Don\'t show warning again</string>
     <string name="status_enabled">Enabled</string>
     <string name="status_disabled">Disabled</string>
     <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
