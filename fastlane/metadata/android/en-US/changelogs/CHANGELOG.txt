@@ -8,6 +8,7 @@ This release:
 - Reduces amount of default logging in release builds
 - Removes standby page are related resources
 - Updates Android-Components to v146.0
+- Updates Ouinet to v1.5.1
 
 # v2.7.1
 This release:
