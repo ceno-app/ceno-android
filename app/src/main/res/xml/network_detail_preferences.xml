@@ -39,6 +39,12 @@
             android:key="@string/pref_key_ouinet_frontend_endpoint"
             android:title="@string/preferences_ouinet_frontend_endpoint" />
 
+        <androidx.preference.SwitchPreferenceCompat
+            android:defaultValue="true"
+            android:key="@string/pref_key_doh_enabled"
+            android:title="@string/preferences_ouinet_enable_doh"
+            app:iconSpaceReserved="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory

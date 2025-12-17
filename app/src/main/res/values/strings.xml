@@ -499,4 +499,6 @@
     <string name="preferences_ouinet_proxy_endpoint">Local proxy endpoint</string>
     <string name="preferences_ouinet_frontend_endpoint">Local frontend endpoint</string>
     <string name="pin_unpin_to_cache_failed">Error! Cache update failed.</string>
+    <string name="preferences_ouinet_enable_doh">Use DNS over HTTPS</string>
+    <string name="updating_doh_dialog_title">Updating DNS over HTTPS settings</string>
 </resources>
