@@ -42,9 +42,9 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         val themeKey = requireContext().getPreferenceKey(R.string.pref_key_theme)
         val toolbarPositionKey = requireContext().getPreferenceKey(R.string.pref_key_toolbar_position)
 
+
         val preferenceChangeAppIcon = findPreference<Preference>(changeAppIconKey)
         val preferenceTheme = findPreference<Preference>(themeKey)
-        val preferenceToolbarPosition = findPreference<Preference>(toolbarPositionKey)
 
         preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
         preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()

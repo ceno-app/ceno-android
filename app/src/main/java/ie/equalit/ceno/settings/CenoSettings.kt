@@ -354,6 +354,11 @@ object CenoSettings {
             context.getString(R.string.pref_key_bridge_announcement), false
         )
 
+    fun hideOuicrawlFeed(context: Context) : Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_hide_ouicrawl_feed), false
+        )
+
     fun getCenoVersionString(context: Context) : String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)

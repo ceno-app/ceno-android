@@ -94,6 +94,7 @@
     <string name="pref_key_ouicrawl_data" translatable="false">pref_key_ouicrawl_data</string>
     <string name="pref_key_ouinet_frontend_endpoint" translatable="false">pref_key_ouinet_frontend_endpoint</string>
     <string name="pref_key_ouinet_proxy_endpoint" translatable="false">pref_key_ouinet_proxy_endpoint</string>
+    <string name="pref_key_hide_ouicrawl_feed" translatable="false">pref_key_hide_ouicrawl_feed</string>
     <string name="pref_key_doh_enabled" translatable="false">pref_key_doh_enabled</string>
 
     <!-- CENO: COPIED FROM FENIX -->

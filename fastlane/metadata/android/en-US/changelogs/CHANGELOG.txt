@@ -6,8 +6,9 @@ This release:
 - Updates Android Gradle Plugin to 8.13.0
 - Introduces option to pin websites to cache
 - Reduces amount of default logging in release builds
-- Removes standby page are related resources
+- Removes standby page
 - Updates Android-Components to v146.0
+- Adds customization option to hide free media feed
 - Updates Ouinet to v1.5.1
 
 # v2.7.1
