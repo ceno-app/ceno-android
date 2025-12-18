@@ -73,11 +73,11 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
-        preferenceDohEnabled?.onPreferenceChangeListener = getChangeListenerForDoHEnabled()
+        preferenceDohEnabled?.onPreferenceChangeListener = getChangeListenerForDohEnabled()
 
     }
 
-    private fun getChangeListenerForDoHEnabled(): OnPreferenceChangeListener  {
+    private fun getChangeListenerForDohEnabled(): OnPreferenceChangeListener  {
         return OnPreferenceChangeListener { _, newValue ->
             CenoSettings.setDohEnabled(requireContext(), newValue as Boolean)
             //restart ouinet for change to take effect
