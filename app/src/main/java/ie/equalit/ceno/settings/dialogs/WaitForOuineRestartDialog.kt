@@ -3,19 +3,18 @@ package ie.equalit.ceno.settings.dialogs
 import android.content.Context
 import android.view.View
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 
-class UpdateBridgeAnnouncementDialog (
-    context: Context
+class WaitForOuineRestartDialog (
+    context: Context,
+    title: String
 ) {
     private val builder: AlertDialog.Builder = AlertDialog.Builder(context)
 
     init {
-        val dialogView = View.inflate(context, R.layout.bridge_announcement_dialog, null)
+        val dialogView = View.inflate(context, R.layout.wait_for_ouinet_restart_dialog, null)
         builder.apply {
-            setTitle(ContextCompat.getString(context, R.string.bridge_announcement_dialog_title))
+            setTitle(title)
             setView(dialogView)
             setCancelable(false)
         }
@@ -25,9 +24,5 @@ class UpdateBridgeAnnouncementDialog (
         return builder.create().apply {
             setCanceledOnTouchOutside(false)
         }
-    }
-
-    companion object {
-        const val TAG = "UpdateBridgeAnnouncementDialog"
     }
 }

@@ -3,10 +3,8 @@ package ie.equalit.ceno.browser.notification
 import android.app.PendingIntent
 import android.app.PendingIntent.FLAG_ONE_SHOT
 import android.content.Intent
-import android.os.Build
 import android.os.Handler
 import android.os.Looper
-import android.util.Log
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContextCompat
 import ie.equalit.ceno.BrowserActivity
@@ -55,7 +53,7 @@ class PublicNotificationService:AbstractPublicNotificationService() {
 
     private fun getTapIntent(): PendingIntent? {
         val intent = Intent(this, BrowserActivity::class.java).apply {
-            flags = Intent.FLAG_ACTIVITY_NEW_TASK
+            flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
             action = ACTION_TAP
         }
         return PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_IMMUTABLE)

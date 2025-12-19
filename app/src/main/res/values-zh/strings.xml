@@ -235,9 +235,6 @@
 \n
 \nCeno 的性能可能会受到限制。
 \n请检查您的网络连接并尝试重新加载 Ceno。</string>
-    <string name="standby_message_one">正在连接 Ceno 网络</string>
-    <string name="standby_message_two">初始化缓存</string>
-    <string name="standby_message_three">寻找引导节点</string>
     <string name="standby_try_again">重试</string>
     <string name="ceno_ouinet_connecting">正在连接 Ceno 网络</string>
     <string name="ceno_ouinet_connected">已连接到 Ceno 网络</string>
@@ -274,7 +271,6 @@
     <string name="preferences_ceno_sources_private_summary">通过私有 Ceno 网络加载内容</string>
     <string name="ceno_personal_browsing_description">Ceno 不会与其他用户共享个人选项卡中的内容。 您可以访问需要登录的网站。</string>
     <string name="personal_home_learn_more">想了解更多吗？</string>
-    <string name="change_bt_bootstrap_server">更改 BT 引导服务器</string>
     <string name="browsing_mode_card_title">浏览模式</string>
     <string name="public_browsing_mode_selected">选择公共浏览模式</string>
     <string name="bridge_mode_faq_url">https://ceno.app/en/faq.html#bridgemode</string>
@@ -288,14 +284,11 @@
     <string name="ceno_home_card_public_title">公开</string>
     <string name="ceno_sources_shared_by_ceno_cache">来自Ceno的缓存</string>
     <string name="ceno_support_link_url">https://ceno.app/zh_CN/faq.html</string>
-    <string name="ceno_log_content_group_file_saved">共享内容保存成功</string>
-    <string name="ceno_android_content_group_file_name">Ceno共享内容</string>
     <string name="view_logs">查看</string>
     <string name="canceled">已取消</string>
     <string name="download_site_content">下载页面内容</string>
     <string name="no_content_shared">目前,你没有分享任何内容</string>
     <string name="dismiss">结束</string>
-    <string name="confirm_groups_file_download">导出共享内容的清单?</string>
     <string name="confirm_groups_file_download_desc">一个.txt文件将会保存到你的本地存储空间。</string>
     <string name="confirm_clear_cached_content">清理缓存内容？</string>
     <string name="confirm_clear_cached_content_desc">你的缓存内容将被删除</string>
@@ -347,20 +340,12 @@
     <string name="start_tooltip_description">解锁Ceno的全部潜力——完成一个引导式教程来发现关键特性，并允许权限帮助共享网络，即使应用程序在后台。</string>
     <string name="btn_exit">退出</string>
     <string name="btn_next">下一步</string>
-    <string name="standby_take_me_anyway">立即使用Ceno</string>
     <string name="standby_dont_show">不要再显示警告</string>
-    <string name="startup_category">启动</string>
-    <string name="preferences_show_standby_warning">在启动时显示警告的超时时间</string>
     <string name="status_enabled">启用</string>
     <string name="status_disabled">已禁用</string>
     <string name="skip_the_tour_button">跳过流程</string>
     <string name="tooltip_shortcuts_description">保存你最喜欢的网站作为快捷方式以便从首页快速访问。</string>
     <string name="tooltip_sources_description">很容易看到网站的内容取自哪里——直接来自网站，或是通过Ceno网络，或是来自Ceno缓存</string>
-    <string name="standby_tip_title">小提示</string>
-    <string name="standby_tip_bridge">成为一座桥梁，帮助别人访问网站</string>
-    <string name="standby_tip_icon">修改应用程序图标以隐藏Ceno</string>
-    <string name="standby_tip_pdf">以PDF格式分享网页</string>
-    <string name="standby_tip_announcements">在声明区域检查更新</string>
     <string name="select_language">选择语言：</string>
     <string name="ceno_network_status_degraded">正在连接到Ceno网络。一些网站可能不可用。检查你的网络设置或者导出日志以查看更多信息。</string>
     <string name="contact_support">联系支持人员</string>

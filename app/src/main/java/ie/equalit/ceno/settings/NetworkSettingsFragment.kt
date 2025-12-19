@@ -4,20 +4,25 @@
 
 package ie.equalit.ceno.settings
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.lifecycle.lifecycleScope
 import androidx.preference.Preference
+import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.SettingsFragment.Companion.DELAY_ONE_SECOND
 import ie.equalit.ceno.settings.dialogs.ExtraBTBootstrapsDialog
+import ie.equalit.ceno.settings.dialogs.WaitForOuineRestartDialog
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import mozilla.components.support.ktx.kotlin.ifNullOrEmpty
 import java.util.Locale
-import androidx.core.graphics.drawable.toDrawable
 
 class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
@@ -54,6 +59,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         val preferencePublicUdpEndpoint = getPreference(R.string.pref_key_ouinet_public_udp_endpoints)
         val preferenceUpnpStatus = getPreference(R.string.pref_key_ouinet_upnp_status)
         val extraBootstrapBittorrentKey = requireContext().getPreferenceKey(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
+        val preferenceDohEnabled = getPreference(R.string.pref_key_doh_enabled)
 
         val preferenceExtraBitTorrentBootstrap = findPreference<Preference>(extraBootstrapBittorrentKey)
         preferenceExtraBitTorrentBootstrap?.onPreferenceClickListener = getClickListenerForExtraBitTorrentBootstraps()
@@ -67,7 +73,33 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferencePublicUdpEndpoint?.summary = CenoSettings.getPublicUdpEndpoint(requireContext()).ifNullOrEmpty { getString(R.string.not_applicable) }
         preferenceUpnpStatus?.summary = CenoSettings.getUpnpStatus(requireContext())
         preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
+        preferenceDohEnabled?.onPreferenceChangeListener = getChangeListenerForDohEnabled()
 
+    }
+
+    private fun getChangeListenerForDohEnabled(): OnPreferenceChangeListener  {
+        return OnPreferenceChangeListener { _, newValue ->
+            CenoSettings.setDohEnabled(requireContext(), newValue as Boolean)
+            //restart ouinet for change to take effect
+            val waitForOuineRestartDialog = WaitForOuineRestartDialog(requireContext(),
+                getString(R.string.updating_doh_dialog_title)).getDialog()
+            waitForOuineRestartDialog.show()
+            var hasOuinetStopped = false
+            requireComponents.ouinet.background.shutdown(false) {
+                hasOuinetStopped = true
+            }
+            lifecycleScope.launch {
+                while (!hasOuinetStopped) {
+                    delay(DELAY_ONE_SECOND)
+                }
+                requireComponents.ouinet.setConfig()
+                requireComponents.ouinet.setBackground(requireContext())
+                requireComponents.ouinet.background.startup {
+                    waitForOuineRestartDialog.dismiss()
+                }
+            }
+            true
+        }
     }
 
     private fun getClickListenerForExtraBitTorrentBootstraps(): Preference.OnPreferenceClickListener {

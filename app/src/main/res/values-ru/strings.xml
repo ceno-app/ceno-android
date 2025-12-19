@@ -245,22 +245,18 @@
 \n
 \nПроизводительность Ceno может быть ограничена.
 \nПожалуйста, проверьте наличие доступа к интернету и попробуйте перезапустить Ceno.</string>
-    <string name="standby_message_three">Ищем бустрап-ноды</string>
     <string name="ceno_log_file_saved_desc">В целях обеспечения конфиденциальности вся личная информация была тщательно удалена из логов.</string>
     <string name="all_logs">Полный лог</string>
     <string name="bridge_announcement_dialog_text">Приложению нужно перезагрузиться, чтобы новые настройки вступили в силу. Спасибо за терпение!</string>
     <string name="bridge_mode_ip_warning_text">Обратите внимание, ваш IP-адрес будет анонсирован в сети Ceno. Не включайте режим моста в стране с высоким уровнем цензуры.</string>
     <string name="preferences_ceno_export_android_logs">Экспорт полного лога</string>
     <string name="ouinet_taking_too_long_title">Долго загружается?</string>
-    <string name="standby_message_one">Подключаемся к сети Ceno</string>
-    <string name="standby_message_two">Инициализация кеша</string>
     <string name="standby_try_again">Попробовать еще раз</string>
     <string name="ceno_ouinet_connecting">Подключение к сети Ceno</string>
     <string name="ceno_ouinet_connected">Подключено к сети Ceno</string>
     <string name="ceno_ouinet_disconnected">Отключено от сети Ceno</string>
     <string name="ceno_sources_direct_from_website">Напрямую с сайта</string>
     <string name="ceno_sources_via_ceno_network">Через сеть Ceno</string>
-    <string name="change_bt_bootstrap_server">Изменить бустрап-сервер BitTorrent</string>
     <string name="browsing_mode_card_title">Режим Просмотра</string>
     <string name="public_browsing_mode_selected">выбран публичный режим просмотра</string>
     <string name="public_mode_icon">иконка публичного режима</string>
@@ -294,10 +290,8 @@
     <string name="share_link_all_apps_subheader">Все действия</string>
     <string name="share_link_recent_apps_subheader">Недавно использованные</string>
     <string name="share_save_to_pdf">Сохранить как PDF</string>
-    <string name="ceno_log_content_group_file_saved">Разданный контент успешно сохранен</string>
     <string name="canceled">Отменен</string>
     <string name="download_site_content">Скачать содержимое сайта</string>
-    <string name="confirm_groups_file_download">Экспортировать список разданного контента?</string>
     <string name="confirm_groups_file_download_desc">.txt файл будет сохранен на вашем устройстве.</string>
     <string name="no_content_shared">Сейчас вы не раздаете контент</string>
     <string name="dismiss">Закрыть</string>
@@ -321,7 +315,6 @@
     <string name="browser_menu_disable_reader_view">Скрыть режим чтения</string>
     <string name="error_page_learn_more_header">Убедитесь что требования необходимые Ceno для работы выполнены</string>
     <string name="error_page_title">Страница ошибки</string>
-    <string name="ceno_android_content_group_file_name">Ceno разданный контент</string>
     <string name="error_page_header">Ой! Не удалось загрузить страницу.</string>
     <string name="error_page_sub_header">Это значит что Ceno попытался использовать все доступные механизмы чтобы загрузить контент, но ни один не сработал:</string>
     <string name="error_page_learn_more">Узнать больше</string>
@@ -345,13 +338,8 @@
     <string name="btn_exit">Выход</string>
     <string name="btn_next">Далее</string>
     <string name="skip_the_tour_button">Пропустить</string>
-    <string name="standby_tip_title">Подсказка</string>
-    <string name="standby_tip_icon">Иконку Ceno можно изменить в настройках — и таким образом замаскировать приложение</string>
-    <string name="standby_tip_bridge">Включи режим «моста» в Настройках и помогай людям в других странах получать доступ к свободному интернету</string>
-    <string name="standby_tip_pdf">Ты можешь сохранить страницу в pdf</string>
     <string name="top_sites_title">Ярлыки</string>
     <string name="update">Обновить</string>
-    <string name="standby_tip_announcements">Новости о свежих обновлениях будут появляться на домашней странице браузера</string>
     <string name="tooltip_sources_title">Источники</string>
     <string name="tooltip_shortcuts_description">Ты можешь добавлять сайты на домашнюю страницу браузера, в панель ярлыков.</string>
     <string name="tooltip_sources_description">В этом углу можно посмотреть, откуда загружается контент страницы — непосредственно с сайта, через сеть Ceno или по Битторренту</string>
@@ -360,11 +348,8 @@
     <string name="start_tooltip_description">Открыл Ceno впервые? Жми на кнопку, и мы проведём экскурсию.</string>
     <string name="tooltip_permission_text">Чтобы обеспечить постоянный обмен веб-сайтами в сети Ceno, — даже в фоновом режиме, — мы предложим разрешить уведомления и отключить оптимизацию батареи. Вы всегда можете отозвать эти разрешения в настройках.</string>
     <string name="select_language">Выбрать язык:</string>
-    <string name="standby_take_me_anyway">Всё равно запустить браузер</string>
     <string name="standby_dont_show">Больше не показывать это сообщение</string>
     <string name="status_disabled">Вылючены</string>
-    <string name="preferences_show_standby_warning">Предупреждать о проблемах сети</string>
-    <string name="startup_category">Запуск браузера</string>
     <string name="ceno_permissions_category">Разрешения</string>
     <string name="status_enabled">Включена</string>
     <string name="privacy_policy_url">https://ceno.network/ru/privacy_policy.html</string>

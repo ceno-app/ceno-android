@@ -130,7 +130,6 @@
     <string name="download_site_content">தள உள்ளடக்கத்தைப் பதிவிறக்கவும்</string>
     <string name="no_content_shared">தற்போது, நீங்கள் எந்த உள்ளடக்கத்தையும் பகிரவில்லை</string>
     <string name="dismiss">தள்ளுபடி</string>
-    <string name="confirm_groups_file_download">பகிரப்பட்ட உள்ளடக்கத்தின் ஏற்றுமதி பட்டியல்?</string>
     <string name="confirm_groups_file_download_desc">உங்கள் உள்ளக சேமிப்பகத்திற்கு ஒரு .txt கோப்பு சேமிக்கப்படும்.</string>
     <string name="confirm_clear_cached_content">தற்காலிக சேமிப்பு உள்ளடக்கத்தை அழிக்கவா?</string>
     <string name="confirm_clear_cached_content_desc">உங்கள் தற்காலிக சேமிப்பு உள்ளடக்கம் உடனடியாக அகற்றப்படும்</string>
@@ -242,7 +241,6 @@
     <string name="close_mode_item" tools:ignore="UnusedResources">அறிவிப்பை மூடு</string>
     <string name="set_default_search_engine">இயல்புநிலை தேடுபொறியை அமைக்கவும்</string>
     <string name="preference_show_search_suggestions">தேடல் பரிந்துரைகளைப் பெறுங்கள்</string>
-    <string name="standby_message_one">செனோ நெட்வொர்க்குடன் இணைக்கிறது</string>
     <string name="ceno_ouinet_connecting">செனோ நெட்வொர்க்குடன் இணைக்கிறது</string>
     <string name="ceno_ouinet_connected">செனோ நெட்வொர்க்குடன் இணைக்கப்பட்டுள்ளது</string>
     <string name="preferences_add_ons">துணை நிரல்கள்</string>
@@ -274,15 +272,12 @@
 \n
 \n CENO இன் செயல்திறன் குறைவாக இருக்கலாம்.
 \n உங்கள் பிணைய இணைப்புகளை சரிபார்த்து, செனோவை மீண்டும் ஏற்ற முயற்சிக்கவும்.</string>
-    <string name="standby_message_two">தற்காலிக சேமிப்பைத் தொடங்குதல்</string>
-    <string name="standby_message_three">தொடக்கவார் முனைகளைக் கண்டறிதல்</string>
     <string name="standby_try_again">மீண்டும் முயற்சி வெற்றி</string>
     <string name="ceno_ouinet_disconnected">CENO நெட்வொர்க்கிலிருந்து துண்டிக்கப்பட்டது</string>
     <string name="ceno_sources_direct_from_website">வலைத்தளத்திலிருந்து நேரடியாக</string>
     <string name="ceno_sources_via_ceno_network">நெட்வொர்க்கின் விலையைப் பயன்படுத்துதல்</string>
     <string name="ceno_sources_shared_by_ceno_cache">Ceno கேச்</string>
     <string name="personal_home_learn_more">மேலும் அறிய விரும்புகிறீர்களா?</string>
-    <string name="change_bt_bootstrap_server">BT தொடக்கவார் சேவையகத்தை மாற்றவும்</string>
     <string name="ceno_support_link_url">https://ceno.app/en/faq.html</string>
     <string name="public_mode_icon">பொது பயன்முறை படவுரு</string>
     <string name="personal_browsing_mode_selected">தனிப்பட்ட உலாவல் முறை தேர்ந்தெடுக்கப்பட்டது</string>
@@ -290,8 +285,6 @@
     <string name="ceno_log_file_saved">பதிவு கோப்பு வெற்றிகரமாக சேமிக்கப்பட்டது</string>
     <string name="ceno_log_file_saved_desc">உங்கள் தனியுரிமைக்கு முன்னுரிமை அளிக்க, தனிப்பட்ட முறையில் அடையாளம் காணக்கூடிய அனைத்து தகவல்களும் இந்த பதிவிலிருந்து கவனமாக அகற்றப்பட்டுள்ளன.</string>
     <string name="ceno_android_logs_file_name">Ceno பதிவுகள்</string>
-    <string name="ceno_log_content_group_file_saved">பகிரப்பட்ட உள்ளடக்கம் வெற்றிகரமாக சேமிக்கப்பட்டது</string>
-    <string name="ceno_android_content_group_file_name">Ceno பகிரப்பட்ட உள்ளடக்கம்</string>
     <string name="browser_menu_share">பகிர்</string>
     <string name="share_header_2">பகிர்</string>
     <string name="share_link_recent_apps_subheader">சமீபத்தில் பாவித்தவை</string>
@@ -324,8 +317,6 @@
     <string name="change_language">மொழியை மாற்றவும்</string>
     <string name="enable_debug_logs">பிழைத்திருத்த பதிவுகளை இயக்கவும்</string>
     <string name="btn_exit">வெளியேறு</string>
-    <string name="standby_tip_icon">செனோவை மறைக்க பயன்பாட்டு ஐகானை மாற்றவும்</string>
-    <string name="standby_tip_bridge">ஒரு பாலமாக மாறி, வலைத்தளங்களை அணுக மற்றவர்களுக்கு உதவுங்கள்</string>
     <string name="ceno_network_status_title">விலை பிணையம் நிலை</string>
     <string name="preferences_clear_behavior_option_1">உடனடி</string>
     <string name="metrics_campaign_more_info">மேலும் செய்தி</string>
@@ -342,7 +333,6 @@
     <string name="clean_insights_opt_in">ஆம், என்னைத் தேர்வுசெய்க</string>
     <string name="tooltip_sources_description">தளத்தின் உள்ளடக்கம் எங்கிருந்து பெறப்படுகிறது என்பதை எளிதாகக் காண்க - வலைத்தளத்திலிருந்து, செனோ பிணையம் வழியாக அல்லது செனோ கேச் வழியாக</string>
     <string name="tooltip_permission_text">பயன்பாடு பின்னணியில் இருக்கும்போது கூட வலைத்தளங்களை தடையின்றி பகிர, தயவுசெய்து செனோவை அறிவிப்புகளை அனுப்பவும் பேட்டரி மேம்படுத்தல்களை முடக்கவும் அனுமதிக்கவும். உங்கள் தொலைபேசியின் அமைப்புகளில் இந்த அனுமதிகளை நீங்கள் எப்போதும் சரிசெய்யலாம்</string>
-    <string name="preferences_show_standby_warning">தொடக்க நேரம் முடிந்தது குறித்து எச்சரிக்கையைக் காட்டு</string>
     <string name="preferences_announcement_source">அறிவிப்பு சான்று</string>
     <string name="preferences_announcement_source_summary">முகப்புப்பக்க அறிவிப்புகளின் மூலத்தை அமைக்கவும்</string>
     <string name="developer_tools_enabled">உருவாக்குபவர் கருவிகள் இயக்கப்பட்டன</string>
@@ -369,7 +359,6 @@
     <string name="add_or_remove_bookmark">புக்மார்க்கைச் சேர்க்கவும் அல்லது அகற்றவும்</string>
     <string name="bookmark_delete_folder_confirmation_dialog">இந்த கோப்புறையை நீக்க விரும்புகிறீர்களா?</string>
     <string name="standby_dont_show">மீண்டும் எச்சரிக்கையைக் காட்ட வேண்டாம்</string>
-    <string name="standby_take_me_anyway">எப்படியும் என்னை செனோவுக்கு அழைத்துச் செல்லுங்கள்</string>
     <string name="ceno_sources_shared_by_local_cache">உலாவி தற்காலிக சேமிப்பிலிருந்து</string>
     <string name="device_type">சாதன வகை</string>
     <string name="device_locale">சாதன இடம் (மொழி)</string>
@@ -378,10 +367,6 @@
     <string name="skip_the_tour_button">சுற்றுப்பயணத்தைத் தவிர்க்கவும்</string>
     <string name="tooltip_toolbar_description">உலாவலைத் தொடங்க வலைத்தள முகவரியில் தட்டச்சு செய்க</string>
     <string name="tooltip_sources_title">விலை ஆதாரங்கள்</string>
-    <string name="standby_tip_title">உதவிக்குறிப்பு</string>
-    <string name="standby_tip_pdf">வலைப்பக்கத்தை PDF ஆக பகிரவும்</string>
-    <string name="standby_tip_announcements">அறிவிப்புகள் பிரிவில் புதுப்பிப்புகளைச் சரிபார்க்கவும்</string>
-    <string name="startup_category">தொடங்கு</string>
     <string name="status_enabled">இயக்கப்பட்டது</string>
     <string name="status_disabled">முடக்கப்பட்டது</string>
     <string name="ceno_base_url">https://ceno.app</string>

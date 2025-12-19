@@ -216,11 +216,12 @@ class HomeFragment : BaseHomeFragment() {
                 withContext(Dispatchers.IO) {
 
                     getAnnouncements(context)
-                    getOuicrawlSites(context)
+                    if(!CenoSettings.hideOuicrawlFeed(requireContext()))
+                        getOuicrawlSites(context)
 
                     // check for null and refresh homepage adapter if necessary
                     // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
-                    if (Settings.getAnnouncementData(context) != null && Settings.getOuicrawlData(context) != null) {
+                    if (Settings.getAnnouncementData(context) != null) {
                         withContext(Dispatchers.Main) {
                             val state = context.components.appStore.state
                             sessionControlView?.update(
@@ -299,7 +300,6 @@ class HomeFragment : BaseHomeFragment() {
     override fun onStart() {
         super.onStart()
         updateSessionControlView()
-        if (requireComponents.ouinet.background.getState() == RunningState.Started.name)
             showTooltip()
     }
 
