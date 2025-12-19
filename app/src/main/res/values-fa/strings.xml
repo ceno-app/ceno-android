@@ -418,4 +418,7 @@
     <string name="ouinet_state_started">شروع شد</string>
     <string name="ouinet_state_stopping">در حال توقف</string>
     <string name="ouinet_state_stopped">متوقف شد</string>
+    <string name="preferences_theme_option_0">موضوع سیستم را دنبال کنید</string>
+    <string name="preferences_ouinet_proxy_endpoint">نقطه پایانی پروکسی محلی</string>
+    <string name="preferences_ouinet_frontend_endpoint">نقطه پایانی ظاهر محلی</string>
 </resources>
