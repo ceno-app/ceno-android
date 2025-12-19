@@ -91,13 +91,12 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
-import ie.equalit.ceno.settings.dialogs.UpdateBridgeAnnouncementDialog
+import ie.equalit.ceno.settings.dialogs.WaitForOuineRestartDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.serialization.json.Json
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.log.logger.Logger
@@ -169,7 +168,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
-        bridgeAnnouncementDialog = UpdateBridgeAnnouncementDialog(requireContext()).getDialog()
+        bridgeAnnouncementDialog = WaitForOuineRestartDialog(requireContext(), getString(R.string.bridge_announcement_dialog_title)).getDialog()
         bridgeAnnouncementDialog.setOnDismissListener {
             showThankyouDialog()
         }

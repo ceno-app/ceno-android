@@ -619,7 +619,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             context = requireContext(),
             lifecycleOwner = this,
             tabUrl = tab.content.url,
-            isConnectionSecure = tab.content.securityInfo.secure,
+            isConnectionSecure = tab.content.securityInfo.isSecure,
             requireComponents.appStore.state.sourceCounts[tab.content.url]
         ).also { currentEtp -> currentEtp.show() }
 

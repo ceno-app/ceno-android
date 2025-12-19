@@ -45,7 +45,11 @@ data class OuinetStatus(
     val public_udp_endpoints: Array<String>? = null,
     val state: String,
     val udp_world_reachable : String? = null,
-    val current_metrics_record_id: String
+    val current_metrics_record_id: String,
+    val doh_enabled: Boolean,
+    val injector_peers_n: Int,
+    val injector_ready: Boolean,
+    val udp_mux_rx_limit: Long,
 )
 
 enum class OuinetKey(val command : String) {
@@ -397,6 +401,14 @@ object CenoSettings {
             context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
         )
 
+    fun setDohEnabled(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_doh_enabled)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putBoolean(key, value)
+            }
+    }
+
     suspend fun webClientRequest (context: Context, request: Request): String? {
         var responseBody : String? = null
         var tries = 0
@@ -445,6 +457,7 @@ object CenoSettings {
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         currentMetricsRecordId = status.current_metrics_record_id
+        setDohEnabled(context, status.doh_enabled)
         if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
