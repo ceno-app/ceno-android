@@ -46,7 +46,10 @@ data class OuinetStatus(
     val state: String,
     val udp_world_reachable : String? = null,
     val current_metrics_record_id: String,
-    val doh_enabled: Boolean
+    val doh_enabled: Boolean,
+    val injector_peers_n: Int,
+    val injector_ready: Boolean,
+    val udp_mux_rx_limit: Long,
 )
 
 enum class OuinetKey(val command : String) {
