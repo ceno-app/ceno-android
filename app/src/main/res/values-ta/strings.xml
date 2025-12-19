@@ -422,4 +422,6 @@
         <item quantity="one">உருவாக்குபவர் கருவிகளை முடக்குவதிலிருந்து நீங்கள் %d தட்டவும்</item>
         <item quantity="other">உருவாக்குபவர் கருவிகளை முடக்குவதிலிருந்து நீங்கள் %d தட்டுகிறீர்கள்</item>
     </plurals>
+    <string name="ouinet_state_failed">தோல்வியடைந்தது</string>
+    <string name="ouinet_state_starting">தொடங்குகிறது</string>
 </resources>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="bookmark_menu_open_in_private_tab_button">Open in personal tab</string>
     <string name="mozac_feature_contextmenu_open_link_in_private_tab">Open link in personal tab</string>
     <string name="menu_action_close_tabs_private">Close Personal Tabs</string>
@@ -7,4 +7,12 @@
     <string name="toolbar_hint">Search or enter address</string>
     <string name="ouinet_state_stopped">Stopped</string>
     <string name="preferences_ceno_sources_external_udp">External UDP endpoints</string>
+    <string name="delete_browsing_data_prompt_allow">Delete</string>
+    <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="preferences_ceno_sources_origin">Website</string>
+    <string name="website_button_text">Website</string>
+    <string name="download_logs">Download</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Download</string>
+    <string name="bookmark_menu_delete_button">Delete</string>
 </resources>

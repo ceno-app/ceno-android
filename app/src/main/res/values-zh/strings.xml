@@ -446,4 +446,5 @@
     <string name="ouinet_state_started">已经开始</string>
     <string name="ouinet_state_stopping">停止中</string>
     <string name="ouinet_state_stopped">已经停止</string>
+    <string name="preferences_theme_option_0">跟随系统主题</string>
 </resources>
