@@ -7,7 +7,6 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
@@ -20,10 +19,7 @@ import kotlin.math.ln
 import kotlin.math.pow
 import kotlin.random.Random
 import androidx.core.content.edit
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import mozilla.components.concept.fetch.MutableHeaders
 
 
@@ -49,7 +45,11 @@ data class OuinetStatus(
     val public_udp_endpoints: Array<String>? = null,
     val state: String,
     val udp_world_reachable : String? = null,
-    val current_metrics_record_id: String
+    val current_metrics_record_id: String,
+    val doh_enabled: Boolean,
+    val injector_peers_n: Int,
+    val injector_ready: Boolean,
+    val udp_mux_rx_limit: Long,
 )
 
 enum class OuinetKey(val command : String) {
@@ -64,7 +64,10 @@ enum class OuinetKey(val command : String) {
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
     LOG_LEVEL("log_level"),
     CENO_METRICS("?metrics"),
-    ADD_METRICS("api/metrics/set_key_value?record_id")
+    ADD_METRICS("api/metrics/set_key_value?record_id"),
+    PINNED_GROUPS("api/groups/pinned"),
+    PIN_TO_CACHE("api/groups/pin?name"),
+    UNPIN_FROM_CACHE("api/groups/unpin?name")
 }
 
 enum class OuinetValue(val string: String) {
@@ -354,6 +357,11 @@ object CenoSettings {
             context.getString(R.string.pref_key_bridge_announcement), false
         )
 
+    fun hideOuicrawlFeed(context: Context) : Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_hide_ouicrawl_feed), false
+        )
+
     fun getCenoVersionString(context: Context) : String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
@@ -392,6 +400,14 @@ object CenoSettings {
         PreferenceManager.getDefaultSharedPreferences(context).getString(
             context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
         )
+
+    fun setDohEnabled(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_doh_enabled)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putBoolean(key, value)
+            }
+    }
 
     suspend fun webClientRequest (context: Context, request: Request): String? {
         var responseBody : String? = null
@@ -441,6 +457,7 @@ object CenoSettings {
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         currentMetricsRecordId = status.current_metrics_record_id
+        setDohEnabled(context, status.doh_enabled)
         if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
@@ -492,6 +509,7 @@ object CenoSettings {
                     }
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
+                            ouinetResponseListener?.onSuccess(response.toString())
                             setCenoCacheSize(context, bytesToString(0))
                             setCenoGroupsCount(context, 0)
                             context.components.cenoPreferences.sharedPrefsUpdate = true
@@ -542,11 +560,28 @@ object CenoSettings {
                             ouinetResponseListener?.onSuccess(response)
                         }
                     }
-                    OuinetKey.ADD_METRICS -> {
+                    OuinetKey.ADD_METRICS,
+                    OuinetKey.PINNED_GROUPS-> {
                         if (response == null) {
                             ouinetResponseListener?.onError()
                         } else {
                             ouinetResponseListener?.onSuccess(response)
+                        }
+                    }
+                    OuinetKey.PIN_TO_CACHE,
+                    OuinetKey.UNPIN_FROM_CACHE -> {
+                        if (response != null) {
+                            Toast.makeText(
+                                context,
+                                context.resources.getString(R.string.title_success),
+                                Toast.LENGTH_SHORT
+                            ).show()
+                        } else {
+                            Toast.makeText(
+                                context,
+                                context.resources.getString(R.string.pin_unpin_to_cache_failed),
+                                Toast.LENGTH_SHORT
+                            ).show()
                         }
                     }
                 }

@@ -44,6 +44,7 @@ class Ouinet (
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setFrontEndAccessToken(METRICS_FRONTEND_TOKEN)
+            .setDisableDoH(!Settings.isDohEnabled(context))
             .build()
     }
 

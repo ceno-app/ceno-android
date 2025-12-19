@@ -32,7 +32,7 @@ class LogsShareController(
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
         intent.setType("*/*")
         intent.putExtra(Intent.EXTRA_STREAM, logsUri)
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
         intent.setClassName(app.packageName, app.activityName)
         @Suppress("TooGenericExceptionCaught")
         val result = try {

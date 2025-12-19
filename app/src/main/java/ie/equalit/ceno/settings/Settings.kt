@@ -373,6 +373,12 @@ object Settings {
         )
     }
 
+    fun isDohEnabled(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_doh_enabled), true
+        )
+    }
+
     fun setOuinetMetricsEnabled(context: Context, newValue:Boolean) {
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit() {

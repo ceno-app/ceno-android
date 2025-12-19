@@ -16,6 +16,7 @@ import org.mozilla.geckoview.GeckoRuntimeSettings
 import ie.equalit.ceno.components.ceno.CenoWebExt
 import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt
+import ie.equalit.ceno.settings.CenoSettings
 
 object EngineProvider {
 
@@ -25,15 +26,13 @@ object EngineProvider {
     @Synchronized
     fun getOrCreateRuntime(context: Context): GeckoRuntime {
         if (runtime == null) {
-            val builder = GeckoRuntimeSettings.Builder()
-
-            // About config it's no longer enabled by default
-            builder.aboutConfigEnabled(true)
-
-            // Set the root certificate for ouinet proxy
-            builder.rootCertificate(rootCertificate)
-
-            runtime = GeckoRuntime.create(context, builder.build().apply { setConsoleOutputEnabled(true) })
+            val runtimeSettings = GeckoRuntimeSettings.Builder()
+                .aboutConfigEnabled(true)
+                .consoleOutput(CenoSettings.isCenoLogEnabled(context))
+                .debugLogging(CenoSettings.isCenoLogEnabled(context))
+                .rootCertificate(rootCertificate)
+                .build()
+            runtime = GeckoRuntime.create(context, runtimeSettings)
         }
 
         return runtime!!

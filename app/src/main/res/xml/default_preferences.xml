@@ -42,4 +42,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_developer_tools"
         android:defaultValue="false" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_doh_enabled"
+        android:defaultValue="true" />
 </PreferenceScreen>

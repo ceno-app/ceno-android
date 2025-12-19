@@ -28,10 +28,6 @@ android {
 
     compileSdkVersion Config.compileSdkVersion
 
-    aaptOptions {
-        ignoreAssetsPattern '!._'
-        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
-    }
 
     defaultConfig {
         applicationId "ie.equalit.ceno"
@@ -75,8 +71,9 @@ android {
     }
 
     def releaseTemplate = {
-        minifyEnabled false
-        proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        shrinkResources = !project.hasProperty("disableOptimization")
+        minifyEnabled = !project.hasProperty("disableOptimization")
+        proguardFiles = [getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro']
         matchingFallbacks = ['release'] // Use on the "release" build type in dependencies (AARs)
     }
 
@@ -96,7 +93,7 @@ android {
             applicationIdSuffix ".debug"
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
-        release {
+        release releaseTemplate >> {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
@@ -140,10 +137,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_17
         targetCompatibility JavaVersion.VERSION_17
     }
-
     packagingOptions {
-        exclude 'META-INF/atomicfu.kotlin_module'
+        resources {
+            excludes += ['META-INF/atomicfu.kotlin_module']
+        }
     }
+
 
     splits {
         abi {
@@ -154,6 +153,9 @@ android {
             //noinspection ChromeOsAbiSupport
             include "armeabi-v7a", "arm64-v8a", "x86_64"
         }
+    }
+    androidResources {
+        ignoreAssetsPattern 'uBlock0@raymondhill.net.*'
     }
 }
 
