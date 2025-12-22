@@ -1,0 +1,8 @@
+Dans cette version:
+-mise à jour de Android-Component en v132.0,
+-mise à jour des tests UI,
+-correction de bugs pour les écrans de petite taille,
+-refonte des permission et ajout d'options pour les révoquer depuis les paramètres,
+-mise à jourde Ouinet en v0.30.1,
+ajout d'une option "amenez moi sur Ceno quand même" en cas de timeout,
+- correction du scrolling pour masquer la toolbar

@@ -1,0 +1,4 @@
+Dans cette version:
+-mise à jour de l'extension Ceno en v1.8.1,
+-mise à jour de Android-Components en v132.0.2,
+-mise à jour de Ouinet en v0.31.0
