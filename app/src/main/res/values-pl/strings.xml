@@ -450,4 +450,11 @@
     <string name="preferences_theme_option_0">Używaj motywu systemu</string>
     <string name="preferences_ouinet_proxy_endpoint">Lokalny punkt końcowy proxy</string>
     <string name="preferences_ouinet_frontend_endpoint">Lokalny punkt końcowy frontendu</string>
+    <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">Pomyślnie zapisano udostępnione treści</string>
+    <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Udostępnione treści Ceno</string>
+    <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Wyeksportować listę udostępnionych treści?</string>
+    <string name="pin_unpin_to_cache_failed">Błąd! Aktualizacja pamięci podręcznej nieudana.</string>
+    <string name="preferences_hide_ouicrawl_feed">Ukryj listę Darmowych medii</string>
+    <string name="preferences_ouinet_enable_doh">Użyj DNS poprzez HTTPS</string>
+    <string name="updating_doh_dialog_title">Aktualizowanie ustawień DNS poprzez HTTPS</string>
 </resources>
