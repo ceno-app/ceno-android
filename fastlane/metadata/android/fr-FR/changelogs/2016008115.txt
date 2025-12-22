@@ -1,0 +1,7 @@
+Dans cette version:
+-correction de bugs en lien avec le changement de langage depuis les paramètres,
+-mise à jour de Android-Component en v131.0,
+-mise à jour de plusieurs bibliothèques Android,
+-correction de bugs avec les réglages de permission,
+-ajout de la possibilité de sélectionner le langage de l'appli depuis la configuration initiale,
+-ajout d'option pour enregistrer les logs sur l'appareil, et amélioration de l'UI de partage des logs
