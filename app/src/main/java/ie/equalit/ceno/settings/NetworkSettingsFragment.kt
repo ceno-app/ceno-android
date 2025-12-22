@@ -75,6 +75,9 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
         preferenceExtraBitTorrentBootstrap?.summary = getBTPreferenceSummary()
         preferenceDohEnabled?.onPreferenceChangeListener = getChangeListenerForDohEnabled()
 
+        if (requireComponents.ouinet.isDohDisabledForLocale()) {
+            preferenceDohEnabled?.isEnabled = false
+        }
     }
 
     private fun getChangeListenerForDohEnabled(): OnPreferenceChangeListener  {

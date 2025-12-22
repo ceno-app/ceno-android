@@ -50,6 +50,7 @@ android {
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
         buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
+        buildConfigField "String[]", "DOH_DISABLED_LOCALES",  localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
         buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
