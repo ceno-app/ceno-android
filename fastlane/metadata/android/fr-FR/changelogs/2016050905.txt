@@ -1,0 +1,4 @@
+Cette version:
+- Mises à jour des composants Android à v138.0.4
+- Mises à jour de cacert.pem avec un paquet généré le 20 03:12:02 2025 GMT
+- Mise à jour des traductions pour différents lieux

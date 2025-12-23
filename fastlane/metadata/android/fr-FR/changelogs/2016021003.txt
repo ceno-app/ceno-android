@@ -1,0 +1,9 @@
+Cette version:
+- Mets en place la campagne initiale "Clean Insights"
+- Ajoute un sous-menu caché d'outils développeur 
+- Ajoute des chaînes locales en
+- Supporte les icônes de lancement monochrome
+- Mises à jour des composants Android à v133.0.3
+- Ajoute un indicateur de statut de connexion au réseau Ceno sur la page d'accueil
+- Mets à jour le paquet cacert.pem
+- Mise à jour des traductions pour différentes langues

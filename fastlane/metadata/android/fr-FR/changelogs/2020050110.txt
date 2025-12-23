@@ -1,0 +1,4 @@
+Cette version:
+- Corrige un crash su service de premier plan
+- Rend les annonces de page d'accueil persistantes
+- Mise à jour de Ouinet à v1.2.1
