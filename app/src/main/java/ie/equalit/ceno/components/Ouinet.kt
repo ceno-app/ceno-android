@@ -26,6 +26,7 @@ class Ouinet (
     val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
 
     fun setConfig() {
+        val isDohDisabled = if (isDohDisabledForLocale()) true else !Settings.isDohEnabled(context)
 
         config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
@@ -44,6 +45,7 @@ class Ouinet (
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setFrontEndAccessToken(METRICS_FRONTEND_TOKEN)
+            .setDisableDoH(isDohDisabled)
             .build()
     }
 
@@ -66,6 +68,23 @@ class Ouinet (
         background.getFrontendEndpoint()?.also {
             CenoSettings.setFrontendEndpoint(context, it.toString())
         } ?: Logger.error("Failed to set frontendEndpoint in CenoSettings")
+    }
+
+    fun isDohDisabledForLocale(): Boolean {
+        var countryIsoCode = ""
+        val locationUtils = CenoLocationUtils(context.application)
+        countryIsoCode = locationUtils.currentCountry
+        Logger.debug("Got country code: $countryIsoCode")
+        if (countryIsoCode.isNotEmpty()) {
+            // Country code found, check if DoH should be disabled for this country
+            for (entry in BuildConfig.DOH_DISABLED_LOCALES) {
+                Logger.debug("Entry country code: $entry")
+                if (countryIsoCode == entry) {
+                    return true
+                }
+            }
+        }
+        return false
     }
 
     private fun getBtBootstrapExtras() : Set<String>? {

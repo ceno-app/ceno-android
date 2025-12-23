@@ -79,14 +79,14 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:title="@string/startup_category"
+        android:title="@string/ceno_notification_home_description"
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
-            android:key="@string/pref_key_show_standby_warning"
-            android:defaultValue="true"
-            android:title="@string/preferences_show_standby_warning"/>
+            android:key="@string/pref_key_hide_ouicrawl_feed"
+            android:defaultValue="false"
+            android:title="@string/preferences_hide_ouicrawl_feed"/>
 
     </PreferenceCategory>
 

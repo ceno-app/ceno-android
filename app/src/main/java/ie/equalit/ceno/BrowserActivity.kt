@@ -55,7 +55,6 @@ import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
-import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
@@ -210,11 +209,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         navHost.navController.popBackStack() // Remove startupFragment from backstack
 
         when {
-//                Settings.shouldShowOnboarding(this) && savedInstanceState == null -> R.id.action_global_onboarding
-            components.ouinet.background.getState() != RunningState.Started.toString() -> {
-                val bundle = bundleOf(StandbyFragment.shutdownCeno to false)
-                navHost.navController.navigate(R.id.action_global_standbyFragment, bundle)
-            }
             components.core.store.state.selectedTab == null -> navHost.navController.navigate(R.id.action_global_home)
             else -> navHost.navController.navigate(R.id.action_global_browser)
         }
@@ -256,7 +250,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         }
         updateOuinetStatus()
 
-//        if(Settings.isOuinetMetricsEnabled(this))
+        if(Settings.isOuinetMetricsEnabled(this))
             NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment))
@@ -369,13 +363,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onResume() {
         super.onResume()
-        if (components.ouinet.background.getState() != RunningState.Started.toString()) {
-            if (navHost.navController.currentDestination?.id  != R.id.standbyFragment) {
-                navHost.navController.popBackStack()
-                val bundle = bundleOf(StandbyFragment.shutdownCeno to false)
-                navHost.navController.navigate(R.id.action_global_standbyFragment, bundle)
-            }
-        }
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && components.ouinet.background.getState() != RunningState.Started.toString()) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background
@@ -416,39 +403,10 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean = when (item.itemId) {
         android.R.id.home -> {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
             true
         }
         else -> super.onOptionsItemSelected(item)
-    }
-
-    override fun onBackPressed() {
-        /* If coming from settings fragment, always clear back stack and go back to root fragment */
-        if (navHost.navController.currentDestination?.id == R.id.settingsFragment) {
-            if (components.core.store.state.selectedTabId == "" ||
-                components.core.store.state.selectedTabId == null
-            ) {
-                navHost.navController.popBackStack(R.id.homeFragment, true)
-                navHost.navController.navigate(R.id.action_global_home)
-            }
-            else {
-                navHost.navController.navigate(R.id.action_global_browser)
-            }
-            return
-        }
-        if (navHost.navController.currentDestination?.id == R.id.aboutFragment) {
-            navHost.navController.navigate(R.id.action_global_settings)
-            return
-        }
-
-        val fragment: Fragment? = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment)
-        if ((fragment is UserInteractionHandler) && fragment.onBackPressed()) {
-            return
-        }
-
-        super.onBackPressed()
-
-        removeSessionIfNeeded()
     }
 
     val requestPermissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
@@ -495,7 +453,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
      *
      * Eventually we may want to move this functionality into one of our feature components.
      */
-    private fun removeSessionIfNeeded(): Boolean {
+    fun removeSessionIfNeeded(): Boolean {
         val session = tab ?: return false
 
         return if (session.source is SessionState.Source.External && !session.restored) {
@@ -532,7 +490,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         val intent = Intent(this, WebExtensionActionPopupActivity::class.java)
         intent.putExtra("web_extension_id", webExtensionState.id)
         intent.putExtra("web_extension_name", webExtensionState.name)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        intent.setFlags( Intent.FLAG_ACTIVITY_CLEAR_TASK)
         startActivity(intent)
     }
 
@@ -600,12 +558,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         components.ouinet.background.shutdown(doClear) {
             handler.removeCallbacks(callback)
             callback.run()
-        }
-        updateView {
-            navHost.navController.navigate(R.id.action_global_standbyFragment, bundleOf(
-                StandbyFragment.DO_CLEAR to doClear,
-                StandbyFragment.shutdownCeno to true
-            ))
         }
     }
 

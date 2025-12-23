@@ -25,7 +25,6 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
-import ie.equalit.ceno.standby.StandbyFragment
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ouinet.Config
 import kotlinx.coroutines.Dispatchers
@@ -50,7 +49,7 @@ class ExportAndroidLogsDialog (
         val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
         val checkboxDebugLogs = logTimeFilterDialogView.findViewById<CheckBox>(R.id.checkBox_debug_logs)
 
-        if(fragment is StandbyFragment || fragment is HomeFragment) {
+        if(fragment is HomeFragment) {
             checkboxDebugLogs.visibility = View.VISIBLE
         } else {
             checkboxDebugLogs.visibility = View.GONE
@@ -121,10 +120,6 @@ class ExportAndroidLogsDialog (
                     withContext(Dispatchers.Main) {
 
                         progressDialog.show()
-                        if (fragment is StandbyFragment) {
-                            //delay ~15 seconds
-                            delay(10000L)
-                        }
                         progressView.isIndeterminate = false
                         withContext(Dispatchers.IO) {
                             logs = LogReader.getLogEntries(

@@ -79,12 +79,12 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
 
     override fun onWindowRequest(windowRequest: WindowRequest) {
         if (windowRequest.type == WindowRequest.Type.CLOSE) {
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
         else {
             /* CENO: Handle links in popups by loading the requested url in a new tab and closing the popup */
             components.useCases.tabsUseCases.selectOrAddTab(windowRequest.url)
-            onBackPressed()
+            onBackPressedDispatcher.onBackPressed()
         }
     }
 
