@@ -22,6 +22,7 @@ import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.ui.theme.ThemeManager
+import mozilla.components.browser.state.selector.privateTabs
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.tabstray.DefaultTabViewHolder
@@ -71,14 +72,13 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
 
         tabsPanel.initialize(tabsFeature, browsingModeManager, updateTabsToolbar = ::updateTabsToolbar)
         tabsToolbar.initialize(tabsFeature, browsingModeManager, ::closeTabsTray)
+        scrollToTabPosition()
     }
 
     override fun onStart() {
         super.onStart()
         tabsFeature?.start()
         themeManager.applyStatusBarThemeTabsTray()
-        val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)
-        tabsTray.layoutManager?.scrollToPosition(requireComponents.core.store.state.tabs.indexOf(requireComponents.core.store.state.selectedTab))
     }
 
     override fun onStop() {
@@ -111,10 +111,16 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         tabsToolbar.updateToolbar(isPrivate)
     }
 
-    /* CENO: Needed method to select normal/private tab during init of TabsTray */
-    private fun selectTabInPanel(isPrivate: Boolean) {
-        val tabsPanel = requireView().findViewById<TabsPanel>(R.id.tabsPanel)
-        tabsPanel.selectTab(isPrivate)
+    private fun scrollToTabPosition() {
+        val tabsTray = requireView().findViewById<RecyclerView>(R.id.tabsTray)
+        requireComponents.core.store.state.selectedTab?.let {
+            tabsTray.layoutManager?.scrollToPosition(
+                if (it.content.private)
+                    requireComponents.core.store.state.privateTabs.indexOf(it)
+                else
+                    requireComponents.core.store.state.tabs.indexOf(it)
+            )
+        }
     }
 
     private fun createAndSetupTabsTray(context: Context): TabsTray {
@@ -147,7 +153,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
                 }
             },
             onUpdateList = {
-                tabsTray.scrollToPosition(requireComponents.core.store.state.tabs.indexOf(requireComponents.core.store.state.selectedTab))
+                scrollToTabPosition()
             }
         )
 
