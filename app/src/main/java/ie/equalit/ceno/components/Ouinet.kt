@@ -15,6 +15,7 @@ import mozilla.components.support.base.log.logger.Logger
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.security.SecureRandom
 
 
 class Ouinet (
@@ -22,8 +23,7 @@ class Ouinet (
     ) {
 
     lateinit var config: Config
-    val METRICS_FRONTEND_TOKEN = CenoSettings.generateRandomToken()
-    val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
+    val metricsFrontendToken = generateRandomToken()
 
     fun setConfig() {
         val isDohDisabled = if (isDohDisabledForLocale()) true else !Settings.isDohEnabled(context)
@@ -44,7 +44,7 @@ class Ouinet (
             .setMetricsServerToken(METRICS_SERVER_TOKEN)
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
-            .setFrontEndAccessToken(METRICS_FRONTEND_TOKEN)
+            .setFrontEndAccessToken(metricsFrontendToken)
             .setDisableDoH(isDohDisabled)
             .build()
     }
@@ -140,5 +140,21 @@ class Ouinet (
         } catch (e: IOException) {
             e.printStackTrace()
         }
+    }
+
+    private fun generateRandomToken() : String {
+        return buildString {
+            SecureRandom().ints(0, CHAR_POOL.size)
+                .limit(TOKEN_LENGTH)
+                .forEach {
+                    append(CHAR_POOL[it])
+                }
+        }
+    }
+
+    companion object {
+        private val CHAR_POOL = ('a'..'z') + ('A'..'Z') + ('0'..'9')
+        private const val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
+        private const val TOKEN_LENGTH: Long = 27
     }
 }
