@@ -3,24 +3,23 @@ package ie.equalit.ceno.settings
 import android.content.Context
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
+import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
 import java.util.Locale
 import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
-import kotlin.random.Random
-import androidx.core.content.edit
-import kotlinx.coroutines.CoroutineScope
-import mozilla.components.concept.fetch.MutableHeaders
 
 
 @Serializable
@@ -79,7 +78,6 @@ enum class OuinetValue(val string: String) {
 object CenoSettings {
 
     const val LOGFILE_TXT = "logfile.txt"
-    private const val TOKEN_LENGTH = 27
 
     private val runningState = mapOf(
         "Created" to R.string.ouinet_state_created,
@@ -492,7 +490,7 @@ object CenoSettings {
             webClientRequest (
                 context,
                 Request(request, headers = MutableHeaders(Pair("X-Ouinet-Front-End-Token",
-                    context.components.ouinet.METRICS_FRONTEND_TOKEN)))
+                    context.components.ouinet.metricsFrontendToken)))
             ).let { response ->
 
                 if(response == null) ouinetResponseListener?.onError()
@@ -588,11 +586,5 @@ object CenoSettings {
             }
             return@launch
         }
-    }
-    fun generateRandomToken() : String{
-        val charPool: List<Char> = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        return (1..TOKEN_LENGTH)
-            .map { Random.nextInt(0, charPool.size).let { charPool[it] } }
-            .joinToString("")
     }
 }

@@ -34,6 +34,8 @@ class SettingsViewDeveloperToolsRobot {
     fun verifyAnnouncementOption1() = assertAnnouncementOption1()
     fun verifyAnnouncementOption2() = assertAnnouncementOption2()
     fun verifyAnnouncementOption3() = assertAnnouncementOption3()
+    fun verifyTestMetrics() = assertTestMetrics()
+    fun verifyTestMetricsSuccess() = assertTestMetricsSuccess()
 
     // toggleRemoteDebugging does not yet verify that the debug service is started
     // server runs on port 6000
@@ -72,6 +74,15 @@ class SettingsViewDeveloperToolsRobot {
     fun clickCancelDialog() {
         cancelDialogButton().click()
     }
+
+    fun clickTestMetrics() {
+        testMetrics().click()
+    }
+
+    fun clickOkDialog() {
+        okDialogButton().click()
+    }
+
 
     class Transition {
         fun settingsViewDeveloperTools(interact: SettingsViewDeveloperToolsRobot.() -> Unit): Transition {
@@ -113,6 +124,12 @@ private fun announcementOption3() = Espresso.onView(withText(R.string.preference
 private fun cancelDialogButton() = mDevice.findObject(
     UiSelector().resourceId("android:id/button2"),
 )
+private fun testMetrics() = Espresso.onView(withText(R.string.preferences_test_metrics))
+private fun testMetricsSuccess() = Espresso.onView(withText(R.string.test_metrics_dialog_success))
+
+private fun okDialogButton() = mDevice.findObject(
+    UiSelector().resourceId("android:id/button1"),
+)
 private fun assertDeveloperToolsUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
@@ -139,4 +156,8 @@ private fun assertAnnouncementOption1() = announcementOption1()
 private fun assertAnnouncementOption2() = announcementOption2()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 private fun assertAnnouncementOption3() = announcementOption3()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertTestMetrics() = testMetrics()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertTestMetricsSuccess() = testMetricsSuccess()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

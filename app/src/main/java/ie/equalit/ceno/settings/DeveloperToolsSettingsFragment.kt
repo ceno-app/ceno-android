@@ -1,6 +1,8 @@
 package ie.equalit.ceno.settings
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,11 +18,14 @@ import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.metrics.NetworkMetrics
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 import androidx.core.graphics.drawable.toDrawable
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 
 class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
 
@@ -45,6 +50,8 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
         getPreference(R.string.pref_key_ceno_download_log)?.
             onPreferenceClickListener = getClickListenerForOuinetLogExport()
+        getPreference(R.string.pref_key_test_metrics)?.
+        onPreferenceClickListener = getClickListenerForMetricsTest()
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
@@ -79,6 +86,41 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
                 }
                 create()
             }.show()
+            true
+        }
+    }
+
+    private fun getClickListenerForMetricsTest(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            Toast.makeText(
+                context,
+                getString(R.string.test_metrics_submitting),
+                Toast.LENGTH_SHORT
+            ).show()
+            NetworkMetrics(requireContext(), CoroutineScope(Dispatchers.Main)).submitTestMetric(
+                responseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        Log.d(TAG, "Successfully submitted test metric")
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle(getString(R.string.title_success))
+                            setMessage(getString(R.string.test_metrics_dialog_success))
+                            setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                            }
+                            create()
+                        }.show()
+                    }
+                    override fun onError() {
+                        Log.e(TAG, "Failed to submit test metric")
+                        AlertDialog.Builder(requireContext()).apply {
+                            setTitle(getString(R.string.ouinet_state_failed))
+                            setMessage(getString(R.string.test_metrics_dialog_failed))
+                            setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                            }
+                            create()
+                        }.show()
+                    }
+                }
+            )
             true
         }
     }

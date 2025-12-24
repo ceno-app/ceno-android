@@ -68,6 +68,18 @@ class NetworkMetrics(
         }
     }
 
+    fun submitTestMetric(responseListener: OuinetResponseListener) {
+        CenoSettings.ouinetClientRequest(
+            context,
+            coroutineScope,
+            OuinetKey.ADD_METRICS,
+            stringValue = "1",
+            ouinetResponseListener = responseListener,
+            forMetrics = true,
+            metricsKey = MetricsKeys.TEST.name
+        )
+    }
+
     private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
         CenoSettings.ouinetClientRequest(
             context,
