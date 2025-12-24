@@ -299,6 +299,10 @@ class SettingsViewTest {
             verifyAnnouncementExpiration()
             toggleAnnouncementExpirationOn()
             toggleAnnouncementExpirationOff()
+            verifyTestMetrics()
+            clickTestMetrics()
+            verifyTestMetricsSuccess()
+            clickOkDialog()
         }.goBack {
             Thread.sleep(5000)
             verifyCenoVersionDisplay()
