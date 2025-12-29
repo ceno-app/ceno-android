@@ -435,9 +435,6 @@ class HomeFragment : BaseHomeFragment() {
             context,
             Request(
                 url = Settings.getRSSAnnouncementUrl(context, languageCode),
-                headers = MutableHeaders(
-                    "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
-                )
             )
         )
 
@@ -447,9 +444,6 @@ class HomeFragment : BaseHomeFragment() {
                 context,
                 Request(
                     url = Settings.getRSSAnnouncementUrl(context, "en"),
-                    headers = MutableHeaders(
-                        "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
-                    )
                 )
             )
         }
@@ -467,9 +461,6 @@ class HomeFragment : BaseHomeFragment() {
             context,
             Request(
                 url = "https://schedule.ceno.app/schedule.json",
-                headers = MutableHeaders(
-                    "X-Ouinet-Proxy-Token" to context.components.ouinet.PROXY_ACCESS_TOKEN
-                )
             )
         )
         ouicrawlResponse?.let {

@@ -63,9 +63,6 @@ class OuicrawledSiteViewHolder(
         viewLifecycleOwner.lifecycleScope.launch(IO) {
             itemView.context.components.core.client.bitmapForUrl(
                 url = ouicrawlSite.FaviconURL,
-                headers = MutableHeaders(
-                    "X-Ouinet-Proxy-Token" to itemView.context.components.ouinet.PROXY_ACCESS_TOKEN
-                )
             )?.let { bitmap ->
                 withContext(Main) {
                     binding.ivFavicon.setImageBitmap(bitmap)

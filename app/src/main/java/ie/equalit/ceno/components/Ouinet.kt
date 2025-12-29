@@ -24,7 +24,7 @@ class Ouinet (
 
     lateinit var config: Config
     val metricsFrontendToken = generateRandomToken()
-    val proxyAccessToken = generateRandomToken()
+    val proxyAccessPassword = generateRandomToken()
 
     fun setConfig() {
         val isDohDisabled = if (isDohDisabledForLocale()) true else !Settings.isDohEnabled(context)
@@ -46,7 +46,7 @@ class Ouinet (
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setFrontEndAccessToken(metricsFrontendToken)
-            .setProxyAccessToken(proxyAccessToken)
+            .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
             .setDisableDoH(isDohDisabled)
             .build()
     }
@@ -157,6 +157,7 @@ class Ouinet (
     companion object {
         private val CHAR_POOL = ('a'..'z') + ('A'..'Z') + ('0'..'9')
         private const val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
+        const val PROXY_ACCESS_USER = "user"
         private const val TOKEN_LENGTH: Long = 27
     }
 }

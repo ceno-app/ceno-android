@@ -78,9 +78,6 @@ class TopSiteItemViewHolder(
             viewLifecycleOwner.lifecycleScope.launch(IO) {
                 itemView.context.components.core.client.bitmapForUrl(
                     url = topSite.imageUrl,
-                    headers = MutableHeaders(
-                        "X-Ouinet-Proxy-Token" to itemView.context.components.ouinet.PROXY_ACCESS_TOKEN
-                    )
                 )?.let { bitmap ->
                     withContext(Main) {
                         binding.faviconImage.setImageBitmap(bitmap)
