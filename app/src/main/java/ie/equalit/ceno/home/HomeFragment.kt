@@ -432,14 +432,18 @@ class HomeFragment : BaseHomeFragment() {
 
         var response = CenoSettings.webClientRequest(
             context,
-            Request(Settings.getRSSAnnouncementUrl(context, languageCode))
+            Request(
+                url = Settings.getRSSAnnouncementUrl(context, languageCode),
+            )
         )
 
         // if the network call fails, try to load 'en' locale
         if (response == null) {
             response = CenoSettings.webClientRequest(
                 context,
-                Request(Settings.getRSSAnnouncementUrl(context, "en"))
+                Request(
+                    url = Settings.getRSSAnnouncementUrl(context, "en"),
+                )
             )
         }
 
@@ -454,7 +458,9 @@ class HomeFragment : BaseHomeFragment() {
     private suspend fun getOuicrawlSites(context: Context) {
         var ouicrawlResponse = CenoSettings.webClientRequest(
             context,
-            Request("https://schedule.ceno.app/schedule.json")
+            Request(
+                url = "https://schedule.ceno.app/schedule.json",
+            )
         )
         ouicrawlResponse?.let {
             Log.d("Ouicrawl", ouicrawlResponse)
