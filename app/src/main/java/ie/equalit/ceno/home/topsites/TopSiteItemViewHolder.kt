@@ -23,7 +23,6 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.ceno.loadIntoView
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.utils.view.CenoViewHolder
-import mozilla.components.concept.fetch.MutableHeaders
 
 class TopSiteItemViewHolder(
     view: View,

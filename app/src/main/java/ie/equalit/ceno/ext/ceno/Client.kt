@@ -6,11 +6,9 @@ package ie.equalit.ceno.ext.ceno
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.fetch.Client
-import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import java.io.IOException
 

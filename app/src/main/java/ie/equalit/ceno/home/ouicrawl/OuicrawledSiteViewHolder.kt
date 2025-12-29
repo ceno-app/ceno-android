@@ -15,7 +15,6 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.feature.top.sites.TopSite
 
 class OuicrawledSiteViewHolder(
