@@ -4,6 +4,8 @@ import android.content.Context
 import android.util.Log
 import androidx.annotation.Nullable
 import ie.equalit.ceno.EngineProvider
+import ie.equalit.ceno.components.Ouinet.Companion.PROXY_ACCESS_USER
+import ie.equalit.ceno.ext.components
 import org.json.JSONObject
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.WebExtension
@@ -38,6 +40,8 @@ class WebExtensionPort (private val context : Context) {
 
                 val message = JSONObject()
                 message.put("init", "true")
+                message.put("proxyUser", PROXY_ACCESS_USER)
+                message.put("proxyPass", context.components.ouinet.proxyAccessPassword)
                 mPort!!.postMessage(message)
 
             }

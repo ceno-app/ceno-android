@@ -1,3 +1,12 @@
+# v2.8.1
+This release:
+- Updates random number generation to use SecureRandom
+- Fixes bug with tabs tray not scrolling to selected tab
+- Updates Ceno extension to v1.12.1
+- Implements proxy authorization for local Ouinet client
+- Fixes missing context crash in HomeFragment
+- Fix null exception in search engine settings page
+
 # v2.8.0
 This release:
 - Refactors custom back button navigation to use OnBackPressedDispatcher
