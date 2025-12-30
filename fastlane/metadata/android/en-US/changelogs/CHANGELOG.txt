@@ -5,6 +5,7 @@ This release:
 - Updates Ceno extension to v1.12.1
 - Implements proxy authorization for local Ouinet client
 - Fixes missing context crash in HomeFragment
+- Fix null exception in search engine settings page
 
 # v2.8.0
 This release:
