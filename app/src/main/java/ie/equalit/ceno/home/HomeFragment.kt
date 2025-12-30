@@ -210,13 +210,12 @@ class HomeFragment : BaseHomeFragment() {
                 }
             }
         }
-        context?.let { context ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                // Switch context to make network call
-                withContext(Dispatchers.IO) {
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            // Switch context to make network call
+            withContext(Dispatchers.IO) {
+                context?.let { context ->
                     getAnnouncements(context)
-                    if(!CenoSettings.hideOuicrawlFeed(requireContext()))
+                    if(!CenoSettings.hideOuicrawlFeed(context))
                         getOuicrawlSites(context)
 
                     // check for null and refresh homepage adapter if necessary
