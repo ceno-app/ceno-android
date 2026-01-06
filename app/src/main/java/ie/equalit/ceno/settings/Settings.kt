@@ -424,4 +424,10 @@ object Settings {
             return null
         }
     }
+
+    fun secureScreen(context: Context) : Int {
+        return PreferenceManager.getDefaultSharedPreferences(context).getString(
+            context.getString(R.string.pref_key_secure_screen), "1"
+        )!!.toInt()
+    }
 }

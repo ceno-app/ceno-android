@@ -506,4 +506,30 @@
     <string name="test_metrics_submitting">Submitting test metric</string>
     <string name="test_metrics_dialog_success">Test metric submitted to local client</string>
     <string name="test_metrics_dialog_failed">Test metric was not submitted to local client</string>
+    <string name="secure_screen_category">Secure Screen</string>
+    <string name="preferences_secure_screen">Enable secure screen</string>
+    <string name="preferences_secure_screen_summary">Choose when secure screen is enforced, will hide the current view when in switching apps and prevent screenshots</string>
+    <string name="preferences_secure_screen_default" translatable="false">1</string>
+    <string-array name="preferences_secure_screen_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="preferences_secure_screen_options">
+        <item>@string/preferences_secure_screen_option_1</item>
+        <item>@string/preferences_secure_screen_option_2</item>
+        <item>@string/preferences_secure_screen_option_3</item>
+    </string-array>
+
+    <string name="preferences_secure_screen_option_1">Never</string>
+    <string name="preferences_secure_screen_option_2">When app is in background</string>
+    <string name="preferences_secure_screen_option_3">Always</string>
+
+    <string name="preferences_secure_screen_background">Enable in background</string>
+    <string name="preferences_secure_screen_background_summary">Hides current view when switching apps</string>
+    <string name="preferences_secure_screen_always">Enable always</string>
+    <string name="preferences_secure_screen_always_summary">Hides current view when switching apps and prevents screenshots</string>
+
+    <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
+    <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
 </resources>

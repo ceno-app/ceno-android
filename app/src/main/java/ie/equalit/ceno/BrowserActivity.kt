@@ -51,6 +51,7 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
@@ -253,6 +254,8 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         if(Settings.isOuinetMetricsEnabled(this))
             NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
 
+        window?.setSecureScreen(Settings.secureScreen(this) == 2)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment))
         {
                 v:View, insets: WindowInsetsCompat ->
@@ -344,6 +347,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     override fun onPause() {
         super.onPause()
         isActivityResumed = false
+        if(Settings.secureScreen(this) == 1) {
+            window?.setSecureScreen(true)
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.set(AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis() + FOREGROUND_TIMEOUT_REMINDER_DURATION, reminderNotificationIntent)
@@ -363,6 +369,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onResume() {
         super.onResume()
+        if(Settings.secureScreen(this) == 1) {
+            window?.setSecureScreen(false)
+        }
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && components.ouinet.background.getState() != RunningState.Started.toString()) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background

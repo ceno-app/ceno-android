@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
@@ -45,16 +46,16 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupPreferences() {
-        val changeAppIconKey = requireContext().getPreferenceKey(R.string.pref_key_change_app_icon)
-        val themeKey = requireContext().getPreferenceKey(R.string.pref_key_theme)
-        val toolbarPositionKey = requireContext().getPreferenceKey(R.string.pref_key_toolbar_position)
 
-
-        val preferenceChangeAppIcon = findPreference<Preference>(changeAppIconKey)
-        val preferenceTheme = findPreference<Preference>(themeKey)
-
-        preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
-        preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()
+        getPreference(R.string.pref_key_change_app_icon)?.let {
+            it.onPreferenceClickListener = getClickListenerForChangeAppIcon()
+        }
+        getPreference(R.string.pref_key_theme)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForTheme()
+        }
+        getPreference(R.string.pref_key_secure_screen)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForSecureScreen()
+        }
     }
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {
@@ -80,6 +81,17 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
                 }
                  */
             }
+            true
+        }
+    }
+
+    private fun getChangeListenerForSecureScreen(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            val isEnabled = ((newValue as String).toInt() > 0)
+            getPreference(R.string.pref_key_secure_screen_personal)?.let {
+                it.isEnabled = isEnabled
+            }
+            activity?.window?.setSecureScreen(isEnabled)
             true
         }
     }
