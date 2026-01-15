@@ -52,9 +52,9 @@ platform :android do
     )
   end
 
-  desc "Set version name in local.properties.sample using latest version listed in CHANGELOG.txt"
+  desc "Set version name in local.properties.sample using latest version listed in CHANGELOG.md"
   lane :setVersionNameSample do
-    ENV["VERSION_NAME"] = sh "head -1 metadata/android/en-US/changelogs/CHANGELOG.txt \
+    ENV["VERSION_NAME"] = sh "head -1 ../CHANGELOG.md \
                                     | cut -d 'v' -f2 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties.sample"
@@ -62,7 +62,7 @@ platform :android do
 
   desc "Set version name in local.properties using latest version listed in CHANGELOG.txt"
   lane :setVersionName do
-    ENV["VERSION_NAME"] = sh "head -1 metadata/android/en-US/changelogs/CHANGELOG.txt \
+    ENV["VERSION_NAME"] = sh "head -1 ../CHANGELOG.md \
                                     | cut -d 'v' -f2 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties"
@@ -103,7 +103,7 @@ platform :android do
     sh "sha256sum ../output/release/* > ../output/release/sha256sums.txt"
   end
 
-  desc "Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly release"
+  desc "Create release notes from CHANGELOG.md to ${VERSION_CODE}.txt for nightly release"
   lane :createNightlyNotes do
     ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
                                     | grep versionName \
@@ -113,13 +113,13 @@ platform :android do
                                 --bundle ../app/build/outputs/bundle/nightly/app-nightly.aab \
                                 --xpath /manifest/@android:versionCode \
                                 | tr -d '\n'"
-    sh "sed -n \"/${VERSION_NAME}/,/#/p\" metadata/android/en-US/changelogs/CHANGELOG.txt \
+    sh "sed -n \"/${VERSION_NAME}/,/#/p\" ../CHANGELOG.md \
         | head -n -2 \
         | tail -n +2 \
         > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
   end
 
-  desc "Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release"
+  desc "Create and copy release notes from CHANGELOG.md to ${VERSION_CODE}.txt for production release"
   lane :createReleaseNotes do
     ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
                                     | grep versionName \
@@ -136,7 +136,7 @@ platform :android do
     ENV["VERSION_CODE_0"] = sh "echo 2${MAJOR}${MINOR}${PATCH}0${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_1"] = sh "echo 2${MAJOR}${MINOR}${PATCH}1${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_2"] = sh "echo 2${MAJOR}${MINOR}${PATCH}2${REVISION} | tr -d '\n'"
-    sh "sed -n \"/${VERSION_NAME}/,/#/p\" metadata/android/en-US/changelogs/CHANGELOG.txt \
+    sh "sed -n \"/${VERSION_NAME}/,/#/p\" ../CHANGELOG.md \
         | head -n -2 \
         | tail -n +2 \
         > metadata/android/en-US/changelogs/${VERSION_CODE_0}.txt"
