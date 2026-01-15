@@ -54,7 +54,8 @@ platform :android do
 
   desc "Set version name in local.properties.sample using latest version listed in CHANGELOG.md"
   lane :setVersionNameSample do
-    ENV["VERSION_NAME"] = sh "head -1 ../CHANGELOG.md \
+    ENV["VERSION_NAME"] = sh " sed -n /^##/p ../CHANGELOG.md \
+                                    | head -1 \
                                     | cut -d 'v' -f2 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties.sample"
@@ -62,7 +63,8 @@ platform :android do
 
   desc "Set version name in local.properties using latest version listed in CHANGELOG.txt"
   lane :setVersionName do
-    ENV["VERSION_NAME"] = sh "head -1 ../CHANGELOG.md \
+    ENV["VERSION_NAME"] = sh "sed -n /^##/p ../CHANGELOG.md \
+                                    | head -1 \
                                     | cut -d 'v' -f2 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties"
@@ -113,7 +115,7 @@ platform :android do
                                 --bundle ../app/build/outputs/bundle/nightly/app-nightly.aab \
                                 --xpath /manifest/@android:versionCode \
                                 | tr -d '\n'"
-    sh "sed -n \"/${VERSION_NAME}/,/#/p\" ../CHANGELOG.md \
+    sh "sed -n \"/${VERSION_NAME}/,/# \\[v/p\" ../CHANGELOG.md \
         | head -n -2 \
         | tail -n +2 \
         > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
@@ -136,7 +138,7 @@ platform :android do
     ENV["VERSION_CODE_0"] = sh "echo 2${MAJOR}${MINOR}${PATCH}0${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_1"] = sh "echo 2${MAJOR}${MINOR}${PATCH}1${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_2"] = sh "echo 2${MAJOR}${MINOR}${PATCH}2${REVISION} | tr -d '\n'"
-    sh "sed -n \"/${VERSION_NAME}/,/#/p\" ../CHANGELOG.md \
+    sh "sed -n \"/${VERSION_NAME}/,/# \\[v/p\" ../CHANGELOG.md \
         | head -n -2 \
         | tail -n +2 \
         > metadata/android/en-US/changelogs/${VERSION_CODE_0}.txt"
