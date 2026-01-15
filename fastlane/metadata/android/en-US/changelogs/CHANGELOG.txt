@@ -1,3 +1,13 @@
+# v2.8.2
+### Fixed
+- Handle JsonDecodingException in CenoSettings
+- Fix IllegalStateException in CenoTooltip.addButtons
+
+### Changed
+- Filter free media feed based on full locale detection
+- Update Android-Components to v147.0
+- Update Ouinet to v1.6.2
+
 # v2.8.1
 This release:
 - Updates random number generation to use SecureRandom
