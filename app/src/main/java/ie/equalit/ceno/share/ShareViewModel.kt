@@ -18,7 +18,7 @@ import ie.equalit.ceno.share.DefaultShareController.Companion.ACTION_COPY_LINK_T
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mozilla.components.feature.share.RecentAppsStorage
-import mozilla.components.support.utils.ext.queryIntentActivitiesCompat
+import mozilla.components.support.utils.ext.packageManagerCompatHelper
 
 class ShareViewModel(application: Application) : AndroidViewModel(application) {
 
@@ -116,7 +116,7 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
     @VisibleForTesting
     @WorkerThread
     fun getIntentActivities(shareIntent: Intent, context: Context): List<ResolveInfo>? {
-        return context.packageManager.queryIntentActivitiesCompat(shareIntent, 0)
+        return context.packageManagerCompatHelper.queryIntentActivitiesCompat(shareIntent, 0)
     }
 
     /**

@@ -8,9 +8,10 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.concept.engine.EngineView
 import ie.equalit.ceno.R
+import mozilla.components.ui.widgets.behavior.DependencyGravity.Bottom
+import mozilla.components.ui.widgets.behavior.DependencyGravity.Top
 import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior
-import mozilla.components.ui.widgets.behavior.EngineViewScrollingBehavior
-import mozilla.components.ui.widgets.behavior.ViewPosition as browserToolbarPosition
+import mozilla.components.ui.widgets.behavior.EngineViewScrollingBehaviorFactory
 
 /**
  * NOTE: This was adapted from Firefox Focus, please reference original code if API changes are made,
@@ -55,11 +56,12 @@ fun BrowserToolbar.enableDynamicBehavior(context: Context, swipeRefresh: SwipeRe
     else {
         Gravity.BOTTOM
     }
-    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = EngineViewScrollingBehavior(
-        context,
-        null,
-        if (shouldUseTopToolbar) browserToolbarPosition.TOP else browserToolbarPosition.BOTTOM,
-    )
+    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = EngineViewScrollingBehaviorFactory()
+        .build(
+            engineView,
+            this.asView(),
+            if (shouldUseTopToolbar) Top else Bottom,
+            )
 
 
     val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
