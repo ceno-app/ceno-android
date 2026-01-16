@@ -54,9 +54,10 @@ platform :android do
 
   desc "Set version name in local.properties.sample using latest version listed in CHANGELOG.md"
   lane :setVersionNameSample do
-    ENV["VERSION_NAME"] = sh " sed -n /^##/p ../CHANGELOG.md \
+    ENV["VERSION_NAME"] = sh "sed -n /^##/p ../CHANGELOG.md \
                                     | head -1 \
                                     | cut -d 'v' -f2 \
+                                    | cut -d ' ' -f1 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties.sample"
   end
@@ -66,6 +67,7 @@ platform :android do
     ENV["VERSION_NAME"] = sh "sed -n /^##/p ../CHANGELOG.md \
                                     | head -1 \
                                     | cut -d 'v' -f2 \
+                                    | cut -d ' ' -f1 \
                                     | tr -d '\n'"
     sh "sed -i \"s/versionName=.*/versionName=${VERSION_NAME}/g\" ../local.properties"
   end
