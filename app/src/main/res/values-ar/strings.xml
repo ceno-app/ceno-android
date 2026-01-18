@@ -25,7 +25,7 @@
     <string name="preferences_delete_browsing_data_button">احذف بيانات التصفح</string>
     <string name="delete_browsing_data_prompt_message_3">سيحذف بيانات التصفح المحددة.</string>
     <string name="preference_choose_search_engine">اختر محرك البحث</string>
-    <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصاراً قديماً. المس اسم الموقع واستمر ثم حدد إزالة.</string>
+    <string name="shortcut_max_limit_content">لإضافة اختصار جديد، أزل اختصارا موجدا. اضغط مع الاستمرار على الاختصار، ثم اختر «إزالة».</string>
     <string name="preference_search_summary">اضبط الوضع الافتراضي</string>
     <string name="preference_select_preferred_engine">حدد محركك المفضل:</string>
     <string name="insecure_connection">الاتصال غير آمن</string>
@@ -107,7 +107,7 @@
     <string name="onboarding_skip_button">تخطي</string>
     <string name="onboarding_battery_button">تابع</string>
     <string name="about_category">‬حول</string>
-    <string name="ceno_notification_description">انقر للتوقف</string>
+    <string name="ceno_notification_description">اضغط لمزيد من التفاصيل</string>
     <string name="ceno_notification_home_description">الرئيسية</string>
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">يوصى باستخدام سنو عندما يكون لديك اتصال Wi-Fi، فقد يستهلك بيانات أكثر مما تتوقع. قد ترغب في التوقف عن استخدام سنو عند استخدام بيانات الجوال.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">إيقاف سنو الآن</string>
@@ -139,7 +139,7 @@
 \n• تعطيل تحسين البطارية.
 \n
 \nهذا الإذن ضروري كي يستمر التطبيق في مشاركة مواقع الويب أثناء عمله في الخلفية</string>
-    <string name="preferences_show_onboarding">إظهار التضمين عند الإطلاق التالي</string>
+    <string name="preferences_show_onboarding">إظهار التلميحات عند الإطلاق التالي</string>
     <string name="preferences_customization">التخصيص</string>
     <string name="ceno_clear_dialog_title">مسح سنو</string>
     <string name="ceno_clear_action_description">مسح</string>
@@ -159,7 +159,7 @@
     <string name="ceno_private_browsing_body">&lt;h1&gt;التصفح الشخصي&lt;/h1&gt; &lt;p&gt;لن يشارك سنو المحتوى في علامات التبويب الشخصية مع مستخدمين آخرين. يمكنك زيارة المواقع التي تتطلب تسجيل الدخول بأمان. ولكن، هناك حاجة إلى طريق إلى الإنترنت.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;هل تريد معرفة المزيد؟&lt;/p&gt;</string>
     <string name="ceno_on_mobile_data_dialog_title" tools:ignore="UnusedResources">إشعار المتصفح سنو</string>
     <string name="preferences_about_ceno_browser_service">خدمة المتصفح سنو</string>
-    <string name="preferences_disable_battery_opt">تعطيل تحسين البطارية</string>
+    <string name="preferences_disable_battery_opt">تحسينات البطارية</string>
     <string name="ceno_clear_dialog_cancel">إلغاء</string>
     <string name="ceno_clear_dialog_clear_cache_only">مسح ذاكرة التخزين المؤقت لـ سنو فقط</string>
     <string name="ceno_clear_dialog_description">تحذير: سيؤدي مسح ذاكرة التخزين المؤقت وبيانات التطبيق إلى إعادة ضبط تطبيق سنو كما لو لم يتم استخدامه أبدًا.</string>
@@ -197,7 +197,7 @@
     <string name="ceno_clear_dialog_clear_entire_app">مسح ذاكرة التخزين المؤقت وبيانات تطبيق سنو</string>
     <string name="ceno_notification_clear_description">محو⚠</string>
     <string name="ceno_notification_clear_do_description">نعم</string>
-    <string name="preferences_allow_notifications">السماح بالإشعارات</string>
+    <string name="preferences_allow_notifications">الإشعارات</string>
     <string name="preferences_change_app_icon">تغيير أيقونة التطبيق</string>
     <string name="preferences_ceno_sources_public">بشكل علني</string>
     <string name="preferences_ceno_sources_peers_summary">تحميل المحتوى الذي شاركه مستخدمون آخرون</string>
@@ -309,4 +309,15 @@
     <string name="bookmark_menu_delete_button">حذف</string>
     <string name="bookmark_name_label">الاسم</string>
     <string name="tooltip_sources_title">مصادر Ceno</string>
+    <string name="bridge_mode_category">إعلانات الجسر</string>
+    <string name="about_content_para_2">متصفح Ceno هو مشروع تابع لمنظمة eQualitie، وهي منظمة كندية غير ربحية تعمل على تطوير خدمات إنترنت لامركزية دعما لشبكة أكثر مساواة وعدالة. وتعتمد حلول eQualitie على البرمجيات مفتوحة المصدر، وقد أثبتت فعاليتها عمليا، كما طورت بما يتماشى مع قيمنا. وبذلك تمكن هذه الحلول يوميا ملايين الأشخاص حول العالم من ممارسة حرية تكوين الجمعيات عبر الإنترنت.</string>
+    <string name="ceno_notification_title">مشاركة علامات التبويب المخزنة مؤقتا</string>
+    <string name="preferences_allow_crash_reporting_description">إرسال تقارير الأعطال إلى المطورين بعد حدوثها</string>
+    <string name="ceno_permissions_category">الأذونات</string>
+    <string name="preferences_clear_behavior_option_1">السؤال</string>
+    <string name="preferences_clear_behavior_option_2">مسح ذاكرة التخزين المؤقت لـ Ceno فقط</string>
+    <string name="preferences_clear_behavior_option_3">مسح بيانات التطبيق وذاكرة التخزين المؤقت لـ Ceno</string>
+    <string name="preferences_theme_option_0">اتباع مظهر النظام</string>
+    <string name="preferences_theme_option_1">داكن</string>
+    <string name="preferences_theme_option_2">فاتح</string>
 </resources>
