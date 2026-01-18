@@ -230,7 +230,7 @@
     <string name="ceno_support_link_url">https://ceno.app/ar/faq.html</string>
     <string name="crash_reporting_dialog_title">عذراً, يبدو أنَّ سنو قد حدث فيه عطلٌ تسبب في اغلاقه</string>
     <string name="personal_home_learn_more">تريدُ معرفة المزيد؟</string>
-    <string name="ouinet_client_fetch_success">تم تحديث الإعدادات</string>
+    <string name="ouinet_client_fetch_success">تم تحديث إعدادات Ceno</string>
     <string name="bt_sources_none">لا أحد</string>
     <string name="bt_invalid_ip_error">عنوان IP غير صالح</string>
     <string name="preferences_ceno_website_sources">مصادر الموقع</string>
@@ -320,4 +320,7 @@
     <string name="preferences_theme_option_0">اتباع مظهر النظام</string>
     <string name="preferences_theme_option_1">داكن</string>
     <string name="preferences_theme_option_2">فاتح</string>
+    <string name="preferences_theme_option_3">يحدد حسب موفر الطاقة</string>
+    <string name="preferences_change_language">تغيير اللغة</string>
+    <string name="eq_values_button_text">القيم</string>
 </resources>
