@@ -45,19 +45,24 @@ object LogReader {
 
             val handler = Handler(Looper.getMainLooper())
 
-            while (reader.readLine().also { line = it } != null
-                && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+            val currentTimeStamp = System.currentTimeMillis()
+
+            val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
+
+            while ((reader.readLine().also { line = it } != null)
+                && (logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB)) {
 
                 // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false
-                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, timeWindowInMilliseconds)) {
+                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, currentTimeStamp, timeWindowInMilliseconds)) {
                     logs.add(scrubLogs(line!!))
                     logsRead++
-
+                    val timestamp = timestampRegex.find(line)?.value
+                    if ((timestamp != null) && dateFormat.parse(timestamp)!!.time > currentTimeStamp)
+                        break
                     // Update progress callback on the main thread via handler post
                     handler.post {
-                        val progress = (logsRead.toFloat() / SettingsFragment.AVERAGE_TOTAL_LOGS).times(100).coerceAtMost(96F)
-                        progressCallback(progress.toInt())
+                        progressCallback(getProgressFromTimestamp(timestamp, currentTimeStamp,timeWindowInMilliseconds))
                     }
 
                 }
@@ -72,14 +77,14 @@ object LogReader {
         return logs
     }
 
-    private fun isWithinTimeRange(timestamp: String?, millisecondDifference: Long): Boolean {
+    private fun isWithinTimeRange(timestamp: String?, currentTimestamp:Long,  millisecondDifference: Long): Boolean {
 
         if (timestamp == null) return false
 
         val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
 
         // current date-time
-        val now = dateFormat.format(Date(System.currentTimeMillis()))
+        val now = dateFormat.format(Date(currentTimestamp))
 
         try {
             val differenceInMillis = (dateFormat.parse(now)?.time
@@ -91,6 +96,25 @@ object LogReader {
             e.printStackTrace()
         }
         return false
+    }
+
+    private fun getProgressFromTimestamp(timestamp: String?, currentTimestamp: Long, millisecondDifference: Long): Int {
+
+        if (timestamp == null) return 0
+
+        val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
+
+        // current date-time
+        val now = dateFormat.format(Date(currentTimestamp))
+
+        try {
+            val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
+            return (differenceInMillis / millisecondDifference).times(100f).toInt()
+
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
+        return 0
     }
 
     private fun getAllLogs(progressCallback: (Int) -> Unit): List<String> {
