@@ -2,9 +2,7 @@ package ie.equalit.ceno.metrics
 
 import android.content.Context
 import android.net.ConnectivityManager
-import android.net.Network
 import android.net.NetworkCapabilities
-import android.os.Build
 import android.telephony.TelephonyManager
 import android.util.Log
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
@@ -17,6 +15,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.launch
+import mozilla.components.support.ktx.android.content.appVersionName
 import java.util.Date
 import java.util.TimeZone
 
@@ -54,6 +53,8 @@ class NetworkMetrics(
         coroutineScope.launch {
             metricsRecordId.collect { recordId ->
                 //send metrics
+                //app version
+                addMetricToRecord(recordId, MetricsKeys.APP_VERSION, context.application.appVersionName)
                 //network country
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_COUNTRY, CenoLocationUtils(context.application).currentCountry)
                 //network operator
