@@ -55,6 +55,8 @@ class NetworkMetrics(
                 //send metrics
                 //app version
                 addMetricToRecord(recordId, MetricsKeys.APP_VERSION, context.application.appVersionName)
+                //bridge opt in
+                addMetricToRecord(recordId, MetricsKeys.BRIDGE_OPT_IN, CenoSettings.isBridgeAnnouncementEnabled(context).toString())
                 //network country
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_COUNTRY, CenoLocationUtils(context.application).currentCountry)
                 //network operator
