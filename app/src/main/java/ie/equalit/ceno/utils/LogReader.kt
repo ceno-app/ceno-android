@@ -34,10 +34,16 @@ object LogReader {
             }
 
             // Regex for identifying timestamp within log
-            val timestampRegex = Regex("\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
+            val timestampRegex = Regex("\\d{4}-\\d{2}-\\d{2} \\d{2}:\\d{2}:\\d{2}.\\d{3}")
+
+            //get start time for logs
+            val currentTimestamp = System.currentTimeMillis()
+
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
+            val logStartTimestamp = "-T${dateFormat.format(Date(currentTimestamp - timeWindowInMilliseconds))}"
 
             // Run logcat command
-            val process = ProcessBuilder("logcat", "-d", "*:V").start()
+            val process = ProcessBuilder("logcat", "-vyear", "-d", logStartTimestamp).start()
 
             // Read the output
             val reader = BufferedReader(InputStreamReader(process.inputStream))
@@ -45,24 +51,16 @@ object LogReader {
 
             val handler = Handler(Looper.getMainLooper())
 
-            val currentTimeStamp = System.currentTimeMillis()
-
-            val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
-
             while ((reader.readLine().also { line = it } != null)
                 && (logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB)) {
 
                 // filter out chatty logs as well as logs outside time bound
-                if (line?.contains("chatty", ignoreCase = true) == false
-                    && isWithinTimeRange(timestampRegex.find(line!!)?.value, currentTimeStamp, timeWindowInMilliseconds)) {
+                if (line?.contains("chatty", ignoreCase = true) == false) {
                     logs.add(scrubLogs(line!!))
                     logsRead++
-                    val timestamp = timestampRegex.find(line)?.value
-                    if ((timestamp != null) && dateFormat.parse(timestamp)!!.time > currentTimeStamp)
-                        break
                     // Update progress callback on the main thread via handler post
                     handler.post {
-                        progressCallback(getProgressFromTimestamp(timestamp, currentTimeStamp,timeWindowInMilliseconds))
+                        progressCallback(getProgressFromTimestamp(timestampRegex.find(line)?.value, currentTimestamp,timeWindowInMilliseconds))
                     }
 
                 }
@@ -81,15 +79,10 @@ object LogReader {
 
         if (timestamp == null) return false
 
-        val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
-
-        // current date-time
-        val now = dateFormat.format(Date(currentTimestamp))
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SSS")
 
         try {
-            val differenceInMillis = (dateFormat.parse(now)?.time
-                ?: 0) - (dateFormat.parse(timestamp)?.time ?: 0)
-
+            val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
             return differenceInMillis <= millisecondDifference
 
         } catch (e: Exception) {
@@ -102,14 +95,13 @@ object LogReader {
 
         if (timestamp == null) return 0
 
-        val dateFormat = SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
 
-        // current date-time
-        val now = dateFormat.format(Date(currentTimestamp))
 
         try {
             val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
-            return (differenceInMillis / millisecondDifference).times(100f).toInt()
+            val percent = 1f - (differenceInMillis.toFloat() / millisecondDifference.toFloat())
+            return percent.times(100).toInt()
 
         } catch (e: Exception) {
             e.printStackTrace()
