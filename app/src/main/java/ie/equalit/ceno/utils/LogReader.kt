@@ -79,7 +79,7 @@ object LogReader {
 
         if (timestamp == null) return false
 
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SSS")
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SSS", Locale.getDefault())
 
         try {
             val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
