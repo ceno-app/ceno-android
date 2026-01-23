@@ -59,8 +59,9 @@ object LogReader {
                     logs.add(scrubLogs(line!!))
                     logsRead++
                     // Update progress callback on the main thread via handler post
+                    val progress = getProgressFromTimestamp(timestampRegex.find(line)?.value, currentTimestamp,timeWindowInMilliseconds)
                     handler.post {
-                        progressCallback(getProgressFromTimestamp(timestampRegex.find(line)?.value, currentTimestamp,timeWindowInMilliseconds))
+                        progressCallback(progress)
                     }
 
                 }
