@@ -120,7 +120,7 @@ class ExportAndroidLogsDialog (
                     withContext(Dispatchers.Main) {
 
                         progressDialog.show()
-                        progressView.isIndeterminate = false
+                        progressView.isIndeterminate = true
                         withContext(Dispatchers.IO) {
                             logs = LogReader.getLogEntries(
                                 when {
@@ -131,7 +131,10 @@ class ExportAndroidLogsDialog (
                             ) { p ->
                                 run {
                                     try {
-                                        progressView.progress = p
+                                        if (p > 0) {
+                                            progressView.isIndeterminate = false
+                                            progressView.progress = p
+                                        }
                                     } catch (e: Exception) {
                                         e.printStackTrace()
                                     }
