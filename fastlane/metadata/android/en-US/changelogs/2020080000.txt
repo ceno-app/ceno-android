@@ -1,0 +1,12 @@
+This release:
+- Refactors custom back button navigation to use OnBackPressedDispatcher
+- Update BrowserActivity to launch as singleInstance
+- Replace FLAG_ACTIVITY_NEW_TASK with FLAG_ACTIVITY_CLEAR_TASK
+- Updates Android Gradle Plugin to 8.13.0
+- Introduces option to pin websites to cache
+- Reduces amount of default logging in release builds
+- Removes standby page
+- Updates Android-Components to v146.0.1
+- Adds customization option to hide free media feed
+- Updates Ouinet to v1.6.1
+- Adds option to toggle DNS-over-HTTPS as default resolver

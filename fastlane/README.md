@@ -45,7 +45,7 @@ Run gradle lintDebug
 [bundle exec] fastlane android setVersionNameSample
 ```
 
-Set version name in local.properties.sample using latest version listed in CHANGELOG.txt
+Set version name in local.properties.sample using latest version listed in CHANGELOG.md
 
 ### android setVersionName
 
@@ -85,7 +85,7 @@ Create checksum of releases binaries
 [bundle exec] fastlane android createNightlyNotes
 ```
 
-Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly release
+Create release notes from CHANGELOG.md to ${VERSION_CODE}.txt for nightly release
 
 ### android createReleaseNotes
 
@@ -93,7 +93,7 @@ Create release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for nightly relea
 [bundle exec] fastlane android createReleaseNotes
 ```
 
-Create and copy release notes from CHANGELOG.txt to ${VERSION_CODE}.txt for production release
+Create and copy release notes from CHANGELOG.md to ${VERSION_CODE}.txt for production release
 
 ### android cleanRepo
 

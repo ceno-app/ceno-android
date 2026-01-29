@@ -210,13 +210,12 @@ class HomeFragment : BaseHomeFragment() {
                 }
             }
         }
-        context?.let { context ->
-            viewLifecycleOwner.lifecycleScope.launch {
-                // Switch context to make network call
-                withContext(Dispatchers.IO) {
-
+        viewLifecycleOwner.lifecycleScope.launch {
+            // Switch context to make network call
+            withContext(Dispatchers.IO) {
+                context?.let { context ->
                     getAnnouncements(context)
-                    if(!CenoSettings.hideOuicrawlFeed(requireContext()))
+                    if(!CenoSettings.hideOuicrawlFeed(context))
                         getOuicrawlSites(context)
 
                     // check for null and refresh homepage adapter if necessary
@@ -432,14 +431,18 @@ class HomeFragment : BaseHomeFragment() {
 
         var response = CenoSettings.webClientRequest(
             context,
-            Request(Settings.getRSSAnnouncementUrl(context, languageCode))
+            Request(
+                url = Settings.getRSSAnnouncementUrl(context, languageCode),
+            )
         )
 
         // if the network call fails, try to load 'en' locale
         if (response == null) {
             response = CenoSettings.webClientRequest(
                 context,
-                Request(Settings.getRSSAnnouncementUrl(context, "en"))
+                Request(
+                    url = Settings.getRSSAnnouncementUrl(context, "en"),
+                )
             )
         }
 
@@ -454,7 +457,9 @@ class HomeFragment : BaseHomeFragment() {
     private suspend fun getOuicrawlSites(context: Context) {
         var ouicrawlResponse = CenoSettings.webClientRequest(
             context,
-            Request("https://schedule.ceno.app/schedule.json")
+            Request(
+                url = "https://schedule.ceno.app/schedule.json",
+            )
         )
         ouicrawlResponse?.let {
             Log.d("Ouicrawl", ouicrawlResponse)

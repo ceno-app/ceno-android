@@ -60,7 +60,9 @@ class OuicrawledSiteViewHolder(
         binding.tvWebsiteUrl.text = ouicrawlSite.SiteURL
         binding.tvLastUpdatedStatus.text = getLastCrawlUpdateTime(ouicrawlSite.LastCrawlUpdatedTS)
         viewLifecycleOwner.lifecycleScope.launch(IO) {
-            itemView.context.components.core.client.bitmapForUrl(ouicrawlSite.FaviconURL)?.let { bitmap ->
+            itemView.context.components.core.client.bitmapForUrl(
+                url = ouicrawlSite.FaviconURL,
+            )?.let { bitmap ->
                 withContext(Main) {
                     binding.ivFavicon.setImageBitmap(bitmap)
                 }

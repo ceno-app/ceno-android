@@ -344,7 +344,7 @@
     <string name="progress_dialog_log_export_message">Computing your logs…</string>
     <string name="last_5_minutes">Last 5 minutes</string>
     <string name="last_10_minutes">Last 10 minutes</string>
-    <string name="all_logs">All logs</string>
+    <string name="all_logs" tools:ignore="UnusedResources">All logs</string>
     <string name="select_log_scope_header">Select your preferred scope</string>
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
     <string name="canceled">Canceled</string>
@@ -502,4 +502,8 @@
     <string name="preferences_hide_ouicrawl_feed">Hide Free Media feed</string>
     <string name="preferences_ouinet_enable_doh">Use DNS over HTTPS</string>
     <string name="updating_doh_dialog_title">Updating DNS over HTTPS settings</string>
+    <string name="preferences_test_metrics">Test Ceno Metrics</string>
+    <string name="test_metrics_submitting">Submitting test metric</string>
+    <string name="test_metrics_dialog_success">Test metric submitted to local client</string>
+    <string name="test_metrics_dialog_failed">Test metric was not submitted to local client</string>
 </resources>
