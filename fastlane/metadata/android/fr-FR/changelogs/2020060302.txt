@@ -1,0 +1,12 @@
+Cette version:
+- Mises à jour du SDK compilé à la version 36
+- Mises à jour de Sentry 8.20.0
+- Mises à jour de AndroidX Core 1.17
+- Applique des solutions de mitigation pour le support d'affichage de bord-à-bord
+- Mise à jour Ouinet 1.4.0
+- Permet la sélection dynamique des passerelles de proxy
+- Ajoute l'option pour suivre le thème du système
+- Correction de bugs
+- Mises à jour des composants Android v143.0.3
+- Mettre à jour cacert.pem du 9 9 2025 GMT
+- Mises à jour de l'extension Ceno 1.10.0

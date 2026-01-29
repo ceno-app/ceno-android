@@ -1,0 +1,6 @@
+Cette version:
+- Corrige le mail Ceno de support non créé
+- Met à jour des composants Android à v135.0
+- Mise à jour Ouinet à v0.31.1
+- Désactive la notification de service de navigateur Ceno
+- Ajout de la notification à afficher lors de la navigation en mode public

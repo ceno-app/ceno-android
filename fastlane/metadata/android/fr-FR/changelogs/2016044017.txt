@@ -1,0 +1,8 @@
+Cette version :
+- Mises à jour des composants Android à v137.0
+- Mises à jour de l'extension Ceno à 1.9.0
+- Mise à jour de l'extension uBlock Origin à 1.63.2
+- Ré-encode la liste des groupes caches
+- Comprend le nombre local de cache dans les sources de ceno
+- Mises à jour de l'email de support Ceno 
+- Problème connu : Les extensions préinstallées ne sont pas traduites

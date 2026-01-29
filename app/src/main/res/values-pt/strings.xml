@@ -425,11 +425,28 @@
     <plurals name="last_crawl_status_hrs">
         <item quantity="one">%d hora atrás</item>
         <item quantity="many">%d horas atrás</item>
-        <item quantity="other"></item>
+        <item quantity="other"/>
     </plurals>
     <plurals name="last_crawl_status_days">
         <item quantity="one">%d dia atrás</item>
         <item quantity="many">%d dias atrás</item>
         <item quantity="other">%d dias atrás</item>
     </plurals>
+    <string name="preferences_theme_option_0">Seguir tema do sistema</string>
+    <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">Conteúdo partilhado guardado com sucesso</string>
+    <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Conteúdo partilhado Ceno</string>
+    <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Exportar lista de conteúdos partilhados?</string>
+    <string name="ouinet_state_created">Criado</string>
+    <string name="ouinet_state_failed">Falhou</string>
+    <string name="ouinet_state_starting">Começando</string>
+    <string name="ouinet_state_degraded">Degradado</string>
+    <string name="ouinet_state_started">Iniciado</string>
+    <string name="ouinet_state_stopping">Interrompendo</string>
+    <string name="ouinet_state_stopped">Interrompido</string>
+    <string name="preferences_ouinet_proxy_endpoint">Ponto final do proxy local</string>
+    <string name="preferences_ouinet_frontend_endpoint">Ponto final de front-end local</string>
+    <string name="pin_unpin_to_cache_failed">Erro! Atualização de cache falhou.</string>
+    <string name="preferences_hide_ouicrawl_feed">Esconder Feed de Media Livre</string>
+    <string name="preferences_ouinet_enable_doh">Usar DNS sobre HTTPS</string>
+    <string name="updating_doh_dialog_title">Atualizar DNS sobre as configurações HTTPS</string>
 </resources>

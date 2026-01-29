@@ -1,0 +1,5 @@
+Cette version:
+- Mise à jour Ouinet v1.4.1
+- Mises à jour des composants Android v144.0
+- Mises à jour du Sdk minimal à 26
+- Correction de bug avec la collection de métriques
