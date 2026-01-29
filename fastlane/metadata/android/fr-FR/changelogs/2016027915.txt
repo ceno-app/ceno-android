@@ -1,0 +1,3 @@
+Cette version:
+- Corrige le mail Ceno de support non créé
+- Met à jour des composants Android à v134.0.1

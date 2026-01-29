@@ -1,0 +1,5 @@
+Cette version:
+- Mises à jour des composants Android à v138.0.0
+- Mises à jour Gradle à 8.11.1 et Kotlin à 2.0.0
+- Mises à jour de Sentry à 8.11.1
+- Mises à jour de Gson à 2.11.0

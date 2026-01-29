@@ -32,12 +32,6 @@
             android:layout_height="wrap_content"
             android:text="@string/last_10_minutes" />
 
-        <RadioButton
-            android:id="@+id/radio_all_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/all_logs" />
-
     </RadioGroup>
 
     <CheckBox

@@ -1,0 +1,9 @@
+Cette version:
+- Mets à jour les composants Android à 141.0
+- Ajoute une notification sur Android 15+ pour pousser l'utilisateur à rouvrir Ceno
+- Mets à jour du site suggéré par défaut pour le RU
+- Mets à jour des liens vers le site eQualitie sur la page A propos
+- Introduit une section sur la page d'accueil pour afficher les sites crawlés
+- Remets en place la disparation par balayage des annonces de page d'acceuil
+- Présente les mesures de protection de la vie privée
+- Mets à jour Ouinet v1.3.0

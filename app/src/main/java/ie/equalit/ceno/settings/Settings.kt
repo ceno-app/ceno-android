@@ -9,8 +9,9 @@ import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
 import ie.equalit.ceno.R
+import ie.equalit.ceno.components.ceno.CenoLocationUtils
+import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
-import ie.equalit.ceno.ext.isFirstInstall
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
@@ -401,14 +402,24 @@ object Settings {
                     it
                 ).Sites
             }
-            //filter by locale
+            // try to filter list by language first
             val localeCode = Locale.getDefault().language
-            if (setOf("ru", "ua", "fa").contains(localeCode)) {
+            if (setOf("ru", "uk", "fa").contains(localeCode)) {
                 val sites =
                     ouicrawlSites?.filter { it.Language == localeCode }
                 return sites
             }
-            return ouicrawlSites
+            else {
+                // double check if device is in a locale we want to filter for
+                val countryCode = CenoLocationUtils(context.application).currentCountry
+                val sites = when(countryCode) {
+                    "RU" -> ouicrawlSites?.filter { it.Language == "ru" }
+                    "UA" -> ouicrawlSites?.filter { it.Language == "uk" }
+                    "IR" -> ouicrawlSites?.filter { it.Language == "fa" }
+                    else -> ouicrawlSites
+                }
+                return sites
+            }
         } catch (e:IllegalArgumentException) {
             return null
         }

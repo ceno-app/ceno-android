@@ -40,6 +40,7 @@ class CenoLocationUtils constructor(app: Application) {
             countryCode = countryFromSimCard
             if (!TextUtils.isEmpty(countryCode)) return countryCode.uppercase(Locale.getDefault())
             LOG.info("Falling back to user-defined locale")
+
             return Locale.getDefault().country
         }
     private val countryFromPhoneNetwork: String

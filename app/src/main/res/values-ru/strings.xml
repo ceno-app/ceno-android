@@ -458,4 +458,7 @@
     <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Ceno общий контент</string>
     <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Экспортировать список общего контента?</string>
     <string name="pin_unpin_to_cache_failed">Ошибка! Не удалось обновить кэш.</string>
+    <string name="preferences_hide_ouicrawl_feed">Скрыть бесплатную медиа-ленту</string>
+    <string name="preferences_ouinet_enable_doh">Использовать DNS через HTTPS</string>
+    <string name="updating_doh_dialog_title">Обновление настроек DNS через HTTPS</string>
 </resources>
