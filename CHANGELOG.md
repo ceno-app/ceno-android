@@ -20,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Filter free media feed based on full locale detection
-- Update Android-Components to v147.0.1
+- Update Android-Components to v147.0.2
 - Update Ouinet to v1.6.2
 
 ## [v2.8.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.1) - 2025-12-31
