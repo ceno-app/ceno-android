@@ -36,4 +36,10 @@
         app:isPreferenceVisible="false"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        android:defaultValue="false"
+        android:key="@string/pref_key_test_metrics"
+        android:title="@string/preferences_test_metrics"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>

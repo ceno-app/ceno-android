@@ -43,7 +43,7 @@ class RSSAnnouncementViewHolder(
                 if (listIsHidden) ContextCompat.getDrawable(personalContext, R.drawable.ic_arrow_collapsed) else ContextCompat.getDrawable(personalContext, R.drawable.ic_arrow_expanded),
                 null
             )
-
+            binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_orange_200))
         } else {
             binding.rssTitle.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_title_color))
             DrawableCompat.setTint(binding.rssTitle.background, ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_title_background))
@@ -54,6 +54,7 @@ class RSSAnnouncementViewHolder(
                 if (listIsHidden) R.drawable.ic_arrow_collapsed else R.drawable.ic_arrow_expanded,
                 0
             )
+            binding.tvMessage.setTextColor(ContextCompat.getColor(itemView.context, R.color.ceno_home_card_announcement_message))
         }
     }
 

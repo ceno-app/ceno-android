@@ -41,7 +41,7 @@ Ceno has two modes of operation - **Public** and **Personal**. You can easily to
 
 By default, Ceno collects anonymized application and network metrics to help us understand issues and improve application performance and user experience. The metrics records are encrypted-at-rest on your device and in-transit to eQualitie's self-hosted metrics endpoint. Metrics records are submitted at least once per-hour and are deleted from your device after submission. The collected data is aggregated on a weekly-basis and then deleted from our servers. No personal information is collected and the data is never shared with third-parties. Users can opt-out of metrics collection at any time via the `Settings > Background metrics > Ceno Metrics` toggle.
 
-Read more about the technical details of what we collect in the Ouinet repo's [record_format.md](https://gitlab.com/equalitie/ouinet/-/blob/main/rust/record_format.md).
+Read more about the technical details of what we collect in [METRICS.md](METRICS.md).
 
 ## ❣️ Contributing
 From testing to translations to bug reporting and merge requests, there are lots of ways to contribute to this project! Please see [the contributing guidelines](CONTRIBUTING.md) for more information.

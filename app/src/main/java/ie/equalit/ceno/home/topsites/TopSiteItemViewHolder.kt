@@ -75,7 +75,9 @@ class TopSiteItemViewHolder(
             binding.topSiteSubtitle.isVisible = true
 
             viewLifecycleOwner.lifecycleScope.launch(IO) {
-                itemView.context.components.core.client.bitmapForUrl(topSite.imageUrl)?.let { bitmap ->
+                itemView.context.components.core.client.bitmapForUrl(
+                    url = topSite.imageUrl,
+                )?.let { bitmap ->
                     withContext(Main) {
                         binding.faviconImage.setImageBitmap(bitmap)
                     }
