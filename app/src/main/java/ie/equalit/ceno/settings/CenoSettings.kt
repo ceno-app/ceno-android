@@ -503,7 +503,13 @@ object CenoSettings {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
                             if(forMetrics)
-                                currentMetricsRecordId = Json.decodeFromString<OuinetStatus>(response).current_metrics_record_id
+                                try {
+                                    currentMetricsRecordId = Json.decodeFromString<OuinetStatus>(response).current_metrics_record_id
+                                }
+                                catch(e : Exception){
+                                    Logger.error("Error decoding ouinet status for metrics: $e")
+                                    return@launch
+                                }
                             else
                                 updateOuinetStatus(context, response, shouldRefresh)
                         else

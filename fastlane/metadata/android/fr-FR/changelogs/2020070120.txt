@@ -1,0 +1,5 @@
+Cette version:
+- Mise à jour Ouinet v1.4.2
+- Mises à jour des composants Android à v145.0
+- Mettre à jour cacert.pem  généré le 4 9 2025 GMT
+- Mises à jour mineures de diverses traductions

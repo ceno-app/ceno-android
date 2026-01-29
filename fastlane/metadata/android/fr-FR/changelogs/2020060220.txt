@@ -1,0 +1,9 @@
+Cette version:
+- Mises à jour des composants Android à 142.0.1
+- Mises à jour de Sentry à 8.18.0
+- Mise à jour Ouinet à v1.3.1
+- Enlève les utilisations restantes de OuinetNotification
+- Fixe l'application ne répondant pas en erreur en raison des paramètres réseau
+- Mises à jour cacert.pem avec paquet généré sur le 12 août 2025
+- Mises à jour du logo Ceno
+- Mises à jour mineures de diverses traductions

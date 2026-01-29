@@ -1,0 +1,6 @@
+Cette version:
+- Mise à jour Ouinet à v1.2.0
+- Ajoute une fonction de marque-page
+- utilise un nouveau système de code de version pour les builds de version
+- Mises à jour des composants Android à v139.0.4
+- Mises à jour des Sentry au 8.13.2

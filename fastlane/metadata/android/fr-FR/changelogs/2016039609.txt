@@ -1,0 +1,4 @@
+Cette version:
+- Fixe la barre de status, barre d'outils et leur chevauchement sur le contenu sur les appareils Android 15
+- Mises à jour des composants Android à v136.0
+- Corrections mineures de bugs

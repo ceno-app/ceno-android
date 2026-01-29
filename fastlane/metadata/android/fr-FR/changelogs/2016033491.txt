@@ -1,0 +1,2 @@
+Cette version:
+- Mises à jour du Manifeste Android.xml

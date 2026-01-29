@@ -1,0 +1,5 @@
+Cette version:
+- Mises à jour des composants Android à 141.0.1
+- Fixe des bugs mineurs
+- Mise à jour du traitement des annonces pour prévenir les crasch
+- Modification majeure des traductions RU
