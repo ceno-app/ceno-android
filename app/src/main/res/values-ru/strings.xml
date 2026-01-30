@@ -461,4 +461,5 @@
     <string name="preferences_hide_ouicrawl_feed">Скрыть бесплатную медиа-ленту</string>
     <string name="preferences_ouinet_enable_doh">Использовать DNS через HTTPS</string>
     <string name="updating_doh_dialog_title">Обновление настроек DNS через HTTPS</string>
+    <string name="preferences_test_metrics">Проверка метрик Ceno</string>
 </resources>
