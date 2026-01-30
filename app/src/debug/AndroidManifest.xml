@@ -216,15 +216,6 @@
             </intent-filter>
         </activity-alias>
 
-        <activity android:name="ie.equalit.ceno.ExternalAppBrowserActivity"
-            android:configChanges="keyboard|keyboardHidden|mcc|mnc|orientation|screenSize|locale|layoutDirection|smallestScreenSize|screenLayout"
-            android:windowSoftInputMode="adjustResize|stateAlwaysHidden"
-            android:exported="false"
-            android:taskAffinity=""
-            android:persistableMode="persistNever"
-            android:autoRemoveFromRecents="false"
-            />
-
         <activity
             android:name="ie.equalit.ceno.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
@@ -269,15 +260,6 @@
                 <data android:scheme="https" />
             </intent-filter>
         </activity>
-
-        <service
-            android:name="ie.equalit.ceno.customtabs.CustomTabsService"
-            android:exported="true"
-            tools:ignore="ExportedService">
-            <intent-filter>
-                <action android:name="android.support.customtabs.action.CustomTabsService" />
-            </intent-filter>
-        </service>
 
         <service android:name="ie.equalit.ceno.downloads.DownloadService" />
 

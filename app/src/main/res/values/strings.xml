@@ -140,7 +140,7 @@
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">It is recommended to use Ceno when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop Ceno when using mobile data.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Stop Ceno now</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Continue</string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Do not show again</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
     <string name="ceno_clear_dialog_clear_entire_app">Clear Ceno cache and app data</string>
     <string name="ceno_clear_dialog_cancel">Cancel</string>
     <string name="ceno_clear_dialog_clear_cache_only">Clear Ceno cache only</string>
@@ -506,4 +506,6 @@
     <string name="test_metrics_submitting">Submitting test metric</string>
     <string name="test_metrics_dialog_success">Test metric submitted to local client</string>
     <string name="test_metrics_dialog_failed">Test metric was not submitted to local client</string>
+    <string name="dialog_external_url_message">Do you want to open the following url - \n\n%1$s</string>
+    <string name="dialog_external_url_title">Url from unknown source</string>
 </resources>
