@@ -410,14 +410,14 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             //show dialog
             if (Settings.shouldVerifyExternalUrl(this)) {
                 val dialog = LoadExternalUrlDialog(this, url) {
-                    openToBrowser(url, newTab = true)
+                    components.utils.intentProcessor.process(intent)
+                    navHost.navController.navigate(R.id.action_global_browser)
                 }.getDialog()
                 dialog.show()
             } else {
-                openToBrowser(url, newTab = true)
+                components.utils.intentProcessor.process(intent)
+                navHost.navController.navigate(R.id.action_global_browser)
             }
-
-//            navHost.navController.navigate(R.id.action_global_browser)
         }
 
     }
