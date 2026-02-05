@@ -1,0 +1,2 @@
+في هذا الإصدار:
+-تحديث ملف AndroidManifest.xml
