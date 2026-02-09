@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topsites>
+    <topsite>
+        <title>Ceno Manual</title>
+        <url>https://ceno.app/user-manual/uk/</url>
+    </topsite>
+    <topsite>
+        <title>eQtv Live</title>
+        <url>https://tv.equalit.ie/uk/live/</url>
+    </topsite>
+    <topsite>
+        <title>eQtv Відео</title>
+        <url>https://tv.equalit.ie/uk/videos/</url>
+    </topsite>
+    <topsite>
+        <title>Новости Донбасса</title>
+        <url>https://novosti.dn.ua/</url>
+    </topsite>
+    <topsite>
+        <title>Wikipedia</title>
+        <url>https://www.wikipedia.org/</url>
+    </topsite>
+    <topsite>
+        <title>Українська правда</title>
+        <url>https://www.pravda.com.ua/</url>
+    </topsite>
+    <topsite>
+        <title>Громадське</title>
+        <url>https://hromadske.ua/</url>
+    </topsite>
+    <topsite>
+        <title>Суспільне</title>
+        <url>https://suspilne.media/</url>
+    </topsite>
+</topsites>

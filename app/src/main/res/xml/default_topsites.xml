@@ -1,0 +1,20 @@
+
+<topsites xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <topsite>
+        <title stringRes="@string/default_top_site_1_title">TEXTCeno Manual</title>
+        <url>https://ceno.app/user-manual/</url>
+    </topsite>
+    <topsite>
+        <title>Wikipedia</title>
+        <url>https://www.wikipedia.org/</url>
+    </topsite>
+    <topsite>
+        <title>AP News</title>
+        <url>https://apnews.com/</url>
+    </topsite>
+    <topsite>
+        <title>Reuters</title>
+        <url>https://www.reuters.com/</url>
+    </topsite>
+</topsites>
