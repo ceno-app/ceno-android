@@ -1,8 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 
 <topsites xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <topsite>
-        <title stringRes="@string/default_top_site_1_title">Ceno Manual</title>
+        <title stringRes="@string/default_top_site_1_title">Ceno指南</title>
         <url>https://ceno.app/user-manual/</url>
     </topsite>
     <topsite>
@@ -10,11 +11,11 @@
         <url>https://www.wikipedia.org/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_3_title">AP News</title>
-        <url>https://apnews.com/</url>
+        <title stringRes="@string/default_top_site_3_title">自由時報</title>
+        <url>https://www.ltn.com.tw/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_4_title">Reuters</title>
-        <url>https://www.reuters.com/</url>
+        <title stringRes="@string/default_top_site_4_title">報導者</title>
+        <url>https://www.twreporter.org/</url>
     </topsite>
 </topsites>
