@@ -423,4 +423,5 @@
     <string name="preferences_test_metrics">Test Ceno Metrics</string>
     <string name="test_metrics_submitting">Created</string>
     <string name="test_metrics_dialog_success">Created</string>
+    <string name="test_metrics_dialog_failed">Test metric was not submitted to local client</string>
 </resources>
