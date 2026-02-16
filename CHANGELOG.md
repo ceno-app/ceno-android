@@ -10,10 +10,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Fixed
 
 - Log export not working when app set to RTL locale
+- Crash when free media has less than 5 items
 
 ### Changed
 
-- Update Android-Components to v147.0.2
+- Default name of log file is now ceno_log
+- Update Android-Components to v147.0.4
+- Update Android Gradle Plugin to 8.13.2
 
 ## v2.8.2 - 2026-01-29
 
