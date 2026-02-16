@@ -89,7 +89,14 @@ private fun AppState.toAdapterList(
             mode,
             announcement,
             isBridgeAnnouncementEnabled,
-            if (ouicrawlListIsPartial) ouicrawlSites?.subList(0, 5) else ouicrawlSites,
+            ouicrawlSites?.let {
+                if (ouicrawlListIsPartial && it.size > 5) {
+                    it.subList(0, 5)
+                }
+                else {
+                    it
+                }
+            },
             hideOuicrawlFeed
         )
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
