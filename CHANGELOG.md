@@ -18,7 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Android-Components to v147.0.4
 - Update Android Gradle Plugin to 8.13.2
 
-## v2.8.2 - 2026-01-29
+## [v2.8.2]((https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.2)) - 2026-01-29
 
 ### Added
 
