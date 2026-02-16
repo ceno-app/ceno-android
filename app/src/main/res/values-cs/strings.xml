@@ -325,7 +325,6 @@
     <string name="ceno_personal_browsing_description">Ceno nebude sdílet obsah z osobních karet s ostatními uživateli. Můžete navštívit stránky, které vyžadují přihlášení.</string>
     <string name="public_browsing_mode_selected">vybrán režim veřejného procházení</string>
     <string name="personal_mode_icon">ikona osobního režimu</string>
-    <string name="ceno_android_logs_file_name">Ceno Protokoly</string>
     <string name="select_log_scope_header">Vyberte preferovaný rozsah</string>
     <string name="select_log_scope_message">Výběr delších časových úseků může znamenat delší čekání</string>
     <string name="standby_restarting_text">Restartování…</string>

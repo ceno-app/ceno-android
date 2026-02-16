@@ -250,7 +250,6 @@
     <string name="personal_mode_icon">个人模式图标</string>
     <string name="ceno_log_file_saved">日志文件保存成功</string>
     <string name="ceno_log_file_saved_desc">为了优先考虑您的隐私，所有个人身份信息已从该日志中仔细删除。</string>
-    <string name="ceno_android_logs_file_name">Ceno日志</string>
     <string name="ouinet_log_file_prompt_desc">请注意，此日志可能包含个人身份信息。 分享时请务必小心。</string>
     <string name="share_logs">分享</string>
     <string name="download_logs">下载</string>

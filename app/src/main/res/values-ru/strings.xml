@@ -261,7 +261,6 @@
     <string name="public_browsing_mode_selected">выбран публичный режим просмотра</string>
     <string name="public_mode_icon">иконка публичного режима</string>
     <string name="ceno_log_file_saved">Файл с логами успешно сохранён</string>
-    <string name="ceno_android_logs_file_name">Ceno Логи</string>
     <string name="ouinet_log_file_prompt_desc">Внимание, этот лог может содержать персональную информацию. Будьте аккуратны.</string>
     <string name="share_logs">Поделиться</string>
     <string name="view_logs">Просмотреть</string>
