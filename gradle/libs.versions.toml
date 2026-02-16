@@ -22,7 +22,7 @@ google_material = "1.13.0"
 
 # Gradle
 #noinspection AndroidGradlePluginVersion
-gradle_android_plugin = "8.13.0"
+gradle_android_plugin = "8.13.2"
 gradle_kotlin_plugin = "2.1.21"
 
 # Kotlin
@@ -105,7 +105,7 @@ mozilla-featurereaderview = { group = "org.mozilla.components", name = "feature-
 mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
 mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
 mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
-mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components"}
+mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components" }
 
 mozilla-uiautocomplete = { group = "org.mozilla.components", name = "ui-autocomplete", version.ref = "android_components" }
 mozilla-uicolors = { group = "org.mozilla.components", name = "ui-colors", version.ref = "android_components" }
