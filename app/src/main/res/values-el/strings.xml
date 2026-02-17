@@ -166,7 +166,6 @@
     <string name="progress_dialog_log_export_header">Παρακαλώ περιμένετε…</string>
     <string name="view_logs">Προβολή</string>
     <string name="empty_log_text">Φαίνεται ότι το αρχείο καταγραφής σας είναι άδειο</string>
-    <string name="ceno_android_logs_file_name">Αρχεία Καταγραφής Ceno</string>
     <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">Το κοινόχρηστο περιεχόμενο αποθηκεύτηκε με επιτυχία</string>
     <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Κοινόχρηστο περιεχόμενο Ceno</string>
     <string name="ouinet_log_file_prompt_desc">Προσοχή, αυτό το αρχείο καταγραφής ενδέχεται να περιέχει προσωπικά αναγνωρίσιμες πληροφορίες. Να είστε προσεκτικοί όταν το μοιράζεστε.</string>
