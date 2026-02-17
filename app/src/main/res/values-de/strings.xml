@@ -435,4 +435,8 @@
     <string name="preferences_hide_ouicrawl_feed">Verstecke den freien Mediafeed</string>
     <string name="preferences_ouinet_enable_doh">Nutze DNS over HTTPS</string>
     <string name="updating_doh_dialog_title">Aktualisiere die Einstellungen für DNS over HTTPS</string>
+    <string name="preferences_test_metrics">Teste Ceno-Metriken</string>
+    <string name="test_metrics_submitting">Testmetrik senden</string>
+    <string name="test_metrics_dialog_success">Testmetrik an lokalen Client gesendet</string>
+    <string name="test_metrics_dialog_failed">Testmetrik wurde nicht an lokalen Client gesendet</string>
 </resources>
