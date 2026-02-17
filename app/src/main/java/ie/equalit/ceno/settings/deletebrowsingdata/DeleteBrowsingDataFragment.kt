@@ -4,15 +4,20 @@
 
 package ie.equalit.ceno.settings.deletebrowsingdata
 
-import android.annotation.SuppressLint
+//import androidx.navigation.fragment.findNavController
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
-//import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.findNavController
+import ie.equalit.ceno.R
+import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
+import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -22,10 +27,6 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.lib.state.ext.flowScoped
-import ie.equalit.ceno.R
-import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
-import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.Settings
 
 @SuppressWarnings("TooManyFunctions", "LargeClass")
 class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_data) {
@@ -78,6 +79,12 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
             askToDelete()
         }
         updateDeleteButton()
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun updatePreference(it: DeleteBrowsingDataItem) {
