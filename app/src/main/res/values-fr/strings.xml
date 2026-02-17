@@ -456,4 +456,8 @@
     <string name="preferences_hide_ouicrawl_feed">Masquer le flux multimédia gratuit</string>
     <string name="preferences_ouinet_enable_doh">Utiliser DNS over HTTPS</string>
     <string name="updating_doh_dialog_title">Mettre à jour les paramètres DNS over HTTPS</string>
+    <string name="preferences_test_metrics">Tester les stats Ceno</string>
+    <string name="test_metrics_submitting">Soumettre des statistiques de test</string>
+    <string name="test_metrics_dialog_success">Statistiques de test soumises au client local</string>
+    <string name="test_metrics_dialog_failed">Les statistiques de test n\'ont pas été soumises au client local</string>
 </resources>

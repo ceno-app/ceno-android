@@ -425,4 +425,15 @@
     <string name="ouinet_state_stopped">Dihentikan</string>
     <string name="preferences_ouinet_proxy_endpoint">Titik akhir proxy lokal</string>
     <string name="preferences_ouinet_frontend_endpoint">Titik akhir frontend lokal</string>
+    <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">Konten bersama berhasil disimpan</string>
+    <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Konten bersama Ceno</string>
+    <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Ekspor daftar konten bersama?</string>
+    <string name="pin_unpin_to_cache_failed">Kesalahan! Pembaruan cache gagal.</string>
+    <string name="preferences_hide_ouicrawl_feed">Sembunyikan umpan Media Gratis</string>
+    <string name="preferences_ouinet_enable_doh">Gunakan DNS melalui HTTPS</string>
+    <string name="updating_doh_dialog_title">Memperbarui pengaturan DNS melalui HTTPS</string>
+    <string name="preferences_test_metrics">Uji Metrik Ceno</string>
+    <string name="test_metrics_submitting">Mengirim metrik uji</string>
+    <string name="test_metrics_dialog_success">Metrik uji dikirim ke klien lokal</string>
+    <string name="test_metrics_dialog_failed">Metrik uji tidak dikirim ke klien lokal</string>
 </resources>
