@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Log export not working when app set to RTL locale
 - Crash when free media has less than 5 items
+- Crash when navigating back in Setting after language change
 
 ### Changed
 

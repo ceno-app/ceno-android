@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.settings.deletebrowsingdata
 
-//import androidx.navigation.fragment.findNavController
 import android.content.DialogInterface
 import android.os.Bundle
 import android.view.View
