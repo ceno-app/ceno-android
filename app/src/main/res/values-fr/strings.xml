@@ -260,7 +260,6 @@
     <string name="personal_mode_icon">iĉone du mode personnel</string>
     <string name="ceno_log_file_saved">FIchier journal enregistré avec succès</string>
     <string name="ceno_log_file_saved_desc">Pour protéger votre vie privée, toute information personnelle identifiable a été soigneusement retirée de ce journal.</string>
-    <string name="ceno_android_logs_file_name">Journaux Ceno</string>
     <string name="ouinet_log_file_prompt_desc">Attention, ce journal pourrait contenir des informations personnelles identifiables. Faites preuve de prudence au moment de le partager.</string>
     <string name="view_logs">Voir</string>
     <string name="share_logs">Partager</string>

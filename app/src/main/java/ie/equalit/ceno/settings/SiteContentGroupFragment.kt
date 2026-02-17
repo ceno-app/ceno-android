@@ -10,18 +10,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.coroutines.Job
 
 class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListener {
 
@@ -62,7 +63,11 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
                 )
             )
         }
-
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun convertToMap(groups: String): List<CachedGroupAdapter.GroupItem> {

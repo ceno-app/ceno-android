@@ -142,7 +142,6 @@
     <string name="personal_mode_icon">Mode ikon pribadi</string>
     <string name="ceno_log_file_saved">Berkas log tersimpan sukses</string>
     <string name="ceno_log_file_saved_desc">Untuk memprioritaskan privasi Anda, semua informasi identitas pribadi telah dihapus dengan hati-hati dari log ini.</string>
-    <string name="ceno_android_logs_file_name">Ceno Log</string>
     <string name="progress_dialog_log_export_header">Mohon tunggu…</string>
     <string name="progress_dialog_log_export_message">Menghitung log anda…</string>
     <string name="last_5_minutes">5 menit terakhir</string>
