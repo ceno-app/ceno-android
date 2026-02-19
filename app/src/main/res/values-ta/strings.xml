@@ -284,7 +284,6 @@
     <string name="personal_mode_icon">தனிப்பட்ட பயன்முறை படவுரு</string>
     <string name="ceno_log_file_saved">பதிவு கோப்பு வெற்றிகரமாக சேமிக்கப்பட்டது</string>
     <string name="ceno_log_file_saved_desc">உங்கள் தனியுரிமைக்கு முன்னுரிமை அளிக்க, தனிப்பட்ட முறையில் அடையாளம் காணக்கூடிய அனைத்து தகவல்களும் இந்த பதிவிலிருந்து கவனமாக அகற்றப்பட்டுள்ளன.</string>
-    <string name="ceno_android_logs_file_name">Ceno பதிவுகள்</string>
     <string name="browser_menu_share">பகிர்</string>
     <string name="share_header_2">பகிர்</string>
     <string name="share_link_recent_apps_subheader">சமீபத்தில் பாவித்தவை</string>

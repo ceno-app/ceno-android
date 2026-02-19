@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.settings
 
-import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -13,8 +12,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.core.view.MenuProvider
 import androidx.core.view.isGone
 import androidx.fragment.app.Fragment
@@ -28,7 +29,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAndroidLogBinding
 import ie.equalit.ceno.settings.adapters.LogTextAdapter
 import mozilla.components.concept.engine.prompt.ShareData
-import androidx.core.graphics.drawable.toDrawable
 
 class AndroidLogFragment : Fragment(), MenuProvider {
 
@@ -71,6 +71,12 @@ class AndroidLogFragment : Fragment(), MenuProvider {
                 }
             }
         })
+
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun loadInitialData() {

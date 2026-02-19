@@ -4,25 +4,32 @@
 
 package ie.equalit.ceno.settings
 
-import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
+import android.view.View
+import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.ext.requireComponents
-import mozilla.components.browser.state.selector.selectedTab
-import androidx.core.graphics.drawable.toDrawable
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.customization_preferences, rootKey)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     override fun onResume() {
