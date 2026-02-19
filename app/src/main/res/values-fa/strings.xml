@@ -244,7 +244,6 @@
     <string name="personal_mode_icon">آیکون حالت شخصی</string>
     <string name="ceno_log_file_saved">فایل گزارش با موفقیت ذخیره شد</string>
     <string name="ceno_log_file_saved_desc">برای اولویت دادن به حریم خصوصی شما، تمام اطلاعات قابل شناسایی شخصی به دقت از این گزارش حذف شده.</string>
-    <string name="ceno_android_logs_file_name">فایل‌های گزارش سنو</string>
     <string name="ouinet_log_file_prompt_desc">توجه داشته باشید، این گزارش ممکن است حاوی اطلاعات قابل شناسایی شخصی باشد. هنگام اشتراک‌گذاری احتیاط کنید.</string>
     <string name="view_logs">مشاهده</string>
     <string name="share_logs">اشتراک‌گذاری</string>

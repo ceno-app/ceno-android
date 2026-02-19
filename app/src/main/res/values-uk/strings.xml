@@ -248,7 +248,6 @@
     <string name="personal_browsing_mode_selected">обрано персональний режим перегляду</string>
     <string name="personal_mode_icon">іконка персонального режиму</string>
     <string name="ceno_log_file_saved">Файл логу успішно збережено</string>
-    <string name="ceno_android_logs_file_name">Ceno Логи</string>
     <string name="view_logs">Переглянути</string>
     <string name="share_logs">Поділіться</string>
     <string name="download_logs">Завантажити</string>
@@ -443,4 +442,8 @@
     <string name="preferences_hide_ouicrawl_feed">Приховати стрічку безкоштовних медіафайлів</string>
     <string name="preferences_ouinet_enable_doh">Використовувати DNS замість HTTPS</string>
     <string name="updating_doh_dialog_title">Оновлення налаштувань DNS через HTTPS</string>
+    <string name="preferences_test_metrics">Тестування показників Ceno</string>
+    <string name="test_metrics_submitting">Надсилання тестової метрики</string>
+    <string name="test_metrics_dialog_success">Тестовий показник, надісланий локальному клієнту</string>
+    <string name="test_metrics_dialog_failed">Тестовий показник не було надіслано локальному клієнту</string>
 </resources>

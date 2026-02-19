@@ -5,19 +5,19 @@
 package ie.equalit.ceno.settings
 
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuInflater
-import android.view.MenuItem
+import android.view.View
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
-import mozilla.components.browser.state.state.SearchState
-import mozilla.components.browser.state.state.availableSearchEngines
-import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.feature.search.SearchUseCases
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.search.RadioSearchEngineListPreference
+import mozilla.components.browser.state.state.SearchState
+import mozilla.components.browser.state.state.availableSearchEngines
+import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.feature.search.SearchUseCases
 import kotlin.collections.forEach as withEach
 
 class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
@@ -38,6 +38,15 @@ class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
         } else {
             refetchSearchEngines()
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun setupPreferences() {

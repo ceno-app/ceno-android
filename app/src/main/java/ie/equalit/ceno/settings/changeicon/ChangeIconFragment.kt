@@ -4,12 +4,18 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.addCallback
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.databinding.FragmentChangeIconBinding
-import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.settings.changeicon.appicons.*
+import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
+import ie.equalit.ceno.settings.changeicon.appicons.AppIconModifier
+import ie.equalit.ceno.settings.changeicon.appicons.AppIconsAdapter
+import ie.equalit.ceno.settings.changeicon.appicons.AppIconsInteractor
+import ie.equalit.ceno.settings.changeicon.appicons.AppIconsView
+import ie.equalit.ceno.settings.changeicon.appicons.DefaultAppIconsController
 
 class ChangeIconFragment : Fragment() {
 
@@ -56,6 +62,15 @@ class ChangeIconFragment : Fragment() {
         updateChangeIconView()
 
         return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun updateChangeIconView() {
