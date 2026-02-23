@@ -406,13 +406,18 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             navHost.navController.navigate(R.id.action_global_settings, bundle)
         }
         if (safeIntent.action == Intent.ACTION_VIEW) {
-            val url = safeIntent.dataString!!
+            val url = safeIntent.dataString
+            if (url.isNullOrBlank()) {
+                Logger.debug("ACTION_VIEW without dataString; ignoring.")
+                return
+            }
             //show dialog
             if (Settings.shouldVerifyExternalUrl(this)) {
                 val dialog = LoadExternalUrlDialog(this, url) {
                     components.utils.intentProcessor.process(intent)
                     navHost.navController.navigate(R.id.action_global_browser)
                 }.getDialog()
+                if (isFinishing || isDestroyed) return
                 dialog.show()
             } else {
                 components.utils.intentProcessor.process(intent)
