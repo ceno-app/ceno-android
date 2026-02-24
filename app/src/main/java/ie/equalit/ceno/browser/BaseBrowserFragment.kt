@@ -521,7 +521,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 // Custom back press logic
                 this@BaseBrowserFragment.onBackPressed()
                 isEnabled = false
-                requireActivity().onBackPressedDispatcher.onBackPressed()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
