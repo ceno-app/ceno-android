@@ -344,6 +344,7 @@
     <string name="progress_dialog_log_export_message">Computing your logs…</string>
     <string name="last_5_minutes">Last 5 minutes</string>
     <string name="last_10_minutes">Last 10 minutes</string>
+    <string name="last_2_hours">Last 2 hours</string>
     <string name="all_logs" tools:ignore="UnusedResources">All logs</string>
     <string name="select_log_scope_header">Select your preferred scope</string>
     <string name="select_log_scope_message">Selecting longer time slots may mean a longer wait</string>
