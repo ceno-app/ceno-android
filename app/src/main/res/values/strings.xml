@@ -525,11 +525,6 @@
     <string name="preferences_secure_screen_option_2">When app is in background</string>
     <string name="preferences_secure_screen_option_3">Always</string>
 
-    <string name="preferences_secure_screen_background">Enable in background</string>
-    <string name="preferences_secure_screen_background_summary">Hides current view when switching apps</string>
-    <string name="preferences_secure_screen_always">Enable always</string>
-    <string name="preferences_secure_screen_always_summary">Hides current view when switching apps and prevents screenshots</string>
-
     <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
     <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
 </resources>
