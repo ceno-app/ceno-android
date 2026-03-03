@@ -9,7 +9,6 @@ import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
 import mozilla.components.feature.sitepermissions.SitePermissionsRules.Action
 import mozilla.components.feature.sitepermissions.SitePermissionsRules.AutoplayAction
-//import mozilla.components.service.contile.ContileTopSitesProvider
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
@@ -41,6 +40,11 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         const val THREE_DAYS_MS = 3 * ONE_DAY_MS
         const val ONE_WEEK_MS = 60 * 60 * 24 * 7 * 1000L
         const val ONE_MONTH_MS = (60 * 60 * 24 * 365 * 1000L) / 12
+
+        const val SECURE_SCREEN_NEVER = 0
+        const val SECURE_SCREEN_ALWAYS = 2
+        const val SECURE_SCREEN_BACKGROUND_ONLY = 1
+
 
         /**
          * The minimum number a search groups should contain.
@@ -131,6 +135,11 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
     var showMetricsConsentDialog by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_show_metrics_consent_dialog),
         default = true
+    )
+
+    var isSecureScreenPersonalOnly by booleanPreference(
+        appContext.getPreferenceKey(R.string.pref_key_secure_screen_personal),
+        true
     )
 
     /**

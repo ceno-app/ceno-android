@@ -58,6 +58,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
@@ -254,8 +255,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         if(Settings.isOuinetMetricsEnabled(this))
             NetworkMetrics(this, CoroutineScope(Dispatchers.IO)).collectNetworkMetrics()
 
-        window?.setSecureScreen(Settings.secureScreen(this) == 2)
-
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.nav_host_fragment))
         {
                 v:View, insets: WindowInsetsCompat ->
@@ -318,6 +317,13 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
+            if (Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_ALWAYS) {
+                if (cenoPreferences().isSecureScreenPersonalOnly)
+                    window?.setSecureScreen(newMode.isPersonal)
+                else {
+                    window?.setSecureScreen(true)
+                }
+            }
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
         //components.appStore.dispatch(AppAction.ModeChange(mode))
@@ -347,8 +353,11 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     override fun onPause() {
         super.onPause()
         isActivityResumed = false
-        if(Settings.secureScreen(this) == 1) {
-            window?.setSecureScreen(true)
+        if(Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_BACKGROUND_ONLY) {
+            if (cenoPreferences().isSecureScreenPersonalOnly)
+                window?.setSecureScreen(browsingModeManager.mode.isPersonal)
+            else
+                window?.setSecureScreen(true)
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.set(AlarmManager.RTC_WAKEUP,
@@ -369,7 +378,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onResume() {
         super.onResume()
-        if(Settings.secureScreen(this) == 1) {
+        if(Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_BACKGROUND_ONLY) {
             window?.setSecureScreen(false)
         }
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && components.ouinet.background.getState() != RunningState.Started.toString()) {

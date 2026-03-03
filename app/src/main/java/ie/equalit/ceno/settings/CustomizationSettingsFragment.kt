@@ -15,8 +15,12 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
+import androidx.core.graphics.drawable.toDrawable
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ext.setSecureScreen
+import ie.equalit.ceno.utils.CenoPreferences
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -55,6 +59,9 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         }
         getPreference(R.string.pref_key_secure_screen)?.let {
             it.onPreferenceChangeListener = getChangeListenerForSecureScreen()
+        }
+        getPreference(R.string.pref_key_secure_screen_personal)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForSecureScreenPersonal()
         }
     }
 
@@ -96,6 +103,19 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getChangeListenerForSecureScreenPersonal(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            context?.let {
+                if(Settings.secureScreen(it) == CenoPreferences.SECURE_SCREEN_ALWAYS) {
+                    if (newValue as Boolean)
+                        activity?.window?.setSecureScreen((activity as BrowserActivity).browsingModeManager.mode.isPersonal)
+                    else
+                        activity?.window?.setSecureScreen(true)
+                }
+            }
+            true
+        }
+    }
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     companion object {
