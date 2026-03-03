@@ -437,4 +437,5 @@
     <string name="confirm_groups_file_download" tools:ignore="UnusedResources">是否要导出共享内容的清单?</string>
     <string name="pin_unpin_to_cache_failed">错误！缓存更新失败。</string>
     <string name="preferences_ouinet_proxy_endpoint">本地代理端点</string>
+    <string name="preferences_hide_ouicrawl_feed">隐藏免费媒体流</string>
 </resources>
