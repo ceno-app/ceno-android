@@ -5,7 +5,6 @@ import android.view.View
 import android.widget.CheckBox
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 
