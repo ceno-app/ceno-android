@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.8.3 - Unreleased
+## v2.9.0 - Unreleased
+
+### Added
+- Prompt to be shown when external app requests to load a URL
+
+### Fixed
+
+- Search engine selection displayed incorrectly after change
+
+## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
 
 ### Fixed
 
@@ -19,7 +28,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Android-Components to v147.0.4
 - Update Android Gradle Plugin to 8.13.2
 
-## [v2.8.2]((https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.2)) - 2026-01-29
+## [v2.8.2](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.2) - 2026-01-29
 
 ### Added
 
