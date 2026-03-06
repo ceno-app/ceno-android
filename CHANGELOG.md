@@ -8,11 +8,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ## v2.9.0 - Unreleased
 
 ### Added
+
 - Prompt to be shown when external app requests to load a URL
 
 ### Fixed
 
 - Search engine selection displayed incorrectly after change
+
+### Changed
+
+- Default list of shortcuts updated for RU and UA locales
 
 ## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
 
