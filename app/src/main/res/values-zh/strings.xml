@@ -438,4 +438,11 @@
     <string name="pin_unpin_to_cache_failed">错误！缓存更新失败。</string>
     <string name="preferences_ouinet_proxy_endpoint">本地代理端点</string>
     <string name="preferences_hide_ouicrawl_feed">隐藏免费媒体流</string>
+    <string name="preferences_ouinet_frontend_endpoint">本地前端端点</string>
+    <string name="preferences_ouinet_enable_doh">使用基于HTTPS的DNS</string>
+    <string name="test_metrics_submitting">提交测试指标</string>
+    <string name="test_metrics_dialog_success">测试指标提交至本地客户端</string>
+    <string name="test_metrics_dialog_failed">测试指标未提交到本地客户端</string>
+    <string name="updating_doh_dialog_title">更新基于HTTPS的DNS设置</string>
+    <string name="preferences_test_metrics">测试CENO指标</string>
 </resources>
