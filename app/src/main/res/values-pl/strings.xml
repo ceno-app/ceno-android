@@ -457,4 +457,8 @@
     <string name="preferences_hide_ouicrawl_feed">Ukryj listę Darmowych medii</string>
     <string name="preferences_ouinet_enable_doh">Użyj DNS poprzez HTTPS</string>
     <string name="updating_doh_dialog_title">Aktualizowanie ustawień DNS poprzez HTTPS</string>
+    <string name="preferences_test_metrics">Testuj metryki Ceno</string>
+    <string name="test_metrics_submitting">Przesyłanie danych pomiarowych</string>
+    <string name="test_metrics_dialog_success">Przesłano dane pomiarowe do lokalnego klienta</string>
+    <string name="test_metrics_dialog_failed">Nie udało się przesłać danych pomiarowych do lokalnego klienta</string>
 </resources>
