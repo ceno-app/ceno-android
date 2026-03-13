@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Default list of shortcuts updated for RU and UA locales
 - Update Android-Components to v148.0.2
 - Update Ouinet to v1.6.4
+- Increase on-device retention of metrics records to a maximum of 30 days
 
 ## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
 
