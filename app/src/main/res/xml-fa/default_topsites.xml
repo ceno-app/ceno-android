@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<topsites xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <topsite>
+        <title stringRes="@string/default_top_site_1_title">راهنمای سنو</title>
+        <url>https://ceno.app/user-manual/fa/</url>
+    </topsite>
+    <topsite>
+        <title stringRes="@string/default_top_site_2_title">Wikipedia</title>
+        <url>https://www.wikipedia.org/</url>
+    </topsite>
+    <topsite>
+        <title stringRes="@string/default_top_site_3_title">پس‌کوچه</title>
+        <url>http://paskoocheh.com/</url>
+    </topsite>
+    <topsite>
+        <title stringRes="@string/default_top_site_4_title">فکت‌نامه</title>
+        <url>https://factnameh.com/fa</url>
+    </topsite>
+</topsites>

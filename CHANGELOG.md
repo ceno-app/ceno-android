@@ -5,9 +5,40 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.8.2 - Unreleased
+## v2.9.0 - Unreleased
 
-## Added
+### Added
+
+- Prompt to be shown when external app requests to load a URL
+
+### Fixed
+
+- Search engine selection displayed incorrectly after change
+
+### Changed
+
+- Default list of shortcuts updated for RU and UA locales
+- Update Android-Components to v148.0.2
+- Update Ouinet to v1.6.4
+- Increase on-device retention of metrics records to a maximum of 30 days
+
+## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
+
+### Fixed
+
+- Log export not working when app set to RTL locale
+- Crash when free media has less than 5 items
+- Crash when navigating back in Setting after language change
+
+### Changed
+
+- Default name of log file is now ceno_log
+- Update Android-Components to v147.0.4
+- Update Android Gradle Plugin to 8.13.2
+
+## [v2.8.2](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.2) - 2026-01-29
+
+### Added
 
 - Metrics for app version and bridge opt in
 
@@ -22,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Filter free media feed based on full locale detection
 - Update Android-Components to v147.0.2
 - Update Ouinet to v1.6.2
+- Update translations for various locales
 
 ## [v2.8.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.1) - 2025-12-31
 
