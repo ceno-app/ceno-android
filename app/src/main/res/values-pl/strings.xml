@@ -266,7 +266,6 @@
     <string name="public_mode_icon">ikona trybu publicznego</string>
     <string name="personal_browsing_mode_selected">wybrano tryb przeglądania prywatnego</string>
     <string name="ceno_log_file_saved_desc">W trosce o prywatność użytkowników wszystkie dane osobowe zostały starannie usunięte z tego dziennika.</string>
-    <string name="ceno_android_logs_file_name">Ceno Logi</string>
     <string name="progress_dialog_log_export_header">Proszę czekać…</string>
     <string name="progress_dialog_log_export_message">Obliczanie logów…</string>
     <string name="last_5_minutes">Za 5 minut</string>

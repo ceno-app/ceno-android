@@ -249,7 +249,6 @@
     <string name="personal_browsing_mode_selected">modo de navegação pessoal selecionado</string>
     <string name="personal_mode_icon">ícone de modo pessoal</string>
     <string name="ceno_log_file_saved">Arquivo de log salvo com sucesso</string>
-    <string name="ceno_android_logs_file_name">Ceno Logs</string>
     <string name="ouinet_log_file_prompt_desc">Esteja ciente de que este registro pode conter informações de identificação pessoal. Tenha cuidado ao compartilhar.</string>
     <string name="view_logs">Ver</string>
     <string name="share_logs">Compartilhar</string>

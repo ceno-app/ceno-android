@@ -5,6 +5,9 @@
 package ie.equalit.ceno.settings
 
 import android.os.Bundle
+import android.view.View
+import androidx.activity.addCallback
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
@@ -31,6 +34,15 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         prefTrackingProtectionPrivate?.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
             requireComponents.core.createTrackingProtectionPolicy(privateMode = enabled)
         }
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
+            // Handle the back button event
+            findNavController().popBackStack()
+        }
+        callback.isEnabled = true
     }
 
     private fun getChangeListenerForTrackingProtection(

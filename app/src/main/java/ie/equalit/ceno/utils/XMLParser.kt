@@ -1,5 +1,7 @@
 package ie.equalit.ceno.utils
 
+import android.content.Context
+import android.content.res.XmlResourceParser
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
@@ -123,6 +125,67 @@ object XMLParser {
             }
 
             return RssAnnouncementResponse(rssFeedTitle, rssFeedLink, rssFeedDescription, rssFeedItems)
+        } catch (e: XmlPullParserException) {
+            return null
+        }
+    }
+
+    fun parseTopsitesXml(parser: XmlResourceParser, context: Context): MutableList<Pair<String, String>>? {
+
+        try {
+            var currentTopsiteUrl = ""
+            var currentTopsiteTitle = ""
+            val topsiteItems = mutableListOf<Pair<String, String>>()
+
+            var tag = ""
+            var isTitleFromAttribute = false
+
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                when (parser.eventType) {
+                    XmlPullParser.START_TAG -> {
+                        tag = parser.name
+                        when(tag) {
+                            "topsite" -> {
+                                currentTopsiteTitle = ""
+                                currentTopsiteUrl = ""
+                            }
+                            "title" -> {
+                                if(parser.attributeCount > 0) {
+                                    val stringResource = parser.getAttributeResourceValue(0, 0)
+                                    currentTopsiteTitle = context.getString(stringResource)
+                                    isTitleFromAttribute = true
+                                }
+                            }
+                        }
+                    }
+
+                    XmlPullParser.TEXT -> {
+                        when(tag) {
+                            "title"-> {
+                                if (!isTitleFromAttribute)
+                                    currentTopsiteTitle = parser.text.trim()
+                                isTitleFromAttribute = false
+                            }
+                            "url" -> {
+                                currentTopsiteUrl = parser.text.trim()
+                            }
+                        }
+                    }
+
+                    XmlPullParser.END_TAG -> {
+                        tag = ""
+                        when(parser.name) {
+                            "topsite" -> {
+                                topsiteItems.add(
+                                    Pair(currentTopsiteTitle, currentTopsiteUrl)
+                                )
+                            }
+                            else -> {}
+                        }
+                    }
+                }
+            }
+            return topsiteItems
         } catch (e: XmlPullParserException) {
             return null
         }

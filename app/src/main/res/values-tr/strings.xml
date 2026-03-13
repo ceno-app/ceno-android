@@ -227,7 +227,6 @@
     <string name="public_mode_icon">herkese açık kip simgesi</string>
     <string name="personal_mode_icon">kişisel kip simgesi</string>
     <string name="ceno_log_file_saved">Günlük dosyası kaydedildi</string>
-    <string name="ceno_android_logs_file_name">Ceno günlükleri</string>
     <string name="view_logs">Görüntüle</string>
     <string name="share_logs">Paylaş</string>
     <string name="download_logs">İndir</string>

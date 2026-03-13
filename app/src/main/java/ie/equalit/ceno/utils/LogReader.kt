@@ -39,7 +39,7 @@ object LogReader {
             //get start time for logs
             val currentTimestamp = System.currentTimeMillis()
 
-            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault())
+            val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ROOT)
             val logStartTimestamp = "-T${dateFormat.format(Date(currentTimestamp - timeWindowInMilliseconds))}"
 
             // Run logcat command

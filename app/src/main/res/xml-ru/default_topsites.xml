@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topsites>
+    <topsite>
+        <title>Ceno Мануал</title>
+        <url>https://ceno.app/user-manual/ru/</url>
+    </topsite>
+    <topsite>
+        <title>eQtv Live </title>
+        <url>https://tv.equalit.ie/ru/live/</url>
+    </topsite>
+    <topsite>
+        <title>видео eQtv</title>
+        <url>https://tv.equalit.ie/ru/videos/</url>
+    </topsite>
+    <topsite>
+        <title>The True Story</title>
+        <url>https://thetruestory.news/ru/russia</url>
+    </topsite>
+    <topsite>
+        <title>Meduza</title>
+        <url>https://meduza.io/</url>
+    </topsite>
+    <topsite>
+        <title>Кавказский узел</title>
+        <url>https://www.kavkaz-uzel.eu/</url>
+    </topsite>
+</topsites>

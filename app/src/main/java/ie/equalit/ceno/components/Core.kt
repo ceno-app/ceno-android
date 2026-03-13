@@ -55,6 +55,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
+import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
 import mozilla.components.feature.downloads.DateTimeProvider
 import mozilla.components.feature.downloads.DefaultDateTimeProvider
@@ -199,41 +200,17 @@ class Core(private val context: Context) {
     val cenoPinnedSiteStorage by lazy { PinnedSiteStorage(context) }
 
     val cenoTopSitesStorage by lazy {
-        val defaultTopSites = mutableListOf<Pair<String, String>>()
-
+        var defaultTopSites: MutableList<Pair<String, String>>? = null
         if (!context.cenoPreferences().defaultTopSitesAdded) {
-            defaultTopSites.add(
-                Pair(
-                    context.getString(R.string.default_top_site_1_title),
-                    context.getString(R.string.default_top_site_1_url)
-                )
-            )
-            defaultTopSites.add(
-                Pair(
-                    context.getString(R.string.default_top_site_2_title),
-                    context.getString(R.string.default_top_site_2_url)
-                )
-            )
-            defaultTopSites.add(
-                Pair(
-                    context.getString(R.string.default_top_site_3_title),
-                    context.getString(R.string.default_top_site_3_url)
-                )
-            )
-            defaultTopSites.add(
-                Pair(
-                    context.getString(R.string.default_top_site_4_title),
-                    context.getString(R.string.default_top_site_4_url)
-                )
-            )
-        context.cenoPreferences().defaultTopSitesAdded = true
+            defaultTopSites = XMLParser.parseTopsitesXml(context.resources.getXml(R.xml.default_topsites), context)
+            context.cenoPreferences().defaultTopSitesAdded = true
         }
 
         DefaultTopSitesStorage(
             pinnedSitesStorage = cenoPinnedSiteStorage,
             historyStorage = historyStorage,
             topSitesProvider = null, //contileTopSitesProvider,
-            defaultTopSites = defaultTopSites
+            defaultTopSites = defaultTopSites ?: listOf()
         )
     }
 
