@@ -395,7 +395,7 @@
     <string name="preferences_additional_developer_tools">Ferramentas adicionais para programadores</string>
     <string name="preferences_announcement_source_option_3">Arquivo</string>
     <string name="enable_debug_logs">Ativar registos de depuração</string>
-    <string name="preferences_clear_behavior_option_1">Prompt</string>
+    <string name="preferences_clear_behavior_option_1">Perguntar</string>
     <string name="btn_next">Seguinte</string>
     <string name="developer_tools_enabled">Ferramentas de programador ativadas</string>
     <string name="developer_tools_disabled">Ferramentas de programador desativadas</string>
@@ -448,4 +448,8 @@
     <string name="preferences_hide_ouicrawl_feed">Esconder Feed de Media Livre</string>
     <string name="preferences_ouinet_enable_doh">Usar DNS sobre HTTPS</string>
     <string name="updating_doh_dialog_title">Atualizar DNS sobre as configurações HTTPS</string>
+    <string name="preferences_test_metrics">Testar métricas do Ceno</string>
+    <string name="test_metrics_submitting">Enviando de métrica de teste</string>
+    <string name="test_metrics_dialog_success">Métrica de teste enviada ao cliente local</string>
+    <string name="test_metrics_dialog_failed">A métrica de teste não foi enviada ao cliente local</string>
 </resources>

@@ -36,6 +36,7 @@ data class OuinetStatus(
     val logfile : Boolean,
     val max_cached_age : Int,
     val metrics_enabled: Boolean,
+    val metrics_delete_after: Long,
     val origin_access : Boolean,
     val ouinet_build_id : String,
     val ouinet_protocol : Int,
@@ -46,6 +47,7 @@ data class OuinetStatus(
     val udp_world_reachable : String? = null,
     val current_metrics_record_id: String,
     val doh_enabled: Boolean,
+    val dns_protocols: MutableSet<String>? = null,
     val injector_peers_n: Int,
     val injector_ready: Boolean,
     val udp_mux_rx_limit: Long,
@@ -455,7 +457,6 @@ object CenoSettings {
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         currentMetricsRecordId = status.current_metrics_record_id
-        setDohEnabled(context, status.doh_enabled)
         if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 

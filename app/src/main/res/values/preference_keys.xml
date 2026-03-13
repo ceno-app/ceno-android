@@ -99,6 +99,7 @@
     <string name="pref_key_test_metrics" translatable="false">pref_key_test_metrics</string>
     <string name="pref_key_secure_screen" translatable="false">pref_key_secure_screen</string>
     <string name="pref_key_secure_screen_personal" translatable="false">pref_key_secure_screen_personal</string>
+    <string name="pref_key_verify_external_url" translatable="false">pref_key_verify_external_url</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

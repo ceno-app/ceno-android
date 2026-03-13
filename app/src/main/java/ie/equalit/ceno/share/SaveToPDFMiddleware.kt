@@ -14,7 +14,7 @@ import mozilla.components.browser.state.selector.findTab
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.lib.state.Middleware
-import mozilla.components.lib.state.MiddlewareContext
+import mozilla.components.lib.state.Store
 import org.mozilla.geckoview.GeckoSession
 import java.io.IOException
 
@@ -31,7 +31,7 @@ class SaveToPDFMiddleware(
 ) : Middleware<BrowserState, BrowserAction> {
 
     override fun invoke(
-        ctx: MiddlewareContext<BrowserState, BrowserAction>,
+        store: Store<BrowserState, BrowserAction>,
         next: (BrowserAction) -> Unit,
         action: BrowserAction,
     ) {

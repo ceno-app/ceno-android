@@ -430,4 +430,17 @@ object Settings {
             context.getString(R.string.pref_key_secure_screen), "1"
         )!!.toInt()
     }
+
+    fun shouldVerifyExternalUrl(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_verify_external_url), true
+        )
+
+    fun setVerifyExternalUrl(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_verify_external_url)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putBoolean(key, value)
+            }
+    }
 }

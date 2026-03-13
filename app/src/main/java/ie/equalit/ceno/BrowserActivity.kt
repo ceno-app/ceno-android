@@ -10,7 +10,6 @@ import android.app.PendingIntent
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.os.Handler
@@ -41,7 +40,7 @@ import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.browser.DefaultBrowsingManager
-import ie.equalit.ceno.browser.ExternalAppBrowserFragment
+import ie.equalit.ceno.browser.dialogs.LoadExternalUrlDialog
 import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
 import ie.equalit.ceno.browser.notification.CenoNotificationBroadcastReceiver
 import ie.equalit.ceno.browser.notification.PublicNotificationFeature
@@ -68,17 +67,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
-import mozilla.components.browser.state.state.SessionState
-import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.browser.state.state.searchEngines
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.concept.engine.manifest.WebAppManifest
-import mozilla.components.feature.intent.ext.EXTRA_SESSION_ID
-import mozilla.components.feature.pwa.ext.putWebAppManifest
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
@@ -98,12 +91,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     private var hasOuinetStarted = false
     private var hasRanChecksAndPermissions = false
 
-    private val sessionId: String?
-        get() = SafeIntent(intent).getStringExtra(EXTRA_SESSION_ID)
-
-    private val tab: SessionState?
-        get() = components.core.store.state.findCustomTabOrSelectedTab(sessionId)
-
     private var publicNotificationObserver: PublicNotificationFeature<PublicNotificationService>? =
         null
     private lateinit var cenoNotificationBroadcastReceiver: CenoNotificationBroadcastReceiver
@@ -121,32 +108,14 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     private lateinit var reminderNotificationIntent : PendingIntent
     private lateinit var alarmManager:AlarmManager
-    /**
-     * Returns a new instance of [BrowserFragment] to display.
-     */
-    open fun createBrowserFragment(sessionId: String?) {
-        navHost.navController.navigate(R.id.action_global_browser)
-    }
-
-    /**
-     * Returns a new instance of [ExternalAppBrowserFragment] to display.
-     */
-    open fun createExternalAppBrowserFragment(
-        sessionId: String,
-        manifest: WebAppManifest?,
-        trustedScopes: List<Uri>
-    ) {
-        navHost.navController.navigate(R.id.action_global_external_browser, Bundle().apply {
-            "session_id" to sessionId
-            putWebAppManifest(manifest)
-            putParcelableArrayList("org.mozilla.samples.browser.TRUSTED_SCOPES", ArrayList(trustedScopes))
-        })
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        if(intent.action == Intent.ACTION_VIEW) {
+            loadExternalUrl(SafeIntent(intent))
+        }
 
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
             if((destination.id == R.id.homeFragment || destination.id == R.id.browserFragment) && !hasRanChecksAndPermissions) {
@@ -458,35 +427,9 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             navHost.navController.navigate(R.id.action_global_settings, bundle)
         }
         if (safeIntent.action == Intent.ACTION_VIEW) {
-            navHost.navController.navigate(R.id.action_global_browser)
+            loadExternalUrl(safeIntent)
         }
 
-    }
-
-    /**
-     * If needed remove the current session.
-     *
-     * If a session is a custom tab or was opened from an external app then the session gets removed once you go back
-     * to the third-party app.
-     *
-     * Eventually we may want to move this functionality into one of our feature components.
-     */
-    fun removeSessionIfNeeded(): Boolean {
-        val session = tab ?: return false
-
-        return if (session.source is SessionState.Source.External && !session.restored) {
-            finish()
-            components.useCases.tabsUseCases.removeTab(session.id)
-            true
-        } else {
-            val hasParentSession = session is TabSessionState && session.parentId != null
-            if (hasParentSession) {
-                components.useCases.tabsUseCases.removeTab(session.id, selectParentIfExists = true)
-            }
-            // We want to return to home if this session didn't have a parent session to select.
-            val goToOverview = !hasParentSession
-            !goToOverview
-        }
     }
 
     override fun onUserLeaveHint() {
@@ -661,5 +604,25 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             500L
         }
         beginShutdown(doClear = true, stalledDuration = duration)
+    }
+
+    private fun loadExternalUrl(safeIntent:SafeIntent) {
+        val url = safeIntent.dataString
+        if (url.isNullOrBlank()) {
+            Logger.debug("ACTION_VIEW without dataString; ignoring.")
+            return
+        }
+        //show dialog
+        if (Settings.shouldVerifyExternalUrl(this)) {
+            val dialog = LoadExternalUrlDialog(this, url) {
+                components.utils.intentProcessor.process(safeIntent.unsafe)
+                navHost.navController.navigate(R.id.action_global_browser)
+            }.getDialog()
+            if (isFinishing || isDestroyed) return
+            dialog.show()
+        } else {
+            components.utils.intentProcessor.process(safeIntent.unsafe)
+            navHost.navController.navigate(R.id.action_global_browser)
+        }
     }
 }

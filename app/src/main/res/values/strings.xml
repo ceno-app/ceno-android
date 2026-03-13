@@ -140,7 +140,7 @@
     <string name="ceno_on_mobile_data_dialog_description" tools:ignore="UnusedResources">It is recommended to use Ceno when you have a Wi-Fi connection, as it may use more data than you expect. You may want to stop Ceno when using mobile data.</string>
     <string name="ceno_on_mobile_data_dialog_stop_now" tools:ignore="UnusedResources">Stop Ceno now</string>
     <string name="ceno_on_mobile_data_dialog_continue" tools:ignore="UnusedResources">Continue</string>
-    <string name="ceno_on_mobile_data_dialog_stop_showing" tools:ignore="UnusedResources">Do not show again</string>
+    <string name="ceno_on_mobile_data_dialog_stop_showing">Do not show again</string>
     <string name="ceno_clear_dialog_clear_entire_app">Clear Ceno cache and app data</string>
     <string name="ceno_clear_dialog_cancel">Cancel</string>
     <string name="ceno_clear_dialog_clear_cache_only">Clear Ceno cache only</string>
@@ -527,4 +527,7 @@
 
     <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
     <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
+    <string name="dialog_external_url_message">Click continue to open the following URL -\n\n%1$s</string>
+    <string name="dialog_external_url_title">Are you sure want to open URLs from external apps?</string>
+    <string name="preferences_verify_external_url">Show warning before opening URLs from other apps</string>
 </resources>
