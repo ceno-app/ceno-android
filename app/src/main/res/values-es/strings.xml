@@ -439,4 +439,7 @@
     <string name="test_metrics_submitting">Envío de métricas de prueba</string>
     <string name="test_metrics_dialog_success">Métricas de pruebas enviadas al cliente local</string>
     <string name="test_metrics_dialog_failed">Las métricas de prueba no han sido enviadas al cliente local</string>
+    <string name="dialog_external_url_message">Pulse continuar para abrir la siguiente URL -\n\n%1$s</string>
+    <string name="dialog_external_url_title">¿Está seguir que desea abrir las URL desde aplicaciones externas?</string>
+    <string name="preferences_verify_external_url">Mostrar advertencias antes de abrir las URL desde otras aplicaciones</string>
 </resources>
