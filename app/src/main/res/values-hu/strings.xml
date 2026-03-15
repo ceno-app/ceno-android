@@ -6,7 +6,7 @@
     <string name="ceno_notification_clear_do_description">Igen</string>
     <string name="ceno_notification_channel_name">Ceno Szolgáltatás</string>
     <string name="ceno_clear_dialog_clear_entire_app">Ceno gyorsítótár és alkalmazásadatok üritése</string>
-    <string name="ceno_clear_dialog_title">Ürítsd Ceno</string>
+    <string name="ceno_clear_dialog_title">Ceno ürítése</string>
     <string name="ceno_clear_dialog_description">FIGYELMEZTETÉS: A gyorsítótár és az alkalmazásadatok törlése visszaállítja a Ceno alkalmazást, mintha soha nem használták volna.</string>
     <string name="ceno_clear_dialog_clear_cache_only">Ceno csak gyorsítótár ürítése</string>
     <string name="ceno_clear_dialog_cancel">Mégse</string>
@@ -141,4 +141,64 @@
     <string name="bookmark_menu_delete_button">Törlés</string>
     <string name="bookmark_name_label">Név</string>
     <string name="library_bookmarks">Könyvjelzők</string>
+    <string name="customize_custom_extra_bittorrent_bootstrap">IP címek elválasztása vesszővel</string>
+    <string name="content_description_private_browsing_button" tools:ignore="UnusedResources">Egyéni böngészés engedélyezése</string>
+    <string name="bookmark_menu_open_in_private_tab_button">Megnyitás egyéni oldalon</string>
+    <string name="rename_top_site">Átnevezés</string>
+    <string name="remove_top_site">Eltávolítás</string>
+    <string name="delete_from_history">Törlés az előzményekből</string>
+    <string name="shortcut_max_limit_title">Parancsikon limit elérve</string>
+    <string name="shortcut_max_limit_content">Távolítson el egy parancsikont, hogy hozzá tudjon adni egy újat. Nyomjon rá hosszan a parancsikonra és jelölje ki az \"Eltávolítás\" lehetőséget.</string>
+    <string name="top_sites_max_limit_confirmation_button">OK, Értem</string>
+    <string name="shortcut_name_hint">Parancsikon név</string>
+    <string name="dialog_ok">OK</string>
+    <string name="browser_menu_back">Vissza</string>
+    <string name="browser_menu_forward">Előre</string>
+    <string name="browser_menu_refresh">Újratöltés</string>
+    <string name="browser_menu_stop">Állj</string>
+    <string name="browser_menu_desktop_site">Asztali nézet megjelenítése</string>
+    <string name="browser_menu_add_to_homescreen">Hozzáadás a Kezdőképernyőhöz</string>
+    <string name="browser_menu_find_in_page">Keresés az oldalon</string>
+    <string name="browser_menu_library">Könyvtár</string>
+    <string name="preferences_delete_browsing_data_browsing_data_title">Böngészési előzmények és oldaladatok</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="one">%d cím</item>
+        <item quantity="other">%d cím</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">Ki leszel jelentkeztetve a legtöbb oldalról</string>
+    <string name="preferences_delete_browsing_data_cached_files">Gyorsítótárazott képek és fájlok</string>
+    <string name="preferences_delete_browsing_data_cached_files_subtitle">Tárhelyet szabadít fel</string>
+    <string name="preferences_delete_browsing_data_tabs_title_2">Megnyitott oldalak</string>
+    <string name="delete_browsing_data_prompt_message_3">A Ceno törölni fogja a kijelölt böngészési adatokat.</string>
+    <string name="content_description_close_button">Bezárás</string>
+    <string name="button_content_readerview">Olvasási nézet</string>
+    <string name="close_mode_item" tools:ignore="UnusedResources">Értesítés bezárása</string>
+    <string name="setting_item_selected">%s kijelölt</string>
+    <string name="set_default_search_engine">Alapértelmezett keresőmotor beállítása</string>
+    <string name="preference_show_search_suggestions">Keresési javaslatok megjelenítése</string>
+    <string name="preference_search_summary">Beállítás alapértelmezettként</string>
+    <string name="preference_choose_search_engine">Keresőmotor választása</string>
+    <string name="preference_select_preferred_engine">Válassza ki a kedvenc keresőmotorját:</string>
+    <string name="preferences_add_ons">Kiegészítők</string>
+    <string name="secure_connection">A kapcsolat biztonságos</string>
+    <string name="insecure_connection">A kapcsolat nem biztonságos</string>
+    <string name="browser_toolbar_home">Kezdőoldal</string>
+    <string name="crash_report_sent">Összeomlási jelentés elküldve!</string>
+    <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Link megnyitása személyes oldalon</string>
+    <string name="shutdown_message_one" tools:ignore="UnusedResources">Alkalmazásadatok törlése</string>
+    <string name="shutdown_message_two" tools:ignore="UnusedResources">Ceno leállítása</string>
+    <string name="title_success">Siker</string>
+    <string name="dialog_btn_positive_ok">OK</string>
+    <string name="about_content_title">Oszd meg a netet!</string>
+    <string name="about_content_para_1">A Ceno a világ első olyan böngészője, amely kijátssza az internet cenzúrázási módszereket. A peer-to-peer motorja képes eljuttatni a webes információkat olyan régiókba, ahol a kapcsolat meg van szakítva vagy nem lenne biztonságos használni.</string>
+    <string name="about_content_para_2">A Ceno Böngésző az eQualitie projektje, ami egy kanadai non-profit vállalat, amely nem központosított internet szolgáltatásokat készít egy egyenlőbb világhálóért. Az eQualitie megoldásai nyílt forrásúak, mélyen teszteltek és a mi eszméinkkel összhangban készülnek. Az ő segítségükkel online emberek milliói jutnak az egyesülés szabadságához.</string>
+    <string name="ceno_private_browsing_body">&lt;h1&gt;Személyes böngészés&lt;/h1&gt; &lt;p&gt;A Ceno nem fog megosztania semmiféle információt senkinek erről. Biztonságosan meglátogathatsz oldalakat, amik bejelentkezést igényelnek. Internet-hozzáférés azért szükséges hozzá.&lt;/p&gt; &lt;p class=about-info&gt;&lt;a id=learnMore&gt;Többet szeretnél tudni erről?&lt;/p&gt;</string>
+    <string name="preferences_about_ceno_browser_service">Ceno Böngésző Szolgáltatás</string>
+    <string name="ceno_notification_title">Gyorsítótárazott oldalak megosztása</string>
+    <string name="ceno_clear_action_description">Alaphelyzet</string>
+    <string name="crash_reporting_dialog_title">Bocsánat, a Ceno úgy tűnik, hogy összeomlott!</string>
+    <string name="crash_reporting_dialog_description">Segítsen jobbá tenni a Ceno-t azzal, hogy elküldi az összeomlási információt.</string>
+    <string name="crash_reporting_always_send">Mindig küldd el, ezzel is segítve a Ceno-t</string>
+    <string name="crash_reporting_never_send">Soha ne küldd el</string>
+    <string name="bt_invalid_ip_error">Nem megfelelő IP cím</string>
 </resources>
