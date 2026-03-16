@@ -6,7 +6,7 @@
     <string name="ceno_notification_clear_do_description">Igen</string>
     <string name="ceno_notification_channel_name">Ceno Szolgáltatás</string>
     <string name="ceno_clear_dialog_clear_entire_app">Ceno gyorsítótár és alkalmazásadatok üritése</string>
-    <string name="ceno_clear_dialog_title">Ceno ürítése</string>
+    <string name="ceno_clear_dialog_title">Ürítsd Ceno</string>
     <string name="ceno_clear_dialog_description">FIGYELMEZTETÉS: A gyorsítótár és az alkalmazásadatok törlése visszaállítja a Ceno alkalmazást, mintha soha nem használták volna.</string>
     <string name="ceno_clear_dialog_clear_cache_only">Ceno csak gyorsítótár ürítése</string>
     <string name="ceno_clear_dialog_cancel">Mégse</string>
