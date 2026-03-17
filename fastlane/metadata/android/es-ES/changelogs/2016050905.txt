@@ -1,0 +1,4 @@
+Esta versión incluye:
+- Actualiza Android-Components a la versión 138.0.4
+- Actualiza cacert.pem con el paquete generado el martes 20 de mayo de 2025 a las 03:12:02 GMT
+- Actualiza las traducciones para varios idiomas

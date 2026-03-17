@@ -1,0 +1,3 @@
+Esta versión:
+- Soluciona el problema por el que no se mostraba el correo electrónico de soporte de Ceno
+- Actualiza Android-Components a la versión 134.0.1

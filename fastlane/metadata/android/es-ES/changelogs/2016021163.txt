@@ -1,0 +1,9 @@
+Esta versión incluye:
+- Implementación de la campaña inicial de métricas "Clean Insights"
+- Adición de un submenú oculto de herramientas para desarrolladores
+- Adición de cadenas de texto en inglés
+- Compatibilidad con iconos de inicio monocromáticos
+- Actualización de Android-Components a la versión 133.0.3
+- Adición de un indicador de estado de conexión de red Ceno en la página de inicio
+- Actualización del paquete cacert.pem
+- Actualización de las traducciones para varios idiomas

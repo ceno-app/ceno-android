@@ -1,0 +1,5 @@
+Esta versión:
+- Actualiza Ouinet a la versión 1.4.1
+- Actualiza Android-Components a la versión 144.0
+- Actualiza minSdk a 26
+- Corrige un error en la recopilación de métricas

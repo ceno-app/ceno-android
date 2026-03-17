@@ -1,0 +1,4 @@
+Esta versión:
+- Soluciona el problema de superposición de la barra de estado, la barra de herramientas y el contenido en dispositivos Android 15
+- Actualiza Android-Components a la versión 136.0
+- Correcciones de errores menores

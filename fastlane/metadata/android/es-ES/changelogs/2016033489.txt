@@ -1,0 +1,2 @@
+Esta versión incluye:
+- Actualizaciones de AndroidManifest.xml
