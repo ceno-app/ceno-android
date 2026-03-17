@@ -42,8 +42,8 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         const val ONE_MONTH_MS = (60 * 60 * 24 * 365 * 1000L) / 12
 
         const val SECURE_SCREEN_NEVER = 0
-        const val SECURE_SCREEN_ALWAYS = 2
-        const val SECURE_SCREEN_BACKGROUND_ONLY = 1
+        const val SECURE_SCREEN_ALWAYS = 1
+        const val SECURE_SCREEN_BACKGROUND_ONLY = 2
 
 
         /**

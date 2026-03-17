@@ -322,12 +322,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     override fun onPause() {
         super.onPause()
         isActivityResumed = false
-        if(Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_BACKGROUND_ONLY) {
-            if (cenoPreferences().isSecureScreenPersonalOnly)
-                window?.setSecureScreen(browsingModeManager.mode.isPersonal)
-            else
-                window?.setSecureScreen(true)
-        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM)
             alarmManager.set(AlarmManager.RTC_WAKEUP,
             System.currentTimeMillis() + FOREGROUND_TIMEOUT_REMINDER_DURATION, reminderNotificationIntent)
@@ -347,9 +341,6 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
 
     override fun onResume() {
         super.onResume()
-        if(Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_BACKGROUND_ONLY) {
-            window?.setSecureScreen(false)
-        }
         if ((Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) && components.ouinet.background.getState() != RunningState.Started.toString()) {
             /* CENO: in Android 9 or later, it is possible that the
              * service may have stopped while app was in background

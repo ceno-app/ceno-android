@@ -94,9 +94,12 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
     private fun getChangeListenerForSecureScreen(): Preference.OnPreferenceChangeListener {
         return Preference.OnPreferenceChangeListener { _, newValue ->
-            val isEnabled = ((newValue as String).toInt() > 0)
+            var isEnabled = ((newValue as String).toInt() > 0)
             getPreference(R.string.pref_key_secure_screen_personal)?.let {
-                it.isEnabled = isEnabled
+                isEnabled = if (it.isEnabled)
+                    (activity as BrowserActivity).browsingModeManager.mode.isPersonal
+                else
+                    !it.isEnabled
             }
             activity?.window?.setSecureScreen(isEnabled)
             true

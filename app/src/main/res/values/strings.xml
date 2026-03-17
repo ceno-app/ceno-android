@@ -513,17 +513,14 @@
     <string-array name="preferences_secure_screen_values">
         <item>0</item>
         <item>1</item>
-        <item>2</item>
     </string-array>
     <string-array name="preferences_secure_screen_options">
         <item>@string/preferences_secure_screen_option_1</item>
         <item>@string/preferences_secure_screen_option_2</item>
-        <item>@string/preferences_secure_screen_option_3</item>
     </string-array>
 
     <string name="preferences_secure_screen_option_1">Never</string>
-    <string name="preferences_secure_screen_option_2">When app is in background</string>
-    <string name="preferences_secure_screen_option_3">Always</string>
+    <string name="preferences_secure_screen_option_2">Always</string>
 
     <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
     <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
