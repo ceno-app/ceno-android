@@ -45,4 +45,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_doh_enabled"
         android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_secure_screen"
+        android:defaultValue="true" />
 </PreferenceScreen>
