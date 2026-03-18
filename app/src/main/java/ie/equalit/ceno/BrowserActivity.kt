@@ -50,12 +50,14 @@ import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
@@ -284,6 +286,14 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
+            if (Settings.secureScreen(this)) {
+                if (cenoPreferences().isSecureScreenPersonalOnly) {
+                    window?.setSecureScreen(newMode.isPersonal)
+                }
+                else {
+                    window?.setSecureScreen(true)
+                }
+            }
             components.appStore.dispatch(AppAction.ModeChange(newMode))
         }
         //components.appStore.dispatch(AppAction.ModeChange(mode))
