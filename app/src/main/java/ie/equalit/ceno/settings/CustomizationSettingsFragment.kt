@@ -15,7 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.ext.getPreference
+import ie.equalit.ceno.ext.setSecureScreen
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -45,16 +47,20 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupPreferences() {
-        val changeAppIconKey = requireContext().getPreferenceKey(R.string.pref_key_change_app_icon)
-        val themeKey = requireContext().getPreferenceKey(R.string.pref_key_theme)
-        val toolbarPositionKey = requireContext().getPreferenceKey(R.string.pref_key_toolbar_position)
 
-
-        val preferenceChangeAppIcon = findPreference<Preference>(changeAppIconKey)
-        val preferenceTheme = findPreference<Preference>(themeKey)
-
-        preferenceChangeAppIcon?.onPreferenceClickListener = getClickListenerForChangeAppIcon()
-        preferenceTheme?.onPreferenceChangeListener = getChangeListenerForTheme()
+        getPreference(R.string.pref_key_change_app_icon)?.let {
+            it.onPreferenceClickListener = getClickListenerForChangeAppIcon()
+        }
+        getPreference(R.string.pref_key_theme)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForTheme()
+        }
+        getPreference(R.string.pref_key_secure_screen)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForSecureScreen()
+        }
+        getPreference(R.string.pref_key_secure_screen_personal)?.let {
+            it.onPreferenceChangeListener = getChangeListenerForSecureScreenPersonal()
+            it.isEnabled = Settings.secureScreen(requireContext())
+        }
     }
 
     private fun getClickListenerForChangeAppIcon(): Preference.OnPreferenceClickListener {
@@ -84,6 +90,33 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    private fun getChangeListenerForSecureScreen(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            val isEnabled = if (newValue == true)
+                    (activity as BrowserActivity).browsingModeManager.mode.isPersonal
+                else
+                    false
+            activity?.window?.setSecureScreen(isEnabled)
+            getPreference(R.string.pref_key_secure_screen_personal)?.let {
+                it.isEnabled = newValue as Boolean
+            }
+            true
+        }
+    }
+
+    private fun getChangeListenerForSecureScreenPersonal(): Preference.OnPreferenceChangeListener {
+        return Preference.OnPreferenceChangeListener { _, newValue ->
+            context?.let {
+                if(Settings.secureScreen(it)) {
+                    if (newValue as Boolean)
+                        activity?.window?.setSecureScreen((activity as BrowserActivity).browsingModeManager.mode.isPersonal)
+                    else
+                        activity?.window?.setSecureScreen(true)
+                }
+            }
+            true
+        }
+    }
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     companion object {

@@ -506,6 +506,11 @@
     <string name="test_metrics_submitting">Submitting test metric</string>
     <string name="test_metrics_dialog_success">Test metric submitted to local client</string>
     <string name="test_metrics_dialog_failed">Test metric was not submitted to local client</string>
+    <string name="secure_screen_category">Secure Screen</string>
+    <string name="preferences_secure_screen">Enable secure screen</string>
+    <string name="preferences_secure_screen_summary">Hides current view when switching apps and prevents screenshots</string>
+    <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
+    <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
     <string name="dialog_external_url_message">Click continue to open the following URL -\n\n%1$s</string>
     <string name="dialog_external_url_title">Are you sure want to open URLs from external apps?</string>
     <string name="preferences_verify_external_url">Show warning before opening URLs from other apps</string>
