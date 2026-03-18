@@ -286,9 +286,10 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
         themeManager = DefaultThemeManager(mode, this)
         browsingModeManager = DefaultBrowsingManager(mode, cenoPreferences()) {newMode ->
             themeManager.currentMode = newMode
-            if (Settings.secureScreen(this) == CenoPreferences.SECURE_SCREEN_ALWAYS) {
-                if (cenoPreferences().isSecureScreenPersonalOnly)
+            if (Settings.secureScreen(this)) {
+                if (cenoPreferences().isSecureScreenPersonalOnly) {
                     window?.setSecureScreen(newMode.isPersonal)
+                }
                 else {
                     window?.setSecureScreen(true)
                 }

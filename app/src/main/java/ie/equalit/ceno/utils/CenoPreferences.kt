@@ -41,10 +41,6 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         const val ONE_WEEK_MS = 60 * 60 * 24 * 7 * 1000L
         const val ONE_MONTH_MS = (60 * 60 * 24 * 365 * 1000L) / 12
 
-        const val SECURE_SCREEN_NEVER = 0
-        const val SECURE_SCREEN_ALWAYS = 1
-        const val SECURE_SCREEN_BACKGROUND_ONLY = 2
-
 
         /**
          * The minimum number a search groups should contain.

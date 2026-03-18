@@ -425,10 +425,10 @@ object Settings {
         }
     }
 
-    fun secureScreen(context: Context) : Int {
-        return PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_secure_screen), "1"
-        )!!.toInt()
+    fun secureScreen(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_secure_screen), true
+        )
     }
 
     fun shouldVerifyExternalUrl(context: Context): Boolean =

@@ -94,13 +94,10 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
     private fun getChangeListenerForSecureScreen(): Preference.OnPreferenceChangeListener {
         return Preference.OnPreferenceChangeListener { _, newValue ->
-            var isEnabled = ((newValue as String).toInt() > 0)
-            getPreference(R.string.pref_key_secure_screen_personal)?.let {
-                isEnabled = if (it.isEnabled)
+            val isEnabled = if (newValue == true)
                     (activity as BrowserActivity).browsingModeManager.mode.isPersonal
                 else
-                    !it.isEnabled
-            }
+                    false
             activity?.window?.setSecureScreen(isEnabled)
             true
         }
@@ -109,7 +106,7 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     private fun getChangeListenerForSecureScreenPersonal(): Preference.OnPreferenceChangeListener {
         return Preference.OnPreferenceChangeListener { _, newValue ->
             context?.let {
-                if(Settings.secureScreen(it) == CenoPreferences.SECURE_SCREEN_ALWAYS) {
+                if(Settings.secureScreen(it)) {
                     if (newValue as Boolean)
                         activity?.window?.setSecureScreen((activity as BrowserActivity).browsingModeManager.mode.isPersonal)
                     else

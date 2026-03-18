@@ -100,14 +100,13 @@
         android:title="@string/secure_screen_category"
         android:layout="@layout/preference_category_style">
 
-        <ListPreference
+        <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_secure_screen"
             android:title="@string/preferences_secure_screen"
             android:summary="@string/preferences_secure_screen_summary"
-            android:defaultValue="@string/preferences_secure_screen_default"
-            android:entryValues="@array/preferences_secure_screen_values"
-            android:entries="@array/preferences_secure_screen_options"/>
+            android:defaultValue="true"
+            android:entryValues="@array/preferences_secure_screen_values"/>
 
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"
