@@ -435,4 +435,5 @@
     <string name="test_metrics_submitting">Mengirim metrik uji</string>
     <string name="test_metrics_dialog_success">Metrik uji dikirim ke klien lokal</string>
     <string name="test_metrics_dialog_failed">Metrik uji tidak dikirim ke klien lokal</string>
+    <string name="dialog_external_url_message">Indonesia</string>
 </resources>
