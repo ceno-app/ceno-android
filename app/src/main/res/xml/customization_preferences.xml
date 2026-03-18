@@ -105,8 +105,7 @@
             android:key="@string/pref_key_secure_screen"
             android:title="@string/preferences_secure_screen"
             android:summary="@string/preferences_secure_screen_summary"
-            android:defaultValue="true"
-            android:entryValues="@array/preferences_secure_screen_values"/>
+            android:defaultValue="true"/>
 
         <androidx.preference.SwitchPreferenceCompat
             app:iconSpaceReserved="false"

@@ -15,12 +15,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
-import androidx.core.graphics.drawable.toDrawable
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ext.getPreference
-import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.setSecureScreen
-import ie.equalit.ceno.utils.CenoPreferences
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
@@ -62,6 +59,7 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         }
         getPreference(R.string.pref_key_secure_screen_personal)?.let {
             it.onPreferenceChangeListener = getChangeListenerForSecureScreenPersonal()
+            it.isEnabled = Settings.secureScreen(requireContext())
         }
     }
 
@@ -99,6 +97,9 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
                 else
                     false
             activity?.window?.setSecureScreen(isEnabled)
+            getPreference(R.string.pref_key_secure_screen_personal)?.let {
+                it.isEnabled = newValue as Boolean
+            }
             true
         }
     }
