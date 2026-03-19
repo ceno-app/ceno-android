@@ -12,6 +12,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
+import androidx.preference.CheckBoxPreference
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import ie.equalit.ceno.R
@@ -44,6 +45,7 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             findNavController().popBackStack()
         }
         callback.isEnabled = true
+        showWarningMessageIfNeeded(key = null)
     }
 
     private fun setupSettings() {
@@ -97,8 +99,44 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
                 viewLifecycleOwner.lifecycleScope,
                 key,
                 value)
+            showWarningMessageIfNeeded(newValue as Boolean, key)
             true
         }
+    }
+
+    private fun showWarningMessageIfNeeded(newValue: Boolean = false, key: OuinetKey?) {
+        var private = (getPreference(R.string.pref_key_ceno_sources_private) as CheckBoxPreference).isChecked
+        var origin = (getPreference(R.string.pref_key_ceno_sources_origin) as CheckBoxPreference).isChecked
+        var public = (getPreference(R.string.pref_key_ceno_sources_public) as CheckBoxPreference).isChecked
+        var shared = (getPreference(R.string.pref_key_ceno_sources_shared) as CheckBoxPreference).isChecked
+
+        when(key) {
+            OuinetKey.ORIGIN_ACCESS -> origin = newValue
+            OuinetKey.PROXY_ACCESS -> private = newValue
+            OuinetKey.INJECTOR_ACCESS -> public = newValue
+            OuinetKey.DISTRIBUTED_CACHE -> shared = newValue
+            else -> {}
+        }
+        var isWarningVisible = false
+        var warningMessage: String = ""
+        //if all are disabled
+        if (!private && !public && !origin && !shared) {
+            isWarningVisible= true
+            warningMessage = getString(R.string.warning_all_website_sources_disabled)
+        }
+        if (!public && !origin && !shared && private) {
+            //if all public sources are disabled
+            isWarningVisible = true
+            warningMessage = getString(R.string.warning_public_website_sources_disabled)
+        }
+        //if private source is disabled
+        if(!private && origin && public && shared) {
+            isWarningVisible = true
+            warningMessage = getString(R.string.warning_personal_website_sources_disabled)
+        }
+        val pref = getPreference(R.string.pref_key_website_sources_warning)
+        pref?.isVisible = isWarningVisible
+        pref?.summary = warningMessage
     }
 
     private fun setPreference(
