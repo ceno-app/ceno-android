@@ -510,4 +510,8 @@
     <string name="dialog_external_url_message">Click continue to open the following URL -\n\n%1$s</string>
     <string name="dialog_external_url_title">Are you sure want to open URLs from external apps?</string>
     <string name="preferences_verify_external_url">Show warning before opening URLs from other apps</string>
+    <string name="warning_title">Warning</string>
+    <string name="warning_all_website_sources_disabled">All website sources are disabled. Please enable at least one source to continue browsing the web</string>
+    <string name="warning_public_website_sources_disabled">All sources necessary for browsing in public mode are disabled; Web browsing is possible only in personal mode</string>
+    <string name="warning_personal_website_sources_disabled">All sources necessary for browsing in personal mode are disabled; Web browsing is possible only in public mode</string>
 </resources>
