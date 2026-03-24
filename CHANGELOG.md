@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Prompt to be shown when external app requests to load a URL
 - Secure screen feature to hide view when app is in background and prevent screenshots
+- Warnings to be shown depending on which website sources are unchecked
 
 ### Fixed
 
