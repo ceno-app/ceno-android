@@ -24,6 +24,7 @@ import ie.equalit.ceno.ext.getSizeInMB
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
+import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_120_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
 import ie.equalit.ceno.utils.LogReader
 import ie.equalit.ouinet.Config
@@ -47,6 +48,7 @@ class ExportAndroidLogsDialog (
         val logTimeFilterDialogView = View.inflate(context, R.layout.select_logtime_filter, null)
         val radio5Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_5_minutes)
         val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
+        val radio2hrButton = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_2_hours)
         val checkboxDebugLogs = logTimeFilterDialogView.findViewById<CheckBox>(R.id.checkBox_debug_logs)
 
         if(fragment is HomeFragment) {
@@ -126,6 +128,7 @@ class ExportAndroidLogsDialog (
                                 when {
                                     radio5Button.isChecked -> LOGS_LAST_5_MINUTES
                                     radio10Button.isChecked -> LOGS_LAST_10_MINUTES
+                                    radio2hrButton.isChecked -> LOGS_LAST_120_MINUTES
                                     else -> null
                                 }
                             ) { p ->
