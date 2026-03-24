@@ -96,4 +96,23 @@
             app:singleLineTitle="false"/>
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:title="@string/secure_screen_category"
+        android:layout="@layout/preference_category_style">
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_secure_screen"
+            android:title="@string/preferences_secure_screen"
+            android:summary="@string/preferences_secure_screen_summary"
+            android:defaultValue="true"/>
+
+        <androidx.preference.SwitchPreferenceCompat
+            app:iconSpaceReserved="false"
+            android:key="@string/pref_key_secure_screen_personal"
+            android:defaultValue="true"
+            android:title="@string/preferences_secure_screen_personal"
+            android:summary="@string/preferences_secure_screen_personal_summary"/>
+    </PreferenceCategory>
+
 </androidx.preference.PreferenceScreen>
