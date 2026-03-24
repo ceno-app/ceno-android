@@ -124,13 +124,13 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             isWarningVisible= true
             warningMessage = getString(R.string.warning_all_website_sources_disabled)
         }
-        if (!public && !origin && !shared) {
+        else if (!public && !origin && !shared) {
             //if all public sources are disabled
             isWarningVisible = true
             warningMessage = getString(R.string.warning_public_website_sources_disabled)
         }
         //if private source is disabled
-        if(!private) {
+        else if(!private && !origin) {
             isWarningVisible = true
             warningMessage = getString(R.string.warning_personal_website_sources_disabled)
         }
