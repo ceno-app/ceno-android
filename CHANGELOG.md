@@ -10,6 +10,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Prompt to be shown when external app requests to load a URL
+- Warnings to be shown depending on which website sources are unchecked
 
 ### Fixed
 
