@@ -31,6 +31,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/last_10_minutes" />
+        <RadioButton
+            android:id="@+id/radio_2_hours"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/last_2_hours" />
 
     </RadioGroup>
 
