@@ -1,0 +1,9 @@
+En esta versión:
+- Se actualiza Android-Components a la versión 141.0
+- Añade una notificación en Android 15+ para animar al usuario a volver a abrir Ceno
+- Actualiza el sitio web sugerido por defecto para RU
+- Actualiza los enlaces al sitio web de eQualitie en la página «Acerca de»
+- Introduce una sección en la página de inicio para mostrar los sitios rastreados
+- Vuelve a habilitar la posibilidad de deslizar para eliminar los anuncios de la página de inicio
+- Introduce la recopilación de métricas que preserva la privacidad
+- Actualiza Ouinet a la versión 1.3.0

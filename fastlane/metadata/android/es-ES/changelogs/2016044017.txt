@@ -1,0 +1,8 @@
+Esta versión incluye:
+- Actualiza Android-Components a la versión 137.0
+- Actualiza la extensión Ceno a la versión 1.9.0
+- Actualiza la extensión uBlock Origin a la versión 1.63.2
+- Reorganiza la lista de grupos en caché
+- Incluye el recuento de caché local en el recuento de fuentes de Ceno
+- Actualiza el correo electrónico de soporte de Ceno
+- Problema conocido: Las extensiones preinstaladas no están localizadas

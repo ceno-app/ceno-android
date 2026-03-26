@@ -1,0 +1,7 @@
+En esta versión:
+- Se ha actualizado la generación de números aleatorios para utilizar SecureRandom
+- Se ha corregido un error por el que la barra de pestañas no se desplazaba hasta la pestaña seleccionada
+- Se ha actualizado la extensión Ceno a la versión 1.12.1
+- Se ha implementado la autorización de proxy para el cliente local de Ouinet
+- Se ha corregido un error de contexto que provocaba un bloqueo en HomeFragment
+- Se ha corregido una excepción de valor nulo en la página de configuración del motor de búsqueda

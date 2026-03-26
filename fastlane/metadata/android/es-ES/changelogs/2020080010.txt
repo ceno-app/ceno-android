@@ -1,0 +1,12 @@
+En esta versión:
+- Se ha rediseñado la navegación del botón «Atrás» personalizado para utilizar OnBackPressedDispatcher
+- Se ha actualizado BrowserActivity para que se inicie como singleInstance
+- Se ha sustituido FLAG_ACTIVITY_NEW_TASK por FLAG_ACTIVITY_CLEAR_TASK
+- Se ha actualizado el complemento Gradle de Android a la versión 8.13.0
+- Introduce la opción de anclar sitios web a la caché
+- Reduce la cantidad de registros predeterminados en las compilaciones de lanzamiento
+- Elimina la página de espera
+- Actualiza Android-Components a la versión 146.0.1
+- Añade la opción de personalización para ocultar el feed de medios gratuito
+- Actualiza Ouinet a la versión 1.6.1
+- Añade la opción de activar o desactivar DNS-over-HTTPS como resolutor predeterminado

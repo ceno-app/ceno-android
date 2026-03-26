@@ -1,0 +1,5 @@
+Esta versión incluye:
+- Actualiza Android-Components a la versión 138.0.3
+- Actualiza Gradle a la versión 8.11.1 y Kotlin a la versión 2.0.0
+- Actualiza Sentry a la versión 8.11.1
+- Actualiza Gson a la versión 2.11.0

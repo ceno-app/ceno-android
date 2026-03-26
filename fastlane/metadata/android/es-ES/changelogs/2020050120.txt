@@ -1,0 +1,4 @@
+Esta versión:
+- Corrige el fallo por tiempo de espera del servicio en primer plano
+- Hace que los anuncios de la página de inicio sean permanentes
+- Actualiza Ouinet a la versión 1.2.1

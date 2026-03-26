@@ -1,0 +1,13 @@
+En esta versión:
+- Se actualiza el SDK de compilación a la versión 36
+- Se actualiza Sentry a la versión 8.20.0
+- Se actualiza AndroidX Core a la versión 1.17
+- Se aplica una solución provisional para la compatibilidad con pantallas de borde a borde
+- Se actualiza Ouinet a la versión 1.4.0
+- Se habilita la selección dinámica de puertos para los puntos finales del frontend y del proxy
+- Se añade la opción de seguir el tema del sistema
+- Corrige un error con la opción de exportar registros
+- Corrige un error con las notificaciones y la página de error
+- Actualiza Android-Components a la versión 143.0.3
+- Actualiza cacert.pem con el paquete generado el martes 9 de septiembre a las 03:12:01 GMT de 2025
+- Actualiza la extensión Ceno a la versión 1.10.0

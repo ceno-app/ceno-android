@@ -17,11 +17,11 @@
     <string name="rename_top_site">تغییر نام</string>
     <string name="remove_top_site">حذف</string>
     <string name="delete_from_history">حذف از تاریخچه</string>
-    <string name="shortcut_max_limit_title">حد نصاب سایت‌های برتر شما پر شده</string>
-    <string name="shortcut_max_limit_content">برای افزودن یک سایت برتر جدید، یکی را حذف کنید. سایت برتر را لمس کنید و نگه دارید و سپس «حذف» را انتخاب کنید.</string>
+    <string name="shortcut_max_limit_title">حد نصاب سایت‌های نشان‌شده شما پر شده</string>
+    <string name="shortcut_max_limit_content">برای افزودن یک میانبر جدید، یکی را حذف کنید. میانبر را لمس کنید و نگه دارید و سپس «حذف» را انتخاب کنید.</string>
     <string name="top_sites_max_limit_confirmation_button">باشه،‌ متوجه شدم</string>
     <string name="top_sites_rename_dialog_title">نام</string>
-    <string name="shortcut_name_hint">نامِ سایتِ برتر</string>
+    <string name="shortcut_name_hint">نام میانبر</string>
     <string name="dialog_ok">تایید</string>
     <string name="dialog_cancel">لغو</string>
     <string name="top_sites_sponsored_label">حمایت‌شده</string>
@@ -33,8 +33,8 @@
     <string name="browser_menu_desktop_site">درخواست نسخه دسکتاپ سایت</string>
     <string name="browser_menu_add_to_homescreen">افزودن به صفحه اصلی</string>
     <string name="browser_menu_find_in_page">پیدا کردن در صفحه</string>
-    <string name="browser_menu_add_to_shortcuts">افزودن به سایت‌های برتر</string>
-    <string name="browser_menu_remove_from_shortcuts">حذف از سایت‌های برتر</string>
+    <string name="browser_menu_add_to_shortcuts">افزودن به میانبرها</string>
+    <string name="browser_menu_remove_from_shortcuts">حذف از میانبرها</string>
     <string name="button_content_readerview">حالت خواندنی</string>
     <string name="menu_share_with">اشتراک‌گذاری با…</string>
     <string name="toast_copied">کپی شد!</string>
@@ -168,7 +168,7 @@
     <string name="bt_sources_none">هیچ‌ کدام</string>
     <string name="bt_invalid_ip_error">آی‌پی نامعتبر</string>
     <string name="crash_reporting_dialog_title">متاسفیم، به نظر می‌رسد سنو به مشکل برخورده!</string>
-    <string name="crash_reporting_opt_in">ممنون که برای کمک به بهبود سنو گزارش‌ اشکالات را اطلاع دادید! همیشه می‌توانید با رفتن به بخش تنظیمات &gt; گزارش اشکالات، این را غیرفعال کنید.</string>
+    <string name="crash_reporting_opt_in">ممنون که برای کمک به بهبود سنو گزارش‌ اشکال را اطلاع دادید! همیشه می‌توانید با رفتن به بخش تنظیمات &gt; گزارش اشکال، این را غیرفعال کنید.</string>
     <string name="onboarding_warning_text_v33_2">اعلان‌ها مجاز نیستند و سیستم بهینه‌سازی باتری همچنان فعال است. \n \nبه «تنظیمات» بروید تا بعدا این مجوز را بدهید</string>
     <string name="preferences_change_app_icon">تغییر آیکون برنامه</string>
     <string name="preferences_allow_notifications">اعلان‌ها</string>
@@ -313,11 +313,11 @@
     <string name="btn_next">بعدی</string>
     <string name="skip_the_tour_button">صرف‌نظر از تور</string>
     <string name="change_language">تغییر زبان</string>
-    <string name="top_sites_title">سایت‌های برتر</string>
+    <string name="top_sites_title">میانبرها</string>
     <string name="update">به‌روز‌رسانی</string>
     <string name="start_tooltip_description">از تمام ظرفیت سنو استفاده کنید – ‏با تور راهنما، ویژگی‌های کلیدی برنامه را کشف کنید، و با دادن دسترسی‌های لازم، حتی وقتی که برنامه در پس‌زمینه فعال است وب را دست‌به‌دست کنید..</string>
     <string name="btn_exit">خروج</string>
-    <string name="tooltip_shortcuts_description">سایت‌های محبوب خود را به‌عنوان سایت برتر ذخیره کنید تا از صفحه اصلی به آن‌ها دسترسی سریع داشته باشید.</string>
+    <string name="tooltip_shortcuts_description">سایت‌های محبوب خود را به‌عنوان میانبر ذخیره کنید تا از صفحه اصلی به آن‌ها دسترسی سریع داشته باشید.</string>
     <string name="tooltip_toolbar_title">وب‌گردی را شروع کنید!</string>
     <string name="tooltip_sources_title">منابع سنو</string>
     <string name="tooltip_toolbar_description">برای شروع وب‌گردی، آدرس یک سایت را تایپ کنید</string>
@@ -334,8 +334,8 @@
     <string name="ceno_support_ticket_subject">تیکت پشتیبانی سنو</string>
     <string name="clean_insights_header">به ما برای بهبود سنو کمک کنید!</string>
     <string name="device_locale">منطقه دستگاه (زبان)</string>
-    <string name="clean_insights_sub_header">مایلیم آمارهای زیر را ثبت کنیم:</string>
-    <string name="clean_insights_explainer">مشارکت شما به‌صورت ناشناس خواهد بود و هر زمان خواستید می‌توانید از طریق مسیر «تنظیمات &gt; آمار پس‌زمینه» آن را غیرفعال کنید.</string>
+    <string name="clean_insights_sub_header">مایلیم داده‌های آماری زیر را ثبت کنیم:</string>
+    <string name="clean_insights_explainer">مشارکت شما به‌صورت ناشناس خواهد بود و هر زمان خواستید می‌توانید از طریق مسیر «تنظیمات &gt; داده‌های آماری پس‌زمینه» آن را غیرفعال کنید.</string>
     <string name="preferences_additional_developer_tools">ابزارهای اضافی برای توسعه‌دهندگان</string>
     <string name="developer_tools_disabled">ابزارهای توسعه‌دهنده غیرفعال شد</string>
     <string name="preferences_announcement_expire_disable">غیر فعال کردن تاریخ انقضای اعلان</string>
@@ -352,7 +352,7 @@
     </plurals>
     <string name="ceno_network_status_disconnected">اتصال قطع شده. تنظیمات شبکه خود را بررسی کنید یا برای اطلاعات بیشتر، از گزارش‌ها خروجی بگیرید.</string>
     <string name="ceno_network_status_degraded">در حال اتصال به شبکه سِنو. ممکن است برخی وب‌سایت‌ها در دسترس نباشند. تنظیمات شبکه خود را بررسی کنید یا برای اطلاعات بیشتر، از گزارش‌ها خروجی بگیرید.</string>
-    <string name="optional_metrics">معیارهای اختیاری:</string>
+    <string name="optional_metrics">داده‌های آماری اختیاری:</string>
     <string name="clean_insights_opt_in">بله، مشارکت می‌کنم</string>
     <string name="clean_insights_maybe_later">نه، شاید بعدا</string>
     <string name="thank_you_for_feedback">از بازخورد شما سپاسگزاریم!</string>
@@ -364,7 +364,7 @@
     <string name="preferences_announcement_source_option_3">بایگانی</string>
     <string name="developer_tools_enabled">ابزارهای توسعه‌دهنده فعال شد</string>
     <string name="preferences_announcement_source_option_1">تولید (Production)</string>
-    <string name="preferences_clean_insights_backdate">فعال‌سازی ثبت معیارها به‌صورت گذشته‌نگر</string>
+    <string name="preferences_clean_insights_backdate">فعال‌سازی داده‌های آماری به‌صورت گذشته</string>
     <string name="ceno_notification_confirm_description">می‌خواهید تمام داده‌های خود را از سنو پاک کنید؟</string>
     <string name="bookmark_menu_share_button">اشتراک‌گذاری</string>
     <string name="bookmark_menu_delete_button">حذف</string>
@@ -373,19 +373,19 @@
     <string name="bookmark_menu_save_button">ذخیره</string>
     <string name="preferences_allow_crash_reporting_description">ارسال گزارش به توسعه‌دهندگان پس از توقف ناگهانی برنامه</string>
     <string name="preferences_metrics_campaign">آمارهای پس‌زمینه</string>
-    <string name="metrics_ouinet_description">ارسال آمارهای ناشناس همراه با حفظ حریم خصوصی به توسعه‌دهندگان</string>
-    <string name="metrics_ouinet_title">آمارهای سِنو</string>
+    <string name="metrics_ouinet_description">ارسال داده‌های آماری به‌صورت ناشناس و با حفظ حریم خصوصی به توسعه‌دهندگان</string>
+    <string name="metrics_ouinet_title">داده‌های آماری سنو</string>
     <string name="bookmark_menu_edit_button">ویرایش</string>
     <string name="bookmark_menu_copy_button">کپی</string>
     <string name="bookmark_menu_open_in_new_tab_button">باز کردن در زبانه جدید</string>
-    <string name="library_desktop_bookmarks_unfiled">سایت‌های برتر دیگر</string>
+    <string name="library_desktop_bookmarks_unfiled">سایت‌های نشان‌شده دیگر</string>
     <string name="bookmark_deletion_confirmation">مطمئنید که می‌خواهید این سایت برتر را حذف کنید؟</string>
-    <string name="bookmarks_empty_message">هیچ سایت برتری اینجا نیست</string>
+    <string name="bookmarks_empty_message">هیچ سایت نشان‌شده‌ای اینجا نیست</string>
     <string name="metrics_campaign_more_info">اطلاعات بیشتر</string>
-    <string name="edit_bookmark_fragment_title">ویرایش سایت برتر</string>
+    <string name="edit_bookmark_fragment_title">ویرایش سایت نشان‌شده</string>
     <string name="bookmark_add_folder_fragment_label">افزودن پوشه</string>
-    <string name="bookmark_item_menu_button">دکمه منوی سایت برتر</string>
-    <string name="add_or_remove_bookmark">افزودن یا حذف سایت برتر</string>
+    <string name="bookmark_item_menu_button">دکمه منوی سایت نشان‌شده</string>
+    <string name="add_or_remove_bookmark">افزودن یا حذف سایت نشان‌شده</string>
     <string name="bookmark_folder_label">پوشه</string>
     <string name="bookmark_url_label">نشانی وب</string>
     <string name="edit_bookmark_folder_fragment_title">ویرایش پوشه</string>
@@ -421,10 +421,27 @@
     <string name="preferences_ouinet_proxy_endpoint">نقطه پایانی پروکسی محلی</string>
     <string name="preferences_ouinet_frontend_endpoint">نقطه پایانی ظاهر محلی</string>
     <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">محتوای به اشتراک گذاشته شده با موفقیت ذخیره شد</string>
-    <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">محتوای اشتراک‌گذاری شده Ceno</string>
+    <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">محتوای اشتراک‌گذاری شده سنو</string>
     <string name="confirm_groups_file_download" tools:ignore="UnusedResources">گرفتن خروجی از لیست محتوای به اشتراک گذاشته شده؟</string>
     <string name="pin_unpin_to_cache_failed">خطا! به‌روزرسانی حافظه پنهان ناموفق بود.</string>
     <string name="preferences_hide_ouicrawl_feed">پنهان کردن فید رسانه‌های آزاد</string>
     <string name="preferences_ouinet_enable_doh">استفاده از DNS بر روی HTTPS</string>
     <string name="updating_doh_dialog_title">به‌روزرسانی تنظیمات DNS بر روی HTTPS</string>
+    <string name="last_2_hours">۲ ساعت گذشته</string>
+    <string name="preferences_test_metrics">داده‌های آماری آزمایشی سنو</string>
+    <string name="test_metrics_submitting">در حال ارسال داده آماری آزمایشی</string>
+    <string name="test_metrics_dialog_success">داده آماری آزمایشی به کلاینت محلی ارسال شد</string>
+    <string name="test_metrics_dialog_failed">داده آماری آزمایشی به کلاینت محلی ارسال نشد</string>
+    <string name="secure_screen_category">محافظت از صفحه</string>
+    <string name="preferences_secure_screen">فعال‌سازی محافظت از صفحه</string>
+    <string name="preferences_secure_screen_summary">نمای فعلی صفحه را هنگام جابه‌جایی بین اپ‌ها پنهان می‌سازد و از گرفتن اسکرین‌شات جلوگیری می‌کند</string>
+    <string name="preferences_secure_screen_personal">فقط در حالت مرور شخصی</string>
+    <string name="preferences_secure_screen_personal_summary">محافظت از صفحه فقط هنگام استفاده از حالت مرور شخصی اعمال می‌شود</string>
+    <string name="dialog_external_url_message">برای باز کردن لینک زیر، روی «ادامه» بزنید: -\n\n%1$s</string>
+    <string name="dialog_external_url_title">آیا مطمئنید که می‌خواهید لینک را از اپ‌های دیگر باز کنید؟</string>
+    <string name="preferences_verify_external_url">نمایش هشدار پیش از باز کردن لینک از اپ‌های دیگر</string>
+    <string name="warning_title">هشدار</string>
+    <string name="warning_all_website_sources_disabled">همه منابع وب‌سایت غیرفعال هستند. برای ادامه مرور وب، لطفا حداقل یکی از منابع را فعال کنید</string>
+    <string name="warning_public_website_sources_disabled">تمام منابع لازم برای مرور در حالت عمومی غیرفعال شده‌اند؛ مرور وب فقط در حالت شخصی امکان‌پذیر است</string>
+    <string name="warning_personal_website_sources_disabled">تمام منابع لازم برای مرور در حالت شخصی غیرفعال شده‌اند؛ مرور وب فقط در حالت عمومی امکان‌پذیر است</string>
 </resources>

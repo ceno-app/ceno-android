@@ -1,0 +1,5 @@
+Esta versión:
+- Actualiza Ouinet a la versión 1.4.2
+- Actualiza Android-Components a la versión 145.0
+- Actualiza cacert.pem con el paquete generado el martes 4 de noviembre a las 04:12:02 GMT de 2025
+- Pequeñas actualizaciones en varias traducciones
