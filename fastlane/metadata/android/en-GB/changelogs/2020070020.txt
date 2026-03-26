@@ -1,0 +1,5 @@
+This release:
+- Updates Ouinet to v1.4.1
+- Updates Android-Components to v144.0
+- Updates minSdk to 26
+- Fixes bug with metrics collection

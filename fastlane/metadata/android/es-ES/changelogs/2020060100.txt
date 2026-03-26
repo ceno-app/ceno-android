@@ -1,0 +1,5 @@
+En esta versión:
+- Se actualiza Android-Components a la versión 141.0.1
+- Se corrigen errores menores
+- Se actualiza la gestión de los anuncios para evitar fallos del sistema
+- Se han realizado importantes revisiones en las traducciones al ruso

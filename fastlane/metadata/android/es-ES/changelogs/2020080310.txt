@@ -1,0 +1,12 @@
+### Solucionado
+
+- La exportación de registros no funcionaba cuando la aplicación estaba configurada
+ con la configuración regional RTL
+- La aplicación se bloqueaba cuando los medios libres tenían menos de 5 elementos
+- La aplicación se bloqueaba al volver atrás en Ajustes tras cambiar el idioma
+
+### Modificado
+
+- El nombre predeterminado del archivo de registro es ahora ceno_log
+- Actualización de Android-Components a la versión 147.0.4
+- Actualización del complemento Gradle de Android a la versión 8.13.2
