@@ -10,21 +10,25 @@
         android:title="@string/theme_category"
         android:layout="@layout/preference_category_style">
 
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_follow_system"
+            android:title="@string/preferences_theme_option_0"
+            android:layout="@layout/preference_radio_button"
+            android:defaultValue="true"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_dark_theme"
+            android:title="@string/preferences_theme_option_1"
+            android:layout="@layout/preference_radio_button"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_light_theme"
+            android:title="@string/preferences_theme_option_2"
+            android:layout="@layout/preference_radio_button"/>
+
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
             android:key="@string/pref_key_change_app_icon"
             android:title="@string/preferences_change_app_icon"
             />
-
-        <!-- TODO: Replace ListPreferences with real radio groups like Fenix-->
-        <ListPreference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_theme"
-            android:title="@string/preferences_theme"
-            android:summary="@string/preferences_theme_summary"
-            android:defaultValue="@string/preferences_theme_default"
-            android:entryValues="@array/preferences_theme_values"
-            android:entries="@array/preferences_theme_options"/>
 
     </PreferenceCategory>
 

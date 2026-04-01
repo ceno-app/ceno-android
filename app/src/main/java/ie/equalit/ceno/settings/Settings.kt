@@ -129,6 +129,14 @@ object Settings {
         return themeString!!.toInt()
     }
 
+    fun setAppTheme(context: Context, themeString: String) {
+        val key = context.getString(R.string.pref_key_theme)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(key, themeString)
+            }
+    }
+
     fun deleteOpenTabs(context: Context) : Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_delete_open_tabs), false

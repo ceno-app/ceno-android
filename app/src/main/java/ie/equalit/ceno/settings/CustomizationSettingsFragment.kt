@@ -10,16 +10,25 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.setSecureScreen
+import ie.equalit.ceno.settings.utils.RadioButtonPreference
+import ie.equalit.ceno.settings.utils.addToRadioGroup
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
+
+    private lateinit var radioLightTheme: RadioButtonPreference
+    private lateinit var radioDarkTheme: RadioButtonPreference
+    private lateinit var radioFollowDeviceTheme: RadioButtonPreference
+
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.customization_preferences, rootKey)
@@ -32,6 +41,47 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
             findNavController().popBackStack()
         }
         callback.isEnabled = true
+        radioLightTheme = getPreference(R.string.pref_key_light_theme) as RadioButtonPreference
+        radioDarkTheme = getPreference(R.string.pref_key_dark_theme) as RadioButtonPreference
+        radioFollowDeviceTheme = getPreference(R.string.pref_key_follow_system) as RadioButtonPreference
+        radioDarkTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        radioLightTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        radioFollowDeviceTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+        setupThemePreferences()
+        setupRadioGroups()
+    }
+
+    private fun setupThemePreferences() {
+        var key = when (Settings.getAppTheme(requireContext())) {
+            AppCompatDelegate.MODE_NIGHT_YES -> R.string.pref_key_dark_theme
+            AppCompatDelegate.MODE_NIGHT_NO -> R.string.pref_key_light_theme
+            else -> R.string.pref_key_follow_system
+        }
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+            putBoolean(getString(key), true)
+        }
+    }
+
+    private fun setupRadioGroups() {
+        addToRadioGroup(
+            radioLightTheme,
+            radioDarkTheme,
+            radioFollowDeviceTheme
+        )
+    }
+
+    private fun applySelectedTheme(theme: Int) {
+        Settings.setAppTheme(requireContext(), theme.toString())
+        if (AppCompatDelegate.getDefaultNightMode() != theme) {
+            AppCompatDelegate.setDefaultNightMode(theme)
+            activity?.recreate()
+        }
     }
 
     override fun onResume() {
