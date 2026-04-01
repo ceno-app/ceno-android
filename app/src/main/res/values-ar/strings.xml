@@ -260,10 +260,7 @@
     <string name="dialog_btn_positive_ok">موافق/ة</string>
     <string name="network_settings">إعدادات الشبكة</string>
     <string name="ouinet_timeout_dialog_text">يتطلب سنو اتصالاً بالإنترنت حتى يعمل. يرجى التحقق من إعدادات الشبكة الخاصة بك.</string>
-    <string name="standby_no_internet_text">لا يوجد اتصال بالإنترنت.
-\n
-\nقد يكون أداء سنو محدودًا.
-\nيرجى التحقق من اتصالات الشبكة ومحاولة إعادة تحميل سنو.</string>
+    <string name="standby_no_internet_text">لا يوجد اتصال بالإنترنت. قد يكون أداء سنو محدودًا. يرجى التحقق من اتصالات الشبكة ومحاولة إعادة تحميل Ceno .</string>
     <string name="standby_try_again">حاول مجددا</string>
     <string name="ceno_ouinet_connecting">الاتصال بشبكة ceno</string>
     <string name="ceno_ouinet_disconnected">مفصولة عن شبكة ceno</string>
@@ -331,4 +328,19 @@
     <string name="ceno_sources_shared_by_local_cache">من ذاكرة التخزين المؤقت للمتصفح</string>
     <string name="ceno_log_content_group_file_saved" tools:ignore="UnusedResources">تم حفظ المحتوى المُشارَك بنجاح</string>
     <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">محتوى Ceno المُشارَك</string>
+    <string name="last_2_hours">منذ ساعتين</string>
+    <string name="bridge_announcement_dialog_title">جاري تحديث إعدادات وضع الربط…</string>
+    <string name="enable_bridge_card_text">ساهم في تقوية شبكة Ceno وكن جسر اتصال! يمكنك التفعيل بالانتقال إلى: الإعدادات ← تفعيل وضع Bridge.</string>
+    <string name="enable_bridge_card_title">تفعيل وضع Bridge</string>
+    <string name="confirm_groups_file_download" tools:ignore="UnusedResources">تصدير قائمة المحتوى الذي تمت مشاركته؟</string>
+    <string name="clean_insights_header">ساعدنا في تحسين Ceno!</string>
+    <string name="clean_insights_sub_header">نودّ تسجيل بيانات الاستخدام التالية:</string>
+    <string name="clean_insights_explainer">ستكون مساهمتك مجهولة الهوية، ويمكنك الانسحاب في أي وقت عبر: الإعدادات ← بيانات الخلفية.</string>
+    <string name="optional_metrics">مقاييس اختيارية:</string>
+    <string name="device_type">نوع الجهاز</string>
+    <string name="device_locale">لغة الجهاز</string>
+    <string name="clean_insights_opt_in">نعم، أرغب في المشاركة</string>
+    <string name="clean_insights_maybe_later">لا، ربما لاحقاً</string>
+    <string name="thank_you_for_feedback" tools:ignore="UnusedResources">شكراً لتقييمك!</string>
+    <string name="submit" tools:ignore="UnusedResources">إرسال</string>
 </resources>
