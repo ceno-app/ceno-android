@@ -73,7 +73,7 @@
     <string name="preferences_delete_browsing_data_site_permissions">Разрешения, которые запрашивали сайты</string>
     <string name="preferences_delete_browsing_data_button">Удаление данных браузера‥</string>
     <string name="preferences_delete_browsing_data_tabs_title_2">Открытые вкладки</string>
-    <string name="preference_category_search">искать</string>
+    <string name="preference_category_search">Поиск</string>
     <string name="secure_connection">Соединение зашифровано</string>
     <string name="browser_toolbar_home">Главная</string>
     <string name="browser_menu_back">Назад</string>
