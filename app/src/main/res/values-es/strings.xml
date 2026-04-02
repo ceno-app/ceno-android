@@ -191,7 +191,7 @@
     <string name="onboarding_battery_text_v33">En breve, el sistema operativo le pedirá permiso para \n \n• Permitir las notificaciones \n• Desactivar la optimización de la batería \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
     <string name="ceno_onboarding_start_title">Comparte la web, \nentre personas</string>
     <string name="ceno_onboarding_start_text">La red troncal entre personas de Ceno permite acceder y compartir el contenido de sitios web dentro y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
-    <string name="onboarding_public_or_personal_title">¿Pública o personal?</string>
+    <string name="onboarding_public_or_personal_title">¿Público o Personal?</string>
     <string name="onboarding_public_personal_text">Utilice las pestañas Públicas para leer noticias, ver videos y navegar por Internet en general. En el modo Público, también puede compartir contenido web con otros usuarios de Ceno. Las pestañas Personales son más adecuadas para acceder a cuentas de redes sociales, compras en línea y navegación por páginas web que no desee compartir con otros.</string>
     <string name="onboarding_cleanup_title">Limpiar todo, \nen todas partes, todo a la vez</string>
     <string name="onboarding_cleanup_text">Borre con un solo botón su historial de navegación, credenciales y cualquier rastro que haya dejado en Ceno.</string>
@@ -221,7 +221,7 @@
     <string name="preferences_ceno_website_sources">Fuentes de la página web</string>
     <string name="bt_sources_none">Ninguno</string>
     <string name="ceno_sources_header">Fuentes del contenido</string>
-    <string name="preferences_ceno_bridge_announcement">Activar el modo puente</string>
+    <string name="preferences_ceno_bridge_announcement">Habilita el modo puente</string>
     <string name="ouinet_taking_too_long_title">¿Está tardando demasiado?</string>
     <string name="network_settings">Configuración de la red</string>
     <string name="standby_no_internet_text">Sin conexión a Internet. \n \nEl rendimiento de Ceno puede ser limitado. \nCompruebe sus conexiones de red e intente recargar Ceno.</string>
