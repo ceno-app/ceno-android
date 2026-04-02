@@ -160,14 +160,14 @@
     <string name="addon_placeholder">No hay Complementos Disponibles</string>
     <string name="preferences_about_ceno">Navegador Ceno</string>
     <string name="preferences_about_geckoview">GeckoView</string>
-    <string name="preferences_ceno_sources_origin">Sitio web</string>
+    <string name="preferences_ceno_sources_origin">Página web</string>
     <string name="preferences_ceno_sources_private">De forma privada</string>
     <string name="preferences_ceno_sources_peers">Compartido</string>
     <string name="ceno_data_category">Datos</string>
     <string name="preferences_ceno_cache_size">Caché local</string>
     <string name="preferences_ceno_enable_log">Habilitar el archivo del registro</string>
     <string name="preferences_ceno_network_config_summary">Estado de Ouinet, puntos finales de UDP, arranque de BitTorrent</string>
-    <string name="website_button_text">Sitio web</string>
+    <string name="website_button_text">Página web</string>
     <string name="source_code_button_text">Código Fuente</string>
     <string name="preferences_ceno_download_log">Exportar el registro de Ouinet</string>
     <string name="ceno_sources_category">Fuentes</string>
