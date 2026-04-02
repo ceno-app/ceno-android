@@ -198,7 +198,7 @@
     <string name="onboarding_warning_text_v33_2">Notificações não estão permitidas e a otimização de bateria ainda está ativada.
 \n
 \nVá em \"Configurações\" para dar permissão mais tarde</string>
-    <string name="onboarding_public_or_personal_title">Público ou Pessoal?</string>
+    <string name="onboarding_public_or_personal_title">Público ou pessoal?</string>
     <string name="onboarding_public_personal_text">Use as guias públicas para ler notícias, assistir a vídeos e navegar na Web em geral. No modo Público, você também pode compartilhar conteúdo da Web com outros usuários do Ceno. As guias pessoais são mais adequadas para contas de mídia social, compras on-line e navegação em sites que você não deseja compartilhar com outras pessoas.</string>
     <string name="onboarding_cleanup_title">Limpe tudo,
 \nem todos os lugares, tudo de uma vez</string>
