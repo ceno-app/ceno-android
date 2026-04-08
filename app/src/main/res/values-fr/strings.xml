@@ -459,4 +459,9 @@
     <string name="test_metrics_submitting">Soumettre des statistiques de test</string>
     <string name="test_metrics_dialog_success">Statistiques de test soumises au client local</string>
     <string name="test_metrics_dialog_failed">Les statistiques de test n\'ont pas été soumises au client local</string>
+    <string name="last_2_hours">Au cours des 2 dernières heures</string>
+    <string name="dialog_external_url_message">Cliquez sur « Continuer » pour ouvrir l\'URL suivante :\n\n%1$s</string>
+    <string name="dialog_external_url_title">Êtes-vous sûr de vouloir ouvrir des URL depuis des applications externes ?</string>
+    <string name="preferences_verify_external_url">Afficher un avertissement avant d\'ouvrir des URL provenant d\'autres applications</string>
+    <string name="warning_title">Attention</string>
 </resources>
