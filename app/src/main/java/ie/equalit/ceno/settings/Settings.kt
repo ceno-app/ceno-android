@@ -424,4 +424,23 @@ object Settings {
             return null
         }
     }
+
+    fun secureScreen(context: Context) : Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_secure_screen), true
+        )
+    }
+
+    fun shouldVerifyExternalUrl(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+            context.getString(R.string.pref_key_verify_external_url), true
+        )
+
+    fun setVerifyExternalUrl(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_verify_external_url)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putBoolean(key, value)
+            }
+    }
 }

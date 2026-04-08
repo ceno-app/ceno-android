@@ -50,6 +50,7 @@ android {
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
         buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
+        buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES",  localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
@@ -271,20 +272,11 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                 versionCode = "2$mj$min$pt$a$r"
             }
             else {
-                /* CENO: Use mozilla's versionCode generator to be consistent with pre-v2 CENO
-                 * python script copied from here, https://hg.mozilla.org/releases/mozilla-release/file/tip/python/mozbuild/mozbuild/android_version_code.py
+                /* Ceno: We use mozilla's versionCode generator for nightly builds
+                 * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
                  * We should periodically check if any changes are made to it.
                  */
-                versionCode = new ByteArrayOutputStream()
-                exec {
-                    workingDir rootDir.toString() + '/python/'
-                    commandLine 'python', 'android_version_code.py',
-                            '--with-android-cpu-arch', abi,
-                            '--with-android-min-sdk-version', Config.minSdkVersion,
-                            '--with-android-max-sdk-version', Config.targetSdkVersion,
-                            buildDateOverride
-                    standardOutput = versionCode
-                }
+                versionCode = Config.generateFennecVersionCode(abi)
             }
 
             /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */

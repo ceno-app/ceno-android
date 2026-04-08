@@ -27,8 +27,10 @@ class Ouinet (
     val proxyAccessPassword = generateRandomToken()
 
     fun setConfig() {
-        val isDohDisabled = if (isDohDisabledForLocale()) true else !Settings.isDohEnabled(context)
-
+        val dnsProtocols : MutableSet<String> = mutableSetOf("plain")
+        if (!isDohDisabledForLocale() && Settings.isDohEnabled(context)) {
+            dnsProtocols.add("https")
+        }
         config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -45,9 +47,10 @@ class Ouinet (
             .setMetricsServerToken(METRICS_SERVER_TOKEN)
             .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
+            .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
             .setFrontEndAccessToken(metricsFrontendToken)
             .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
-            .setDisableDoH(isDohDisabled)
+            .setDnsProtocols(dnsProtocols)
             .build()
     }
 

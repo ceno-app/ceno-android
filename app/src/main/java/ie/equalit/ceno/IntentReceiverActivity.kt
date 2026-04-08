@@ -7,9 +7,9 @@ package ie.equalit.ceno
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
-import ie.equalit.ceno.ext.components
 
 class IntentReceiverActivity : Activity() {
 
@@ -26,18 +26,9 @@ class IntentReceiverActivity : Activity() {
         // do not want to propagate this flag from the launcher activity to the browser.
         intent.flags = intent.flags and Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS.inv()
 
-        val utils = components.utils
-
         MainScope().launch {
-            val processor = utils.intentProcessors.firstOrNull { it.process(intent) }
 
-            val className = if (processor in utils.externalIntentProcessors) {
-                ExternalAppBrowserActivity::class
-            } else {
-                BrowserActivity::class
-            }
-
-            intent.setClassName(applicationContext, className.java.name)
+            intent.setClassName(applicationContext, BrowserActivity::class.java.name)
 
             startActivity(intent)
             finish()

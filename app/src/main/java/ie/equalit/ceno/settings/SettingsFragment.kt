@@ -230,7 +230,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         cenoPrefs.preferences.registerOnSharedPreferenceChangeListener(
             sharedPreferencesChangeListener
         )
-//        setupPreferences()
+        updatePreferences()
         setupCenoSettings()
         getActionBar().apply {
             show()
@@ -269,25 +269,28 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForCleanInsights()
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener =
             getClickListenerForLanguageChange()
-        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary =
-            getCurrentLocale().displayLanguage
         getPreference(pref_key_ceno_website_sources)?.onPreferenceClickListener =
             getClickListenerForWebsiteSources()
         getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
             getChangeListenerForBridgeAnnouncement()
-        getPreference(pref_key_search_engine)?.summary = getString(
-            setting_item_selected,
-            requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name
-        )
-        getPreference(pref_key_bridge_announcement)?.summary =
-            getString(bridge_mode_ip_warning_text)
         getPreference(pref_key_about_ceno)?.onPreferenceClickListener =
             getClickListenerForCenoVersion()
         getPreference(pref_key_additional_developer_tools)?.let {
             it.onPreferenceClickListener = getClickListenerForAdditionalDeveloperTools()
             it.isVisible = shouldShowDeveloperTools(requireContext())
         }
+        updatePreferences()
+    }
 
+    private fun updatePreferences() {
+        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_change_language))?.summary =
+            getCurrentLocale().displayLanguage
+        getPreference(pref_key_search_engine)?.summary = getString(
+            setting_item_selected,
+            requireContext().components.core.store.state.search.selectedOrDefaultSearchEngine?.name
+        )
+        getPreference(pref_key_bridge_announcement)?.summary =
+            getString(bridge_mode_ip_warning_text)
         // Update notifications
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             getPreference(pref_key_allow_notifications)?.apply {
@@ -315,7 +318,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             getPreference(pref_key_disable_battery_opt)?.isVisible = false
             getPreferenceCategory(R.string.pref_permissions_category)?.isVisible = false
         }
-
     }
 
     private fun setPreference(
@@ -883,6 +885,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         const val LOGS_LAST_5_MINUTES = 300000L
         const val LOGS_LAST_10_MINUTES = 600000L
+        const val LOGS_LAST_120_MINUTES = 7200000L
 
         const val AVERAGE_TOTAL_LOGS = 3000F
 

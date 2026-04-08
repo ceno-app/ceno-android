@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:orientation="vertical"
+    android:id="@+id/website_sources_warning_layout">
+
+    <TextView
+        android:id="@+id/website_sources_warning_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/fx_mobile_text_color_warning"
+        android:drawablePadding="8dp"
+        android:textSize="18sp"
+        android:text="@string/warning_title"
+        app:drawableEndCompat="@drawable/mozac_ic_warning_24"
+        app:drawableTint="@color/fx_mobile_icon_color_warning" />
+
+    <TextView
+        android:id="@android:id/summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/fx_mobile_text_color_warning" />
+</LinearLayout>

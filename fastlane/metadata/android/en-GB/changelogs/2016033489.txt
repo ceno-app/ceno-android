@@ -1,0 +1,2 @@
+This release:
+- Updates AndroidManifest.xml

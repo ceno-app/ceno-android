@@ -34,4 +34,11 @@
         android:title="@string/preferences_ceno_sources_peers"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        app:iconSpaceReserved="false"
+        android:layout="@layout/website_sources_warning_preference"
+        android:key="@string/pref_key_website_sources_warning"
+        android:selectable="false"
+        app:isPreferenceVisible="false"/>
+
 </androidx.preference.PreferenceScreen>

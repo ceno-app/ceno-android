@@ -14,7 +14,7 @@ androidx_work = "2.10.3"
 androidx_r8 = "8.11.18"
 
 # Android Components
-android_components = "147.0.4"
+android_components = "148.0.2"
 
 # Google
 google_composecompiler = "1.5.14"
@@ -23,7 +23,7 @@ google_material = "1.13.0"
 # Gradle
 #noinspection AndroidGradlePluginVersion
 gradle_android_plugin = "8.13.2"
-gradle_kotlin_plugin = "2.1.21"
+gradle_kotlin_plugin = "2.2.21"
 
 # Kotlin
 kotlin_coroutines = "1.10.2"
@@ -47,7 +47,7 @@ tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "1.6.2"
+ouinet_version = "1.6.4"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 

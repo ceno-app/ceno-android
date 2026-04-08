@@ -27,32 +27,12 @@ class Utilities(
     private val tabsUseCases: TabsUseCases,
     private val customTabsUseCases: CustomTabsUseCases,
 ) {
-
-    /**
-     * Provides intent processing functionality for Progressive Web App and Custom Tab intents.
-     */
-    val externalIntentProcessors by lazy {
-        listOf(
-            CustomTabIntentProcessor(
-                customTabsUseCases.add,
-                context.resources,
-            ),
-            WebAppIntentProcessor(
-                store,
-                customTabsUseCases.addWebApp,
-                sessionUseCases.loadUrl,
-                ManifestStorage(context),
-            ),
-        )
-    }
-
     /**
      * Provides intent processing functionality for ACTION_VIEW and ACTION_SEND intents,
      * along with external intent processors.
      */
-    val intentProcessors by lazy {
-        externalIntentProcessors +
-            TabIntentProcessor(tabsUseCases, searchUseCases.newTabSearch)
+    val intentProcessor by lazy {
+        TabIntentProcessor(tabsUseCases, searchUseCases.newTabSearch)
     }
 
     val publicSuffixList by lazy {
