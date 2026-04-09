@@ -104,6 +104,9 @@
     <string name="pref_key_secure_screen_personal" translatable="false">pref_key_secure_screen_personal</string>
     <string name="pref_key_verify_external_url" translatable="false">pref_key_verify_external_url</string>
     <string name="pref_key_website_sources_warning" translatable="false">pref_key_website_sources_warning</string>
+    <string name="pref_key_prompt" translatable="false">pref_key_prompt</string>
+    <string name="pref_key_clear_cache_only" translatable="false">pref_key_clear_cache_only</string>
+    <string name="pref_key_clear_cache_and_app_data" translatable="false">pref_key_clear_cache_and_app_data</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

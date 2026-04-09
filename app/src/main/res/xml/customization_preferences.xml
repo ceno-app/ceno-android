@@ -23,6 +23,11 @@
             android:key="@string/pref_key_light_theme"
             android:title="@string/preferences_theme_option_2"
             android:layout="@layout/preference_radio_button"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Icon"
+        android:layout="@layout/preference_category_style">
 
         <androidx.preference.Preference
             app:iconSpaceReserved="false"
@@ -71,14 +76,34 @@
             android:defaultValue="true"
             android:title="@string/preferences_clear_in_menu"/>
 
-        <ListPreference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_behavior"
+        <PreferenceCategory
             android:title="@string/preferences_clear_behavior"
-            android:summary="@string/preferences_clear_behavior_summary"
-            android:defaultValue="@string/preferences_clear_behavior_default"
-            android:entryValues="@array/preferences_clear_behavior_values"
-            android:entries="@array/preferences_clear_behavior_options"/>
+            android:layout="@layout/preference_category_style">
+
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_prompt"
+                android:title="@string/preferences_clear_behavior_option_1"
+                android:layout="@layout/preference_radio_button"
+                android:defaultValue="true"/>
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_clear_cache_only"
+                android:title="@string/preferences_clear_behavior_option_2"
+                android:layout="@layout/preference_radio_button"/>
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_clear_cache_and_app_data"
+                android:title="@string/preferences_clear_behavior_option_3"
+                android:layout="@layout/preference_radio_button"/>
+
+        </PreferenceCategory>
+
+<!--        <ListPreference-->
+<!--            app:iconSpaceReserved="false"-->
+            android:key="@string/pref_key_clear_behavior"
+<!--            android:title="@string/preferences_clear_behavior"-->
+<!--            android:summary="@string/preferences_clear_behavior_summary"-->
+<!--            android:defaultValue="@string/preferences_clear_behavior_default"-->
+<!--            android:entryValues="@array/preferences_clear_behavior_values"-->
+<!--            android:entries="@array/preferences_clear_behavior_options"/>-->
 
     </PreferenceCategory>
 
