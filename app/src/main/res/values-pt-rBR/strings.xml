@@ -460,4 +460,9 @@
     <string name="dialog_external_url_message">Clique em “Continuar” para abrir o seguinte URL -\n\n%1$s</string>
     <string name="dialog_external_url_title">Tem certeza de que deseja abrir URLs de aplicativos externos?</string>
     <string name="preferences_verify_external_url">Mostrar aviso antes de abrir URLs de outros aplicativos</string>
+    <string name="last_2_hours">Últimas 2 horas</string>
+    <string name="warning_title">Cuidado</string>
+    <string name="warning_all_website_sources_disabled">Todas as fontes do site estão desativadas. Ative pelo menos uma fonte para continuar navegando na web</string>
+    <string name="warning_public_website_sources_disabled">Todas as fontes necessárias para navegar no modo público estão desativadas; a navegação na Web só é possível no modo pessoal</string>
+    <string name="warning_personal_website_sources_disabled">Todas as fontes necessárias para navegar no modo privado estão desativadas; a navegação na Web só é possível no modo público</string>
 </resources>
