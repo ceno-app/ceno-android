@@ -51,13 +51,7 @@ class RadioButtonPreference(
         layoutResource = R.layout.preference_radio_button
         context.withStyledAttributes(
             attrs,
-            R.styleable.RadioButtonPreference,
-            getAttr(
-                context,
-                androidx.preference.R.attr.preferenceStyle,
-                android.R.attr.preferenceStyle,
-            ),
-            0,
+            R.styleable.RadioButtonPreference
         ) {
             defaultValue = when {
                 hasValue(R.styleable.RadioButtonPreference_defaultValue) ->

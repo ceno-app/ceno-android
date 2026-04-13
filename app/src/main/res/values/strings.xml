@@ -212,16 +212,6 @@
     <string name="preferences_clear_behavior">Default Behavior</string>
     <string name="preferences_clear_behavior_summary">Set behavior on tapping clear button</string>
     <string name="preferences_clear_behavior_default">0</string>
-    <string-array name="preferences_clear_behavior_values">
-        <item>0</item>
-        <item>1</item>
-        <item>2</item>
-    </string-array>
-    <string-array name="preferences_clear_behavior_options">
-        <item>@string/preferences_clear_behavior_option_1</item>
-        <item>@string/preferences_clear_behavior_option_2</item>
-        <item>@string/preferences_clear_behavior_option_3</item>
-    </string-array>
     <string name="preferences_clear_behavior_option_1">Prompt</string>
     <string name="preferences_clear_behavior_option_2">Clear Ceno cache only</string>
     <string name="preferences_clear_behavior_option_3">Clear app data and Ceno cache</string>
@@ -229,18 +219,6 @@
     <string name="preferences_theme">Set app theme</string>
     <string name="preferences_theme_summary">Dark, Light, Battery Saving</string>
     <string name="preferences_theme_default" translatable="false">-1</string>
-    <string-array name="preferences_theme_values">
-        <item>-1</item>
-        <item>2</item>
-        <item>1</item>
-        <item>3</item>
-    </string-array>
-    <string-array name="preferences_theme_options">
-        <item>@string/preferences_theme_option_0</item>
-        <item>@string/preferences_theme_option_1</item>
-        <item>@string/preferences_theme_option_2</item>
-        <item>@string/preferences_theme_option_3</item>
-    </string-array>
     <string name="preferences_theme_option_0">Follow system theme</string>
     <string name="preferences_theme_option_1">Dark</string>
     <string name="preferences_theme_option_2">Light</string>
@@ -501,8 +479,8 @@
     <string name="preferences_ouinet_frontend_endpoint">Local frontend endpoint</string>
     <string name="pin_unpin_to_cache_failed">Error! Cache update failed.</string>
     <string name="preferences_hide_ouicrawl_feed">Hide Free Media feed</string>
-    <string name="preferences_ouinet_enable_doh">Use DNS over HTTPS</string>
-    <string name="updating_doh_dialog_title">Updating DNS over HTTPS settings</string>
+    <string name="preferences_ouinet_enable_doh" tools:ignore="UnusedResources">Use DNS over HTTPS</string>
+    <string name="updating_doh_dialog_title">Updating DNS Protocol settings</string>
     <string name="preferences_test_metrics">Test Ceno Metrics</string>
     <string name="test_metrics_submitting">Submitting test metric</string>
     <string name="test_metrics_dialog_success">Test metric submitted to local client</string>

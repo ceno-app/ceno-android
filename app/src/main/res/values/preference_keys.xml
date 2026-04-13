@@ -107,6 +107,9 @@
     <string name="pref_key_prompt" translatable="false">pref_key_prompt</string>
     <string name="pref_key_clear_cache_only" translatable="false">pref_key_clear_cache_only</string>
     <string name="pref_key_clear_cache_and_app_data" translatable="false">pref_key_clear_cache_and_app_data</string>
+    <string name="pref_key_dns_plain" translatable="false">pref_key_dns_plain</string>
+    <string name="pref_key_dns_https" translatable="false">pref_key_dns_https</string>
+    <string name="pref_key_dns_both" translatable="false">pref_key_dns_both</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

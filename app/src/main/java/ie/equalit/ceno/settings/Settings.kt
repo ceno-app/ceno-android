@@ -388,6 +388,25 @@ object Settings {
         )
     }
 
+    fun getDnsProtocols(context: Context) : MutableSet<String> {
+        val dnsProtocols : MutableSet<String> = mutableSetOf()
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_plain), true
+            ))
+            dnsProtocols.add("plain")
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_https), true
+            ))
+            dnsProtocols.add("https")
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_both), true
+            )) {
+            dnsProtocols.add("plain")
+            dnsProtocols.add("https")
+        }
+        return dnsProtocols
+    }
+
     fun setOuinetMetricsEnabled(context: Context, newValue:Boolean) {
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit() {

@@ -96,15 +96,6 @@
 
         </PreferenceCategory>
 
-<!--        <ListPreference-->
-<!--            app:iconSpaceReserved="false"-->
-            android:key="@string/pref_key_clear_behavior"
-<!--            android:title="@string/preferences_clear_behavior"-->
-<!--            android:summary="@string/preferences_clear_behavior_summary"-->
-<!--            android:defaultValue="@string/preferences_clear_behavior_default"-->
-<!--            android:entryValues="@array/preferences_clear_behavior_values"-->
-<!--            android:entries="@array/preferences_clear_behavior_options"/>-->
-
     </PreferenceCategory>
 
     <PreferenceCategory

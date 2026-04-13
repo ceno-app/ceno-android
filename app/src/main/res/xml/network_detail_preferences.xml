@@ -39,11 +39,32 @@
             android:key="@string/pref_key_ouinet_frontend_endpoint"
             android:title="@string/preferences_ouinet_frontend_endpoint" />
 
-        <androidx.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
+<!--        <androidx.preference.SwitchPreferenceCompat-->
+<!--            android:defaultValue="true"-->
+<!--            android:key="@string/pref_key_doh_enabled"-->
+<!--            android:title="@string/preferences_ouinet_enable_doh"-->
+<!--            app:iconSpaceReserved="false" />-->
+
+        <PreferenceCategory
+            android:title="DNS Protocol"
             android:key="@string/pref_key_doh_enabled"
-            android:title="@string/preferences_ouinet_enable_doh"
-            app:iconSpaceReserved="false" />
+            android:layout="@layout/preference_category_style">
+
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_dns_plain"
+                android:title="Plain"
+                android:layout="@layout/preference_radio_button" />
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_dns_https"
+                android:title="over HTTPS"
+                android:layout="@layout/preference_radio_button"
+                android:defaultValue="true"/>
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_dns_both"
+                android:title="Both"
+                android:layout="@layout/preference_radio_button"/>
+
+        </PreferenceCategory>
 
     </PreferenceCategory>
 
