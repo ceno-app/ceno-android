@@ -11,7 +11,7 @@
         android:layout="@layout/preference_category_style">
 
         <ie.equalit.ceno.settings.utils.RadioButtonPreference
-            android:key="@string/pref_key_follow_system"
+            android:key="@string/pref_key_follow_system_theme"
             android:title="@string/preferences_theme_option_0"
             android:layout="@layout/preference_radio_button"
             android:defaultValue="true"/>
@@ -22,6 +22,10 @@
         <ie.equalit.ceno.settings.utils.RadioButtonPreference
             android:key="@string/pref_key_light_theme"
             android:title="@string/preferences_theme_option_2"
+            android:layout="@layout/preference_radio_button"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_battery_saver_theme"
+            android:title="@string/preferences_theme_option_3"
             android:layout="@layout/preference_radio_button"/>
     </PreferenceCategory>
 

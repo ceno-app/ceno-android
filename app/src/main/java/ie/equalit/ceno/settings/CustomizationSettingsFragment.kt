@@ -43,11 +43,13 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
     private fun setupThemePreferences() {
         val radioLightTheme = getPreference(R.string.pref_key_light_theme) as RadioButtonPreference
         val radioDarkTheme = getPreference(R.string.pref_key_dark_theme) as RadioButtonPreference
-        val radioFollowDeviceTheme = getPreference(R.string.pref_key_follow_system) as RadioButtonPreference
+        val radioFollowDeviceTheme = getPreference(R.string.pref_key_follow_system_theme) as RadioButtonPreference
+        val radioBatterySaverTheme = getPreference(R.string.pref_key_battery_saver_theme) as RadioButtonPreference
         addToRadioGroup(
             radioLightTheme,
             radioDarkTheme,
-            radioFollowDeviceTheme
+            radioFollowDeviceTheme,
+            radioBatterySaverTheme
         )
         radioDarkTheme.onClickListener {
             applySelectedTheme(AppCompatDelegate.MODE_NIGHT_YES)
@@ -58,10 +60,14 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         radioFollowDeviceTheme.onClickListener {
             applySelectedTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
+        radioBatterySaverTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        }
         val key = when (Settings.getAppTheme(requireContext())) {
             AppCompatDelegate.MODE_NIGHT_YES -> R.string.pref_key_dark_theme
             AppCompatDelegate.MODE_NIGHT_NO -> R.string.pref_key_light_theme
-            else -> R.string.pref_key_follow_system
+            AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY -> R.string.pref_key_battery_saver_theme
+            else -> R.string.pref_key_follow_system_theme
         }
         PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
             putBoolean(getString(key), true)

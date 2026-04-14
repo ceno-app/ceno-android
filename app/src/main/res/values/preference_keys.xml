@@ -37,9 +37,10 @@
     <string name="pref_key_show_search_suggestions" translatable="false">pref_key_show_search_suggestions</string>
     <string name="pref_key_update_search_engines" translatable="false">pref_key_update_search_engines</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
-    <string name="pref_key_follow_system" translatable="false">pref_key_follow_system</string>
+    <string name="pref_key_follow_system_theme" translatable="false">pref_key_follow_system_theme</string>
     <string name="pref_key_dark_theme" translatable="false">pref_key_dark_theme</string>
     <string name="pref_key_light_theme" translatable="false">pref_key_light_theme</string>
+    <string name="pref_key_battery_saver_theme" translatable="false">pref_key_battery_saver_theme</string>
     <string name="pref_key_change_language" translatable="false">pref_key_change_language</string>
 
     <string name="pref_key_shared_prefs_reload" translatable="false">pref_key_shared_prefs_reload</string>
