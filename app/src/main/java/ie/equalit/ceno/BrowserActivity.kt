@@ -65,11 +65,13 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.WebExtensionState
 import mozilla.components.browser.state.state.searchEngines
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.concept.engine.EngineView
+import mozilla.components.feature.search.ext.waitForSelectedOrDefaultSearchEngine
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
@@ -531,6 +533,7 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
     }
 
     private fun initializeSearchEngines() {
+        components.core.store.dispatch(SearchAction.RefreshSearchEnginesAction)
         if (Settings.shouldUpdateSearchEngines(this)) {
             components.core.store.state.search.searchEngines.filter { searchEngine ->
                 searchEngine.id in listOf(
@@ -539,9 +542,11 @@ open class BrowserActivity : BaseActivity(), CenoNotificationBroadcastReceiver.N
             }.forEach { searchEngine ->
                 components.useCases.searchUseCases.removeSearchEngine(searchEngine)
             }
-            components.core.store.state.search.searchEngines.forEach { searchEngine ->
-                if (searchEngine.id == getString(R.string.default_search_engine_id)) {
-                    components.useCases.searchUseCases.selectSearchEngine(searchEngine)
+            components.core.store.waitForSelectedOrDefaultSearchEngine {
+                components.core.store.state.search.searchEngines.forEach { searchEngine ->
+                    if (searchEngine.id == getString(R.string.default_search_engine_id)) {
+                        components.useCases.searchUseCases.selectSearchEngine(searchEngine)
+                    }
                 }
             }
             Logger.debug("${components.core.store.state.search.searchEngines}")
