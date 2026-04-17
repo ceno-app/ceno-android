@@ -93,6 +93,8 @@ object CenoSettings {
 
     var currentMetricsRecordId:String = ""
 
+    val jsonWithUnknownKeys = Json { ignoreUnknownKeys = true}
+
     private fun log2(n: Double): Double {
         return ln(n) / ln(2.0)
     }
@@ -438,7 +440,7 @@ object CenoSettings {
     }
 
     private fun updateOuinetStatus(context : Context, responseBody : String, shouldRefresh: Boolean) {
-        val status = Json.decodeFromString<OuinetStatus>(responseBody)
+        val status = jsonWithUnknownKeys.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
         setCenoSourcesOrigin(context, status.origin_access)
@@ -505,7 +507,7 @@ object CenoSettings {
                         if (response != null)
                             if(forMetrics)
                                 try {
-                                    currentMetricsRecordId = Json.decodeFromString<OuinetStatus>(response).current_metrics_record_id
+                                    currentMetricsRecordId = jsonWithUnknownKeys.decodeFromString<OuinetStatus>(response).current_metrics_record_id
                                 }
                                 catch(e : Exception){
                                     Logger.error("Error decoding ouinet status for metrics: $e")

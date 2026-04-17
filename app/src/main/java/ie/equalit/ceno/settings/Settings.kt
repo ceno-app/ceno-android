@@ -425,7 +425,8 @@ object Settings {
         val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_ouicrawl_data), null)
         try {
             val ouicrawlSites = ouicrawlData?.let {
-                Json.decodeFromString<OuicrawledSitesListItem>(
+                val withUnknownKeys = Json { ignoreUnknownKeys = true }
+                withUnknownKeys.decodeFromString<OuicrawledSitesListItem>(
                     it
                 ).Sites
             }

@@ -81,7 +81,8 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             OuinetValue.OTHER,
             ouinetResponseListener = object:OuinetResponseListener{
                 override fun onSuccess(message: String, data: Any?) {
-                    pinned_urls = Json.decodeFromString<PinnedCacheGroup>(message).pinned_groups.toMutableList()
+                    val jsonWithUnknownKeys = Json { ignoreUnknownKeys = true }
+                    pinned_urls = jsonWithUnknownKeys.decodeFromString<PinnedCacheGroup>(message).pinned_groups.toMutableList()
                 }
                 override fun onError() {
 
