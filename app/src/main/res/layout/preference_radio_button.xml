@@ -7,35 +7,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="horizontal"
     android:baselineAligned="false">
-    
+
     <RadioButton
         android:id="@+id/pref_radio_button"
         android:layout_width="@dimen/radio_button_preference_height"
         android:layout_height="@dimen/radio_button_preference_width"
-        android:background="@android:color/transparent"
         android:layout_gravity="start"
+        android:layout_marginStart="@dimen/radio_button_preference_start_margin"
+        android:layout_marginTop="4dp"
+        android:background="@android:color/transparent"
         android:clickable="false"
         android:focusable="false"
-        android:layout_marginStart="@dimen/radio_button_preference_start_margin"
-        tools:drawableStart="?android:attr/listChoiceIndicatorSingle"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        />
+        tools:drawableStart="?android:attr/listChoiceIndicatorSingle" />
 
     <TextView
         android:id="@android:id/title"
         android:layout_width="0dp"
-        android:layout_marginStart="@dimen/radio_button_preference_title_margins"
         android:layout_height="wrap_content"
-        android:gravity="center|start"
         android:layout_marginEnd="@dimen/radio_button_preference_title_margins"
-        tools:text="@tools:sample/lorem"
+        android:gravity="center|start"
         android:textAlignment="viewStart"
         android:textAppearance="?android:attr/textAppearanceListItem"
-        app:layout_constraintTop_toTopOf="@id/pref_radio_button"
+        app:layout_constraintBottom_toBottomOf="@id/pref_radio_button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/pref_radio_button"
-        app:layout_constraintBottom_toBottomOf="@id/pref_radio_button"/>
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@android:id/summary"
