@@ -31,8 +31,10 @@ class AwesomeBarWrapper @JvmOverloads constructor(
     lateinit var searchSuggestionProvider: SearchSuggestionProvider
     private val providers = mutableStateOf(emptyList<AwesomeBar.SuggestionProvider>())
     private val text = mutableStateOf("")
+    private val hiddenSuggestions = mutableStateOf(emptySet<AwesomeBar.GroupedSuggestion>())
     private var onEditSuggestionListener: ((String) -> Unit)? = null
     private var onStopListener: (() -> Unit)? = null
+    private var onSuggestionRemovedListener: ((AwesomeBar.GroupedSuggestion) -> Unit)? = null
 
     @Composable
     @Suppress("MagicNumber")
@@ -44,6 +46,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
         AwesomeBar(
             text = text.value,
             providers = providers.value,
+            hiddenSuggestions = hiddenSuggestions.value,
             orientation = AwesomeBarOrientation.BOTTOM,
             colors = AwesomeBarDefaults.colors(
                 background = Color(0xff222222),
@@ -51,12 +54,15 @@ class AwesomeBarWrapper @JvmOverloads constructor(
                 description = Color(0xffdddddd),
                 autocompleteIcon = Color(0xffdddddd),
             ),
-            onSuggestionClicked = { suggestion ->
+            onSuggestionClicked = { suggestion : AwesomeBar.Suggestion ->
                 suggestion.onSuggestionClicked?.invoke()
                 onStopListener?.invoke()
             },
-            onAutoComplete = { suggestion ->
+            onAutoComplete = { suggestion : AwesomeBar.Suggestion ->
                 onEditSuggestionListener?.invoke(suggestion.editSuggestion!!)
+            },
+            onRemoveClicked = { suggestion : AwesomeBar.GroupedSuggestion ->
+                onSuggestionRemovedListener?.invoke(suggestion)
             },
             onScroll = { hideKeyboard() },
             profiler = context.components.core.engine.profiler,
@@ -86,12 +92,20 @@ class AwesomeBarWrapper @JvmOverloads constructor(
 
     override fun removeProviders(vararg providers: AwesomeBar.SuggestionProvider) {
         val newProviders = this.providers.value.toMutableList()
-        newProviders.removeAll(providers)
+        newProviders.removeAll(providers.toSet())
         this.providers.value = newProviders
     }
 
     override fun setOnEditSuggestionListener(listener: (String) -> Unit) {
         onEditSuggestionListener = listener
+    }
+
+    override fun updateHiddenSuggestions(hiddenSuggestions: Set<AwesomeBar.GroupedSuggestion>) {
+        this.hiddenSuggestions.value = hiddenSuggestions
+    }
+
+    override fun setOnRemoveSuggestionButtonClicked(listener: (AwesomeBar.GroupedSuggestion) -> Unit) {
+        onSuggestionRemovedListener = listener
     }
 
     override fun setOnStopListener(listener: () -> Unit) {
