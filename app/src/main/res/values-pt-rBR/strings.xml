@@ -452,4 +452,12 @@
     <string name="preferences_test_metrics">Teste de Métricas Ceno</string>
     <string name="test_metrics_submitting">Enviando métrica de teste</string>
     <string name="test_metrics_dialog_success">Métrica de teste enviada ao cliente local</string>
+    <string name="secure_screen_category">Tela Segura</string>
+    <string name="preferences_secure_screen">Ativar Tela Segura</string>
+    <string name="preferences_secure_screen_summary">Oculta a tela atual ao alternar entre aplicativos e impede a captura de tela</string>
+    <string name="preferences_secure_screen_personal">Apenas no modo de navegação privada</string>
+    <string name="preferences_secure_screen_personal_summary">A tela segura só é ativada quando se está no modo de navegação privada</string>
+    <string name="dialog_external_url_message">Clique em “Continuar” para abrir o seguinte URL -\n\n%1$s</string>
+    <string name="dialog_external_url_title">Tem certeza de que deseja abrir URLs de aplicativos externos?</string>
+    <string name="preferences_verify_external_url">Mostrar aviso antes de abrir URLs de outros aplicativos</string>
 </resources>

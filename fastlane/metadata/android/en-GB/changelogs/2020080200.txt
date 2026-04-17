@@ -1,0 +1,16 @@
+## Added
+
+- Metrics for app version and bridge opt in
+
+### Fixed
+
+- Handle JsonDecodingException in CenoSettings
+- Fix IllegalStateException in CenoTooltip.addButtons
+- Fix progress bar 'freeze' when exporting logs
+
+### Changed
+
+- Filter free media feed based on full locale detection
+- Update Android-Components to v147.0.2
+- Update Ouinet to v1.6.2
+- Update translations for various locales

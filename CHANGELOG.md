@@ -10,6 +10,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Added
 
 - Prompt to be shown when external app requests to load a URL
+- Secure screen feature to hide view when app is in background and prevent screenshots
+- Warnings to be shown depending on which website sources are unchecked
 
 ### Fixed
 
@@ -21,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Android-Components to v148.0.2
 - Update Ouinet to v1.6.4
 - Increase on-device retention of metrics records to a maximum of 30 days
+- Update version code generation of nightly builds to use Kotlin plugin
 
 ## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
 

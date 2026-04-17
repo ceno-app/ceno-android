@@ -1,0 +1,16 @@
+## Añadido
+
+- Métricas para la versión de la aplicación y la activación del puente
+
+### Corregido
+
+- Se ha solucionado el error JsonDecodingException en CenoSettings
+- Se ha solucionado el error IllegalStateException en CenoTooltip.addButtons
+- Se ha solucionado el «bloqueo» de la barra de progreso al exportar registros
+
+### Modificaciones
+
+- Se ha filtrado el feed de medios gratuito basándose en la detección completa de la configuración regional
+- Se han actualizado los componentes de Android a la versión v147.0.2
+- Se ha actualizado Ouinet a la versión v1.6.2
+- Se han actualizado las traducciones para varias configuraciones regionales

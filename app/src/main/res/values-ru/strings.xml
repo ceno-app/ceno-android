@@ -464,4 +464,17 @@
     <string name="test_metrics_submitting">Отправка метрики теста</string>
     <string name="test_metrics_dialog_success">Метрика теста отправлена локальному клиенту</string>
     <string name="test_metrics_dialog_failed">Метрика теста не была отправлена локальному клиенту</string>
+    <string name="last_2_hours">2 часа</string>
+    <string name="warning_personal_website_sources_disabled">Все источники, использующиеся в личном режиме, отключены; доступен только публичный режим</string>
+    <string name="warning_public_website_sources_disabled">Все источники, использующиеся в публичном режиме, отключены; доступен только личный режим</string>
+    <string name="warning_all_website_sources_disabled">Все источники выключены. Выберите хотя бы один, чтобы Ceno смог продолжить работать</string>
+    <string name="warning_title">Предупреждение</string>
+    <string name="dialog_external_url_title">Вы действительно хотите открывать ссылки из сторонних приложений?</string>
+    <string name="dialog_external_url_message">Нажмите «Продолжить», чтобы открыть ссылку —\n\n%1$s</string>
+    <string name="preferences_verify_external_url">Показывать уведомления перед открытием ссылок из других приложений</string>
+    <string name="secure_screen_category">Защита экрана</string>
+    <string name="preferences_secure_screen">Включить защиту экрана</string>
+    <string name="preferences_secure_screen_summary">Эта функция скрывает Ceno при переключении приложений и запрещает скриншоты</string>
+    <string name="preferences_secure_screen_personal">Только в личном режиме</string>
+    <string name="preferences_secure_screen_personal_summary">Защита экрана включена только во время использования личного режима</string>
 </resources>

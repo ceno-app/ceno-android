@@ -1,0 +1,6 @@
+Esta versión:
+- Soluciona el problema de que no se mostraba el correo electrónico de soporte de Ceno
+- Actualiza Android-Components a la versión 135.0
+- Actualiza Ouinet a la versión 0.31.1
+- Deshabilita la notificación del servicio de navegador de Ceno
+- Agrega una notificación que se mostrará al navegar en modo público

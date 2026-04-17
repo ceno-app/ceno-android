@@ -424,4 +424,5 @@
     <string name="test_metrics_submitting">Test ölçümü gönderiliyor</string>
     <string name="test_metrics_dialog_success">Test ölçümü yerel istemciye gönderildi</string>
     <string name="test_metrics_dialog_failed">Test ölçümü yerel istemciye gönderilmedi</string>
+    <string name="last_2_hours">Son 2 saat</string>
 </resources>

@@ -1,0 +1,6 @@
+Esta versión:
+- Actualiza Ouinet a la versión 1.2.0
+- Incorpora la función de marcadores
+- Utiliza un nuevo esquema de numeración de versiones para las compilaciones de lanzamiento
+- Actualiza Android-Components a la versión 139.0.4
+- Actualiza Sentry a la versión 8.13.2
