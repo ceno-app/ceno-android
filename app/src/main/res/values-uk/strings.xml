@@ -446,4 +446,5 @@
     <string name="test_metrics_submitting">Надсилання тестової метрики</string>
     <string name="test_metrics_dialog_success">Тестовий показник, надісланий локальному клієнту</string>
     <string name="test_metrics_dialog_failed">Тестовий показник не було надіслано локальному клієнту</string>
+    <string name="last_2_hours">Останні 2 години</string>
 </resources>

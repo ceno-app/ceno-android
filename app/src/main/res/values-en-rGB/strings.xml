@@ -15,7 +15,7 @@
     <string name="preferences_delete_browsing_data_cached_files">Cached images and files</string>
     <string name="toast_copied">Copied!</string>
     <string name="toolbar_hint">Search or enter address</string>
-    <string name="menu_action_add_tab">Open New Tab</string>
+    <string name="menu_action_add_tab">Add New Tab</string>
     <string name="menu_action_close_tabs">Close All Tabs</string>
     <string name="preferences_remote_debugging">Remote debugging via USB</string>
     <string name="preferences_tracking_protection_private">Enable tracking protection in Personal browsing mode</string>
@@ -431,4 +431,9 @@
     <string name="preferences_secure_screen_summary">Hides current view when switching apps and prevents screenshots</string>
     <string name="preferences_secure_screen_personal">Only in personal browsing mode</string>
     <string name="preferences_secure_screen_personal_summary">Secure screen only enforced when using personal browsing mode</string>
+    <string name="last_2_hours">Last 2 hours</string>
+    <string name="warning_title">Warning</string>
+    <string name="warning_all_website_sources_disabled">All website sources are disabled. Please enable at least one source to continue browsing the web</string>
+    <string name="warning_public_website_sources_disabled">All sources necessary for browsing in public mode are disabled; Web browsing is possible only in personal mode</string>
+    <string name="warning_personal_website_sources_disabled">All sources necessary for browsing in personal mode are disabled; Web browsing is possible only in public mode</string>
 </resources>

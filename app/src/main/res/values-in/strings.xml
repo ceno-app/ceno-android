@@ -435,4 +435,17 @@
     <string name="test_metrics_submitting">Mengirim metrik uji</string>
     <string name="test_metrics_dialog_success">Metrik uji dikirim ke klien lokal</string>
     <string name="test_metrics_dialog_failed">Metrik uji tidak dikirim ke klien lokal</string>
+    <string name="last_2_hours">2 jam terakhir</string>
+    <string name="secure_screen_category">Layar Aman</string>
+    <string name="preferences_secure_screen">Aktifkan layar aman</string>
+    <string name="preferences_secure_screen_summary">Menyembunyikan tampilan saat ini ketika berpindah aplikasi dan mencegah tangkapan layar</string>
+    <string name="preferences_secure_screen_personal">Hanya dalam mode penelusuran pribadi</string>
+    <string name="preferences_secure_screen_personal_summary">Layar aman hanya diberlakukan saat menggunakan mode penelusuran pribadi</string>
+    <string name="dialog_external_url_message">Klik lanjutkan untuk membuka URL berikut -\n\n%1$s</string>
+    <string name="dialog_external_url_title">Apakah Anda yakin ingin membuka URL dari aplikasi eksternal?</string>
+    <string name="preferences_verify_external_url">Tampilkan peringatan sebelum membuka URL dari aplikasi lain</string>
+    <string name="warning_title">Peringatan</string>
+    <string name="warning_all_website_sources_disabled">Semua sumber situs web dinonaktifkan. Harap aktifkan setidaknya satu sumber untuk melanjutkan penelusuran web</string>
+    <string name="warning_public_website_sources_disabled">Semua sumber yang diperlukan untuk penelusuran dalam mode publik dinonaktifkan; Penelusuran web hanya dimungkinkan dalam mode pribadi</string>
+    <string name="warning_personal_website_sources_disabled">Semua sumber yang diperlukan untuk penelusuran dalam mode pribadi dinonaktifkan; Penelusuran web hanya dimungkinkan dalam mode publik</string>
 </resources>
