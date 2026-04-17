@@ -57,8 +57,8 @@ import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
 import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
-import mozilla.components.feature.downloads.DateTimeProvider
-import mozilla.components.feature.downloads.DefaultDateTimeProvider
+import mozilla.components.support.utils.DateTimeProvider
+import mozilla.components.support.utils.DefaultDateTimeProvider
 import mozilla.components.feature.downloads.DefaultFileSizeFormatter
 import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.FileSizeFormatter
