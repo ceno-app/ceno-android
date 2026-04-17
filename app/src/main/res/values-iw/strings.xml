@@ -95,4 +95,9 @@
     <string name="library_bookmarks">סימניות</string>
     <string name="bookmark_menu_share_button">שיתוף</string>
     <string name="button_content_readerview">‌</string>
+    <string name="preferences_about_geckoview">GeckoView</string>
+    <string name="download_logs">להוריד</string>
+    <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">להוריד</string>
+    <string name="support_button_text">תמיכה</string>
+    <string name="eq_news_button_text">חדשות</string>
 </resources>
