@@ -192,4 +192,27 @@
     <string name="preferences_clear_in_toolbar">Visa på verktygsfältet</string>
     <string name="preferences_clear_in_menu">Visa i menyn</string>
     <string name="preferences_clear_behavior">Standardbeteende</string>
+    <string name="preferences_clear_behavior_summary">Ställ in beteende när du trycker på \"rensa\" knappen</string>
+    <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_clear_behavior_option_1">Prompt</string>
+    <string name="preferences_clear_behavior_option_2">Rensa endast Ceno cache</string>
+    <string name="preferences_ceno_sources_public">Offentligt</string>
+    <string name="preferences_ceno_sources_public_summary">Ladda innehåll via det offentliga Ceno nätverket</string>
+    <string name="preferences_ceno_sources_peers">Delat</string>
+    <string name="preferences_ceno_sources_peers_summary">Ladda innehåll som delats av andra användare</string>
+    <string name="ceno_data_category">Data</string>
+    <string name="preferences_ceno_cache_size">Lokal cache</string>
+    <string name="preferences_clear_ceno_cache">Rensa cachat innehålll</string>
+    <string name="preferences_clear_ceno_cache_summary">Rensa lokalt cachat webb innehåll</string>
+    <string name="preferences_ceno_network_config">Nätverksdetaljer</string>
+    <string name="preferences_ceno_network_config_summary">Ouinet status, UDP endpoints, BitTorrent bootstraps</string>
+    <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Extra BitTorrent Bootstraps</string>
+    <string name="preferences_change_language">Byt språk</string>
+    <string name="preferences_ceno_download_log">Exportera Ouinet logg</string>
+    <string name="preferences_ceno_export_android_logs">Exportera fullständig programlogg</string>
+    <string name="preferences_ceno_website_sources">Webbplatskällor</string>
+    <string name="preferences_ceno_bridge_announcement">Sätt på broläge</string>
+    <string name="changeIconCtaAccept">Tillämpa</string>
+    <string name="changeIconCtaCancel">Avbryt</string>
+    <string name="changeIconDialogTitle">Tillämpa ny ikon?</string>
 </resources>
