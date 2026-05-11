@@ -7,6 +7,7 @@ package ie.equalit.ceno.browser
 import android.annotation.SuppressLint
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.os.Handler
 import android.os.Looper
 import android.view.Gravity
@@ -15,6 +16,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -69,7 +71,6 @@ import mozilla.components.browser.thumbnails.BrowserThumbnails
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.browser.toolbar.display.DisplayToolbar
 import mozilla.components.concept.engine.EngineView
-import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.feature.app.links.AppLinksFeature
 import mozilla.components.feature.awesomebar.AwesomeBarFeature
 import mozilla.components.feature.awesomebar.provider.SearchSuggestionProvider
@@ -94,6 +95,7 @@ import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.enterImmersiveMode
 import mozilla.components.support.ktx.android.view.exitImmersiveMode
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
+import mozilla.components.support.utils.DefaultDownloadFileUtils
 import org.json.JSONObject
 import org.mozilla.geckoview.WebExtension
 
@@ -160,6 +162,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
         get() = arguments?.getString(SESSION_ID)
 
     protected var webAppToolbarShouldBeVisible = true
+    private lateinit var requestDownloadPermissionsLauncher: ActivityResultLauncher<Array<String>>
 
     private lateinit var browsingModeManager: BrowsingModeManager
     internal lateinit var themeManager: ThemeManager
@@ -267,6 +270,12 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 store = requireComponents.core.store,
                 useCases = requireComponents.useCases.downloadsUseCases,
                 fragmentManager = childFragmentManager,
+                downloadFileUtils = DefaultDownloadFileUtils(
+                    context = requireContext().applicationContext,
+                    downloadLocation = {
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                    },
+                ),
                 downloadManager = FetchDownloadManager(
                     requireContext().applicationContext,
                     requireComponents.core.store,
@@ -274,9 +283,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                     notificationsDelegate = requireComponents.notificationsDelegate,
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                    requestDownloadPermissionsLauncher.launch(permissions)
                 },
             ),
             owner = this,

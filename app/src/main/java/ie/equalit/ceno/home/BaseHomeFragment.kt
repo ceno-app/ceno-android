@@ -5,10 +5,12 @@
 package ie.equalit.ceno.home
 
 import android.os.Bundle
+import android.os.Environment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
+import androidx.activity.result.ActivityResultLauncher
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -16,7 +18,6 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
@@ -48,6 +49,7 @@ import mozilla.components.feature.tabs.WindowFeature
 import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
+import mozilla.components.support.utils.DefaultDownloadFileUtils
 
 
 /**
@@ -92,6 +94,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         get() = arguments?.getString(SESSION_ID)
 
     lateinit var clearCenoAction:ClearToolbarAction
+
+    private lateinit var requestDownloadPermissionsLauncher: ActivityResultLauncher<Array<String>>
 
     /* CENO: do not make onCreateView "final", needs to be overridden by HomeFragment */
     override fun onCreateView(
@@ -156,6 +160,12 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                 store = requireComponents.core.store,
                 useCases = requireComponents.useCases.downloadsUseCases,
                 fragmentManager = childFragmentManager,
+                downloadFileUtils = DefaultDownloadFileUtils(
+                    context = requireContext().applicationContext,
+                    downloadLocation = {
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                    },
+                ),
                 downloadManager = FetchDownloadManager(
                     requireContext().applicationContext,
                     requireComponents.core.store,
@@ -163,9 +173,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                     notificationsDelegate = requireComponents.notificationsDelegate,
                 ),
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_DOWNLOAD_PERMISSIONS)
+                    requestDownloadPermissionsLauncher.launch(permissions)
                 },
             ),
             owner = this,
