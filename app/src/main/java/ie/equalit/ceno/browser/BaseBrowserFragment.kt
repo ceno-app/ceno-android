@@ -5,6 +5,7 @@
 package ie.equalit.ceno.browser
 
 import android.annotation.SuppressLint
+import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
 import android.os.Environment
@@ -17,6 +18,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
@@ -29,9 +31,6 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_APP_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_DOWNLOAD_PERMISSIONS
-import ie.equalit.ceno.AppPermissionCodes.REQUEST_CODE_PROMPT_PERMISSIONS
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
@@ -163,9 +162,58 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
 
     protected var webAppToolbarShouldBeVisible = true
     private lateinit var requestDownloadPermissionsLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var requestSitePermissionsLauncher: ActivityResultLauncher<Array<String>>
+    private lateinit var requestPromptsPermissionsLauncher: ActivityResultLauncher<Array<String>>
 
     private lateinit var browsingModeManager: BrowsingModeManager
     internal lateinit var themeManager: ThemeManager
+
+    /**
+     * Initializes themeManager, browsingModeManager, and permissions launchers
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        themeManager = (activity as BrowserActivity).themeManager
+        browsingModeManager = (activity as BrowserActivity).browsingModeManager
+        requestDownloadPermissionsLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+                val permissions = results.keys.toTypedArray()
+                val grantResults =
+                    results.values
+                        .map {
+                            if (it) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
+                        }.toIntArray()
+                downloadsFeature.withFeature {
+                    it.onPermissionsResult(permissions, grantResults)
+                }
+            }
+
+        requestSitePermissionsLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+                val permissions = results.keys.toTypedArray()
+                val grantResults =
+                    results.values
+                        .map {
+                            if (it) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
+                        }.toIntArray()
+                sitePermissionFeature.withFeature {
+                    it.onPermissionsResult(permissions, grantResults)
+                }
+            }
+
+        requestPromptsPermissionsLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+                val permissions = results.keys.toTypedArray()
+                val grantResults =
+                    results.values
+                        .map {
+                            if (it) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
+                        }.toIntArray()
+                promptsFeature.withFeature {
+                    it.onPermissionsResult(permissions, grantResults)
+                }
+            }
+    }
 
     /* CENO: do not make onCreateView "final", needs to be overridden by CenoHomeFragment */
     override fun onCreateView(
@@ -313,9 +361,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 fileUploadsDirCleaner = requireComponents.core.fileUploadsDirCleaner,
                 fragmentManager = parentFragmentManager,
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_PROMPT_PERMISSIONS)
+                    requestPromptsPermissionsLauncher.launch(permissions)
                 },
             ),
             owner = this,
@@ -358,9 +404,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
                 sessionId = sessionId,
                 storage = requireComponents.core.geckoSitePermissionsStorage,
                 onNeedToRequestPermissions = { permissions ->
-                    // The Fragment class wants us to use registerForActivityResult
-                    @Suppress("DEPRECATION")
-                    requestPermissions(permissions, REQUEST_CODE_APP_PERMISSIONS)
+                    requestSitePermissionsLauncher.launch(permissions)
                 },
                 onShouldShowRequestPermissionRationale = { shouldShowRequestPermissionRationale(it) },
                 store = requireComponents.core.store,
@@ -716,28 +760,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             onBackPressed()
             fullScreenChanged(false)
         }
-    }
-
-    override fun onRequestPermissionsResult(
-        requestCode: Int,
-        permissions: Array<String>,
-        grantResults: IntArray,
-    ) {
-        val feature: PermissionsFeature? = when (requestCode) {
-            REQUEST_CODE_DOWNLOAD_PERMISSIONS -> downloadsFeature.get()
-            REQUEST_CODE_PROMPT_PERMISSIONS -> promptsFeature.get()
-            REQUEST_CODE_APP_PERMISSIONS -> sitePermissionFeature.get()
-            else -> null
-        }
-        feature?.onPermissionsResult(permissions, grantResults)
-    }
-    /**
-     * Initializes themeManager and browsingModeManager
-     */
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        themeManager = (activity as BrowserActivity).themeManager
-        browsingModeManager = (activity as BrowserActivity).browsingModeManager
     }
 
     companion object {

@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.home
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.os.Environment
 import android.view.LayoutInflater
@@ -11,6 +12,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.OnBackPressedCallback
 import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.annotation.CallSuper
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -96,6 +98,26 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
     lateinit var clearCenoAction:ClearToolbarAction
 
     private lateinit var requestDownloadPermissionsLauncher: ActivityResultLauncher<Array<String>>
+
+    /**
+     * Initializes permissions launcher
+     */
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        requestDownloadPermissionsLauncher =
+            registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { results ->
+                val permissions = results.keys.toTypedArray()
+                val grantResults =
+                    results.values
+                        .map {
+                            if (it) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
+                        }.toIntArray()
+                downloadsFeature.withFeature {
+                    it.onPermissionsResult(permissions, grantResults)
+                }
+            }
+
+    }
 
     /* CENO: do not make onCreateView "final", needs to be overridden by HomeFragment */
     override fun onCreateView(
