@@ -5,7 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.9.1 - Unreleased
+## v2.9.2 - Unreleased
+
+### Changed
+
+- Update Android-Components to v150.0.2
+- Update to permissions launcher for downloadsPermissions, promptsPermissions, and sitePermissions
+- Set ignoreUnknownKeys to true and explicitNulls to false for JSON decoder
+- Update Ouinet to v1.6.7
+
+## v2.9.1 - 2026-04-17
 
 ### Changed
 
