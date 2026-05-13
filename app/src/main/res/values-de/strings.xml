@@ -438,4 +438,7 @@
     <string name="test_metrics_submitting">Testmetrik senden</string>
     <string name="test_metrics_dialog_success">Testmetrik an lokalen Client gesendet</string>
     <string name="test_metrics_dialog_failed">Testmetrik wurde nicht an lokalen Client gesendet</string>
+    <string name="last_2_hours">Letzten 2 Stunden</string>
+    <string name="secure_screen_category">Sicherer Bildschirm</string>
+    <string name="preferences_secure_screen">Aktiviere Sicherer Bildschirm</string>
 </resources>

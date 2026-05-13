@@ -470,4 +470,5 @@
     <string name="dialog_external_url_title">Czy na pewno chcesz otwierać adresy URL z aplikacji zewnętrznych?</string>
     <string name="preferences_verify_external_url">Pokazuj ostrzeżenie przed otwarciem URL z innych aplikacji</string>
     <string name="warning_personal_website_sources_disabled">Wszystkie źródła niezbędne do przeglądania w trybie osobistym są wyłączone. Przeglądanie stron internetowych jest możliwe tylko w trybie publicznym</string>
+    <string name="dialog_external_url_message">Click nadal otwiera się po URL.\n\n(X44X) (ang.)</string>
 </resources>

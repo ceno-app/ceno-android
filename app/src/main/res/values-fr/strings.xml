@@ -464,4 +464,12 @@
     <string name="dialog_external_url_title">Êtes-vous sûr de vouloir ouvrir des URL depuis des applications externes ?</string>
     <string name="preferences_verify_external_url">Afficher un avertissement avant d\'ouvrir des URL provenant d\'autres applications</string>
     <string name="warning_title">Attention</string>
+    <string name="secure_screen_category">Écran de verrouillage</string>
+    <string name="preferences_secure_screen">Activer le verrouillage de l\'écran</string>
+    <string name="preferences_secure_screen_summary">Masque la vue actuelle lors du changement d\'application et empêche la capture d\'écran</string>
+    <string name="preferences_secure_screen_personal">Uniquement en mode de navigation privée</string>
+    <string name="preferences_secure_screen_personal_summary">Le mode de navigation privée n\'est activé que lorsque le mode de navigation privée est utilisé</string>
+    <string name="warning_all_website_sources_disabled">Toutes les sources du site Web sont désactivées. Veuillez activer au moins une source pour continuer à naviguer sur le Web</string>
+    <string name="warning_public_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode public sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode privé</string>
+    <string name="warning_personal_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode privé sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode public</string>
 </resources>
