@@ -9,10 +9,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- Update Android-Components to v150.0.2
+- Update Android-Components to v150.0.3
 - Update to permissions launcher for downloadsPermissions, promptsPermissions, and sitePermissions
 - Set ignoreUnknownKeys to true and explicitNulls to false for JSON decoder
 - Update Ouinet to v1.6.7
+- Update translations for various locales
 
 ## v2.9.1 - 2026-04-17
 
