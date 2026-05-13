@@ -15,13 +15,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Ouinet to v1.6.7
 - Update translations for various locales
 
-## v2.9.1 - 2026-04-17
+## [v2.9.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.1) - 2026-04-17
 
 ### Changed
 
 - Update Android-Components to v149.0.2
 
-## v2.9.0 - 2026-04-02
+## [v2.9.0](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.0) - 2026-04-02
 
 ### Added
 
