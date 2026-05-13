@@ -1,0 +1,8 @@
+
+### Changed
+
+- Update Android-Components to v150.0.3
+- Update to permissions launcher for downloadsPermissions, promptsPermissions, and sitePermissions
+- Set ignoreUnknownKeys to true and explicitNulls to false for JSON decoder
+- Update Ouinet to v1.6.7
+- Update translations for various locales
