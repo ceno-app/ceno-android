@@ -6,3 +6,4 @@
 - Set ignoreUnknownKeys to true and explicitNulls to false for JSON decoder
 - Update Ouinet to v1.6.7
 - Update translations for various locales
+- Remove READ_MEDIA_IMAGES and READ_MEDIA_VIDEO permissions
