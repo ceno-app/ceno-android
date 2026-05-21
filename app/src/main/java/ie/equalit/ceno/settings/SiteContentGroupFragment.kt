@@ -20,6 +20,7 @@ import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
@@ -81,7 +82,9 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             OuinetValue.OTHER,
             ouinetResponseListener = object:OuinetResponseListener{
                 override fun onSuccess(message: String, data: Any?) {
-                    pinned_urls = Json.decodeFromString<PinnedCacheGroup>(message).pinned_groups.toMutableList()
+                    pinned_urls = requireContext().components.json
+                        .decodeFromString<PinnedCacheGroup>(message)
+                        .pinned_groups.toMutableList()
                 }
                 override fun onError() {
 

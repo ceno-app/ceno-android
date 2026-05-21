@@ -5,6 +5,7 @@
 package ie.equalit.ceno.components
 
 import android.content.Context
+import android.os.Environment
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.createTab
 import mozilla.components.browser.state.store.BrowserStore
@@ -21,6 +22,7 @@ import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.top.sites.TopSitesStorage
 import mozilla.components.feature.top.sites.TopSitesUseCases
 import mozilla.components.support.ktx.util.URLStringUtils
+import mozilla.components.support.utils.DefaultDownloadFileUtils
 
 /**
  * Component group for all use cases. Use cases are provided by feature
@@ -69,7 +71,17 @@ class UseCases(
     /**
      * Use cases related to the downloads feature.
      */
-    val downloadsUseCases: DownloadsUseCases by lazy { DownloadsUseCases(store, context) }
+    val downloadsUseCases: DownloadsUseCases by lazy {
+        DownloadsUseCases(
+            store = store,
+            downloadFileUtils = DefaultDownloadFileUtils(
+                context = context,
+                downloadLocation = {
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                },
+            ),
+        )
+    }
 
     /**
      * Use cases related to Custom Tabs.

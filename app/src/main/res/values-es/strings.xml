@@ -201,7 +201,7 @@
     <string name="ceno_home_card_personal_text">Buena conectividad, más privacidad. Para acceder a sus cuentas, no dejar rastros y no compartir</string>
     <string name="preferences_ceno_sources_upnp">Estado del UPnP</string>
     <string name="preferences_ceno_sources_local_udp">Terminales UDP locales</string>
-    <string name="preferences_ceno_sources_external_udp">Terminales UDP externos</string>
+    <string name="preferences_ceno_sources_external_udp">Puntos de conexión UDP externos</string>
     <string name="preferences_ceno_sources_public_udp">Terminales UDP públicos</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>

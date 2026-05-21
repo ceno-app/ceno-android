@@ -18,6 +18,7 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
+import kotlinx.serialization.json.Json
 import mozilla.components.support.base.android.NotificationsDelegate
 
 /**
@@ -73,4 +74,9 @@ class Components(private val context: Context) {
     val permissionHandler by lazy { PermissionHandler(context) }
 
     val webExtensionPort by lazy { WebExtensionPort(context) }
+
+    val json = Json {
+        ignoreUnknownKeys = true
+        explicitNulls = false
+    }
 }
