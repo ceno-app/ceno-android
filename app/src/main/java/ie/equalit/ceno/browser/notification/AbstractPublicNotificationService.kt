@@ -17,6 +17,7 @@ import androidx.core.app.NotificationManagerCompat.IMPORTANCE_LOW
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.ifChanged
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.mapNotNull
@@ -101,7 +102,7 @@ abstract class AbstractPublicNotificationService : Service() {
 
         startForeground(notificationId, notification)
 
-        publicTabScope = store.flowScoped { flow ->
+        publicTabScope = store.flowScoped(dispatcher = Dispatchers.Main) { flow ->
             flow.map { state -> state.normalTabs.isEmpty() }
                 .ifChanged()
                 .collect { noPublicTabs ->
@@ -109,7 +110,7 @@ abstract class AbstractPublicNotificationService : Service() {
                 }
         }
 
-        localeScope = store.flowScoped { flow ->
+        localeScope = store.flowScoped(dispatcher = Dispatchers.Main) { flow ->
             flow.mapNotNull { state -> state.locale }
                 .ifChanged()
                 .collect {
