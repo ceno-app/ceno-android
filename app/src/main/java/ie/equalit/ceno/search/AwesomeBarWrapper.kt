@@ -54,7 +54,7 @@ class AwesomeBarWrapper @JvmOverloads constructor(
                 description = Color(0xffdddddd),
                 autocompleteIcon = Color(0xffdddddd),
             ),
-            onSuggestionClicked = { suggestion : AwesomeBar.Suggestion ->
+            onSuggestionClicked = { suggestion ->
                 suggestion.onSuggestionClicked?.invoke()
                 onStopListener?.invoke()
             },

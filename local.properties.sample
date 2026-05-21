@@ -2,7 +2,7 @@
 
 sdk.dir=/home/fdroid/android-sdk-linux
 
-versionName=2.9.1
+versionName=2.9.2
 buildId=
 
 # Manually replace with your ouinet configuration parameters
