@@ -92,8 +92,6 @@ object CenoSettings {
 
     var currentMetricsRecordId:String = ""
 
-    val jsonWithUnknownKeys = Json { ignoreUnknownKeys = true}
-
     private fun log2(n: Double): Double {
         return ln(n) / ln(2.0)
     }
