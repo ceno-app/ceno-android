@@ -7,6 +7,7 @@ import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingModeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
 import mozilla.components.browser.state.selector.getNormalOrPrivateTabs
@@ -36,7 +37,10 @@ class TabCounterToolbarButton(
     override fun bind(view: View) = Unit
 
     override fun createView(parent: ViewGroup): View {
-        store.flowScoped(lifecycleOwner) { flow ->
+        store.flowScoped(
+            owner = lifecycleOwner,
+            dispatcher = Dispatchers.Main
+        ) { flow ->
             flow.map { state -> getTabCount(state) }
                 .distinctUntilChanged()
                 .collect {

@@ -460,4 +460,15 @@
     <string name="test_metrics_submitting">Przesyłanie danych pomiarowych</string>
     <string name="test_metrics_dialog_success">Przesłano dane pomiarowe do lokalnego klienta</string>
     <string name="test_metrics_dialog_failed">Nie udało się przesłać danych pomiarowych do lokalnego klienta</string>
+    <string name="secure_screen_category">Tryb Prywatności</string>
+    <string name="preferences_secure_screen">Włącz tryb prywatności</string>
+    <string name="preferences_secure_screen_summary">Ukrywa aktualny widok podczas zmiany aplikacji i zapobiega robieniu zrzutów ekranu</string>
+    <string name="preferences_secure_screen_personal">Tylko w prywatnym trybie przeglądania</string>
+    <string name="warning_title">Uwaga</string>
+    <string name="warning_all_website_sources_disabled">Wszystkie źródła witryn są wyłączone. Włącz co najmniej jedno źródło, aby kontynuować przeglądanie witryny</string>
+    <string name="warning_public_website_sources_disabled">Wszystkie źródła niezbędne do przeglądania w trybie publicznym są wyłączone; Przeglądanie stron internetowych jest możliwe tylko w trybie osobistym</string>
+    <string name="dialog_external_url_title">Czy na pewno chcesz otwierać adresy URL z aplikacji zewnętrznych?</string>
+    <string name="preferences_verify_external_url">Pokazuj ostrzeżenie przed otwarciem URL z innych aplikacji</string>
+    <string name="warning_personal_website_sources_disabled">Wszystkie źródła niezbędne do przeglądania w trybie osobistym są wyłączone. Przeglądanie stron internetowych jest możliwe tylko w trybie publicznym</string>
+    <string name="dialog_external_url_message">Click nadal otwiera się po URL.\n\n%1$s</string>
 </resources>

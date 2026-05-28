@@ -5,7 +5,6 @@ import android.content.ClipData
 import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
 import androidx.annotation.VisibleForTesting
 //import androidx.compose.material.Snackbar
 import androidx.navigation.NavController
@@ -14,7 +13,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mozilla.components.concept.engine.prompt.ShareData
-import mozilla.components.concept.sync.TabData
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.share.RecentAppsStorage
 import mozilla.components.support.ktx.kotlin.isExtensionUrl
@@ -145,16 +143,6 @@ class DefaultShareController (
     internal fun getShareSubject() =
         shareSubject ?: shareData.filterNot { it.title.isNullOrEmpty() }
             .joinToString(", ") { it.title.toString() }
-
-    // Navigation between app fragments uses ShareTab as arguments. SendTabUseCases uses TabData.
-    @VisibleForTesting
-    internal fun List<ShareData>.toTabData() = map { data ->
-        TabData(title = data.title.orEmpty(), url = data.url ?: data.text?.toDataUri().orEmpty())
-    }
-
-    private fun String.toDataUri(): String {
-        return "data:,${Uri.encode(this)}"
-    }
 
     private fun copyClipboard() {
         val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager

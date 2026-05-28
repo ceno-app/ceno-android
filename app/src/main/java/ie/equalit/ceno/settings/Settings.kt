@@ -11,6 +11,7 @@ import com.google.gson.Gson
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.isDateMoreThanXDaysAway
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
@@ -425,8 +426,7 @@ object Settings {
         val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_ouicrawl_data), null)
         try {
             val ouicrawlSites = ouicrawlData?.let {
-                val withUnknownKeys = Json { ignoreUnknownKeys = true }
-                withUnknownKeys.decodeFromString<OuicrawledSitesListItem>(
+                context.components.json.decodeFromString<OuicrawledSitesListItem>(
                     it
                 ).Sites
             }

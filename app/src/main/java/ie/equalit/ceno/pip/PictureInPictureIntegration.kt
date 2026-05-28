@@ -8,6 +8,7 @@ package ie.equalit.ceno.pip
 
 import android.app.Activity
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.flow.mapNotNull
@@ -28,7 +29,7 @@ class PictureInPictureIntegration(
     private var whiteListed = false
 
     override fun start() {
-        scope = store.flowScoped { flow ->
+        scope = store.flowScoped(dispatcher = Dispatchers.Main) { flow ->
             flow.mapNotNull { state -> state.findTabOrCustomTabOrSelectedTab(customTabId) }
                 .distinctUntilChangedBy { it.content.url }
                 .collect { whiteListed = isWhitelisted(it.content.url) }

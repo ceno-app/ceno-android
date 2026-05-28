@@ -12,7 +12,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 import mozilla.components.concept.fetch.MutableHeaders
 import mozilla.components.concept.fetch.Request
 import mozilla.components.support.base.log.logger.Logger
@@ -440,7 +439,7 @@ object CenoSettings {
     }
 
     private fun updateOuinetStatus(context : Context, responseBody : String, shouldRefresh: Boolean) {
-        val status = jsonWithUnknownKeys.decodeFromString<OuinetStatus>(responseBody)
+        val status = context.components.json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
         setCenoSourcesOrigin(context, status.origin_access)
@@ -507,7 +506,9 @@ object CenoSettings {
                         if (response != null)
                             if(forMetrics)
                                 try {
-                                    currentMetricsRecordId = jsonWithUnknownKeys.decodeFromString<OuinetStatus>(response).current_metrics_record_id
+                                    currentMetricsRecordId = context.components.json
+                                        .decodeFromString<OuinetStatus>(response)
+                                        .current_metrics_record_id
                                 }
                                 catch(e : Exception){
                                     Logger.error("Error decoding ouinet status for metrics: $e")

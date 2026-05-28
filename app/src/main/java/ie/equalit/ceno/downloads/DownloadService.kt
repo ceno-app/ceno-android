@@ -11,13 +11,28 @@ import mozilla.components.feature.downloads.DefaultPackageNameProvider
 import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.FileSizeFormatter
 import mozilla.components.feature.downloads.PackageNameProvider
+import mozilla.components.feature.downloads.filewriter.DefaultDownloadFileWriter
+import mozilla.components.feature.downloads.filewriter.DownloadFileWriter
 import mozilla.components.support.base.android.NotificationsDelegate
+import mozilla.components.support.utils.DefaultDownloadFileUtils
+import mozilla.components.support.utils.DownloadFileUtils
 
-class DownloadService : AbstractFetchDownloadService() {
+class DownloadService() : AbstractFetchDownloadService() {
     override val httpClient by lazy { components.core.client }
     override val store: BrowserStore by lazy { components.core.store }
     override val notificationsDelegate: NotificationsDelegate by lazy { components.notificationsDelegate }
     override val fileSizeFormatter: FileSizeFormatter by lazy { components.core.fileSizeFormatter }
     override val downloadEstimator: DownloadEstimator by lazy { components.core.downloadEstimator }
     override val packageNameProvider: PackageNameProvider by lazy { DefaultPackageNameProvider(applicationContext) }
+    override val downloadFileUtils: DownloadFileUtils by lazy {
+        DefaultDownloadFileUtils(
+            applicationContext,
+        { applicationContext.filesDir.toString() }
+    ) }
+    override val downloadFileWriter: DownloadFileWriter by lazy {
+        DefaultDownloadFileWriter(
+            context = applicationContext,
+            downloadFileUtils = downloadFileUtils,
+        )
+    }
 }

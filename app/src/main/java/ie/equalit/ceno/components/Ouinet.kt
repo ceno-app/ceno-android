@@ -51,6 +51,8 @@ class Ouinet (
             .setFrontEndAccessToken(metricsFrontendToken)
             .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
             .setDnsProtocols(dnsProtocols)
+            .setEnableLogFile(true)
+            .setLogLevel(Config.LogLevel.SILLY)
             .build()
     }
 

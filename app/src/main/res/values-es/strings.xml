@@ -160,14 +160,14 @@
     <string name="addon_placeholder">No hay Complementos Disponibles</string>
     <string name="preferences_about_ceno">Navegador Ceno</string>
     <string name="preferences_about_geckoview">GeckoView</string>
-    <string name="preferences_ceno_sources_origin">Sitio web</string>
+    <string name="preferences_ceno_sources_origin">Página web</string>
     <string name="preferences_ceno_sources_private">De forma privada</string>
     <string name="preferences_ceno_sources_peers">Compartido</string>
     <string name="ceno_data_category">Datos</string>
     <string name="preferences_ceno_cache_size">Caché local</string>
     <string name="preferences_ceno_enable_log">Habilitar el archivo del registro</string>
     <string name="preferences_ceno_network_config_summary">Estado de Ouinet, puntos finales de UDP, arranque de BitTorrent</string>
-    <string name="website_button_text">Sitio web</string>
+    <string name="website_button_text">Página web</string>
     <string name="source_code_button_text">Código Fuente</string>
     <string name="preferences_ceno_download_log">Exportar el registro de Ouinet</string>
     <string name="ceno_sources_category">Fuentes</string>
@@ -191,7 +191,7 @@
     <string name="onboarding_battery_text_v33">En breve, el sistema operativo le pedirá permiso para \n \n• Permitir las notificaciones \n• Desactivar la optimización de la batería \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
     <string name="ceno_onboarding_start_title">Comparte la web, \nentre personas</string>
     <string name="ceno_onboarding_start_text">La red troncal entre personas de Ceno permite acceder y compartir el contenido de sitios web dentro y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
-    <string name="onboarding_public_or_personal_title">¿Pública o personal?</string>
+    <string name="onboarding_public_or_personal_title">¿Público o Personal?</string>
     <string name="onboarding_public_personal_text">Utilice las pestañas Públicas para leer noticias, ver videos y navegar por Internet en general. En el modo Público, también puede compartir contenido web con otros usuarios de Ceno. Las pestañas Personales son más adecuadas para acceder a cuentas de redes sociales, compras en línea y navegación por páginas web que no desee compartir con otros.</string>
     <string name="onboarding_cleanup_title">Limpiar todo, \nen todas partes, todo a la vez</string>
     <string name="onboarding_cleanup_text">Borre con un solo botón su historial de navegación, credenciales y cualquier rastro que haya dejado en Ceno.</string>
@@ -201,7 +201,7 @@
     <string name="ceno_home_card_personal_text">Buena conectividad, más privacidad. Para acceder a sus cuentas, no dejar rastros y no compartir</string>
     <string name="preferences_ceno_sources_upnp">Estado del UPnP</string>
     <string name="preferences_ceno_sources_local_udp">Terminales UDP locales</string>
-    <string name="preferences_ceno_sources_external_udp">Terminales UDP externos</string>
+    <string name="preferences_ceno_sources_external_udp">Puntos de conexión UDP externos</string>
     <string name="preferences_ceno_sources_public_udp">Terminales UDP públicos</string>
     <string name="preferences_ceno_sources_extra_bitTorrent_bootstraps">Bootstraps adicionales de BitTorrent</string>
     <string name="preferences_ceno_sources_reachability">Estado de la accesibilidad</string>
@@ -221,7 +221,7 @@
     <string name="preferences_ceno_website_sources">Fuentes de la página web</string>
     <string name="bt_sources_none">Ninguno</string>
     <string name="ceno_sources_header">Fuentes del contenido</string>
-    <string name="preferences_ceno_bridge_announcement">Activar el modo puente</string>
+    <string name="preferences_ceno_bridge_announcement">Habilita el modo puente</string>
     <string name="ouinet_taking_too_long_title">¿Está tardando demasiado?</string>
     <string name="network_settings">Configuración de la red</string>
     <string name="standby_no_internet_text">Sin conexión a Internet. \n \nEl rendimiento de Ceno puede ser limitado. \nCompruebe sus conexiones de red e intente recargar Ceno.</string>
@@ -378,7 +378,7 @@
     <string name="library_bookmarks">Marcadores</string>
     <string name="bookmark_menu_save_button">Guardar</string>
     <string name="preferences_allow_crash_reporting_description">Enviar informes a los desarrolladores después de que se produzcan errores</string>
-    <string name="preferences_metrics_campaign">Métricas de fondo</string>
+    <string name="preferences_metrics_campaign">Métricas del fondo</string>
     <string name="metrics_campaign_more_info">Más información</string>
     <string name="metrics_campaign_view_privacy_policy">Política de privacidad</string>
     <string name="bookmarks_empty_message">No hay marcadores</string>
@@ -447,4 +447,9 @@
     <string name="preferences_secure_screen_summary">Oculta la vista actual cuando intercambia las aplicaciones y previene capturas de pantalla</string>
     <string name="preferences_secure_screen_personal">Solo en modo de navegación personal</string>
     <string name="preferences_secure_screen_personal_summary">Pantalla segura solo forzada cuando utiliza modo personal de exploración</string>
+    <string name="last_2_hours">Últimas 2 horas</string>
+    <string name="warning_title">Aviso</string>
+    <string name="warning_all_website_sources_disabled">Todas las fuentes del sitio web están inhabilitadas. Habilite al menos un origen para continuar explorando la web</string>
+    <string name="warning_public_website_sources_disabled">Todos los orígenes necesarios para explorar en modo público están inhabilitadas; la navegación por web es posible solo en el modo personal</string>
+    <string name="warning_personal_website_sources_disabled">Todos los orígenes necesarios para explorar en modo personal están inhabilitadas, la navegación web es posible solo en modo público</string>
 </resources>

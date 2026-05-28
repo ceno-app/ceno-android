@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
 import ie.equalit.ceno.ext.ifChanged
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.map
 import mozilla.components.browser.state.selector.normalTabs
@@ -25,7 +26,7 @@ class PublicNotificationFeature<T:AbstractPublicNotificationService>(
     private var scope: CoroutineScope? = null
 
     override fun start() {
-        scope = store.flowScoped { flow ->
+        scope = store.flowScoped(dispatcher = Dispatchers.Main) { flow ->
             flow.map { state -> state.normalTabs.isNotEmpty() }
                 .ifChanged()
                 .collect { hasPublicTabs ->
