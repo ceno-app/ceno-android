@@ -25,7 +25,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.os.bundleOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
@@ -77,7 +76,6 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
-import java.util.regex.Pattern
 import kotlin.system.exitProcess
 
 /**
@@ -112,7 +110,7 @@ open class BrowserActivity : BaseActivity(),
     private lateinit var alarmManager: AlarmManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown(intent))
+        setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown())
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (intent.action == Intent.ACTION_VIEW) {
@@ -295,7 +293,7 @@ open class BrowserActivity : BaseActivity(),
         }.show()
     }
 
-    private fun getModeFromIntentOrLastKnown(intent: Intent?): BrowsingMode {
+    private fun getModeFromIntentOrLastKnown(): BrowsingMode {
         return if (components.core.store.state.selectedTab == null) BrowsingMode.Normal
         else cenoPreferences().lastKnownBrowsingMode
     }
@@ -449,7 +447,9 @@ open class BrowserActivity : BaseActivity(),
         super.onNewIntent(intent)
         val safeIntent = SafeIntent(intent)
         if (safeIntent.action == AbstractPublicNotificationService.ACTION_TAP) {
-            val bundle = bundleOf(SettingsFragment.SCROLL_TO_CACHE to true)
+            val bundle = Bundle().apply {
+                putBoolean(SettingsFragment.SCROLL_TO_CACHE, true)
+            }
             navHost.navController.navigate(R.id.action_global_settings, bundle)
         }
         if (safeIntent.action == Intent.ACTION_VIEW) {
@@ -603,26 +603,22 @@ open class BrowserActivity : BaseActivity(),
     }
 
     fun openSettings() {
-        val bundle = bundleOf(SettingsFragment.SCROLL_TO_BRIDGE to true)
+        val bundle = Bundle().apply {
+            putBoolean(SettingsFragment.SCROLL_TO_BRIDGE, true)
+        }
         navHost.navController.navigate(R.id.action_global_settings, bundle)
     }
 
     companion object {
         private const val TAG = "BrowserActivity"
         const val DELAY_TWO_SECONDS = 2000L
-        fun isVersionForConsent(context: Context): Boolean {
-            return Pattern.compile("\\A2\\.6\\.\\d\\z").matcher(
-                context.packageManager.getPackageInfo(context.packageName, 0).versionName.toString()
-            ).matches()
-        }
-
         const val ACTION_FORGROUND_REMIND = "ie.equalit.ceno.browser.notification.action.REMIND"
         const val FOREGROUND_TIMEOUT_REMINDER_DURATION: Long = 18000000L
     }
 
     override fun onStopTapped() {
         publicNotificationObserver?.stop()
-        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+        val duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
         } else {
             500L
@@ -633,7 +629,7 @@ open class BrowserActivity : BaseActivity(),
     override fun onClearTapped() {
         publicNotificationObserver?.stop()
         //if the app is in foreground, set the duration to show standby fragment until ouinet is closed to 15seconds
-        var duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+        val duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
             resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
         } else {
             500L
