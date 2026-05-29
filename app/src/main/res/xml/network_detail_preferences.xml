@@ -17,13 +17,6 @@
 
         <androidx.preference.Preference
             android:layout="@layout/preference_item_button"
-            android:key="@string/pref_key_ouinet_reachability_status"
-            android:defaultValue="false"
-            android:enabled="true"
-            android:title="@string/preferences_ceno_sources_reachability" />
-
-        <androidx.preference.Preference
-            android:layout="@layout/preference_item_button"
             android:key="@string/pref_key_ouinet_upnp_status"
             android:defaultValue="false"
             android:enabled="true"
