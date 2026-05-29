@@ -5,6 +5,10 @@
 package ie.equalit.ceno
 
 import android.content.Context
+import ie.equalit.ceno.components.ceno.CenoWebExt
+import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt
+import ie.equalit.ceno.components.ceno.UblockOriginWebExt
+import ie.equalit.ceno.settings.CenoSettings
 import mozilla.components.browser.engine.gecko.GeckoEngine
 import mozilla.components.browser.engine.gecko.fetch.GeckoViewFetchClient
 import mozilla.components.concept.engine.DefaultSettings
@@ -13,15 +17,11 @@ import mozilla.components.concept.fetch.Client
 import mozilla.components.feature.webcompat.WebCompatFeature
 import org.mozilla.geckoview.GeckoRuntime
 import org.mozilla.geckoview.GeckoRuntimeSettings
-import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt
-import ie.equalit.ceno.components.ceno.UblockOriginWebExt
-import ie.equalit.ceno.settings.CenoSettings
 
 object EngineProvider {
 
     private var runtime: GeckoRuntime? = null
-    var rootCertificate : String = ""
+    var rootCertificate: String = ""
 
     @Synchronized
     fun getOrCreateRuntime(context: Context): GeckoRuntime {
@@ -32,16 +32,22 @@ object EngineProvider {
                 .debugLogging(CenoSettings.isCenoLogEnabled(context))
                 .rootCertificate(rootCertificate)
                 .build()
-            runtime = GeckoRuntime.create(context, runtimeSettings)
+            runtime = GeckoRuntime.create(
+                context, runtimeSettings
+            )
         }
 
         return runtime!!
     }
 
-    fun createEngine(context: Context, defaultSettings: DefaultSettings): Engine {
+    fun createEngine(
+        context: Context, defaultSettings: DefaultSettings
+    ): Engine {
         val runtime = getOrCreateRuntime(context)
 
-        return GeckoEngine(context, defaultSettings, runtime).also {
+        return GeckoEngine(
+            context, defaultSettings, runtime
+        ).also {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
             HttpsByDefaultWebExt.install(it)
@@ -51,6 +57,8 @@ object EngineProvider {
 
     fun createClient(context: Context): Client {
         val runtime = getOrCreateRuntime(context)
-        return GeckoViewFetchClient(context, runtime)
+        return GeckoViewFetchClient(
+            context, runtime
+        )
     }
 }
