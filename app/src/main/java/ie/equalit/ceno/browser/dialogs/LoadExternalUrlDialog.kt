@@ -8,7 +8,7 @@ import androidx.appcompat.app.AlertDialog
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 
-class LoadExternalUrlDialog (
+class LoadExternalUrlDialog(
     val context: Context,
     val url: String,
     val onPositiveButtonClicked: () -> Unit = {}
@@ -27,7 +27,7 @@ class LoadExternalUrlDialog (
                 Settings.setVerifyExternalUrl(context, !doNotShowCheckbox.isChecked)
                 onPositiveButtonClicked.invoke()
             }
-            setNegativeButton(R.string.dialog_cancel) {dialog,_->
+            setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
                 dialog.dismiss()
             }
         }

@@ -6,8 +6,6 @@ import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
@@ -18,9 +16,9 @@ import mozilla.components.support.base.ids.SharedIdsHelper
 import mozilla.components.support.ktx.android.notification.ChannelData
 import mozilla.components.support.ktx.android.notification.ensureNotificationChannelExists
 
-class CenoNotificationBroadcastReceiver(listener: NotificationListener): BroadcastReceiver() {
+class CenoNotificationBroadcastReceiver(listener: NotificationListener) : BroadcastReceiver() {
 
-    private var listener : NotificationListener? = null
+    private var listener: NotificationListener? = null
 
     init {
         this.listener = listener
@@ -28,13 +26,15 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
 
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
-        when(intent.action) {
+        when (intent.action) {
             AbstractPublicNotificationService.ACTION_STOP -> {
                 listener?.onStopTapped()
             }
+
             AbstractPublicNotificationService.ACTION_CLEAR -> {
                 listener?.onClearTapped()
             }
+
             BrowserActivity.ACTION_FORGROUND_REMIND -> {
                 val notification = NotificationCompat.Builder(context, getChannelId(context))
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
@@ -43,7 +43,14 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
                     .setContentTitle(context.getString(R.string.reminder_notification_title))
                     .setContentText(context.getString(R.string.reminder_notification_text))
                     .setSmallIcon(R.drawable.ic_notification)
-                    .setContentIntent(PendingIntent.getActivity(context, 0, Intent(context, BrowserActivity::class.java), PendingIntent.FLAG_IMMUTABLE))
+                    .setContentIntent(
+                        PendingIntent.getActivity(
+                            context,
+                            0,
+                            Intent(context, BrowserActivity::class.java),
+                            PendingIntent.FLAG_IMMUTABLE
+                        )
+                    )
                     .build()
                 if (ActivityCompat.checkSelfPermission(
                         context,
@@ -53,7 +60,8 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
                     //do nothing if permission not granted
                     return
                 }
-                NotificationManagerCompat.from(context).notify(SharedIdsHelper.getIdForTag(context, NOTIFICATION_TAG), notification)
+                NotificationManagerCompat.from(context)
+                    .notify(SharedIdsHelper.getIdForTag(context, NOTIFICATION_TAG), notification)
             }
         }
     }
@@ -64,7 +72,7 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
         fun onClearTapped()
     }
 
-    private fun getChannelId(context:Context): String {
+    private fun getChannelId(context: Context): String {
         return ensureNotificationChannelExists(
             context,
             NOTIFICATION_CHANNEL_REMIND,
@@ -75,6 +83,7 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener): Broadca
             },
         )
     }
+
     companion object {
         const val NOTIFICATION_TAG =
             "ie.equalit.ceno.browser.notification.ReminderNotification"

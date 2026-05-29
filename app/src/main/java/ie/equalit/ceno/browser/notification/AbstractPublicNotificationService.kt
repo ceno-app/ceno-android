@@ -6,8 +6,6 @@ import android.app.Notification
 import android.app.Service
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import android.os.IBinder
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
@@ -72,7 +70,7 @@ abstract class AbstractPublicNotificationService : Service() {
     /**
      * Re-build and notify an existing notification.
      */
-    protected fun refreshNotification(showConfirmAction:Boolean = false) {
+    protected fun refreshNotification(showConfirmAction: Boolean = false) {
         val notificationId = getNotificationId()
         val channelId = getChannelId()
 
@@ -85,7 +83,8 @@ abstract class AbstractPublicNotificationService : Service() {
             //do nothing if permission not granted
             return
         }
-        NotificationManagerCompat.from(applicationContext).notify(notificationId, notification)
+        NotificationManagerCompat.from(applicationContext)
+            .notify(notificationId, notification)
     }
 
     /**
@@ -124,7 +123,7 @@ abstract class AbstractPublicNotificationService : Service() {
      *
      * @param channelId The channel id for the [Notification]
      */
-    fun createNotification(channelId: String, showConfirmAction:Boolean = false): Notification {
+    fun createNotification(channelId: String, showConfirmAction: Boolean = false): Notification {
         return NotificationCompat.Builder(this, channelId)
             .setOngoing(true)
             .setVisibility(VISIBILITY_SECRET)

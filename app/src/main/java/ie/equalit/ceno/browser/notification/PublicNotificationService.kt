@@ -12,11 +12,11 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import mozilla.components.browser.state.store.BrowserStore
 
-class PublicNotificationService:AbstractPublicNotificationService() {
+class PublicNotificationService : AbstractPublicNotificationService() {
     override val store: BrowserStore by lazy { components.core.store }
-    private val handler : Handler = Handler(Looper.myLooper()!!)
+    private val handler: Handler = Handler(Looper.myLooper()!!)
 
-    override fun NotificationCompat.Builder.buildNotification(showConfirmAction:Boolean) {
+    override fun NotificationCompat.Builder.buildNotification(showConfirmAction: Boolean) {
         setSmallIcon(R.drawable.ic_notification)
         setContentTitle(
             getString(R.string.ceno_notification_title)
@@ -36,18 +36,34 @@ class PublicNotificationService:AbstractPublicNotificationService() {
 
         //Adds confirm button to be shown for 3 seconds when clear button is tapped
         //Clear app data and close Ceno if confirm is tapped
-        if(showConfirmAction) {
-            addAction(R.drawable.ic_notification, getString(R.string.ceno_notification_clear_do_description).uppercase(), getClearIntent())
-            addAction(R.drawable.ic_notification, getString(R.string.dialog_cancel).uppercase(), getCancelIntent())
+        if (showConfirmAction) {
+            addAction(
+                R.drawable.ic_notification,
+                getString(R.string.ceno_notification_clear_do_description).uppercase(),
+                getClearIntent()
+            )
+            addAction(
+                R.drawable.ic_notification,
+                getString(R.string.dialog_cancel).uppercase(),
+                getCancelIntent()
+            )
             handler.postDelayed(
                 showConfirmCallback,
                 5 * MILLISECOND
             )
         } else {
             //Adds stop button. Stops Ceno on tap
-            addAction(R.drawable.ic_notification, getString(R.string.browser_menu_stop).uppercase(), getStopIntent())
+            addAction(
+                R.drawable.ic_notification,
+                getString(R.string.browser_menu_stop).uppercase(),
+                getStopIntent()
+            )
             //Adds clear button. Shows the confirm button on tap
-            addAction(R.drawable.ic_clear_ceno, getString(R.string.ceno_clear_action_description).uppercase(), getConfirmIntent())
+            addAction(
+                R.drawable.ic_clear_ceno,
+                getString(R.string.ceno_clear_action_description).uppercase(),
+                getConfirmIntent()
+            )
         }
     }
 
@@ -63,7 +79,7 @@ class PublicNotificationService:AbstractPublicNotificationService() {
         super.refreshNotification(false)
     }
 
-    private fun getStopIntent():PendingIntent {
+    private fun getStopIntent(): PendingIntent {
         Intent().also { intent ->
             intent.action = ACTION_STOP
             intent.setPackage(packageName)
@@ -76,7 +92,7 @@ class PublicNotificationService:AbstractPublicNotificationService() {
         }
     }
 
-    private fun getClearIntent():PendingIntent {
+    private fun getClearIntent(): PendingIntent {
         Intent().also { intent ->
             intent.action = ACTION_CLEAR
             intent.setPackage(packageName)
@@ -89,21 +105,21 @@ class PublicNotificationService:AbstractPublicNotificationService() {
         }
     }
 
-    private fun getConfirmIntent() :PendingIntent{
+    private fun getConfirmIntent(): PendingIntent {
         return Intent(ACTION_CONFIRM).let {
             it.setClass(this, this::class.java)
             PendingIntent.getService(this, 0, it, PendingIntent.FLAG_IMMUTABLE or FLAG_ONE_SHOT)
         }
     }
 
-    private fun getCancelIntent() :PendingIntent{
+    private fun getCancelIntent(): PendingIntent {
         return Intent(ACTION_CANCEL).let {
             it.setClass(this, this::class.java)
             PendingIntent.getService(this, 0, it, PendingIntent.FLAG_IMMUTABLE or FLAG_ONE_SHOT)
         }
     }
 
-    private fun getFlags() : Int {
+    private fun getFlags(): Int {
         var flags = PendingIntent.FLAG_CANCEL_CURRENT
         flags = flags or PendingIntent.FLAG_IMMUTABLE
         return flags
@@ -124,6 +140,6 @@ class PublicNotificationService:AbstractPublicNotificationService() {
     }
 
     companion object {
-        const val MILLISECOND : Long = 1000
+        const val MILLISECOND: Long = 1000
     }
 }
