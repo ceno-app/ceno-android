@@ -14,7 +14,9 @@ import ie.equalit.ceno.bookmarks.flatNodeList
 import mozilla.components.concept.storage.BookmarkNode
 
 class SelectBookmarkFolderAdapter(private val sharedViewModel: BookmarksSharedViewModel) :
-    ListAdapter<BookmarkNodeWithDepth, SelectBookmarkFolderAdapter.BookmarkFolderViewHolder>(DiffCallback)  {
+    ListAdapter<BookmarkNodeWithDepth, SelectBookmarkFolderAdapter.BookmarkFolderViewHolder>(
+        DiffCallback
+    ) {
 
     fun updateData(tree: BookmarkNode?, hideFolderGuid: String?) {
         val updatedData = tree
@@ -23,6 +25,7 @@ class SelectBookmarkFolderAdapter(private val sharedViewModel: BookmarksSharedVi
 
         submitList(updatedData)
     }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookmarkFolderViewHolder {
         val view = WebsiteListItemView(parent.context).apply {
             layoutParams = ViewGroup.LayoutParams(
@@ -58,20 +61,21 @@ class SelectBookmarkFolderAdapter(private val sharedViewModel: BookmarksSharedVi
             view.overflowView.visibility = View.GONE
         }
 
-        fun bind(folder: BookmarkNodeWithDepth, selected: Boolean, onSelect: (BookmarkNode) -> Unit) {
+        fun bind(
+            folder: BookmarkNodeWithDepth,
+            selected: Boolean,
+            onSelect: (BookmarkNode) -> Unit
+        ) {
             view.changeSelected(selected)
             view.iconView.setImageResource(R.drawable.ic_folder_icon)
             view.titleView.text = folder.node.title
             view.setOnClickListener {
                 onSelect(folder.node)
             }
-            val pxToIndent = view.resources.getDimensionPixelSize(R.dimen.bookmark_select_folder_indent)
+            val pxToIndent =
+                view.resources.getDimensionPixelSize(R.dimen.bookmark_select_folder_indent)
             val padding = pxToIndent * minOf(MAX_DEPTH, folder.depth)
             view.updatePaddingRelative(start = padding)
-        }
-
-        companion object {
-            const val viewType = 1
         }
     }
 

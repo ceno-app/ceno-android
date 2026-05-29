@@ -6,13 +6,13 @@ import mozilla.components.concept.storage.BookmarkNodeType
 
 class BookmarkFragmentInteractor(
     private val bookmarksController: BookmarkController,
-):BookmarkViewInteractor {
+) : BookmarkViewInteractor {
     override fun onBookmarksChanged(node: BookmarkNode) {
         bookmarksController.handleBookmarkChanged(node)
     }
 
     override fun onSelectionModeSwitch(mode: BookmarkFragmentState.Mode) {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun onEditPressed(node: BookmarkNode) {
@@ -20,7 +20,7 @@ class BookmarkFragmentInteractor(
     }
 
     override fun onAllBookmarksDeselected() {
-//        TODO("Not yet implemented")
+        // TODO("Not yet implemented")
     }
 
     override fun onCopyPressed(item: BookmarkNode) {
@@ -58,7 +58,8 @@ class BookmarkFragmentInteractor(
         val eventType = when (nodes.singleOrNull()?.type) {
             BookmarkNodeType.ITEM,
             BookmarkNodeType.SEPARATOR,
-                -> BookmarkRemoveType.SINGLE
+            -> BookmarkRemoveType.SINGLE
+
             BookmarkNodeType.FOLDER -> BookmarkRemoveType.FOLDER
             null -> BookmarkRemoveType.MULTIPLE
         }
@@ -74,7 +75,7 @@ class BookmarkFragmentInteractor(
     }
 
     override fun onSearch() {
-//        TODO("Not yet implemented")
+        //        TODO("Not yet implemented")
     }
 
     override fun open(item: BookmarkNode) {
@@ -82,16 +83,17 @@ class BookmarkFragmentInteractor(
             BookmarkNodeType.ITEM -> {
                 bookmarksController.handleBookmarkTapped(item)
             }
+
             BookmarkNodeType.FOLDER -> bookmarksController.handleBookmarkExpand(item)
             BookmarkNodeType.SEPARATOR -> throw IllegalStateException("Cannot open separators")
         }
     }
 
     override fun select(item: BookmarkNode) {
-//        TODO("Not yet implemented")
+        //        TODO("Not yet implemented")
     }
 
     override fun deselect(item: BookmarkNode) {
-//        TODO("Not yet implemented")
+        //        TODO("Not yet implemented")
     }
 }

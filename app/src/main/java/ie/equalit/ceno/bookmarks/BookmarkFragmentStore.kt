@@ -34,6 +34,7 @@ data class BookmarkFragmentState(
         data class Selecting(override val selectedItems: Set<BookmarkNode>) : Mode()
     }
 }
+
 /**
  * Actions to dispatch through the `BookmarkStore` to modify `BookmarkState` through the reducer.
  */
@@ -53,7 +54,7 @@ sealed class BookmarkFragmentAction : Action {
 private fun bookmarkFragmentStateReducer(
     state: BookmarkFragmentState,
     action: BookmarkFragmentAction
-):BookmarkFragmentState {
+): BookmarkFragmentState {
     return when (action) {
         is BookmarkFragmentAction.Change -> {
             // If we change to a node we have already visited, we pop the backstack until the node
@@ -68,6 +69,7 @@ private fun bookmarkFragmentStateReducer(
                 items.isEmpty() -> {
                     BookmarkFragmentState.Mode.Normal(shouldShowMenu(action.tree.guid))
                 }
+
                 else -> BookmarkFragmentState.Mode.Selecting(items.toSet())
             }
             state.copy(
@@ -77,6 +79,7 @@ private fun bookmarkFragmentStateReducer(
                 isLoading = false,
             )
         }
+
         is BookmarkFragmentAction.Deselect -> {
             val items = state.mode.selectedItems - action.item
             val mode = if (items.isEmpty()) {
@@ -88,9 +91,11 @@ private fun bookmarkFragmentStateReducer(
                 mode = mode,
             )
         }
+
         BookmarkFragmentAction.DeselectAll -> state.copy(
             mode = BookmarkFragmentState.Mode.Normal()
         )
+
         is BookmarkFragmentAction.Select -> state.copy(
             mode = BookmarkFragmentState.Mode.Selecting(state.mode.selectedItems + action.item),
         )
@@ -106,7 +111,7 @@ operator fun BookmarkNode.contains(item: BookmarkNode): Boolean {
 }
 
 /**
- * Contains the selection of items added or removed using the [SelectionInteractor].
+ * Contains the selection of items added or removed using the SelectionInteractor.
  */
 interface SelectionHolder<T> {
     val selectedItems: Set<T>

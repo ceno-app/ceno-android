@@ -2,8 +2,8 @@ package ie.equalit.ceno.bookmarks
 
 import android.content.ClipData
 import android.content.ClipboardManager
+import android.os.Bundle
 import android.widget.Toast
-import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.NavGraphDirections
@@ -29,6 +29,7 @@ interface BookmarkController {
     fun handleBookmarkSharing(item: BookmarkNode)
     fun handleOpeningBookmark(item: BookmarkNode, mode: BrowsingMode)
     fun handleOpeningFolderBookmarks(folder: BookmarkNode, mode: BrowsingMode)
+
     /**
      * Handle bookmark nodes deletion
      * @param nodes The set of nodes to be deleted.
@@ -39,6 +40,7 @@ interface BookmarkController {
     fun handleBackPressed()
     fun handleSearch()
 }
+
 /**
  * Type of bookmark nodes deleted.
  */
@@ -53,12 +55,9 @@ class DefaultBookmarkController(
     private val scope: CoroutineScope,
     private val store: BookmarkFragmentStore,
     private val sharedViewModel: BookmarksSharedViewModel,
-    private val tabsUseCases: TabsUseCases?,
     private val loadBookmarkNode: suspend (String, Boolean) -> BookmarkNode?,
-//    private val showSnackbar: (String) -> Unit,
     private val deleteBookmarkNodes: (Set<BookmarkNode>, BookmarkRemoveType) -> Unit,
     private val deleteBookmarkFolder: (Set<BookmarkNode>) -> Unit,
-//    private val showTabTray: () -> Unit,
 ) : BookmarkController {
     override fun handleBookmarkChanged(item: BookmarkNode) {
         sharedViewModel.selectedFolder = item
@@ -66,7 +65,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleBookmarkTapped(item: BookmarkNode) {
-        activity.openToBrowser(url = item.url, true, false)
+        activity.openToBrowser(url = item.url, newTab = true, private = false)
     }
 
     override fun handleBookmarkExpand(folder: BookmarkNode) {
@@ -84,7 +83,9 @@ class DefaultBookmarkController(
     override fun handleBookmarkEdit(node: BookmarkNode) {
         navController.navigate(
             R.id.action_bookmarkFragment_to_editBookmarkFragment,
-            bundleOf(BookmarkFragment.BOOKMARK_GUID to node.guid)
+            Bundle().apply{
+                putString(BookmarkFragment.BOOKMARK_GUID, node.guid)
+            }
         )
     }
 
@@ -103,7 +104,8 @@ class DefaultBookmarkController(
     override fun handleCopyUrl(item: BookmarkNode) {
         val urlClipData = ClipData.newPlainText(item.url, item.url)
         clipboardManager?.setPrimaryClip(urlClipData)
-        Toast.makeText(activity, "Bookmark Copied!", Toast.LENGTH_SHORT).show()
+        Toast.makeText(activity, "Bookmark Copied!", Toast.LENGTH_SHORT)
+            .show()
     }
 
     override fun handleBookmarkSharing(item: BookmarkNode) {
@@ -123,7 +125,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleOpeningFolderBookmarks(folder: BookmarkNode, mode: BrowsingMode) {
-//        TODO("Not yet implemented")
+        //        TODO("Not yet implemented")
     }
 
     override fun handleBookmarkDeletion(nodes: Set<BookmarkNode>, removeType: BookmarkRemoveType) {
@@ -139,8 +141,8 @@ class DefaultBookmarkController(
             val parentGuid = store.state.guidBackstack.findLast { guid ->
                 store.state.tree?.guid != guid
                         && activity.components.core.bookmarksStorage
-                            .getBookmark(guid)
-                            .getOrNull() != null
+                    .getBookmark(guid)
+                    .getOrNull() != null
             }
             if (parentGuid == null) {
                 navController.popBackStack()
@@ -154,7 +156,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleSearch() {
-//        TODO("Not yet implemented")
+        //        TODO("Not yet implemented")
     }
 
 }

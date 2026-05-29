@@ -9,7 +9,6 @@ import android.view.View.GONE
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -24,7 +23,6 @@ import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
-import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.support.ktx.android.view.hideKeyboard
 
 class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProvider {
@@ -44,7 +42,6 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
         binding.bookmarkUrlLabel.visibility = GONE
         binding.bookmarkUrlEdit.visibility = GONE
         binding.inputLayoutBookmarkUrl.visibility = GONE
-//        binding.bookmarkNameEdit.showKeyboard()
 
         viewLifecycleOwner.lifecycleScope.launch(Main) {
             val context = requireContext()
@@ -53,14 +50,18 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
                     ?: requireComponents.core.bookmarksStorage
                         .getBookmark(BookmarkRoot.Mobile.id)
                         .getOrNull()
-                )
+                        )
             }
 
             binding.bookmarkParentFolderSelector.text =
                 friendlyRootTitle(context, sharedViewModel.selectedFolder!!)
             binding.bookmarkParentFolderSelector.setOnClickListener {
-                findNavController().navigate(R.id.action_bookmarkAddFolderFragment_to_bookmarkSelectFolderFragment,
-                    bundleOf("allowCreatingNewFolder" to true))
+                findNavController().navigate(
+                    R.id.action_bookmarkAddFolderFragment_to_bookmarkSelectFolderFragment,
+                    Bundle().apply{
+                        putBoolean("allowCreatingNewFolder", true)
+                    }
+                )
             }
         }
     }
@@ -72,7 +73,9 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
             title = getString(R.string.bookmark_add_folder_fragment_label)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar).toDrawable())
+                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
+                    .toDrawable()
+            )
         }
     }
 
@@ -86,8 +89,6 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
         return when (menuItem.itemId) {
             R.id.confirm_add_folder_button -> {
                 if (binding.bookmarkNameEdit.text.isNullOrBlank()) {
-//                    binding.bookmarkNameEdit.error =
-//                        getString(R.string.bookmark_empty_title_error)
                     return true
                 }
                 this.view?.hideKeyboard()
@@ -96,9 +97,11 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
                         sharedViewModel.selectedFolder!!.guid,
                         binding.bookmarkNameEdit.text.toString(),
                         null,
-                    ).toString()
+                    )
+                        .toString()
                     sharedViewModel.selectedFolder =
-                        requireComponents.core.bookmarksStorage.getTree(newGuid).getOrNull()
+                        requireComponents.core.bookmarksStorage.getTree(newGuid)
+                            .getOrNull()
                     withContext(Main) {
                         findNavController().popBackStack()
                     }

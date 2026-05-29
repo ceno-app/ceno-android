@@ -11,8 +11,8 @@ import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 
-class BookmarkAdapter (private val emptyView: View, private val interactor: BookmarkViewInteractor) :
-RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BookmarkAdapter(private val emptyView: View, private val interactor: BookmarkViewInteractor) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @VisibleForTesting
     var tree: List<BookmarkNode> = listOf()
@@ -72,7 +72,7 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                     old[oldItemPosition] in oldMode.selectedItems == new[newItemPosition] in newMode.selectedItems &&
                     old[oldItemPosition] == new[newItemPosition]
 
-        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any? {
+        override fun getChangePayload(oldItemPosition: Int, newItemPosition: Int): Any {
             val oldItem = old[oldItemPosition]
             val newItem = new[newItemPosition]
             return BookmarkPayload(
@@ -89,13 +89,16 @@ RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(viewType, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(viewType, parent, false)
 
         return when (viewType) {
             BookmarkNodeViewHolder.LAYOUT_ID ->
                 BookmarkNodeViewHolder(view as WebsiteListItemView, interactor)
+
             BookmarkSeparatorViewHolder.LAYOUT_ID ->
                 BookmarkSeparatorViewHolder(view)
+
             else -> throw IllegalStateException("ViewType $viewType does not match to a ViewHolder")
         }
     }
