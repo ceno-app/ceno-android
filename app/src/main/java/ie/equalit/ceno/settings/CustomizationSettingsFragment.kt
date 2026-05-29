@@ -10,19 +10,25 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
+import androidx.core.content.edit
 import androidx.core.graphics.drawable.toDrawable
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.setSecureScreen
+import ie.equalit.ceno.settings.utils.RadioButtonPreference
+import ie.equalit.ceno.settings.utils.addToRadioGroup
 
 class CustomizationSettingsFragment : PreferenceFragmentCompat() {
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.customization_preferences, rootKey)
+        setupThemePreferences()
+        setupClearCenoPreferences()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -32,6 +38,82 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
             findNavController().popBackStack()
         }
         callback.isEnabled = true
+    }
+
+    private fun setupThemePreferences() {
+        val radioLightTheme = getPreference(R.string.pref_key_light_theme) as RadioButtonPreference
+        val radioDarkTheme = getPreference(R.string.pref_key_dark_theme) as RadioButtonPreference
+        val radioFollowDeviceTheme = getPreference(R.string.pref_key_follow_system_theme) as RadioButtonPreference
+        val radioBatterySaverTheme = getPreference(R.string.pref_key_battery_saver_theme) as RadioButtonPreference
+        addToRadioGroup(
+            radioLightTheme,
+            radioDarkTheme,
+            radioFollowDeviceTheme,
+            radioBatterySaverTheme
+        )
+        radioDarkTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_YES)
+        }
+        radioLightTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_NO)
+        }
+        radioFollowDeviceTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
+        }
+        radioBatterySaverTheme.onClickListener {
+            applySelectedTheme(AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY)
+        }
+        val key = when (Settings.getAppTheme(requireContext())) {
+            AppCompatDelegate.MODE_NIGHT_YES -> R.string.pref_key_dark_theme
+            AppCompatDelegate.MODE_NIGHT_NO -> R.string.pref_key_light_theme
+            AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY -> R.string.pref_key_battery_saver_theme
+            else -> R.string.pref_key_follow_system_theme
+        }
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+            putBoolean(getString(key), true)
+        }
+    }
+
+    private fun setupClearCenoPreferences() {
+        val radioPromptAlways = getPreference(R.string.pref_key_prompt) as RadioButtonPreference
+        val radioClearCache = getPreference(R.string.pref_key_clear_cache_only) as RadioButtonPreference
+        val radioClearCacheAndAppData = getPreference(R.string.pref_key_clear_cache_and_app_data) as RadioButtonPreference
+        addToRadioGroup(
+            radioPromptAlways,
+            radioClearCache,
+            radioClearCacheAndAppData
+        )
+        radioPromptAlways.onClickListener {
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+                putString(getString(R.string.pref_key_clear_behavior), "0")
+            }
+        }
+        radioClearCache.onClickListener {
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+                putString(getString(R.string.pref_key_clear_behavior), "1")
+            }
+        }
+        radioClearCacheAndAppData.onClickListener {
+            PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+                putString(getString(R.string.pref_key_clear_behavior), "2")
+            }
+        }
+        val key = when (PreferenceManager.getDefaultSharedPreferences(requireContext()).getString(getString(R.string.pref_key_clear_behavior), "0")) {
+            "1" -> R.string.pref_key_clear_cache_only
+            "2" -> R.string.pref_key_clear_cache_and_app_data
+            else -> R.string.pref_key_prompt
+        }
+        PreferenceManager.getDefaultSharedPreferences(requireContext()).edit {
+            putBoolean(getString(key), true)
+        }
+    }
+
+    private fun applySelectedTheme(theme: Int) {
+        Settings.setAppTheme(requireContext(), theme.toString())
+        if (AppCompatDelegate.getDefaultNightMode() != theme) {
+            AppCompatDelegate.setDefaultNightMode(theme)
+            activity?.recreate()
+        }
     }
 
     override fun onResume() {
@@ -51,9 +133,6 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
         getPreference(R.string.pref_key_change_app_icon)?.let {
             it.onPreferenceClickListener = getClickListenerForChangeAppIcon()
         }
-        getPreference(R.string.pref_key_theme)?.let {
-            it.onPreferenceChangeListener = getChangeListenerForTheme()
-        }
         getPreference(R.string.pref_key_secure_screen)?.let {
             it.onPreferenceChangeListener = getChangeListenerForSecureScreen()
         }
@@ -69,23 +148,6 @@ class CustomizationSettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_customizationSettingsFragment_to_changeIconFragment
             )
             getActionBar().setTitle(R.string.preferences_change_app_icon)
-            true
-        }
-    }
-
-    private fun getChangeListenerForTheme(): Preference.OnPreferenceChangeListener {
-        return Preference.OnPreferenceChangeListener { _, newValue ->
-            val modeString = newValue as String
-            val mode = modeString.toInt()
-            if (AppCompatDelegate.getDefaultNightMode() != mode) {
-                AppCompatDelegate.setDefaultNightMode(mode)
-                activity?.recreate()
-                /* TODO: send colorScheme to gecko engine
-                with(requireComponents.core) {
-                    engine.settings.preferredColorScheme = getPreferredColorScheme()
-                }
-                 */
-            }
             true
         }
     }

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/constraintLayout"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:baselineAligned="false">
+
+    <RadioButton
+        android:id="@+id/pref_radio_button"
+        android:layout_width="@dimen/preference_button_height"
+        android:layout_height="@dimen/preference_radio_button_width"
+        android:layout_gravity="start"
+        android:layout_marginStart="@dimen/preference_button_margin_horizontal"
+        android:layout_marginTop="@dimen/preference_button_margin_vertical"
+        android:background="@android:color/transparent"
+        android:clickable="false"
+        android:focusable="false"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:drawableStart="?android:attr/listChoiceIndicatorSingle" />
+
+    <TextView
+        android:id="@android:id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/preference_button_title_margin_horizontal"
+        android:gravity="center|start"
+        android:letterSpacing="@dimen/preference_button_title_letter_spacing"
+        android:lineSpacingExtra="@dimen/preference_button_title_line_spacing"
+        android:textAlignment="viewStart"
+        android:textAppearance="?android:attr/textAppearanceListItem"
+        app:layout_constraintBottom_toBottomOf="@id/pref_radio_button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/pref_radio_button"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@android:id/summary"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:letterSpacing="@dimen/preference_button_summary_letter_spacing"
+        android:lineSpacingExtra="@dimen/preference_button_summary_line_spacing"
+        android:textAlignment="viewStart"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="?android:attr/textColorSecondary"
+        tools:text="@tools:sample/lorem"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@android:id/title"
+        app:layout_constraintTop_toBottomOf="@android:id/title"
+        app:layout_constraintStart_toStartOf="@android:id/title" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

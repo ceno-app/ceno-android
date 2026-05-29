@@ -10,21 +10,34 @@
         android:title="@string/theme_category"
         android:layout="@layout/preference_category_style">
 
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_follow_system_theme"
+            android:title="@string/preferences_theme_option_0"
+            android:layout="@layout/preference_radio_button"
+            android:defaultValue="true"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_dark_theme"
+            android:title="@string/preferences_theme_option_1"
+            android:layout="@layout/preference_radio_button"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_light_theme"
+            android:title="@string/preferences_theme_option_2"
+            android:layout="@layout/preference_radio_button"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_battery_saver_theme"
+            android:title="@string/preferences_theme_option_3"
+            android:layout="@layout/preference_radio_button"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Icon"
+        android:layout="@layout/preference_category_style">
+
         <androidx.preference.Preference
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_item_button"
             android:key="@string/pref_key_change_app_icon"
             android:title="@string/preferences_change_app_icon"
             />
-
-        <!-- TODO: Replace ListPreferences with real radio groups like Fenix-->
-        <ListPreference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_theme"
-            android:title="@string/preferences_theme"
-            android:summary="@string/preferences_theme_summary"
-            android:defaultValue="@string/preferences_theme_default"
-            android:entryValues="@array/preferences_theme_values"
-            android:entries="@array/preferences_theme_options"/>
 
     </PreferenceCategory>
 
@@ -33,18 +46,18 @@
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_toolbar_position"
             android:title="@string/preferences_toolbar_position"/>
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_toolbar_hide"
             android:defaultValue="false"
             android:title="@string/preferences_toolbar_hide"/>
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_show_home_button"
             android:defaultValue="false"
             android:title="@string/preferences_show_home_button"/>
@@ -56,25 +69,37 @@
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_clear_in_toolbar"
             android:defaultValue="true"
             android:title="@string/preferences_clear_in_toolbar"/>
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_clear_in_menu"
             android:defaultValue="true"
             android:title="@string/preferences_clear_in_menu"/>
 
-        <ListPreference
-            app:iconSpaceReserved="false"
-            android:key="@string/pref_key_clear_behavior"
+
+        <!-- Using preference for subcategory title to hide divider -->
+        <androidx.preference.Preference
             android:title="@string/preferences_clear_behavior"
-            android:summary="@string/preferences_clear_behavior_summary"
-            android:defaultValue="@string/preferences_clear_behavior_default"
-            android:entryValues="@array/preferences_clear_behavior_values"
-            android:entries="@array/preferences_clear_behavior_options"/>
+            android:layout="@layout/preference_category_style"
+            android:clickable="false"/>
+
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_prompt"
+                android:title="@string/preferences_clear_behavior_option_1"
+                android:layout="@layout/preference_radio_button"
+                android:defaultValue="true"/>
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_clear_cache_only"
+                android:title="@string/preferences_clear_behavior_option_2"
+                android:layout="@layout/preference_radio_button"/>
+            <ie.equalit.ceno.settings.utils.RadioButtonPreference
+                android:key="@string/pref_key_clear_cache_and_app_data"
+                android:title="@string/preferences_clear_behavior_option_3"
+                android:layout="@layout/preference_radio_button"/>
 
     </PreferenceCategory>
 
@@ -83,13 +108,13 @@
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_hide_ouicrawl_feed"
             android:defaultValue="false"
             android:title="@string/preferences_hide_ouicrawl_feed"/>
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_verify_external_url"
             android:defaultValue="true"
             android:title="@string/preferences_verify_external_url"
@@ -101,14 +126,14 @@
         android:layout="@layout/preference_category_style">
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_secure_screen"
             android:title="@string/preferences_secure_screen"
             android:summary="@string/preferences_secure_screen_summary"
             android:defaultValue="true"/>
 
         <androidx.preference.SwitchPreferenceCompat
-            app:iconSpaceReserved="false"
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_secure_screen_personal"
             android:defaultValue="true"
             android:title="@string/preferences_secure_screen_personal"

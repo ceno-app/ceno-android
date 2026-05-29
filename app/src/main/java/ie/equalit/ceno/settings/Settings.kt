@@ -130,6 +130,14 @@ object Settings {
         return themeString!!.toInt()
     }
 
+    fun setAppTheme(context: Context, themeString: String) {
+        val key = context.getString(R.string.pref_key_theme)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit() {
+                putString(key, themeString)
+            }
+    }
+
     fun deleteOpenTabs(context: Context) : Boolean {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_delete_open_tabs), false
@@ -379,6 +387,25 @@ object Settings {
         return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
             context.getString(R.string.pref_key_doh_enabled), true
         )
+    }
+
+    fun getDnsProtocols(context: Context) : MutableSet<String> {
+        val dnsProtocols : MutableSet<String> = mutableSetOf()
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_plain), true
+            ))
+            dnsProtocols.add("plain")
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_https), true
+            ))
+            dnsProtocols.add("https")
+        if (PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
+                context.getString(R.string.pref_key_dns_both), true
+            )) {
+            dnsProtocols.add("plain")
+            dnsProtocols.add("https")
+        }
+        return dnsProtocols
     }
 
     fun setOuinetMetricsEnabled(context: Context, newValue:Boolean) {
