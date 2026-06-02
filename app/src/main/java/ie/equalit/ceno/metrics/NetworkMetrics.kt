@@ -23,15 +23,16 @@ class NetworkMetrics(
     val context: Context,
     private val coroutineScope: CoroutineScope
 ) {
-    private val metricsRecordId:Flow<String> = flow {
+    private val metricsRecordId: Flow<String> = flow {
         var previousRecordid = ""
-        while(true) {
+        while (true) {
             CenoSettings.ouinetClientRequest(
                 context,
                 coroutineScope,
                 OuinetKey.API_STATUS,
-                forMetrics = true)
-            if (CenoSettings.currentMetricsRecordId != previousRecordid)  {
+                forMetrics = true
+            )
+            if (CenoSettings.currentMetricsRecordId != previousRecordid) {
                 emit(CenoSettings.currentMetricsRecordId)
                 previousRecordid = CenoSettings.currentMetricsRecordId
             }
@@ -41,9 +42,10 @@ class NetworkMetrics(
         }
     }
 
-    private val connectivityManager = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+    private val connectivityManager =
+        context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
 
-    private var vpnEnabled:Boolean
+    private var vpnEnabled: Boolean
 
     init {
         vpnEnabled = isUsingVPN() == true
@@ -54,17 +56,34 @@ class NetworkMetrics(
             metricsRecordId.collect { recordId ->
                 //send metrics
                 //app version
-                addMetricToRecord(recordId, MetricsKeys.APP_VERSION, context.application.appVersionName)
+                addMetricToRecord(
+                    recordId,
+                    MetricsKeys.APP_VERSION,
+                    context.application.appVersionName
+                )
                 //bridge opt in
-                addMetricToRecord(recordId, MetricsKeys.BRIDGE_OPT_IN, CenoSettings.isBridgeAnnouncementEnabled(context).toString())
+                addMetricToRecord(
+                    recordId,
+                    MetricsKeys.BRIDGE_OPT_IN,
+                    CenoSettings.isBridgeAnnouncementEnabled(context)
+                        .toString()
+                )
                 //network country
-                addMetricToRecord(recordId, MetricsKeys.NETWORK_COUNTRY, CenoLocationUtils(context.application).currentCountry)
+                addMetricToRecord(
+                    recordId,
+                    MetricsKeys.NETWORK_COUNTRY,
+                    CenoLocationUtils(context.application).currentCountry
+                )
                 //network operator
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_OPERATOR, getNetworkOperator())
                 //network type
                 addMetricToRecord(recordId, MetricsKeys.NETWORK_TYPE, getNetworkType())
                 //vpn usage
-                addMetricToRecord(recordId, MetricsKeys.NETWORK_VPN_ENABLED, isUsingVPN().toString())
+                addMetricToRecord(
+                    recordId,
+                    MetricsKeys.NETWORK_VPN_ENABLED,
+                    isUsingVPN().toString()
+                )
                 //timezone
                 addMetricToRecord(recordId, MetricsKeys.TIMEZONE, getTimeZone())
             }
@@ -83,7 +102,7 @@ class NetworkMetrics(
         )
     }
 
-    private fun addMetricToRecord(recordId:String, key : MetricsKeys, value:String) {
+    private fun addMetricToRecord(recordId: String, key: MetricsKeys, value: String) {
         CenoSettings.ouinetClientRequest(
             context,
             coroutineScope,
@@ -104,26 +123,38 @@ class NetworkMetrics(
     }
 
     private fun getNetworkOperator(): String {
-        val telephonyManager = context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
+        val telephonyManager =
+            context.getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
         return telephonyManager.networkOperatorName
     }
 
     private fun getNetworkType(): String {
-        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
-                NetworkCapabilities.TRANSPORT_WIFI) == true)
+        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                ?.hasTransport(
+                    NetworkCapabilities.TRANSPORT_WIFI
+                ) == true
+        )
             return "wifi"
-        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(
-                NetworkCapabilities.TRANSPORT_CELLULAR) == true)
+        if (connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+                ?.hasTransport(
+                    NetworkCapabilities.TRANSPORT_CELLULAR
+                ) == true
+        )
             return "cellular"
         return "unknown"
     }
 
-    private fun isUsingVPN() : Boolean? {
-        return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)?.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
+    private fun isUsingVPN(): Boolean? {
+        return connectivityManager.getNetworkCapabilities(connectivityManager.activeNetwork)
+            ?.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
     }
 
-    private fun getTimeZone():String {
-        return TimeZone.getDefault().getDisplayName(TimeZone.getDefault().inDaylightTime(Date()), TimeZone.SHORT)
+    private fun getTimeZone(): String {
+        return TimeZone.getDefault()
+            .getDisplayName(
+                TimeZone.getDefault()
+                    .inDaylightTime(Date()), TimeZone.SHORT
+            )
     }
 
     companion object {
