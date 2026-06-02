@@ -82,5 +82,4 @@ class PersonalModeDescriptionViewHolder(
             true
         }
     }
-
 }

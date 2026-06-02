@@ -29,5 +29,4 @@ object SentryOptionsConfiguration {
             it.addEventProcessor(SentryEventProcessor(context))
         }
     }
-
 }
