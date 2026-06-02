@@ -51,8 +51,10 @@ class LogsShareController(
     }
 
     override fun handleSaveToPDF(tabId: String?) {
+        // Not implemented
     }
 
     override fun handlePrint(tabId: String?) {
+        // Not implemented
     }
 }

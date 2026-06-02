@@ -141,9 +141,12 @@ fun setChecked(checked: Boolean): ViewAction {
                     item: Any?,
                     mismatchDescription: Description?
                 ) {
+                    // Not implemented
                 }
 
-                override fun describeTo(description: Description?) {}
+                override fun describeTo(description: Description?) {
+                    // Not implemented
+                }
             }
         }
 

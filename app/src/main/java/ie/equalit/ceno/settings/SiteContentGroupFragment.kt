@@ -76,7 +76,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
     private fun convertToMap(groups: String): List<CachedGroupAdapter.GroupItem> {
 
         val urls = groups.split("\n")
-        var pinned_urls = mutableListOf<String>()
+        var pinnedUrls = mutableListOf<String>()
         CenoSettings.ouinetClientRequest(
             requireContext(),
             lifecycleScope,
@@ -84,13 +84,13 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             OuinetValue.OTHER,
             ouinetResponseListener = object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
-                    pinned_urls = requireContext().components.json
+                    pinnedUrls = requireContext().components.json
                         .decodeFromString<PinnedCacheGroup>(message)
                         .pinnedGroups.toMutableList()
                 }
 
                 override fun onError() {
-
+                    //TODO: Not yet implemented
                 }
             }
         )
@@ -100,7 +100,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             val parts = url.split("/")
             val baseUrl = parts.first()
 
-            val isPinned = pinned_urls.contains(url)
+            val isPinned = pinnedUrls.contains(url)
             map[baseUrl] = if (map[baseUrl].isNullOrEmpty()) {
                 mutableListOf<CachedGroupAdapter.GroupChildItem>().apply {
                     add(CachedGroupAdapter.GroupChildItem(url, isPinned))
