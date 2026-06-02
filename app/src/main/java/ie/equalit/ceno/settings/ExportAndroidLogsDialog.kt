@@ -10,7 +10,6 @@ import android.widget.ProgressBar
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -35,7 +34,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.engine.prompt.ShareData
 
-class ExportAndroidLogsDialog (
+class ExportAndroidLogsDialog(
     val context: Context,
     val lifecycleOwner: LifecycleOwner,
     val fragment: Fragment,
@@ -49,9 +48,10 @@ class ExportAndroidLogsDialog (
         val radio5Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_5_minutes)
         val radio10Button = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_10_minutes)
         val radio2hrButton = logTimeFilterDialogView.findViewById<RadioButton>(R.id.radio_2_hours)
-        val checkboxDebugLogs = logTimeFilterDialogView.findViewById<CheckBox>(R.id.checkBox_debug_logs)
+        val checkboxDebugLogs =
+            logTimeFilterDialogView.findViewById<CheckBox>(R.id.checkBox_debug_logs)
 
-        if(fragment is HomeFragment) {
+        if (fragment is HomeFragment) {
             checkboxDebugLogs.visibility = View.VISIBLE
         } else {
             checkboxDebugLogs.visibility = View.GONE
@@ -77,11 +77,17 @@ class ExportAndroidLogsDialog (
                             stringValue = null,
                             object : OuinetResponseListener {
                                 override fun onSuccess(message: String, data: Any?) {
-                                    CenoSettings.setCenoEnableLog(this@ExportAndroidLogsDialog.context, checkboxDebugLogs.isChecked)
+                                    CenoSettings.setCenoEnableLog(
+                                        this@ExportAndroidLogsDialog.context,
+                                        checkboxDebugLogs.isChecked
+                                    )
                                 }
 
                                 override fun onError() {
-                                    Log.e(TAG, "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}")
+                                    Log.e(
+                                        TAG,
+                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
+                                    )
                                 }
                             }
                         )
@@ -99,7 +105,10 @@ class ExportAndroidLogsDialog (
                                 }
 
                                 override fun onError() {
-                                    Log.e(TAG, "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}")
+                                    Log.e(
+                                        TAG,
+                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
+                                    )
                                 }
 
                             }
@@ -142,7 +151,8 @@ class ExportAndroidLogsDialog (
                                         e.printStackTrace()
                                     }
                                 }
-                            }.toMutableList()
+                            }
+                                .toMutableList()
 
                             logString = logs.joinToString("\n")
 
@@ -150,14 +160,20 @@ class ExportAndroidLogsDialog (
 
                             // save file to internal storage
                             context.openFileOutput(
-                                "${ContextCompat.getString(context, R.string.ceno_android_logs_file_name)}.txt", Context.MODE_PRIVATE)
+                                "${
+                                    getString(
+                                        context,
+                                        R.string.ceno_android_logs_file_name
+                                    )
+                                }.txt", Context.MODE_PRIVATE
+                            )
                                 .use {
                                     it.write(logString.toByteArray())
                                 }
 
                             withContext(Dispatchers.Main) {
 
-                                progressDialog.setOnDismissListener {  } // reset dismissListener
+                                progressDialog.setOnDismissListener { } // reset dismissListener
 
                                 progressView.progress = 100
                                 delay(200)
@@ -175,34 +191,47 @@ class ExportAndroidLogsDialog (
     }
 
     private fun viewAndShareLogs(): AlertDialog.Builder {
-        return AlertDialog.Builder(context).apply {
-            setTitle(context.getString(R.string.ceno_log_file_saved))
-            setMessage(context.getString(R.string.ceno_log_file_saved_desc))
-            setNegativeButton(context.getString(R.string.share_logs)) { _, _ ->
-                onDismiss.invoke()
-                val directions = NavGraphDirections.actionGlobalShareFragment(
-                    arrayOf(
-                        ShareData(
-                            url = "Logfile",
-                            title = "Logs",
-                        ),
+        return AlertDialog.Builder(context)
+            .apply {
+                setTitle(context.getString(R.string.ceno_log_file_saved))
+                setMessage(context.getString(R.string.ceno_log_file_saved_desc))
+                setNegativeButton(context.getString(R.string.share_logs)) { _, _ ->
+                    onDismiss.invoke()
+                    val directions = NavGraphDirections.actionGlobalShareFragment(
+                        arrayOf(
+                            ShareData(
+                                url = "Logfile",
+                                title = "Logs",
+                            ),
+                        )
                     )
-                ).apply {
-                    setLogsFilePath("${getString(context, R.string.ceno_android_logs_file_name)}.txt")
+                        .apply {
+                            setLogsFilePath(
+                                "${
+                                    getString(
+                                        context,
+                                        R.string.ceno_android_logs_file_name
+                                    )
+                                }.txt"
+                            )
+                        }
+                    fragment.findNavController()
+                        .navigate(directions)
                 }
-                fragment.findNavController().navigate(directions)
+                setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
+                    fragment.findNavController()
+                        .navigate(
+                            R.id.action_global_androidLogFragment
+                        )
+                    onDismiss.invoke()
+                }
+                setPositiveButton(R.string.download_logs) { _, _ ->
+                    (fragment.requireActivity() as BrowserActivity).getLogfileLocation.launch(
+                        getString(context, R.string.ceno_android_logs_file_name)
+                    )
+                }
+                create()
             }
-            setNeutralButton(context.getString(R.string.view_logs)) { _, _ ->
-                fragment.findNavController().navigate(
-                    R.id.action_global_androidLogFragment
-                )
-                onDismiss.invoke()
-            }
-            setPositiveButton(R.string.download_logs) { _, _ ->
-                (fragment.requireActivity() as BrowserActivity).getLogfileLocation.launch(getString(context, R.string.ceno_android_logs_file_name))
-            }
-            create()
-        }
     }
 
     private fun getProgressDialog(progressDialogView: View): AlertDialog {
@@ -213,9 +242,10 @@ class ExportAndroidLogsDialog (
                 setOnDismissListener {
                     Toast.makeText(
                         context,
-                        ContextCompat.getString(context, R.string.canceled),
+                        getString(context, R.string.canceled),
                         Toast.LENGTH_LONG
-                    ).show()
+                    )
+                        .show()
                     job?.cancel()
                     dismiss()
                 }

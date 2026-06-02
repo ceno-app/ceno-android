@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.util.AttributeSet
 import android.widget.RadioButton
-import androidx.core.content.res.TypedArrayUtils.getAttr
 import androidx.core.content.withStyledAttributes
 import androidx.preference.Preference
 import androidx.preference.PreferenceManager
@@ -44,9 +43,11 @@ class RadioButtonPreference(
     private var clickListener: (() -> Unit)? = null
 
 
-    private val preferences: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val preferences: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
     val isChecked: Boolean
         get() = radioButton?.isChecked == true
+
     init {
         layoutResource = R.layout.preference_radio_button
         context.withStyledAttributes(
@@ -56,8 +57,10 @@ class RadioButtonPreference(
             defaultValue = when {
                 hasValue(R.styleable.RadioButtonPreference_defaultValue) ->
                     getBoolean(R.styleable.RadioButtonPreference_defaultValue, false)
+
                 hasValue(R.styleable.RadioButtonPreference_android_defaultValue) ->
                     getBoolean(R.styleable.RadioButtonPreference_android_defaultValue, false)
+
                 else -> false
             }
         }

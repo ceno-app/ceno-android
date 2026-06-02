@@ -91,7 +91,7 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
-import ie.equalit.ceno.settings.dialogs.WaitForOuineRestartDialog
+import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -118,7 +118,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var developerToolsToast: Toast? = null
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
-        Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT).show()
+        Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT)
+            .show()
         true
     }
 
@@ -168,7 +169,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onViewCreated(view, savedInstanceState)
 
         (activity as BrowserActivity).themeManager.applyStatusBarThemeTabsTray()
-        bridgeAnnouncementDialog = WaitForOuineRestartDialog(requireContext(), getString(R.string.bridge_announcement_dialog_title)).getDialog()
+        bridgeAnnouncementDialog = WaitForOuinetRestartDialog(
+            requireContext(),
+            getString(R.string.bridge_announcement_dialog_title)
+        ).getDialog()
         bridgeAnnouncementDialog.setOnDismissListener {
             showThankyouDialog()
         }
@@ -214,14 +218,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun showThankyouDialog() {
         if (CenoSettings.isBridgeAnnouncementEnabled(requireContext())) {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(getString(title_success))
-                setMessage(getString(thank_you_bridge_mode_enabled))
-                setPositiveButton(getString(dialog_btn_positive_ok)) { _, _ ->
+            AlertDialog.Builder(requireContext())
+                .apply {
+                    setTitle(getString(title_success))
+                    setMessage(getString(thank_you_bridge_mode_enabled))
+                    setPositiveButton(getString(dialog_btn_positive_ok)) { _, _ ->
 
+                    }
+                    show()
                 }
-                show()
-            }
         }
     }
 
@@ -240,7 +245,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.ceno_action_bar
-                ).toDrawable()
+                )
+                    .toDrawable()
             )
         }
     }
@@ -438,7 +444,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
         )
 
-        Toast.makeText(requireContext(), getString(toast_copied), LENGTH_SHORT).show()
+        Toast.makeText(requireContext(), getString(toast_copied), LENGTH_SHORT)
+            .show()
     }
 
 
@@ -504,13 +511,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 R.id.action_settingsFragment_to_metricsCampaignFragment
             )
             getActionBar().setTitle(preferences_metrics_campaign)
-            true
-        }
-    }
-
-    private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
-        return OnPreferenceChangeListener { _, newValue ->
-            requireComponents.core.engine.settings.remoteDebuggingEnabled = newValue as Boolean
             true
         }
     }
@@ -600,7 +600,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             // Immediately enable the export log button
             getPreference(pref_key_ceno_download_android_log)?.let {
-                it.isVisible = newValue as Boolean
+                it.isVisible = newValue
                 it.isEnabled = !(it.isEnabled)
                 it.isEnabled = !(it.isEnabled)
             }
@@ -610,50 +610,53 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForClearCenoCache(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(getString(confirm_clear_cached_content))
-                setMessage(getString(confirm_clear_cached_content_desc))
-                setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
-                setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
-                    CenoSettings.ouinetClientRequest(
-                        requireContext(),
-                        viewLifecycleOwner.lifecycleScope,
-                        OuinetKey.PURGE_CACHE,
-                        ouinetResponseListener = object : OuinetResponseListener {
-                            override fun onSuccess(message: String, data: Any?) {
-                                //update ceno cache size
-                                CenoSettings.ouinetClientRequest(
-                                    requireContext(),
-                                    viewLifecycleOwner.lifecycleScope,
-                                    OuinetKey.API_STATUS,
-                                    shouldRefresh = false
-                                )
-                                getPreference(pref_key_ceno_cache_size)?.summaryProvider =
-                                    Preference.SummaryProvider<Preference> {
-                                        CenoSettings.getCenoCacheSize(requireContext())
-                                    }
-                                //update groups count
-                                CenoSettings.ouinetClientRequest(
-                                    requireContext(),
-                                    viewLifecycleOwner.lifecycleScope,
-                                    OuinetKey.GROUPS_TXT,
-                                    shouldRefresh = false
-                                )
-                                getPreference(pref_key_ceno_groups_count)?.summaryProvider =
-                                    Preference.SummaryProvider<Preference> {
-                                        resources.getQuantityString(
-                                            R.plurals.preferences_ceno_groups_count_subtitle,
-                                            CenoSettings.getCenoGroupsCount(requireContext()),
-                                            CenoSettings.getCenoGroupsCount(requireContext())
-                                        )
-                                    }
-                            }
-                            override fun onError() = Unit
+            AlertDialog.Builder(requireContext())
+                .apply {
+                    setTitle(getString(confirm_clear_cached_content))
+                    setMessage(getString(confirm_clear_cached_content_desc))
+                    setNegativeButton(getString(ceno_clear_dialog_cancel)) { _, _ -> }
+                    setPositiveButton(getString(onboarding_battery_button)) { _, _ ->
+                        CenoSettings.ouinetClientRequest(
+                            requireContext(),
+                            viewLifecycleOwner.lifecycleScope,
+                            OuinetKey.PURGE_CACHE,
+                            ouinetResponseListener = object : OuinetResponseListener {
+                                override fun onSuccess(message: String, data: Any?) {
+                                    //update ceno cache size
+                                    CenoSettings.ouinetClientRequest(
+                                        requireContext(),
+                                        viewLifecycleOwner.lifecycleScope,
+                                        OuinetKey.API_STATUS,
+                                        shouldRefresh = false
+                                    )
+                                    getPreference(pref_key_ceno_cache_size)?.summaryProvider =
+                                        Preference.SummaryProvider<Preference> {
+                                            CenoSettings.getCenoCacheSize(requireContext())
+                                        }
+                                    //update groups count
+                                    CenoSettings.ouinetClientRequest(
+                                        requireContext(),
+                                        viewLifecycleOwner.lifecycleScope,
+                                        OuinetKey.GROUPS_TXT,
+                                        shouldRefresh = false
+                                    )
+                                    getPreference(pref_key_ceno_groups_count)?.summaryProvider =
+                                        Preference.SummaryProvider<Preference> {
+                                            resources.getQuantityString(
+                                                R.plurals.preferences_ceno_groups_count_subtitle,
+                                                CenoSettings.getCenoGroupsCount(requireContext()),
+                                                CenoSettings.getCenoGroupsCount(requireContext())
+                                            )
+                                        }
+                                }
 
-                        })
+                                override fun onError() = Unit
+
+                            })
+                    }
+                    create()
                 }
-                create()
-            }.show()
+                .show()
             true
         }
     }
@@ -666,16 +669,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 key = OuinetKey.GROUPS_TXT,
                 ouinetResponseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
-                        if (message.trim().isEmpty()) {
+                        if (message.trim()
+                                .isEmpty()
+                        ) {
                             Toast.makeText(
                                 requireContext(),
                                 getString(no_content_shared),
                                 Toast.LENGTH_LONG
-                            ).show()
+                            )
+                                .show()
                         } else {
                             findNavController().navigate(
                                 R.id.action_settingsFragment_to_siteContentGroupFragment,
-                                bundleOf("groups" to message)
+                                Bundle().apply {
+                                    putString("groups", message)
+                                }
                             )
                         }
                     }
@@ -685,7 +693,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             requireContext(),
                             ContextCompat.getString(requireContext(), ouinet_client_fetch_fail),
                             LENGTH_SHORT
-                        ).show()
+                        )
+                            .show()
                     }
                 },
                 shouldRefresh = false
@@ -751,7 +760,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             )
 
-            languageChangeDialog.getDialog().show()
+            languageChangeDialog.getDialog()
+                .show()
             true
         }
     }
@@ -864,18 +874,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         These test logs would be in the last lines of the generated logs and can thus be analyzed
         */
 
-//                    val logTag = "test"
-//
-//                    Log.d(logTag,"Phone number: 123-456-7890")
-//                    Log.d(logTag,"Email address: sample@samplemail.com")
-//                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
-//                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
-//                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
-//                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
+        //                    val logTag = "test"
+        //
+        //                    Log.d(logTag,"Phone number: 123-456-7890")
+        //                    Log.d(logTag,"Email address: sample@samplemail.com")
+        //                    Log.d(logTag,"Mac address: 00:1A:2B:3C:4D:5E")
+        //                    Log.d(logTag,"Local ipv4 address: 192.168.0.1")
+        //                    Log.d(logTag,"Non-local ipv4 address: 8.8.8.8")
+        //                    Log.d(logTag,"Ipv6 address: 2001:0db8:85a3:0000:0000:8a2e:0370:7334\n")
 
         // Ask user to choose log filter
         val exportDialog = ExportAndroidLogsDialog(requireContext(), viewLifecycleOwner, this)
-        exportDialog.getDialog().show()
+        exportDialog.getDialog()
+            .show()
     }
 
     companion object {
@@ -897,7 +908,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
         const val TAPS_TO_TOGGLE_DEVELOPER_TOOLS = 7
 
         fun getCurrentLocale(): Locale = (
-                AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+                AppCompatDelegate.getApplicationLocales()
+                    .get(0) ?: Locale.getDefault()
                 )
     }
 }

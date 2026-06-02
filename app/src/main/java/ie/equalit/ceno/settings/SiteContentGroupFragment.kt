@@ -23,7 +23,6 @@ import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.json.Json
 
 class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListener {
 
@@ -46,24 +45,27 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             setTitle(R.string.preferences_ceno_groups_count)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar).toDrawable())
+                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
+                    .toDrawable()
+            )
         }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getString("groups")?.let { groups ->
-            binding.groupListing.setAdapter(
-                CachedGroupAdapter(
-                    requireContext(),
-                    convertToMap(
-                        groups.trim()
-                    ),
-                    this
+        arguments?.getString("groups")
+            ?.let { groups ->
+                binding.groupListing.setAdapter(
+                    CachedGroupAdapter(
+                        requireContext(),
+                        convertToMap(
+                            groups.trim()
+                        ),
+                        this
+                    )
                 )
-            )
-        }
+            }
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             // Handle the back button event
             findNavController().popBackStack()
@@ -80,12 +82,13 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             lifecycleScope,
             OuinetKey.PINNED_GROUPS,
             OuinetValue.OTHER,
-            ouinetResponseListener = object:OuinetResponseListener{
+            ouinetResponseListener = object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     pinned_urls = requireContext().components.json
                         .decodeFromString<PinnedCacheGroup>(message)
                         .pinned_groups.toMutableList()
                 }
+
                 override fun onError() {
 
                 }
@@ -97,13 +100,20 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
             val parts = url.split("/")
             val baseUrl = parts.first()
 
-            val is_pinned = pinned_urls.contains(url)
-            map[baseUrl] = if (map[baseUrl].isNullOrEmpty()){
+            val isPinned = pinned_urls.contains(url)
+            map[baseUrl] = if (map[baseUrl].isNullOrEmpty()) {
                 mutableListOf<CachedGroupAdapter.GroupChildItem>().apply {
-                    add(CachedGroupAdapter.GroupChildItem(url, is_pinned))
+                    add(CachedGroupAdapter.GroupChildItem(url, isPinned))
                 }
             } else {
-                map[baseUrl].apply { this!!.add(CachedGroupAdapter.GroupChildItem(url, is_pinned)) }!!
+                map[baseUrl].apply {
+                    this!!.add(
+                        CachedGroupAdapter.GroupChildItem(
+                            url,
+                            isPinned
+                        )
+                    )
+                }!!
             }
         }
 
@@ -136,7 +146,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
     }
 
     @Serializable
-    data class PinnedCacheGroup (
-        val pinned_groups : Array<String>
+    data class PinnedCacheGroup(
+        val pinned_groups: Array<String>
     )
 }

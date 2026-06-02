@@ -15,7 +15,6 @@ import androidx.core.view.iterator
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
@@ -29,8 +28,8 @@ import java.util.regex.Pattern
 class ExtraBTBootstrapsDialog(
     val context: Context,
     val lifecycleOwner: LifecycleOwner,
-    val btSourcesMap:MutableMap<String, String>,
-    val updatePrefs : () -> Unit = {}
+    val btSourcesMap: MutableMap<String, String>,
+    val updatePrefs: () -> Unit = {}
 ) {
 
     private val builder: AlertDialog.Builder = AlertDialog.Builder(context)
@@ -53,8 +52,12 @@ class ExtraBTBootstrapsDialog(
                     if (child is CheckBox && child.isChecked) {
                         allSelectedIPs.add(
                             btSourcesMap.entries.find { e ->
-                                e.key.lowercase() == child.text.toString().trim().lowercase()
-                            }?.value ?: child.text.toString().trim())
+                                e.key.equals(
+                                    child.text.toString()
+                                        .trim(), ignoreCase = true)
+                            }?.value ?: child.text.toString()
+                                .trim()
+                        )
                     }
                 }
 
@@ -68,14 +71,16 @@ class ExtraBTBootstrapsDialog(
                         override fun onSuccess(message: String, data: Any?) {
                             CenoSettings.setExtraBitTorrentBootstrap(
                                 context,
-                                message.split("+").toTypedArray()
+                                message.split("+")
+                                    .toTypedArray()
                             )
                             updatePrefs()
                             Toast.makeText(
                                 context,
                                 getString(context, R.string.ouinet_client_fetch_success),
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
                         }
 
                         override fun onError() {
@@ -83,7 +88,8 @@ class ExtraBTBootstrapsDialog(
                                 context,
                                 getString(context, R.string.ouinet_client_fetch_fail),
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
                         }
                     }
                 )
@@ -93,71 +99,90 @@ class ExtraBTBootstrapsDialog(
                 linearLayout.addView(
                     CheckBox(context).apply {
                         text = Locale("", it.key).displayCountry
-                        isChecked = CenoSettings.getLocalBTSources(context)?.contains(it.value) == true
+                        isChecked = CenoSettings.getLocalBTSources(context)
+                            ?.contains(it.value) == true
                         isAllCaps = false
-                        setTextColor(ContextCompat.getColor(context, R.color.fx_mobile_text_color_primary))
+                        setTextColor(
+                            ContextCompat.getColor(
+                                context,
+                                R.color.fx_mobile_text_color_primary
+                            )
+                        )
                     }
                 )
             }
             // add custom sources
-            CenoSettings.getLocalBTSources(context)?.forEach {
-                it.let { source ->
-                    if (source.trim().isNotEmpty() && !btSourcesMap.containsValue(source.trim())) {
-                        linearLayout.addView(
-                            CheckBox(context).apply {
-                                text = it
-                                isChecked = true
-                                isAllCaps = false
-                            }
-                        )
-                    }
-                }
-            }
-
-            tvCustomSource.setOnClickListener {
-
-                // This prevents the view from being added multiple times and causing a crash
-//                (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
-
-                val alertDialog2 = AlertDialog.Builder(context).apply {
-                    setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))
-                    setView(customDialogView)
-                    setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ ->
-                        customBTSourcesView.hideKeyboard()
-                        dialog.cancel()
-                    }
-                    setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
-                        val ipAddresses = customBTSourcesView.text.toString().trim().split(",")
-
-                        for (ipAddress in ipAddresses) {
-                            // Pattern for validating IPs
-                            val ipPattern = Pattern.compile(
-                                """^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$"""
-                            )
-                            if (!ipPattern.matcher(ipAddress.trim()).matches()) {
-                                Toast.makeText(context, getString(context, R.string.bt_invalid_ip_error), Toast.LENGTH_SHORT).show()
-                                customBTSourcesView.hideKeyboard()
-                                return@setPositiveButton
-                            }
-                        }
-
-                        // Add IPs to the list of IP sources
-                        for (ip in ipAddresses) {
+            CenoSettings.getLocalBTSources(context)
+                ?.forEach {
+                    it.let { source ->
+                        if (source.trim()
+                                .isNotEmpty() && !btSourcesMap.containsValue(source.trim())
+                        ) {
                             linearLayout.addView(
                                 CheckBox(context).apply {
-                                    text = ip
+                                    text = it
                                     isChecked = true
                                     isAllCaps = false
                                 }
                             )
                         }
-
-                        customBTSourcesView.hideKeyboard()
                     }
-                    customBTSourcesView.requestFocus()
-                    customBTSourcesView.showKeyboard()
-                    create()
                 }
+
+            tvCustomSource.setOnClickListener {
+
+                // This prevents the view from being added multiple times and causing a crash
+                //                (customDialogView.parent as? ViewGroup)?.removeView(customDialogView)
+
+                val alertDialog2 = AlertDialog.Builder(context)
+                    .apply {
+                        setTitle(context.getString(R.string.customize_extra_bittorrent_bootstrap))
+                        setView(customDialogView)
+                        setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ ->
+                            customBTSourcesView.hideKeyboard()
+                            dialog.cancel()
+                        }
+                        setPositiveButton(R.string.customize_add_bootstrap_save) { _, _ ->
+                            val ipAddresses = customBTSourcesView.text.toString()
+                                .trim()
+                                .split(",")
+
+                            for (ipAddress in ipAddresses) {
+                                // Pattern for validating IPs
+                                val ipPattern = Pattern.compile(
+                                    """^(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)\.(25[0-5]|2[0-4]\d|[01]?\d\d?)$"""
+                                )
+                                if (!ipPattern.matcher(ipAddress.trim())
+                                        .matches()
+                                ) {
+                                    Toast.makeText(
+                                        context,
+                                        getString(context, R.string.bt_invalid_ip_error),
+                                        Toast.LENGTH_SHORT
+                                    )
+                                        .show()
+                                    customBTSourcesView.hideKeyboard()
+                                    return@setPositiveButton
+                                }
+                            }
+
+                            // Add IPs to the list of IP sources
+                            for (ip in ipAddresses) {
+                                linearLayout.addView(
+                                    CheckBox(context).apply {
+                                        text = ip
+                                        isChecked = true
+                                        isAllCaps = false
+                                    }
+                                )
+                            }
+
+                            customBTSourcesView.hideKeyboard()
+                        }
+                        customBTSourcesView.requestFocus()
+                        customBTSourcesView.showKeyboard()
+                        create()
+                    }
 
                 alertDialog2.show()
             }

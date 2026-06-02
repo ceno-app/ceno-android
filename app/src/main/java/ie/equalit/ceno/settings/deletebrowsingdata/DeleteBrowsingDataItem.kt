@@ -27,9 +27,6 @@ class DeleteBrowsingDataItem @JvmOverloads constructor(
 
     private var binding: DeleteBrowsingDataItemBinding
 
-    val titleView: TextView
-        get() = binding.title
-
     val subtitleView: TextView
         get() = binding.subtitle
 
@@ -43,7 +40,8 @@ class DeleteBrowsingDataItem @JvmOverloads constructor(
 
     init {
         val view =
-            LayoutInflater.from(context).inflate(R.layout.delete_browsing_data_item, this, true)
+            LayoutInflater.from(context)
+                .inflate(R.layout.delete_browsing_data_item, this, true)
 
         binding = DeleteBrowsingDataItemBinding.bind(view)
 
@@ -68,14 +66,14 @@ class DeleteBrowsingDataItem @JvmOverloads constructor(
             binding.title.text = resources.getString(titleId)
             val subtitleText = try {
                 resources.getString(subtitleId)
-            } catch ( _ : Exception) {
+            } catch (_: Exception) {
                 /* Subtitle might be a plural instead of string
                  * catch this exception and set subtitle empty
                  */
                 resources.getString(R.string.empty_string)
             }
             binding.subtitle.text = subtitleText
-            if (subtitleText.isBlank()) binding.subtitle.visibility = View.GONE
+            if (subtitleText.isBlank()) binding.subtitle.visibility = GONE
         }
     }
 

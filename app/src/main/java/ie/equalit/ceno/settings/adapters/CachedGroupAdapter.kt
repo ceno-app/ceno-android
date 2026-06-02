@@ -15,7 +15,11 @@ import ie.equalit.ceno.databinding.ExpandableListChildItemBinding
 import ie.equalit.ceno.databinding.ExpandableListGroupItemBinding
 
 
-class CachedGroupAdapter(private val context: Context, private val groupList: List<GroupItem>, private val clickListener: GroupClickListener?) :
+class CachedGroupAdapter(
+    private val context: Context,
+    private val groupList: List<GroupItem>,
+    private val clickListener: GroupClickListener?
+) :
     BaseExpandableListAdapter() {
 
     override fun getGroupCount(): Int {
@@ -56,7 +60,8 @@ class CachedGroupAdapter(private val context: Context, private val groupList: Li
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        val binding = ExpandableListGroupItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding =
+            ExpandableListGroupItemBinding.inflate(LayoutInflater.from(context), parent, false)
         binding.groupNameTextView.text = groupList[groupPosition].name
         return binding.root
     }
@@ -68,14 +73,15 @@ class CachedGroupAdapter(private val context: Context, private val groupList: Li
         convertView: View?,
         parent: ViewGroup?
     ): View {
-        val binding = ExpandableListChildItemBinding.inflate(LayoutInflater.from(context), parent, false)
+        val binding =
+            ExpandableListChildItemBinding.inflate(LayoutInflater.from(context), parent, false)
         val cacheItem = groupList[groupPosition].children[childPosition]
         binding.childNameTextView.text = cacheItem.url
         binding.root.setOnClickListener {
             clickListener?.onLinkClicked(cacheItem.url)
         }
         setIsPinned(cacheItem.isPinned, binding)
-        binding.btnPinToCache.setOnClickListener() { _ ->
+        binding.btnPinToCache.setOnClickListener { _ ->
             clickListener?.onPinChanged(cacheItem.url, !cacheItem.isPinned)
             setIsPinned(!cacheItem.isPinned, binding)
             groupList[groupPosition].children[childPosition].isPinned = !cacheItem.isPinned
@@ -106,7 +112,7 @@ class CachedGroupAdapter(private val context: Context, private val groupList: Li
 
     data class GroupItem(val name: String, val children: List<GroupChildItem>)
 
-    data class GroupChildItem(val url: String, var isPinned:Boolean)
+    data class GroupChildItem(val url: String, var isPinned: Boolean)
 
     interface GroupClickListener {
         fun onLinkClicked(url: String)

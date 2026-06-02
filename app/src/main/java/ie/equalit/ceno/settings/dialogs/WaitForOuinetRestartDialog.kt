@@ -5,7 +5,7 @@ import android.view.View
 import androidx.appcompat.app.AlertDialog
 import ie.equalit.ceno.R
 
-class WaitForOuineRestartDialog (
+class WaitForOuinetRestartDialog(
     context: Context,
     title: String
 ) {
@@ -20,9 +20,10 @@ class WaitForOuineRestartDialog (
         }
     }
 
-    fun getDialog (): AlertDialog {
-        return builder.create().apply {
-            setCanceledOnTouchOutside(false)
-        }
+    fun getDialog(): AlertDialog {
+        return builder.create()
+            .apply {
+                setCanceledOnTouchOutside(false)
+            }
     }
 }

@@ -18,7 +18,6 @@ import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.cancel
@@ -33,7 +32,6 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
 
     private lateinit var controller: DeleteBrowsingDataController
     private var scope: CoroutineScope? = null
-    //private lateinit var settings: Settings
 
     private var _binding: FragmentDeleteBrowsingDataBinding? = null
     private val binding get() = _binding!!
@@ -54,26 +52,27 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
             requireComponents.core.icons,
             requireComponents.core.engine,
         )
-        //settings = requireContext().settings()
 
-        getCheckboxes().iterator().forEach {
-            it.onCheckListener = { _ ->
-                updateDeleteButton()
-                updatePreference(it)
+        getCheckboxes().iterator()
+            .forEach {
+                it.onCheckListener = { _ ->
+                    updateDeleteButton()
+                    updatePreference(it)
+                }
             }
-        }
 
-        getCheckboxes().iterator().forEach {
-            it.isChecked = when (it.id) {
-                R.id.open_tabs_item -> Settings.deleteOpenTabs(requireContext())
-                R.id.browsing_data_item -> Settings.deleteBrowsingHistory(requireContext())
-                R.id.cookies_item -> Settings.deleteCookies(requireContext())
-                R.id.cached_files_item -> Settings.deleteCache(requireContext())
-                R.id.site_permissions_item -> Settings.deleteSitePermissions(requireContext())
-                //R.id.downloads_item -> settings.deleteDownloads
-                else -> true
+        getCheckboxes().iterator()
+            .forEach {
+                it.isChecked = when (it.id) {
+                    R.id.open_tabs_item -> Settings.deleteOpenTabs(requireContext())
+                    R.id.browsing_data_item -> Settings.deleteBrowsingHistory(requireContext())
+                    R.id.cookies_item -> Settings.deleteCookies(requireContext())
+                    R.id.cached_files_item -> Settings.deleteCache(requireContext())
+                    R.id.site_permissions_item -> Settings.deleteSitePermissions(requireContext())
+                    //R.id.downloads_item -> settings.deleteDownloads
+                    else -> true
+                }
             }
-        }
 
         binding.deleteData.setOnClickListener {
             askToDelete()
@@ -90,10 +89,17 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
     private fun updatePreference(it: DeleteBrowsingDataItem) {
         when (it.id) {
             R.id.open_tabs_item -> Settings.setDeleteOpenTabs(requireContext(), it.isChecked)
-            R.id.browsing_data_item -> Settings.setDeleteBrowsingHistory(requireContext(), it.isChecked)
+            R.id.browsing_data_item -> Settings.setDeleteBrowsingHistory(
+                requireContext(),
+                it.isChecked
+            )
+
             R.id.cookies_item -> Settings.setDeleteCookies(requireContext(), it.isChecked)
             R.id.cached_files_item -> Settings.setDeleteCache(requireContext(), it.isChecked)
-            R.id.site_permissions_item -> Settings.setDeleteSitePermissions(requireContext(), it.isChecked)
+            R.id.site_permissions_item -> Settings.setDeleteSitePermissions(
+                requireContext(),
+                it.isChecked
+            )
             //R.id.downloads_item -> settings.deleteDownloads = it.isChecked
             else -> return
         }
@@ -116,9 +122,10 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
         super.onResume()
         //showToolbar(getString(R.string.preferences_delete_browsing_data))
 
-        getCheckboxes().iterator().forEach {
-            it.visibility = View.VISIBLE
-        }
+        getCheckboxes().iterator()
+            .forEach {
+                it.visibility = View.VISIBLE
+            }
 
         updateItemCounts()
     }
@@ -132,23 +139,25 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
 
     private fun askToDelete() {
         context?.let {
-            AlertDialog.Builder(it).apply {
-                setMessage(
-                    it.getString(
-                        R.string.delete_browsing_data_prompt_message_3,
-                    ),
-                )
+            AlertDialog.Builder(it)
+                .apply {
+                    setMessage(
+                        it.getString(
+                            R.string.delete_browsing_data_prompt_message_3,
+                        ),
+                    )
 
-                setNegativeButton(R.string.delete_browsing_data_prompt_cancel) { it: DialogInterface, _ ->
-                    it.cancel()
-                }
+                    setNegativeButton(R.string.delete_browsing_data_prompt_cancel) { it: DialogInterface, _ ->
+                        it.cancel()
+                    }
 
-                setPositiveButton(R.string.delete_browsing_data_prompt_allow) { it: DialogInterface, _ ->
-                    it.dismiss()
-                    deleteSelected()
+                    setPositiveButton(R.string.delete_browsing_data_prompt_allow) { it: DialogInterface, _ ->
+                        it.dismiss()
+                        deleteSelected()
+                    }
+                    create()
                 }
-                create()
-            }.show()
+                .show()
         }
     }
 
@@ -179,11 +188,16 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
         binding.deleteBrowsingDataWrapper.isEnabled = false
         binding.deleteBrowsingDataWrapper.isClickable = false
         binding.deleteBrowsingDataWrapper.alpha = DISABLED_ALPHA
-        Toast.makeText(context, resources.getString(R.string.deleting_browsing_data_in_progress), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            resources.getString(R.string.deleting_browsing_data_in_progress),
+            Toast.LENGTH_SHORT
+        )
+            .show()
     }
 
     private fun finishDeletion() {
-        val popAfter = binding.openTabsItem.isChecked
+        binding.openTabsItem.isChecked
         binding.progressBar.visibility = View.GONE
         binding.deleteBrowsingDataWrapper.isEnabled = true
         binding.deleteBrowsingDataWrapper.isClickable = true
@@ -191,7 +205,12 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
 
         updateItemCounts()
 
-        Toast.makeText(context, resources.getString(R.string.preferences_delete_browsing_data_snackbar), Toast.LENGTH_SHORT).show()
+        Toast.makeText(
+            context,
+            resources.getString(R.string.preferences_delete_browsing_data_snackbar),
+            Toast.LENGTH_SHORT
+        )
+            .show()
     }
 
     override fun onPause() {
