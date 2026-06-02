@@ -34,7 +34,7 @@ class PublicNotificationService : AbstractPublicNotificationService() {
         )
         setContentIntent(getTapIntent())
 
-        //Adds confirm button to be shown for 3 seconds when clear button is tapped
+        //Adds confirm button to be shown for 5 seconds when clear button is tapped
         //Clear app data and close Ceno if confirm is tapped
         if (showConfirmAction) {
             addAction(
@@ -49,7 +49,7 @@ class PublicNotificationService : AbstractPublicNotificationService() {
             )
             handler.postDelayed(
                 showConfirmCallback,
-                5 * MILLISECOND
+                CONFIRM_TIMEOUT * MILLISECOND
             )
         } else {
             //Adds stop button. Stops Ceno on tap
@@ -140,6 +140,7 @@ class PublicNotificationService : AbstractPublicNotificationService() {
     }
 
     companion object {
+        const val CONFIRM_TIMEOUT: Int = 5
         const val MILLISECOND: Long = 1000
     }
 }
