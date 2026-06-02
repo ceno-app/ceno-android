@@ -20,7 +20,9 @@ object XMLParser {
             // Replace all a-tags in the description string with a placeholder string
             var formattedXML: String? = xmlString
             val descriptionUrls = xmlString.extractATags()
-            descriptionUrls.forEach { formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER) }
+            descriptionUrls.forEach {
+                formattedXML = formattedXML?.replace(it, CENO_CUSTOM_PLACEHOLDER)
+            }
 
             // Initialize parser objects for processing the XML String
             val factory: XmlPullParserFactory = XmlPullParserFactory.newInstance()
@@ -80,8 +82,11 @@ object XMLParser {
                                 } else {
                                     val occurrences = text.split(CENO_CUSTOM_PLACEHOLDER).size - 1
                                     var result = text
-                                    for(i in 0 until occurrences) {
-                                        result = result.replaceFirst(CENO_CUSTOM_PLACEHOLDER, descriptionUrls[index])
+                                    for (i in 0 until occurrences) {
+                                        result = result.replaceFirst(
+                                            CENO_CUSTOM_PLACEHOLDER,
+                                            descriptionUrls[index]
+                                        )
                                         index++
                                     }
                                     currentRssItem.description = result
@@ -124,13 +129,21 @@ object XMLParser {
                 return null
             }
 
-            return RssAnnouncementResponse(rssFeedTitle, rssFeedLink, rssFeedDescription, rssFeedItems)
-        } catch (e: XmlPullParserException) {
+            return RssAnnouncementResponse(
+                rssFeedTitle,
+                rssFeedLink,
+                rssFeedDescription,
+                rssFeedItems
+            )
+        } catch (_: XmlPullParserException) {
             return null
         }
     }
 
-    fun parseTopsitesXml(parser: XmlResourceParser, context: Context): MutableList<Pair<String, String>>? {
+    fun parseTopsitesXml(
+        parser: XmlResourceParser,
+        context: Context
+    ): MutableList<Pair<String, String>>? {
 
         try {
             var currentTopsiteUrl = ""
@@ -144,13 +157,14 @@ object XMLParser {
                 when (parser.eventType) {
                     XmlPullParser.START_TAG -> {
                         tag = parser.name
-                        when(tag) {
+                        when (tag) {
                             "topsite" -> {
                                 currentTopsiteTitle = ""
                                 currentTopsiteUrl = ""
                             }
+
                             "title" -> {
-                                if(parser.attributeCount > 0) {
+                                if (parser.attributeCount > 0) {
                                     val stringResource = parser.getAttributeResourceValue(0, 0)
                                     currentTopsiteTitle = context.getString(stringResource)
                                     isTitleFromAttribute = true
@@ -160,12 +174,13 @@ object XMLParser {
                     }
 
                     XmlPullParser.TEXT -> {
-                        when(tag) {
-                            "title"-> {
+                        when (tag) {
+                            "title" -> {
                                 if (!isTitleFromAttribute)
                                     currentTopsiteTitle = parser.text.trim()
                                 isTitleFromAttribute = false
                             }
+
                             "url" -> {
                                 currentTopsiteUrl = parser.text.trim()
                             }
@@ -174,19 +189,20 @@ object XMLParser {
 
                     XmlPullParser.END_TAG -> {
                         tag = ""
-                        when(parser.name) {
+                        when (parser.name) {
                             "topsite" -> {
                                 topsiteItems.add(
                                     Pair(currentTopsiteTitle, currentTopsiteUrl)
                                 )
                             }
+
                             else -> {}
                         }
                     }
                 }
             }
             return topsiteItems
-        } catch (e: XmlPullParserException) {
+        } catch (_: XmlPullParserException) {
             return null
         }
     }

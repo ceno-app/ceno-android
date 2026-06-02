@@ -23,7 +23,10 @@ import java.util.Locale
 
 object LogReader {
 
-    fun getLogEntries(timeWindowInMilliseconds: Long? = null, progressCallback: (Int) -> Unit): List<String> {
+    fun getLogEntries(
+        timeWindowInMilliseconds: Long? = null,
+        progressCallback: (Int) -> Unit
+    ): List<String> {
         val logs = mutableListOf<String>()
         var logsRead = 0
 
@@ -40,7 +43,8 @@ object LogReader {
             val currentTimestamp = System.currentTimeMillis()
 
             val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ROOT)
-            val logStartTimestamp = "-T${dateFormat.format(Date(currentTimestamp - timeWindowInMilliseconds))}"
+            val logStartTimestamp =
+                "-T${dateFormat.format(Date(currentTimestamp - timeWindowInMilliseconds))}"
 
             // Run logcat command
             val process = ProcessBuilder("logcat", "-vyear", "-d", logStartTimestamp).start()
@@ -51,15 +55,22 @@ object LogReader {
 
             val handler = Handler(Looper.getMainLooper())
 
-            while ((reader.readLine().also { line = it } != null)
-                && (logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB)) {
+            while ((reader.readLine()
+                    .also { line = it } != null)
+                && (logs.joinToString("\n")
+                    .getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB)
+            ) {
 
                 // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false) {
-                    logs.add(scrubLogs(line!!))
+                    logs.add(scrubLogs(line))
                     logsRead++
                     // Update progress callback on the main thread via handler post
-                    val progress = getProgressFromTimestamp(timestampRegex.find(line)?.value, currentTimestamp,timeWindowInMilliseconds)
+                    val progress = getProgressFromTimestamp(
+                        timestampRegex.find(line)?.value,
+                        currentTimestamp,
+                        timeWindowInMilliseconds
+                    )
                     handler.post {
                         progressCallback(progress)
                     }
@@ -76,7 +87,11 @@ object LogReader {
         return logs
     }
 
-    private fun isWithinTimeRange(timestamp: String?, currentTimestamp:Long,  millisecondDifference: Long): Boolean {
+    private fun isWithinTimeRange(
+        timestamp: String?,
+        currentTimestamp: Long,
+        millisecondDifference: Long
+    ): Boolean {
 
         if (timestamp == null) return false
 
@@ -92,7 +107,11 @@ object LogReader {
         return false
     }
 
-    private fun getProgressFromTimestamp(timestamp: String?, currentTimestamp: Long, millisecondDifference: Long): Int {
+    private fun getProgressFromTimestamp(
+        timestamp: String?,
+        currentTimestamp: Long,
+        millisecondDifference: Long
+    ): Int {
 
         if (timestamp == null) return 0
 
@@ -102,7 +121,8 @@ object LogReader {
         try {
             val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
             val percent = 1f - (differenceInMillis.toFloat() / millisecondDifference.toFloat())
-            return percent.times(100).toInt()
+            return percent.times(100)
+                .toInt()
 
         } catch (e: Exception) {
             e.printStackTrace()
@@ -125,18 +145,23 @@ object LogReader {
 
             val handler = Handler(Looper.getMainLooper())
 
-            while (reader.readLine().also { line = it } != null
-                && allLogs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+            while (reader.readLine()
+                    .also { line = it } != null
+                && allLogs.joinToString("\n")
+                    .getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB
+            ) {
 
                 // filter out chatty logs
                 if (line?.contains("chatty", ignoreCase = true) == false) {
-                    allLogs.add(scrubLogs(line!!))
+                    allLogs.add(scrubLogs(line))
                     logsRead++
                 }
 
                 // Update progress callback on the main thread via handler post
                 handler.post {
-                    val progress = (logsRead.toFloat() / SettingsFragment.AVERAGE_TOTAL_LOGS).times(100).coerceAtMost(96F)
+                    val progress =
+                        (logsRead.toFloat() / SettingsFragment.AVERAGE_TOTAL_LOGS).times(100)
+                            .coerceAtMost(96F)
                     progressCallback(progress.toInt())
                 }
             }
@@ -169,17 +194,20 @@ object LogReader {
         var formattedLogs: String = originalLogs
 
         // scrub phone numbers from logs
-        originalLogs.extractPhoneNumbers().forEach {
-            if (it.length in 10..12 && !it.contains(":") && !it.contains(".")) {
-                formattedLogs = formattedLogs.replace(it, "SCRUBBED_PHONE_NUMBER")
+        originalLogs.extractPhoneNumbers()
+            .forEach {
+                if (it.length in 10..12 && !it.contains(":") && !it.contains(".")) {
+                    formattedLogs = formattedLogs.replace(it, "SCRUBBED_PHONE_NUMBER")
+                }
             }
-        }
 
         // scrub ipv4 address from logs; preserve local addresses
-        originalLogs.extractIpv4Addresses().forEach { formattedLogs = formattedLogs.replace(it, scrubInetAddress(it)) }
+        originalLogs.extractIpv4Addresses()
+            .forEach { formattedLogs = formattedLogs.replace(it, scrubInetAddress(it)) }
 
         // scrub ipv6 address from logs
-        originalLogs.extractIpv6Addresses().forEach { formattedLogs = formattedLogs.replace(it, scrubInetAddress(it)) }
+        originalLogs.extractIpv6Addresses()
+            .forEach { formattedLogs = formattedLogs.replace(it, scrubInetAddress(it)) }
 
 
         // Replace sensitive information with placeholders
@@ -197,18 +225,19 @@ object LogReader {
 
             return if (inetAddress is Inet4Address) {
                 // Don't scrub local IPv4 addresses
-                if (inetAddress.isLoopbackAddress() || inetAddress.isLinkLocalAddress() ||
-                    inetAddress.isSiteLocalAddress()) {
-                    inetAddress.getHostAddress()
+                if (inetAddress.isLoopbackAddress || inetAddress.isLinkLocalAddress ||
+                    inetAddress.isSiteLocalAddress
+                ) {
+                    inetAddress.hostAddress
                 } else {
                     // Keep first and last octet of non-local IPv4 addresses
-                    scrubIpv4Address(inetAddress.getAddress())
+                    scrubIpv4Address(inetAddress.address)
                 }
             } else {
                 // Keep first and last octet of IPv6 addresses
                 scrubIpv6Address(inetAddress.address)
             }
-        } catch (e: Exception) {
+        } catch (_: Exception) {
             return address
         }
     }

@@ -7,16 +7,16 @@ package ie.equalit.ceno.utils
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.content.SharedPreferences
+import androidx.core.content.edit
+import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.ext.getPreferenceKey
 import mozilla.components.feature.sitepermissions.SitePermissionsRules.Action
 import mozilla.components.feature.sitepermissions.SitePermissionsRules.AutoplayAction
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
-import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowsingMode
-import ie.equalit.ceno.ext.getPreferenceKey
 import java.security.InvalidParameterException
-import androidx.core.content.edit
 
 /**
  * A simple wrapper for SharedPreferences that makes reading preference a little bit easier.
@@ -158,7 +158,7 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         set(value) {
             val lastKnownModeWasPersonal = (value == BrowsingMode.Personal)
 
-            preferences.edit() {
+            preferences.edit {
                 putBoolean(
                     appContext.getPreferenceKey(R.string.pref_last_known_browsing_mode_personal),
                     lastKnownModeWasPersonal,
