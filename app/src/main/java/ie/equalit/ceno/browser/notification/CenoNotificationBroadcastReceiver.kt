@@ -35,7 +35,7 @@ class CenoNotificationBroadcastReceiver(listener: NotificationListener) : Broadc
                 listener?.onClearTapped()
             }
 
-            BrowserActivity.ACTION_FORGROUND_REMIND -> {
+            BrowserActivity.ACTION_FOREGROUND_REMIND -> {
                 val notification = NotificationCompat.Builder(context, getChannelId(context))
                     .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
                     .setAutoCancel(true)
