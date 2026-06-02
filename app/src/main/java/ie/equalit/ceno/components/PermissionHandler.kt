@@ -24,17 +24,6 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         const val PERMISSION_CODE_IGNORE_BATTERY_OPTIMIZATIONS = 5672353
     }
 
-    /*
-    fun isWakeLockPermissionGranted(): Boolean
-    {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            context.checkSelfPermission(Manifest.permission.WAKE_LOCK) == PackageManager.PERMISSION_GRANTED
-        } else {
-            true
-        };
-    }
-    */
-
     fun shouldShowPermissionsTooltip(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
@@ -65,17 +54,6 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         )) {
             PackageManager.PERMISSION_GRANTED -> true
             PackageManager.PERMISSION_DENIED -> false
-            else -> false
-        }
-    }
-
-    fun isStoragePermissionGranted(): Boolean {
-
-        return when (ContextCompat.checkSelfPermission(
-            context,
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        )) {
-            PackageManager.PERMISSION_GRANTED -> true
             else -> false
         }
     }

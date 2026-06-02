@@ -17,11 +17,9 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.search.SearchUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.session.SettingsUseCases
-import mozilla.components.feature.tabs.CustomTabsUseCases
 import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.top.sites.TopSitesStorage
 import mozilla.components.feature.top.sites.TopSitesUseCases
-import mozilla.components.support.ktx.util.URLStringUtils
 import mozilla.components.support.utils.DefaultDownloadFileUtils
 
 /**
@@ -83,18 +81,14 @@ class UseCases(
         )
     }
 
-    /**
-     * Use cases related to Custom Tabs.
-     */
-    val customTabsUseCases: CustomTabsUseCases by lazy { CustomTabsUseCases(store, sessionUseCases.loadUrl) }
-
     /* CENO: copied from Fenix for CenoHomeFragment */
     /**
      * Use cases that provide top sites management.
      */
     val cenoTopSitesUseCase by lazy { TopSitesUseCases(topSitesStorage) }
 
-    val customLoadUrlUseCase by lazy { CustomLoadUrlUseCase(store) { url ->
+    val customLoadUrlUseCase by lazy {
+        CustomLoadUrlUseCase(store) { url ->
             createTab(url).apply { store.dispatch(TabListAction.AddTabAction(this)) }
         }
     }

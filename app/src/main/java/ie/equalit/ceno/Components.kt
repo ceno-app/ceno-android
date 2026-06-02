@@ -34,12 +34,8 @@ class Components(private val context: Context) {
 
     val utils by lazy {
         Utilities(
-            context,
-            core.store,
-            useCases.sessionUseCases,
             useCases.searchUseCases,
             useCases.tabsUseCases,
-            useCases.customTabsUseCases
         )
     }
     val services by lazy { Services(context) }/* CENO F-Droid: Do not use firebase push */
