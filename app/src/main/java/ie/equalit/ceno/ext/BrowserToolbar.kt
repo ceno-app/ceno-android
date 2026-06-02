@@ -5,9 +5,9 @@ import android.view.Gravity
 import android.view.View
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+import ie.equalit.ceno.R
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.concept.engine.EngineView
-import ie.equalit.ceno.R
 import mozilla.components.ui.widgets.behavior.DependencyGravity.Bottom
 import mozilla.components.ui.widgets.behavior.DependencyGravity.Top
 import mozilla.components.ui.widgets.behavior.EngineViewClippingBehavior
@@ -27,16 +27,14 @@ fun BrowserToolbar.disableDynamicBehavior(engineView: EngineView, shouldUseTopTo
     (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = null
     (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
         Gravity.TOP
-    }
-    else {
+    } else {
         Gravity.BOTTOM
     }
 
     engineView.setDynamicToolbarMaxHeight(0)
     engineView.asView().translationY = if (shouldUseTopToolbar) {
         context.resources.getDimension(R.dimen.browser_toolbar_height)
-    }
-    else {
+    } else {
         0f
     }
     (engineView.asView().layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = null
@@ -49,22 +47,28 @@ fun BrowserToolbar.disableDynamicBehavior(engineView: EngineView, shouldUseTopTo
  * @param context [Context] used in setting up the dynamic behavior.
  * @param engineView [EngineView] that should react to toolbar's dynamic behavior.
  */
-fun BrowserToolbar.enableDynamicBehavior(context: Context, swipeRefresh: SwipeRefreshLayout, engineView: EngineView, shouldUseTopToolbar  : Boolean) {
+fun BrowserToolbar.enableDynamicBehavior(
+    context: Context,
+    swipeRefresh: SwipeRefreshLayout,
+    engineView: EngineView,
+    shouldUseTopToolbar: Boolean
+) {
     (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
         Gravity.TOP
-    }
-    else {
+    } else {
         Gravity.BOTTOM
     }
-    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior = EngineViewScrollingBehaviorFactory()
-        .build(
-            engineView,
-            this.asView(),
-            if (shouldUseTopToolbar) Top else Bottom,
+    (layoutParams as? CoordinatorLayout.LayoutParams)?.behavior =
+        EngineViewScrollingBehaviorFactory()
+            .build(
+                engineView,
+                this.asView(),
+                if (shouldUseTopToolbar) Top else Bottom,
             )
 
 
-    val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
+    val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height)
+        .toInt()
     val topToolbarHeight = if (shouldUseTopToolbar) toolbarHeight else 0
     val bottomToolbarHeight = if (shouldUseTopToolbar) 0 else toolbarHeight
     engineView.setDynamicToolbarMaxHeight(toolbarHeight)
@@ -84,23 +88,22 @@ fun BrowserToolbar.enableDynamicBehavior(context: Context, swipeRefresh: SwipeRe
  *
  * @param engineView [EngineView] that must be shown immediately below the toolbar.
  */
-fun BrowserToolbar.showAsFixed(engineView: EngineView, shouldUseTopToolbar  : Boolean) {
+fun BrowserToolbar.showAsFixed(engineView: EngineView, shouldUseTopToolbar: Boolean) {
     visibility = View.VISIBLE
 
-    val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height).toInt()
+    val toolbarHeight = context.resources.getDimension(R.dimen.browser_toolbar_height)
+        .toInt()
     engineView.setDynamicToolbarMaxHeight(toolbarHeight)
 
     (layoutParams as? CoordinatorLayout.LayoutParams)?.gravity = if (shouldUseTopToolbar) {
         Gravity.TOP
-    }
-    else {
+    } else {
         Gravity.BOTTOM
     }
 
     engineView.asView().translationY = if (shouldUseTopToolbar) {
         context.resources.getDimension(R.dimen.browser_toolbar_height)
-    }
-    else {
+    } else {
         0f
     }
 }

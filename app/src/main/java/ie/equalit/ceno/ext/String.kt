@@ -6,14 +6,16 @@
 
 package ie.equalit.ceno.ext
 
-import android.os.Build
 import android.util.Patterns
 import mozilla.components.support.ktx.kotlin.sanitizeURL
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
-import java.util.*
+import java.util.Calendar
+import java.util.Date
+import java.util.Locale
+import java.util.TimeZone
 import kotlin.math.abs
 
 /**
@@ -21,7 +23,8 @@ import kotlin.math.abs
  */
 fun String.replace(pairs: Map<String, String>): String {
     var result = this
-    pairs.iterator().forEach { (l, r) -> result = result.replace(l, r) }
+    pairs.iterator()
+        .forEach { (l, r) -> result = result.replace(l, r) }
     return result
 }
 
@@ -31,7 +34,8 @@ fun String.replace(pairs: Map<String, String>): String {
 fun String.extractATags(): List<String> {
     val pattern = Regex("""<a[^>]*>.*?</a>""")
     val matches = pattern.findAll(this)
-    return matches.map { it.value }.toList()
+    return matches.map { it.value }
+        .toList()
 }
 
 /**
@@ -40,7 +44,8 @@ fun String.extractATags(): List<String> {
 fun String.extractPhoneNumbers(): List<String> {
     val pattern = Regex(Patterns.PHONE.pattern())
     val matches = pattern.findAll(this)
-    return matches.map { it.value }.toList()
+    return matches.map { it.value }
+        .toList()
 }
 
 /**
@@ -49,14 +54,16 @@ fun String.extractPhoneNumbers(): List<String> {
 fun String.extractIpv4Addresses(): List<String> {
     val pattern = Regex("""\b(?:\d{1,3}\.){3}\d{1,3}\b""")
     val matches = pattern.findAll(this)
-    return matches.map { it.value }.toList()
+    return matches.map { it.value }
+        .toList()
 }
 
 /**
  * Helper function extracting ipv6 from a string
  */
 fun String.extractIpv6Addresses(): List<String> {
-    val pattern = Regex("""\b(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|
+    val pattern = Regex(
+        """\b(?:(?:[0-9a-fA-F]{1,4}:){7,7}[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,7}:|
         (?:[0-9a-fA-F]{1,4}:){1,6}:[0-9a-fA-F]{1,4}|(?:[0-9a-fA-F]{1,4}:){1,5}
         (?::[0-9a-fA-F]{1,4}){1,2}|(?:[0-9a-fA-F]{1,4}:){1,4}(?::[0-9a-fA-F]{1,4}){1,3}|
         (?:[0-9a-fA-F]{1,4}:){1,3}(?::[0-9a-fA-F]{1,4}){1,4}|(?:[0-9a-fA-F]{1,4}:){1,2}
@@ -64,9 +71,11 @@ fun String.extractIpv6Addresses(): List<String> {
         :(?:(?::[0-9a-fA-F]{1,4}){1,7}|:)|fe80:(?::[0-9a-fA-F]{0,4}){0,4}%[0-9a-zA-Z]{1,}|::
         (?:ffff(?::0{1,4}){0,1}:){0,1}(?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}
         (?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])|(?:[0-9a-fA-F]{1,4}:){1,4}:
-        (?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\b""")
+        (?:(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9])\.){3,3}(?:25[0-5]|(?:2[0-4]|1{0,1}[0-9]){0,1}[0-9]))\b"""
+    )
     val matches = pattern.findAll(this)
-    return matches.map { it.value }.toList()
+    return matches.map { it.value }
+        .toList()
 }
 
 /**
@@ -97,7 +106,8 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
     try {
         val date: Date = dateFormat.parse(this) ?: return false
 
-        val differenceDays: Int = ((date.time - Calendar.getInstance().time.time) / (1000 * 60 * 60 * 24)).toInt()
+        val differenceDays: Int =
+            ((date.time - Calendar.getInstance().time.time) / (1000 * 60 * 60 * 24)).toInt()
         return numberOfDays < abs(differenceDays)
     } catch (e: Exception) {
         e.printStackTrace()
@@ -121,8 +131,9 @@ fun String.isDatePast(): Boolean {
     }
 }
 
-fun String.dateTimeDifference() : Long? {
-    return Duration.between(OffsetDateTime.parse(this), OffsetDateTime.now(ZoneOffset.UTC)).toMillis()
+fun String.dateTimeDifference(): Long {
+    return Duration.between(OffsetDateTime.parse(this), OffsetDateTime.now(ZoneOffset.UTC))
+        .toMillis()
 }
 
 /**

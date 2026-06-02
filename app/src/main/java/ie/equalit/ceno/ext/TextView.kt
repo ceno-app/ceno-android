@@ -26,8 +26,10 @@ fun TextView.makeLinks(link: String, onClickListener: () -> Unit) {
         }
     }
     // Find index of substring, case-insensitive
-    val startIndexOfLink: Int = this.text.toString().lowercase().indexOf(link.lowercase())
-    if(startIndexOfLink == -1) return // do not add link if substring not found
+    val startIndexOfLink: Int = this.text.toString()
+        .lowercase()
+        .indexOf(link.lowercase())
+    if (startIndexOfLink == -1) return // do not add link if substring not found
     spannableString.setSpan(
         clickableSpan, startIndexOfLink, startIndexOfLink + link.length,
         Spanned.SPAN_EXCLUSIVE_EXCLUSIVE
