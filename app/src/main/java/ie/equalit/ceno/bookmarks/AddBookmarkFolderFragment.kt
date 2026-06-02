@@ -58,7 +58,7 @@ class AddBookmarkFolderFragment : Fragment(R.layout.fragment_edit_bookmark), Men
             binding.bookmarkParentFolderSelector.setOnClickListener {
                 findNavController().navigate(
                     R.id.action_bookmarkAddFolderFragment_to_bookmarkSelectFolderFragment,
-                    Bundle().apply{
+                    Bundle().apply {
                         putBoolean("allowCreatingNewFolder", true)
                     }
                 )

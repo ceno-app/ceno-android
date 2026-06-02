@@ -1023,7 +1023,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             withContext(Main) {
                 findNavController().navigate(
                     R.id.action_global_edit_bookmark,
-                    Bundle().apply{
+                    Bundle().apply {
                         putString(BookmarkFragment.BOOKMARK_GUID, existing.guid)
                     }
                 )

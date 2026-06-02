@@ -4,10 +4,7 @@
 
 package ie.equalit.ceno.home
 
-import android.graphics.PorterDuff
-import android.graphics.drawable.Drawable
 import android.view.View
-import androidx.annotation.ColorRes
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
 import ie.equalit.ceno.R

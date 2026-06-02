@@ -235,6 +235,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
                     inflater.inflate(R.menu.bookmarks_menu, menu)
                 }
             }
+
             else -> {
                 // no-op
             }

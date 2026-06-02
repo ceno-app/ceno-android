@@ -14,7 +14,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.engine.prompt.ShareData
 import mozilla.components.concept.storage.BookmarkNode
-import mozilla.components.feature.tabs.TabsUseCases
 
 interface BookmarkController {
     fun handleBookmarkChanged(item: BookmarkNode)
@@ -83,7 +82,7 @@ class DefaultBookmarkController(
     override fun handleBookmarkEdit(node: BookmarkNode) {
         navController.navigate(
             R.id.action_bookmarkFragment_to_editBookmarkFragment,
-            Bundle().apply{
+            Bundle().apply {
                 putString(BookmarkFragment.BOOKMARK_GUID, node.guid)
             }
         )

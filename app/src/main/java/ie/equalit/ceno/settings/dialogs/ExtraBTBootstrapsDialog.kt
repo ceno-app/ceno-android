@@ -54,7 +54,8 @@ class ExtraBTBootstrapsDialog(
                             btSourcesMap.entries.find { e ->
                                 e.key.equals(
                                     child.text.toString()
-                                        .trim(), ignoreCase = true)
+                                        .trim(), ignoreCase = true
+                                )
                             }?.value ?: child.text.toString()
                                 .trim()
                         )

@@ -23,8 +23,6 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration

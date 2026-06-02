@@ -28,7 +28,6 @@ import ie.equalit.ceno.bookmarks.friendlyRootTitle
 import ie.equalit.ceno.databinding.FragmentEditBookmarkBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch

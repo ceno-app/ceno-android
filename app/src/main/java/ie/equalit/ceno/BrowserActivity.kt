@@ -147,7 +147,8 @@ open class BrowserActivity : BaseActivity(),
             setBackgroundDrawable(
                 ContextCompat.getColor(
                     this@BrowserActivity, R.color.ceno_action_bar
-                ).toDrawable()
+                )
+                    .toDrawable()
             )
         }
 
@@ -204,7 +205,8 @@ open class BrowserActivity : BaseActivity(),
             Settings.logSuccessfulCrashEvent(this@BrowserActivity, false)
             Toast.makeText(
                 this@BrowserActivity, getString(R.string.crash_report_sent), Toast.LENGTH_SHORT
-            ).show()
+            )
+                .show()
         }
 
         // reset the value of lastCrash if permission nudge won't be shown
@@ -252,45 +254,48 @@ open class BrowserActivity : BaseActivity(),
         val radio1 = dialogView.findViewById<RadioButton>(R.id.radio1)
 
         val sentryActionDialog by lazy {
-            AlertDialog.Builder(this).apply {
-                setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
-            }
+            AlertDialog.Builder(this)
+                .apply {
+                    setPositiveButton(getString(R.string.onboarding_warning_button)) { _, _ -> }
+                }
         }
 
-        AlertDialog.Builder(this).apply {
-            setView(dialogView)
-            setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
-                when {
-                    radio0.isChecked -> {
-                        Settings.alwaysAllowCrashReporting(this@BrowserActivity)
-                        SentryAndroid.init(
-                            this@BrowserActivity,
-                            SentryOptionsConfiguration.getConfig(this@BrowserActivity)
-                        )
+        AlertDialog.Builder(this)
+            .apply {
+                setView(dialogView)
+                setPositiveButton(getString(R.string.onboarding_battery_button)) { _, _ ->
+                    when {
+                        radio0.isChecked -> {
+                            Settings.alwaysAllowCrashReporting(this@BrowserActivity)
+                            SentryAndroid.init(
+                                this@BrowserActivity,
+                                SentryOptionsConfiguration.getConfig(this@BrowserActivity)
+                            )
 
-                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in))
-                            .show()
-                    }
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_in))
+                                .show()
+                        }
 
-                    radio1.isChecked -> {
-                        Settings.neverAllowCrashReporting(this@BrowserActivity)
-                        sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out))
-                            .show()
+                        radio1.isChecked -> {
+                            Settings.neverAllowCrashReporting(this@BrowserActivity)
+                            sentryActionDialog.setMessage(getString(R.string.crash_reporting_opt_out))
+                                .show()
+                        }
                     }
                 }
+                setOnDismissListener {
+                    Settings.setCrashHappened(
+                        this@BrowserActivity, false
+                    ) // reset the value of lastCrash
+                }
+                setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
+                    Settings.setCrashHappened(
+                        this@BrowserActivity, false
+                    ) // reset the value of lastCrash
+                }
+                create()
             }
-            setOnDismissListener {
-                Settings.setCrashHappened(
-                    this@BrowserActivity, false
-                ) // reset the value of lastCrash
-            }
-            setNegativeButton(getString(R.string.mozac_feature_prompt_not_now)) { _, _ ->
-                Settings.setCrashHappened(
-                    this@BrowserActivity, false
-                ) // reset the value of lastCrash
-            }
-            create()
-        }.show()
+            .show()
     }
 
     private fun getModeFromIntentOrLastKnown(): BrowsingMode {
@@ -391,7 +396,7 @@ open class BrowserActivity : BaseActivity(),
                 R.id.deleteBrowsingDataFragment,
                 R.id.aboutFragment,
                 R.id.websiteSourceSettingsFragment
-                    -> show()
+                -> show()
 
                 else -> hide()
             }
@@ -399,7 +404,8 @@ open class BrowserActivity : BaseActivity(),
             setBackgroundDrawable(
                 ContextCompat.getColor(
                     this@BrowserActivity, R.color.ceno_action_bar
-                ).toDrawable()
+                )
+                    .toDrawable()
             )
         }
         publicNotificationObserver?.start()
@@ -430,8 +436,10 @@ open class BrowserActivity : BaseActivity(),
 
                     // get logs from internal storage
                     this.openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt")
-                        .bufferedReader().useLines { lines ->
-                            val fileContent = lines.toMutableList().joinToString("\n")
+                        .bufferedReader()
+                        .useLines { lines ->
+                            val fileContent = lines.toMutableList()
+                                .joinToString("\n")
                             val file = contentResolver.openOutputStream(uri)
                             file?.write(fileContent.toByteArray())
                             file?.close()
@@ -471,7 +479,9 @@ open class BrowserActivity : BaseActivity(),
     override fun onCreateView(
         parent: View?, name: String, context: Context, attrs: AttributeSet
     ): View? = when (name) {
-        EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
+        EngineView::class.java.name -> components.core.engine.createView(context, attrs)
+            .asView()
+
         else -> super.onCreateView(parent, name, context, attrs)
     }
 
@@ -586,9 +596,10 @@ open class BrowserActivity : BaseActivity(),
                     getString(R.string.remove_search_engine_id_1),
                     getString(R.string.remove_search_engine_id_2)
                 )
-            }.forEach { searchEngine ->
-                components.useCases.searchUseCases.removeSearchEngine(searchEngine)
             }
+                .forEach { searchEngine ->
+                    components.useCases.searchUseCases.removeSearchEngine(searchEngine)
+                }
             components.core.store.waitForSelectedOrDefaultSearchEngine {
                 components.core.store.state.search.searchEngines.forEach { searchEngine ->
                     if (searchEngine.id == getString(R.string.default_search_engine_id)) {
@@ -619,7 +630,8 @@ open class BrowserActivity : BaseActivity(),
     override fun onStopTapped() {
         publicNotificationObserver?.stop()
         val duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration)
+                .toLong()
         } else {
             500L
         }
@@ -630,7 +642,8 @@ open class BrowserActivity : BaseActivity(),
         publicNotificationObserver?.stop()
         //if the app is in foreground, set the duration to show standby fragment until ouinet is closed to 15seconds
         val duration = if (this.lifecycle.currentState.isAtLeast(Lifecycle.State.RESUMED)) {
-            resources.getInteger(R.integer.shutdown_fragment_stalled_duration).toLong()
+            resources.getInteger(R.integer.shutdown_fragment_stalled_duration)
+                .toLong()
         } else {
             500L
         }
