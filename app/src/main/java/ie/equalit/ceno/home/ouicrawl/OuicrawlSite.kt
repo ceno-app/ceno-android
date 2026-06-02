@@ -2,6 +2,7 @@ package ie.equalit.ceno.home.ouicrawl
 
 import kotlinx.serialization.Serializable
 
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class OuicrawlSite(
     val Description: String,
@@ -25,6 +26,7 @@ data class OuicrawlSite(
     val Country: String,
 )
 
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class OuicrawledSitesListItem(
     val Sites: List<OuicrawlSite>,

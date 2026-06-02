@@ -27,6 +27,7 @@ enum class BrowsingMode {
     }
 }
 
+@Suppress("ConstructorParameterNaming")
 class DefaultBrowsingManager(
     private var _mode: BrowsingMode,
     private val settings: CenoPreferences,

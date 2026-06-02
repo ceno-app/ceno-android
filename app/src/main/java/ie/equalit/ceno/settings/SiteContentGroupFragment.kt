@@ -86,7 +86,7 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
                 override fun onSuccess(message: String, data: Any?) {
                     pinned_urls = requireContext().components.json
                         .decodeFromString<PinnedCacheGroup>(message)
-                        .pinned_groups.toMutableList()
+                        .pinnedGroups.toMutableList()
                 }
 
                 override fun onError() {
@@ -147,6 +147,6 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
 
     @Serializable
     data class PinnedCacheGroup(
-        val pinned_groups: Array<String>
+        val pinnedGroups: Array<String>
     )
 }
