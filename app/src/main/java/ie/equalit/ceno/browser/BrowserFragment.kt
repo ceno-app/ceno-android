@@ -50,6 +50,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 
+    @Suppress("LongMethod")
     private fun showSourcesTooltip() {
         when (requireComponents.cenoPreferences.nextTooltip) {
             TOOLTIP_CENO_SOURCES -> {

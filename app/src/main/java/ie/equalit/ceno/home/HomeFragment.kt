@@ -56,7 +56,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFoc
 import java.util.Locale
 
 /**
- * A [BaseBrowserFragment] subclass that will display the custom CENO Browser homepage
+ * A [BaseHomeFragment] subclass that will display the custom CENO Browser homepage
  */
 class HomeFragment : BaseHomeFragment() {
 
@@ -327,6 +327,7 @@ class HomeFragment : BaseHomeFragment() {
         tooltip?.dismiss()
     }
 
+    @Suppress("LongMethod")
     fun showTooltip() {
         when (requireComponents.cenoPreferences.nextTooltip) {
             BEGIN_TOUR_TOOLTIP -> {

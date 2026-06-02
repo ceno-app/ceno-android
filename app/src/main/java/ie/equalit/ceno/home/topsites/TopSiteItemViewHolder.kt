@@ -58,6 +58,7 @@ class TopSiteItemViewHolder(
         }
     }
 
+    @Suppress("LongMethod")
     fun bind(topSite: TopSite, position: Int) {
         binding.topSiteItem.setOnClickListener {
             interactor.onSelectTopSite(topSite, position)

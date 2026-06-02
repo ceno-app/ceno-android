@@ -478,6 +478,7 @@ object CenoSettings {
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
+    @Suppress("LongMethod")
     fun ouinetClientRequest(
         context: Context,
         coroutineScope: CoroutineScope,

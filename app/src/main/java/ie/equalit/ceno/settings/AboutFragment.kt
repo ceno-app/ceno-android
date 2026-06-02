@@ -48,10 +48,9 @@ class AboutFragment : Fragment() {
     }
 
     @SuppressLint("ClickableViewAccessibility")
+    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        requireContext().resources.getString(R.string.app_name)
         (activity as AppCompatActivity).title = getString(R.string.preferences_about_page)
 
         val aboutText = try {
@@ -82,6 +81,7 @@ class AboutFragment : Fragment() {
             binding.btnWebsite,
             resources.getString(R.string.website_button_text)
         )
+
         binding.btnWebsite.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.website_button_link))
         )
@@ -91,14 +91,17 @@ class AboutFragment : Fragment() {
             binding.btnSourcecode,
             resources.getString(R.string.source_code_button_text)
         )
+
         binding.btnSourcecode.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.source_code_button_link))
         )
+
         setLinkTextView(
             requireContext(),
             binding.btnSupport,
             resources.getString(R.string.support_button_text)
         )
+
         binding.btnSupport.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.support_button_link))
         )
@@ -108,14 +111,17 @@ class AboutFragment : Fragment() {
             binding.btnWebsiteEq,
             resources.getString(R.string.website_button_text)
         )
+
         binding.btnWebsiteEq.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.website_eq_button_link))
         )
+
         setLinkTextView(
             requireContext(),
             binding.btnNews,
             resources.getString(R.string.eq_news_button_text)
         )
+
         binding.btnNews.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.eq_news_button_link))
         )
@@ -125,6 +131,7 @@ class AboutFragment : Fragment() {
             binding.btnValues,
             resources.getString(R.string.eq_values_button_text)
         )
+
         binding.btnValues.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.eq_values_button_link))
         )
@@ -136,6 +143,7 @@ class AboutFragment : Fragment() {
             findNavController().popBackStack()
             findNavController().navigate(R.id.action_global_settings)
         }
+
         callback.isEnabled = true
     }
 

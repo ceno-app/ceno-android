@@ -12,6 +12,7 @@ import java.io.StringReader
 
 object XMLParser {
 
+    @Suppress("LongMethod")
     fun parseRssXml(xmlString: String): RssAnnouncementResponse? {
 
         try {

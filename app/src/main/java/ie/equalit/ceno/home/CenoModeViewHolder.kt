@@ -29,6 +29,7 @@ class CenoModeViewHolder(
             updateUI()
         }
 
+    @Suppress("LongMethod")
     private fun updateUI() {
         when (mode) {
             BrowsingMode.Normal -> {

@@ -129,6 +129,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
     }
 
     @CallSuper
+    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 

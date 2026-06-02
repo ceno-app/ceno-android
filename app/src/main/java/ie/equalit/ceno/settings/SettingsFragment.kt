@@ -339,6 +339,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+    @Suppress("LongMethod")
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_android_log)?.isVisible =
             CenoSettings.isCenoLogEnabled(requireContext())

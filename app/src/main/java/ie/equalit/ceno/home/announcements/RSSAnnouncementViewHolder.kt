@@ -31,6 +31,7 @@ class RSSAnnouncementViewHolder(
             update()
         }
 
+    @Suppress("LongMethod")
     fun update() {
         val listIsHidden = binding.rssAnnouncementsContent.isGone
         val personalContext = ContextThemeWrapper(itemView.context, R.style.PersonalTheme)
@@ -107,6 +108,7 @@ class RSSAnnouncementViewHolder(
         }
     }
 
+    @Suppress("LongMethod")
     fun bind(response: RssItem, mode: BrowsingMode) {
         this@RSSAnnouncementViewHolder.mode = mode
 

@@ -49,6 +49,7 @@ class ShareFragment : BottomSheetDialogFragment() {
         dismiss()
     }
 
+    @Suppress("LongMethod")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

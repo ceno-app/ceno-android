@@ -109,6 +109,7 @@ open class BrowserActivity : BaseActivity(),
     private lateinit var reminderNotificationIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
 
+    @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown())
         super.onCreate(savedInstanceState)

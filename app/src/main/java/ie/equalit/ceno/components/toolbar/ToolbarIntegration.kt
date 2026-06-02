@@ -229,6 +229,7 @@ class ToolbarIntegration(
         }
     }
 
+    @Suppress("LongMethod")
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()

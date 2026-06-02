@@ -227,6 +227,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     //abstract val shouldUseComposeUI: Boolean
 
     @SuppressLint("ClickableViewAccessibility")
+    @Suppress("LongMethod")
     @CallSuper
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
@@ -775,6 +776,7 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     }
 
     private val portDelegate: WebExtension.PortDelegate = object : WebExtension.PortDelegate {
+        @Suppress("LongMethod")
         override fun onPortMessage(
             message: Any, port: WebExtension.Port
         ) {
