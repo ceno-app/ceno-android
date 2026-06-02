@@ -163,7 +163,7 @@ open class BrowserActivity : BaseActivity(),
         val notificationIntentFilter = IntentFilter()
         notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_CLEAR)
         notificationIntentFilter.addAction(AbstractPublicNotificationService.ACTION_STOP)
-        notificationIntentFilter.addAction(ACTION_FORGROUND_REMIND)
+        notificationIntentFilter.addAction(ACTION_FOREGROUND_REMIND)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             this.registerReceiver(
                 cenoNotificationBroadcastReceiver, notificationIntentFilter, RECEIVER_NOT_EXPORTED
@@ -218,7 +218,7 @@ open class BrowserActivity : BaseActivity(),
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.VANILLA_ICE_CREAM) {
             alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
 
-            reminderNotificationIntent = Intent(ACTION_FORGROUND_REMIND).let {
+            reminderNotificationIntent = Intent(ACTION_FOREGROUND_REMIND).let {
                 it.setPackage(packageName)
                 PendingIntent.getBroadcast(
                     applicationContext,
@@ -330,7 +330,7 @@ open class BrowserActivity : BaseActivity(),
                         components.appStore.dispatch(AppAction.OuinetStatusChange(status))
                         if (!hasOuinetStarted && status == RunningState.Started) {
                             ouinetStartupTime =
-                                (System.currentTimeMillis() - screenStartTime) / 1000.0
+                                (System.currentTimeMillis() - screenStartTime) / MILLISECOND
                             hasOuinetStarted = true
                         }
                         if (status == RunningState.Started || status == RunningState.Degraded) {
@@ -624,8 +624,11 @@ open class BrowserActivity : BaseActivity(),
     companion object {
         private const val TAG = "BrowserActivity"
         const val DELAY_TWO_SECONDS = 2000L
-        const val ACTION_FORGROUND_REMIND = "ie.equalit.ceno.browser.notification.action.REMIND"
+        const val ACTION_FOREGROUND_REMIND = "ie.equalit.ceno.browser.notification.action.REMIND"
         const val FOREGROUND_TIMEOUT_REMINDER_DURATION: Long = 18000000L
+
+        const val DEFAULT_SHUTDOWN_DURATION: Long = 500L
+        const val MILLISECOND: Double = 1000.0
     }
 
     override fun onStopTapped() {
@@ -634,7 +637,7 @@ open class BrowserActivity : BaseActivity(),
             resources.getInteger(R.integer.shutdown_fragment_stalled_duration)
                 .toLong()
         } else {
-            500L
+            DEFAULT_SHUTDOWN_DURATION
         }
         beginShutdown(doClear = false, stalledDuration = duration)
     }
@@ -646,7 +649,7 @@ open class BrowserActivity : BaseActivity(),
             resources.getInteger(R.integer.shutdown_fragment_stalled_duration)
                 .toLong()
         } else {
-            500L
+            DEFAULT_SHUTDOWN_DURATION
         }
         beginShutdown(doClear = true, stalledDuration = duration)
     }
