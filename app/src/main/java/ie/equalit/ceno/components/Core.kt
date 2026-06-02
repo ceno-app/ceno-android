@@ -128,7 +128,7 @@ class Core(private val context: Context) {
                 ),
                 SearchMiddleware(context),
                 RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
-                SaveToPDFMiddleware(context)
+                SaveToPDFMiddleware()
             ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)
