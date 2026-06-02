@@ -21,11 +21,11 @@ class CenoTooltip(
     isAutoFinish: Boolean = false,
     stopCaptureTouchOnFocal: Boolean = false,
     val buttonText: Int = R.string.btn_next,
-    listener: ( prompt:MaterialTapTargetPrompt, state:Int) -> Unit,
-    var onNextButtonPressListener: (view:View) -> Unit
+    listener: (prompt: MaterialTapTargetPrompt, state: Int) -> Unit,
+    var onNextButtonPressListener: (view: View) -> Unit
 ) {
     var tooltip: MaterialTapTargetPrompt?
-    val tooltipBuilder : MaterialTapTargetPrompt.Builder
+    val tooltipBuilder: MaterialTapTargetPrompt.Builder
     val promptTextWithBtn = PromptTextWithBtn(
         fragment.resources.displayMetrics.density * 40f
     )
@@ -52,62 +52,76 @@ class CenoTooltip(
 
     }
 
-//    fun promptButtonCallback(x:Float, y:Float) {
-//        if (promptTextWithBtn.isButtonPressed(x, y) && !isButtonPressed) {
-//            isButtonPressed = true
-//            onButtonPressListener.invoke()
-//            //dismiss tooltip
-//            dismiss()
-//        }
-//
-//    }
+    fun addButtons(isLastTooltip: Boolean = false, onExitListener: View.OnClickListener) {
+        fragment.activity?.findViewById<FrameLayout>(R.id.container)
+            ?.let { container ->
+                val prompt = container.findViewById<View>(R.id.material_target_prompt_view)
+                container.removeView(prompt)
+                val tooltipOverlay = View.inflate(
+                    fragment.requireContext(),
+                    R.layout.tooltip_overlay_layout,
+                    null
+                ) as ConstraintLayout
+                tooltipOverlay.addView(prompt, 0)
+                container.addView(tooltipOverlay)
 
-    fun addButtons(isLastTooltip:Boolean = false, onExitListener: View.OnClickListener) {
-        fragment.activity?.findViewById<FrameLayout>(R.id.container)?.let { container ->
-            val prompt = container.findViewById<View>(R.id.material_target_prompt_view)
-            container.removeView(prompt)
-            val tooltipOverlay = View.inflate(fragment.requireContext(), R.layout.tooltip_overlay_layout, null) as ConstraintLayout
-            tooltipOverlay.addView(prompt, 0)
-            container.addView(tooltipOverlay)
+                val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
+                btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
+                val constraintSet = ConstraintSet()
+                constraintSet.clone(tooltipOverlay)
+                constraintSet.connect(
+                    R.id.btn_next_tooltip,
+                    ConstraintSet.START,
+                    R.id.tooltip_overlay_layout,
+                    ConstraintSet.START,
+                    promptTextWithBtn.btnLocation.x.toInt()
+                )
+                constraintSet.connect(
+                    R.id.btn_next_tooltip,
+                    ConstraintSet.TOP,
+                    R.id.tooltip_overlay_layout,
+                    ConstraintSet.TOP,
+                    promptTextWithBtn.btnLocation.y.toInt()
+                )
+                constraintSet.applyTo(tooltipOverlay)
+                btnNext.text = fragment.getString(buttonText)
+                btnNext.setOnClickListener(onNextButtonPressListener)
 
-            val btnNext = tooltipOverlay.findViewById<Button>(R.id.btn_next_tooltip)
-            btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
-            val constraintSet = ConstraintSet()
-            constraintSet.clone(tooltipOverlay)
-            constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.START, R.id.tooltip_overlay_layout, ConstraintSet.START, promptTextWithBtn.btnLocation.x.toInt())
-            constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.TOP, R.id.tooltip_overlay_layout, ConstraintSet.TOP, promptTextWithBtn.btnLocation.y.toInt())
-            constraintSet.applyTo(tooltipOverlay)
-            btnNext.text = fragment.getString(buttonText)
-            btnNext.setOnClickListener(onNextButtonPressListener)
+                val btnExit = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
+                if (!isLastTooltip) {
+                    btnExit.setOnClickListener(onExitListener)
+                    btnExit.visibility = View.VISIBLE
+                } else {
+                    btnExit.visibility = View.GONE
+                }
 
-            val btnExit = tooltipOverlay.findViewById<Button>(R.id.btn_skip_tour)
-            if(!isLastTooltip) {
-                btnExit.setOnClickListener(onExitListener)
-                btnExit.visibility = View.VISIBLE
-            } else {
-                btnExit.visibility = View.GONE
-            }
-
-            promptTextWithBtn.onUpdate = {
-                if (btnLocationY != promptTextWithBtn.btnLocation.y.toInt()) {
-                    btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
-                    val constraintSet = ConstraintSet()
-                    constraintSet.clone(tooltipOverlay)
-                    constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.START, R.id.tooltip_overlay_layout, ConstraintSet.START, promptTextWithBtn.btnLocation.x.toInt())
-                    constraintSet.connect(R.id.btn_next_tooltip, ConstraintSet.TOP, R.id.tooltip_overlay_layout, ConstraintSet.TOP, promptTextWithBtn.btnLocation.y.toInt())
-                    constraintSet.applyTo(tooltipOverlay)
+                promptTextWithBtn.onUpdate = {
+                    if (btnLocationY != promptTextWithBtn.btnLocation.y.toInt()) {
+                        btnLocationY = promptTextWithBtn.btnLocation.y.toInt()
+                        val constraintSet = ConstraintSet()
+                        constraintSet.clone(tooltipOverlay)
+                        constraintSet.connect(
+                            R.id.btn_next_tooltip,
+                            ConstraintSet.START,
+                            R.id.tooltip_overlay_layout,
+                            ConstraintSet.START,
+                            promptTextWithBtn.btnLocation.x.toInt()
+                        )
+                        constraintSet.connect(
+                            R.id.btn_next_tooltip,
+                            ConstraintSet.TOP,
+                            R.id.tooltip_overlay_layout,
+                            ConstraintSet.TOP,
+                            promptTextWithBtn.btnLocation.y.toInt()
+                        )
+                        constraintSet.applyTo(tooltipOverlay)
+                    }
                 }
             }
-        }
     }
 
     fun dismiss() {
         val container = fragment.activity?.findViewById<FrameLayout>(R.id.container)
         container?.removeView(container.findViewById(R.id.tooltip_overlay_layout))
-    }
-
-    fun hideButtons() {
-        val overlay = fragment.activity?.findViewById<ConstraintLayout>(R.id.tooltip_overlay_layout)
-        overlay?.visibility = View.GONE
     }
 }
