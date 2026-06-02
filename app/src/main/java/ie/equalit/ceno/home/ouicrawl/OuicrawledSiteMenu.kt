@@ -6,7 +6,7 @@ import ie.equalit.ceno.ext.components
 import mozilla.components.browser.menu.BrowserMenuBuilder
 import mozilla.components.browser.menu.item.SimpleBrowserMenuItem
 
-class OuicrawledSiteMenu (
+class OuicrawledSiteMenu(
     private val context: Context,
     private val site: OuicrawlSite,
     private val onItemTapped: (Item) -> Unit = {}
@@ -27,9 +27,10 @@ class OuicrawledSiteMenu (
             },
             SimpleBrowserMenuItem(
                 context.getString(
-                    if((context.components.appStore.state.topSites.any {it.url == ("https://${site.SiteURL}/")}))
+                    if ((context.components.appStore.state.topSites.any { it.url == ("https://${site.SiteURL}/") }))
                         R.string.browser_menu_remove_from_shortcuts
-                    else R.string.browser_menu_add_to_shortcuts)
+                    else R.string.browser_menu_add_to_shortcuts
+                )
             ) {
                 onItemTapped.invoke(Item.AddToShortcut)
             },

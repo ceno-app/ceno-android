@@ -42,10 +42,10 @@ sealed class AdapterItem(val type: HomepageCardType) {
         }
     }
 
-    data class OuicrawledSiteItem(val site:OuicrawlSite) :
-            AdapterItem(OuicrawledSiteViewHolder.homepageCardType)
+    data class OuicrawledSiteItem(val site: OuicrawlSite) :
+        AdapterItem(OuicrawledSiteViewHolder.homepageCardType)
 
-    object SectionHeaderItem:
+    object SectionHeaderItem :
         AdapterItem(SectionHeaderViewHolder.homepageCardType)
 
     object PersonalModeDescriptionItem :
@@ -70,7 +70,8 @@ sealed class AdapterItem(val type: HomepageCardType) {
             if (newTopSites.topSites.size != this.topSites.size) return false
             val newSitesSequence = newTopSites.topSites.asSequence()
             val oldTopSites = this.topSites.asSequence()
-            return newSitesSequence.zip(oldTopSites).all { (new, old) -> new == old }
+            return newSitesSequence.zip(oldTopSites)
+                .all { (new, old) -> new == old }
         }
 
         /**
@@ -83,12 +84,11 @@ sealed class AdapterItem(val type: HomepageCardType) {
         @Suppress("ComplexCondition")
         override fun getChangePayload(newItem: AdapterItem): Any? {
             val newTopSites = (newItem as? TopSitePager)
-            val oldTopSites = (this as? TopSitePager)
+            val oldTopSites = this
 
-            if (newTopSites == null || oldTopSites == null ||
-                newTopSites.topSites.size > oldTopSites.topSites.size ||
-                (newTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE)
-                != (oldTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE)
+            if (newTopSites == null || newTopSites.topSites.size > oldTopSites.topSites.size ||
+                ((newTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE)
+                        != (oldTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE))
             ) {
                 return null
             }

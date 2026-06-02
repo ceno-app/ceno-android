@@ -10,16 +10,19 @@ import ie.equalit.ceno.utils.view.CenoViewHolder
 class SectionHeaderViewHolder(
     view: View,
     interactor: HomePageInteractor
-): CenoViewHolder(view) {
+) : CenoViewHolder(view) {
     private val binding = HomeSectionHeaderLayoutBinding.bind(itemView)
 
-    var listIsHidden : Boolean = true
+    var listIsHidden: Boolean = true
 
     init {
         binding.tvSectionTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
             null,
             null,
-            if (listIsHidden) ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_collapsed) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
+            if (listIsHidden) ContextCompat.getDrawable(
+                view.context,
+                R.drawable.ic_arrow_collapsed
+            ) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
             null
         )
         binding.tvSectionTitle.setOnClickListener {
@@ -28,7 +31,10 @@ class SectionHeaderViewHolder(
             binding.tvSectionTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                if (listIsHidden) ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_collapsed) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
+                if (listIsHidden) ContextCompat.getDrawable(
+                    view.context,
+                    R.drawable.ic_arrow_collapsed
+                ) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
                 null
             )
         }

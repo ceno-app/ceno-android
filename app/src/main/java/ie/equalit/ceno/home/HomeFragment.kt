@@ -61,7 +61,7 @@ import java.util.Locale
 class HomeFragment : BaseHomeFragment() {
 
     private var tooltip: CenoTooltip? = null
-    private var startTooltip:CenoTourStartOverlay? = null
+    private var startTooltip: CenoTourStartOverlay? = null
     var adapter: SessionControlAdapter? = null
 
     private var _sessionControlInteractor: SessionControlInteractor? = null
@@ -76,7 +76,7 @@ class HomeFragment : BaseHomeFragment() {
 
     private var ouinetStatus = RunningState.Started
 
-    private var isNetworkStatusDialogVisible:Boolean = false
+    private var isNetworkStatusDialogVisible: Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -92,7 +92,7 @@ class HomeFragment : BaseHomeFragment() {
 
         components.useCases.tabsUseCases.selectTab("")
 
-//        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
+        //        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
@@ -183,7 +183,7 @@ class HomeFragment : BaseHomeFragment() {
                 FrecencyThresholdOption.SKIP_ONE_TIME_PAGES,
             ),
             providerConfig = TopSitesProviderConfig(
-                showProviderTopSites = false,//settings.showContileFeature,
+                showProviderTopSites = false, //settings.showContileFeature,
                 maxThreshold = CenoPreferences.TOP_SITES_PROVIDER_MAX_THRESHOLD,
             )
         )
@@ -204,7 +204,7 @@ class HomeFragment : BaseHomeFragment() {
                     Settings.getOuicrawlData(context)
                 )
                 updateUI(it.mode)
-                updateSearch(it.mode)
+                updateSearch()
                 if (ouinetStatus != it.ouinetStatus) {
                     updateOuinetStatus(context, it.ouinetStatus)
                 }
@@ -215,7 +215,7 @@ class HomeFragment : BaseHomeFragment() {
             withContext(Dispatchers.IO) {
                 context?.let { context ->
                     getAnnouncements(context)
-                    if(!CenoSettings.hideOuicrawlFeed(context))
+                    if (!CenoSettings.hideOuicrawlFeed(context))
                         getOuicrawlSites(context)
 
                     // check for null and refresh homepage adapter if necessary
@@ -237,25 +237,43 @@ class HomeFragment : BaseHomeFragment() {
 
     private fun updateOuinetStatus(context: Context, status: RunningState) {
         ouinetStatus = status
-        var message:String?
-        when(ouinetStatus) {
+        var message: String?
+        when (ouinetStatus) {
             RunningState.Started -> {
                 message = getString(R.string.ceno_ouinet_connected)
                 //set connected icon
-                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_connected_icon))
+                binding.cenoNetworkStatusIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ceno_connected_icon
+                    )
+                )
             }
+
             RunningState.Degraded -> {
                 message = getString(R.string.ceno_ouinet_connecting)
-                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_degraded_icon))
+                binding.cenoNetworkStatusIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ceno_degraded_icon
+                    )
+                )
             }
+
             else -> {
                 message = getString(R.string.ceno_ouinet_disconnected)
                 //set disconnected icon
-                binding.cenoNetworkStatusIcon.setImageDrawable(ContextCompat.getDrawable(context, R.drawable.ceno_disconnected_icon))
+                binding.cenoNetworkStatusIcon.setImageDrawable(
+                    ContextCompat.getDrawable(
+                        context,
+                        R.drawable.ceno_disconnected_icon
+                    )
+                )
             }
         }
         message.let {
-            Toast.makeText(context, it, Toast.LENGTH_LONG).show()
+            Toast.makeText(context, it, Toast.LENGTH_LONG)
+                .show()
         }
     }
 
@@ -287,10 +305,11 @@ class HomeFragment : BaseHomeFragment() {
         binding.sessionControlRecyclerView.itemAnimator = null
 
         binding.cenoNetworkStatusIcon.setOnClickListener {
-            if(!isNetworkStatusDialogVisible) {
+            if (!isNetworkStatusDialogVisible) {
                 CenoNetworkStatusDialog(requireContext(), viewLifecycleOwner, this, ouinetStatus) {
                     isNetworkStatusDialogVisible = false
-                }.getDialog().show()
+                }.getDialog()
+                    .show()
                 isNetworkStatusDialogVisible = true
             }
         }
@@ -299,7 +318,7 @@ class HomeFragment : BaseHomeFragment() {
     override fun onStart() {
         super.onStart()
         updateSessionControlView()
-            showTooltip()
+        showTooltip()
     }
 
     override fun onPause() {
@@ -311,11 +330,12 @@ class HomeFragment : BaseHomeFragment() {
     fun showTooltip() {
         when (requireComponents.cenoPreferences.nextTooltip) {
             BEGIN_TOUR_TOOLTIP -> {
-                startTooltip = CenoTourStartOverlay(this, false,
+                startTooltip = CenoTourStartOverlay(
+                    this, false,
                     skipListener =
-                    {
-                        exitCenoTour()
-                    },
+                        {
+                            exitCenoTour()
+                        },
                     startListener = {
                         requireComponents.cenoPreferences.nextTooltip += 1
                         showTooltip()
@@ -323,15 +343,17 @@ class HomeFragment : BaseHomeFragment() {
                 )
                 startTooltip?.show()
             }
+
             PUBLIC_PERSONAL_TOOLTIP -> {
-                tooltip = CenoTooltip(this,
+                tooltip = CenoTooltip(
+                    this,
                     R.id.ceno_mode_item,
                     primaryText = getString(R.string.onboarding_public_or_personal_title),
                     secondaryText = getString(R.string.onboarding_public_personal_text),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
                     stopCaptureTouchOnFocal = true,
-                    listener = { prompt: MaterialTapTargetPrompt, state: Int ->
-                        when(state) {
+                    listener = { _: MaterialTapTargetPrompt, state: Int ->
+                        when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip?.addButtons {
                                     exitCenoTour()
@@ -343,15 +365,17 @@ class HomeFragment : BaseHomeFragment() {
                 )
                 tooltip?.tooltip?.show()
             }
+
             SHORTCUTS_TOOLTIP -> {
-                tooltip = CenoTooltip(this,
+                tooltip = CenoTooltip(
+                    this,
                     R.id.shortcuts_layout,
                     primaryText = getString(R.string.top_sites_title),
                     secondaryText = getString(R.string.tooltip_shortcuts_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
                     stopCaptureTouchOnFocal = true,
                     listener = { _: MaterialTapTargetPrompt, state: Int ->
-                        when(state) {
+                        when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip?.addButtons {
                                     exitCenoTour()
@@ -364,20 +388,23 @@ class HomeFragment : BaseHomeFragment() {
                 )
                 tooltip?.tooltip?.show()
             }
+
             TOOLBAR_TOOLTIP -> {
-                tooltip = CenoTooltip(this,
+                tooltip = CenoTooltip(
+                    this,
                     R.id.mozac_browser_toolbar_origin_view,
                     primaryText = getString(R.string.tooltip_toolbar_title),
                     secondaryText = getString(R.string.tooltip_toolbar_description),
                     promptFocal = RectanglePromptFocal().setCornerRadius(25f, 25f),
                     buttonText = R.string.dialog_ok,
-                    listener = { prompt: MaterialTapTargetPrompt, state: Int ->
+                    listener = { _: MaterialTapTargetPrompt, state: Int ->
                         when (state) {
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip?.addButtons {
                                     exitCenoTour()
                                 }
                             }
+
                             MaterialTapTargetPrompt.STATE_FOCAL_PRESSED -> {
                                 tooltip?.dismiss()
                                 requireComponents.cenoPreferences.nextTooltip += 1
@@ -392,6 +419,7 @@ class HomeFragment : BaseHomeFragment() {
 
                 tooltip?.tooltip?.show()
             }
+
             BrowserFragment.TOOLTIP_PERMISSION -> {
                 startTooltip = CenoTourStartOverlay(
                     this,
@@ -407,19 +435,19 @@ class HomeFragment : BaseHomeFragment() {
         }
     }
 
-    private fun goToNextTooltip(view:View) {
+    private fun goToNextTooltip(view: View) {
         requireComponents.cenoPreferences.nextTooltip += 1
         tooltip?.dismiss()
         showTooltip()
     }
+
     private fun exitCenoTour() {
         //exit tour
         tooltip?.dismiss()
         if (requireComponents.permissionHandler.shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = BrowserFragment.TOOLTIP_PERMISSION
             showTooltip()
-        }
-        else {
+        } else {
             requireComponents.cenoPreferences.nextTooltip = -1
         }
         Settings.setShowOnboarding(requireContext(), false)
@@ -455,7 +483,7 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     private suspend fun getOuicrawlSites(context: Context) {
-        var ouicrawlResponse = CenoSettings.webClientRequest(
+        val ouicrawlResponse = CenoSettings.webClientRequest(
             context,
             Request(
                 url = "https://schedule.ceno.app/schedule.json",
@@ -464,8 +492,6 @@ class HomeFragment : BaseHomeFragment() {
         ouicrawlResponse?.let {
             Log.d("Ouicrawl", ouicrawlResponse)
             Settings.saveOuicrawlData(context, ouicrawlResponse)
-//            var responseObject = Json.decodeFromString<OuicrawledSitesListItem>(ouicrawlResponse)
-//            val ouicrawledSites = responseObject.Sites
         }
     }
 

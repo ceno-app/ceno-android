@@ -49,30 +49,41 @@ internal fun normalModeAdapterItems(
         items.add(AdapterItem.CenoMessageItem(messageCard))
 
 
-    if (/*settings.showTopSitesFeature && */ topSites.isNotEmpty()) {
+    if (topSites.isNotEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
     }
-    if(!hideOuicrawlFeed && ouicrawlSites != null) {
+    if (!hideOuicrawlFeed && ouicrawlSites != null) {
         items.add(AdapterItem.SectionHeaderItem)
-        ouicrawlSites?.forEach {
+        ouicrawlSites.forEach {
             items.add(AdapterItem.OuicrawledSiteItem(it))
         }
     }
     return items
 }
 
-internal fun personalModeAdapterItems(mode: BrowsingMode, announcements: List<RssItem>?): List<AdapterItem> {
+internal fun personalModeAdapterItems(
+    mode: BrowsingMode,
+    announcements: List<RssItem>?
+): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
     // Add a synchronous, unconditional and invisible placeholder so home is anchored to the top when created.
     items.add(AdapterItem.TopPlaceholderItem)
     // Show announcements at the top
-    announcements?.forEach { items.add(AdapterItem.CenoAnnouncementItem(it, BrowsingMode.Personal)) }
+    announcements?.forEach {
+        items.add(
+            AdapterItem.CenoAnnouncementItem(
+                it,
+                BrowsingMode.Personal
+            )
+        )
+    }
 
     items.add(AdapterItem.CenoModeItem(mode))
     items.add(AdapterItem.PersonalModeDescriptionItem)
 
     return items
 }
+
 private fun AppState.toAdapterList(
     prefs: CenoPreferences,
     messageCard: CenoMessageCard,
@@ -92,13 +103,13 @@ private fun AppState.toAdapterList(
             ouicrawlSites?.let {
                 if (ouicrawlListIsPartial && it.size > 5) {
                     it.subList(0, 5)
-                }
-                else {
+                } else {
                     it
                 }
             },
             hideOuicrawlFeed
         )
+
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
 }
 
@@ -126,7 +137,7 @@ class SessionControlView(
         }
 
         val itemTouchHelper = ItemTouchHelper(
-            HomeCardSwipeCallback (
+            HomeCardSwipeCallback(
                 swipeDirs = ItemTouchHelper.LEFT,
                 dragDirs = 0,
                 interactor = interactor
@@ -139,8 +150,8 @@ class SessionControlView(
     @SuppressLint("NotifyDataSetChanged")
     fun update(state: AppState, announcements: List<RssItem>?, ouicrawlSites: List<OuicrawlSite>?) {
         val messageCard = CenoMessageCard(
-            text = ContextCompat.getString(view.context,R.string.enable_bridge_card_text) + " " +
-                    ContextCompat.getString(view.context,R.string.bridge_mode_ip_warning_text),
+            text = ContextCompat.getString(view.context, R.string.enable_bridge_card_text) + " " +
+                    ContextCompat.getString(view.context, R.string.bridge_mode_ip_warning_text),
             title = ContextCompat.getString(view.context, R.string.enable_bridge_card_title)
         )
         sessionControlAdapter.submitList(

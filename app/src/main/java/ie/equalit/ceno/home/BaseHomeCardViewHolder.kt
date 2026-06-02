@@ -1,6 +1,5 @@
 package ie.equalit.ceno.home
 
-import android.util.Log
 import android.view.ContextMenu
 import android.view.Menu
 import android.view.MenuItem
@@ -41,16 +40,12 @@ open class BaseHomeCardViewHolder(
             LEARN_MORE -> {
                 interactor.onMenuItemClicked(cardType)
             }
+
             CLOSE -> {
                 interactor.onRemoveCard(cardType)
             }
         }
         return false
-    }
-
-    companion object {
-        const val LEARN_MORE: Int = 0
-        const val CLOSE: Int = 1
     }
 
     override fun onClick(p0: View?) {
@@ -59,5 +54,10 @@ open class BaseHomeCardViewHolder(
             interactor.onClicked(cardType)
         }
         */
+    }
+
+    companion object {
+        const val LEARN_MORE: Int = 0
+        const val CLOSE: Int = 1
     }
 }

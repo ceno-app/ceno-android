@@ -4,25 +4,23 @@
 
 package ie.equalit.ceno.home.topsites
 
-import android.view.MotionEvent
 import android.view.View
-import android.widget.PopupWindow
 import androidx.appcompat.content.res.AppCompatResources.getDrawable
 import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
+import ie.equalit.ceno.R
+import ie.equalit.ceno.databinding.TopSiteItemBinding
+import ie.equalit.ceno.ext.ceno.bitmapForUrl
+import ie.equalit.ceno.ext.ceno.loadIntoView
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
+import ie.equalit.ceno.utils.view.CenoViewHolder
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.feature.top.sites.TopSite
-import ie.equalit.ceno.R
-import ie.equalit.ceno.databinding.TopSiteItemBinding
-import ie.equalit.ceno.ext.ceno.bitmapForUrl
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.ceno.loadIntoView
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
-import ie.equalit.ceno.utils.view.CenoViewHolder
 
 class TopSiteItemViewHolder(
     view: View,
@@ -44,15 +42,18 @@ class TopSiteItemViewHolder(
                     is TopSiteItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
                         topSite
                     )
+
                     is TopSiteItemMenu.Item.RenameTopSite -> interactor.onRenameTopSiteClicked(
                         topSite
                     )
+
                     is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTopSiteClicked(
                         topSite
                     )
                 }
             }
-            topSiteMenu.menuBuilder.build(view.context).show(anchor = it)
+            topSiteMenu.menuBuilder.build(view.context)
+                .show(anchor = it)
             true
         }
     }
@@ -66,7 +67,12 @@ class TopSiteItemViewHolder(
 
         if (topSite is TopSite.Pinned || topSite is TopSite.Default) {
             val pinIndicator = getDrawable(itemView.context, R.drawable.ic_new_pin)
-            binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(pinIndicator, null, null, null)
+            binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(
+                pinIndicator,
+                null,
+                null,
+                null
+            )
         } else {
             binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
         }
@@ -77,11 +83,12 @@ class TopSiteItemViewHolder(
             viewLifecycleOwner.lifecycleScope.launch(IO) {
                 itemView.context.components.core.client.bitmapForUrl(
                     url = topSite.imageUrl,
-                )?.let { bitmap ->
-                    withContext(Main) {
-                        binding.faviconImage.setImageBitmap(bitmap)
+                )
+                    ?.let { bitmap ->
+                        withContext(Main) {
+                            binding.faviconImage.setImageBitmap(bitmap)
+                        }
                     }
-                }
             }
         } else {
             /* CENO: Load built-in icons for suggested sites */
@@ -94,92 +101,221 @@ class TopSiteItemViewHolder(
                 resources.getString(R.string.suggestedsites_ceno_my_url),
                 resources.getString(R.string.suggestedsites_ceno_ru_url),
                 resources.getString(R.string.suggestedsites_ceno_uk_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_cenomanual))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_cenomanual
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_wikipedia_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_wikipedia))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_wikipedia
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_apnews_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_apnews))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_apnews
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_reuters_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_reuters))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_reuters
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_elpais_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_elpais))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_elpais
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_infobae_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_infobae))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_infobae
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_paskooceh_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_paskoocheh))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_paskoocheh
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_factnameh_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_factnameh))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_factnameh
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_courier_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_courrierinternational))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_courrierinternational
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_lapresse_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_lapresse))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_lapresse
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_mynow_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_myanmarnow))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_myanmarnow
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_justicemy_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_justiceformyanmar))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_justiceformyanmar
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_meduza_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_meduza))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_meduza
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_kavkazuzel_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_kavkazuzel))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_kavkazuzel
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_truestory_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_truestory))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_truestory
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_pravda_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_pravda))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_pravda
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_hromadske_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_hromadske))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_hromadske
+                        )
+                    )
                 }
+
                 resources.getString(R.string.suggestedsites_ltn_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_ltn))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_ltn
+                        )
+                    )
                 }
-                resources.getString(R.string.suggestedsites_twreporter_url)  -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.suggestedsites_twreporter))
+
+                resources.getString(R.string.suggestedsites_twreporter_url) -> {
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.suggestedsites_twreporter
+                        )
+                    )
                 }
                 /* else fallback to matching url with favicon (useful for white-label suggested sites) */
                 resources.getString(R.string.default_top_site_1_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_1_favicon))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.default_top_site_1_favicon
+                        )
+                    )
                 }
+
                 resources.getString(R.string.default_top_site_2_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_2_favicon))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.default_top_site_2_favicon
+                        )
+                    )
                 }
+
                 resources.getString(R.string.default_top_site_3_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_3_favicon))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.default_top_site_3_favicon
+                        )
+                    )
                 }
+
                 resources.getString(R.string.default_top_site_4_url) -> {
-                    binding.faviconImage.setImageDrawable(getDrawable(itemView.context, R.drawable.default_top_site_4_favicon))
+                    binding.faviconImage.setImageDrawable(
+                        getDrawable(
+                            itemView.context,
+                            R.drawable.default_top_site_4_favicon
+                        )
+                    )
                 }
+
                 else -> {
-                    itemView.context.components.core.icons.loadIntoView(binding.faviconImage, topSite.url)
+                    itemView.context.components.core.icons.loadIntoView(
+                        binding.faviconImage,
+                        topSite.url
+                    )
                 }
             }
         }
 
         this.topSite = topSite
-    }
-
-    private fun onTouchEvent(
-        v: View,
-        event: MotionEvent,
-        menu: PopupWindow
-    ): Boolean {
-        if (event.action == MotionEvent.ACTION_CANCEL) {
-            menu.dismiss()
-        }
-        return v.onTouchEvent(event)
     }
 }

@@ -21,15 +21,13 @@ class OuicrawledSiteViewHolder(
     itemView: View,
     val interactor: OuicrawlSiteInteractor,
     private val viewLifecycleOwner: LifecycleOwner,
-): RecyclerView.ViewHolder(itemView) {
+) : RecyclerView.ViewHolder(itemView) {
     private val binding = HomeOuicrawSiteItemBinding.bind(itemView)
     private lateinit var ouicrawlSite: OuicrawlSite
 
-    var cardType: HomepageCardType = HomepageCardType.OUICRAWLED_SITE_CARD
-
     init {
         binding.ouicrawledSite.setOnLongClickListener {
-            val contextMenu = OuicrawledSiteMenu (
+            val contextMenu = OuicrawledSiteMenu(
                 context = itemView.context,
                 ouicrawlSite
             ) { item ->
@@ -37,8 +35,10 @@ class OuicrawledSiteViewHolder(
                     is OuicrawledSiteMenu.Item.OpenInPersonalTab -> {
                         interactor.onOpenInPersonalTabClicked(ouicrawlSite)
                     }
+
                     is OuicrawledSiteMenu.Item.AddToShortcut -> {
-                        interactor.onShortcuts(ouicrawlSite,
+                        interactor.onShortcuts(
+                            ouicrawlSite,
                             itemView.context.components.appStore.state.topSites.any { topSite: TopSite ->
                                 topSite.url == ("https://${ouicrawlSite.SiteURL}/")
                             }
@@ -46,7 +46,8 @@ class OuicrawledSiteViewHolder(
                     }
                 }
             }
-            contextMenu.menuBuilder.build(itemView.context).show(binding.tvEllipsisMore)
+            contextMenu.menuBuilder.build(itemView.context)
+                .show(binding.tvEllipsisMore)
             true
         }
     }
@@ -62,11 +63,12 @@ class OuicrawledSiteViewHolder(
         viewLifecycleOwner.lifecycleScope.launch(IO) {
             itemView.context.components.core.client.bitmapForUrl(
                 url = ouicrawlSite.FaviconURL,
-            )?.let { bitmap ->
-                withContext(Main) {
-                    binding.ivFavicon.setImageBitmap(bitmap)
+            )
+                ?.let { bitmap ->
+                    withContext(Main) {
+                        binding.ivFavicon.setImageBitmap(bitmap)
+                    }
                 }
-            }
         }
         binding.ouicrawledSite.setOnClickListener {
             interactor.onOuicrawlSiteClicked("https://${ouicrawlSite.SiteURL}")
@@ -75,22 +77,28 @@ class OuicrawledSiteViewHolder(
         this.ouicrawlSite = ouicrawlSite
     }
 
-    private fun getLastCrawlUpdateTime(lastCrawlUpdatedTS: String):String {
+    private fun getLastCrawlUpdateTime(lastCrawlUpdatedTS: String): String {
         val difference = lastCrawlUpdatedTS.dateTimeDifference()
         difference?.let {
             val minutes = (it.toInt() / 60000)
 
             if (minutes < 60) {
-                return itemView.context.resources.getQuantityString(R.plurals.last_crawl_status_minutes,
-                    minutes, minutes)
+                return itemView.context.resources.getQuantityString(
+                    R.plurals.last_crawl_status_minutes,
+                    minutes, minutes
+                )
             }
             val hours = minutes / 60
             if (hours < 24)
-                return itemView.context.resources.getQuantityString(R.plurals.last_crawl_status_hrs,
-                    hours, hours)
+                return itemView.context.resources.getQuantityString(
+                    R.plurals.last_crawl_status_hrs,
+                    hours, hours
+                )
             val days = hours / 24
-            return itemView.context.resources.getQuantityString(R.plurals.last_crawl_status_days,
-                days, days)
+            return itemView.context.resources.getQuantityString(
+                R.plurals.last_crawl_status_days,
+                days, days
+            )
         }
         return ""
     }
