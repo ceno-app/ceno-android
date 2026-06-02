@@ -16,8 +16,8 @@ import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.concept.toolbar.Toolbar
 import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
-import mozilla.components.ui.tabcounter.TabCounterView
 import mozilla.components.ui.tabcounter.TabCounterMenu
+import mozilla.components.ui.tabcounter.TabCounterView
 import java.lang.ref.WeakReference
 
 class TabCounterToolbarButton(
@@ -28,7 +28,7 @@ class TabCounterToolbarButton(
     private val browsingModeManager: BrowsingModeManager,
     private val countBasedOnSelectedTabType: Boolean,
     private val themeManager: ThemeManager
-): Toolbar.Action {
+) : Toolbar.Action {
 
     private var reference = WeakReference<TabCounterView>(null)
 
@@ -43,8 +43,7 @@ class TabCounterToolbarButton(
         ) { flow ->
             flow.map { state -> getTabCount(state) }
                 .distinctUntilChanged()
-                .collect {
-                        tabs ->
+                .collect { tabs ->
                     updateCount(tabs)
                 }
         }
@@ -69,10 +68,12 @@ class TabCounterToolbarButton(
                         setCount(getTabCount(store.state))
                     }
 
-                    override fun onViewDetachedFromWindow(v: View) { /* no-op */ }
+                    override fun onViewDetachedFromWindow(v: View) { /* no-op */
+                    }
                 },
             )
-            contentDescription = parent.context.getString(R.string.mozac_feature_tabs_toolbar_tabs_button)
+            contentDescription =
+                parent.context.getString(R.string.mozac_feature_tabs_toolbar_tabs_button)
         }
 
         // Set selectableItemBackgroundBorderless
@@ -102,10 +103,7 @@ class TabCounterToolbarButton(
      */
     @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
     fun updateCount(count: Int) {
-        reference.get()?.setCountWithAnimation(count)
-    }
-
-    fun updateColor() {
-        tabCounter.invalidate()
+        reference.get()
+            ?.setCountWithAnimation(count)
     }
 }

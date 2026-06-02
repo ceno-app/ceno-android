@@ -20,17 +20,22 @@ object PrivatePage {
         @RawRes htmlRes: Int = R.raw.private_mode,
         @RawRes cssRes: Int = R.raw.private_style,
     ): String {
-        val css = context.resources.openRawResource(cssRes).bufferedReader().use {
-            it.readText()
-        }
+        val css = context.resources.openRawResource(cssRes)
+            .bufferedReader()
+            .use {
+                it.readText()
+            }
 
         return context.resources.openRawResource(htmlRes)
             .bufferedReader()
             .use { it.readText() }
             .replace("%pageTitle%", context.getString(R.string.private_browsing_title))
-             /* CENO: Change the text being displayed on the about:privatebrowsing page */
+            /* CENO: Change the text being displayed on the about:privatebrowsing page */
             .replace("%pageBody%", context.getString(R.string.ceno_private_browsing_body))
-            .replace("%privateBrowsingSupportUrl%", context.getString(R.string.ceno_mode_manual_link))
+            .replace(
+                "%privateBrowsingSupportUrl%",
+                context.getString(R.string.ceno_mode_manual_link)
+            )
             .replace("%css%", css)
     }
 }
