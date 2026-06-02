@@ -148,21 +148,25 @@ class WebExtensionActionPopupPanel(
 
         if (origin > 0) binding.sourcesProgressBar.addView(
             context.createSegment(
-                ((origin / sum) * 100),
+                ((origin / sum) * ONE_HUNDRED),
                 R.color.ceno_sources_green
             )
         )
         if ((proxy + injector) > 0) binding.sourcesProgressBar.addView(
             context.createSegment(
-                (((proxy + injector) / sum) * 100),
+                (((proxy + injector) / sum) * ONE_HUNDRED),
                 R.color.ceno_sources_orange
             )
         )
         if (distCache > 0) binding.sourcesProgressBar.addView(
             context.createSegment(
-                ((distCache / sum) * 100),
+                ((distCache / sum) * ONE_HUNDRED),
                 R.color.ceno_sources_blue
             )
         )
+    }
+
+    companion object {
+        const val ONE_HUNDRED = 100
     }
 }
