@@ -34,7 +34,6 @@ import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
-
 @RunWith(JUnit4::class)
 class ScreenshotGenerator {
     private lateinit var mockWebServer: MockWebServer

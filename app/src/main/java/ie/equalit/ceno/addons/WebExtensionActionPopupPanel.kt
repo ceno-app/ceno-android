@@ -25,7 +25,6 @@ import mozilla.components.support.ktx.kotlin.tryGetHostFromUrl
 import org.json.JSONObject
 import java.util.Locale
 
-
 class WebExtensionActionPopupPanel(
     context: Context,
     private val lifecycleOwner: LifecycleOwner,

@@ -21,7 +21,6 @@ import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
 
-
 @Serializable
 data class OuinetStatus(
     val auto_refresh: Boolean,

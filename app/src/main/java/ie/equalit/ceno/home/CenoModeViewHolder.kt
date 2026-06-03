@@ -13,7 +13,6 @@ import ie.equalit.ceno.databinding.CenoModeItemBinding
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.sessioncontrol.HomePageInteractor
 
-
 /**
  * View holder for the CENO normal/private mode description.
  */

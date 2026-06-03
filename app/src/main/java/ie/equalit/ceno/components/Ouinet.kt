@@ -17,7 +17,6 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.security.SecureRandom
 
-
 class Ouinet(
     private val context: Context
 ) {

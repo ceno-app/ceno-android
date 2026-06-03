@@ -14,7 +14,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.ExpandableListChildItemBinding
 import ie.equalit.ceno.databinding.ExpandableListGroupItemBinding
 
-
 class CachedGroupAdapter(
     private val context: Context,
     private val groupList: List<GroupItem>,

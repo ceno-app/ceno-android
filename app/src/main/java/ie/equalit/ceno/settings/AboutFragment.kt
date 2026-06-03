@@ -32,7 +32,6 @@ import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
 
-
 class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null

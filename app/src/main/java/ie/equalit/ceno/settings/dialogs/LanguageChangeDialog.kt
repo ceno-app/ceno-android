@@ -14,7 +14,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.utils.language.SupportedLanguageProvider
 import java.util.Locale
 
-
 class LanguageChangeDialog(
     val context: Context,
     private val setLanguageListener: SetLanguageListener?

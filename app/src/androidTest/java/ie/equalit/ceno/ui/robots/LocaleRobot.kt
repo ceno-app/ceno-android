@@ -1,20 +1,14 @@
 package ie.equalit.ceno.ui.robots
 
-import android.app.LocaleManager
-import android.content.Context
-import android.content.res.Resources
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.app.LocaleManagerCompat
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.application
 import ie.equalit.ceno.helpers.click
 import junit.framework.TestCase.assertEquals
-
 
 class LocaleRobot {
 

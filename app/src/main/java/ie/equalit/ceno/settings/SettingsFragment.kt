@@ -102,7 +102,6 @@ import mozilla.components.support.base.log.logger.Logger
 import org.mozilla.geckoview.BuildConfig
 import java.util.Locale
 
-
 class SettingsFragment : PreferenceFragmentCompat() {
 
     private lateinit var cenoPrefs: CenoPreferences

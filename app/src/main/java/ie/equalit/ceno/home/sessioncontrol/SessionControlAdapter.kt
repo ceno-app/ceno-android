@@ -16,7 +16,6 @@ import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
-
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
     private val viewLifecycleOwner: LifecycleOwner

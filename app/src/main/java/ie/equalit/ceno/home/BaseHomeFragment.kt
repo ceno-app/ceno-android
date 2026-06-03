@@ -51,7 +51,6 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.utils.DefaultDownloadFileUtils
 
-
 /**
  * Base fragment extended by [HomeFragment].
  * This class only contains shared code focused on the main browsing content.
