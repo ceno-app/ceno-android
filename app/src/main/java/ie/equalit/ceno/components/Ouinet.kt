@@ -34,6 +34,10 @@ class Ouinet(
             Settings.getDnsProtocols(context)
         else
             mutableSetOf("plain")
+        writeErrorPageToFile(
+            FailedToRetrieveResource.createErrorPage(context),
+            context
+        )
         config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -82,7 +86,7 @@ class Ouinet(
     }
 
     fun isDohDisabledForLocale(): Boolean {
-        var countryIsoCode = ""
+        var countryIsoCode: String
         val locationUtils = CenoLocationUtils(context.application)
         countryIsoCode = locationUtils.currentCountry
         Logger.debug("Got country code: $countryIsoCode")
@@ -99,7 +103,7 @@ class Ouinet(
     }
 
     private fun getBtBootstrapExtras(): Set<String>? {
-        var countryIsoCode = ""
+        var countryIsoCode: String
         val locationUtils = CenoLocationUtils(context.application)
         countryIsoCode = locationUtils.currentCountry
 
@@ -124,7 +128,7 @@ class Ouinet(
                     btbsxs.add(x)
                 }
             }
-            if (btbsxs.size > 0) {
+            if (btbsxs.isNotEmpty()) {
                 Logger.debug("Extra BT bootstraps: $btbsxs")
                 return btbsxs
             }
@@ -135,20 +139,11 @@ class Ouinet(
     }
 
     private fun getErrorPagePath(): String {
-        return try {
-            writeToFile(
-                "server500.html",
-                FailedToRetrieveResource.createErrorPage(context),
-                context
-            )
-            "file://${File(context.filesDir, "server500.html").absolutePath}"
-        } catch (e: Exception) {
-            ""
-        }
+        return "file://${File(context.filesDir, ERROR_PAGE).absolutePath}"
     }
 
-    private fun writeToFile(fileName: String, fileContent: String, context: Context) {
-        val file = File(context.filesDir, fileName)
+    private fun writeErrorPageToFile(fileContent: String, context: Context) {
+        val file = File(context.filesDir, ERROR_PAGE)
         try {
             val outputStream = FileOutputStream(file)
             outputStream.write(fileContent.toByteArray())
@@ -173,5 +168,6 @@ class Ouinet(
         private const val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
         const val PROXY_ACCESS_USER = "user"
         private const val TOKEN_LENGTH: Long = 27
+        private const val ERROR_PAGE = "server500.html"
     }
 }
