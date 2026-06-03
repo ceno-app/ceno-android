@@ -18,11 +18,15 @@ import java.io.InputStreamReader
 import java.net.Inet4Address
 import java.net.InetAddress
 import java.text.SimpleDateFormat
+import java.time.format.DateTimeParseException
 import java.util.Date
 import java.util.Locale
 
 object LogReader {
 
+    // Suppressing detekt warning about generic exceptions, as we have had occasional issues with
+    // the reliability of log exports. Should refactor to isolate which exceptions should be caught.
+    @Suppress("TooGenericExceptionCaught")
     fun getLogEntries(
         timeWindowInMilliseconds: Long? = null,
         progressCallback: (Int) -> Unit
@@ -87,26 +91,6 @@ object LogReader {
         return logs
     }
 
-    private fun isWithinTimeRange(
-        timestamp: String?,
-        currentTimestamp: Long,
-        millisecondDifference: Long
-    ): Boolean {
-
-        if (timestamp == null) return false
-
-        val dateFormat = SimpleDateFormat("yyyy-MM-dd kk:mm:ss.SSS", Locale.getDefault())
-
-        try {
-            val differenceInMillis = currentTimestamp - (dateFormat.parse(timestamp)?.time ?: 0)
-            return differenceInMillis <= millisecondDifference
-
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        return false
-    }
-
     private fun getProgressFromTimestamp(
         timestamp: String?,
         currentTimestamp: Long,
@@ -124,12 +108,13 @@ object LogReader {
             return percent.times(100)
                 .toInt()
 
-        } catch (e: Exception) {
+        } catch (e: DateTimeParseException) {
             e.printStackTrace()
         }
         return 0
     }
 
+    @Suppress("TooGenericExceptionCaught")
     private fun getAllLogs(progressCallback: (Int) -> Unit): List<String> {
 
         val allLogs = mutableListOf<String>()

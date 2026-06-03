@@ -142,13 +142,9 @@ class ExportAndroidLogsDialog(
                                 }
                             ) { p ->
                                 run {
-                                    try {
-                                        if (p > 0) {
-                                            progressView.isIndeterminate = false
-                                            progressView.progress = p
-                                        }
-                                    } catch (e: Exception) {
-                                        e.printStackTrace()
+                                    if (p > 0) {
+                                        progressView.isIndeterminate = false
+                                        progressView.progress = p
                                     }
                                 }
                             }

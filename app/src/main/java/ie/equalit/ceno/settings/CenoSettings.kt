@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -520,7 +521,7 @@ object CenoSettings {
                                     currentMetricsRecordId = context.components.json
                                         .decodeFromString<OuinetStatus>(response)
                                         .current_metrics_record_id
-                                } catch (e: Exception) {
+                                } catch (e: JsonParseException) {
                                     Logger.error("Error decoding ouinet status for metrics: $e")
                                     return@launch
                                 }

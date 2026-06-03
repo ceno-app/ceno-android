@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.OffsetDateTime
 import java.time.ZoneOffset
+import java.time.format.DateTimeParseException
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
@@ -109,23 +110,7 @@ fun String.isDateMoreThanXDaysAway(numberOfDays: Int): Boolean {
         val differenceDays: Int =
             ((date.time - Calendar.getInstance().time.time) / (1000 * 60 * 60 * 24)).toInt()
         return numberOfDays < abs(differenceDays)
-    } catch (e: Exception) {
-        e.printStackTrace()
-        return false
-    }
-}
-
-/**
- * Helper function to determine if a date string is in the past
- */
-fun String.isDatePast(): Boolean {
-    val dateFormat = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.US)
-    dateFormat.timeZone = TimeZone.getTimeZone("GMT") // for consistency
-
-    try {
-        val date: Date = dateFormat.parse(this) ?: return false
-        return Date() > date
-    } catch (e: Exception) {
+    } catch (e: DateTimeParseException) {
         e.printStackTrace()
         return false
     }

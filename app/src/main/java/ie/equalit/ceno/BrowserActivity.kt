@@ -76,6 +76,7 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
+import java.io.IOException
 import kotlin.system.exitProcess
 
 /**
@@ -432,22 +433,21 @@ open class BrowserActivity : BaseActivity(),
 
     val getLogfileLocation =
         registerForActivityResult(ActivityResultContracts.CreateDocument("text/plain")) { uri ->
-            try {
-                if (uri != null) {
-
+            uri?.let {
+                try {
                     // get logs from internal storage
                     this.openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt")
                         .bufferedReader()
                         .useLines { lines ->
                             val fileContent = lines.toMutableList()
                                 .joinToString("\n")
-                            val file = contentResolver.openOutputStream(uri)
+                            val file = contentResolver.openOutputStream(it)
                             file?.write(fileContent.toByteArray())
                             file?.close()
                         }
+                } catch (e: IOException) {
+                    Log.e(TAG, e.message.toString())
                 }
-            } catch (e: Exception) {
-                Log.e(TAG, e.message.toString())
             }
         }
 
