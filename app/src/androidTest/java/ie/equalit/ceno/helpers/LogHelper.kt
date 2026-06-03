@@ -47,11 +47,11 @@ object LogHelper {
                 // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false
                     && isWithinTimeRange(
-                        timestampRegex.find(line!!)?.value,
+                        timestampRegex.find(line)?.value,
                         timeWindowInMilliseconds
                     )
                 ) {
-                    logs.add(line!!)
+                    logs.add(line)
                     logsRead++
                 }
             }
