@@ -14,7 +14,6 @@ import mozilla.components.feature.share.RecentAppsStorage
 class LogsShareController(
     private val context: Context,
     private val logsUri: Uri,
-    private val navController: NavController,
     private val viewLifecycleScope: CoroutineScope,
     private val recentAppsStorage: RecentAppsStorage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,

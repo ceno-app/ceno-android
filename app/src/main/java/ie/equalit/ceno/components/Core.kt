@@ -295,14 +295,17 @@ class Core(private val context: Context) {
         EngineProvider.rootCertificate = rootCertificate
     }
 
-    private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }
-
     val fileSizeFormatter: FileSizeFormatter by lazy { DefaultFileSizeFormatter(context.applicationContext) }
 
     private val dateTimeProvider: DateTimeProvider by lazy { DefaultDateTimeProvider() }
     val downloadEstimator: DownloadEstimator by lazy { DownloadEstimator(dateTimeProvider = dateTimeProvider) }
 
+    /*
+    TODO: Implement secure preferences
+    private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }
+
     companion object {
         private const val KEY_STORAGE_NAME = "core_prefs"
     }
+    */
 }

@@ -75,7 +75,6 @@ class ShareFragment : BottomSheetDialogFragment() {
                     LogsShareController(
                         context = requireContext(),
                         logsUri = uri,
-                        navController = findNavController(),
                         recentAppsStorage = RecentAppsStorage(requireContext()),
                         viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
                     ) { result ->

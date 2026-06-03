@@ -238,8 +238,6 @@ class BrowserRobot {
         }
 
     class Transition {
-        private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
         fun checkExternalApps(interact: ExternalAppsRobot.() -> Unit): ExternalAppsRobot.Transition {
             mDevice.waitForWindowUpdate(packageName, waitingTime)
             ExternalAppsRobot().interact()

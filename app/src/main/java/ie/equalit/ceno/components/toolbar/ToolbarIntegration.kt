@@ -77,7 +77,6 @@ class ToolbarIntegration(
     historyStorage: PlacesHistoryStorage,
     store: BrowserStore,
     private val sessionUseCases: SessionUseCases,
-    private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
     private val readerViewIntegration: ReaderViewIntegration? = null,

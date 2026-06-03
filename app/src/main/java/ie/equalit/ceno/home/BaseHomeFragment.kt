@@ -154,7 +154,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                 requireComponents.core.historyStorage,
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases,
-                requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
             ),
