@@ -21,6 +21,7 @@ import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
 
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class OuinetStatus(
     val auto_refresh: Boolean,
