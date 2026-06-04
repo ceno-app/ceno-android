@@ -35,10 +35,14 @@ sealed class AdapterItem(val type: HomepageCardType) {
     data class CenoAnnouncementItem(val response: RssItem, var mode: BrowsingMode) :
         AdapterItem(RSSAnnouncementViewHolder.homepageCardType) {
         override fun contentsSameAs(other: AdapterItem): Boolean {
-            val newItem = (other as? CenoAnnouncementItem) ?: return false
-            if (newItem.mode != this.mode) return false
-            if (newItem.response.title != this.response.title) return false
-            return super.contentsSameAs(other)
+            val newItem = (other as? CenoAnnouncementItem)
+            if (newItem != null) {
+                if (newItem.mode == this.mode) {
+                    if (newItem.response.title != this.response.title) return false
+                    return super.contentsSameAs(other)
+                }
+            }
+            return false
         }
     }
 

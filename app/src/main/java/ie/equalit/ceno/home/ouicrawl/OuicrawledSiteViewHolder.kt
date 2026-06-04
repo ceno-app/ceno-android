@@ -79,7 +79,7 @@ class OuicrawledSiteViewHolder(
 
     private fun getLastCrawlUpdateTime(lastCrawlUpdatedTS: String): String {
         val difference = lastCrawlUpdatedTS.dateTimeDifference()
-        difference?.let {
+        difference.let {
             val minutes = (it.toInt() / 60000)
 
             if (minutes < 60) {
@@ -100,6 +100,5 @@ class OuicrawledSiteViewHolder(
                 days, days
             )
         }
-        return ""
     }
 }
