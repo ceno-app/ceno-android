@@ -4,11 +4,6 @@
 
 package ie.equalit.ceno.ui
 
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
@@ -16,6 +11,11 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class SearchTest {
 
@@ -53,26 +53,33 @@ class SearchTest {
         // because they can cause this test to fail
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            verifySearchButton()
-        }.openSettingsViewSearch {
-            verifyGetSearchSuggestionsToggle()
-            toggleGetSearchSuggestions()
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                verifySearchButton()
+            }
+            .openSettingsViewSearch {
+                verifyGetSearchSuggestionsToggle()
+                toggleGetSearchSuggestions()
+            }
+            .goBack {
+            }
+            .goBack {
+            }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
         }
         navigationToolbar {
         }.openTabTrayMenu {
             verifyExistingOpenTabs(defaultWebPage.title)
-        }.openNewTab {
-        }.clickToolbar {
-            typeText("generic1.html")
-            verifySearchSuggestion(defaultWebPage.title)
-        }.clickSearchSuggestion(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.displayUrl)
         }
+            .openNewTab {
+            }
+            .clickToolbar {
+                typeText("generic1.html")
+                verifySearchSuggestion(defaultWebPage.title)
+            }
+            .clickSearchSuggestion(defaultWebPage.title) {
+                verifyUrl(defaultWebPage.displayUrl)
+            }
     }
 }

@@ -39,25 +39,25 @@ class SettingsViewDeveloperToolsRobot {
 
     // toggleRemoteDebugging does not yet verify that the debug service is started
     // server runs on port 6000
-    fun toggleRemoteDebuggingOn() : ViewInteraction {
+    fun toggleRemoteDebuggingOn(): ViewInteraction {
         remoteDebuggingToggle().assertIsChecked(false)
         remoteDebuggingToggle().click()
         return remoteDebuggingToggle().assertIsChecked(true)
     }
 
-    fun toggleRemoteDebuggingOff() : ViewInteraction {
+    fun toggleRemoteDebuggingOff(): ViewInteraction {
         remoteDebuggingToggle().assertIsChecked(true)
         remoteDebuggingToggle().click()
         return remoteDebuggingToggle().assertIsChecked(false)
     }
 
-    fun toggleAnnouncementExpirationOn() : ViewInteraction {
+    fun toggleAnnouncementExpirationOn(): ViewInteraction {
         announcementExpiration().assertIsChecked(false)
         announcementExpiration().click()
         return announcementExpiration().assertIsChecked(true)
     }
 
-    fun toggleAnnouncementExpirationOff() : ViewInteraction {
+    fun toggleAnnouncementExpirationOff(): ViewInteraction {
         announcementExpiration().assertIsChecked(true)
         announcementExpiration().click()
         return announcementExpiration().assertIsChecked(false)
@@ -105,12 +105,19 @@ private fun remoteDebuggingToggle() = Espresso.onView(
         )
     )
 )
+
 private fun exportOuinetLog() = Espresso.onView(withText(R.string.preferences_ceno_download_log))
-private fun exportOuinetLogDescription() = Espresso.onView(withText(R.string.ouinet_log_file_prompt_desc))
+private fun exportOuinetLogDescription() =
+    Espresso.onView(withText(R.string.ouinet_log_file_prompt_desc))
+
 private fun exportOuinetLogDownload() = Espresso.onView(withText(R.string.download_logs))
 private fun exportOuinetLogView() = Espresso.onView(withText(R.string.view_logs))
-private fun announcementSource() = Espresso.onView(withText(R.string.preferences_announcement_source))
-private fun announcementSourceSummary() = Espresso.onView(withText(R.string.preferences_announcement_source_summary))
+private fun announcementSource() =
+    Espresso.onView(withText(R.string.preferences_announcement_source))
+
+private fun announcementSourceSummary() =
+    Espresso.onView(withText(R.string.preferences_announcement_source_summary))
+
 private fun announcementExpiration() = Espresso.onView(
     allOf(
         withId(R.id.switchWidget), hasCousin(
@@ -118,46 +125,69 @@ private fun announcementExpiration() = Espresso.onView(
         )
     )
 )
-private fun announcementOption1() = Espresso.onView(withText(R.string.preferences_announcement_source_option_1))
-private fun announcementOption2() = Espresso.onView(withText(R.string.preferences_announcement_source_option_2))
-private fun announcementOption3() = Espresso.onView(withText(R.string.preferences_announcement_source_option_3))
+
+private fun announcementOption1() =
+    Espresso.onView(withText(R.string.preferences_announcement_source_option_1))
+
+private fun announcementOption2() =
+    Espresso.onView(withText(R.string.preferences_announcement_source_option_2))
+
+private fun announcementOption3() =
+    Espresso.onView(withText(R.string.preferences_announcement_source_option_3))
+
 private fun cancelDialogButton() = mDevice.findObject(
     UiSelector().resourceId("android:id/button2"),
 )
+
 private fun testMetrics() = Espresso.onView(withText(R.string.preferences_test_metrics))
 private fun testMetricsSuccess() = Espresso.onView(withText(R.string.test_metrics_dialog_success))
 
 private fun okDialogButton() = mDevice.findObject(
     UiSelector().resourceId("android:id/button1"),
 )
+
 private fun assertDeveloperToolsUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertDeveloperToolsHeading() = developerToolsHeading()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRemoteDebugging() = remoteDebuggingToggle()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertExportOuinetLog() = exportOuinetLog()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertExportOuinetLogDescription() = exportOuinetLogDescription()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertExportOuinetLogDownload() = exportOuinetLogDownload()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertExportOuinetLogView() = exportOuinetLogView()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementSource() = announcementSource()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementSourceSummary() = announcementSourceSummary()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementExpiration() = announcementExpiration()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementOption1() = announcementOption1()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementOption2() = announcementOption2()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAnnouncementOption3() = announcementOption3()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTestMetrics() = testMetrics()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTestMetricsSuccess() = testMetricsSuccess()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

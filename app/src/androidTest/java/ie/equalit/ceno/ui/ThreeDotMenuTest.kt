@@ -139,16 +139,18 @@ class ThreeDotMenuTest {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
             verifyPageContent("Page content: 2")
         }
-        navigationToolbar{
-        }.openThreeDotMenu{
-        }.goBack{
-            verifyPageContent("Page content: 1")
-        }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.goForward {
-            verifyPageContent("Page content: 2")
         }
+            .goBack {
+                verifyPageContent("Page content: 1")
+            }
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }
+            .goForward {
+                verifyPageContent("Page content: 2")
+            }
     }
 
     @Test
@@ -159,24 +161,28 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openTabTrayMenu {
             openPrivateBrowsing()
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyUrl(defaultWebPage.displayUrl)
         }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(defaultWebPage.url) {
+                verifyUrl(defaultWebPage.displayUrl)
+            }
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(nextWebPage.url) {
             verifyUrl(nextWebPage.displayUrl)
         }
-        navigationToolbar{
-        }.openThreeDotMenu{
-        }.goBack{
-            verifyUrl(defaultWebPage.displayUrl)
-        }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.goForward {
-            verifyUrl(nextWebPage.displayUrl)
         }
+            .goBack {
+                verifyUrl(defaultWebPage.displayUrl)
+            }
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }
+            .goForward {
+                verifyUrl(nextWebPage.displayUrl)
+            }
     }
 
     // need to add clear cache setup to ensure correct starting page
@@ -196,9 +202,10 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
             // refresh page and verify
-        }.refreshPage {
-            verifyPageContent("REFRESHED")
         }
+            .refreshPage {
+                verifyPageContent("REFRESHED")
+            }
     }
 
     @Test
@@ -210,16 +217,17 @@ class ThreeDotMenuTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.clickShareButton {
-            mDevice.waitForIdle()
-            Thread.sleep(5000)
-            verifyShareTabLayout()
-            verifyRecentAppsContainer()
-            verifyShareApps()
-            verifyRecentAppsContainerHeader()
-            verifyShareAppsHeader()
-            verifyShareToPdf()
         }
+            .clickShareButton {
+                mDevice.waitForIdle()
+                Thread.sleep(5000)
+                verifyShareTabLayout()
+                verifyRecentAppsContainer()
+                verifyShareApps()
+                verifyRecentAppsContainerHeader()
+                verifyShareAppsHeader()
+                verifyShareToPdf()
+            }
     }
 
     @Test
@@ -232,17 +240,18 @@ class ThreeDotMenuTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openFindInPage {
-            verifyFindInPageBar()
-            enterFindInPageQuery("e")
-            verifyFindInPageResult("1/2")
-            clickFindInPageNextButton()
-            verifyFindInPageResult("2/2")
-            clickFindInPagePreviousButton()
-            verifyFindInPageResult("1/2")
-            clickFindInPageCloseButton()
-            verifyFindInPageBarIsDismissed()
         }
+            .openFindInPage {
+                verifyFindInPageBar()
+                enterFindInPageQuery("e")
+                verifyFindInPageResult("1/2")
+                clickFindInPageNextButton()
+                verifyFindInPageResult("2/2")
+                clickFindInPagePreviousButton()
+                verifyFindInPageResult("1/2")
+                clickFindInPageCloseButton()
+                verifyFindInPageBarIsDismissed()
+            }
     }
 
     // so less flaky, we only test redirect to github login
@@ -269,9 +278,10 @@ class ThreeDotMenuTest {
     fun openSettingsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            verifySettingsViewExists()
         }
+            .openSettings {
+                verifySettingsViewExists()
+            }
     }
 
     // Verifies the Synced tabs menu opens from a tab's 3 dot menu and displays the correct view if the user isn't signed in
@@ -302,13 +312,17 @@ class ThreeDotMenuTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.switchRequestDesktopSiteToggle {
-        }.openThreeDotMenu {
-            verifyRequestDesktopSiteIsTurnedOn()
-        }.switchRequestDesktopSiteToggle {
-        }.openThreeDotMenu {
-            verifyRequestDesktopSiteIsTurnedOff()
         }
+            .switchRequestDesktopSiteToggle {
+            }
+            .openThreeDotMenu {
+                verifyRequestDesktopSiteIsTurnedOn()
+            }
+            .switchRequestDesktopSiteToggle {
+            }
+            .openThreeDotMenu {
+                verifyRequestDesktopSiteIsTurnedOff()
+            }
     }
 
     // TODO: this feature is needs permissions for
@@ -324,17 +338,20 @@ class ThreeDotMenuTest {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openAddToHomeScreen {
-            clickCancelAddToHomeScreenButton()
         }
+            .openAddToHomeScreen {
+                clickCancelAddToHomeScreenButton()
+            }
 
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openAddToHomeScreen {
-            clickAddAutomaticallyToHomeScreenButton()
-        }.openHomeScreenShortcut(defaultWebPage.title) {
-            verifyUrl(defaultWebPage.displayUrl)
         }
+            .openAddToHomeScreen {
+                clickAddAutomaticallyToHomeScreenButton()
+            }
+            .openHomeScreenShortcut(defaultWebPage.title) {
+                verifyUrl(defaultWebPage.displayUrl)
+            }
     }
 
     @Test
@@ -349,25 +366,30 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
-        }.openUblockOrigin {
-            Thread.sleep(2000)
-            verifyPageContent("Blocked on this page")
-        }.goBack{}
+        }
+            .openUblockOrigin {
+                Thread.sleep(2000)
+                verifyPageContent("Blocked on this page")
+            }
+            .goBack {}
 
         navigationToolbar {
         }.openContentSourcesSheet {
-           verifyContentSourcesSiteTitle()
-           verifyContentSourcesHeader()
-        }.closeContentSourcesSheet {
+            verifyContentSourcesSiteTitle()
+            verifyContentSourcesHeader()
         }
+            .closeContentSourcesSheet {
+            }
 
         navigationToolbar {
         }.openThreeDotMenu {
             verifyUblockOriginButtonExists()
-        }.openUblockOrigin {
-            Thread.sleep(2000)
-            verifyPageContent("Blocked on this page")
-        }.goBack{}
+        }
+            .openUblockOrigin {
+                Thread.sleep(2000)
+                verifyPageContent("Blocked on this page")
+            }
+            .goBack {}
     }
 
     @Test
@@ -382,24 +404,29 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
-        }.openHttpsByDefault {
-            Thread.sleep(2000)
-            verifyPageContent("HTTPS is enabled by default for all navigations")
-        }.goBack{}
+        }
+            .openHttpsByDefault {
+                Thread.sleep(2000)
+                verifyPageContent("HTTPS is enabled by default for all navigations")
+            }
+            .goBack {}
 
         navigationToolbar {
         }.openContentSourcesSheet {
             verifyContentSourcesSiteTitle()
             verifyContentSourcesHeader()
-        }.closeContentSourcesSheet {
         }
+            .closeContentSourcesSheet {
+            }
 
         navigationToolbar {
         }.openThreeDotMenu {
             verifyHttpsByDefaultButtonExists()
-        }.openHttpsByDefault {
-            Thread.sleep(2000)
-            verifyPageContent("HTTPS is enabled by default for all navigations")
-        }.goBack{}
+        }
+            .openHttpsByDefault {
+                Thread.sleep(2000)
+                verifyPageContent("HTTPS is enabled by default for all navigations")
+            }
+            .goBack {}
     }
 }

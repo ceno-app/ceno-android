@@ -43,10 +43,12 @@ class SettingsViewAboutPageRobot {
     }
 }
 
-private fun aboutPageSettingsView() = Espresso.onView(ViewMatchers.withText(R.string.preferences_about_page))
+private fun aboutPageSettingsView() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_about_page))
 
 private fun assertAboutPageUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertAboutPageSettingsView() = aboutPageSettingsView()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

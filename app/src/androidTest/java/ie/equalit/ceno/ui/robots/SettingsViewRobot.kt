@@ -101,20 +101,23 @@ class SettingsViewRobot {
     fun clickChangeLanguageButton() {
         changeLanguageButton().click()
     }
+
     fun clickCenoVersionDisplay() = cenoVersionDisplay().click()
 
     fun waitForBridgeModeDialogToExist() {
         mDevice.findObject(
             UiSelector()
                 .resourceId("$packageName:id/progressBar2")
-        ).waitForExists(waitingTime)
+        )
+            .waitForExists(waitingTime)
     }
 
     fun waitForBridgeModeDialog() {
         mDevice.findObject(
             UiSelector()
                 .resourceId("$packageName:id/progressBar2")
-        ).waitUntilGone(waitingTime)
+        )
+            .waitUntilGone(waitingTime)
     }
 
     fun waitForThankYouDialog() {
@@ -248,18 +251,39 @@ private fun trackingProtectionButton() = onView(withText(R.string.tracker_catego
 private fun trackingProtectionSummary() = onView(withText(R.string.preferences_privacy_summary))
 private fun searchButton() = onView(withText(R.string.set_default_search_engine))
 private fun searchSummary() = onView(withText("DuckDuckGo selected"))
+
 //TODO: check for different search engines when they are set
-private fun customizationButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_customization))))
+private fun customizationButton() =
+    onView(allOf(isClickable(), withChild(withText(R.string.preferences_customization))))
+
 private fun customizationSummary() = onView(withText(R.string.preferences_customization_summary))
-private fun openLinksInAppsToggle() = Espresso.onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.open_links_in_apps))))
-private fun makeDefaultBrowserButton() = Espresso.onView(withText(R.string.preferences_make_default_browser))
+private fun openLinksInAppsToggle() = onView(
+    allOf(
+        withId(R.id.switchWidget),
+        hasCousin(withText(R.string.open_links_in_apps))
+    )
+)
+
+private fun makeDefaultBrowserButton() =
+    onView(withText(R.string.preferences_make_default_browser))
 
 private fun addOnsButton() = onView(withText(R.string.preferences_add_ons))
 
-private fun bridgeModeToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_bridge_announcement))))
+private fun bridgeModeToggle() = onView(
+    allOf(
+        withId(R.id.switchWidget),
+        hasCousin(withText(R.string.preferences_ceno_bridge_announcement))
+    )
+)
+
 private fun bridgeModeSummary() = onView(withText(R.string.bridge_mode_ip_warning_text))
-private fun deleteBrowsingDataButton() =  onView(withText(R.string.preferences_delete_browsing_data))
-private fun showOnboardingToggle() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_show_onboarding))))
+private fun deleteBrowsingDataButton() = onView(withText(R.string.preferences_delete_browsing_data))
+private fun showOnboardingToggle() = onView(
+    allOf(
+        withId(R.id.switchWidget),
+        hasCousin(withText(R.string.preferences_show_onboarding))
+    )
+)
 
 private fun backgroundMetricsButton() = onView(withText(R.string.preferences_metrics_campaign))
 
@@ -269,72 +293,104 @@ private fun localCacheDefaultValue() = onView(withText("O B"))
 private fun contentsSharedButton() = onView(withText(R.string.preferences_ceno_groups_count))
 private fun contentsSharedDefaultValue() = onView(withText("0 sites"))
 private fun clearCachedContentButton() = onView(withText(R.string.preferences_clear_ceno_cache))
-private fun clearCachedContentSummary() = onView(withText(R.string.preferences_clear_ceno_cache_summary))
+private fun clearCachedContentSummary() =
+    onView(withText(R.string.preferences_clear_ceno_cache_summary))
 
-private fun developerToolsHeading() = Espresso.onView(withText(R.string.developer_tools_category))
+private fun developerToolsHeading() = onView(withText(R.string.developer_tools_category))
 private fun cenoNetworkDetailsButton() = onView(withText(R.string.preferences_ceno_network_config))
-private fun cenoNetworkDetailsSummary() = onView(withText(R.string.preferences_ceno_network_config_summary))
-private fun enableLogFile() = onView(allOf(withId(R.id.switchWidget), hasCousin(withText(R.string.preferences_ceno_enable_log))))
+private fun cenoNetworkDetailsSummary() =
+    onView(withText(R.string.preferences_ceno_network_config_summary))
+
+private fun enableLogFile() = onView(
+    allOf(
+        withId(R.id.switchWidget),
+        hasCousin(withText(R.string.preferences_ceno_enable_log))
+    )
+)
+
 private fun privacyButton() = onView(withText(R.string.tracker_category))
-private fun additionalDeveloperToolsButton() = onView(withText(R.string.preferences_additional_developer_tools))
+private fun additionalDeveloperToolsButton() =
+    onView(withText(R.string.preferences_additional_developer_tools))
+
 private fun exportLogButton() = onView(withText(R.string.preferences_ceno_export_android_logs))
 
 private fun websiteSourcesButton() = onView(withText(R.string.preferences_ceno_website_sources))
 private fun websiteSourcesSummary() = onView(withText(R.string.preferences_website_sources_summary))
 
-private fun aboutHeading() = onView(allOf(withText(R.string.about_category), withParent(withId(R.id.recycler_view))))
-private fun cenoBrowserServiceDisplay() = onView(withText(R.string.preferences_about_ceno_browser_service))
+private fun aboutHeading() =
+    onView(allOf(withText(R.string.about_category), withParent(withId(R.id.recycler_view))))
+
+private fun cenoBrowserServiceDisplay() =
+    onView(withText(R.string.preferences_about_ceno_browser_service))
+
 private fun cenoVersionDisplay() = onView(withText(R.string.preferences_about_ceno))
 private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_about_geckoview))
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
 private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
 private fun permissionsHeading() = onView(withText(R.string.ceno_permissions_category))
 
-private fun aboutEqualitieButton() = onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
+private fun aboutEqualitieButton() =
+    onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
 
 private fun assertGeneralHeading() = generalHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTrackingProtectionButton() = trackingProtectionButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTrackingProtectionSummary() = trackingProtectionSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSearchButton() = searchButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSearchSummary() = searchSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertCustomizationButton() = customizationButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertCustomizationSummary() = customizationSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertNavigateUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertOpenLinksInApps() = openLinksInAppsToggle()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertMakeDefaultBrowserButton() = makeDefaultBrowserButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAddOnsButton() = addOnsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBridgeModeToggle() = bridgeModeToggle()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBridgeModeSummary() = bridgeModeSummary()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDeleteBrowsingData() = deleteBrowsingDataButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDisableBatteryOptimizationButton() {
     mDevice.wait(Until.findObject(By.text("Battery Optimization")), waitingTime)
 }
+
 private fun assertShowOnboarding() = showOnboardingToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertBackgroundMetricsButton() = backgroundMetricsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertDataHeading() = dataHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertPermissionsHeading() = permissionsHeading()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertLocalCacheDisplay() = localCacheDisplay()
 private fun assertLocalCacheDefaultValue() = localCacheDefaultValue()
 private fun assertContentsSharedButton() = contentsSharedButton()
@@ -343,36 +399,48 @@ private fun assertClearCachedContentButton() = clearCachedContentButton()
 private fun assertClearCachedContentSummary() = clearCachedContentSummary()
 
 private fun assertDeveloperToolsHeading() = developerToolsHeading()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertCenoNetworkDetailsButton() = cenoNetworkDetailsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertCenoNetworkDetailsSummary() = cenoNetworkDetailsSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertEnableLogFile() = enableLogFile()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertWebsiteSourcesButton() = websiteSourcesButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertWebsiteSourcesSummary() = websiteSourcesSummary()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAdditionalDeveloperToolsButton() = additionalDeveloperToolsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAdditionalDeveloperToolsButtonGone() = additionalDeveloperToolsButton()
     .check(doesNotExist())
+
 private fun assertExportLogButton() = exportLogButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertExportLogButtonGone() = exportLogButton()
     .check(doesNotExist())
 
-private fun assertAboutHeading() { aboutHeading()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+private fun assertAboutHeading() {
+    aboutHeading()
+        .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
+
 private fun assertCenoBrowserServiceDisplay() = cenoBrowserServiceDisplay()
 private fun assertCenoVersionDisplay() = cenoVersionDisplay()
 private fun assertGeckoviewVersionDisplay() = geckoviewVersionDisplay()
 private fun assertOuinetVersionDisplay() = ouinetVersionDisplay()
 private fun assertAboutEqualitieButton() = aboutEqualitieButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-private fun assertChangeLanguageButton() = changeLanguageButton().check(matches( isDisplayed()))
+
+private fun assertChangeLanguageButton() = changeLanguageButton().check(matches(isDisplayed()))
 private fun assertAllowNotificationButton() {
     mDevice.wait(Until.findObject(By.text("Notifications")), waitingTime)
 }

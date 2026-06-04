@@ -5,8 +5,8 @@
 package ie.equalit.ceno.helpers
 
 import android.net.Uri
-import okhttp3.mockwebserver.MockWebServer
 import ie.equalit.ceno.helpers.ext.toUri
+import okhttp3.mockwebserver.MockWebServer
 import java.util.concurrent.TimeUnit
 
 /**
@@ -16,7 +16,13 @@ object TestAssetHelper {
     @Suppress("MagicNumber")
     val waitingTime: Long = TimeUnit.SECONDS.toMillis(15)
     val waitingTimeShort: Long = TimeUnit.SECONDS.toMillis(1)
-    data class TestAsset(val url: Uri, val content: String, val title: String, val displayUrl: String = "")
+
+    data class TestAsset(
+        val url: Uri,
+        val content: String,
+        val title: String,
+        val displayUrl: String = ""
+    )
 
     /**
      * Hosts 3 simple websites, found at androidTest/assets/pages/generic[1|2|3].html
@@ -30,7 +36,9 @@ object TestAssetHelper {
         @Suppress("MagicNumber")
         return (1..4).map {
             TestAsset(
-                server.url("pages/generic$it.html").toString().toUri()!!,
+                server.url("pages/generic$it.html")
+                    .toString()
+                    .toUri()!!,
                 "Page content: $it",
                 "",
             )
@@ -38,48 +46,63 @@ object TestAssetHelper {
     }
 
     fun getGenericAsset(server: MockWebServer, pageNum: Int): TestAsset {
-        val url = server.url("pages/generic$pageNum.html").toString().toUri()!!
+        val url = server.url("pages/generic$pageNum.html")
+            .toString()
+            .toUri()!!
         val content = "Page content: $pageNum"
         val title = "Test_Page_$pageNum"
-        val displayUrl = url.toString().replaceFirst("^https?://(www\\.)?".toRegex(), "")
+        val displayUrl = url.toString()
+            .replaceFirst("^https?://(www\\.)?".toRegex(), "")
         return TestAsset(url, content, title, displayUrl)
     }
 
     fun getLoremIpsumAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/lorem-ipsum.html").toString().toUri()!!
+        val url = server.url("pages/lorem-ipsum.html")
+            .toString()
+            .toUri()!!
         val content = "Page content: lorem ipsum"
         return TestAsset(url, content, "")
     }
 
     fun getRefreshAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/refresh.html").toString().toUri()!!
+        val url = server.url("pages/refresh.html")
+            .toString()
+            .toUri()!!
         val content = "Page content: refresh"
 
         return TestAsset(url, content, "")
     }
 
     fun getUUIDPage(server: MockWebServer): TestAsset {
-        val url = server.url("pages/basic_nav_uuid.html").toString().toUri()!!
+        val url = server.url("pages/basic_nav_uuid.html")
+            .toString()
+            .toUri()!!
         val content = "Page content: basic_nav_uuid"
 
         return TestAsset(url, content, "")
     }
 
     fun getImageAsset(server: MockWebServer): TestAsset {
-        val url = server.url("resources/rabbit.jpg").toString().toUri()!!
+        val url = server.url("resources/rabbit.jpg")
+            .toString()
+            .toUri()!!
 
         return TestAsset(url, "", "")
     }
 
     fun getDownloadAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/download.html").toString().toUri()!!
+        val url = server.url("pages/download.html")
+            .toString()
+            .toUri()!!
         val content = "Page content: web_icon.png"
 
         return TestAsset(url, content, "")
     }
 
     fun getAudioPageAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/audioMediaPage.html").toString().toUri()!!
+        val url = server.url("pages/audioMediaPage.html")
+            .toString()
+            .toUri()!!
         val title = "Audio_Test_Page"
         val content = "Page content: audio player"
 
@@ -87,7 +110,9 @@ object TestAssetHelper {
     }
 
     fun getVideoPageAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/videoMediaPage.html").toString().toUri()!!
+        val url = server.url("pages/videoMediaPage.html")
+            .toString()
+            .toUri()!!
         val title = "Video_Test_Page"
         val content = "Page content: video player"
 
@@ -95,7 +120,9 @@ object TestAssetHelper {
     }
 
     fun getNoControlsVideoPageAsset(server: MockWebServer): TestAsset {
-        val url = server.url("pages/noControlsVideoMediaPage.html").toString().toUri()!!
+        val url = server.url("pages/noControlsVideoMediaPage.html")
+            .toString()
+            .toUri()!!
         val title = "No_Controls_Video_Test_Page"
         val content = "Page content: video player"
 

@@ -6,9 +6,9 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
+import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.click
-import ie.equalit.ceno.R
 
 /**
  * Implementation of Robot Pattern for the settings customization menu.
@@ -59,32 +59,48 @@ class SettingsViewCustomizationRobot {
         }
     }
 }
-private fun customizationSettingsView() = Espresso.onView(ViewMatchers.withText(R.string.preferences_customization))
 
-private fun changeAppIconButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
+private fun customizationSettingsView() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_customization))
+
+private fun changeAppIconButton() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
+
 private fun setAppThemeButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme))
-private fun setAppThemeSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme_summary))
+private fun setAppThemeSummary() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_theme_summary))
 
-private fun showHomeButtonToggle() = Espresso.onView(ViewMatchers.withText(R.string.preferences_show_home_button))
-private fun defaultBehaviorButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
-private fun defaultBehaviorSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
+private fun showHomeButtonToggle() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_show_home_button))
+
+private fun defaultBehaviorButton() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
+
+private fun defaultBehaviorSummary() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
 
 private fun assertCustomizationUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertCustomizationSettingsView() = customizationSettingsView()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertChangeAppIconButton() = changeAppIconButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSetAppThemeButton() = setAppThemeButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSetAppThemeSummary() = setAppThemeSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertShowHomeButtonToggle() = showHomeButtonToggle()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDefaultBehaviorButton() = defaultBehaviorButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDefaultBehaviorSummary() = defaultBehaviorSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 

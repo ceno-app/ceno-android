@@ -7,15 +7,18 @@ package ie.equalit.ceno.ext
 import androidx.test.uiautomator.SearchCondition
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
-import org.junit.Assert.assertNotNull
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
+import org.junit.Assert.assertNotNull
 
 /**
  * Wait for an [UiObject2] and perform an interaction on it.
  *
  * @throws AssertionError if no [UiObject2] matches the condition
  */
-fun UiDevice.waitAndInteract(condition: SearchCondition<UiObject2>, interaction: UiObject2.() -> Unit) {
+fun UiDevice.waitAndInteract(
+    condition: SearchCondition<UiObject2>,
+    interaction: UiObject2.() -> Unit
+) {
     val obj = this.wait(condition, waitingTime)
     assertNotNull(obj)
     interaction.invoke(obj)

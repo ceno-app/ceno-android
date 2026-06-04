@@ -6,10 +6,10 @@ package ie.equalit.ceno.helpers.matchers
 
 import android.view.View
 import android.widget.TextView
+import ie.equalit.ceno.R
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import ie.equalit.ceno.R
 
 /**
  * A custom matcher for finding tabs to match text within them.

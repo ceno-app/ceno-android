@@ -1,7 +1,6 @@
 package ie.equalit.ceno.helpers
 
 import android.content.Context
-import android.util.Log
 import androidx.test.platform.app.InstrumentationRegistry
 import kotlinx.coroutines.runBlocking
 import mozilla.appservices.places.BookmarkRoot
@@ -56,7 +55,8 @@ object MockBrowserDataHelper {
                     parentGuid = parentGuid,
                     title = title,
                     position = position,
-                ).toString()
+                )
+                .toString()
         }
     }
 }

@@ -7,8 +7,8 @@ package ie.equalit.ceno.ui.robots
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import org.junit.Assert.assertTrue
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
+import org.junit.Assert.assertTrue
 
 /**
  * Implementation of Robot Pattern for the content panel.
@@ -28,6 +28,9 @@ class ContentPanelRobot {
 
 private fun assertShareContentPanel() {
     mDevice.waitForIdle()
-    assertTrue(mDevice.findObject(UiSelector().textContains("Share")).waitForExists(waitingTime))
+    assertTrue(
+        mDevice.findObject(UiSelector().textContains("Share"))
+            .waitForExists(waitingTime)
+    )
     mDevice.pressBack()
 }
