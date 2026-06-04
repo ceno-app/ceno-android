@@ -30,7 +30,7 @@ class AppRequestInterceptor(private val context: Context) : RequestInterceptor {
     ): RequestInterceptor.InterceptionResponse? {
         return when (uri) {
             "about:privatebrowsing" -> {
-                val page = PrivatePage.createPrivateBrowsingPage(context, uri)
+                val page = PrivatePage.createPrivateBrowsingPage(context)
                 RequestInterceptor.InterceptionResponse.Content(page, encoding = "base64")
             }
 

@@ -16,7 +16,6 @@ object PrivatePage {
      */
     fun createPrivateBrowsingPage(
         context: Context,
-        url: String,
         @RawRes htmlRes: Int = R.raw.private_mode,
         @RawRes cssRes: Int = R.raw.private_style,
     ): String {
