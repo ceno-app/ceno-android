@@ -55,7 +55,7 @@ class DefaultBookmarkController(
     private val store: BookmarkFragmentStore,
     private val sharedViewModel: BookmarksSharedViewModel,
     private val loadBookmarkNode: suspend (String, Boolean) -> BookmarkNode?,
-    private val deleteBookmarkNodes: (Set<BookmarkNode>, BookmarkRemoveType) -> Unit,
+    private val deleteBookmarkNodes: (Set<BookmarkNode>) -> Unit,
     private val deleteBookmarkFolder: (Set<BookmarkNode>) -> Unit,
 ) : BookmarkController {
     override fun handleBookmarkChanged(item: BookmarkNode) {
@@ -128,7 +128,7 @@ class DefaultBookmarkController(
     }
 
     override fun handleBookmarkDeletion(nodes: Set<BookmarkNode>, removeType: BookmarkRemoveType) {
-        deleteBookmarkNodes(nodes, removeType)
+        deleteBookmarkNodes(nodes)
     }
 
     override fun handleBookmarkFolderDeletion(nodes: Set<BookmarkNode>) {

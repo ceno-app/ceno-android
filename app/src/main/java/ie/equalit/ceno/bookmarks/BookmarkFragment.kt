@@ -163,7 +163,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
 
     private fun deleteMulti(
         selected: Set<BookmarkNode>,
-        eventType: BookmarkRemoveType = BookmarkRemoveType.MULTIPLE,
+        //eventType: BookmarkRemoveType = BookmarkRemoveType.MULTIPLE,
     ) {
         selected.iterator()
             .forEach {
