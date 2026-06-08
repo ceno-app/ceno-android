@@ -1,17 +1,16 @@
 package ie.equalit.ceno.ui
 
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Ignore
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class ReaderViewTest {
 
@@ -49,18 +48,21 @@ class ReaderViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyEnableReaderViewButton()
-        }.clickReaderViewButton {
-            verifyAppearanceButtonExists()
-            clickAppearanceButton()
-            verifyAppearanceMenuExists()
-        }.dismissAppearanceMenu {
         }
+            .clickReaderViewButton {
+                verifyAppearanceButtonExists()
+                clickAppearanceButton()
+                verifyAppearanceMenuExists()
+            }
+            .dismissAppearanceMenu {
+            }
         navigationToolbar {
         }.openThreeDotMenu {
             verifyDisableReaderViewButton()
-        }.clickDisableReaderViewButton {
-            verifyAppearanceButtonDoesntExists()
         }
+            .clickDisableReaderViewButton {
+                verifyAppearanceButtonDoesntExists()
+            }
     }
 
     @Test
@@ -73,16 +75,17 @@ class ReaderViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyEnableReaderViewButton()
-        }.clickReaderViewButton {
-            verifyAppearanceButtonExists()
-            clickAppearanceButton()
-            verifyAppearanceMenuExists()
-            verifyFontGroupButtons()
-            clickSansSerifButton()
-            verifyActiveAppearanceFont("SANSSERIF")
-            clickSerifButton()
-            verifyActiveAppearanceFont("SERIF")
         }
+            .clickReaderViewButton {
+                verifyAppearanceButtonExists()
+                clickAppearanceButton()
+                verifyAppearanceMenuExists()
+                verifyFontGroupButtons()
+                clickSansSerifButton()
+                verifyActiveAppearanceFont("SANSSERIF")
+                clickSerifButton()
+                verifyActiveAppearanceFont("SERIF")
+            }
     }
 
     @Test
@@ -95,18 +98,19 @@ class ReaderViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyEnableReaderViewButton()
-        }.clickReaderViewButton {
-            verifyAppearanceButtonExists()
-            clickAppearanceButton()
-            verifyAppearanceMenuExists()
-            verifyIncreaseFontSizeButton()
-            verifyDecreaseFontSizeButton()
-            verifyAppearanceFontSize(3)
-            clickIncreaseFontSizeButton()
-            verifyAppearanceFontSize(4)
-            clickDecreaseFontSizeButton()
-            verifyAppearanceFontSize(3)
         }
+            .clickReaderViewButton {
+                verifyAppearanceButtonExists()
+                clickAppearanceButton()
+                verifyAppearanceMenuExists()
+                verifyIncreaseFontSizeButton()
+                verifyDecreaseFontSizeButton()
+                verifyAppearanceFontSize(3)
+                clickIncreaseFontSizeButton()
+                verifyAppearanceFontSize(4)
+                clickDecreaseFontSizeButton()
+                verifyAppearanceFontSize(3)
+            }
     }
 
     @Test
@@ -119,17 +123,18 @@ class ReaderViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyEnableReaderViewButton()
-        }.clickReaderViewButton {
-            verifyAppearanceButtonExists()
-            clickAppearanceButton()
-            verifyAppearanceMenuExists()
-            verifyColorSchemeGroupButtons()
-            clickSepiaColorButton()
-            verifyAppearanceColorScheme("SEPIA")
-            clickDarkColorButton()
-            verifyAppearanceColorScheme("DARK")
-            clickLightColorButton()
-            verifyAppearanceColorScheme("LIGHT")
         }
+            .clickReaderViewButton {
+                verifyAppearanceButtonExists()
+                clickAppearanceButton()
+                verifyAppearanceMenuExists()
+                verifyColorSchemeGroupButtons()
+                clickSepiaColorButton()
+                verifyAppearanceColorScheme("SEPIA")
+                clickDarkColorButton()
+                verifyAppearanceColorScheme("DARK")
+                clickLightColorButton()
+                verifyAppearanceColorScheme("LIGHT")
+            }
     }
 }

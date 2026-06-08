@@ -73,7 +73,8 @@ class ThreeDotMenuRobot {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
-            ).waitUntilGone(waitingTime)
+            )
+                .waitUntilGone(waitingTime)
             mDevice.waitForIdle()
 
             BrowserRobot().interact()
@@ -112,7 +113,8 @@ class ThreeDotMenuRobot {
                     mDevice.findObject(
                         UiSelector()
                             .resourceId("$packageName:id/mozac_browser_menu_recyclerView"),
-                    ).waitUntilGone(waitingTime),
+                    )
+                        .waitUntilGone(waitingTime),
                 )
             } catch (e: AssertionFailedError) {
                 println("Failed to click request desktop toggle")
@@ -128,7 +130,8 @@ class ThreeDotMenuRobot {
                     mDevice.findObject(
                         UiSelector()
                             .resourceId("$packageName:id/mozac_browser_menu_recyclerView"),
-                    ).waitUntilGone(waitingTime),
+                    )
+                        .waitUntilGone(waitingTime),
                 )
             }
             NavigationToolbarRobot().interact()
@@ -183,7 +186,8 @@ class ThreeDotMenuRobot {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
-            ).waitUntilGone(waitingTime)
+            )
+                .waitUntilGone(waitingTime)
             mDevice.waitForIdle()
 
             BrowserRobot().interact()
@@ -191,7 +195,8 @@ class ThreeDotMenuRobot {
         }
 
         fun openAddToHomeScreen(interact: AddToHomeScreenRobot.() -> Unit): AddToHomeScreenRobot.Transition {
-            mDevice.findObject(UiSelector().text("Add to Home screen")).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().text("Add to Home screen"))
+                .waitForExists(waitingTime)
             addToHomescreenButton().click()
 
             AddToHomeScreenRobot().interact()
@@ -258,13 +263,18 @@ private fun ublockOriginButton() = onView(withText("uBlock Origin"))
 private fun enableReaderViewButton() = onView(withText(R.string.browser_menu_enable_reader_view))
 private fun disableReaderViewButton() = onView(withText(R.string.browser_menu_disable_reader_view))
 
-private fun addOrRemoveBookmarksButton() = onView(withContentDescription(R.string.add_or_remove_bookmark))
+private fun addOrRemoveBookmarksButton() =
+    onView(withContentDescription(R.string.add_or_remove_bookmark))
+
 private fun bookmarksButton() = onView(withText(R.string.library_bookmarks))
 
 private fun assertShareButtonDoesntExist() = shareButton().check(ViewAssertions.doesNotExist())
 private fun assertRequestDesktopSiteToggleDoesntExist() =
     requestDesktopSiteToggle().check(ViewAssertions.doesNotExist())
-private fun assertFindInPageButtonDoesntExist() = findInPageButton().check(ViewAssertions.doesNotExist())
+
+private fun assertFindInPageButtonDoesntExist() =
+    findInPageButton().check(ViewAssertions.doesNotExist())
+
 private fun assertForwardButtonDoesntExist() = forwardButton().check(ViewAssertions.doesNotExist())
 private fun assertRefreshButtonDoesntExist() = refreshButton().check(ViewAssertions.doesNotExist())
 private fun assertStopButtonDoesntExist() = stopButton().check(ViewAssertions.doesNotExist())
@@ -273,54 +283,75 @@ private fun assertAddToHomescreenButtonDoesntExist() = addToHomescreenButton()
 
 private fun assertAddToShortcutsButtonDoesntExist() = addToShortcutsButton()
     .check(ViewAssertions.doesNotExist())
+
 private fun assertReaderViewButtonDoesntExist() = enableReaderViewButton()
     .check(ViewAssertions.doesNotExist())
 
 private fun assertBackButton() = backButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertForwardButton() = forwardButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRefreshButton() = refreshButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertStopButton() = stopButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertShareButton() = shareButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRequestDesktopSiteToggle() = requestDesktopSiteToggle()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAddToHomescreenButton() = addToHomescreenButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertFindInPageButton() = findInPageButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSyncedTabsButton() = syncedTabsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertReportIssueButton() = reportIssueButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSettingsButton() = settingsButton()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRequestDesktopSiteIsTurnedOff() {
     assertFalse(
         mDevice.findObject(UiSelector().textContains("Request desktop site")).isChecked,
     )
 }
+
 private fun assertRequestDesktopSiteIsTurnedOn() {
     assertTrue(
         mDevice.findObject(UiSelector().textContains("Request desktop site")).isChecked,
     )
 }
+
 private fun assertClearCenoButton() = clearCenoButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAddToShortcutsButton() = addToShortcutsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRemoveFromShortcutsButton() = removeFromShortcutsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertHttpsByDefaultButton() = httpsByDefaultButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertUblockOriginButton() = ublockOriginButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertEnableReaderViewButton() = enableReaderViewButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDisableReaderViewButton() = disableReaderViewButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertAddBookmarksButtonExists() = addOrRemoveBookmarksButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

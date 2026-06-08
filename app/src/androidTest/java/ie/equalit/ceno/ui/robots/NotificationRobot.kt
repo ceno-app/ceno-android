@@ -2,9 +2,9 @@ package ie.equalit.ceno.ui.robots
 
 import androidx.test.uiautomator.UiScrollable
 import androidx.test.uiautomator.UiSelector
+import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import junit.framework.Assert.assertFalse
 import junit.framework.Assert.assertTrue
-import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 
 class NotificationRobot {
 
@@ -25,12 +25,14 @@ class NotificationRobot {
 
     fun verifyDownloadNotificationExist(notificationMessage: String, fileName: String) {
         val notification = UiSelector().text(notificationMessage)
-        var notificationFound = mDevice.findObject(notification).waitForExists(waitingTime)
+        var notificationFound = mDevice.findObject(notification)
+            .waitForExists(waitingTime)
         val downloadFilename = mDevice.findObject(UiSelector().text(fileName))
 
         while (!notificationFound) {
             notificationTray.swipeUp(2)
-            notificationFound = mDevice.findObject(notification).waitForExists(waitingTime)
+            notificationFound = mDevice.findObject(notification)
+                .waitForExists(waitingTime)
         }
         assertTrue(notificationFound)
         assertTrue(downloadFilename.exists())
@@ -38,7 +40,8 @@ class NotificationRobot {
 
     fun verifyDownloadNotificationDoesNotExist(notificationMessage: String, fileName: String) {
         val notification = UiSelector().text(notificationMessage)
-        val notificationFound = mDevice.findObject(notification).waitForExists(waitingTime)
+        val notificationFound = mDevice.findObject(notification)
+            .waitForExists(waitingTime)
         val downloadFilename = mDevice.findObject(UiSelector().text(fileName))
 
         notificationTray.swipeUp(2)

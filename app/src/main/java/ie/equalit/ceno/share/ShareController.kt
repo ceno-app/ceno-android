@@ -6,8 +6,7 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import androidx.annotation.VisibleForTesting
-//import androidx.compose.material.Snackbar
-import androidx.navigation.NavController
+import androidx.core.net.toUri
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +15,6 @@ import mozilla.components.concept.engine.prompt.ShareData
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.share.RecentAppsStorage
 import mozilla.components.support.ktx.kotlin.isExtensionUrl
-import androidx.core.net.toUri
 
 /**
  * [ShareFragment] controller.
@@ -26,10 +24,12 @@ import androidx.core.net.toUri
 interface ShareController {
     fun handleShareClosed()
     fun handleShareToApp(app: AppShareOption)
+
     /**
      * Handles when a save to PDF action was requested.
      */
     fun handleSaveToPDF(tabId: String?)
+
     /**
      * Handles when a print action was requested.
      */
@@ -48,22 +48,18 @@ interface ShareController {
  * @param shareData The list of [ShareData]s that can be shared.
  * @param saveToPdfUseCase Instance of [SessionUseCases.SaveToPdfUseCase] to generate a PDF of a given tab.
  * @param printUseCase Instance of [SessionUseCases.PrintContentUseCase] to print content of a given tab.
- * @param snackbar Instance of [FenixSnackbar] for displaying styled snackbars.
- * @param navController [NavController] used for navigation.
  * @param recentAppsStorage Instance of [RecentAppsStorage] for storing and retrieving the most recent apps.
  * @param viewLifecycleScope [CoroutineScope] used for retrieving the most recent apps in the background.
  * @param dispatcher Dispatcher used to execute suspending functions.
- * @param fxaEntrypoint The entrypoint if we need to authenticate, it will be reported in telemetry.
  * @param dismiss Callback signalling sharing can be closed.
  */
 @Suppress("TooManyFunctions", "LongParameterList")
-class DefaultShareController (
+class DefaultShareController(
     private val context: Context,
     private val shareSubject: String?,
     private val shareData: List<ShareData>,
     private val saveToPdfUseCase: SessionUseCases.SaveToPdfUseCase,
     private val printUseCase: SessionUseCases.PrintContentUseCase,
-    private val navController: NavController,
     private val recentAppsStorage: RecentAppsStorage,
     private val viewLifecycleScope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
@@ -100,11 +96,12 @@ class DefaultShareController (
             when (e) {
                 is SecurityException, is ActivityNotFoundException -> {
                     //todo
-//                    snackbar.setText(context.getString(R.string.share_error_snackbar))
-//                    snackbar.setLength(FenixSnackbar.LENGTH_LONG)
-//                    snackbar.show()
+                    //                    snackbar.setText(context.getString(R.string.share_error_snackbar))
+                    //                    snackbar.setLength(FenixSnackbar.LENGTH_LONG)
+                    //                    snackbar.show()
                     ShareController.Result.SHARE_ERROR
                 }
+
                 else -> throw e
             }
         }
@@ -133,7 +130,8 @@ class DefaultShareController (
             // now and needs a clean fix once we have a reader specific protocol
             // e.g. ext+reader://
             // https://github.com/mozilla-mobile/android-components/issues/2879
-            url.toUri().getQueryParameter("url") ?: url
+            url.toUri()
+                .getQueryParameter("url") ?: url
         } else {
             url
         }
@@ -145,14 +143,12 @@ class DefaultShareController (
             .joinToString(", ") { it.title.toString() }
 
     private fun copyClipboard() {
-        val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
+        val clipboardManager =
+            context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         val clipData = ClipData.newPlainText(getShareSubject(), getShareText())
 
         clipboardManager.setPrimaryClip(clipData)
-        //todo
-//        snackbar.setText(context.getString(R.string.toast_copy_link_to_clipboard))
-//        snackbar.setLength(FenixSnackbar.LENGTH_SHORT)
-//        snackbar.show()
+        // TODO: add toast when text is copied to clipboard
     }
 
     companion object {

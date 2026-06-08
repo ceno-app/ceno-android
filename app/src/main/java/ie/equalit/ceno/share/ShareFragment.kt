@@ -37,9 +37,10 @@ class ShareFragment : BottomSheetDialogFragment() {
         super.onAttach(context)
         viewModel.loadDevicesAndApps(requireContext(), args.logsFilePath != null)
     }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-//        setStyle(STYLE_NO_TITLE, R.style.ShareDialogStyle)
+        //        setStyle(STYLE_NO_TITLE, R.style.ShareDialogStyle)
     }
 
     override fun onPause() {
@@ -47,10 +48,12 @@ class ShareFragment : BottomSheetDialogFragment() {
         consumePrompt { onDismiss() }
         dismiss()
     }
+
+    @Suppress("LongMethod")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         requireComponents.useCases.sessionUseCases.exitFullscreen.invoke()
         val binding = FragmentShareBinding.inflate(
             inflater,
@@ -62,7 +65,7 @@ class ShareFragment : BottomSheetDialogFragment() {
         if (logsFilePath != null) {
             binding.savePdf.visibility = View.GONE
             val file = File(requireContext().filesDir, logsFilePath)
-            if (file?.exists() == true) {
+            if (file.exists()) {
                 val uri = FileProvider.getUriForFile(
                     requireContext(),
                     BuildConfig.APPLICATION_ID + ".provider",
@@ -72,7 +75,6 @@ class ShareFragment : BottomSheetDialogFragment() {
                     LogsShareController(
                         context = requireContext(),
                         logsUri = uri,
-                        navController = findNavController(),
                         recentAppsStorage = RecentAppsStorage(requireContext()),
                         viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
                     ) { result ->
@@ -95,7 +97,6 @@ class ShareFragment : BottomSheetDialogFragment() {
                     context = requireContext(),
                     shareSubject = args.shareSubject,
                     shareData = shareData,
-                    navController = findNavController(),
                     saveToPdfUseCase = requireComponents.useCases.sessionUseCases.saveToPdf,
                     printUseCase = requireComponents.useCases.sessionUseCases.printContent,
                     recentAppsStorage = RecentAppsStorage(requireContext()),
@@ -148,6 +149,7 @@ class ShareFragment : BottomSheetDialogFragment() {
             shareToAppsView.setRecentShareTargets(appsToShareTo)
         }
     }
+
     override fun onDestroy() {
         setFragmentResult(RESULT_KEY, Bundle())
         // Clear the stored result in case there is no listener with the same key set.
@@ -155,6 +157,7 @@ class ShareFragment : BottomSheetDialogFragment() {
 
         super.onDestroy()
     }
+
     /**
      * If [ShareFragmentArgs.sessionId] is set and the session has a pending Web Share
      * prompt request, call [consume] then clean up the prompt.
@@ -166,10 +169,16 @@ class ShareFragment : BottomSheetDialogFragment() {
         args.sessionId
             ?.let { sessionId -> browserStore.state.findTabOrCustomTab(sessionId) }
             ?.let { tab ->
-                val promptRequest = tab.content.promptRequests.lastOrNull { it is PromptRequest.Share }
+                val promptRequest =
+                    tab.content.promptRequests.lastOrNull { it is PromptRequest.Share }
                 if (promptRequest is PromptRequest.Share) {
                     consume(promptRequest)
-                    browserStore.dispatch(ContentAction.ConsumePromptRequestAction(tab.id, promptRequest))
+                    browserStore.dispatch(
+                        ContentAction.ConsumePromptRequestAction(
+                            tab.id,
+                            promptRequest
+                        )
+                    )
                 }
             }
     }

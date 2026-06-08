@@ -11,10 +11,10 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreferenceCompat
-import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import mozilla.components.concept.engine.EngineSession.TrackingProtectionPolicy
 
 class PrivacySettingsFragment : PreferenceFragmentCompat() {
 
@@ -22,18 +22,24 @@ class PrivacySettingsFragment : PreferenceFragmentCompat() {
         setPreferencesFromResource(R.xml.privacy_preferences, rootKey)
 
         val context = requireContext()
-        val trackingProtectionNormalKey = context.getPreferenceKey(R.string.pref_key_tracking_protection_normal)
-        val trackingProtectionPrivateKey = context.getPreferenceKey(R.string.pref_key_tracking_protection_private)
+        val trackingProtectionNormalKey =
+            context.getPreferenceKey(R.string.pref_key_tracking_protection_normal)
+        val trackingProtectionPrivateKey =
+            context.getPreferenceKey(R.string.pref_key_tracking_protection_private)
 
-        val prefTrackingProtectionNormal = findPreference<SwitchPreferenceCompat>(trackingProtectionNormalKey)
-        val prefTrackingProtectionPrivate = findPreference<SwitchPreferenceCompat>(trackingProtectionPrivateKey)
+        val prefTrackingProtectionNormal =
+            findPreference<SwitchPreferenceCompat>(trackingProtectionNormalKey)
+        val prefTrackingProtectionPrivate =
+            findPreference<SwitchPreferenceCompat>(trackingProtectionPrivateKey)
 
-        prefTrackingProtectionNormal?.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
-            requireComponents.core.createTrackingProtectionPolicy(normalMode = enabled)
-        }
-        prefTrackingProtectionPrivate?.onPreferenceChangeListener = getChangeListenerForTrackingProtection { enabled ->
-            requireComponents.core.createTrackingProtectionPolicy(privateMode = enabled)
-        }
+        prefTrackingProtectionNormal?.onPreferenceChangeListener =
+            getChangeListenerForTrackingProtection { enabled ->
+                requireComponents.core.createTrackingProtectionPolicy(normalMode = enabled)
+            }
+        prefTrackingProtectionPrivate?.onPreferenceChangeListener =
+            getChangeListenerForTrackingProtection { enabled ->
+                requireComponents.core.createTrackingProtectionPolicy(privateMode = enabled)
+            }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

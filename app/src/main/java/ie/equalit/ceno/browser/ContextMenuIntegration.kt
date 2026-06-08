@@ -40,7 +40,12 @@ class ContextMenuIntegration(
             listOf(
                 createCopyLinkCandidate(context, parentView, snackbarDelegate),
                 createShareLinkCandidate(context),
-                createOpenImageInNewTabCandidate(context, tabsUseCases, parentView, snackbarDelegate),
+                createOpenImageInNewTabCandidate(
+                    context,
+                    tabsUseCases,
+                    parentView,
+                    snackbarDelegate
+                ),
                 createSaveImageCandidate(
                     context,
                     contextMenuUseCases,

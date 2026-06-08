@@ -6,11 +6,11 @@ package ie.equalit.ceno.helpers
 
 import android.view.View
 import android.view.ViewGroup
+import ie.equalit.ceno.ext.children
 import org.hamcrest.BaseMatcher
 import org.hamcrest.CoreMatchers.not
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import ie.equalit.ceno.ext.children
 import androidx.test.espresso.matcher.ViewMatchers.isChecked as espressoIsChecked
 import androidx.test.espresso.matcher.ViewMatchers.isEnabled as espressoIsEnabled
 import androidx.test.espresso.matcher.ViewMatchers.isSelected as espressoIsSelected
@@ -18,17 +18,20 @@ import androidx.test.espresso.matcher.ViewMatchers.isSelected as espressoIsSelec
 /**
  * The [espressoIsEnabled] function that can also handle disabled state through the boolean argument.
  */
-fun isEnabled(isEnabled: Boolean): Matcher<View> = maybeInvertMatcher(espressoIsEnabled(), isEnabled)
+fun isEnabled(isEnabled: Boolean): Matcher<View> =
+    maybeInvertMatcher(espressoIsEnabled(), isEnabled)
 
 /**
  * The [espressoIsChecked] function that can also handle unchecked state through the boolean argument.
  */
-fun isChecked(isChecked: Boolean): Matcher<View> = maybeInvertMatcher(espressoIsChecked(), isChecked)
+fun isChecked(isChecked: Boolean): Matcher<View> =
+    maybeInvertMatcher(espressoIsChecked(), isChecked)
 
 /**
  * The [espressoIsSelected] function that can also handle not selected state through the boolean argument.
  */
-fun isSelected(isSelected: Boolean): Matcher<View> = maybeInvertMatcher(espressoIsSelected(), isSelected)
+fun isSelected(isSelected: Boolean): Matcher<View> =
+    maybeInvertMatcher(espressoIsSelected(), isSelected)
 
 /**
  * Matches a View if there is a single View, grandson of the same grandfather, that matches the
@@ -62,7 +65,10 @@ fun hasCousin(matcher: Matcher<View>): Matcher<View> = object : BaseMatcher<View
     }
 }
 
-private fun maybeInvertMatcher(matcher: Matcher<View>, useUnmodifiedMatcher: Boolean): Matcher<View> = when {
+private fun maybeInvertMatcher(
+    matcher: Matcher<View>,
+    useUnmodifiedMatcher: Boolean
+): Matcher<View> = when {
     useUnmodifiedMatcher -> matcher
     else -> not(matcher)
 }

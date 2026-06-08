@@ -9,7 +9,6 @@ package ie.equalit.ceno.helpers
 import androidx.test.espresso.IdlingRegistry
 import androidx.test.rule.ActivityTestRule
 import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.settings.Settings
 
 /**
  * A [org.junit.Rule] to handle shared test set up for tests on [BrowserActivity].
@@ -21,7 +20,11 @@ class BrowserActivityTestRule(
     initialTouchMode: Boolean = false,
     launchActivity: Boolean = true,
 
-) : ActivityTestRule<BrowserActivity>(BrowserActivity::class.java, initialTouchMode, launchActivity) {
+    ) : ActivityTestRule<BrowserActivity>(
+    BrowserActivity::class.java,
+    initialTouchMode,
+    launchActivity
+) {
 
     /**
      * Ensures the test doesn't advance until session page load is completed.
@@ -37,11 +40,13 @@ class BrowserActivityTestRule(
 
     override fun beforeActivityLaunched() {
         loadingIdlingResource = SessionLoadedIdlingResource().also {
-            IdlingRegistry.getInstance().register(it)
+            IdlingRegistry.getInstance()
+                .register(it)
         }
     }
 
     override fun afterActivityFinished() {
-        IdlingRegistry.getInstance().unregister(loadingIdlingResource)
+        IdlingRegistry.getInstance()
+            .unregister(loadingIdlingResource)
     }
 }

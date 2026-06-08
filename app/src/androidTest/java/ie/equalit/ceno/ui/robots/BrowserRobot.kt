@@ -12,18 +12,16 @@ import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import junit.framework.Assert.assertTrue
-import org.hamcrest.CoreMatchers.allOf
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.Constants.LONG_CLICK_DURATION
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.TestHelper.waitForObjects
 import ie.equalit.ceno.helpers.click
+import junit.framework.Assert.assertTrue
+import org.hamcrest.CoreMatchers.allOf
 
 /**
  * Implementation of Robot Pattern for browser action.
@@ -38,7 +36,8 @@ class BrowserRobot {
             mDevice.findObject(
                 UiSelector()
                     .textContains(expectedText),
-            ).waitForExists(waitingTime),
+            )
+                .waitForExists(waitingTime),
         )
     }
 
@@ -47,7 +46,8 @@ class BrowserRobot {
         assertTrue(
             mDevice.findObject(
                 UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_progress")
-            ).waitUntilGone(waitingTime),
+            )
+                .waitUntilGone(waitingTime),
         )
     }
 
@@ -81,7 +81,8 @@ class BrowserRobot {
         mDevice.waitForWindowUpdate(packageName, waitingTime)
         mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains(expectedText)).waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains(expectedText))
+            .waitForExists(waitingTime)
         val link = mDevice.findObject(By.textContains(expectedText))
         link.click(LONG_CLICK_DURATION)
     }
@@ -92,19 +93,22 @@ class BrowserRobot {
             mDevice.waitForWindowUpdate(packageName, waitingTime)
             mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))
                 .waitForExists(waitingTime)
-            mDevice.findObject(UiSelector().textContains(expectedText)).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().textContains(expectedText))
+                .waitForExists(waitingTime)
             val link = mDevice.findObject(By.textContains(expectedText))
             link.click(LONG_CLICK_DURATION)
 
             // Click Select all from the text selection toolbar
             if (selectAll) {
-                mDevice.findObject(UiSelector().textContains("Select all")).waitForExists(waitingTime)
+                mDevice.findObject(UiSelector().textContains("Select all"))
+                    .waitForExists(waitingTime)
                 val selectAllText = mDevice.findObject(By.textContains("Select all"))
                 selectAllText.click()
             }
 
             // Click Copy from the text selection toolbar
-            mDevice.findObject(UiSelector().textContains("Copy")).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().textContains("Copy"))
+                .waitForExists(waitingTime)
             val copyText = mDevice.findObject(By.textContains("Copy"))
             copyText.click()
         } catch (e: NullPointerException) {
@@ -113,34 +117,40 @@ class BrowserRobot {
             // Refresh the page in case the first long click didn't succeed
             navigationToolbar {
             }.openThreeDotMenu {
-            }.refreshPage {
-                mDevice.waitForIdle()
             }
+                .refreshPage {
+                    mDevice.waitForIdle()
+                }
 
             // Long click again the desired text
             mDevice.waitForWindowUpdate(packageName, waitingTime)
             mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))
                 .waitForExists(waitingTime)
-            mDevice.findObject(UiSelector().textContains(expectedText)).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().textContains(expectedText))
+                .waitForExists(waitingTime)
             val link = mDevice.findObject(By.textContains(expectedText))
             link.click(LONG_CLICK_DURATION)
 
             // Click again Select all from the text selection toolbar
             if (selectAll) {
-                mDevice.findObject(UiSelector().textContains("Select all")).waitForExists(waitingTime)
+                mDevice.findObject(UiSelector().textContains("Select all"))
+                    .waitForExists(waitingTime)
                 var selectAllText = mDevice.findObject(By.textContains("Select all"))
                 if (selectAllText == null) {
-                    mDevice.findObject(UiSelector().textContains("SELECT ALL")).waitForExists(waitingTime)
+                    mDevice.findObject(UiSelector().textContains("SELECT ALL"))
+                        .waitForExists(waitingTime)
                     selectAllText = mDevice.findObject(By.textContains("SELECT ALL"))
                 }
                 selectAllText.click()
             }
 
             // Click again Copy from the text selection toolbar
-            mDevice.findObject(UiSelector().textContains("Copy")).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().textContains("Copy"))
+                .waitForExists(waitingTime)
             var copyText = mDevice.findObject(By.textContains("Copy"))
             if (copyText == null) {
-                mDevice.findObject(UiSelector().textContains("COPY")).waitForExists(waitingTime)
+                mDevice.findObject(UiSelector().textContains("COPY"))
+                    .waitForExists(waitingTime)
                 copyText = mDevice.findObject(By.textContains("COPY"))
             }
             copyText.click()
@@ -203,11 +213,14 @@ class BrowserRobot {
             UiSelector()
                 .resourceId("$packageName:id/snackbar_text")
                 .textContains("Link copied to clipboard"),
-        ).waitUntilGone(waitingTime)
+        )
+            .waitUntilGone(waitingTime)
 
     fun verifyMediaPlayerControlButtonState(state: String) {
-        mDevice.findObject(UiSelector().textContains("Audio_Test_Page")).waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains("audio player")).waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains("Audio_Test_Page"))
+            .waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains("audio player"))
+            .waitForExists(waitingTime)
         assertTrue(mediaPlayerPlayButton(state).waitForExists(waitingTime))
     }
 
@@ -222,24 +235,24 @@ class BrowserRobot {
             UiSelector()
                 .resourceId("android:id/button1")
                 .textContains("OPEN"),
-        ).also {
-            it.waitForExists(waitingTime)
-            it.click()
-        }
+        )
+            .also {
+                it.waitForExists(waitingTime)
+                it.click()
+            }
 
     fun clickSnackbarSwitchButton() =
         mDevice.findObject(
             UiSelector()
                 .resourceId("$packageName:id/snackbar_action")
                 .textContains("SWITCH"),
-        ).also {
-            it.waitForExists(waitingTime)
-            it.click()
-        }
+        )
+            .also {
+                it.waitForExists(waitingTime)
+                it.click()
+            }
 
     class Transition {
-        private val device = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
-
         fun checkExternalApps(interact: ExternalAppsRobot.() -> Unit): ExternalAppsRobot.Transition {
             mDevice.waitForWindowUpdate(packageName, waitingTime)
             ExternalAppsRobot().interact()
@@ -263,7 +276,8 @@ class BrowserRobot {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
-            ).waitUntilGone(waitingTime)
+            )
+                .waitUntilGone(waitingTime)
             BrowserRobot().interact()
             return Transition()
         }
@@ -282,19 +296,28 @@ private fun mediaPlayerPlayButton(state: String) =
             .text(state),
     )
 
-private fun contextMenuOpenInNewTab() = onView(withText(R.string.mozac_feature_contextmenu_open_link_in_new_tab))
-private fun contextMenuOpenInNewPrivateTab() = onView(withText(R.string.mozac_feature_contextmenu_open_link_in_private_tab))
+private fun contextMenuOpenInNewTab() =
+    onView(withText(R.string.mozac_feature_contextmenu_open_link_in_new_tab))
+
+private fun contextMenuOpenInNewPrivateTab() =
+    onView(withText(R.string.mozac_feature_contextmenu_open_link_in_private_tab))
+
 private fun contextMenuCopyLink() = onView(withText(R.string.mozac_feature_contextmenu_copy_link))
 private fun contextMenuShareLink() = onView(withText(R.string.mozac_feature_contextmenu_share_link))
-private fun contextMenuSaveFileToDevice() = onView(withText(R.string.mozac_feature_contextmenu_save_file_to_device))
+private fun contextMenuSaveFileToDevice() =
+    onView(withText(R.string.mozac_feature_contextmenu_save_file_to_device))
 
 private fun assertContextMenuOpenInNewTab() = contextMenuOpenInNewTab()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertContextMenuOpenInNewPrivateTab() = contextMenuOpenInNewPrivateTab()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertContextMenuCopyLink() = contextMenuCopyLink()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertContextMenuShareLink() = contextMenuShareLink()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertContextMenuSaveFileToDevice() = contextMenuSaveFileToDevice()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

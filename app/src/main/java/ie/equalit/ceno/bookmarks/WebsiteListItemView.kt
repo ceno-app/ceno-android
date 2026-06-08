@@ -9,8 +9,6 @@ import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.view.isVisible
 import ie.equalit.ceno.databinding.WebsiteListItemViewBinding
-import ie.equalit.ceno.ext.components
-import mozilla.components.browser.icons.IconRequest
 import mozilla.components.concept.menu.MenuController
 import mozilla.components.concept.menu.Orientation
 import mozilla.components.concept.storage.BookmarkNode
@@ -50,10 +48,6 @@ class WebsiteListItemView @JvmOverloads constructor(
         binding.icon.displayedChild = if (isSelected) 1 else 0
     }
 
-    fun loadFavicon(url: String) {
-        context.components.core.icons.loadIntoView(iconView, IconRequest(url))
-    }
-
     fun attachMenu(menuController: MenuController) {
         overflowView.setOnClickListener {
             menuController.show(
@@ -67,23 +61,6 @@ class WebsiteListItemView @JvmOverloads constructor(
         setOnClickListener {
             interactor.open(item)
         }
-
-//        setOnLongClickListener {
-//            if (holder.selectedItems.isEmpty()) {
-//                interactor.select(item)
-//                true
-//            } else {
-//                false
-//            }
-//        }
-//
-//        iconView.setOnClickListener {
-//            if (item in holder.selectedItems) {
-//                interactor.deselect(item)
-//            } else {
-//                interactor.select(item)
-//            }
-//        }
     }
 
     enum class ItemType {

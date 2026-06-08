@@ -56,14 +56,20 @@ fun Context.share(text: String, subject: String = ""): Boolean {
             flags = FLAG_ACTIVITY_CLEAR_TASK
         }
 
-        val shareIntent = Intent.createChooser(intent, getString(R.string.menu_share_with)).apply {
-            flags = FLAG_ACTIVITY_CLEAR_TASK
-        }
+        val shareIntent = Intent.createChooser(intent, getString(R.string.menu_share_with))
+            .apply {
+                flags = FLAG_ACTIVITY_CLEAR_TASK
+            }
 
         startActivity(shareIntent)
         true
     } catch (e: ActivityNotFoundException) {
-        Log.log(WARN, message = "No activity to share to found", throwable = e, tag = "Reference-Browser")
+        Log.log(
+            WARN,
+            message = "No activity to share to found",
+            throwable = e,
+            tag = "Reference-Browser"
+        )
         false
     }
 }
@@ -94,6 +100,7 @@ fun Context.isFirstInstall(): Boolean {
         return true
     }
 }
+
 fun Context.isInstallFromUpdate(): Boolean {
     try {
         val firstInstallTime: Long = packageManager

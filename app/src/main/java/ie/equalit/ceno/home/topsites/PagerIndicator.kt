@@ -9,7 +9,6 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
-import androidx.core.view.MarginLayoutParamsCompat
 import ie.equalit.ceno.R
 
 /**
@@ -21,7 +20,11 @@ class PagerIndicator : LinearLayout {
 
     constructor(context: Context, attrs: AttributeSet?) : super(context, attrs)
 
-    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet?, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    )
 
     private var selectedIndex = 0
 
@@ -46,7 +49,7 @@ class PagerIndicator : LinearLayout {
                 },
                 LayoutParams(dpToPx(DOT_SIZE_IN_DP), dpToPx(DOT_SIZE_IN_DP)).apply {
                     if (!isLast) {
-                        MarginLayoutParamsCompat.setMarginEnd(this, dpToPx(DOT_MARGIN))
+                        MarginLayoutParams(this).marginEnd = dpToPx(DOT_MARGIN)
                     }
                 }
             )
@@ -77,6 +80,7 @@ class PagerIndicator : LinearLayout {
 }
 
 fun Context.dpToPx(value: Float): Int =
-    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, resources.displayMetrics).toInt()
+    TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, value, resources.displayMetrics)
+        .toInt()
 
 fun View.dpToPx(value: Float): Int = context.dpToPx(value)

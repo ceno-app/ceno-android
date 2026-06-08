@@ -1,6 +1,5 @@
 package ie.equalit.ceno.ui
 
-import okhttp3.mockwebserver.MockWebServer
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
@@ -8,7 +7,12 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.notificationShade
 import ie.equalit.ceno.ui.robots.onboarding
-import org.junit.*
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
 @Ignore("Disabled - Fails on Android 12")
 class MediaPlaybackTest {

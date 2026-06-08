@@ -13,12 +13,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
-import org.junit.Assert.assertFalse
-import org.junit.Assert.assertTrue
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
 
 /**
  *  Implementation of the robot pattern for Custom tabs
@@ -46,7 +46,8 @@ class CustomTabRobot {
     fun clickGenericLink(expectedText: String) {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))
             .waitForExists(waitingTime)
-        mDevice.findObject(UiSelector().textContains(expectedText)).waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains(expectedText))
+            .waitForExists(waitingTime)
         val link = mDevice.findObject(By.textContains(expectedText))
         link.click()
     }
@@ -63,7 +64,8 @@ class CustomTabRobot {
                 mDevice.findObject(
                     UiSelector()
                         .resourceId("$packageName:id/mozac_browser_menu_recyclerView"),
-                ).waitUntilGone(waitingTime),
+                )
+                    .waitUntilGone(waitingTime),
             )
         } catch (e: AssertionError) {
             println("Failed to click request desktop toggle")
@@ -115,13 +117,16 @@ class CustomTabRobot {
 }
 
 fun customTabScreen(interact: CustomTabRobot.() -> Unit): CustomTabRobot.Transition {
-    mDevice.findObject(UiSelector().resourceId("$packageName:id/toolbar")).waitForExists(waitingTime)
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/toolbar"))
+        .waitForExists(waitingTime)
     CustomTabRobot().interact()
     return CustomTabRobot.Transition()
 }
 
 private fun closeButton() = onView(withId(R.id.mozac_browser_toolbar_navigation_actions))
-private fun trackingProtectionIcon() = onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
+private fun trackingProtectionIcon() =
+    onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
+
 private fun securityIndicator() = onView(withId(R.id.mozac_browser_toolbar_site_info_indicator))
 private fun menuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
 private fun actionButton() = onView(withContentDescription("Share link"))
@@ -135,43 +140,64 @@ private fun openInBrowserButton() = onView(withText("Open in Browser"))
 
 private fun assertCloseButton() =
     closeButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTrackingProtectionIcon() =
     trackingProtectionIcon().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSecurityIndicator() =
     securityIndicator().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertMenuButton() =
     menuButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertActionButton() =
     actionButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertCustomTabTitle(title: String) {
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_title_view"))
         .waitForExists(waitingTime)
-    assertTrue(mDevice.findObject(UiSelector().textContains(title)).waitForExists(waitingTime))
+    assertTrue(
+        mDevice.findObject(UiSelector().textContains(title))
+            .waitForExists(waitingTime)
+    )
 }
+
 private fun assertCustomTabUrl(url: String) {
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_url_view"))
         .waitForExists(waitingTime)
-    assertTrue(mDevice.findObject(UiSelector().textContains(url)).waitForExists(waitingTime))
+    assertTrue(
+        mDevice.findObject(UiSelector().textContains(url))
+            .waitForExists(waitingTime)
+    )
 }
+
 private fun assertForwardButton() =
     forwardButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRefreshButton() =
     refreshButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertStopButton() =
     stopButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertShareButton() =
     assertTrue(shareButton().waitForExists(waitingTime))
+
 private fun assertRequestDesktopButton() =
     requestDesktopButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertFindInPageButton() =
     findInPage().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertOpenInBrowserButton() =
     openInBrowserButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertRequestDesktopSiteIsTurnedOff() {
     assertFalse(
         mDevice.findObject(UiSelector().textContains("Request desktop site")).isChecked,
     )
 }
+
 private fun assertRequestDesktopSiteIsTurnedOn() {
     assertTrue(
         mDevice.findObject(UiSelector().textContains("Request desktop site")).isChecked,

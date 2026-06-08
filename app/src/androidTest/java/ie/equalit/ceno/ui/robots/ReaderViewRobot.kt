@@ -17,12 +17,12 @@ import androidx.test.espresso.matcher.ViewMatchers.withParent
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiSelector
-import org.hamcrest.CoreMatchers.allOf
-import org.junit.Assert.assertEquals
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
+import org.hamcrest.CoreMatchers.allOf
+import org.junit.Assert.assertEquals
 
 /**
  * Implementation of Robot Pattern for Reader View UI.
@@ -85,7 +85,7 @@ class ReaderViewRobot {
 
     class Transition {
         fun dismissAppearanceMenu(interact: ReaderViewRobot.() -> Unit): Transition {
-            onView( withId(R.id.engineView)).click()
+            onView(withId(R.id.engineView)).click()
 
             ReaderViewRobot().interact()
             return Transition()
@@ -195,34 +195,39 @@ private fun assertAppearanceButtonDoesntExists() {
 
 private fun assertAppearanceMenu() {
     mDevice.waitForIdle()
-    mDevice.findObject(UiSelector().resourceId("$packageName:id/readerViewBar")).waitForExists(waitingTime)
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/readerViewBar"))
+        .waitForExists(waitingTime)
     appearanceMenu().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 
 private fun assertFontGroupButtons() {
     mDevice.findObject(
         UiSelector().resourceId("$packageName:id/:id/mozac_feature_readerview_font_group"),
-    ).waitForExists(waitingTime)
+    )
+        .waitForExists(waitingTime)
     fontGroupButtons().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 
 private fun assertIncreaseFontSizeButton() {
     mDevice.findObject(
         UiSelector().resourceId("$packageName:id/mozac_feature_readerview_font_size_increase"),
-    ).waitForExists(waitingTime)
+    )
+        .waitForExists(waitingTime)
     increaseFontSizeButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 
 private fun assertDecreaseFontSizeButton() {
     mDevice.findObject(
         UiSelector().resourceId("$packageName:id/mozac_feature_readerview_font_size_decrease"),
-    ).waitForExists(waitingTime)
+    )
+        .waitForExists(waitingTime)
     decreaseFontSizeButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }
 
 private fun assertColorSchemeGroupButtons() {
     mDevice.findObject(
         UiSelector().resourceId("$packageName:id/mozac_feature_readerview_color_scheme_group"),
-    ).waitForExists(waitingTime)
+    )
+        .waitForExists(waitingTime)
     colorSchemeGroupButtons().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }

@@ -32,7 +32,9 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             setTitle(R.string.preferences_ceno_website_sources)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar).toDrawable())
+                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
+                    .toDrawable()
+            )
         }
 
         setupSettings()
@@ -61,7 +63,8 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             CenoSettings.ouinetClientRequest(
                 requireContext(),
                 viewLifecycleOwner.lifecycleScope,
-                OuinetKey.API_STATUS)
+                OuinetKey.API_STATUS
+            )
         } else {
             /* Enable Ceno related options */
             setPreference(
@@ -98,19 +101,24 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
                 requireContext(),
                 viewLifecycleOwner.lifecycleScope,
                 key,
-                value)
+                value
+            )
             showWarningMessageIfNeeded(newValue as Boolean, key)
             true
         }
     }
 
     private fun showWarningMessageIfNeeded(newValue: Boolean = false, key: OuinetKey?) {
-        var private = (getPreference(R.string.pref_key_ceno_sources_private) as CheckBoxPreference).isChecked
-        var origin = (getPreference(R.string.pref_key_ceno_sources_origin) as CheckBoxPreference).isChecked
-        var public = (getPreference(R.string.pref_key_ceno_sources_public) as CheckBoxPreference).isChecked
-        var shared = (getPreference(R.string.pref_key_ceno_sources_shared) as CheckBoxPreference).isChecked
+        var private =
+            (getPreference(R.string.pref_key_ceno_sources_private) as CheckBoxPreference).isChecked
+        var origin =
+            (getPreference(R.string.pref_key_ceno_sources_origin) as CheckBoxPreference).isChecked
+        var public =
+            (getPreference(R.string.pref_key_ceno_sources_public) as CheckBoxPreference).isChecked
+        var shared =
+            (getPreference(R.string.pref_key_ceno_sources_shared) as CheckBoxPreference).isChecked
 
-        when(key) {
+        when (key) {
             OuinetKey.ORIGIN_ACCESS -> origin = newValue
             OuinetKey.PROXY_ACCESS -> private = newValue
             OuinetKey.INJECTOR_ACCESS -> public = newValue
@@ -118,19 +126,17 @@ class WebsiteSourceSettingsFragment : PreferenceFragmentCompat() {
             else -> {}
         }
         var isWarningVisible = false
-        var warningMessage: String = ""
+        var warningMessage = ""
         //if all are disabled
         if (!private && !public && !origin && !shared) {
-            isWarningVisible= true
+            isWarningVisible = true
             warningMessage = getString(R.string.warning_all_website_sources_disabled)
-        }
-        else if (!public && !origin && !shared) {
+        } else if (!public && !origin && !shared) {
             //if all public sources are disabled
             isWarningVisible = true
             warningMessage = getString(R.string.warning_public_website_sources_disabled)
-        }
-        //if private source is disabled
-        else if(!private && !origin) {
+        } else if (!private && !origin) {
+            //if private and origin source is disabled
             isWarningVisible = true
             warningMessage = getString(R.string.warning_personal_website_sources_disabled)
         }

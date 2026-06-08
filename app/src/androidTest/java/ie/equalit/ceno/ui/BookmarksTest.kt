@@ -11,7 +11,6 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
-import junit.extensions.TestSetup
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
@@ -55,14 +54,15 @@ class BookmarksTest {
     @Test
     fun verifyEmptyBookmarksMenuTest() {
         mDevice.waitForIdle()
-        navigationToolbar  {
+        navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyAddFolderButton()
-            verifyEmptyBookmarksView()
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyAddFolderButton()
+                verifyEmptyBookmarksView()
+            }
     }
 
     @Test
@@ -76,18 +76,20 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyAddBookmarksButtonExists()
-        }.bookmarkPage {
-//            verifySnackBarText("Saved in “Bookmarks”")
         }
+            .bookmarkPage {
+                //            verifySnackBarText("Saved in “Bookmarks”")
+            }
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksListView()
-            verifyBookmarkTitle(defaultWebPage.title)
-            verifyBookmarkedURL(defaultWebPage.url.toString())
-            verifyBookmarkFavicon(defaultWebPage.url)
         }
+            .openBookmarks {
+                verifyBookmarksListView()
+                verifyBookmarkTitle(defaultWebPage.title)
+                verifyBookmarkedURL(defaultWebPage.url.toString())
+                verifyBookmarkFavicon(defaultWebPage.url)
+            }
     }
 
     @Test
@@ -98,21 +100,25 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickEdit {
-            verifyEditBookmarksView()
-            changeBookmarkTitle(testBookmark.title)
-            changeBookmarkUrl(testBookmark.url)
-            saveEditBookmark()
-
-            verifyBookmarksView()
-            verifyBookmarkTitle(testBookmark.title)
-        }.openBookmarkWithTitle(testBookmark.title) {
-            verifyUrl("example.com")
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickEdit {
+                verifyEditBookmarksView()
+                changeBookmarkTitle(testBookmark.title)
+                changeBookmarkUrl(testBookmark.url)
+                saveEditBookmark()
+
+                verifyBookmarksView()
+                verifyBookmarkTitle(testBookmark.title)
+            }
+            .openBookmarkWithTitle(testBookmark.title) {
+                verifyUrl("example.com")
+            }
     }
 
 
@@ -124,14 +130,17 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickCopy {
-//            verifySnackBarText(expectedText = "URL copied")
-            navigateUp()
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickCopy {
+                //            verifySnackBarText(expectedText = "URL copied")
+                navigateUp()
+            }
 
         navigationToolbar {
         }.clickToolbar {
@@ -147,13 +156,16 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickShare {
-            verifyShareTabLayout()
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickShare {
+                verifyShareTabLayout()
+            }
     }
 
     @Test
@@ -164,13 +176,16 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickOpenInNewTab() {
-            verifyUrl(defaultWebPage.displayUrl)
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickOpenInNewTab {
+                verifyUrl(defaultWebPage.displayUrl)
+            }
         navigationToolbar {
         }.openTabTrayMenu {
             verifyRegularBrowsingTab()
@@ -186,19 +201,23 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickOpenInPersonalTab() {
-            verifyPageLoaded()
-            verifyUrl(defaultWebPage.displayUrl)
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickOpenInPersonalTab {
+                verifyPageLoaded()
+                verifyUrl(defaultWebPage.displayUrl)
+            }
         navigationToolbar {
         }.openTabTrayMenu {
             verifyPrivateBrowsingTab()
         }
     }
+
     @Test
     fun deleteBookmarkTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -211,17 +230,21 @@ class BookmarksTest {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
             verifyAddBookmarksButtonExists()
-        }.bookmarkPage {
         }
+            .bookmarkPage {
+            }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openBookmarks {
-            verifyBookmarksView()
-            verifyBookmarkTitle(defaultWebPage.title)
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickDelete {
-            verifyBookmarkIsDeleted(defaultWebPage.title)
         }
+            .openBookmarks {
+                verifyBookmarksView()
+                verifyBookmarkTitle(defaultWebPage.title)
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickDelete {
+                verifyBookmarkIsDeleted(defaultWebPage.title)
+            }
     }
 
     @Test
@@ -233,43 +256,49 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksListView()
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickEdit {
-            clickParentFolderSelector()
-            clickAddNewFolderButtonFromSelectFolderView()
-            addNewFolderName(bookmarksFolderName)
-            saveNewFolder()
-            selectFolder(bookmarksFolderName)
-            navigateUp()
-            saveEditBookmark()
-            verifyFolderTitle(bookmarksFolderName)
-            selectFolder(bookmarksFolderName)
-            verifyBookmarkedURL(defaultWebPage.url.toString())
         }
+            .openBookmarks {
+                verifyBookmarksListView()
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickEdit {
+                clickParentFolderSelector()
+                clickAddNewFolderButtonFromSelectFolderView()
+                addNewFolderName(bookmarksFolderName)
+                saveNewFolder()
+                selectFolder(bookmarksFolderName)
+                navigateUp()
+                saveEditBookmark()
+                verifyFolderTitle(bookmarksFolderName)
+                selectFolder(bookmarksFolderName)
+                verifyBookmarkedURL(defaultWebPage.url.toString())
+            }
     }
+
     @Test
     fun navigateBookmarksFoldersTest() {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            createFolder("1")
-            waitForBookmarksFolderContentToExist("Bookmarks", "1")
-            selectFolder("1")
-            verifyCurrentFolderTitle("1")
-            createFolder("2")
-            waitForBookmarksFolderContentToExist("1", "2")
-            selectFolder("2")
-            verifyCurrentFolderTitle("2")
-            navigateUp()
-            waitForBookmarksFolderContentToExist("1", "2")
-            verifyCurrentFolderTitle("1")
-            navigateUp()
-            verifyBookmarksView()
         }
+            .openBookmarks {
+                createFolder("1")
+                waitForBookmarksFolderContentToExist("Bookmarks", "1")
+                selectFolder("1")
+                verifyCurrentFolderTitle("1")
+                createFolder("2")
+                waitForBookmarksFolderContentToExist("1", "2")
+                selectFolder("2")
+                verifyCurrentFolderTitle("2")
+                navigateUp()
+                waitForBookmarksFolderContentToExist("1", "2")
+                verifyCurrentFolderTitle("1")
+                navigateUp()
+                verifyBookmarksView()
+            }
     }
+
     @Test
     fun deleteBookmarkInEditModeTest() {
         val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
@@ -279,16 +308,19 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-            verifyBookmarksListView()
-        }.openThreeDotMenu(defaultWebPage.title) {
-        }.clickEdit {
-            clickDeleteInEditModeButton()
-            cancelDeletion()
-            clickDeleteInEditModeButton()
-            confirmDeletion()
-            verifyBookmarkIsDeleted("Test_Page_1")
         }
+            .openBookmarks {
+                verifyBookmarksListView()
+            }
+            .openThreeDotMenu(defaultWebPage.title) {
+            }
+            .clickEdit {
+                clickDeleteInEditModeButton()
+                cancelDeletion()
+                clickDeleteInEditModeButton()
+                confirmDeletion()
+                verifyBookmarkIsDeleted("Test_Page_1")
+            }
     }
 
     @Test
@@ -302,18 +334,23 @@ class BookmarksTest {
         navigationToolbar {
         }.openThreeDotMenu {
             mDevice.waitForIdle(5000)
-        }.openBookmarks {
-        }.openThreeDotMenu("My Folder") {
-        }.clickDelete {
-            cancelFolderDeletion()
-            verifyFolderTitle("My Folder")
-        }.openThreeDotMenu("My Folder") {
-        }.clickDelete {
-            confirmFolderDeletion()
-            verifyBookmarkIsDeleted("My Folder")
-            verifyBookmarkIsDeleted("My Folder 2")
-            verifyBookmarkIsDeleted("Test_Page_1")
-            navigateUp()
         }
+            .openBookmarks {
+            }
+            .openThreeDotMenu("My Folder") {
+            }
+            .clickDelete {
+                cancelFolderDeletion()
+                verifyFolderTitle("My Folder")
+            }
+            .openThreeDotMenu("My Folder") {
+            }
+            .clickDelete {
+                confirmFolderDeletion()
+                verifyBookmarkIsDeleted("My Folder")
+                verifyBookmarkIsDeleted("My Folder 2")
+                verifyBookmarkIsDeleted("Test_Page_1")
+                navigateUp()
+            }
     }
 }

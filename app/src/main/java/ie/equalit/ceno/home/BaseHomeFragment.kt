@@ -23,8 +23,6 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BrowserFragment
-import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
 import ie.equalit.ceno.components.ceno.ClearToolbarAction
 import ie.equalit.ceno.components.toolbar.ToolbarIntegration
@@ -53,9 +51,8 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import mozilla.components.support.utils.DefaultDownloadFileUtils
 
-
 /**
- * Base fragment extended by [BrowserFragment] and [ExternalAppBrowserFragment].
+ * Base fragment extended by [HomeFragment].
  * This class only contains shared code focused on the main browsing content.
  * UI code specific to the app or to custom tabs can be found in the subclasses.
  */
@@ -79,10 +76,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         sessionFeature,
     )
 
-    private val activityResultHandler: List<ViewBoundFeatureWrapper<*>> = listOf(
-        webAuthnFeature,
-    )
-
     private val thumbnailsFeature = ViewBoundFeatureWrapper<BrowserThumbnails>()
 
     private val awesomeBar: AwesomeBarWrapper
@@ -95,7 +88,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
     protected val sessionId: String?
         get() = arguments?.getString(SESSION_ID)
 
-    lateinit var clearCenoAction:ClearToolbarAction
+    lateinit var clearCenoAction: ClearToolbarAction
 
     private lateinit var requestDownloadPermissionsLauncher: ActivityResultLauncher<Array<String>>
 
@@ -111,7 +104,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                     results.values
                         .map {
                             if (it) PackageManager.PERMISSION_GRANTED else PackageManager.PERMISSION_DENIED
-                        }.toIntArray()
+                        }
+                        .toIntArray()
                 downloadsFeature.withFeature {
                     it.onPermissionsResult(permissions, grantResults)
                 }
@@ -127,12 +121,14 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
     ): View {
         themeManager = (activity as BrowserActivity).themeManager
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        container?.background = ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
+        container?.background =
+            ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         return binding.root
     }
 
     @CallSuper
+    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(requireContext())
 
@@ -157,7 +153,6 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                 requireComponents.core.historyStorage,
                 requireComponents.core.store,
                 requireComponents.useCases.sessionUseCases,
-                requireComponents.useCases.tabsUseCases,
                 requireComponents.useCases.webAppUseCases,
                 sessionId,
             ),
@@ -203,7 +198,10 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         )
 
         windowFeature.set(
-            feature = WindowFeature(requireComponents.core.store, requireComponents.useCases.tabsUseCases),
+            feature = WindowFeature(
+                requireComponents.core.store,
+                requireComponents.useCases.tabsUseCases
+            ),
             owner = this,
             view = view,
         )
@@ -225,7 +223,8 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
             requireContext(),
             viewLifecycleOwner,
             prefs.getString(
-                requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                requireContext().getPreferenceKey(R.string.pref_key_clear_behavior), "0"
+            )!!
                 .toInt()
         )
         clearCenoAction = ClearToolbarAction(
@@ -235,7 +234,11 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
             context = themeManager.getContext()
         )
 
-        if (prefs.getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+        if (prefs.getBoolean(
+                requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar),
+                true
+            )
+        ) {
             binding.toolbar.addBrowserAction(clearCenoAction)
         }
 
@@ -272,13 +275,19 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
                 requireComponents.core.historyStorage,
                 requireComponents.useCases.customLoadUrlUseCase
             )
-            it.addClipboardProvider(requireContext(), requireComponents.useCases.sessionUseCases.loadUrl)
+            it.addClipboardProvider(
+                requireContext(),
+                requireComponents.useCases.sessionUseCases.loadUrl
+            )
         }
 
         /* Redefine onStopListener to open browser fragment in addition to closing toolbar */
         awesomeBar.setOnStopListener {
             toolbar.displayMode()
-            (activity as BrowserActivity).openToBrowser(private = themeManager.currentMode.isPersonal, newTab = true)
+            (activity as BrowserActivity).openToBrowser(
+                private = themeManager.currentMode.isPersonal,
+                newTab = true
+            )
         }
 
         tabConterView = TabCounterView(
@@ -323,10 +332,9 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
             requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
             false
         )
-        binding.toolbar.display.progressGravity = if(isToolbarPositionTop) {
+        binding.toolbar.display.progressGravity = if (isToolbarPositionTop) {
             DisplayToolbar.Gravity.BOTTOM
-        }
-        else {
+        } else {
             DisplayToolbar.Gravity.TOP
         }
     }
@@ -341,7 +349,12 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
 
     fun applyTheme() {
         //modify clear ceno button color
-        if (PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar), true)) {
+        if (PreferenceManager.getDefaultSharedPreferences(requireContext())
+                .getBoolean(
+                    requireContext().getPreferenceKey(R.string.pref_key_clear_in_toolbar),
+                    true
+                )
+        ) {
             clearCenoAction.updateIconColor(themeManager.getContext())
         }
         //modify tab counter icon color
@@ -350,7 +363,7 @@ abstract class BaseHomeFragment : Fragment(), UserInteractionHandler {
         themeManager.applyTheme(binding.toolbar)
     }
 
-    internal fun updateSearch(mode: BrowsingMode) {
+    internal fun updateSearch() {
         if (Settings.shouldShowSearchSuggestions(requireContext())) {
             awesomeBar.removeProviders(awesomeBar.searchSuggestionProvider)
             awesomeBar.addProviders(

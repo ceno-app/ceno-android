@@ -36,7 +36,7 @@ class ChangeIconFragment : Fragment() {
     ): View {
 
         // Inflate the layout for this fragment
-        _binding = FragmentChangeIconBinding.inflate(inflater, container, false);
+        _binding = FragmentChangeIconBinding.inflate(inflater, container, false)
         val activity = activity as BrowserActivity
         val appIconModifier = AppIconModifier(requireContext())
 
@@ -53,8 +53,8 @@ class ChangeIconFragment : Fragment() {
         )
 
         // Check that app icon is setting matches the launcher enabled in the manifest
-        for (icon in AppIcon.values()){
-            if (appIconModifier.isEnabled(icon)){
+        for (icon in AppIcon.entries) {
+            if (appIconModifier.isEnabled(icon)) {
                 Settings.setAppIcon(requireContext(), icon.componentName)
             }
         }

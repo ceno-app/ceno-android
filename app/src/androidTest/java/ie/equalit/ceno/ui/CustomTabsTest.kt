@@ -3,7 +3,6 @@
 package ie.equalit.ceno.ui
 
 import androidx.test.rule.ActivityTestRule
-import okhttp3.mockwebserver.MockWebServer
 import ie.equalit.ceno.IntentReceiverActivity
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
@@ -12,6 +11,7 @@ import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper.createCustomTabIntent
 import ie.equalit.ceno.ui.robots.customTabScreen
 import ie.equalit.ceno.ui.robots.onboarding
+import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
 import org.junit.Before
 import org.junit.Ignore
@@ -26,7 +26,7 @@ class CustomTabsTest {
     @get:Rule
     val activityTestRule = BrowserActivityTestRule()
 
-    @get: Rule
+    @get:Rule
     val intentReceiverActivityTestRule = ActivityTestRule(
         IntentReceiverActivity::class.java,
         true,
@@ -113,11 +113,12 @@ class CustomTabsTest {
         }.goBack {
             verifyPageTitle(pageLinks.title)
             verifyPageUrl(pageLinks.url.toString())
-        }.openMainMenu {
-            clickForwardButton()
-            verifyPageTitle(genericURL.title)
-            verifyPageUrl(genericURL.url.toString())
         }
+            .openMainMenu {
+                clickForwardButton()
+                verifyPageTitle(genericURL.title)
+                verifyPageUrl(genericURL.url.toString())
+            }
     }
 
     @Test
@@ -132,9 +133,10 @@ class CustomTabsTest {
 
         customTabScreen {
         }.openMainMenu {
-        }.clickShareButton {
-            verifyShareContentPanel()
         }
+            .clickShareButton {
+                verifyShareContentPanel()
+            }
     }
 
     @Test
@@ -150,12 +152,14 @@ class CustomTabsTest {
         customTabScreen {
         }.openMainMenu {
             switchRequestDesktopSiteToggle()
-        }.openMainMenu {
-            verifyRequestDesktopSiteIsTurnedOn()
-            switchRequestDesktopSiteToggle()
-        }.openMainMenu {
-            verifyRequestDesktopSiteIsTurnedOff()
         }
+            .openMainMenu {
+                verifyRequestDesktopSiteIsTurnedOn()
+                switchRequestDesktopSiteToggle()
+            }
+            .openMainMenu {
+                verifyRequestDesktopSiteIsTurnedOff()
+            }
     }
 
     @Test
@@ -170,8 +174,9 @@ class CustomTabsTest {
 
         customTabScreen {
         }.openMainMenu {
-        }.clickOpenInBrowserButton {
-            verifyUrl(customTabPage.url.toString())
         }
+            .clickOpenInBrowserButton {
+                verifyUrl(customTabPage.url.toString())
+            }
     }
 }

@@ -29,6 +29,7 @@ internal object AppStoreReducer {
         is AppAction.SourceCountsChange -> state.copy(
             sourceCounts = action.sourceCounts
         )
+
         is AppAction.OuicrawlSitesChange -> state.copy(
             ouicrawlListIsPartial = action.listIsHidden
         )

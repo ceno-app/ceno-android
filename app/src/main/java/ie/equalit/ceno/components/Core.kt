@@ -8,12 +8,27 @@ import android.content.Context
 import android.content.SharedPreferences
 import android.os.Environment
 import androidx.preference.PreferenceManager
+import ie.equalit.ceno.AppRequestInterceptor
+import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.EngineProvider
+import ie.equalit.ceno.R
+import ie.equalit.ceno.R.string.pref_key_remote_debugging
+import ie.equalit.ceno.R.string.pref_key_tracking_protection_normal
+import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
+import ie.equalit.ceno.downloads.DownloadService
+import ie.equalit.ceno.ext.cenoPreferences
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.media.MediaSessionService
+import ie.equalit.ceno.share.SaveToPDFMiddleware
+import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
 import mozilla.components.browser.session.storage.SessionStorage
 import mozilla.components.browser.state.engine.EngineMiddleware
 import mozilla.components.browser.state.state.BrowserState
 import mozilla.components.browser.state.store.BrowserStore
+import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
 import mozilla.components.browser.storage.sync.PlacesHistoryStorage
 import mozilla.components.browser.thumbnails.ThumbnailsMiddleware
 import mozilla.components.browser.thumbnails.storage.ThumbnailStorage
@@ -25,8 +40,10 @@ import mozilla.components.feature.addons.AddonManager
 import mozilla.components.feature.addons.amo.AMOAddonsProvider
 import mozilla.components.feature.addons.migration.DefaultSupportedAddonsChecker
 import mozilla.components.feature.addons.update.DefaultAddonUpdater
-import mozilla.components.feature.customtabs.store.CustomTabsServiceStore
+import mozilla.components.feature.downloads.DefaultFileSizeFormatter
+import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.DownloadMiddleware
+import mozilla.components.feature.downloads.FileSizeFormatter
 import mozilla.components.feature.media.MediaSessionFeature
 import mozilla.components.feature.media.middleware.RecordingDevicesMiddleware
 import mozilla.components.feature.prompts.file.FileUploadsDirCleaner
@@ -43,26 +60,8 @@ import mozilla.components.feature.webnotifications.WebNotificationFeature
 import mozilla.components.lib.dataprotect.SecureAbove22Preferences
 import mozilla.components.service.location.LocationService
 import mozilla.components.support.base.worker.Frequency
-import ie.equalit.ceno.AppRequestInterceptor
-import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.EngineProvider
-import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.pref_key_remote_debugging
-import ie.equalit.ceno.R.string.pref_key_tracking_protection_normal
-import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
-import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.getPreferenceKey
-import ie.equalit.ceno.ext.cenoPreferences
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.media.MediaSessionService
-import ie.equalit.ceno.share.SaveToPDFMiddleware
-import ie.equalit.ceno.utils.XMLParser
-import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
 import mozilla.components.support.utils.DateTimeProvider
 import mozilla.components.support.utils.DefaultDateTimeProvider
-import mozilla.components.feature.downloads.DefaultFileSizeFormatter
-import mozilla.components.feature.downloads.DownloadEstimator
-import mozilla.components.feature.downloads.FileSizeFormatter
 import mozilla.components.support.utils.DefaultDownloadFileUtils
 import java.util.concurrent.TimeUnit
 
@@ -82,8 +81,15 @@ class Core(private val context: Context) {
 
         val defaultSettings = DefaultSettings(
             requestInterceptor = AppRequestInterceptor(context),
-            remoteDebuggingEnabled = prefs.getBoolean(context.getPreferenceKey(pref_key_remote_debugging), false),
-            testingModeEnabled = prefs.getBoolean(context.getPreferenceKey(R.string.pref_key_testing_mode), false),
+            remoteDebuggingEnabled = prefs.getBoolean(
+                context.getPreferenceKey(
+                    pref_key_remote_debugging
+                ), false
+            ),
+            testingModeEnabled = prefs.getBoolean(
+                context.getPreferenceKey(R.string.pref_key_testing_mode),
+                false
+            ),
             trackingProtectionPolicy = createTrackingProtectionPolicy(prefs),
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage),
         )
@@ -122,7 +128,7 @@ class Core(private val context: Context) {
                 ),
                 SearchMiddleware(context),
                 RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
-                SaveToPDFMiddleware(context)
+                SaveToPDFMiddleware()
             ) + EngineMiddleware.create(engine),
         ).apply {
             icons.install(engine, this)
@@ -140,11 +146,6 @@ class Core(private val context: Context) {
             MediaSessionFeature(context, MediaSessionService::class.java, this).start()
         }
     }
-
-    /**
-     * The [CustomTabsServiceStore] holds global custom tabs related data.
-     */
-    val customTabsStore by lazy { CustomTabsServiceStore() }
 
     /**
      * The storage component for persisting browser tab sessions.
@@ -165,7 +166,7 @@ class Core(private val context: Context) {
     val historyStorage by lazy { lazyHistoryStorage.value }
 
     val lazyBookmarksStorage = lazy { PlacesBookmarksStorage(context) }
-    val bookmarksStorage by lazy { lazyBookmarksStorage.value}
+    val bookmarksStorage by lazy { lazyBookmarksStorage.value }
 
     /**
      * A storage component for persisting thumbnail images of tabs.
@@ -176,7 +177,14 @@ class Core(private val context: Context) {
      * Component for managing shortcuts (both regular and PWA).
      */
     /* CENO: supportWebApps was breaking AddToHomescreen for some websites, set to false */
-    val shortcutManager by lazy { WebAppShortcutManager(context, client, ManifestStorage(context), false) }
+    val shortcutManager by lazy {
+        WebAppShortcutManager(
+            context,
+            client,
+            ManifestStorage(context),
+            false
+        )
+    }
 
     /**
      * A storage component for site permissions.
@@ -214,7 +222,10 @@ class Core(private val context: Context) {
     val cenoTopSitesStorage by lazy {
         var defaultTopSites: MutableList<Pair<String, String>>? = null
         if (!context.cenoPreferences().defaultTopSitesAdded) {
-            defaultTopSites = XMLParser.parseTopsitesXml(context.resources.getXml(R.xml.default_topsites), context)
+            defaultTopSites = XMLParser.parseTopsitesXml(
+                context.resources.getXml(R.xml.default_topsites),
+                context
+            )
             context.cenoPreferences().defaultTopSitesAdded = true
         }
 
@@ -260,8 +271,16 @@ class Core(private val context: Context) {
      */
     fun createTrackingProtectionPolicy(
         prefs: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context),
-        normalMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_normal), true),
-        privateMode: Boolean = prefs.getBoolean(context.getPreferenceKey(pref_key_tracking_protection_private), true),
+        normalMode: Boolean = prefs.getBoolean(
+            context.getPreferenceKey(
+                pref_key_tracking_protection_normal
+            ), true
+        ),
+        privateMode: Boolean = prefs.getBoolean(
+            context.getPreferenceKey(
+                pref_key_tracking_protection_private
+            ), true
+        ),
     ): TrackingProtectionPolicy {
         val trackingPolicy = TrackingProtectionPolicy.recommended()
         return when {
@@ -272,18 +291,21 @@ class Core(private val context: Context) {
         }
     }
 
-    fun  setRootCertificate( rootCertificate: String) {
+    fun setRootCertificate(rootCertificate: String) {
         EngineProvider.rootCertificate = rootCertificate
     }
-
-    private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }
 
     val fileSizeFormatter: FileSizeFormatter by lazy { DefaultFileSizeFormatter(context.applicationContext) }
 
     private val dateTimeProvider: DateTimeProvider by lazy { DefaultDateTimeProvider() }
     val downloadEstimator: DownloadEstimator by lazy { DownloadEstimator(dateTimeProvider = dateTimeProvider) }
 
+    /*
+    TODO: Implement secure preferences
+    private val lazySecurePrefs = lazy { SecureAbove22Preferences(context, KEY_STORAGE_NAME) }
+
     companion object {
         private const val KEY_STORAGE_NAME = "core_prefs"
     }
+    */
 }

@@ -4,17 +4,12 @@
 
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import junit.framework.Assert.assertTrue
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTimeShort
-import ie.equalit.ceno.helpers.TestHelper.packageName
+import junit.framework.Assert.assertTrue
 
 /**
  * Implementation of Robot Pattern for any non-Reference Browser (external) apps.

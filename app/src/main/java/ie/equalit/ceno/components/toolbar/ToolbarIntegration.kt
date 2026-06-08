@@ -4,7 +4,6 @@
 
 package ie.equalit.ceno.components.toolbar
 
-/* CENO: This components.ceno.toolbar replaces ToolbarFeature a-c commented out above */
 import android.content.Context
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
@@ -14,7 +13,6 @@ import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.NavHostFragment
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
@@ -58,7 +56,6 @@ import mozilla.components.concept.menu.candidate.SmallMenuCandidate
 import mozilla.components.concept.menu.candidate.TextMenuCandidate
 import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
-import mozilla.components.feature.tabs.TabsUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
 import mozilla.components.feature.toolbar.ToolbarFeature
 import mozilla.components.feature.top.sites.TopSite
@@ -69,8 +66,6 @@ import mozilla.components.support.base.feature.UserInteractionHandler
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.filterChanged
 import mozilla.components.support.ktx.kotlinx.coroutines.flow.ifAnyChanged
 
-//import ie.equalit.ceno.tabs.synced.SyncedTabsActivity
-
 /* CENO: Add onTabUrlChange listener to control which fragment is displayed, Home or Browser */
 @Suppress("LongParameterList")
 class ToolbarIntegration(
@@ -80,7 +75,6 @@ class ToolbarIntegration(
     historyStorage: PlacesHistoryStorage,
     store: BrowserStore,
     private val sessionUseCases: SessionUseCases,
-    private val tabsUseCases: TabsUseCases,
     private val webAppUseCases: WebAppUseCases,
     sessionId: String? = null,
     private val readerViewIntegration: ReaderViewIntegration? = null,
@@ -104,12 +98,14 @@ class ToolbarIntegration(
 
     private fun menuToolbar(session: SessionState?): RowMenuCandidate {
         val tintEnabled = ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary)
-        val tintDisabled = ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary_inactive)
+        val tintDisabled =
+            ContextCompat.getColor(context, R.color.fx_mobile_icon_color_primary_inactive)
         val canGoBack = session?.content?.canGoBack!!
         val canGoForward = session.content.canGoForward
 
         /* CENO: Disable forward and stop row menu items when they are not relevant */
-        val rowMenuItems : MutableList<SmallMenuCandidate>  = emptyList<SmallMenuCandidate>().toMutableList()
+        val rowMenuItems: MutableList<SmallMenuCandidate> =
+            emptyList<SmallMenuCandidate>().toMutableList()
         rowMenuItems += SmallMenuCandidate(
             contentDescription = context.getString(R.string.browser_menu_back),
             icon = DrawableMenuIcon(
@@ -153,8 +149,7 @@ class ToolbarIntegration(
             ) {
                 sessionUseCases.stopLoading.invoke()
             }
-        }
-        else {
+        } else {
             rowMenuItems += SmallMenuCandidate(
                 contentDescription = context.getString(R.string.browser_menu_refresh),
                 icon = DrawableMenuIcon(
@@ -199,8 +194,7 @@ class ToolbarIntegration(
                     }
                 }
             }
-        }
-        else {
+        } else {
             TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_add_to_shortcuts),
             ) {
@@ -210,14 +204,16 @@ class ToolbarIntegration(
                         .filter { it is TopSite.Default || it is TopSite.Pinned }.size
 
                     if (numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit) {
-                        AlertDialog.Builder(context).apply {
-                            setTitle(R.string.shortcut_max_limit_title)
-                            setMessage(R.string.shortcut_max_limit_content)
-                            setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
-                                dialog.dismiss()
+                        AlertDialog.Builder(context)
+                            .apply {
+                                setTitle(R.string.shortcut_max_limit_title)
+                                setMessage(R.string.shortcut_max_limit_content)
+                                setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
+                                    dialog.dismiss()
+                                }
+                                create()
                             }
-                            create()
-                        }.show()
+                            .show()
                     } else {
                         sessionState.let {
                             with(context.components.useCases.cenoTopSitesUseCase) {
@@ -230,6 +226,7 @@ class ToolbarIntegration(
         }
     }
 
+    @Suppress("LongMethod")
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         val menuItemsList: MutableList<MenuCandidate> = emptyList<MenuCandidate>().toMutableList()
@@ -248,7 +245,8 @@ class ToolbarIntegration(
             context,
             activity as LifecycleOwner,
             prefs.getString(
-                context.getPreferenceKey(R.string.pref_key_clear_behavior), "0")!!
+                context.getPreferenceKey(R.string.pref_key_clear_behavior), "0"
+            )!!
                 .toInt()
         )
 
@@ -262,7 +260,8 @@ class ToolbarIntegration(
         }
 
         if (context.components.core.store.state.selectedTab?.readerState?.readerable == true) {
-            val readerViewActive = context.components.core.store.state.selectedTab?.readerState?.active
+            val readerViewActive =
+                context.components.core.store.state.selectedTab?.readerState?.active
             menuItemsList += if (readerViewActive == true) {
                 TextMenuCandidate(
                     text = context.getString(R.string.browser_menu_disable_reader_view)
@@ -285,19 +284,21 @@ class ToolbarIntegration(
             ) {
                 val sessionId = sessionState.id
                 val url = sessionId.let {
-                    context.components.core.store.state.findTab(it)?.getUrl()
+                    context.components.core.store.state.findTab(it)
+                        ?.getUrl()
                 }
                 val directions = NavGraphDirections.actionGlobalShareFragment(
-                     arrayOf(
+                    arrayOf(
                         ShareData(
                             url = url,
                             title = sessionState?.content?.title,
                         ),
                     )
-                ).apply {
-                    setSessionId(sessionId)
-                    setShowPage(true)
-                }
+                )
+                    .apply {
+                        setSessionId(sessionId)
+                        setShowPage(true)
+                    }
 
                 navHost.navController.navigate(directions)
             }
@@ -322,25 +323,30 @@ class ToolbarIntegration(
             }
 
             /* CENO: Only add extension menu items to list if there is a session and browserActions are not null */
-            cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)?.let{
-                menuItemsList += TextMenuCandidate(
-                    text = context.getString(R.string.browser_menu_https_by_default),
-                    onClick = it
-                )
-            }
+            cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)
+                ?.let {
+                    menuItemsList += TextMenuCandidate(
+                        text = context.getString(R.string.browser_menu_https_by_default),
+                        onClick = it
+                    )
+                }
 
-            cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)?.let{
-                menuItemsList += TextMenuCandidate(
-                    text = context.getString(R.string.browser_menu_ublock_origin),
-                    onClick = it
-                )
-            }
+            cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)
+                ?.let {
+                    menuItemsList += TextMenuCandidate(
+                        text = context.getString(R.string.browser_menu_ublock_origin),
+                        onClick = it
+                    )
+                }
         }
 
         menuItemsList += TextMenuCandidate(
             text = getString(context, R.string.library_bookmarks),
             onClick = {
-                navHost.navController.navigate(R.id.action_global_bookmarks, bundleOf("currentRoot" to BookmarkRoot.Mobile.id))
+                navHost.navController.navigate(
+                    R.id.action_global_bookmarks,
+                    bundleOf("currentRoot" to BookmarkRoot.Mobile.id)
+                )
             }
         )
 
@@ -373,10 +379,18 @@ class ToolbarIntegration(
         toolbar.display.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.hint = context.getString(R.string.toolbar_hint)
         toolbar.edit.setOnEditFocusChangeListener {
-            if(it) {
-                toolbar.edit.updateUrl(context.components.core.store.state.selectedTab?.content?.url ?: "")
+            if (it) {
+                toolbar.edit.updateUrl(
+                    context.components.core.store.state.selectedTab?.content?.url ?: ""
+                )
                 //show keyboard
-                getSystemService(context, InputMethodManager::class.java)?.showSoftInput(toolbar.findViewById(R.id.mozac_browser_toolbar_edit_url_view), InputMethodManager.SHOW_IMPLICIT)
+                getSystemService(
+                    context,
+                    InputMethodManager::class.java
+                )?.showSoftInput(
+                    toolbar.findViewById(R.id.mozac_browser_toolbar_edit_url_view),
+                    InputMethodManager.SHOW_IMPLICIT
+                )
             }
         }
 
@@ -392,7 +406,7 @@ class ToolbarIntegration(
             context.components.appStore.flow()
                 .map { state -> state.topSites }
                 .distinctUntilChanged()
-                .collect(){ topSites ->
+                .collect { topSites ->
                     isCurrentUrlPinned = topSites
                         .find { it.url == store.state.selectedTab?.content?.url } != null
                     /* Resubmit menu items in case state of pinned sites changed */
@@ -410,11 +424,11 @@ class ToolbarIntegration(
                     isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
                         .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
                         .find { it.url == newUrl } != null
-                    isCurrentUrlBookmarked = newUrl?.let { url->
+                    isCurrentUrlBookmarked = newUrl?.let { url ->
                         context.components.core.bookmarksStorage
                             .getBookmarksWithUrl(url)
                             .getOrDefault(listOf())
-                            .any {it.url == url}
+                            .any { it.url == url }
                     } == true
                 }
         }
@@ -427,7 +441,8 @@ class ToolbarIntegration(
                 .collect { state ->
                     menuController.submitList(menuItems(state.selectedTab))
                     toolbar.display.setOnTrackingProtectionClickedListener {
-                        val fragment = navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
+                        val fragment =
+                            navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?
                         fragment?.showWebExtensionPopupPanel()
                     }
                 }

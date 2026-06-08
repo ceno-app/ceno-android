@@ -39,14 +39,14 @@ open class BrowserApplication : Application() {
         /* CENO: Read default preferences and set the default theme immediately at startup */
         PreferenceManager.setDefaultValues(this, R.xml.default_preferences, false)
         AppCompatDelegate.setDefaultNightMode(
-                Settings.getAppTheme(this)
+            Settings.getAppTheme(this)
         )
 
         val existingHandler = getDefaultUncaughtExceptionHandler()
         // Record exceptions as well as app crashes
         Thread.setDefaultUncaughtExceptionHandler { thread: Thread, throwable: Throwable ->
             existingHandler?.uncaughtException(thread, throwable)
-            if(!Settings.isCrashReportingPermissionGranted(this)) {
+            if (!Settings.isCrashReportingPermissionGranted(this)) {
                 Settings.setCrashHappenedCommit(this, true)
             }
             exitProcess(0)
@@ -55,10 +55,9 @@ open class BrowserApplication : Application() {
         setupLogging()
 
         // Initialize Sentry-Android
-        if(Settings.isCrashReportingPermissionGranted(this)) {
+        if (Settings.isCrashReportingPermissionGranted(this)) {
             SentryAndroid.init(
-                this,
-                SentryOptionsConfiguration.getConfig(this)
+                this, SentryOptionsConfiguration.getConfig(this)
             )
         }
 
@@ -115,8 +114,7 @@ open class BrowserApplication : Application() {
             onUpdatePermissionRequest = components.core.addonUpdater::onUpdatePermissionRequest,
         )
 
-        @OptIn(DelicateCoroutinesApi::class)
-        GlobalScope.launch(Dispatchers.IO) {
+        @OptIn(DelicateCoroutinesApi::class) GlobalScope.launch(Dispatchers.IO) {
             components.core.fileUploadsDirCleaner.cleanUploadsDirectory()
         }
 

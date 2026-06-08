@@ -16,11 +16,11 @@ import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
 import kotlin.reflect.KClass
 
-class PublicNotificationFeature<T:AbstractPublicNotificationService>(
+class PublicNotificationFeature<T : AbstractPublicNotificationService>(
     context: Context,
     private val store: BrowserStore,
     private val notificationServiceClass: KClass<T>
-) :LifecycleAwareFeature{
+) : LifecycleAwareFeature {
 
     private val applicationContext = context.applicationContext
     private var scope: CoroutineScope? = null
@@ -38,7 +38,12 @@ class PublicNotificationFeature<T:AbstractPublicNotificationService>(
                         ) {
                             return@collect
                         }
-                        applicationContext.startService(Intent(applicationContext, notificationServiceClass.java))
+                        applicationContext.startService(
+                            Intent(
+                                applicationContext,
+                                notificationServiceClass.java
+                            )
+                        )
                     }
                 }
         }

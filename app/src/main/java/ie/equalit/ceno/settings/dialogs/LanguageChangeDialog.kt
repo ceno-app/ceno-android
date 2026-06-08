@@ -2,7 +2,6 @@ package ie.equalit.ceno.settings.dialogs
 
 import android.content.Context
 import android.content.DialogInterface
-import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.RadioButton
@@ -12,10 +11,8 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat.getString
 import androidx.core.view.children
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.language.SupportedLanguageProvider
 import java.util.Locale
-
 
 class LanguageChangeDialog(
     val context: Context,
@@ -29,7 +26,8 @@ class LanguageChangeDialog(
     init {
 
         currentLocale =
-            AppCompatDelegate.getApplicationLocales().get(0) ?: Locale.getDefault()
+            AppCompatDelegate.getApplicationLocales()
+                .get(0) ?: Locale.getDefault()
 
         val languageChangeDialogView = View.inflate(context, R.layout.language_change_dialog, null)
         val radioGroup = languageChangeDialogView.findViewById<RadioGroup>(R.id.radio_group)
@@ -56,11 +54,12 @@ class LanguageChangeDialog(
 
             // Add currentLocale as first view
             currentLocale?.let { current ->
-                val radioButton = LayoutInflater.from(context).inflate(
-                    R.layout.item_langauge,
-                    radioGroup,
-                    false
-                ) as RadioButton
+                val radioButton = LayoutInflater.from(context)
+                    .inflate(
+                        R.layout.item_langauge,
+                        radioGroup,
+                        false
+                    ) as RadioButton
                 radioButton.apply {
                     isClickable = true
                     text = current.displayLanguage
@@ -78,11 +77,12 @@ class LanguageChangeDialog(
                     if (it.displayLanguage != currentLocale?.displayLanguage && !it.toLanguageTag()
                             .contains("-")
                     ) {
-                        val radioButton = LayoutInflater.from(context).inflate(
-                            R.layout.item_langauge,
-                            radioGroup,
-                            false
-                        ) as RadioButton
+                        val radioButton = LayoutInflater.from(context)
+                            .inflate(
+                                R.layout.item_langauge,
+                                radioGroup,
+                                false
+                            ) as RadioButton
                         radioButton.apply {
                             isClickable = true
                             text = it.displayLanguage

@@ -16,7 +16,6 @@ import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
-
 class SessionControlAdapter internal constructor(
     private val interactor: SessionControlInteractor,
     private val viewLifecycleOwner: LifecycleOwner
@@ -39,7 +38,8 @@ class SessionControlAdapter internal constructor(
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
-        val view = LayoutInflater.from(parent.context).inflate(layout, parent, false)
+        val view = LayoutInflater.from(parent.context)
+            .inflate(layout, parent, false)
         return when (viewType) {
             TopPlaceholderViewHolder.homepageCardType.value -> TopPlaceholderViewHolder(view)
             CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
@@ -59,11 +59,18 @@ class SessionControlAdapter internal constructor(
                 view,
                 interactor
             )
+
             SectionHeaderViewHolder.homepageCardType.value -> SectionHeaderViewHolder(
                 view,
                 interactor
             )
-            OuicrawledSiteViewHolder.homepageCardType.value -> OuicrawledSiteViewHolder(view, interactor, viewLifecycleOwner)
+
+            OuicrawledSiteViewHolder.homepageCardType.value -> OuicrawledSiteViewHolder(
+                view,
+                interactor,
+                viewLifecycleOwner
+            )
+
             else -> throw IllegalStateException()
         }
     }

@@ -74,6 +74,7 @@ class WebViewPopupPanel(
             }
         }
     }
+
     companion object {
         private const val TAG = "LanguageChangeDialog"
     }

@@ -15,14 +15,15 @@ class CenoTabsAdapter(
     thumbnailLoader: ImageLoader? = null,
     viewHolderProvider: ViewHolderProvider = { parent ->
         DefaultTabViewHolder(
-            LayoutInflater.from(parent.context).inflate(R.layout.mozac_browser_tabstray_item, parent, false),
-          thumbnailLoader,
-            )
+            LayoutInflater.from(parent.context)
+                .inflate(R.layout.mozac_browser_tabstray_item, parent, false),
+            thumbnailLoader,
+        )
     },
     styling: TabsTrayStyling = TabsTrayStyling(),
     delegate: TabsTray.Delegate,
     val onUpdateList: () -> Unit
-): TabsAdapter(thumbnailLoader, viewHolderProvider, styling, delegate) {
+) : TabsAdapter(thumbnailLoader, viewHolderProvider, styling, delegate) {
 
     override fun updateTabs(
         tabs: List<TabSessionState>,
