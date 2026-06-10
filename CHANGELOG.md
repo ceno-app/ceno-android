@@ -5,7 +5,24 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.9.0 - Unreleased
+## v2.9.2 - 2026-05-20
+
+### Changed
+
+- Update Android-Components to v150.0.3
+- Update to permissions launcher for downloadsPermissions, promptsPermissions, and sitePermissions
+- Set ignoreUnknownKeys to true and explicitNulls to false for JSON decoder
+- Update Ouinet to v1.6.7
+- Update translations for various locales
+- Remove READ_MEDIA_IMAGES and READ_MEDIA_VIDEO permissions
+
+## [v2.9.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.1) - 2026-04-17
+
+### Changed
+
+- Update Android-Components to v149.0.2
+
+## [v2.9.0](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.0) - 2026-04-02
 
 ### Added
 
@@ -23,6 +40,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Update Android-Components to v148.0.2
 - Update Ouinet to v1.6.4
 - Increase on-device retention of metrics records to a maximum of 30 days
+- Update version code generation of nightly builds to use Kotlin plugin
 
 ## [v2.8.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.8.3) - 2026-02-27
 

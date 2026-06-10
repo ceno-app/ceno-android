@@ -5,6 +5,7 @@
 package ie.equalit.ceno.browser
 
 import android.content.Context
+import android.os.Environment
 import android.view.View
 import androidx.fragment.app.FragmentManager
 import mozilla.components.browser.state.store.BrowserStore
@@ -40,11 +41,25 @@ class ContextMenuIntegration(
                 createCopyLinkCandidate(context, parentView, snackbarDelegate),
                 createShareLinkCandidate(context),
                 createOpenImageInNewTabCandidate(context, tabsUseCases, parentView, snackbarDelegate),
-                createSaveImageCandidate(context, contextMenuUseCases),
+                createSaveImageCandidate(
+                    context,
+                    contextMenuUseCases,
+                    downloadsLocation = {
+                        Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                    },
+                ),
                 createCopyImageLocationCandidate(context, parentView, snackbarDelegate),
             )
         } else {
-            ContextMenuCandidate.defaultCandidates(context, tabsUseCases, contextMenuUseCases, parentView)
+            ContextMenuCandidate.defaultCandidates(
+                context,
+                tabsUseCases,
+                contextMenuUseCases,
+                parentView,
+                downloadsLocation = {
+                    Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                },
+            )
         }
     }
 

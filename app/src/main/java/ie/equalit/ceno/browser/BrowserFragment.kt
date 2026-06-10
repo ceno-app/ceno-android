@@ -4,15 +4,11 @@
 
 package ie.equalit.ceno.browser
 
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import androidx.annotation.RequiresApi
 import androidx.core.content.res.ResourcesCompat
 import androidx.navigation.fragment.findNavController
-import ie.equalit.ceno.AppPermissionCodes
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
@@ -29,20 +25,9 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.CirclePromptFocal
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private var tooltip: CenoTooltip? = null
     private var startTooltip:CenoTourStartOverlay? = null
-    /* Removing WebExtension toolbar feature, see below for more details
-    private val webExtToolbarFeature = ViewBoundFeatureWrapper<WebExtensionToolbarFeature>()
-     */
 
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
-
-    /*
-    override val shouldUseComposeUI: Boolean
-        get() = PreferenceManager.getDefaultSharedPreferences(requireContext()).getBoolean(
-            getString(R.string.pref_key_compose_ui),
-            false,
-        )
-     */
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -62,21 +47,6 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
             toolbar.addNavigationAction(homeAction)
         }
 
-        /*
-         * Remove WebExtension toolbar feature because
-         * we don't want the browserAction button in toolbar and
-         * the pageAction button created by it didn't work anyway
-         */
-        /*
-        webExtToolbarFeature.set(
-            feature = WebExtensionToolbarFeature(
-                toolbar,
-                requireContext().components.core.store,
-            ),
-            owner = this,
-            view = view,
-        )
-        */
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 

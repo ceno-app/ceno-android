@@ -15,6 +15,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.PreferenceFragmentCompat
+import androidx.preference.SwitchPreferenceCompat
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
@@ -89,6 +90,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
 
         if (requireComponents.ouinet.isDohDisabledForLocale()) {
             preferenceDohEnabled?.isEnabled = false
+            (preferenceDohEnabled as SwitchPreferenceCompat).isChecked = false
         }
     }
 

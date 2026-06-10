@@ -31,6 +31,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getUrl
 import ie.equalit.ceno.settings.CenoSettings
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.map
@@ -434,7 +435,7 @@ class ToolbarIntegration(
 
 
         scope.launch {
-            store.flowScoped { flow ->
+            store.flowScoped(dispatcher = Dispatchers.Main) { flow ->
                 flow.mapNotNull { state -> state.tabs }
                     .filterChanged {
                         it.readerState

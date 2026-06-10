@@ -6,6 +6,7 @@ package ie.equalit.ceno.components
 
 import android.content.Context
 import android.content.SharedPreferences
+import android.os.Environment
 import androidx.preference.PreferenceManager
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
@@ -57,11 +58,12 @@ import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
 import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.browser.storage.sync.PlacesBookmarksStorage
-import mozilla.components.feature.downloads.DateTimeProvider
-import mozilla.components.feature.downloads.DefaultDateTimeProvider
+import mozilla.components.support.utils.DateTimeProvider
+import mozilla.components.support.utils.DefaultDateTimeProvider
 import mozilla.components.feature.downloads.DefaultFileSizeFormatter
 import mozilla.components.feature.downloads.DownloadEstimator
 import mozilla.components.feature.downloads.FileSizeFormatter
+import mozilla.components.support.utils.DefaultDownloadFileUtils
 import java.util.concurrent.TimeUnit
 
 private const val DAY_IN_MINUTES = 24 * 60L
@@ -101,7 +103,17 @@ class Core(private val context: Context) {
     val store by lazy {
         BrowserStore(
             middleware = listOf(
-                DownloadMiddleware(context, DownloadService::class.java, { false }),
+                DownloadMiddleware(
+                    applicationContext = context,
+                    downloadServiceClass = DownloadService::class.java,
+                    deleteFileFromStorage = { false },
+                    downloadFileUtils = DefaultDownloadFileUtils(
+                        context = context,
+                        downloadLocation = {
+                            Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).path
+                        },
+                    ),
+                ),
                 ThumbnailsMiddleware(thumbnailStorage),
                 ReaderViewMiddleware(),
                 RegionMiddleware(

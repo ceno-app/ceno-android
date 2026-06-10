@@ -18,6 +18,7 @@ import ie.equalit.ceno.databinding.FragmentDeleteBrowsingDataBinding
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.cancel
@@ -101,7 +102,10 @@ class DeleteBrowsingDataFragment : Fragment(R.layout.fragment_delete_browsing_da
     override fun onStart() {
         super.onStart()
 
-        scope = requireComponents.core.store.flowScoped(viewLifecycleOwner) { flow ->
+        scope = requireComponents.core.store.flowScoped(
+            owner = viewLifecycleOwner,
+            dispatcher = Main
+        ) { flow ->
             flow.map { state -> state.tabs.size }
                 .distinctUntilChanged()
                 .collect { openTabs -> updateTabCount(openTabs) }

@@ -423,7 +423,7 @@
     <string name="preferences_secure_screen_summary">اخفاء العرض الحالي عند التبديل بين التطبيقات ومنع لقطات الشاشة</string>
     <string name="preferences_secure_screen_personal">فقط بوضع التصفح الشخصي</string>
     <string name="preferences_secure_screen_personal_summary">يتم اجبار الشاشة الآمنة بوضع التصفح الشخصي فقط</string>
-    <string name="dialog_external_url_message">إضغط إستمرار لفتح الرابط</string>
+    <string name="dialog_external_url_message">إضغط إستمرار لفتح الرابط\n\n%1$s</string>
     <string name="dialog_external_url_title">أمتاكد من فتح الروابط من تطبيقات خارجية؟</string>
     <string name="preferences_verify_external_url">اظهر تحذيرا قبل فتح روابط من تطبيقات أخرى</string>
     <string name="warning_title">تحذير</string>
