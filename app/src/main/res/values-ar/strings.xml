@@ -430,4 +430,7 @@
     <string name="warning_all_website_sources_disabled">كل مصادر الموقع معطلة. الرجاء تفعيل مصدر واحد عالأقل لتصفح الموقع</string>
     <string name="warning_public_website_sources_disabled">كل المصادر الضرورية للتصفح بالوضع العام معطلة; التصفح ممكن فقط بالوضع الشخصي</string>
     <string name="warning_personal_website_sources_disabled">كل المصادر الضرورية للتصفح بالوضع الشخصي معطلة; التصفح ممكن فقط بالوضع العام</string>
+    <string name="preferences_ouinet_proxy_endpoint">ouinetLocalProxy</string>
+    <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
+    <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
 </resources>
