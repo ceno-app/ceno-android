@@ -293,7 +293,7 @@
     <string name="preferences_theme_option_2">Açık</string>
     <string name="preferences_theme_option_3">Pil Tasarrufu tarafından ayarlanır</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">İndir</string>
-    <string name="website_button_link">https://ceno.app/tr/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="about_content_title">İnternet içeriklerini paylaşın!</string>
     <string name="about_content_para_1">Ceno dünyanın ilk güncel internet sansür yöntemlerine karşı koyan mobil tarayıcısı. Uçtan uca altyapısı, insanların bağlantının kesildiği veya tehlikeye girdiği bölgelerde internet üzerindeki bilgilere erişmesini ve bu bilgileri paylaşmasını sağlar.</string>
     <string name="support_button_text">Destek</string>
@@ -316,7 +316,7 @@
     <string name="tooltip_sources_title">Ceno kaynakları</string>
     <string name="tooltip_permission_text">Uygulama arka planda olsa bile siteleri sorunsuz olarak paylaşmayı sürdürmek için lütfen Ceno uygulamasının bildirim göndermesine ve pil optimizasyonlarını devre dışı bırakmasına izin verin. Bu izinleri daha sonra istediğiniz zaman telefonunuzun ayarlarından değiştirebilirsiniz</string>
     <string name="select_language">Dili seçin:</string>
-    <string name="privacy_policy_url">https://ceno.app/tr/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/en/privacy-policy/</string>
     <string name="standby_dont_show">Uyarıyı yeniden gösterme</string>
     <string name="ceno_permissions_category">İzinler</string>
     <string name="status_enabled">Açık</string>
