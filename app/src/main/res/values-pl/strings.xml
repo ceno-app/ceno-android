@@ -471,4 +471,6 @@
     <string name="preferences_verify_external_url">Pokazuj ostrzeżenie przed otwarciem URL z innych aplikacji</string>
     <string name="warning_personal_website_sources_disabled">Wszystkie źródła niezbędne do przeglądania w trybie osobistym są wyłączone. Przeglądanie stron internetowych jest możliwe tylko w trybie publicznym</string>
     <string name="dialog_external_url_message">Click nadal otwiera się po URL.\n\n%1$s</string>
+    <string name="last_2_hours">Ostatnie 2 godziny</string>
+    <string name="preferences_secure_screen_personal_summary">Bezpieczny ekran jest wymuszany tylko podczas korzystania z trybu przeglądania prywatnego</string>
 </resources>
