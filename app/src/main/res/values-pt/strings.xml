@@ -309,10 +309,10 @@
     <string name="error_page_sub_header">Isso significa que Ceno tentou todos os mecanismos disponíveis para acessar o conteúdo, mas nenhum deles funcionou:</string>
     <string name="error_page_learn_more">Saber mais</string>
     <string name="error_page_learn_more_header">Você precisa verificar se os seguintes requisitos foram atendidos para que o Ceno funcione</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="about_content_title">Compartilhe a Web!</string>
     <string name="top_sites_title">Atalhos</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="update">Atualizar</string>
     <string name="change_language">Mudar Idioma</string>
     <string name="about_content_para_1">Ceno é o primeiro navegador móvel do mundo a contornar os métodos atuais de censura na Internet. Sua estrutura peer-to-peer permite que as pessoas acessem e compartilhem informações da web dentro e entre regiões onde a conectividade foi interrompida ou comprometida.</string>

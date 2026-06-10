@@ -2,7 +2,7 @@ Partagez le Web ! Ceno est le premier navigateur Web à devenir meilleur à ch
 
 Ceno est un navigateur totalement gratuit et open-source qui ne nécessite pas de connexion. Il est garanti sans pub.
 
-Nous collectons des données d'application anonymisées et des mesures de réseau. Aucune information personnel n'est collectée, et les données ne sont jamais partagées avec des tierces parties. La collecte des données est activée par défaut, les utilisateurs peuvent la désactiver à tout moment via le réglage `paramètre > statistiques en arrière plan  > Métriques Ceno. Veuillez vous référer à notre <a href="https://ceno.app/en/privacy_policy.html">Notice de confidentialité</a> pour plus d'information sur les données que nous collectons.
+Nous collectons des données d'application anonymisées et des mesures de réseau. Aucune information personnel n'est collectée, et les données ne sont jamais partagées avec des tierces parties. La collecte des données est activée par défaut, les utilisateurs peuvent la désactiver à tout moment via le réglage `paramètre > statistiques en arrière plan  > Métriques Ceno. Veuillez vous référer à notre <a href="https://ceno.app/privacy-policy/">Notice de confidentialité</a> pour plus d'information sur les données que nous collectons.
 
 🔓👀 Accédez aux sites et médias bloqués. Gratuit et anonyme en mode Personnel.
 

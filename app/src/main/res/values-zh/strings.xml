@@ -318,14 +318,14 @@
     <string name="error_page_learn_more">了解更多</string>
     <string name="error_page_learn_more_header">您应该确保满足以下要求，Ceno才能工作</string>
     <string name="error_page_learn_more_1">您正在运行最新版本的 Ceno 浏览器。过时的版本可能无法与较新的注入器或其他客户端通信。请查看<a href="https://play.google.com/store/apps/details?id=ie.equalit.ceno">下载页面</a>以查找最新版本。</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="about_content_title">共享网络！</string>
     <string name="support_button_text">支持</string>
     <string name="about_content_para_1">Ceno 是世界上第一个能够避开当前互联网审查方法的移动浏览器。它的点对点骨干网允许人们在连接中断或受到影响的地区访问和共享网络信息。</string>
     <string name="eq_values_button_text">价值观</string>
     <string name="about_content_para_2">Ceno 浏览器是 eQualitie 的一个项目。eQualitie 是加拿大的一个非营利组织，致力于创建去中心化的互联网服务来支持更加平等和公平的网络。每天，它们都在为数百万人的网络结社自由提供支持。</string>
     <string name="eq_news_button_text">新闻</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="enable_debug_logs">启用调试日志</string>
     <string name="update">更新</string>
     <string name="change_language">修改语言</string>

@@ -26,6 +26,7 @@ object SentryOptionsConfiguration {
             it.sampleRate = 1.0
             it.profilesSampleRate = 1.0
             it.isAnrEnabled = false
+            it.isTombstoneEnabled = true
             it.addEventProcessor(SentryEventProcessor(context))
         }
     }

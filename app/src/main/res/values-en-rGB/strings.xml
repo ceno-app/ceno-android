@@ -70,7 +70,7 @@
     <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
     <string name="preferences_announcement_source_option_1">Production</string>
     <string name="preferences_ceno_sources_origin_summary">Load content directly from website</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="personal_browsing_mode_selected">personal browsing mode selected</string>
     <string name="preferences_theme_option_3">Set by Battery Saver</string>
     <string name="preferences_ceno_sources_peers_summary">Load content shared by other users</string>
@@ -82,7 +82,7 @@
     <string name="ceno_notification_description">Tap for more details</string>
     <string name="share_link_all_apps_subheader">All actions</string>
     <string name="progress_dialog_log_export_message">Computing your logs…</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="setting_item_selected">%s selected</string>
     <string name="preference_category_search" tools:ignore="UnusedResources">Search</string>
     <string name="preferences_ceno_sources_public">Publicly</string>

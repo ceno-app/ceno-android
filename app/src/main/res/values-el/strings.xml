@@ -97,8 +97,8 @@
     <string name="share_link_all_apps_subheader">Όλες οι ενέργειες</string>
     <string name="share_link_recent_apps_subheader">Πρόσφατη χρήση</string>
     <string name="share_save_to_pdf">Αποθήκευση ως PDF</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="website_button_link">https://ceno.app</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="preferences_about_page">Σχετικά</string>
     <string name="preferences_ceno_sources_origin">Ιστοσελίδα</string>
     <string name="preferences_ceno_groups_count">Περιεχόμενο που μοιράζεστε</string>

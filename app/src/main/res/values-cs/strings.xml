@@ -102,7 +102,7 @@
     <string name="share_link_all_apps_subheader">Všechny akce</string>
     <string name="share_link_recent_apps_subheader">Naposledy použité</string>
     <string name="share_save_to_pdf">Uložit jako PDF</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="preferences_theme_option_1">Temný</string>
     <string name="shutdown_message_one">Vymazání dat aplikace</string>
     <string name="shutdown_message_two">Vypínání Ceno</string>
@@ -203,7 +203,7 @@
 \n
 \nPřejděte do „Nastavení“ a dejte povolení později</string>
     <string name="preferences_about_ceno_browser_service">Služba prohlížeče Ceno</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="update">Aktualizovat</string>
     <string name="change_language">Změnit Jazyk</string>
     <string name="top_sites_title">Zkratky</string>

@@ -292,7 +292,7 @@
     <string name="dialog_btn_positive_ok">OK</string>
     <string name="shutdown_message_one">Czyszczenie danych aplikacji</string>
     <string name="shutdown_message_two">Wyłączanie Ceno</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="no_content_shared">Obecnie nie udostępniasz żadnych treści</string>
     <string name="about_content_title">Dziel się siecią!</string>
     <string name="preferences_clear_behavior_option_2">Wyczyść tylko pamięć podręczną Ceno</string>
@@ -340,7 +340,7 @@
     <string name="about_content_para_2">CENO Browser jest tworzona przez eQualitie - kanadyjską organizację non-profit, która tworzy zdecentralizowane usługi Internetowe by wspierać bardziej równą sieć. Produkty eQualitie są open source, zaprawione w boju i tworzone w duchu naszych zasad. Codziennie, umożliwiają zrzeszanie się milionom ludzi.</string>
     <string name="enable_debug_logs">Włącz logi debugowania</string>
     <string name="error_page_learn_more_3">Twoje urządzenie ma działające połączenie z siecią, tj. Twoja zwykła przeglądarka internetowa może otwierać niektóre witryny. Ceno i Ouinet nie mogą działać, gdy wszystkie połączenia sieciowe są wyłączone.</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <plurals name="developer_tools_enable_alert">
         <item quantity="one">Jesteś o %d kliknięcie od włączenia narzędzi dla dewelopera</item>
         <item quantity="few">Jesteś o %d kliknięcia od włączenia narzędzi dla dewelopera</item>
