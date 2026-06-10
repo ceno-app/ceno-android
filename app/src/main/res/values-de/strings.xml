@@ -277,7 +277,7 @@
     <string name="mozac_feature_contextmenu_open_link_in_private_tab" tools:ignore="UnusedResources">Seite in neuem Incognito-Tab öffnen</string>
     <string name="crash_report_sent">Absturzbericht wurde abgeschickt!</string>
     <string name="ceno_sources_direct_from_website">Direkt von der Webseite</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="update">Ändern</string>
     <string name="change_language">Sprache ändern</string>
     <string name="top_sites_title">Verknüpfungen</string>
@@ -299,7 +299,7 @@
         <item quantity="other">%d Seiten</item>
     </plurals>
     <string name="shutdown_message_one">Appdaten entfernen</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="select_extra_bt_source">Weiteren BitTorrent Bootstrap auswählen</string>
     <string name="bridge_mode_category">Bridge Ankündigungen</string>
     <string name="confirm_groups_file_download_desc">Eine .txt-Datei wird lokal gespeichert.</string>

@@ -186,8 +186,8 @@
     <string name="share_link_all_apps_subheader">تمام اعمال</string>
     <string name="share_link_recent_apps_subheader">حال ہی میں استعمال کی گئی</string>
     <string name="download_logs">ڈاؤن لوڈ کریں</string>
-    <string name="website_button_link">https://ceno.app/ur/index.html</string>
-    <string name="privacy_policy_url">https://ceno.app/ur/privacy_policy.html</string>
+    <string name="website_button_link">https://ceno.app</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="preferences_ceno_sources_reachability">قابل رسائی سٹيٹس</string>
     <string name="preferences_ceno_sources_local_udp">مقامی UDP اینڈ پوائنٹس</string>
     <string name="preferences_ceno_sources_external_udp">بیرونی UDP اینڈ پوائنٹس</string>

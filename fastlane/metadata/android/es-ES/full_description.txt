@@ -2,7 +2,7 @@
 
 Ceno es un navegador totalmente gratuito y de código abierto que no requiere registro. Además, no contiene anuncios.
 
-Recopilamos algunas métricas anónimas de la aplicación y de la red. No se recopila información personal y los datos nunca se comparten con terceros. La recopilación de métricas está habilitada por defecto; los usuarios pueden desactivarla en cualquier momento a través del interruptor `Ajustes > Métricas en segundo plano > Métricas de Ceno`. Consulte nuestra <a href="https://ceno.app/en/privacy_policy.html">Política de privacidad</a> para obtener más información sobre los datos que recopilamos.
+Recopilamos algunas métricas anónimas de la aplicación y de la red. No se recopila información personal y los datos nunca se comparten con terceros. La recopilación de métricas está habilitada por defecto; los usuarios pueden desactivarla en cualquier momento a través del interruptor `Ajustes > Métricas en segundo plano > Métricas de Ceno`. Consulte nuestra <a href="https://ceno.app/privacy-policy/">Política de privacidad</a> para obtener más información sobre los datos que recopilamos.
 
 🔓👀 Accede cualquier medio bloqueado y otros sitios web. Libre y anónimo en Modo Personal.
 

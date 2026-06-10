@@ -303,7 +303,7 @@
     <string name="preferences_theme_option_2">Claro</string>
     <string name="preferences_theme_option_3">Ajustado por el ahorro de batería</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">Descargar</string>
-    <string name="website_button_link">https://ceno.app/es/index.html</string>
+    <string name="website_button_link">https://ceno.app/es/</string>
     <string name="about_content_title">¡Compartir la Web!</string>
     <string name="about_content_para_1">Ceno es el primer navegador móvil del mundo que elude los actuales métodos de censura en Internet. Su red troncal entre personas permite a la gente acceder y compartir información web desde y entre regiones donde la conectividad se ha visto interrumpida o comprometida.</string>
     <string name="support_button_text">Ayuda</string>
@@ -330,7 +330,7 @@
     <string name="status_enabled">Activado</string>
     <string name="status_disabled">Desactivado</string>
     <string name="standby_dont_show">No mostrar advertencia nuevamente</string>
-    <string name="privacy_policy_url">https://ceno.app/es/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/es/privacy-policy/</string>
     <string name="clean_insights_sub_header">Nos gustaría registrar las siguientes métricas:</string>
     <string name="optional_metrics">Métricas opcionales:</string>
     <string name="device_type">Tipo de dispositivo</string>

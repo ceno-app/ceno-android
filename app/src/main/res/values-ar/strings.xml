@@ -286,7 +286,7 @@
     <string name="confirm_groups_file_download_desc">سيتم حفظ ملف txt على وحدة التخزين المحلية لديك.</string>
     <string name="confirm_clear_cached_content_desc">ستتم إزالة المحتوى المخزن مؤقتًا على الفور</string>
     <string name="confirm_clear_cached_content">هل تريد مسح المحتوى المخزن مؤقتًا؟</string>
-    <string name="website_button_link">https://ceno.app/ar/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="about_content_title">شارك الويب!</string>
     <string name="update">تحديث</string>
@@ -295,7 +295,7 @@
     <string name="content_description_close_button">إغلاق</string>
     <string name="share_copy_link_to_clipboard">نسخ إلى الحافظة</string>
     <string name="share_save_to_pdf">حفظ كـ PDF</string>
-    <string name="privacy_policy_url">https:///ceno.app/ar/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="mozac_feature_downloads_dialog_download" tools:ignore="UnusedResources">تنزيل</string>
     <string name="support_button_text">دعم</string>
     <string name="eq_news_button_text">أخبار</string>

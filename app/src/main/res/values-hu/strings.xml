@@ -31,9 +31,9 @@
     <string name="menu_action_add_tab">Új lap hozzáadása</string>
     <string name="menu_action_close_tabs">Az összes ablak bezárása</string>
     <string name="menu_action_close_tabs_private">A személyes ablakok bezárása</string>
-    <string name="website_button_link">https://ceno.app/en/index.html</string>
+    <string name="website_button_link">https://ceno.app</string>
     <string name="select_language">Válasszon nyelvet:</string>
-    <string name="privacy_policy_url">https://ceno.app/en/privacy_policy.html</string>
+    <string name="privacy_policy_url">https://ceno.app/privacy-policy/</string>
     <string name="change_language">Nyelv módosítása</string>
     <string name="update">Frissítés</string>
     <string name="top_sites_title">Parancsikonok</string>
