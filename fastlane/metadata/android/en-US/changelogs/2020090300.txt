@@ -1,0 +1,11 @@
+
+### Fixed
+
+- Bug that enabled debug logging by default at silly log level
+- Link to website on About page was broken
+
+### Changed
+
+- Update Android-Components to v151.0.4
+- Updates Sentry to 8.35.0 and enables tombstones
+- Update translations for various locales
