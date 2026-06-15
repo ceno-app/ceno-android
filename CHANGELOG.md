@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.9.3 - 2026-06-11
+## v2.10.0 - Unreleased
+
+### Added
+
+- Radio buttons for theme and DoH settings options
+
+### Fixed
+
+- 300+ warnings in source code were addressed, remaining warnings added to detekt-baseline.xml
+
+### Changed
+
+- Applied consistent code style formatting to source code
+
+## [v2.9.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.3) - 2026-06-11
 
 ### Fixed
 
