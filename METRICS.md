@@ -37,4 +37,4 @@ The metrics listed below have been implemented in Ceno for Android, with notes o
     - On Android, from `java.util.TimeZone`, 
     - Available on Windows, from the system settings
       
-Find the source code where these are implemented in [NetworkMetrics.kt](./main/app/src/main/java/ie/equalit/ceno/metrics/NetworkMetrics.kt).
+Find the source code where these are implemented in [NetworkMetrics.kt](./app/src/main/java/ie/equalit/ceno/metrics/NetworkMetrics.kt).
