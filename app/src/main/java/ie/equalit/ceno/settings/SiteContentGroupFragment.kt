@@ -22,6 +22,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
+import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListener {
@@ -147,6 +148,20 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
 
     @Serializable
     data class PinnedCacheGroup(
+        @SerialName("pinned_groups")
         val pinnedGroups: Array<String>
-    )
+    ) {
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (javaClass != other?.javaClass) return false
+
+            other as PinnedCacheGroup
+
+            return pinnedGroups.contentEquals(other.pinnedGroups)
+        }
+
+        override fun hashCode(): Int {
+            return pinnedGroups.contentHashCode()
+        }
+    }
 }
