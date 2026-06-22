@@ -283,7 +283,7 @@
     <string name="download_site_content">Download site content</string>
     <string name="no_content_shared">حاليًا، أنت لا تشارك أي محتوى</string>
     <string name="dismiss">رفض</string>
-    <string name="confirm_groups_file_download_desc">سيتم حفظ ملف txt على وحدة التخزين المحلية لديك.</string>
+    <string name="confirm_groups_file_download_desc">سيتم حفظ ملف txt. على وحدة التخزين المحلية لديك.</string>
     <string name="confirm_clear_cached_content_desc">ستتم إزالة المحتوى المخزن مؤقتًا على الفور</string>
     <string name="confirm_clear_cached_content">هل تريد مسح المحتوى المخزن مؤقتًا؟</string>
     <string name="website_button_link">https://ceno.app</string>
@@ -433,4 +433,5 @@
     <string name="preferences_ouinet_proxy_endpoint">ouinetLocalProxy</string>
     <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
     <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
+    <string name="standby_dont_show" tools:ignore="UnusedResources">لا تظهر التحذير مجددًا</string>
 </resources>
