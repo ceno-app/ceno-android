@@ -434,4 +434,57 @@
     <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
     <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
     <string name="standby_dont_show" tools:ignore="UnusedResources">لا تظهر التحذير مجددًا</string>
+    <plurals name="developer_tools_enable_alert">
+        <item quantity="zero">تم تفعيل وضع المطور</item>
+        <item quantity="one">متبقى %dنقرة واحدة لتفعيل وضع المطور</item>
+        <item quantity="two">متبقى %dنقرتين لتفعيل وضع المطور</item>
+        <item quantity="few">متبقى %dنقرات لتفعيل وضع المطور</item>
+        <item quantity="many">متبقى %dنقرة لتفعيل وضع المطور</item>
+        <item quantity="other">متبقى %dنقرة لتفعيل وضع المطور</item>
+    </plurals>
+    <plurals name="developer_tools_disable_alert">
+        <item quantity="zero">تم اغلاق وضع المطور</item>
+        <item quantity="one">انقر %dمرة لاغلاق وضع المطور</item>
+        <item quantity="two">انقر %dمرتين لاغلاق وضع المطور</item>
+        <item quantity="few">انقر %dنقرة لاغلاق وضع المطور</item>
+        <item quantity="many">انقر %dنقرة لاغلاق وضع المطور</item>
+        <item quantity="other">انقر %dنقرة لاغلاق وضع المطور</item>
+    </plurals>
+    <string name="bookmark_url_label">الرابط</string>
+    <string name="library_desktop_bookmarks_unfiled">علامات مرجعية اخرى</string>
+    <plurals name="last_crawl_status_minutes">
+        <item quantity="zero">الان</item>
+        <item quantity="one">%d قبل دقيقة</item>
+        <item quantity="two">%d دقيقتان</item>
+        <item quantity="few">%d دقائق</item>
+        <item quantity="many">%d دقيقة</item>
+        <item quantity="other">⁩⁩%d دقيقة</item>
+    </plurals>
+    <plurals name="last_crawl_status_hrs">
+        <item quantity="zero">قبل %d اقل من ساعة</item>
+        <item quantity="one">%d قبل ساعة واحدة</item>
+        <item quantity="two">قبل %d ساعتان</item>
+        <item quantity="few">قبل %d ساعات</item>
+        <item quantity="many">قبل %d ساعة</item>
+        <item quantity="other">قبل %d ساعة</item>
+    </plurals>
+    <plurals name="last_crawl_status_days">
+        <item quantity="zero">قبل %d اقل من يوم</item>
+        <item quantity="one">قبل %d يوم واحد</item>
+        <item quantity="two">قبل %d يومين</item>
+        <item quantity="few">قبل %d ايام</item>
+        <item quantity="many">قبل %d يوم</item>
+        <item quantity="other">قبل %d يوم</item>
+    </plurals>
+    <string name="ouinet_state_created">تم انشاءه</string>
+    <string name="ouinet_state_failed">فشل</string>
+    <string name="ouinet_state_starting">سيبدأ</string>
+    <string name="ouinet_state_degraded">متدهور</string>
+    <string name="ouinet_state_started">تم بدئه</string>
+    <string name="ouinet_state_stopping">جارٍ التوقف</string>
+    <string name="ouinet_state_stopped">تم التوقف</string>
+    <string name="pin_unpin_to_cache_failed">خطأ! تحديث ذاكرة التخزين المؤقت فشل.</string>
+    <string name="preferences_hide_ouicrawl_feed">اخفي صفحة الوسائط الحرة</string>
+    <string name="updating_doh_dialog_title">يتم تحديث الDNS على اعدادات HTTPS</string>
+    <string name="preferences_test_metrics">اختبار‏ مقاييس Ceno</string>
 </resources>
