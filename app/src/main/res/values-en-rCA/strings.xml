@@ -119,4 +119,22 @@
         <item quantity="one">%d day ago</item>
         <item quantity="other">%d days ago</item>
     </plurals>
+    <string name="share_link_all_apps_subheader">All actions</string>
+    <string name="share_link_recent_apps_subheader">Recently used</string>
+    <string name="share_save_to_pdf">Save as PDF</string>
+    <string name="button_content_readerview">Reader view</string>
+    <string name="close_mode_item" tools:ignore="UnusedResources">Close notification</string>
+    <string name="set_default_search_engine">Set default search engine</string>
+    <string name="preference_show_search_suggestions">Get search suggestions</string>
+    <string name="preference_search_summary">Set default</string>
+    <string name="preference_choose_search_engine">Choose search engine</string>
+    <string name="preference_select_preferred_engine">Select your preferred engine:</string>
+    <string name="preferences_add_ons">Add-ons</string>
+    <string name="secure_connection">Connection is secure</string>
+    <string name="insecure_connection">Connection is not secure</string>
+    <string name="not_applicable">N/A</string>
+    <string name="browser_toolbar_home">Home</string>
+    <string name="crash_report_sent">Crash report sent!</string>
+    <string name="bridge_mode_category">Bridge Announcements</string>
+    <string name="shutdown_message_one" tools:ignore="UnusedResources">Clearing app data</string>
 </resources>
