@@ -7,11 +7,11 @@ androidx_compose = "1.9.0"
 androidx_constraintlayout = "2.2.1"
 androidx_core = "1.17.0"
 androidx_lifecycle = "2.9.3"
-androidx_navigation = "2.9.3"
+androidx_navigation = "2.9.6"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.1.0"
 androidx_work = "2.10.3"
-androidx_r8 = "8.11.18"
+androidx_r8 = "9.1.31"
 
 # Android Components
 android_components = "152.0.2"
@@ -22,13 +22,13 @@ google_material = "1.13.0"
 
 # Gradle
 #noinspection AndroidGradlePluginVersion
-gradle_android_plugin = "8.13.2"
+gradle_android_plugin = "9.2.1"
 gradle_kotlin_plugin = "2.2.21"
 
 # Kotlin
 kotlin_coroutines = "1.10.2"
 kotlin_serialization = "1.9.0"
-kotlin = "2.0.0"
+kotlin = "2.2.10"
 
 # Testing
 testing_androidx_core = "1.7.0"
