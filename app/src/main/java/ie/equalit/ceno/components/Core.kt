@@ -16,12 +16,10 @@ import ie.equalit.ceno.R.string.pref_key_remote_debugging
 import ie.equalit.ceno.R.string.pref_key_tracking_protection_normal
 import ie.equalit.ceno.R.string.pref_key_tracking_protection_private
 import ie.equalit.ceno.downloads.DownloadService
-import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
-import ie.equalit.ceno.utils.XMLParser
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
 import mozilla.components.browser.session.storage.SessionStorage
@@ -57,7 +55,6 @@ import mozilla.components.feature.sitepermissions.OnDiskSitePermissionsStorage
 import mozilla.components.feature.top.sites.DefaultTopSitesStorage
 import mozilla.components.feature.top.sites.PinnedSiteStorage
 import mozilla.components.feature.webnotifications.WebNotificationFeature
-import mozilla.components.lib.dataprotect.SecureAbove22Preferences
 import mozilla.components.service.location.LocationService
 import mozilla.components.support.base.worker.Frequency
 import mozilla.components.support.utils.DateTimeProvider
@@ -220,20 +217,10 @@ class Core(private val context: Context) {
     val cenoPinnedSiteStorage by lazy { PinnedSiteStorage(context) }
 
     val cenoTopSitesStorage by lazy {
-        var defaultTopSites: MutableList<Pair<String, String>>? = null
-        if (!context.cenoPreferences().defaultTopSitesAdded) {
-            defaultTopSites = XMLParser.parseTopsitesXml(
-                context.resources.getXml(R.xml.default_topsites),
-                context
-            )
-            context.cenoPreferences().defaultTopSitesAdded = true
-        }
-
         DefaultTopSitesStorage(
             pinnedSitesStorage = cenoPinnedSiteStorage,
             historyStorage = historyStorage,
-            topSitesProvider = null, //contileTopSitesProvider,
-            defaultTopSites = defaultTopSites ?: listOf()
+            topSitesProvider = null,
         )
     }
 

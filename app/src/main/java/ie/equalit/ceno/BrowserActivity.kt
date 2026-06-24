@@ -56,6 +56,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
@@ -568,7 +569,20 @@ open class BrowserActivity : BaseActivity(),
     /* CENO: Function to initialize top site storage and observer */
     @OptIn(DelicateCoroutinesApi::class)
     private fun initializeTopSites() {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
+        val defaultTopSites: List<Pair<String, String>>? =
+            if (!components.cenoPreferences.defaultTopSitesAdded) {
+                XMLParser.parseTopsitesXml(
+                    applicationContext.resources.getXml(R.xml.default_topsites),
+                    this
+                ) as List<Pair<String, String>>
+            } else {
+                null
+            }
         GlobalScope.launch(Dispatchers.IO) {
+            if (!components.cenoPreferences.defaultTopSitesAdded && defaultTopSites != null) {
+                components.core.cenoTopSitesStorage.addTopSites(defaultTopSites)
+                components.cenoPreferences.defaultTopSitesAdded = true
+            }
             components.core.cenoTopSitesStorage.getTopSites(
                 totalSites = components.cenoPreferences.topSitesMaxLimit
             )
