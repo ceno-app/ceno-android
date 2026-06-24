@@ -12,6 +12,7 @@ apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
 import com.android.build.OutputFile
+import groovy.json.JsonOutput
 import org.yaml.snakeyaml.Yaml
 
 Properties localProperties = new Properties()
@@ -160,15 +161,11 @@ android {
     }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xjvm-default=all"
-        jvmTarget = "17"
-    }
+kotlin {
+    jvmToolchain(17)
 }
 
-tasks.whenTaskAdded { task ->
+tasks.configureEach { task ->
     if (task.name == 'mergeDebugAssets' ||
             task.name == 'mergeBetaAssets' ||
             task.name == 'mergeNightlyAssets' ||
@@ -184,13 +181,13 @@ def appId = android.defaultConfig.applicationId.tokenize('.')
 // -------------------------------------------------------------------------------------------------
 // Copy and rename AAB - adapted from https://stackoverflow.com/a/54010142
 // -------------------------------------------------------------------------------------------------
-tasks.whenTaskAdded { task ->
+tasks.configureEach { task ->
     if (task.name.startsWith("bundle")) {
         def renameTaskName = "rename${task.name.capitalize()}"
         def variantName = task.name.substring("bundle".length()).uncapitalize()
         def versionName = android.defaultConfig.versionName
         tasks.register(renameTaskName, Copy) {
-            def path = "${buildDir}/outputs/bundle/${variantName}/"
+            def path = "${layout.buildDirectory}/outputs/bundle/${variantName}/"
             from(path)
             include "app-${variantName}.aab"
             destinationDir file("$project.rootDir/output/${variantName}/")
@@ -329,7 +326,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // Select the Glean from GeckoView.
 // `service-sync-logins` requires Glean, which pulls in glean-native,
 // but that's also provided by geckoview-omni, so now we need to select which one to use.
-project.configurations.all {
+project.configurations.configureEach {
     resolutionStrategy.capabilitiesResolution.withCapability("org.mozilla.telemetry:glean-native") {
         def toBeSelected = candidates.find { it.id instanceof ModuleComponentIdentifier && it.id.module.contains('geckoview') }
         if (toBeSelected != null) {
@@ -450,14 +447,14 @@ dependencies {
     androidTestImplementation libs.fastlane.screengrab
 }
 
-task renameUblockXpi (type: Copy) {
-    from ('src/main/assets/addons/')
+tasks.register('renameUblockXpi', Copy) {
+    from('src/main/assets/addons/')
     include 'uBlock0@raymondhill.net.xpi'
     destinationDir file('src/main/assets/addons/')
     rename { 'uBlock0@raymondhill.net.zip' }
 }
 
-task unzipUblockOrigin(type: Copy) {
+tasks.register('unzipUblockOrigin', Copy) {
     dependsOn(renameUblockXpi)
     def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
     def outputDir = file("src/main/assets/addons/uBlock")
@@ -469,26 +466,30 @@ task unzipUblockOrigin(type: Copy) {
 // Task for printing APK information for the requested variant
 // Usage: ./gradlew printVariants
 // -------------------------------------------------------------------------------------------------
-task printVariants {
+tasks.register('printVariants') {
     doLast {
-        def variants = android.applicationVariants.collect { variant -> [
-                apks: variant.outputs.collect { output -> [
-                        abi: output.getFilter(com.android.build.VariantOutput.FilterType.ABI),
-                        fileName: output.outputFile.name
-                ]},
-                build_type: variant.buildType.name,
-                name: variant.name,
-        ]}
-        println 'variants: ' + groovy.json.JsonOutput.toJson(variants)
+        def variants = android.applicationVariants.collect { variant ->
+            [
+                    apks      : variant.outputs.collect { output ->
+                        [
+                                abi     : output.getFilter(OutputFile.ABI),
+                                fileName: output.outputFile.name
+                        ]
+                    },
+                    build_type: variant.buildType.name,
+                    name      : variant.name,
+            ]
+        }
+        println 'variants: ' + JsonOutput.toJson(variants)
     }
 }
 
-task printGeckoviewVersion {
+tasks.register('printGeckoviewVersion') {
     doLast {
         def configuration = configurations.implementationDependenciesMetadata
         def dependencies = configuration.incoming.resolutionResult.allDependencies
         def geckoviewDependency = dependencies.find { it.selected.id.moduleIdentifier.group == 'org.mozilla.geckoview' }
-        println('geckoviewVersion: ' + groovy.json.JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
+        println('geckoviewVersion: ' + JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
     }
 }
 
