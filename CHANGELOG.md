@@ -18,6 +18,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Applied consistent code style formatting to source code
+- Update Android-Components to v152.0.2
 
 ## [v2.9.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.3) - 2026-06-11
 
