@@ -1,4 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
+import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     repositories {
@@ -75,12 +76,6 @@ allprojects {
             mavenCentral()
         }
     }
-
-    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach {
-        kotlinOptions.freeCompilerArgs += [
-                "-opt-in=kotlin.RequiresOptIn"
-        ]
-    }
 }
 
 subprojects {
@@ -106,12 +101,12 @@ subprojects {
             }
 
             if (project.hasProperty("coverage") && project.name != "support-test") {
-                tasks.withType(Test) {
+                tasks.withType(Test).configureEach {
                     jacoco.includeNoLocationClasses = true
                     doLast { jacocoTestReport.execute() }
                 }
 
-                task jacocoTestReport(type: JacocoReport) {
+                tasks.register('jacocoTestReport', JacocoReport) {
                     reports {
                         xml.enabled = true
                         html.enabled = true
@@ -119,18 +114,21 @@ subprojects {
 
                     def fileFilter = ['**/R.class', '**/R$*.class', '**/BuildConfig.*', '**/Manifest*.*',
                                       '**/*Test*.*', 'android/**/*.*', '**/*$[0-9].*']
-                    def kotlinDebugTree = fileTree(dir: "$project.buildDir/tmp/kotlin-classes/debug", excludes: fileFilter)
-                    def javaDebugTree = fileTree(dir: "$project.buildDir/intermediates/classes/debug", excludes: fileFilter)
+                    def kotlinDebugTree = fileTree(dir: "$project.layout.buildDirectory/tmp/kotlin-classes/debug", excludes: fileFilter)
+                    def javaDebugTree = fileTree(dir: "$project.layout.buildDirectory/intermediates/classes/debug", excludes: fileFilter)
                     def mainSrc = "$project.projectDir/src/main/java"
 
                     sourceDirectories = files([mainSrc])
                     classDirectories = files([kotlinDebugTree, javaDebugTree])
-                    executionData = fileTree(dir: project.buildDir, includes: [
+                    executionData = fileTree(dir: project.layout.buildDirectory, includes: [
                             'jacoco/testDebugUnitTest.exec', 'outputs/code-coverage/connected/*coverage.ec'
                     ])
                 }
 
                 android {
+                    kotlinOptions {
+                        kotlinOptions.allWarningsAsErrors = true
+                    }
                     buildTypes {
                         debug {
                             testCoverageEnabled true
@@ -154,12 +152,15 @@ detekt {
     input = files("$projectDir/app")
     config = files("$projectDir/config/detekt.yml")
     baseline = file("$projectDir/config/detekt-baseline.xml")
+}
 
+tasks.withType(Detekt).configureEach {
     reports {
-        html {
-            enabled = true
-            destination = file("$projectDir/build/reports/detekt.html")
-        }
+        html.required.set(true)
+        html.outputLocation.set(file("$projectDir/build/reports/detekt.html"))
+
+        xml.required.set(false)
+        txt.required.set(false)
     }
 }
 
