@@ -47,13 +47,13 @@ android {
         buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
         buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
-        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS",  localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
+        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
         buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
-        buildConfigField "String[]", "DOH_DISABLED_LOCALES",  localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
         buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
@@ -104,11 +104,6 @@ android {
         beta {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
-        }
-        raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
-            applicationIdSuffix ".raptor"
-            manifestPlaceholders.isRaptorEnabled = "true"
-            matchingFallbacks = ['release']
         }
         nightly {
             signingConfig signingConfigs.release
@@ -180,7 +175,7 @@ android.applicationVariants.all { variant ->
 // -------------------------------------------------------------------------------------------------
 // Sentry: Read token from local file if it exists (Only release builds)
 // -------------------------------------------------------------------------------------------------
-    print("Sentry token:  "+ variant.name)
+    print("Sentry token:  " + variant.name)
     try {
         def token = new File("${rootDir}/.sentry_token").text.trim()
         buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
@@ -203,11 +198,11 @@ android.applicationVariants.all { variant ->
 // Activating telemetry  with command line paramter.
 // -------------------------------------------------------------------------------------------------
 
-if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
-    buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
-} else {
-    buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
-}
+    if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
+        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
+    } else {
+        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
+    }
 
 // -------------------------------------------------------------------------------------------------
 // Generating version codes for Google Play
@@ -228,15 +223,15 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                  */
 
                 def versionCode
-                if (variant.buildType.name == "release" ) {
+                if (variant.buildType.name == "release") {
                     // Release version code, see this issue for format
                     // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
-                    def (m, n, p) = localProperties['versionName'].tokenize( '.' )
+                    def (m, n, p) = localProperties['versionName'].tokenize('.')
                     def mj = String.format("%02d", m as Integer)
                     def min = String.format("%03d", n as Integer)
                     def pt = String.format("%02d", p as Integer)
                     def a
-                    switch(abi) {
+                    switch (abi) {
                         case 'armeabi-v7a': a = "0"; break
                         case 'arm64-v8a': a = "1"; break
                         case 'x86_64': a = "2"; break
@@ -244,8 +239,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
                     }
                     def r = (localProperties['revision'] ?: 0) as Integer
                     versionCode = "2$mj$min$pt$a$r"
-                }
-                else {
+                } else {
                     /* Ceno: We use mozilla's versionCode generator for nightly builds
                      * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
                      * We should periodically check if any changes are made to it.
@@ -538,9 +532,9 @@ if (gradle.hasProperty('localProperties.autoPublish.application-services.dir')) 
 }
 
 clean {
-  delete 'build', 'target', fileTree("$project.rootDir/output/") {
-      include '**/*.aab'
-      include '**/*.apk'
-      include '**/*.txt'
-  }
+    delete 'build', 'target', fileTree("$project.rootDir/output/") {
+        include '**/*.aab'
+        include '**/*.apk'
+        include '**/*.txt'
+    }
 }
