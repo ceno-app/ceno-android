@@ -255,13 +255,13 @@ android.applicationVariants.all { variant ->
             }
         }
 
-        def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${variant.name.capitalize()}")
-        if (lintVitalAnalyzeTask) {
-            lintVitalAnalyzeTask.dependsOn(unzipUblockOrigin)
+        def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
+        tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
         }
-        def lintVitalReportModelTask = tasks.findByName("generate${variant.name.capitalize()}LintVitalReportModel")
-        if (lintVitalReportModelTask) {
-            lintVitalReportModelTask.dependsOn(unzipUblockOrigin)
+        def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
+        tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
         }
     }
 
