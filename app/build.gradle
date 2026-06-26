@@ -27,14 +27,14 @@ def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().co
 android {
     namespace 'ie.equalit.ceno'
 
-    compileSdkVersion Config.compileSdkVersion
+    compileSdkVersion Config.COMPILE_SDK_VERSION
 
 
     defaultConfig {
         applicationId "ie.equalit.ceno"
-        minSdkVersion Config.minSdkVersion
-        compileSdkVersion Config.compileSdkVersion
-        targetSdkVersion Config.targetSdkVersion
+        minSdkVersion Config.MIN_SDK_VERSION
+        compileSdkVersion Config.COMPILE_SDK_VERSION
+        targetSdkVersion Config.TARGET_SDK_VERSION
         versionCode 1
         versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
 
