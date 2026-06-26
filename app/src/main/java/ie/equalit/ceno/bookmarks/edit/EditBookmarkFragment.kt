@@ -128,13 +128,15 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
                 sharedViewModel.selectedFolder = null
                 findNavController().navigate(
                     R.id.action_editBookmarkFragment_to_bookmarkSelectFolderFragment,
-                    bundleOf(
-                        "allowCreatingNewFolder" to false,
-                        "hideFolderGuid" to when (bookmarkNode!!.type) {
-                            BookmarkNodeType.FOLDER -> bookmarkNode!!.guid
-                            else -> null
-                        }
-                    )
+                    Bundle().apply {
+                        putBoolean("allowCreatingNewFolder", false)
+                        putString("hideFolderGuid",
+                            when (bookmarkNode!!.type) {
+                                BookmarkNodeType.FOLDER -> bookmarkNode!!.guid
+                                else -> null
+                            }
+                        )
+                    }
                 )
             }
 
