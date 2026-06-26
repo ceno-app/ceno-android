@@ -11,7 +11,6 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
-import com.android.build.OutputFile
 import groovy.json.JsonOutput
 import org.yaml.snakeyaml.Yaml
 
@@ -217,7 +216,7 @@ android.applicationVariants.all { variant ->
 
         if (!isBuildingBundle) {
             variant.outputs.each { output ->
-                def abi = output.getFilter(OutputFile.ABI)
+                def abi = output.getFilter("ABI")
 
                 /* CENO: Allow generated build date to be overwritten with a hard-coded build date
                  */
@@ -281,7 +280,7 @@ android.applicationVariants.all { variant ->
 // -------------------------------------------------------------------------------------------------
     if (variant.name != 'debug') {
         variant.outputs.all { output ->
-            def abi = output.getFilter(OutputFile.ABI)
+            def abi = output.getFilter("ABI")
             outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
         }
     }
@@ -445,7 +444,7 @@ tasks.register('printVariants') {
             [
                     apks      : variant.outputs.collect { output ->
                         [
-                                abi     : output.getFilter(OutputFile.ABI),
+                                abi     : output.getFilter("ABI"),
                                 fileName: output.outputFile.name
                         ]
                     },
