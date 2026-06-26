@@ -11,8 +11,7 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
-import com.android.build.gradle.internal.tasks.AppPreBuildTask
-import com.android.build.OutputFile
+import groovy.json.JsonOutput
 import org.yaml.snakeyaml.Yaml
 
 Properties localProperties = new Properties()
@@ -23,17 +22,19 @@ def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInput
 
 def baseBuildDate = generatedBuildDate
 
+def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().contains("bundle") }
+
 android {
     namespace 'ie.equalit.ceno'
 
-    compileSdkVersion Config.compileSdkVersion
+    compileSdkVersion Config.COMPILE_SDK_VERSION
 
 
     defaultConfig {
         applicationId "ie.equalit.ceno"
-        minSdkVersion Config.minSdkVersion
-        compileSdkVersion Config.compileSdkVersion
-        targetSdkVersion Config.targetSdkVersion
+        minSdkVersion Config.MIN_SDK_VERSION
+        compileSdkVersion Config.COMPILE_SDK_VERSION
+        targetSdkVersion Config.TARGET_SDK_VERSION
         versionCode 1
         versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']
 
@@ -45,13 +46,13 @@ android {
         buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
         buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
-        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS",  localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
+        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
         buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
-        buildConfigField "String[]", "DOH_DISABLED_LOCALES",  localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
         buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
@@ -103,26 +104,12 @@ android {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
-        raptor releaseTemplate >> { // the ">>" concatenates the raptor-specific options with the template
-            applicationIdSuffix ".raptor"
-            manifestPlaceholders.isRaptorEnabled = "true"
-            matchingFallbacks = ['release']
-        }
         nightly {
             signingConfig signingConfigs.release
             versionNameSuffix "-${baseBuildDate}"
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
     }
-
-    /* CENO: Don't ignore release buildType */
-    /*
-    variantFilter { // There's a "release" build type that exists by default that we don't use (it's replaced by "nightly" and "beta")
-        if (buildType.name == 'release') {
-            setIgnore true
-        }
-    }
-    */
 
     testOptions {
         execution 'ANDROIDX_TEST_ORCHESTRATOR'
@@ -148,7 +135,7 @@ android {
 
     splits {
         abi {
-            enable true
+            enable !isBuildingBundle
 
             reset()
 
@@ -161,15 +148,11 @@ android {
     }
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        freeCompilerArgs += "-opt-in=kotlinx.coroutines.ExperimentalCoroutinesApi"
-        freeCompilerArgs += "-Xjvm-default=all"
-        jvmTarget = "17"
-    }
+kotlin {
+    jvmToolchain(17)
 }
 
-tasks.whenTaskAdded { task ->
+tasks.configureEach { task ->
     if (task.name == 'mergeDebugAssets' ||
             task.name == 'mergeBetaAssets' ||
             task.name == 'mergeNightlyAssets' ||
@@ -182,23 +165,8 @@ tasks.whenTaskAdded { task ->
 def apkDate = generatedApkDate
 def appId = android.defaultConfig.applicationId.tokenize('.')
 
-// -------------------------------------------------------------------------------------------------
-// Copy and rename AAB - adapted from https://stackoverflow.com/a/54010142
-// -------------------------------------------------------------------------------------------------
-tasks.whenTaskAdded { task ->
-    if (task.name.startsWith("bundle")) {
-        def renameTaskName = "rename${task.name.capitalize()}"
-        def variantName = task.name.substring("bundle".length()).uncapitalize()
-        def versionName = android.defaultConfig.versionName
-        tasks.register(renameTaskName, Copy) {
-            def path = "${buildDir}/outputs/bundle/${variantName}/"
-            from(path)
-            include "app-${variantName}.aab"
-            destinationDir file("$project.rootDir/output/${variantName}/")
-            rename "app-${variantName}.aab", "${appId[2]}-${variantName}-${versionName}-${apkDate}.aab"
-        }
-        task.finalizedBy renameTaskName
-    }
+base {
+    archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
 }
 
 android.applicationVariants.all { variant ->
@@ -206,7 +174,7 @@ android.applicationVariants.all { variant ->
 // -------------------------------------------------------------------------------------------------
 // Sentry: Read token from local file if it exists (Only release builds)
 // -------------------------------------------------------------------------------------------------
-    print("Sentry token:  "+ variant.name)
+    print("Sentry token:  " + variant.name)
     try {
         def token = new File("${rootDir}/.sentry_token").text.trim()
         buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
@@ -229,11 +197,11 @@ android.applicationVariants.all { variant ->
 // Activating telemetry  with command line paramter.
 // -------------------------------------------------------------------------------------------------
 
-if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
-    buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
-} else {
-    buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
-}
+    if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
+        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
+    } else {
+        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
+    }
 
 // -------------------------------------------------------------------------------------------------
 // Generating version codes for Google Play
@@ -246,75 +214,54 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
         // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
         // with ARM compatibility mode.
 
-        variant.outputs.each { output ->
-            def abi = output.getFilter(OutputFile.ABI)
+        if (!isBuildingBundle) {
+            variant.outputs.each { output ->
+                def abi = output.getFilter("ABI")
 
-            /* CENO: Allow generated build date to be overwritten with a hard-coded build date
-             */
-            def buildDateOverride = (localProperties['buildDate'] ?: baseBuildDate) as Long
-
-            def versionCode
-            if (variant.buildType.name == "release" ) {
-                // Release version code, see this issue for format
-                // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
-                def (m, n, p) = localProperties['versionName'].tokenize( '.' )
-                def mj = String.format("%02d", m as Integer)
-                def min = String.format("%03d", n as Integer)
-                def pt = String.format("%02d", p as Integer)
-                def a
-                switch(abi) {
-                    case 'armeabi-v7a': a = "0"; break
-                    case 'arm64-v8a': a = "1"; break
-                    case 'x86_64': a = "2"; break
-                    default: a = "3"; break
-                }
-                def r = (localProperties['revision'] ?: 0) as Integer
-                versionCode = "2$mj$min$pt$a$r"
-            }
-            else {
-                /* Ceno: We use mozilla's versionCode generator for nightly builds
-                 * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
-                 * We should periodically check if any changes are made to it.
+                /* CENO: Allow generated build date to be overwritten with a hard-coded build date
                  */
-                versionCode = Config.generateFennecVersionCode(abi)
-            }
 
-            /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
-            def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
-
-            println("versionCode for $abi = $versionCodeOverride")
-
-            output.versionCodeOverride = versionCodeOverride
-        }
-
-        // If this is a release build, validate that "versionName" is set
-        tasks.withType(AppPreBuildTask) { prebuildTask ->
-            // You can't add a closure to a variant, so we need to look for an early variant-specific type
-            // of task (AppPreBuildTask is the first) and filter to make sure we're looking at the task for
-            // this variant that we're currently configuring
-            if (prebuildTask.variantName != variant.name) {
-                return
-            }
-
-            // Append to the task so the first thing it does is run our validation
-            prebuildTask.doFirst {
-                if (!project.hasProperty('versionName')) {
-                    throw new RuntimeException("Release builds require the 'versionName' property to be set.\n" +
-                            "If you're using an IDE, set your build variant to be a \"debug\" type.\n" +
-                            "If you're using the command-line, either build a debug variant instead ('./gradlew assembleDebug')\n" +
-                            "\tor continue building the release build and set the \"versionName\" property ('./gradlew -PversionName=<...> assembleNightly').")
-                    // TODO when Android Studio 3.5.0 is prevalent, we can set the "debug" build type as the default
-                    // https://issuetracker.google.com/issues/36988145#comment59
+                def versionCode
+                if (variant.buildType.name == "release") {
+                    // Release version code, see this issue for format
+                    // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
+                    def (m, n, p) = localProperties['versionName'].tokenize('.')
+                    def mj = String.format("%02d", m as Integer)
+                    def min = String.format("%03d", n as Integer)
+                    def pt = String.format("%02d", p as Integer)
+                    def a
+                    switch (abi) {
+                        case 'armeabi-v7a': a = "0"; break
+                        case 'arm64-v8a': a = "1"; break
+                        case 'x86_64': a = "2"; break
+                        default: a = "3"; break
+                    }
+                    def r = (localProperties['revision'] ?: 0) as Integer
+                    versionCode = "2$mj$min$pt$a$r"
+                } else {
+                    /* Ceno: We use mozilla's versionCode generator for nightly builds
+                     * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
+                     * We should periodically check if any changes are made to it.
+                     */
+                    versionCode = Config.generateFennecVersionCode(abi)
                 }
+
+                /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
+                def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
+
+                println("versionCode for $abi = $versionCodeOverride")
+
+                output.versionCodeOverride = versionCodeOverride
             }
         }
-        def lintVitalAnalyzeTask = tasks.findByName("lintVitalAnalyze${variant.name.capitalize()}")
-        if (lintVitalAnalyzeTask) {
-            lintVitalAnalyzeTask.dependsOn(unzipUblockOrigin)
+
+        def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
+        tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
         }
-        def lintVitalReportModelTask = tasks.findByName("generate${variant.name.capitalize()}LintVitalReportModel")
-        if (lintVitalReportModelTask) {
-            lintVitalReportModelTask.dependsOn(unzipUblockOrigin)
+        def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
+        tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
         }
     }
 
@@ -333,7 +280,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // -------------------------------------------------------------------------------------------------
     if (variant.name != 'debug') {
         variant.outputs.all { output ->
-            def abi = output.getFilter(OutputFile.ABI)
+            def abi = output.getFilter("ABI")
             outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
         }
     }
@@ -351,7 +298,7 @@ if (project.hasProperty("telemetry") && project.property("telemetry") == "true")
 // Select the Glean from GeckoView.
 // `service-sync-logins` requires Glean, which pulls in glean-native,
 // but that's also provided by geckoview-omni, so now we need to select which one to use.
-project.configurations.all {
+project.configurations.configureEach {
     resolutionStrategy.capabilitiesResolution.withCapability("org.mozilla.telemetry:glean-native") {
         def toBeSelected = candidates.find { it.id instanceof ModuleComponentIdentifier && it.id.module.contains('geckoview') }
         if (toBeSelected != null) {
@@ -472,14 +419,14 @@ dependencies {
     androidTestImplementation libs.fastlane.screengrab
 }
 
-task renameUblockXpi (type: Copy) {
-    from ('src/main/assets/addons/')
+tasks.register('renameUblockXpi', Copy) {
+    from('src/main/assets/addons/')
     include 'uBlock0@raymondhill.net.xpi'
     destinationDir file('src/main/assets/addons/')
     rename { 'uBlock0@raymondhill.net.zip' }
 }
 
-task unzipUblockOrigin(type: Copy) {
+tasks.register('unzipUblockOrigin', Copy) {
     dependsOn(renameUblockXpi)
     def zipFile = file("src/main/assets/addons/uBlock0@raymondhill.net.zip")
     def outputDir = file("src/main/assets/addons/uBlock")
@@ -491,26 +438,30 @@ task unzipUblockOrigin(type: Copy) {
 // Task for printing APK information for the requested variant
 // Usage: ./gradlew printVariants
 // -------------------------------------------------------------------------------------------------
-task printVariants {
+tasks.register('printVariants') {
     doLast {
-        def variants = android.applicationVariants.collect { variant -> [
-                apks: variant.outputs.collect { output -> [
-                        abi: output.getFilter(com.android.build.VariantOutput.FilterType.ABI),
-                        fileName: output.outputFile.name
-                ]},
-                build_type: variant.buildType.name,
-                name: variant.name,
-        ]}
-        println 'variants: ' + groovy.json.JsonOutput.toJson(variants)
+        def variants = android.applicationVariants.collect { variant ->
+            [
+                    apks      : variant.outputs.collect { output ->
+                        [
+                                abi     : output.getFilter("ABI"),
+                                fileName: output.outputFile.name
+                        ]
+                    },
+                    build_type: variant.buildType.name,
+                    name      : variant.name,
+            ]
+        }
+        println 'variants: ' + JsonOutput.toJson(variants)
     }
 }
 
-task printGeckoviewVersion {
+tasks.register('printGeckoviewVersion') {
     doLast {
         def configuration = configurations.implementationDependenciesMetadata
         def dependencies = configuration.incoming.resolutionResult.allDependencies
         def geckoviewDependency = dependencies.find { it.selected.id.moduleIdentifier.group == 'org.mozilla.geckoview' }
-        println('geckoviewVersion: ' + groovy.json.JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
+        println('geckoviewVersion: ' + JsonOutput.toJson(geckoviewDependency.selected.moduleVersion.version))
     }
 }
 
@@ -580,9 +531,9 @@ if (gradle.hasProperty('localProperties.autoPublish.application-services.dir')) 
 }
 
 clean {
-  delete 'build', 'target', fileTree("$project.rootDir/output/") {
-      include '**/*.aab'
-      include '**/*.apk'
-      include '**/*.txt'
-  }
+    delete 'build', 'target', fileTree("$project.rootDir/output/") {
+        include '**/*.aab'
+        include '**/*.apk'
+        include '**/*.txt'
+    }
 }

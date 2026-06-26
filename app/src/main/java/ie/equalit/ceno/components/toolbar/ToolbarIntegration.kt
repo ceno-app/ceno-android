@@ -5,6 +5,7 @@
 package ie.equalit.ceno.components.toolbar
 
 import android.content.Context
+import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -291,7 +292,7 @@ class ToolbarIntegration(
                     arrayOf(
                         ShareData(
                             url = url,
-                            title = sessionState?.content?.title,
+                            title = sessionState.content.title,
                         ),
                     )
                 )
@@ -345,7 +346,9 @@ class ToolbarIntegration(
             onClick = {
                 navHost.navController.navigate(
                     R.id.action_global_bookmarks,
-                    bundleOf("currentRoot" to BookmarkRoot.Mobile.id)
+                    Bundle().apply {
+                        putString("currentRoot", BookmarkRoot.Mobile.id)
+                    }
                 )
             }
         )
