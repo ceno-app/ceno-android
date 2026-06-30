@@ -18,7 +18,7 @@ class SettingsViewNetworkDetailsRobot {
 
 
     fun verifySourcesUpButton() = assertNetworkDetailsUpButton()
-    fun verifyNetworkDetailsSettings() = assertNetworkDetailsSettingsView()
+    fun verifyNetworkDetailsSettings(): ViewInteraction = assertNetworkDetailsSettingsView()
 
     fun verifyGeneralHeading(): ViewInteraction = assertGeneralHeading()
     fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
@@ -35,9 +35,6 @@ class SettingsViewNetworkDetailsRobot {
     fun verifyLocalUdpEndpointsDisplay(): ViewInteraction = assertLocalUdpEndpointsDisplay()
     fun verifyExternalUdpEndpointsDisplay(): ViewInteraction = assertExternalUdpEndpointsDisplay()
     fun verifyPublicUdpEndpointsDisplay(): ViewInteraction = assertPublicUdpEndpointsDisplay()
-
-    //    fun verifyBridgeModeHeading(): ViewInteraction = assertBridgeModeHeading()
-
 
     fun verifyBtBootstrapsHeading(): ViewInteraction = assertBtBootstrapsHeading()
     fun verifyExtraBtBootstrapsButton(): ViewInteraction = assertExtraBtBootstrapsButton()
@@ -60,9 +57,6 @@ class SettingsViewNetworkDetailsRobot {
         }
     }
 }
-
-private fun networkDetailsUpButton() =
-    Espresso.onView(ViewMatchers.withContentDescription("Navigate up"))
 
 private fun networkDetailsSettingsView() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_network_config))
@@ -156,9 +150,6 @@ private fun assertExternalUdpEndpointsDisplay() = externalUdpEndpointsDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertPublicUdpEndpointsDisplay() = publicUdpEndpointsDisplay()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertBridgeModeHeading() = bridgeModeHeading()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBtBootstrapsHeading() = btBootstrapsHeading()
