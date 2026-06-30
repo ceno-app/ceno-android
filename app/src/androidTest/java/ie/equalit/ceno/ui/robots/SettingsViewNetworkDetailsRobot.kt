@@ -26,6 +26,11 @@ class SettingsViewNetworkDetailsRobot {
     fun verifyLocalProxyEndpointDisplay(): ViewInteraction = assertLocalProxyEndpointDisplay()
     fun verifyLocalFrontendEndpointDisplay(): ViewInteraction = assertLocalFrontendEndpointDisplay()
 
+    fun verifyDnsProtocolHeading(): ViewInteraction = assertDnsProtocolHeading()
+    fun verifySystemDnsOption(): ViewInteraction = assertSystemDnsOption()
+    fun verifyDohOnlyOption(): ViewInteraction = assertDohOnlyOption()
+    fun verifyDohWithFallbackOption(): ViewInteraction = assertDohWithFallbackOption()
+
     fun verifyUdpHeading(): ViewInteraction = assertUdpHeading()
     fun verifyLocalUdpEndpointsDisplay(): ViewInteraction = assertLocalUdpEndpointsDisplay()
     fun verifyExternalUdpEndpointsDisplay(): ViewInteraction = assertExternalUdpEndpointsDisplay()
@@ -77,6 +82,17 @@ private fun localProxyEndpointDisplay() =
 private fun localFrontendEndpointDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ouinet_frontend_endpoint))
 
+private fun dnsProtocolHeading() = Espresso.onView(ViewMatchers.withText(R.string.dns_category))
+private fun systemDnsOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_only_system))
+
+private fun dohOnlyOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_only_over_https))
+
+private fun dohWithFallbackOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_over_https_with_fallback_to_system_dns))
+
+
 private fun udpHeading() = Espresso.onView(ViewMatchers.withText(R.string.udp_category))
 private fun localUdpEndpointsDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_local_udp))
@@ -116,6 +132,18 @@ private fun assertLocalProxyEndpointDisplay() = localProxyEndpointDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertLocalFrontendEndpointDisplay() = localFrontendEndpointDisplay()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDnsProtocolHeading() = dnsProtocolHeading()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertSystemDnsOption() = systemDnsOption()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDohOnlyOption() = dohOnlyOption()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDohWithFallbackOption() = dohWithFallbackOption()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUdpHeading() = udpHeading()
