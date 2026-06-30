@@ -22,7 +22,6 @@ class SettingsViewNetworkDetailsRobot {
 
     fun verifyGeneralHeading(): ViewInteraction = assertGeneralHeading()
     fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
-    fun verifyReachabilityStatusDisplay(): ViewInteraction = assertReachabilityStatusDisplay()
     fun verifyUpnpStatusDisplay(): ViewInteraction = assertUpnpStatusDisplay()
     fun verifyLocalProxyEndpointDisplay(): ViewInteraction = assertLocalProxyEndpointDisplay()
     fun verifyLocalFrontendEndpointDisplay(): ViewInteraction = assertLocalFrontendEndpointDisplay()
@@ -69,9 +68,6 @@ private fun generalHeading() = Espresso.onView(ViewMatchers.withText(R.string.ge
 private fun ouinetProtocolDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_about_ouinet_protocol))
 
-private fun reachabilityStatusDisplay() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_reachability))
-
 private fun upnpStatusDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_upnp))
 
@@ -111,9 +107,6 @@ private fun assertGeneralHeading() = generalHeading()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertOuinetProtocolDisplay() = ouinetProtocolDisplay()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertReachabilityStatusDisplay() = reachabilityStatusDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUpnpStatusDisplay() = upnpStatusDisplay()
