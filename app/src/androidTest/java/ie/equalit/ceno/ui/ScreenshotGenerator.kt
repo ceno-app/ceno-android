@@ -109,10 +109,15 @@ class ScreenshotGenerator {
                 waitForPermissionsTooltip()
                 takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
-                permissionAllowButton().waitForExists(waitingTime)
-                takeScreenshotWithWait("onboarding_permissions_notifications")
-                permissionAllowButton().click()
-                if (backgroundAllowButton().waitForExists(waitingTime)) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    permissionAllowButton().waitForExists(waitingTime)
+                    takeScreenshotWithWait("onboarding_permissions_notifications")
+                    permissionAllowButton().click()
+                    backgroundAllowButton().waitForExists(waitingTime)
+                    takeScreenshotWithWait("onboarding_permissions_optimisation")
+                    backgroundAllowButton().click()
+                } else {
+                    backgroundAllowButton().waitForExists(waitingTime)
                     takeScreenshotWithWait("onboarding_permissions_optimisation")
                     backgroundAllowButton().click()
                 }
