@@ -109,17 +109,17 @@ class ScreenshotGenerator {
                 waitForPermissionsTooltip()
                 takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
+                if (backgroundAllowButton().waitForExists(waitingTime)) {
+                    takeScreenshotWithWait("onboarding_permissions_optimisation")
+                    backgroundAllowButton().waitForExists(waitingTime)
+                    backgroundAllowButton().click()
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    permissionAllowButton().waitForExists(waitingTime)
-                    takeScreenshotWithWait("onboarding_permissions_notifications")
-                    permissionAllowButton().click()
-                    backgroundAllowButton().waitForExists(waitingTime)
-                    takeScreenshotWithWait("onboarding_permissions_optimisation")
-                    backgroundAllowButton().click()
-                } else {
-                    backgroundAllowButton().waitForExists(waitingTime)
-                    takeScreenshotWithWait("onboarding_permissions_optimisation")
-                    backgroundAllowButton().click()
+                    if (permissionAllowButton().waitForExists(waitingTime)) {
+                        takeScreenshotWithWait("onboarding_permissions_notifications")
+                        permissionAllowButton().waitForExists(waitingTime)
+                        permissionAllowButton().click()
+                    }
                 }
             }
         }
@@ -180,13 +180,10 @@ class ScreenshotGenerator {
                 takeScreenshotWithWait("customization_change_icon")
             }
             .goBack {
-                clickSetAppTheme()
-                takeScreenshotWithWait("customization_set_app_theme")
-                clickCancelDialog()
-                Thread.sleep(1000)
-                clickDefaultBehavior()
+                clickDownRecyclerView(16)
                 takeScreenshotWithWait("customization_default_behavior")
-                clickCancelDialog()
+                clickDownRecyclerView(2)
+                takeScreenshotWithWait("customization_secure_screen")
             }
             .goBack {
             }

@@ -1,8 +1,11 @@
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso
+import android.view.KeyEvent
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
@@ -40,6 +43,13 @@ class SettingsViewCustomizationRobot {
         cancelDialogButton().click()
     }
 
+    fun clickDownRecyclerView(count: Int) {
+        for (i in 1..count) {
+            recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
+            Thread.sleep(250)
+        }
+    }
+
     class Transition {
         fun settingsViewCustomization(interact: SettingsViewCustomizationRobot.() -> Unit): Transition {
             return Transition()
@@ -60,24 +70,26 @@ class SettingsViewCustomizationRobot {
     }
 }
 
+private fun recycleView() = onView(withId(R.id.recycler_view))
+
 private fun customizationSettingsView() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_customization))
+    onView(ViewMatchers.withText(R.string.preferences_customization))
 
 private fun changeAppIconButton() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
+    onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
 
-private fun setAppThemeButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme))
+private fun setAppThemeButton() = onView(ViewMatchers.withText(R.string.preferences_theme))
 private fun setAppThemeSummary() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_theme_summary))
+    onView(ViewMatchers.withText(R.string.preferences_theme_summary))
 
 private fun showHomeButtonToggle() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_show_home_button))
+    onView(ViewMatchers.withText(R.string.preferences_show_home_button))
 
 private fun defaultBehaviorButton() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
+    onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
 
 private fun defaultBehaviorSummary() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
+    onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
 
 private fun assertCustomizationUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
