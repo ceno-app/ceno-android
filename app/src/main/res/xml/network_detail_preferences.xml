@@ -33,7 +33,7 @@
             android:title="@string/preferences_ouinet_frontend_endpoint" />
 
         <PreferenceCategory
-            android:title="DNS Protocol"
+            android:title="@string/dns_category"
             android:key="@string/pref_key_doh_enabled"
             android:layout="@layout/preference_category_style">
 

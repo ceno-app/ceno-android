@@ -18,22 +18,23 @@ class SettingsViewNetworkDetailsRobot {
 
 
     fun verifySourcesUpButton() = assertNetworkDetailsUpButton()
-    fun verifyNetworkDetailsSettings() = assertNetworkDetailsSettingsView()
+    fun verifyNetworkDetailsSettings(): ViewInteraction = assertNetworkDetailsSettingsView()
 
     fun verifyGeneralHeading(): ViewInteraction = assertGeneralHeading()
     fun verifyOuinetProtocolDisplay(): ViewInteraction = assertOuinetProtocolDisplay()
-    fun verifyReachabilityStatusDisplay(): ViewInteraction = assertReachabilityStatusDisplay()
     fun verifyUpnpStatusDisplay(): ViewInteraction = assertUpnpStatusDisplay()
     fun verifyLocalProxyEndpointDisplay(): ViewInteraction = assertLocalProxyEndpointDisplay()
     fun verifyLocalFrontendEndpointDisplay(): ViewInteraction = assertLocalFrontendEndpointDisplay()
+
+    fun verifyDnsProtocolHeading(): ViewInteraction = assertDnsProtocolHeading()
+    fun verifySystemDnsOption(): ViewInteraction = assertSystemDnsOption()
+    fun verifyDohOnlyOption(): ViewInteraction = assertDohOnlyOption()
+    fun verifyDohWithFallbackOption(): ViewInteraction = assertDohWithFallbackOption()
 
     fun verifyUdpHeading(): ViewInteraction = assertUdpHeading()
     fun verifyLocalUdpEndpointsDisplay(): ViewInteraction = assertLocalUdpEndpointsDisplay()
     fun verifyExternalUdpEndpointsDisplay(): ViewInteraction = assertExternalUdpEndpointsDisplay()
     fun verifyPublicUdpEndpointsDisplay(): ViewInteraction = assertPublicUdpEndpointsDisplay()
-
-    //    fun verifyBridgeModeHeading(): ViewInteraction = assertBridgeModeHeading()
-
 
     fun verifyBtBootstrapsHeading(): ViewInteraction = assertBtBootstrapsHeading()
     fun verifyExtraBtBootstrapsButton(): ViewInteraction = assertExtraBtBootstrapsButton()
@@ -57,9 +58,6 @@ class SettingsViewNetworkDetailsRobot {
     }
 }
 
-private fun networkDetailsUpButton() =
-    Espresso.onView(ViewMatchers.withContentDescription("Navigate up"))
-
 private fun networkDetailsSettingsView() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_network_config))
 
@@ -69,9 +67,6 @@ private fun generalHeading() = Espresso.onView(ViewMatchers.withText(R.string.ge
 private fun ouinetProtocolDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_about_ouinet_protocol))
 
-private fun reachabilityStatusDisplay() =
-    Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_reachability))
-
 private fun upnpStatusDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ceno_sources_upnp))
 
@@ -80,6 +75,17 @@ private fun localProxyEndpointDisplay() =
 
 private fun localFrontendEndpointDisplay() =
     Espresso.onView(ViewMatchers.withText(R.string.preferences_ouinet_frontend_endpoint))
+
+private fun dnsProtocolHeading() = Espresso.onView(ViewMatchers.withText(R.string.dns_category))
+private fun systemDnsOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_only_system))
+
+private fun dohOnlyOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_only_over_https))
+
+private fun dohWithFallbackOption() =
+    Espresso.onView(ViewMatchers.withText(R.string.dns_protocol_over_https_with_fallback_to_system_dns))
+
 
 private fun udpHeading() = Espresso.onView(ViewMatchers.withText(R.string.udp_category))
 private fun localUdpEndpointsDisplay() =
@@ -113,9 +119,6 @@ private fun assertGeneralHeading() = generalHeading()
 private fun assertOuinetProtocolDisplay() = ouinetProtocolDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
-private fun assertReachabilityStatusDisplay() = reachabilityStatusDisplay()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
 private fun assertUpnpStatusDisplay() = upnpStatusDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
@@ -123,6 +126,18 @@ private fun assertLocalProxyEndpointDisplay() = localProxyEndpointDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertLocalFrontendEndpointDisplay() = localFrontendEndpointDisplay()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDnsProtocolHeading() = dnsProtocolHeading()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertSystemDnsOption() = systemDnsOption()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDohOnlyOption() = dohOnlyOption()
+    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertDohWithFallbackOption() = dohWithFallbackOption()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUdpHeading() = udpHeading()
@@ -135,9 +150,6 @@ private fun assertExternalUdpEndpointsDisplay() = externalUdpEndpointsDisplay()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertPublicUdpEndpointsDisplay() = publicUdpEndpointsDisplay()
-    .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertBridgeModeHeading() = bridgeModeHeading()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBtBootstrapsHeading() = btBootstrapsHeading()

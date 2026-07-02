@@ -39,8 +39,6 @@ class ThreeDotMenuRobot {
     fun verifyRequestDesktopSiteToggleExists() = assertRequestDesktopSiteToggle()
     fun verifyAddToHomescreenButtonExists() = assertAddToHomescreenButton()
     fun verifyFindInPageButtonExists() = assertFindInPageButton()
-    fun verifySyncedTabsButtonExists() = assertSyncedTabsButton()
-    fun verifyReportIssueExists() = assertReportIssueButton()
     fun verifyOpenSettingsExists() = assertSettingsButton()
 
     fun verifyShareButtonDoesntExist() = assertShareButtonDoesntExist()
@@ -65,6 +63,7 @@ class ThreeDotMenuRobot {
     fun verifyDisableReaderViewButton() = assertDisableReaderViewButton()
     fun verifyReaderViewButtonDoesntExist() = assertReaderViewButtonDoesntExist()
     fun verifyAddBookmarksButtonExists() = assertAddBookmarksButtonExists()
+    fun verifyBookmarksButtonExists() = assertBookmarksButtonExists()
 
     class Transition {
 
@@ -144,12 +143,6 @@ class ThreeDotMenuRobot {
             return FindInPagePanelRobot.Transition()
         }
 
-        fun reportIssue(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
-            reportIssueButton().click()
-            BrowserRobot().interact()
-            return BrowserRobot.Transition()
-        }
-
         fun openSettings(interact: SettingsViewRobot.() -> Unit): SettingsViewRobot.Transition {
             mDevice.waitForIdle(5000)
             settingsButton().click()
@@ -171,15 +164,6 @@ class ThreeDotMenuRobot {
             BrowserRobot().interact()
             return BrowserRobot.Transition()
         }
-        /*
-        fun openSyncedTabs(interact: SyncedTabsRobot.() -> Unit): SyncedTabsRobot.Transition {
-            mDevice.findObject(UiSelector().text("Synced Tabs")).waitForExists(waitingTime)
-            syncedTabsButton().click()
-
-            SyncedTabsRobot().interact()
-            return SyncedTabsRobot.Transition()
-        }
-        */
 
         fun goBack(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
             backButton().click()
@@ -250,10 +234,8 @@ private fun stopButton() = onView(withContentDescription("Stop"))
 private fun shareButton() = onView(allOf(withText(R.string.browser_menu_share), isDisplayed()))
 private fun requestDesktopSiteToggle() = onView(withText("Request desktop site"))
 private fun findInPageButton() = onView(withText("Find in page"))
-private fun reportIssueButton() = onView(withText("Report issue"))
 private fun settingsButton() = onView(withText(R.string.browser_menu_settings))
 private fun addToHomescreenButton() = onView(withText("Add to Home screen"))
-private fun syncedTabsButton() = onView(withText("Synced Tabs"))
 private fun clearCenoButton() = onView(withText("Clear Ceno"))
 private fun addToShortcutsButton() = onView(withText("Add to shortcuts"))
 private fun removeFromShortcutsButton() = onView(withText("Remove from shortcuts"))
@@ -311,12 +293,6 @@ private fun assertAddToHomescreenButton() = addToHomescreenButton()
 private fun assertFindInPageButton() = findInPageButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
-private fun assertSyncedTabsButton() = syncedTabsButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertReportIssueButton() = reportIssueButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
 private fun assertSettingsButton() = settingsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
@@ -354,4 +330,7 @@ private fun assertDisableReaderViewButton() = disableReaderViewButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertAddBookmarksButtonExists() = addOrRemoveBookmarksButton()
+    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertBookmarksButtonExists() = bookmarksButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

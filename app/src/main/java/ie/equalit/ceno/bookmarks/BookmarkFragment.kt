@@ -9,6 +9,8 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.OnBackPressedCallback
+import androidx.annotation.CallSuper
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -142,15 +144,22 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
     private fun loadInitialBookmarkFolder(currentGuid: String) {
         viewLifecycleOwner.lifecycleScope.launch(Main) {
             val currentRoot = loadBookmarkNode(currentGuid)
-
             if (isActive && currentRoot != null) {
                 bookmarkInteractor.onBookmarksChanged(currentRoot)
             }
         }
     }
 
-    private suspend fun loadBookmarkNode(guid: String, recursive: Boolean = false): BookmarkNode? =
-        withContext(
+    private suspend fun loadBookmarkNode(guid: String, recursive: Boolean = false): BookmarkNode? {
+        val callback: OnBackPressedCallback = object : OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                // Custom back press logic
+                this@BookmarkFragment.onBackPressed()
+                isEnabled = false
+            }
+        }
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, callback)
+        return withContext(
             IO
         ) {
             // Only runs if the fragment is attached same as [runIfFragmentIsAttached]
@@ -160,6 +169,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
                     .getOrNull()
             }
         }
+    }
 
     private fun deleteMulti(
         selected: Set<BookmarkNode>,
@@ -254,6 +264,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
         }
     }
 
+    @CallSuper
     override fun onBackPressed(): Boolean {
         sharedViewModel.selectedFolder = null
         bookmarkInteractor.onBackPressed()

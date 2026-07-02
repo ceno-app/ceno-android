@@ -5,6 +5,7 @@
 package ie.equalit.ceno.ui.robots
 
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDescendantOfA
@@ -252,6 +253,21 @@ class BrowserRobot {
                 it.click()
             }
 
+    fun verifyUblockOriginTitle(): ViewInteraction = assertUblockOriginTitle()
+    fun verifyHttpsByDefaultTitle(): ViewInteraction = assertHttpsByDefaultTitle()
+
+    fun verifyExternalUrlDialogTitle(): ViewInteraction = assertExternalUrlDialogTitle()
+    fun verifyExternalUrlDialogMessage(): ViewInteraction = assertExternalUrlDialogMessage()
+    fun verifyExternalUrlDialogCheckbox(): ViewInteraction = assertExternalUrlDialogCheckbox()
+
+    fun externalUrlContinueButton() = mDevice.findObject(
+        UiSelector().resourceId("android:id/button1")
+    )
+
+    fun externalUrlCancelButton() = mDevice.findObject(
+        UiSelector().resourceId("android:id/button2")
+    )
+
     class Transition {
         fun checkExternalApps(interact: ExternalAppsRobot.() -> Unit): ExternalAppsRobot.Transition {
             mDevice.waitForWindowUpdate(packageName, waitingTime)
@@ -307,6 +323,19 @@ private fun contextMenuShareLink() = onView(withText(R.string.mozac_feature_cont
 private fun contextMenuSaveFileToDevice() =
     onView(withText(R.string.mozac_feature_contextmenu_save_file_to_device))
 
+private fun uBlockOriginTitle() = onView(withText(R.string.browser_menu_ublock_origin))
+
+private fun httpsByDefaultTitle() = onView(withText(R.string.browser_menu_https_by_default))
+
+private fun externalUrlDialogTitle() =
+    onView(withText(R.string.dialog_external_url_title))
+
+private fun externalUrlDialogMessage() =
+    onView(withId(R.id.tv_external_url_message))
+
+private fun externalUrlDialogCheckbox() =
+    onView(withId(R.id.external_url_do_not_show_checkbox))
+
 private fun assertContextMenuOpenInNewTab() = contextMenuOpenInNewTab()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
@@ -320,4 +349,19 @@ private fun assertContextMenuShareLink() = contextMenuShareLink()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertContextMenuSaveFileToDevice() = contextMenuSaveFileToDevice()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertUblockOriginTitle() = uBlockOriginTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertHttpsByDefaultTitle() = httpsByDefaultTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogTitle() = externalUrlDialogTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogMessage() = externalUrlDialogMessage()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogCheckbox() = externalUrlDialogCheckbox()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
