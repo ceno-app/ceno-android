@@ -308,6 +308,10 @@ class ThreeDotMenuTest {
                 clickAddAutomaticallyToHomeScreenButton()
             }
             .openHomeScreenShortcut(defaultWebPage.title) {
+                verifyExternalUrlDialogTitle()
+                verifyExternalUrlDialogMessage()
+                verifyExternalUrlDialogCheckbox()
+                externalUrlContinueButton().click()
                 verifyUrl(defaultWebPage.displayUrl)
             }
     }

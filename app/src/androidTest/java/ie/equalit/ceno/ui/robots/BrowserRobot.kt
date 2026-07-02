@@ -256,6 +256,18 @@ class BrowserRobot {
     fun verifyUblockOriginTitle(): ViewInteraction = assertUblockOriginTitle()
     fun verifyHttpsByDefaultTitle(): ViewInteraction = assertHttpsByDefaultTitle()
 
+    fun verifyExternalUrlDialogTitle(): ViewInteraction = assertExternalUrlDialogTitle()
+    fun verifyExternalUrlDialogMessage(): ViewInteraction = assertExternalUrlDialogMessage()
+    fun verifyExternalUrlDialogCheckbox(): ViewInteraction = assertExternalUrlDialogCheckbox()
+
+    fun externalUrlContinueButton() = mDevice.findObject(
+        UiSelector().resourceId("android:id/button1")
+    )
+
+    fun externalUrlCancelButton() = mDevice.findObject(
+        UiSelector().resourceId("android:id/button2")
+    )
+
     class Transition {
         fun checkExternalApps(interact: ExternalAppsRobot.() -> Unit): ExternalAppsRobot.Transition {
             mDevice.waitForWindowUpdate(packageName, waitingTime)
@@ -315,6 +327,15 @@ private fun uBlockOriginTitle() = onView(withText(R.string.browser_menu_ublock_o
 
 private fun httpsByDefaultTitle() = onView(withText(R.string.browser_menu_https_by_default))
 
+private fun externalUrlDialogTitle() =
+    onView(withText(R.string.dialog_external_url_title))
+
+private fun externalUrlDialogMessage() =
+    onView(withId(R.id.tv_external_url_message))
+
+private fun externalUrlDialogCheckbox() =
+    onView(withId(R.id.external_url_do_not_show_checkbox))
+
 private fun assertContextMenuOpenInNewTab() = contextMenuOpenInNewTab()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
@@ -334,4 +355,13 @@ private fun assertUblockOriginTitle() = uBlockOriginTitle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertHttpsByDefaultTitle() = httpsByDefaultTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogTitle() = externalUrlDialogTitle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogMessage() = externalUrlDialogMessage()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertExternalUrlDialogCheckbox() = externalUrlDialogCheckbox()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
