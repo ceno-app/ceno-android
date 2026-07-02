@@ -23,6 +23,8 @@ def scenarioYaml = scenarioFile.exists() ? new Yaml().load(scenarioFile.newInput
 def baseBuildDate = generatedBuildDate
 
 def isBuildingBundle = gradle.startParameter.taskNames.any { it.toLowerCase().contains("bundle") }
+def isBuildingRelease = gradle.startParameter.taskNames.any { it.toLowerCase().contains("release") }
+def isBuildingNightly = gradle.startParameter.taskNames.any { it.toLowerCase().contains("nightly") }
 
 android {
     namespace 'ie.equalit.ceno'
@@ -164,9 +166,15 @@ tasks.configureEach { task ->
 
 def apkDate = generatedApkDate
 def appId = android.defaultConfig.applicationId.tokenize('.')
-
-base {
-    archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
+if (isBuildingRelease || isBuildingNightly) {
+    base {
+        archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
+    }
+}
+else {
+    base {
+        archivesName = "${appId[2]}-${android.defaultConfig.versionName}"
+    }
 }
 
 android.applicationVariants.all { variant ->
