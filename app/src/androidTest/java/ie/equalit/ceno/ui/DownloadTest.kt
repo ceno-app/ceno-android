@@ -24,7 +24,7 @@ class DownloadTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
 
     @Before
     fun setUp() {
