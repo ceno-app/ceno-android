@@ -14,7 +14,6 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
-import androidx.core.os.bundleOf
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
@@ -130,7 +129,8 @@ class EditBookmarkFragment : Fragment(R.layout.fragment_edit_bookmark), MenuProv
                     R.id.action_editBookmarkFragment_to_bookmarkSelectFolderFragment,
                     Bundle().apply {
                         putBoolean("allowCreatingNewFolder", false)
-                        putString("hideFolderGuid",
+                        putString(
+                            "hideFolderGuid",
                             when (bookmarkNode!!.type) {
                                 BookmarkNodeType.FOLDER -> bookmarkNode!!.guid
                                 else -> null

@@ -16,7 +16,6 @@ import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.appstate.AppAction

@@ -11,12 +11,9 @@ import androidx.core.content.edit
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ext.getPreferenceKey
-import mozilla.components.feature.sitepermissions.SitePermissionsRules.Action
-import mozilla.components.feature.sitepermissions.SitePermissionsRules.AutoplayAction
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
-import java.security.InvalidParameterException
 
 /**
  * A simple wrapper for SharedPreferences that makes reading preference a little bit easier.
