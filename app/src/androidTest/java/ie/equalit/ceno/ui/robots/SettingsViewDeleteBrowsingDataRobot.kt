@@ -33,13 +33,16 @@ class SettingsViewDeleteBrowsingDataRobot {
     }
 }
 
-private fun deleteBrowsingDataSettingsView() = onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data))
+private fun deleteBrowsingDataSettingsView() =
+    onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data))
 
-private fun cookiesCheckbox() = onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data_cookies))
+private fun cookiesCheckbox() =
+    onView(ViewMatchers.withText(R.string.preferences_delete_browsing_data_cookies))
 
 private fun assertDeleteBrowsingDataUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertDeleteBrowsingDataSettingsView() = deleteBrowsingDataSettingsView()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 

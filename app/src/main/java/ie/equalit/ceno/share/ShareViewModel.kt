@@ -4,11 +4,9 @@ import android.app.Application
 import android.content.Context
 import android.content.Intent
 import android.content.pm.ResolveInfo
-import android.net.ConnectivityManager
 import androidx.annotation.VisibleForTesting
 import androidx.annotation.WorkerThread
 import androidx.appcompat.content.res.AppCompatResources
-import androidx.core.content.getSystemService
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -25,8 +23,6 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
     companion object {
         internal const val RECENT_APPS_LIMIT = 6
     }
-
-    private val connectivityManager by lazy { application.getSystemService<ConnectivityManager>() }
 
     @VisibleForTesting
     internal var recentAppsStorage = RecentAppsStorage(application.applicationContext)
@@ -48,10 +44,11 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
     val recentAppsList: LiveData<List<AppShareOption>> get() = recentAppsListLiveData
 
     /**
-     * Load a list of devices and apps into [devicesList] and [appsList].
+     * Load a list of apps into [appsList].
      * Should be called when the fragment is attached so the data can be fetched early.
+     * TODO: load device list also
      */
-    fun loadDevicesAndApps(context: Context, shareLogs:Boolean = false) {
+    fun loadDevicesAndApps(context: Context, shareLogs: Boolean = false) {
 
         // Start preparing the data as soon as we have a valid Context
         viewModelScope.launch(ioDispatcher) {
@@ -115,7 +112,7 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
 
     @VisibleForTesting
     @WorkerThread
-    fun getIntentActivities(shareIntent: Intent, context: Context): List<ResolveInfo>? {
+    fun getIntentActivities(shareIntent: Intent, context: Context): List<ResolveInfo> {
         return context.packageManagerCompatHelper.queryIntentActivitiesCompat(shareIntent, 0)
     }
 
@@ -136,7 +133,8 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
             .filter { it.activityInfo.packageName != context.packageName }
             .map { resolveInfo ->
                 AppShareOption(
-                    resolveInfo.loadLabel(context.packageManager).toString(),
+                    resolveInfo.loadLabel(context.packageManager)
+                        .toString(),
                     resolveInfo.loadIcon(context.packageManager),
                     resolveInfo.activityInfo.packageName,
                     resolveInfo.activityInfo.name,

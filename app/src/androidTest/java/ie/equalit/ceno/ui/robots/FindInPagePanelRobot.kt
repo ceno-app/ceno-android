@@ -10,13 +10,13 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.UiSelector
-import org.junit.Assert.assertTrue
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.TestHelper.waitForObjects
 import ie.equalit.ceno.helpers.click
 import org.hamcrest.CoreMatchers.not
+import org.junit.Assert.assertTrue
 
 /**
  * Implementation of Robot Pattern for the FindInPage Panel.
@@ -30,14 +30,18 @@ class FindInPagePanelRobot {
     fun clickFindInPageCloseButton() = findInPageCloseButton().click()
 
     fun enterFindInPageQuery(expectedText: String) {
-        val findInPageQuery = mDevice.findObject(UiSelector().resourceId("$packageName:id/find_in_page_query_text"))
+        val findInPageQuery =
+            mDevice.findObject(UiSelector().resourceId("$packageName:id/find_in_page_query_text"))
         findInPageQuery.setText(expectedText)
     }
 
     fun verifyFindInPageResult(ratioCounter: String) {
         mDevice.findObject(UiSelector().resourceId("$packageName:id/find_in_page_result_text"))
             .waitForExists(waitingTime)
-        assertTrue(mDevice.findObject(UiSelector().textContains(ratioCounter)).waitForExists(waitingTime))
+        assertTrue(
+            mDevice.findObject(UiSelector().textContains(ratioCounter))
+                .waitForExists(waitingTime)
+        )
     }
 
     class Transition {
@@ -61,7 +65,8 @@ private fun assertFindInPageBarExists() {
 }
 
 private fun assertFindInPageBarIsDismissed() {
-    mDevice.findObject(UiSelector().resourceId("$packageName:id/findInPageBar")).waitUntilGone(waitingTime)
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/findInPageBar"))
+        .waitUntilGone(waitingTime)
     findInPageBar().check(matches(not(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))))
     findInPagePreviousButton().check(matches(not(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))))
     findInPageNextButton().check(matches(not(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE))))

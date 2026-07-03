@@ -8,14 +8,13 @@ import android.view.View
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
+import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LifecycleOwner
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.AboutFragment
 import ie.equalit.ceno.settings.ExportAndroidLogsDialog
 import ie.equalit.ouinet.Ouinet.RunningState
-import androidx.core.net.toUri
-import androidx.lifecycle.LifecycleOwner
 
 class CenoNetworkStatusDialog(
     val context: Context,
@@ -23,21 +22,24 @@ class CenoNetworkStatusDialog(
     val fragment: Fragment,
     val status: RunningState,
     onDismissListener: DialogInterface.OnDismissListener
-){
+) {
     private val builder: AlertDialog.Builder = AlertDialog.Builder(context)
     private lateinit var alertDialog: AlertDialog
+
     init {
-        val message:Int
-        val icon:Int
-        when(status) {
+        val message: Int
+        val icon: Int
+        when (status) {
             RunningState.Started -> {
                 message = R.string.ceno_network_status_connected
                 icon = R.drawable.ceno_connected_icon
             }
+
             RunningState.Degraded -> {
                 message = R.string.ceno_network_status_degraded
                 icon = R.drawable.ceno_degraded_icon
             }
+
             else -> {
                 message = R.string.ceno_network_status_disconnected
                 icon = R.drawable.ceno_disconnected_icon
@@ -54,7 +56,8 @@ class CenoNetworkStatusDialog(
                 //add additional buttons
                 setNegativeButton("EXPORT LOGS") { dialog, _ ->
                     dialog.dismiss()
-                    ExportAndroidLogsDialog(context, lifecycleOwner, fragment).getDialog().show()
+                    ExportAndroidLogsDialog(context, lifecycleOwner, fragment).getDialog()
+                        .show()
                 }
                 setView(getContactSupportView())
             }
@@ -66,18 +69,21 @@ class CenoNetworkStatusDialog(
     private fun getContactSupportView(): View {
         val view = View.inflate(context, R.layout.ceno_status_contact_support_dialog, null)
         val btnContactSupport = view.findViewById<TextView>(R.id.btn_contact_support)
-        AboutFragment.setLinkTextView(context, btnContactSupport, ContextCompat.getString(context, R.string.contact_support))
+        AboutFragment.setLinkTextView(
+            context,
+            btnContactSupport,
+            ContextCompat.getString(context, R.string.contact_support)
+        )
         btnContactSupport.setOnClickListener {
 
             alertDialog.dismiss()
             //Add mailto link to support@censorship.no
             val intent = Intent(Intent.ACTION_SENDTO).apply {
-                setData(
-                    ("mailto:support@ceno.app" +
-                            "?subject=" + Uri.encode(context.getString(R.string.ceno_support_ticket_subject))).toUri())
+                data = ("mailto:support@ceno.app" +
+                        "?subject=" + Uri.encode(context.getString(R.string.ceno_support_ticket_subject))).toUri()
             }
             if (intent.resolveActivity(context.packageManager) != null) {
-                startActivity(context, intent, null)
+                context.startActivity(intent, null)
             }
         }
         return view

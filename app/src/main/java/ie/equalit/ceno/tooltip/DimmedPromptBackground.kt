@@ -9,11 +9,10 @@ import android.graphics.RectF
 import uk.co.samuelwall.materialtaptargetprompt.extras.PromptOptions
 import uk.co.samuelwall.materialtaptargetprompt.extras.backgrounds.CirclePromptBackground
 
-
 class DimmedPromptBackground(
-    var dimBounds:RectF = RectF(),
+    var dimBounds: RectF = RectF(),
     var dimPaint: Paint = Paint(Color.GRAY),
-): CirclePromptBackground() {
+) : CirclePromptBackground() {
     override fun prepare(
         options: PromptOptions<out PromptOptions<*>>,
         clipToBounds: Boolean,
@@ -32,7 +31,7 @@ class DimmedPromptBackground(
     ) {
         super.update(options, revealModifier, alphaModifier)
         // Allow for the dimmed background to fade in and out
-        this.dimPaint.setAlpha(((170 * alphaModifier).toInt()));
+        this.dimPaint.setAlpha(((170 * alphaModifier).toInt()))
     }
 
     override fun draw(canvas: Canvas) {

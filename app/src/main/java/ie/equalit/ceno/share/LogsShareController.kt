@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import androidx.navigation.NavController
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -14,12 +13,11 @@ import mozilla.components.feature.share.RecentAppsStorage
 class LogsShareController(
     private val context: Context,
     private val logsUri: Uri,
-    private val navController: NavController,
     private val viewLifecycleScope: CoroutineScope,
     private val recentAppsStorage: RecentAppsStorage,
     private val dispatcher: CoroutineDispatcher = Dispatchers.IO,
     private val dismiss: (ShareController.Result) -> Unit,
-):ShareController {
+) : ShareController {
     override fun handleShareClosed() {
         dismiss(ShareController.Result.DISMISSED)
     }
@@ -30,9 +28,9 @@ class LogsShareController(
         }
         val intent = Intent(Intent.ACTION_SEND)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-        intent.setType("*/*")
+        intent.type = "*/*"
         intent.putExtra(Intent.EXTRA_STREAM, logsUri)
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK
         intent.setClassName(app.packageName, app.activityName)
         @Suppress("TooGenericExceptionCaught")
         val result = try {
@@ -43,6 +41,7 @@ class LogsShareController(
                 is SecurityException, is ActivityNotFoundException -> {
                     ShareController.Result.SHARE_ERROR
                 }
+
                 else -> throw e
             }
         }
@@ -50,8 +49,10 @@ class LogsShareController(
     }
 
     override fun handleSaveToPDF(tabId: String?) {
+        // Not implemented
     }
 
     override fun handlePrint(tabId: String?) {
+        // Not implemented
     }
 }

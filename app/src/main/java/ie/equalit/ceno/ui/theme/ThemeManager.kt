@@ -3,9 +3,6 @@ package ie.equalit.ceno.ui.theme
 import android.app.Activity
 import android.content.Context
 import android.content.res.Configuration
-import android.graphics.Color
-import android.os.Build
-import android.os.Build.VERSION.SDK_INT
 import android.view.ContextThemeWrapper
 import android.view.Window
 import androidx.core.content.ContextCompat
@@ -62,7 +59,7 @@ class DefaultThemeManager(
     private val activity: Activity
 ) : ThemeManager() {
 
-    private var currentContext:Context = activity
+    private var currentContext: Context = activity
 
     private val personalThemeContext = ContextThemeWrapper(activity, R.style.PersonalTheme)
 
@@ -82,6 +79,7 @@ class DefaultThemeManager(
             -> {
                 updateLightSystemBars(activity.window, activity)
             }
+
             Configuration.UI_MODE_NIGHT_UNDEFINED, //we assume dark mode is default
             Configuration.UI_MODE_NIGHT_YES -> {
                 updateDarkSystemBars(activity.window, activity)
@@ -108,12 +106,14 @@ class DefaultThemeManager(
                     -> {
                         updateLightSystemBars(activity.window, currentContext)
                     }
+
                     Configuration.UI_MODE_NIGHT_UNDEFINED, //we assume dark mode is default
                     Configuration.UI_MODE_NIGHT_YES -> {
                         updateDarkSystemBars(activity.window, currentContext)
                     }
                 }
             }
+
             BrowsingMode.Personal -> {
                 updateDarkSystemBars(activity.window, currentContext)
             }
@@ -122,11 +122,18 @@ class DefaultThemeManager(
 
     override fun applyTheme(toolbar: BrowserToolbar) {
         applyStatusBarTheme()
-        
-        toolbar.background = ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
 
-        var textPrimary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textPrimary))
-        var textSecondary = ContextCompat.getColor(currentContext, currentContext.theme.resolveAttribute(R.attr.textSecondary))
+        toolbar.background =
+            ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background)
+
+        val textPrimary = ContextCompat.getColor(
+            currentContext,
+            currentContext.theme.resolveAttribute(R.attr.textPrimary)
+        )
+        val textSecondary = ContextCompat.getColor(
+            currentContext,
+            currentContext.theme.resolveAttribute(R.attr.textSecondary)
+        )
 
         toolbar.edit.colors = toolbar.edit.colors.copy(
             text = textPrimary,
@@ -139,14 +146,23 @@ class DefaultThemeManager(
             siteInfoIconInsecure = textPrimary,
             menu = textPrimary,
 
-        )
+            )
 
         /*
         * When switching between modes, we need to set the url background to something else before
         * before setting it to the correct url background
         * */
-        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.toolbar_dark_background))
-        toolbar.display.setUrlBackground(ContextCompat.getDrawable(currentContext, R.drawable.url_background))
+        toolbar.display.setUrlBackground(
+            ContextCompat.getDrawable(
+                currentContext,
+                R.drawable.toolbar_dark_background
+            )
+        )
+        toolbar.display.setUrlBackground(
+            ContextCompat.getDrawable(
+                currentContext,
+                R.drawable.url_background
+            )
+        )
     }
-
 }

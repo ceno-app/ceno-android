@@ -11,7 +11,7 @@ import java.util.Locale
 
 object LogHelper {
 
-    fun findInLogs( searchString: String, timeWindowInMilliseconds: Long? = null) : Boolean {
+    fun findInLogs(searchString: String, timeWindowInMilliseconds: Long? = null): Boolean {
         val logEntries = getLogEntries(timeWindowInMilliseconds)
         var result = false
         logEntries.map {
@@ -41,17 +41,20 @@ object LogHelper {
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String?
 
-            while (reader.readLine().also { line = it } != null
-                && logs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+            while (reader.readLine()
+                    .also { line = it } != null
+                && logs.joinToString("\n")
+                    .getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB
+            ) {
 
                 // filter out chatty logs as well as logs outside time bound
                 if (line?.contains("chatty", ignoreCase = true) == false
                     && isWithinTimeRange(
-                        timestampRegex.find(line!!)?.value,
+                        timestampRegex.find(line)?.value,
                         timeWindowInMilliseconds
                     )
                 ) {
-                    logs.add(line!!)
+                    logs.add(line)
                     logsRead++
                 }
             }
@@ -99,12 +102,15 @@ object LogHelper {
             val reader = BufferedReader(InputStreamReader(process.inputStream))
             var line: String?
 
-            while (reader.readLine().also { line = it } != null
-                && allLogs.joinToString("\n").getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB) {
+            while (reader.readLine()
+                    .also { line = it } != null
+                && allLogs.joinToString("\n")
+                    .getSizeInMB() < SettingsFragment.LOG_FILE_SIZE_LIMIT_MB
+            ) {
 
                 // filter out chatty logs
                 if (line?.contains("chatty", ignoreCase = true) == false) {
-                    allLogs.add(line!!)
+                    allLogs.add(line)
                     logsRead++
                 }
             }

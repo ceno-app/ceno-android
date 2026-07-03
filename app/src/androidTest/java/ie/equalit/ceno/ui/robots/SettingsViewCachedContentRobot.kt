@@ -1,16 +1,5 @@
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.uiautomator.By
-import androidx.test.uiautomator.UiSelector
-import androidx.test.uiautomator.Until
-import ie.equalit.ceno.R
-import ie.equalit.ceno.helpers.TestAssetHelper
-import ie.equalit.ceno.helpers.TestHelper
-import junit.framework.Assert.assertTrue
-
 class SettingsViewCachedContentRobot {
     /*
     fun verifyAboutPageUpButton() = assertAboutPageUpButton()

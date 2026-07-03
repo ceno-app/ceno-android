@@ -8,6 +8,8 @@ import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.graphics.drawable.toDrawable
+import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
 import androidx.preference.PreferenceFragmentCompat
@@ -21,14 +23,12 @@ import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.metrics.NetworkMetrics
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import mozilla.components.browser.state.action.ContentAction
 import mozilla.components.browser.state.action.TabListAction
 import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
-import androidx.core.graphics.drawable.toDrawable
-import androidx.navigation.fragment.findNavController
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 
 class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
 
@@ -48,22 +48,24 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
     override fun onResume() {
         super.onResume()
         setupPreferences()
-        getActionBar().apply{
+        getActionBar().apply {
             show()
             setTitle(R.string.developer_tools_category)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar).toDrawable())
+                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
+                    .toDrawable()
+            )
         }
     }
 
     private fun setupPreferences() {
-        getSwitchPreferenceCompat(R.string.pref_key_remote_debugging)?.
-            onPreferenceChangeListener = getChangeListenerForRemoteDebugging()
-        getPreference(R.string.pref_key_ceno_download_log)?.
-            onPreferenceClickListener = getClickListenerForOuinetLogExport()
-        getPreference(R.string.pref_key_test_metrics)?.
-        onPreferenceClickListener = getClickListenerForMetricsTest()
+        getSwitchPreferenceCompat(R.string.pref_key_remote_debugging)?.onPreferenceChangeListener =
+            getChangeListenerForRemoteDebugging()
+        getPreference(R.string.pref_key_ceno_download_log)?.onPreferenceClickListener =
+            getClickListenerForOuinetLogExport()
+        getPreference(R.string.pref_key_test_metrics)?.onPreferenceClickListener =
+            getClickListenerForMetricsTest()
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
@@ -76,28 +78,31 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForOuinetLogExport(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             val store = requireComponents.core.store
-            val logUrl = "http://${CenoSettings.getFrontendEndpoint(requireContext())}/${CenoSettings.LOGFILE_TXT}"
+            val logUrl =
+                "http://${CenoSettings.getFrontendEndpoint(requireContext())}/${CenoSettings.LOGFILE_TXT}"
             val download = DownloadState(logUrl)
 
             // prompt the user to view or download
-            AlertDialog.Builder(requireContext()).apply {
-                setTitle(context.getString(preferences_ceno_download_log))
-                setMessage(context.getString(ouinet_log_file_prompt_desc))
-                setNegativeButton(getString(download_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
-                        store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
+            AlertDialog.Builder(requireContext())
+                .apply {
+                    setTitle(context.getString(preferences_ceno_download_log))
+                    setMessage(context.getString(ouinet_log_file_prompt_desc))
+                    setNegativeButton(getString(download_logs)) { _, _ ->
+                        createTab(logUrl).apply {
+                            store.dispatch(TabListAction.AddTabAction(this, select = true))
+                            store.dispatch(ContentAction.UpdateDownloadAction(this.id, download))
+                        }
+                        (activity as BrowserActivity).openToBrowser()
                     }
-                    (activity as BrowserActivity).openToBrowser()
-                }
-                setPositiveButton(getString(view_logs)) { _, _ ->
-                    createTab(logUrl).apply {
-                        store.dispatch(TabListAction.AddTabAction(this, select = true))
+                    setPositiveButton(getString(view_logs)) { _, _ ->
+                        createTab(logUrl).apply {
+                            store.dispatch(TabListAction.AddTabAction(this, select = true))
+                        }
+                        (activity as BrowserActivity).openToBrowser()
                     }
-                    (activity as BrowserActivity).openToBrowser()
+                    create()
                 }
-                create()
-            }.show()
+                .show()
             true
         }
     }
@@ -108,28 +113,34 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
                 context,
                 getString(R.string.test_metrics_submitting),
                 Toast.LENGTH_SHORT
-            ).show()
+            )
+                .show()
             NetworkMetrics(requireContext(), CoroutineScope(Dispatchers.Main)).submitTestMetric(
                 responseListener = object : OuinetResponseListener {
                     override fun onSuccess(message: String, data: Any?) {
                         Log.d(TAG, "Successfully submitted test metric")
-                        AlertDialog.Builder(requireContext()).apply {
-                            setTitle(getString(R.string.title_success))
-                            setMessage(getString(R.string.test_metrics_dialog_success))
-                            setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                        AlertDialog.Builder(requireContext())
+                            .apply {
+                                setTitle(getString(R.string.title_success))
+                                setMessage(getString(R.string.test_metrics_dialog_success))
+                                setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                                }
+                                create()
                             }
-                            create()
-                        }.show()
+                            .show()
                     }
+
                     override fun onError() {
                         Log.e(TAG, "Failed to submit test metric")
-                        AlertDialog.Builder(requireContext()).apply {
-                            setTitle(getString(R.string.ouinet_state_failed))
-                            setMessage(getString(R.string.test_metrics_dialog_failed))
-                            setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                        AlertDialog.Builder(requireContext())
+                            .apply {
+                                setTitle(getString(R.string.ouinet_state_failed))
+                                setMessage(getString(R.string.test_metrics_dialog_failed))
+                                setPositiveButton(getString(R.string.dialog_btn_positive_ok)) { _, _ ->
+                                }
+                                create()
                             }
-                            create()
-                        }.show()
+                            .show()
                     }
                 }
             )

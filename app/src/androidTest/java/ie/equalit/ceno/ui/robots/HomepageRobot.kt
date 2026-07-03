@@ -48,13 +48,18 @@ fun homepage(interact: HomepageRobot.() -> Unit): HomepageRobot.Transition {
     return HomepageRobot.Transition()
 }
 
-private fun publicModeToggle() = mDevice.findObject(UiSelector().resourceId("$packageName:id/public_mode_card"))
-private fun personalModeToggle() = mDevice.findObject(UiSelector().resourceId("$packageName:id/personal_mode_card"))
-private fun cenoNetworkStatusIcon() =  onView(withId(R.id.ceno_network_status_icon))
+private fun publicModeToggle() =
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/public_mode_card"))
+
+private fun personalModeToggle() =
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/personal_mode_card"))
+
+private fun cenoNetworkStatusIcon() = onView(withId(R.id.ceno_network_status_icon))
 
 private fun assertCenoNetworkStatusIcon() {
     cenoNetworkStatusIcon().check(matches(isDisplayed()))
 }
+
 private fun assertCenoNetworkStatusDialog() {
     onView(withText(R.string.ceno_network_status_title)).check(matches(isDisplayed()))
     onView(withText(R.string.dialog_btn_positive_ok)).click()

@@ -24,7 +24,7 @@ import uk.co.samuelwall.materialtaptargetprompt.extras.focals.CirclePromptFocal
  */
 class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     private var tooltip: CenoTooltip? = null
-    private var startTooltip:CenoTourStartOverlay? = null
+    private var startTooltip: CenoTourStartOverlay? = null
 
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
@@ -50,6 +50,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         binding.swipeRefresh.visibility = View.VISIBLE
     }
 
+    @Suppress("LongMethod")
     private fun showSourcesTooltip() {
         when (requireComponents.cenoPreferences.nextTooltip) {
             TOOLTIP_CENO_SOURCES -> {
@@ -62,13 +63,15 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                     isAutoFinish = true,
                     listener = { _, state ->
                         when (state) {
-                            MaterialTapTargetPrompt.STATE_FINISHED-> {
+                            MaterialTapTargetPrompt.STATE_FINISHED -> {
                                 requireComponents.cenoPreferences.nextTooltip += 1
                                 tooltip?.dismiss()
                             }
-                            MaterialTapTargetPrompt.STATE_FOCAL_PRESSED-> {
+
+                            MaterialTapTargetPrompt.STATE_FOCAL_PRESSED -> {
                                 tooltip?.dismiss()
                             }
+
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip?.addButtons {
                                     exitCenoTour()
@@ -82,6 +85,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 )
                 tooltip?.tooltip?.show()
             }
+
             TOOLTIP_CLEAR_CENO -> {
                 tooltip = CenoTooltip(
                     this,
@@ -96,10 +100,11 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                         R.string.onboarding_finish_button,
                     listener = { _, state ->
                         when (state) {
-                            MaterialTapTargetPrompt.STATE_FINISHED-> {
+                            MaterialTapTargetPrompt.STATE_FINISHED -> {
                                 requireComponents.cenoPreferences.nextTooltip += 1
                                 tooltip?.dismiss()
                             }
+
                             MaterialTapTargetPrompt.STATE_REVEALED -> {
                                 tooltip?.addButtons(Build.VERSION.SDK_INT < Build.VERSION_CODES.S) {
                                     exitCenoTour()
@@ -117,6 +122,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
                 )
                 tooltip?.tooltip?.show()
             }
+
             TOOLTIP_PERMISSION -> {
                 startTooltip = CenoTourStartOverlay(
                     this,
@@ -138,8 +144,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         if (requireComponents.permissionHandler.shouldShowPermissionsTooltip()) {
             requireComponents.cenoPreferences.nextTooltip = TOOLTIP_PERMISSION
             showSourcesTooltip()
-        }
-        else {
+        } else {
             requireComponents.cenoPreferences.nextTooltip = -1
         }
         Settings.setShowOnboarding(requireContext(), false)
@@ -151,7 +156,7 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         showSourcesTooltip()
     }
 
-     override fun onCancelSourcesPopup() {
+    override fun onCancelSourcesPopup() {
         showSourcesTooltip()
     }
 

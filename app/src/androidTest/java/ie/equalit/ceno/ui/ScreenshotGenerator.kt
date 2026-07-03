@@ -34,7 +34,6 @@ import tools.fastlane.screengrab.UiAutomatorScreenshotStrategy
 import tools.fastlane.screengrab.cleanstatusbar.CleanStatusBar
 import tools.fastlane.screengrab.locale.LocaleTestRule
 
-
 @RunWith(JUnit4::class)
 class ScreenshotGenerator {
     private lateinit var mockWebServer: MockWebServer
@@ -66,7 +65,7 @@ class ScreenshotGenerator {
         mockWebServer.shutdown()
     }
 
-    fun takeScreenshotWithWait(name : String, wait: Long = 1000 ) {
+    fun takeScreenshotWithWait(name: String, wait: Long = 1000) {
         Thread.sleep(wait)
         Screengrab.screenshot(name)
     }
@@ -94,7 +93,7 @@ class ScreenshotGenerator {
             takeScreenshotWithWait("onboarding_tour_3")
         }
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
+        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()) {
         }
         onboarding {
             waitForNextTooltipButton()
@@ -110,12 +109,17 @@ class ScreenshotGenerator {
                 waitForPermissionsTooltip()
                 takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
-                permissionAllowButton().waitForExists(waitingTime)
-                takeScreenshotWithWait("onboarding_permissions_notifications")
-                permissionAllowButton().click()
-                if(backgroundAllowButton().waitForExists(waitingTime)) {
+                if (backgroundAllowButton().waitForExists(waitingTime)) {
                     takeScreenshotWithWait("onboarding_permissions_optimisation")
+                    backgroundAllowButton().waitForExists(waitingTime)
                     backgroundAllowButton().click()
+                }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    if (permissionAllowButton().waitForExists(waitingTime)) {
+                        takeScreenshotWithWait("onboarding_permissions_notifications")
+                        permissionAllowButton().waitForExists(waitingTime)
+                        permissionAllowButton().click()
+                    }
                 }
             }
         }
@@ -123,166 +127,201 @@ class ScreenshotGenerator {
             takeScreenshotWithWait("origin_source_browser")
         }.openContentSourcesSheet {
             takeScreenshotWithWait("origin_source_popup")
-        }.closeContentSourcesSheet {
         }
+            .closeContentSourcesSheet {
+            }
     }
 
     fun settingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
             takeScreenshotWithWait("settings_three_dot")
-        }.openSettings {
-            takeScreenshotWithWait("settings_general")
-            clickDownRecyclerView(15)
-            takeScreenshotWithWait("settings_data")
-            clickDownRecyclerView(4)
-            takeScreenshotWithWait("settings_developer_tools")
-            clickDownRecyclerView(4)
-            takeScreenshotWithWait("settings_about")
-        }.goBack {
         }
+            .openSettings {
+                takeScreenshotWithWait("settings_general")
+                clickDownRecyclerView(15)
+                takeScreenshotWithWait("settings_data")
+                clickDownRecyclerView(4)
+                takeScreenshotWithWait("settings_developer_tools")
+                clickDownRecyclerView(4)
+                takeScreenshotWithWait("settings_about")
+            }
+            .goBack {
+            }
     }
 
     fun searchSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-        }.openSettingsViewSearch {
-            takeScreenshotWithWait("search_settings")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+            }
+            .openSettingsViewSearch {
+                takeScreenshotWithWait("search_settings")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun customizationSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-        }.openSettingsViewCustomization {
-            toggleShowHomeButton()
-            takeScreenshotWithWait("customization")
-            toggleShowHomeButton()
-        }.openSettingsViewChangeAppIcon {
-            takeScreenshotWithWait("customization_change_icon")
-        }.goBack {
-            clickSetAppTheme()
-            takeScreenshotWithWait("customization_set_app_theme")
-            clickCancelDialog()
-            Thread.sleep(1000)
-            clickDefaultBehavior()
-            takeScreenshotWithWait("customization_default_behavior")
-            clickCancelDialog()
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+            }
+            .openSettingsViewCustomization {
+                toggleShowHomeButton()
+                takeScreenshotWithWait("customization")
+                toggleShowHomeButton()
+            }
+            .openSettingsViewChangeAppIcon {
+                takeScreenshotWithWait("customization_change_icon")
+            }
+            .goBack {
+                clickDownRecyclerView(16)
+                takeScreenshotWithWait("customization_default_behavior")
+                clickDownRecyclerView(2)
+                takeScreenshotWithWait("customization_secure_screen")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun deleteBrowsingDataSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(13)
-            Thread.sleep(1000)
-        }.openSettingsViewDeleteBrowsingData {
-            verifyCookiesCheckbox()
-            toggleCookiesCheckbox()
-            takeScreenshotWithWait("delete_browsing_data_settings")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(13)
+                Thread.sleep(1000)
+            }
+            .openSettingsViewDeleteBrowsingData {
+                verifyCookiesCheckbox()
+                toggleCookiesCheckbox()
+                takeScreenshotWithWait("delete_browsing_data_settings")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun websiteSourcesSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(16)
-            Thread.sleep(1000)
-        }.openSettingsViewSources {
-            takeScreenshotWithWait("website_sources_settings")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(16)
+                Thread.sleep(1000)
+            }
+            .openSettingsViewSources {
+                takeScreenshotWithWait("website_sources_settings")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun metricsSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(11)
-            Thread.sleep(1000)
-        }.openSettingsViewMetrics {
-            verifyCrashReportingButton()
-            toggleCrashReporting()
-            takeScreenshotWithWait("metrics_settings")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(11)
+                Thread.sleep(1000)
+            }
+            .openSettingsViewMetrics {
+                verifyCrashReportingButton()
+                toggleCrashReporting()
+                takeScreenshotWithWait("metrics_settings")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun aboutSettingsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(25)
-            Thread.sleep(1000)
-        }.openSettingsViewAboutPage {
-            takeScreenshotWithWait("about_settings")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(25)
+                Thread.sleep(1000)
+            }
+            .openSettingsViewAboutPage {
+                takeScreenshotWithWait("about_settings")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun additionalDeveloperToolsScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(24)
-            for (i in 0..8) {
-                clickCenoVersionDisplay()
-            }
-            Screengrab.screenshot("additional_developer_tools")
-            // Wait for developer tool toasts to disappear
-            Thread.sleep(10000)
-        }.openSettingsViewDeveloperTools {
-            Screengrab.screenshot("additional_developer_tools_settings")
-            clickExportOuinetLog()
-            Screengrab.screenshot("additional_developer_tools_export_log")
-            mDevice.pressBack()
-            clickAnnouncementSource()
-            Screengrab.screenshot("additional_developer_tools_announcement_source")
-            clickCancelDialog()
-        }.goBack {
-        }.goBack {
-        }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(24)
-            Thread.sleep(1000)
-            // Disable developer tools before finishing test
-            for (i in 0..8) {
-                clickCenoVersionDisplay()
-            }
-            Thread.sleep(10000)
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(24)
+                for (i in 0..8) {
+                    clickCenoVersionDisplay()
+                }
+                Screengrab.screenshot("additional_developer_tools")
+                // Wait for developer tool toasts to disappear
+                Thread.sleep(10000)
+            }
+            .openSettingsViewDeveloperTools {
+                Screengrab.screenshot("additional_developer_tools_settings")
+                clickExportOuinetLog()
+                Screengrab.screenshot("additional_developer_tools_export_log")
+                mDevice.pressBack()
+                clickAnnouncementSource()
+                Screengrab.screenshot("additional_developer_tools_announcement_source")
+                clickCancelDialog()
+            }
+            .goBack {
+            }
+            .goBack {
+            }
+            .openThreeDotMenu {
+            }
+            .openSettings {
+                clickDownRecyclerView(24)
+                Thread.sleep(1000)
+                // Disable developer tools before finishing test
+                for (i in 0..8) {
+                    clickCenoVersionDisplay()
+                }
+                Thread.sleep(10000)
+            }
+            .goBack {
+            }
     }
 
     fun enableBridgeModeScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            verifySettingsRecyclerViewToExist()
-            verifyBridgeModeToggle()
-            clickBridgeModeToggle()
-            waitForBridgeModeDialogToExist()
-            takeScreenshotWithWait("enable_bridge_mode_dialog", 0)
-            waitForBridgeModeDialog()
-            // TODO: localize checking for success dialog instead of sleeping
-            takeScreenshotWithWait("enable_bridge_mode_success", 5000)
-            clickOk()
-            takeScreenshotWithWait("enable_bridge_mode_enabled")
-        }.goBack {
         }
+            .openSettings {
+                verifySettingsRecyclerViewToExist()
+                verifyBridgeModeToggle()
+                clickBridgeModeToggle()
+                waitForBridgeModeDialogToExist()
+                takeScreenshotWithWait("enable_bridge_mode_dialog", 0)
+                waitForBridgeModeDialog()
+                // TODO: localize checking for success dialog instead of sleeping
+                takeScreenshotWithWait("enable_bridge_mode_success", 5000)
+                clickOk()
+                takeScreenshotWithWait("enable_bridge_mode_enabled")
+            }
+            .goBack {
+            }
     }
 
     fun injectorSourceScreenshots() {
@@ -294,10 +333,11 @@ class ScreenshotGenerator {
         )
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
         }
+            .openNewTab {
+            }
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser("https://wikipedia.org".toUri()){
+        }.enterUrlAndEnterToBrowser("https://wikipedia.org".toUri()) {
             // TODO: implement check that page has finished loading
             takeScreenshotWithWait("injector_source_browser", 15000)
         }
@@ -305,27 +345,32 @@ class ScreenshotGenerator {
         }.openContentSourcesSheet {
             mDevice.waitForIdle(waitingTime)
             takeScreenshotWithWait("injector_source_popup")
-        }.closeContentSourcesSheet {
         }
+            .closeContentSourcesSheet {
+            }
     }
 
 
     fun cachedContentScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(15)
-            Thread.sleep(1000)
-            verifyClearCachedContentButton()
-            takeScreenshotWithWait("cached_content_with_data")
-        }.openSettingsViewCachedContent {
-            takeScreenshotWithWait("cached_content_list")
-        }.goBack {
-            clickClearCacheButton()
-            takeScreenshotWithWait("cached_content_clear_dialog")
-            clickCancel()
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(15)
+                Thread.sleep(1000)
+                verifyClearCachedContentButton()
+                takeScreenshotWithWait("cached_content_with_data")
+            }
+            .openSettingsViewCachedContent {
+                takeScreenshotWithWait("cached_content_list")
+            }
+            .goBack {
+                clickClearCacheButton()
+                takeScreenshotWithWait("cached_content_clear_dialog")
+                clickCancel()
+            }
+            .goBack {
+            }
     }
 
 
@@ -338,10 +383,11 @@ class ScreenshotGenerator {
         )
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
         }
+            .openNewTab {
+            }
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser("https://meduza.io".toUri()){
+        }.enterUrlAndEnterToBrowser("https://meduza.io".toUri()) {
             // TODO: implement check that page has finished loading
             takeScreenshotWithWait("dcache_source_browser", 30000)
         }
@@ -349,33 +395,41 @@ class ScreenshotGenerator {
         }.openContentSourcesSheet {
             mDevice.waitForIdle(waitingTime)
             takeScreenshotWithWait("dcache_source_popup")
-        }.closeContentSourcesSheet {
         }
+            .closeContentSourcesSheet {
+            }
     }
 
     fun changeLanguageScreenshots() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            clickDownRecyclerView(10)
-            Thread.sleep(1000)
-            verifyChangeLanguageButton()
-        }.openSettingsViewChangeLanguage {
-            takeScreenshotWithWait("change_language")
-        }.goBack {
-        }.goBack {
         }
+            .openSettings {
+                clickDownRecyclerView(10)
+                Thread.sleep(1000)
+                verifyChangeLanguageButton()
+            }
+            .openSettingsViewChangeLanguage {
+                takeScreenshotWithWait("change_language")
+            }
+            .goBack {
+            }
+            .goBack {
+            }
     }
 
     fun homepageScreenshots() {
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
-            takeScreenshotWithWait("homepage_public")
-        }.openThreeDotMenu {
-            takeScreenshotWithWait("homepage_three_dot")
-        }.closeMenu {
         }
+            .openNewTab {
+                takeScreenshotWithWait("homepage_public")
+            }
+            .openThreeDotMenu {
+                takeScreenshotWithWait("homepage_three_dot")
+            }
+            .closeMenu {
+            }
         homepage {
         }.openPersonalHomepage {
             takeScreenshotWithWait("homepage_personal")
@@ -389,23 +443,28 @@ class ScreenshotGenerator {
         navigationToolbar {
         }.openTabTrayMenu {
             takeScreenshotWithWait("tabs_tray_public")
-        }.openNewTab {
         }
+            .openNewTab {
+            }
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openMoreOptionsMenu(activityTestRule.activity) {
-            takeScreenshotWithWait("tabs_tray_three_dot")
-        }.closeMenu {
-        }.goBackFromTabTray {
         }
+            .openMoreOptionsMenu(activityTestRule.activity) {
+                takeScreenshotWithWait("tabs_tray_three_dot")
+            }
+            .closeMenu {
+            }
+            .goBackFromTabTray {
+            }
         homepage {
         }.openPersonalHomepage {
         }
         navigationToolbar {
         }.openTabTrayMenu {
             takeScreenshotWithWait("tabs_tray_personal")
-        }.openNewTab {
         }
+            .openNewTab {
+            }
         homepage {
         }.openPublicHomepage {
         }

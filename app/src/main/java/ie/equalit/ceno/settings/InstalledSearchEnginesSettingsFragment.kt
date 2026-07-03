@@ -14,14 +14,13 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.search.RadioSearchEngineListPreference
-import mozilla.components.browser.state.state.SearchState
-import mozilla.components.browser.state.state.availableSearchEngines
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.feature.search.SearchUseCases
 import kotlin.collections.forEach as withEach
 
 class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
     override fun onCreatePreferences(p0: Bundle?, p1: String?) {
+        // Not implemented
     }
 
     companion object {
@@ -50,9 +49,11 @@ class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupPreferences() {
-        val searchEngineListKey = requireContext().getPreferenceKey(R.string.pref_key_radio_search_engine_list)
+        val searchEngineListKey =
+            requireContext().getPreferenceKey(R.string.pref_key_radio_search_engine_list)
         val preferenceSearchEngineList = findPreference<Preference>(searchEngineListKey)
-        preferenceSearchEngineList?.onPreferenceClickListener = getClickListenerForSearchEngineList()
+        preferenceSearchEngineList?.onPreferenceClickListener =
+            getClickListenerForSearchEngineList()
     }
 
     private fun getClickListenerForSearchEngineList(): Preference.OnPreferenceClickListener {
@@ -97,7 +98,10 @@ class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
 
     private fun restoreSearchEngines() {
 
-        restoreSearchDefaults(requireComponents.core.store, requireComponents.useCases.searchUseCases)
+        restoreSearchDefaults(
+            requireComponents.core.store,
+            requireComponents.useCases.searchUseCases
+        )
         refetchSearchEngines()
         languageChanged = false
     }
@@ -134,9 +138,11 @@ class InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat() {
     }
 }
 
+/*
 private fun SearchState.hasDefaultSearchEnginesOnly(): Boolean {
     return availableSearchEngines.isEmpty() && additionalSearchEngines.isEmpty() && customSearchEngines.isEmpty()
 }
+*/
 
 private fun restoreSearchDefaults(store: BrowserStore, useCases: SearchUseCases) {
     store.state.search.customSearchEngines.withEach { searchEngine ->

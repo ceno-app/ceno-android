@@ -37,14 +37,6 @@
         app:destination="@id/tabsTrayFragment" />
 
     <action
-        android:id="@+id/action_global_external_browser"
-        app:destination="@id/externalAppBrowserFragment"
-        app:enterAnim="@anim/fade_in"
-        app:exitAnim="@anim/fade_out"
-        app:popEnterAnim="@anim/fade_in"
-        app:popExitAnim="@anim/fade_out" />
-
-    <action
         android:id="@+id/action_global_shareFragment"
         app:destination="@id/shareFragment" />
 
@@ -162,10 +154,6 @@
         android:id="@+id/tabsTrayFragment"
         android:name="ie.equalit.ceno.tabs.TabsTrayFragment"
         tools:layout="@layout/fragment_tabstray" />
-
-    <fragment
-        android:id="@+id/externalAppBrowserFragment"
-        android:name="ie.equalit.ceno.browser.ExternalAppBrowserFragment" />
 
     <fragment
         android:id="@+id/privacySettingsFragment"

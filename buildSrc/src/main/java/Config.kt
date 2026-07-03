@@ -10,9 +10,9 @@ import java.util.Locale
 
 object Config {
     // Synchronized build configuration for all modules
-    const val compileSdkVersion = 36
-    const val minSdkVersion = 26
-    const val targetSdkVersion = 36
+    const val COMPILE_SDK_VERSION = 37
+    const val MIN_SDK_VERSION = 26
+    const val TARGET_SDK_VERSION = 37
 
     @JvmStatic
     private fun generateDebugVersionName(): String {

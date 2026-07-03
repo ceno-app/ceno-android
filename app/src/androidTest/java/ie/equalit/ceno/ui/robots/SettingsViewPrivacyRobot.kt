@@ -29,15 +29,24 @@ class SettingsViewPrivacyRobot {
     }
 }
 
-private fun trackingProtectionHeading() = Espresso.onView(ViewMatchers.withText(R.string.tracker_category))
-private fun tpEnableInNormalBrowsing() = Espresso.onView(ViewMatchers.withText(R.string.preferences_tracking_protection_normal))
-private fun tpEnableInPrivateBrowsing() = Espresso.onView(ViewMatchers.withText(R.string.preferences_tracking_protection_private))
+private fun trackingProtectionHeading() =
+    Espresso.onView(ViewMatchers.withText(R.string.tracker_category))
+
+private fun tpEnableInNormalBrowsing() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_tracking_protection_normal))
+
+private fun tpEnableInPrivateBrowsing() =
+    Espresso.onView(ViewMatchers.withText(R.string.preferences_tracking_protection_private))
+
 private fun assertPrivacyUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertTrackingProtectionHeading() = trackingProtectionHeading()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTpEnableInNormalBrowsing() = tpEnableInNormalBrowsing()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertTpEnableInPrivateBrowsing() = tpEnableInPrivateBrowsing()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

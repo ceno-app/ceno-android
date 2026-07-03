@@ -17,20 +17,26 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.security.SecureRandom
 
-
-class Ouinet (
-        private val context : Context
-    ) {
+class Ouinet(
+    private val context: Context
+) {
 
     lateinit var config: Config
+
+    lateinit var background: OuinetBackground
+
     val metricsFrontendToken = generateRandomToken()
     val proxyAccessPassword = generateRandomToken()
 
     fun setConfig() {
-        val dnsProtocols : MutableSet<String> = mutableSetOf("plain")
-        if (!isDohDisabledForLocale() && Settings.isDohEnabled(context)) {
-            dnsProtocols.add("https")
-        }
+        val dnsProtocols = if (!isDohDisabledForLocale())
+            Settings.getDnsProtocols(context)
+        else
+            mutableSetOf("plain")
+        writeErrorPageToFile(
+            FailedToRetrieveResource.createErrorPage(context),
+            context
+        )
         config = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -54,29 +60,30 @@ class Ouinet (
             .build()
     }
 
-    lateinit var background : OuinetBackground
-    fun setBackground (ctx: Context) {
+    fun setBackground(ctx: Context) {
         background = OuinetBackground.Builder(ctx)
             .setOuinetConfig(config)
             .build()
     }
 
     fun updateEndpoints() {
-        background.getProxyEndpoint()?.also {
-            EngineProvider.getOrCreateRuntime(context).settings.setProxyConfig(
-                "manual",
-                it.toString(),
-                it.toString(),
-            )
-            CenoSettings.setProxyEndpoint(context, it.toString())
-        } ?: Logger.error("Failed to set proxyEndpoint in CenoSettings")
-        background.getFrontendEndpoint()?.also {
-            CenoSettings.setFrontendEndpoint(context, it.toString())
-        } ?: Logger.error("Failed to set frontendEndpoint in CenoSettings")
+        background.getProxyEndpoint()
+            ?.also {
+                EngineProvider.getOrCreateRuntime(context).settings.setProxyConfig(
+                    "manual",
+                    it.toString(),
+                    it.toString(),
+                )
+                CenoSettings.setProxyEndpoint(context, it.toString())
+            } ?: Logger.error("Failed to set proxyEndpoint in CenoSettings")
+        background.getFrontendEndpoint()
+            ?.also {
+                CenoSettings.setFrontendEndpoint(context, it.toString())
+            } ?: Logger.error("Failed to set frontendEndpoint in CenoSettings")
     }
 
     fun isDohDisabledForLocale(): Boolean {
-        var countryIsoCode = ""
+        var countryIsoCode: String
         val locationUtils = CenoLocationUtils(context.application)
         countryIsoCode = locationUtils.currentCountry
         Logger.debug("Got country code: $countryIsoCode")
@@ -92,14 +99,14 @@ class Ouinet (
         return false
     }
 
-    private fun getBtBootstrapExtras() : Set<String>? {
-        var countryIsoCode = ""
+    private fun getBtBootstrapExtras(): Set<String>? {
+        var countryIsoCode: String
         val locationUtils = CenoLocationUtils(context.application)
         countryIsoCode = locationUtils.currentCountry
 
         // Attempt getting country-specific `BT_BOOTSTRAP_EXTRAS` entry from BuildConfig,
         // fall back to empty BT bootstrap extras otherwise.
-        var btbsxsStr= ""
+        var btbsxsStr = ""
         if (countryIsoCode.isNotEmpty()) {
             // Country code found, try getting bootstrap extras resource for this country
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
@@ -112,12 +119,13 @@ class Ouinet (
         if (btbsxsStr != "") {
             // Bootstrap extras resource found
             val btbsxs: HashSet<String> = HashSet()
-            for (x in btbsxsStr.split(" ").toTypedArray()) {
+            for (x in btbsxsStr.split(" ")
+                .toTypedArray()) {
                 if (x.isNotEmpty()) {
                     btbsxs.add(x)
                 }
             }
-            if (btbsxs.size > 0) {
+            if (btbsxs.isNotEmpty()) {
                 Logger.debug("Extra BT bootstraps: $btbsxs")
                 return btbsxs
             }
@@ -128,16 +136,11 @@ class Ouinet (
     }
 
     private fun getErrorPagePath(): String {
-        return try {
-            writeToFile("server500.html", FailedToRetrieveResource.createErrorPage(context), context)
-            "file://${File(context.filesDir, "server500.html").absolutePath}"
-        } catch (e: Exception) {
-            ""
-        }
+        return "file://${File(context.filesDir, ERROR_PAGE).absolutePath}"
     }
 
-    private fun writeToFile(fileName: String, fileContent: String, context: Context) {
-        val file = File(context.filesDir, fileName)
+    private fun writeErrorPageToFile(fileContent: String, context: Context) {
+        val file = File(context.filesDir, ERROR_PAGE)
         try {
             val outputStream = FileOutputStream(file)
             outputStream.write(fileContent.toByteArray())
@@ -147,7 +150,7 @@ class Ouinet (
         }
     }
 
-    private fun generateRandomToken() : String {
+    private fun generateRandomToken(): String {
         return buildString {
             SecureRandom().ints(0, CHAR_POOL.size)
                 .limit(TOKEN_LENGTH)
@@ -162,5 +165,6 @@ class Ouinet (
         private const val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
         const val PROXY_ACCESS_USER = "user"
         private const val TOKEN_LENGTH: Long = 27
+        private const val ERROR_PAGE = "server500.html"
     }
 }

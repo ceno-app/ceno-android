@@ -35,12 +35,12 @@ interface IconModifier {
         newIcon: AppIcon,
     )
 
-    fun isEnabled(icon: AppIcon) : Boolean
+    fun isEnabled(icon: AppIcon): Boolean
 }
 
 enum class AppIcon(
     val componentName: String, // Must correspond to the <activity-alias> `android:name`s in AndroidManifest
-    @DrawableRes val icon: Int = R.drawable.ic_app_icon_blue_round,
+    @param:DrawableRes val icon: Int = R.drawable.ic_app_icon_blue_round,
 ) {
     DEFAULT(
         componentName = "$QUALIFIER.Launcher",
@@ -82,12 +82,12 @@ enum class AppIcon(
 
     companion object {
         fun from(componentName: String): AppIcon {
-            return values().first { it.componentName == componentName }
+            return entries.first { it.componentName == componentName }
         }
     }
 }
 
-class AppIconModifier (
+class AppIconModifier(
     private val context: Context,
 ) : IconModifier {
 
@@ -100,7 +100,10 @@ class AppIconModifier (
     }
 
     override fun isEnabled(icon: AppIcon): Boolean {
-        return getComponentState(context, icon.componentName) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        return getComponentState(
+            context,
+            icon.componentName
+        ) == PackageManager.COMPONENT_ENABLED_STATE_ENABLED
 
     }
 
@@ -108,22 +111,34 @@ class AppIconModifier (
         context: Context,
         appIcon: AppIcon,
     ) {
-        setComponentState(context, appIcon.componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED)
+        setComponentState(
+            context,
+            appIcon.componentName,
+            PackageManager.COMPONENT_ENABLED_STATE_ENABLED
+        )
     }
 
     private fun disable(
         context: Context,
         appIcon: AppIcon,
     ) {
-        AppIcon.values().filterNot { it.componentName == appIcon.componentName }.forEach {
-            setComponentState(context, it.componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED)
-        }
+        AppIcon.entries
+            .filterNot { it.componentName == appIcon.componentName }
+            .forEach {
+                setComponentState(
+                    context,
+                    it.componentName,
+                    PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+                )
+            }
     }
 
-    private fun getComponentState(context: Context, componentName: String) : Int {
+    private fun getComponentState(context: Context, componentName: String): Int {
         return context.packageManager.getComponentEnabledSetting(
-                ComponentName(BuildConfig.APPLICATION_ID,
-                componentName)
+            ComponentName(
+                BuildConfig.APPLICATION_ID,
+                componentName
+            )
         )
     }
 

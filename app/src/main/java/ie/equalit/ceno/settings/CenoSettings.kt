@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.widget.Toast
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
+import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -20,30 +21,30 @@ import kotlin.math.floor
 import kotlin.math.ln
 import kotlin.math.pow
 
-
+@Suppress("ConstructorParameterNaming")
 @Serializable
 data class OuinetStatus(
-    val auto_refresh : Boolean,
-    val bt_extra_bootstraps : Array<String>,
-    val distributed_cache : Boolean,
-    val external_udp_endpoints : Array<String>? = null,
-    val injector_access : Boolean,
-    val is_upnp_active : String,
-    val local_cache_size : Long? = null,
-    val bridge_announcement : Boolean,
-    val local_udp_endpoints : Array<String>? = null,
-    val logfile : Boolean,
-    val max_cached_age : Int,
+    val auto_refresh: Boolean,
+    val bt_extra_bootstraps: Array<String>,
+    val distributed_cache: Boolean,
+    val external_udp_endpoints: Array<String>? = null,
+    val injector_access: Boolean,
+    val is_upnp_active: String,
+    val local_cache_size: Long? = null,
+    val bridge_announcement: Boolean,
+    val local_udp_endpoints: Array<String>? = null,
+    val logfile: Boolean,
+    val max_cached_age: Int,
     val metrics_enabled: Boolean,
     val metrics_delete_after: Long,
-    val origin_access : Boolean,
-    val ouinet_build_id : String,
-    val ouinet_protocol : Int,
+    val origin_access: Boolean,
+    val ouinet_build_id: String,
+    val ouinet_protocol: Int,
     val ouinet_version: String,
-    val proxy_access : Boolean,
+    val proxy_access: Boolean,
     val public_udp_endpoints: Array<String>? = null,
     val state: String,
-    val udp_world_reachable : String? = null,
+    val udp_world_reachable: String? = null,
     val current_metrics_record_id: String,
     val doh_enabled: Boolean,
     val dns_protocols: MutableSet<String>? = null,
@@ -52,7 +53,7 @@ data class OuinetStatus(
     val udp_mux_rx_limit: Long,
 )
 
-enum class OuinetKey(val command : String) {
+enum class OuinetKey(val command: String) {
     API_STATUS("api/status"),
     PURGE_CACHE("?purge_cache=do"),
     ORIGIN_ACCESS("?origin_access"),
@@ -88,9 +89,9 @@ object CenoSettings {
         "Started" to R.string.ouinet_state_started,
         "Stopping" to R.string.ouinet_state_stopping,
         "Stopped" to R.string.ouinet_state_stopped,
-        )
+    )
 
-    var currentMetricsRecordId:String = ""
+    var currentMetricsRecordId: String = ""
 
     private fun log2(n: Double): Double {
         return ln(n) / ln(2.0)
@@ -113,29 +114,31 @@ object CenoSettings {
     }
 
     fun isStatusUpdateRequired(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_status_update_required), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_status_update_required), false
+            )
 
     fun setStatusUpdateRequired(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_status_update_required)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
 
-    fun getOuinetState(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_state), null
-        )
+    fun getOuinetState(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_state), null
+            )
 
-    fun getOuinetStateLocalized(context: Context) : String? {
+    fun getOuinetStateLocalized(context: Context): String? {
         val state = getOuinetState(context)
         return runningState[state]?.let { context.getString(it) }
     }
 
-    fun setOuinetState(context: Context, text : String) {
+    fun setOuinetState(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ouinet_state)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
@@ -146,7 +149,7 @@ object CenoSettings {
     private fun setCenoSourcesOrigin(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_origin)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -154,7 +157,7 @@ object CenoSettings {
     private fun setCenoSourcesPrivate(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_private)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -162,7 +165,7 @@ object CenoSettings {
     private fun setCenoSourcesPublic(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_public)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -170,17 +173,18 @@ object CenoSettings {
     private fun setCenoSourcesShared(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_sources_shared)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
 
-    fun getCenoCacheSize(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ceno_cache_size), null
-        )
+    fun getCenoCacheSize(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ceno_cache_size), null
+            )
 
-    fun setCenoCacheSize(context: Context, text : String) {
+    fun setCenoCacheSize(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ceno_cache_size)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
@@ -188,12 +192,13 @@ object CenoSettings {
             }
     }
 
-    fun getReachabilityStatus(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_reachability_status), null
-        )
+    fun getReachabilityStatus(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_reachability_status), null
+            )
 
-    private fun setReachabilityStatus(context: Context, text : String?) {
+    private fun setReachabilityStatus(context: Context, text: String?) {
         val key = context.getString(R.string.pref_key_ouinet_reachability_status)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
@@ -201,12 +206,13 @@ object CenoSettings {
             }
     }
 
-    fun getUpnpStatus(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_upnp_status), null
-        )
+    fun getUpnpStatus(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_upnp_status), null
+            )
 
-    private fun setUpnpStatus(context: Context, text : String?) {
+    private fun setUpnpStatus(context: Context, text: String?) {
         val key = context.getString(R.string.pref_key_ouinet_upnp_status)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
@@ -214,29 +220,31 @@ object CenoSettings {
             }
     }
 
-    fun getLocalUdpEndpoint(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_local_udp_endpoints), null
-        )
+    fun getLocalUdpEndpoint(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_local_udp_endpoints), null
+            )
 
-    private fun setLocalUdpEndpoint(context: Context, texts : Array<String>?) {
+    private fun setLocalUdpEndpoint(context: Context, texts: Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_local_udp_endpoints)
 
         var formattedText = ""
         texts?.forEach { formattedText += "${it.trim()} " }
 
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, formattedText.ifEmpty { null })
             }
     }
 
-    fun getExternalUdpEndpoint(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_external_udp_endpoints), null
-        )
+    fun getExternalUdpEndpoint(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_external_udp_endpoints), null
+            )
 
-    private fun setExternalUdpEndpoint(context: Context, texts : Array<String>?) {
+    private fun setExternalUdpEndpoint(context: Context, texts: Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_external_udp_endpoints)
 
         var formattedText = ""
@@ -248,32 +256,34 @@ object CenoSettings {
             }
     }
 
-    fun getPublicUdpEndpoint(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_public_udp_endpoints), null
-        )
+    fun getPublicUdpEndpoint(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_public_udp_endpoints), null
+            )
 
-    private fun setPublicUdpEndpoint(context: Context, texts : Array<String>?) {
+    private fun setPublicUdpEndpoint(context: Context, texts: Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_public_udp_endpoints)
 
         var formattedText = ""
         texts?.forEach { formattedText += "${it.trim()} " }
 
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, formattedText.ifEmpty { null })
             }
     }
 
-    fun getLocalBTSources(context: Context) : List<String>? {
-        val sources = PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
-        ) ?: return null
+    fun getLocalBTSources(context: Context): List<String>? {
+        val sources = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps), null
+            ) ?: return null
 
         return sources.split(" ")
     }
 
-    fun setExtraBitTorrentBootstrap(context: Context, texts : Array<String>?) {
+    fun setExtraBitTorrentBootstrap(context: Context, texts: Array<String>?) {
         val key = context.getString(R.string.pref_key_ouinet_extra_bittorrent_bootstraps)
 
         var formattedText = ""
@@ -281,87 +291,94 @@ object CenoSettings {
         formattedText = formattedText.trim()
 
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, formattedText.ifEmpty { null })
             }
     }
 
-    fun getCenoGroupsCount(context: Context) : Int =
-        PreferenceManager.getDefaultSharedPreferences(context).getInt(
-            context.getString(R.string.pref_key_ceno_groups_count), 0
-        )
+    fun getCenoGroupsCount(context: Context): Int =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getInt(
+                context.getString(R.string.pref_key_ceno_groups_count), 0
+            )
 
-    private fun setCenoGroupsCount(context: Context, i : Int) {
+    private fun setCenoGroupsCount(context: Context, i: Int) {
         val key = context.getString(R.string.pref_key_ceno_groups_count)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putInt(key, i)
             }
     }
 
-    fun getOuinetVersion(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_version), null
-        )
+    fun getOuinetVersion(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_version), null
+            )
 
-    private fun setOuinetVersion(context: Context, text : String) {
+    private fun setOuinetVersion(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ouinet_version)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
 
-    fun getOuinetBuildId(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_build_id), null
-        )
+    fun getOuinetBuildId(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_build_id), null
+            )
 
-    private fun setOuinetBuildId(context: Context, text : String) {
+    private fun setOuinetBuildId(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ouinet_build_id)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
 
-    fun getOuinetProtocol(context: Context) : Int =
-        PreferenceManager.getDefaultSharedPreferences(context).getInt(
-            context.getString(R.string.pref_key_ouinet_protocol), 0
-        )
+    fun getOuinetProtocol(context: Context): Int =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getInt(
+                context.getString(R.string.pref_key_ouinet_protocol), 0
+            )
 
-    private fun setOuinetProtocol(context: Context, i : Int) {
+    private fun setOuinetProtocol(context: Context, i: Int) {
         val key = context.getString(R.string.pref_key_ouinet_protocol)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putInt(key, i)
             }
     }
 
-    fun isCenoLogEnabled(context: Context) : Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
-        )
+    fun isCenoLogEnabled(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_enable_log), BuildConfig.DEBUG
+            )
 
     fun setCenoEnableLog(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_ceno_enable_log)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
 
-    fun isBridgeAnnouncementEnabled(context: Context) : Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_bridge_announcement), false
-        )
+    fun isBridgeAnnouncementEnabled(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_bridge_announcement), false
+            )
 
-    fun hideOuicrawlFeed(context: Context) : Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_hide_ouicrawl_feed), false
-        )
+    fun hideOuicrawlFeed(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_hide_ouicrawl_feed), false
+            )
 
-    fun getCenoVersionString(context: Context) : String {
+    fun getCenoVersionString(context: Context): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
             String.format(
@@ -369,7 +386,7 @@ object CenoSettings {
                 packageInfo.versionName,
                 packageInfo.versionCode,
             )
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             ""
         }
     }
@@ -377,57 +394,52 @@ object CenoSettings {
     fun setFrontendEndpoint(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ouinet_frontend_endpoint)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
 
-    fun getFrontendEndpoint(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_frontend_endpoint), null
-        )
+    fun getFrontendEndpoint(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_frontend_endpoint), null
+            )
 
     fun setProxyEndpoint(context: Context, text: String) {
         val key = context.getString(R.string.pref_key_ouinet_proxy_endpoint)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, text)
             }
     }
 
-    fun getProxyEndpoint(context: Context) : String? =
-        PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
-        )
-
-    fun setDohEnabled(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_doh_enabled)
+    fun getProxyEndpoint(context: Context): String? =
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
-                putBoolean(key, value)
-            }
-    }
+            .getString(
+                context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
+            )
 
-    suspend fun webClientRequest (context: Context, request: Request): String? {
-        var responseBody : String? = null
+    suspend fun webClientRequest(context: Context, request: Request): String? {
+        var responseBody: String? = null
         var tries = 0
         var success = false
         while (tries < 5 && !success) {
             try {
-                context.components.core.client.fetch(request).use { response ->
-                    if (response.status == 200) {
-                        Logger.debug("webClientRequest succeeded try $tries")
-                        Logger.debug("Response header: ${response.headers}")
-                        responseBody = response.body.string()
-                        success = true
-                    } else {
-                        tries++
-                        Logger.debug("webClientRequest failed on try $tries")
-                        delay(500)
+                context.components.core.client.fetch(request)
+                    .use { response ->
+                        if (response.status == 200) {
+                            Logger.debug("webClientRequest succeeded try $tries")
+                            Logger.debug("Response header: ${response.headers}")
+                            responseBody = response.body.string()
+                            success = true
+                        } else {
+                            tries++
+                            Logger.debug("webClientRequest failed on try $tries")
+                            delay(500)
+                        }
+                        response.close()
                     }
-                    response.close()
-                }
-            } catch (ex: Exception) {
+            } catch (_: Exception) {
                 tries++
                 Logger.debug("webClientRequest failed on try $tries")
                 delay(500)
@@ -436,7 +448,7 @@ object CenoSettings {
         return responseBody
     }
 
-    private fun updateOuinetStatus(context : Context, responseBody : String, shouldRefresh: Boolean) {
+    private fun updateOuinetStatus(context: Context, responseBody: String, shouldRefresh: Boolean) {
         val status = context.components.json.decodeFromString<OuinetStatus>(responseBody)
         Logger.debug("Response body: $status")
         setOuinetState(context, status.state)
@@ -456,29 +468,31 @@ object CenoSettings {
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
         setUpnpStatus(context, status.is_upnp_active)
         currentMetricsRecordId = status.current_metrics_record_id
-        if(shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
+        if (shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
-    private fun updateCenoGroups(context : Context, responseBody : String) {
+    private fun updateCenoGroups(context: Context, responseBody: String) {
         Logger.debug("Response body: $responseBody")
-        val groups = responseBody.reader().readLines()
+        val groups = responseBody.reader()
+            .readLines()
         setCenoGroupsCount(context, groups.count())
         context.components.cenoPreferences.sharedPrefsUpdate = true
     }
 
+    @Suppress("LongMethod")
     fun ouinetClientRequest(
         context: Context,
         coroutineScope: CoroutineScope,
-        key : OuinetKey,
+        key: OuinetKey,
         newValue: OuinetValue? = null,
         stringValue: String? = null,
         ouinetResponseListener: OuinetResponseListener? = null,
         shouldRefresh: Boolean = true,
-        forMetrics : Boolean = false,
-        metricsKey : String? = null
+        forMetrics: Boolean = false,
+        metricsKey: String? = null
     ) {
         coroutineScope.launch {
-            val request : String = if (metricsKey != null) {
+            val request: String = if (metricsKey != null) {
                 "http://${getFrontendEndpoint(context)}/${key.command}=${currentMetricsRecordId}&key=$metricsKey&value=$stringValue"
             } else {
                 if (newValue != null)
@@ -487,7 +501,7 @@ object CenoSettings {
                     "http://${getFrontendEndpoint(context)}/${key.command}"
             }
 
-            webClientRequest (
+            webClientRequest(
                 context,
                 Request(
                     url = request,
@@ -497,18 +511,17 @@ object CenoSettings {
                 )
             ).let { response ->
 
-                if(response == null) ouinetResponseListener?.onError()
+                if (response == null) ouinetResponseListener?.onError()
 
                 when (key) {
                     OuinetKey.API_STATUS -> {
                         if (response != null)
-                            if(forMetrics)
+                            if (forMetrics)
                                 try {
                                     currentMetricsRecordId = context.components.json
                                         .decodeFromString<OuinetStatus>(response)
                                         .current_metrics_record_id
-                                }
-                                catch(e : Exception){
+                                } catch (e: JsonParseException) {
                                     Logger.error("Error decoding ouinet status for metrics: $e")
                                     return@launch
                                 }
@@ -517,25 +530,28 @@ object CenoSettings {
                         else
                             ouinetResponseListener?.onError()
                     }
+
                     OuinetKey.PURGE_CACHE -> {
                         val text = if (response != null) {
-                            ouinetResponseListener?.onSuccess(response.toString())
+                            ouinetResponseListener?.onSuccess(response)
                             setCenoCacheSize(context, bytesToString(0))
                             setCenoGroupsCount(context, 0)
                             context.components.cenoPreferences.sharedPrefsUpdate = true
                             context.resources.getString(R.string.clear_cache_success)
-                        }
-                        else {
+                        } else {
                             context.resources.getString(R.string.clear_cache_fail)
                         }
-                        Toast.makeText(context, text, Toast.LENGTH_SHORT).show()
+                        Toast.makeText(context, text, Toast.LENGTH_SHORT)
+                            .show()
                     }
+
                     OuinetKey.EXTRA_BOOTSTRAPS -> {
-                        if(response != null)
+                        if (response != null)
                             ouinetResponseListener?.onSuccess(stringValue ?: "")
                         else
                             ouinetResponseListener?.onError()
                     }
+
                     OuinetKey.ORIGIN_ACCESS,
                     OuinetKey.PROXY_ACCESS,
                     OuinetKey.INJECTOR_ACCESS,
@@ -548,21 +564,22 @@ object CenoSettings {
                                 context,
                                 context.resources.getString(R.string.ouinet_client_fetch_fail),
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
                             ouinetResponseListener?.onError()
-                        }
-                        else {
+                        } else {
                             ouinetResponseListener?.onSuccess(stringValue ?: "")
                         }
                     }
+
                     OuinetKey.GROUPS_TXT -> {
                         if (response != null) {
                             updateCenoGroups(context, response)
                             ouinetResponseListener?.onSuccess(response)
-                        }
-                        else
+                        } else
                             ouinetResponseListener?.onError()
                     }
+
                     OuinetKey.CENO_METRICS -> {
                         if (response == null) {
                             ouinetResponseListener?.onError()
@@ -570,14 +587,16 @@ object CenoSettings {
                             ouinetResponseListener?.onSuccess(response)
                         }
                     }
+
                     OuinetKey.ADD_METRICS,
-                    OuinetKey.PINNED_GROUPS-> {
+                    OuinetKey.PINNED_GROUPS -> {
                         if (response == null) {
                             ouinetResponseListener?.onError()
                         } else {
                             ouinetResponseListener?.onSuccess(response)
                         }
                     }
+
                     OuinetKey.PIN_TO_CACHE,
                     OuinetKey.UNPIN_FROM_CACHE -> {
                         if (response != null) {
@@ -585,13 +604,15 @@ object CenoSettings {
                                 context,
                                 context.resources.getString(R.string.title_success),
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
                         } else {
                             Toast.makeText(
                                 context,
                                 context.resources.getString(R.string.pin_unpin_to_cache_failed),
                                 Toast.LENGTH_SHORT
-                            ).show()
+                            )
+                                .show()
                         }
                     }
                 }

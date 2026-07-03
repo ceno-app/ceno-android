@@ -30,7 +30,9 @@ class NavigationToolbarRobot {
     fun verifyNoTabAddressView() = assertNoTabAddressText()
     fun verifyNewTabAddressView(url: String) = assertNewTabAddressText(url)
     fun verifyReaderViewButton() = assertReaderViewButton()
-    fun checkNumberOfTabsTabCounter(numTabs: String) = numberOfOpenTabsTabCounter.check(matches(withText(numTabs)))
+    fun checkNumberOfTabsTabCounter(numTabs: String) =
+        numberOfOpenTabsTabCounter.check(matches(withText(numTabs)))
+
     fun verifyContentSourcesSiteTitle() = assertContentSourcesSiteTitle()
     fun verifyContentSourcesHeader() = assertContentSourcesHeader()
 
@@ -38,12 +40,16 @@ class NavigationToolbarRobot {
 
         val mDevice = UiDevice.getInstance(InstrumentationRegistry.getInstrumentation())
 
-        fun enterUrlAndEnterToBrowser(url: Uri, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+        fun enterUrlAndEnterToBrowser(
+            url: Uri,
+            interact: BrowserRobot.() -> Unit
+        ): BrowserRobot.Transition {
             urlBar().click()
             mDevice.findObject(
                 UiSelector()
                     .textContains("Search or enter address"),
-            ).waitForExists(waitingTime)
+            )
+                .waitForExists(waitingTime)
             awesomeBar().setText(url.toString())
             Thread.sleep(2000)
             mDevice.pressEnter()
@@ -51,7 +57,8 @@ class NavigationToolbarRobot {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_progress"),
-            ).waitUntilGone(waitingTime)
+            )
+                .waitUntilGone(waitingTime)
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()
@@ -96,22 +103,24 @@ class NavigationToolbarRobot {
         }
 
         // TODO: this should return Robot for testings the content sources sheet
-        fun  openContentSourcesSheet(interact: NavigationToolbarRobot.() -> Unit): Transition {
+        fun openContentSourcesSheet(interact: NavigationToolbarRobot.() -> Unit): Transition {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/mozac_browser_toolbar_tracking_protection_indicator"),
-            ).waitForExists(waitingTime)
+            )
+                .waitForExists(waitingTime)
             contentSourcesButton().click()
 
             NavigationToolbarRobot().interact()
             return Transition()
         }
 
-        fun  closeContentSourcesSheet(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+        fun closeContentSourcesSheet(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
             mDevice.findObject(
                 UiSelector()
                     .resourceId("$packageName:id/design_bottom_sheet"),
-            ).swipeDown(50)
+            )
+                .swipeDown(50)
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()
@@ -125,33 +134,43 @@ fun navigationToolbar(interact: NavigationToolbarRobot.() -> Unit): NavigationTo
 }
 
 
-fun navigateToSourcesAndSet(website: Boolean, private: Boolean, public: Boolean, shared : Boolean){
+fun navigateToSourcesAndSet(website: Boolean, private: Boolean, public: Boolean, shared: Boolean) {
     navigationToolbar {
     }.openThreeDotMenu {
-    }.openSettings {
-        Thread.sleep(5000)
-        clickDownRecyclerView(18)
-        Thread.sleep(5000)
-        verifyWebsiteSourcesButton()
-        verifyWebsiteSourcesSummary()
-    }.openSettingsViewSources {
-        setWebsiteSources(website, private, public, shared)
-    }.goBack {
-    }.goBack {
     }
+        .openSettings {
+            Thread.sleep(5000)
+            clickDownRecyclerView(18)
+            Thread.sleep(5000)
+            verifyWebsiteSourcesButton()
+            verifyWebsiteSourcesSummary()
+        }
+        .openSettingsViewSources {
+            setWebsiteSources(website, private, public, shared)
+        }
+        .goBack {
+        }
+        .goBack {
+        }
 }
 
 
-private fun openTabTray() = mDevice.findObject(UiSelector().resourceId("$packageName:id/tab_counter_box"))
+private fun openTabTray() =
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/tab_counter_box"))
+
 private var numberOfOpenTabsTabCounter = onView(withId(R.id.counter_text))
 private fun urlBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_origin_view"))
+
 private fun awesomeBar() =
     mDevice.findObject(UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_edit_url_view"))
+
 private fun navThreeDotMenuButton() = onView(withId(R.id.mozac_browser_toolbar_menu))
 private fun readerViewButton() = onView(withId(R.id.mozac_browser_toolbar_page_actions))
 
-private fun contentSourcesButton() = onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
+private fun contentSourcesButton() =
+    onView(withId(R.id.mozac_browser_toolbar_tracking_protection_indicator))
+
 private fun contentSourcesSiteTitle() = onView(withId(R.id.site_title))
 private fun contentSourcesHeader() = onView(withText(R.string.ceno_sources_header))
 
@@ -167,7 +186,8 @@ private fun assertReaderViewButton() {
     mDevice.waitForWindowUpdate(packageName, waitingTime)
     mDevice.findObject(
         UiSelector().resourceId("$packageName:id/mozac_browser_toolbar_page_actions"),
-    ).waitForExists(waitingTime)
+    )
+        .waitForExists(waitingTime)
 
     readerViewButton().check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 }

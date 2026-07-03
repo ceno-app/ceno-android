@@ -10,11 +10,6 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
@@ -25,6 +20,11 @@ import ie.equalit.ceno.ui.robots.mDevice
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 /**
  *  Tests for verifying tab tray menu:
@@ -37,7 +37,8 @@ class TabTrayMenuTest {
 
     private lateinit var mockWebServer: MockWebServer
 
-    @get:Rule val activityTestRule = BrowserActivityTestRule()
+    @get:Rule
+    val activityTestRule = BrowserActivityTestRule()
 
     @Rule
     @JvmField
@@ -67,7 +68,8 @@ class TabTrayMenuTest {
         mDevice.waitForIdle()
         tabCounterButton.click()
 
-        val thereAreTabsOpenInTabTray = mDevice.findObject(UiSelector().text("about:blank")).exists()
+        val thereAreTabsOpenInTabTray = mDevice.findObject(UiSelector().text("about:blank"))
+            .exists()
 
         if (thereAreTabsOpenInTabTray) {
             optionsButton().click()
@@ -92,9 +94,10 @@ class TabTrayMenuTest {
             verifyPrivateBrowsingTab()
             verifyGoBackButton()
             verifyNewTabButton()
-        }.openMoreOptionsMenu(activityTestRule.activity) {
-            verifyCloseAllTabsButton()
         }
+            .openMoreOptionsMenu(activityTestRule.activity) {
+                verifyCloseAllTabsButton()
+            }
     }
 
     // This test verifies that close all tabs option works as expected
@@ -109,22 +112,26 @@ class TabTrayMenuTest {
         }
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            verifyUrl(genericFourURL.displayUrl)
         }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(genericFourURL.url) {
+                verifyUrl(genericFourURL.displayUrl)
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericOneURL.title)
             verifyExistingOpenTabs(genericFourURL.title)
-        }.openMoreOptionsMenu(activityTestRule.activity) {
-            mDevice.waitForIdle()
-            verifyCloseAllTabsButton()
-        }.closeAllTabs {
-            verifyNoTabAddressView()
-            checkNumberOfTabsTabCounter("0")
         }
+            .openMoreOptionsMenu(activityTestRule.activity) {
+                mDevice.waitForIdle()
+                verifyCloseAllTabsButton()
+            }
+            .closeAllTabs {
+                verifyNoTabAddressView()
+                checkNumberOfTabsTabCounter("0")
+            }
     }
 
     // This test verifies that close all tabs option works as expected
@@ -135,24 +142,29 @@ class TabTrayMenuTest {
         navigationToolbar {
         }.openTabTrayMenu {
             openPrivateBrowsing()
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyPageContent("Page content: 1")
         }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(genericURL.url) {
+                verifyPageContent("Page content: 1")
+            }
         navigationToolbar {
         }.openTabTrayMenu {
             //openPrivateBrowsing()
             verifyThereIsOnePrivateTabOpen()
-        }.openMoreOptionsMenu(activityTestRule.activity) {
-            mDevice.waitForIdle()
-            verifyCloseAllPrivateTabsButton()
-        }.closeAllPrivateTabs {
-        }.openTabTrayMenu {
-            openPrivateBrowsing()
-            verifyThereAreNotPrivateTabsOpen()
-            //TODO: going back sometimes fails due to bug that takes user back to homepage too soon
-            //goBackFromTabTrayTest()
         }
+            .openMoreOptionsMenu(activityTestRule.activity) {
+                mDevice.waitForIdle()
+                verifyCloseAllPrivateTabsButton()
+            }
+            .closeAllPrivateTabs {
+            }
+            .openTabTrayMenu {
+                openPrivateBrowsing()
+                verifyThereAreNotPrivateTabsOpen()
+                //TODO: going back sometimes fails due to bug that takes user back to homepage too soon
+                //goBackFromTabTrayTest()
+            }
     }
 
     @Test
@@ -167,8 +179,9 @@ class TabTrayMenuTest {
             checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericURL.title)
-        }.closeTabXButton(genericURL.title) {
         }
+            .closeTabXButton(genericURL.title) {
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("0")
             verifyNewTabAddressView("Search or enter address")
@@ -188,18 +201,21 @@ class TabTrayMenuTest {
         }
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(genericFourURL.url) {
-            Thread.sleep(5000)
-            verifyUrl(genericFourURL.displayUrl)
         }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(genericFourURL.url) {
+                Thread.sleep(5000)
+                verifyUrl(genericFourURL.displayUrl)
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericOneURL.title)
             verifyExistingOpenTabs(genericFourURL.title)
-        }.closeTabXButton(genericOneURL.title) {
         }
+            .closeTabXButton(genericOneURL.title) {
+            }
         goBackButton().click()
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
@@ -228,21 +244,26 @@ class TabTrayMenuTest {
 
         navigationToolbar {
         }.openTabTrayMenu {
-        }.openNewTab {
-            verifyNewTabAddressView("Search or enter address")
-            checkNumberOfTabsTabCounter("0")
-        }.openTabTrayMenu {
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(genericURL.url) {
-            verifyUrl(genericURL.displayUrl)
         }
+            .openNewTab {
+                verifyNewTabAddressView("Search or enter address")
+                checkNumberOfTabsTabCounter("0")
+            }
+            .openTabTrayMenu {
+            }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(genericURL.url) {
+                verifyUrl(genericURL.displayUrl)
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
             verifyExistingOpenTabs(genericURL.title)
-        }.clickOpenTab(genericURL.title) {
-            verifyUrl(genericURL.displayUrl)
         }
+            .clickOpenTab(genericURL.title) {
+                verifyUrl(genericURL.displayUrl)
+            }
     }
 
     // This test verifies the new tab is open and that its items are all in place
@@ -254,24 +275,30 @@ class TabTrayMenuTest {
         navigationToolbar {
         }.openTabTrayMenu {
             openPrivateBrowsing()
-        }.openNewTab {
-            verifyNewTabAddressView("Search or enter address")
-            checkNumberOfTabsTabCounter("0")
-        }.openTabTrayMenu {
-            openPrivateBrowsing()
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(firstGenericURL.url) {
-            verifyPageContent("Page content: 1")
         }
+            .openNewTab {
+                verifyNewTabAddressView("Search or enter address")
+                checkNumberOfTabsTabCounter("0")
+            }
+            .openTabTrayMenu {
+                openPrivateBrowsing()
+            }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(firstGenericURL.url) {
+                verifyPageContent("Page content: 1")
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("1")
         }.openTabTrayMenu {
             openPrivateBrowsing()
             verifyExistingOpenTabs(firstGenericURL.title)
-        }.openNewTab {
-        }.enterUrlAndEnterToBrowser(secondGenericURL.url) {
-            verifyPageContent("Page content: 2")
         }
+            .openNewTab {
+            }
+            .enterUrlAndEnterToBrowser(secondGenericURL.url) {
+                verifyPageContent("Page content: 2")
+            }
         navigationToolbar {
             checkNumberOfTabsTabCounter("2")
         }
@@ -282,9 +309,10 @@ class TabTrayMenuTest {
     fun goBackFromTabTrayTest() {
         navigationToolbar {
         }.openTabTrayMenu {
-        }.goBackFromTabTray {
-            // For now checking new tab is valid, this will change when browsing to/from different places
-            verifyNoTabAddressView()
         }
+            .goBackFromTabTray {
+                // For now checking new tab is valid, this will change when browsing to/from different places
+                verifyNoTabAddressView()
+            }
     }
 }

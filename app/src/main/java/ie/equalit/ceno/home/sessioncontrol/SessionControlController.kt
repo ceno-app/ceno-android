@@ -9,16 +9,6 @@ import android.view.LayoutInflater
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
-/*
-import mozilla.components.browser.state.store.BrowserStore
-import mozilla.components.concept.engine.Engine
-import mozilla.components.feature.tabs.TabsUseCases
- */
-import mozilla.components.feature.top.sites.TopSite
-import mozilla.components.support.ktx.android.view.showKeyboard
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
@@ -28,11 +18,15 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
-import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.CenoPreferences
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import mozilla.components.feature.top.sites.TopSite
+import mozilla.components.support.ktx.android.view.showKeyboard
 
 /**
- * [HomeFragment] controller. An interface that handles the view manipulation of the Tabs triggered
+ * [SessionControlView] controller. An interface that handles the view manipulation of the Tabs triggered
  * by the Interactor.
  */
 @Suppress("TooManyFunctions")
@@ -58,12 +52,7 @@ interface SessionControlController {
     fun handleOpenInPrivateTabClicked(url: String)
 
     /**
-     * @see [TopSiteInteractor.onSettingsClicked]
-     */
-    fun handleTopSiteSettingsClicked()
-
-    /**
-     * @see [CollectionInteractor.onCollectionMenuOpened] and [TopSiteInteractor.onTopSiteMenuOpened]
+     * @see [SessionControlInteractor.onOuicrawlSiteMenuOpened] and [TopSiteInteractor.onTopSiteMenuOpened]
      */
     fun handleMenuOpened()
 
@@ -79,7 +68,7 @@ interface SessionControlController {
 
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
 
-    fun handleOnSectionHeaderClicked(listIsHidden:Boolean)
+    fun handleOnSectionHeaderClicked(listIsHidden: Boolean)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -87,11 +76,6 @@ class DefaultSessionControlController(
     private val activity: BrowserActivity,
     private val preferences: CenoPreferences,
     private val appStore: AppStore,
-    /*
-    private val engine: Engine,
-    private val store: BrowserStore,
-    private val addTabUseCase: TabsUseCases.AddNewTabUseCase,
-     */
     private val viewLifecycleScope: CoroutineScope,
     private val rssAnnouncementSwipeListener: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener?
 ) : SessionControlController {
@@ -104,33 +88,37 @@ class DefaultSessionControlController(
     override fun handleRenameTopSiteClicked(topSite: TopSite) {
         activity.let {
             val customLayout =
-                LayoutInflater.from(it).inflate(R.layout.top_sites_rename_dialog, null)
+                LayoutInflater.from(it)
+                    .inflate(R.layout.top_sites_rename_dialog, null)
             val topSiteLabelEditText: EditText =
                 customLayout.findViewById(R.id.top_site_title)
             topSiteLabelEditText.setText(topSite.title)
 
-            AlertDialog.Builder(it).apply {
-                setTitle(R.string.rename_top_site)
-                setView(customLayout)
-                setPositiveButton(R.string.dialog_ok) { dialog, _ ->
-                    viewLifecycleScope.launch(Dispatchers.IO) {
-                        with(activity.components.useCases.cenoTopSitesUseCase) {
-                            updateTopSites(
-                                topSite,
-                                topSiteLabelEditText.text.toString(),
-                                topSite.url
-                            )
+            AlertDialog.Builder(it)
+                .apply {
+                    setTitle(R.string.rename_top_site)
+                    setView(customLayout)
+                    setPositiveButton(R.string.dialog_ok) { dialog, _ ->
+                        viewLifecycleScope.launch(Dispatchers.IO) {
+                            with(activity.components.useCases.cenoTopSitesUseCase) {
+                                updateTopSites(
+                                    topSite,
+                                    topSiteLabelEditText.text.toString(),
+                                    topSite.url
+                                )
+                            }
                         }
+                        dialog.dismiss()
                     }
-                    dialog.dismiss()
+                    setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
+                        dialog.cancel()
+                    }
                 }
-                setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
-                    dialog.cancel()
+                .show()
+                .also {
+                    topSiteLabelEditText.setSelection(0, topSiteLabelEditText.text.length)
+                    topSiteLabelEditText.showKeyboard()
                 }
-            }.show().also {
-                topSiteLabelEditText.setSelection(0, topSiteLabelEditText.text.length)
-                topSiteLabelEditText.showKeyboard()
-            }
         }
     }
 
@@ -143,41 +131,6 @@ class DefaultSessionControlController(
     }
 
     override fun handleSelectTopSite(topSite: TopSite, position: Int) {
-        //dismissSearchDialogIfDisplayed()
-        /*
-        when (topSite.url) {
-            SupportUtils.GOOGLE_URL -> TopSites.openGoogleSearchAttribution.record(NoExtras())
-            SupportUtils.BAIDU_URL -> TopSites.openBaiduSearchAttribution.record(NoExtras())
-            SupportUtils.POCKET_TRENDING_URL -> Pocket.pocketTopSiteClicked.record(NoExtras())
-        }
-
-        val availableEngines: List<SearchEngine> = getAvailableSearchEngines()
-        val searchAccessPoint = MetricsUtils.Source.TOPSITE
-
-        availableEngines.firstOrNull { engine ->
-            engine.resultUrls.firstOrNull { it.contains(topSite.url) } != null
-        }?.let { searchEngine ->
-            MetricsUtils.recordSearchMetrics(
-                searchEngine,
-                searchEngine == store.state.search.selectedOrDefaultSearchEngine,
-                searchAccessPoint
-            )
-        }
-         */
-
-        /*
-        val tabId = addTabUseCase.invoke(
-            url = appendSearchAttributionToUrlIfNeeded(topSite.url),
-            selectTab = true,
-            startLoading = true
-        )
-         */
-
-        /*
-        if (settings.openNextTabInDesktopMode) {
-            activity.handleRequestDesktopMode(tabId)
-        }
-         */
         activity.openToBrowser(topSite.url, newTab = true)
     }
 
@@ -191,26 +144,21 @@ class DefaultSessionControlController(
         }
     }
 
-    override fun handleTopSiteSettingsClicked() {
-        /*
-        navController.nav(
-            R.id.homeFragment,
-            HomeFragmentDirections.actionGlobalHomeSettingsFragment()
-        )
-         */
-    }
-
     override fun handleCardClicked(homepageCardType: HomepageCardType, mode: BrowsingMode) {
         if (homepageCardType == HomepageCardType.PERSONAL_MODE_CARD) {
-            activity.apply{
-                openToBrowser(getString(R.string.ceno_support_link_url), newTab = true, private = true)
+            activity.apply {
+                openToBrowser(
+                    getString(R.string.ceno_support_link_url),
+                    newTab = true,
+                    private = true
+                )
             }
         }
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
             activity.switchBrowsingModeHome(mode)
         }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
-            activity.apply{
+            activity.apply {
                 openSettings()
             }
         }
@@ -218,12 +166,12 @@ class DefaultSessionControlController(
 
     override fun handleMenuItemClicked(homepageCardType: HomepageCardType) {
         if (homepageCardType == HomepageCardType.MODE_MESSAGE_CARD) {
-            activity.apply{
+            activity.apply {
                 browsingModeManager.mode = BrowsingMode.Personal
             }
         }
         if (homepageCardType == HomepageCardType.BASIC_MESSAGE_CARD) {
-            activity.apply{
+            activity.apply {
                 openToBrowser(getString(R.string.website_button_link), newTab = true)
             }
         }
@@ -261,14 +209,16 @@ class DefaultSessionControlController(
                     .filter { it is TopSite.Default || it is TopSite.Pinned }.size
 
                 if (numPinnedSites >= activity.components.cenoPreferences.topSitesMaxLimit) {
-                    AlertDialog.Builder(activity).apply {
-                        setTitle(R.string.shortcut_max_limit_title)
-                        setMessage(R.string.shortcut_max_limit_content)
-                        setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
-                            dialog.dismiss()
+                    AlertDialog.Builder(activity)
+                        .apply {
+                            setTitle(R.string.shortcut_max_limit_title)
+                            setMessage(R.string.shortcut_max_limit_content)
+                            setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
+                                dialog.dismiss()
+                            }
+                            create()
                         }
-                        create()
-                    }.show()
+                        .show()
                 } else {
                     with(activity.components.useCases.cenoTopSitesUseCase) {
                         addPinnedSites(ouicrawlSite.SiteName, "https://${ouicrawlSite.SiteURL}/")

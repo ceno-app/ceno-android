@@ -6,11 +6,6 @@ package ie.equalit.ceno.ui
 
 import androidx.core.net.toUri
 import ie.equalit.ceno.BuildConfig
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
@@ -18,6 +13,11 @@ import ie.equalit.ceno.ui.robots.navigateToSourcesAndSet
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class WebRequestTest {
 
@@ -60,15 +60,16 @@ class WebRequestTest {
                 navigationToolbar {
                 }.openTabTrayMenu {
                     openPrivateBrowsing()
-                }.openNewTab {
                 }
-            }
-            else {
+                    .openNewTab {
+                    }
+            } else {
                 navigationToolbar {
                 }.openTabTrayMenu {
                     openRegularBrowsing()
-                }.openNewTab {
                 }
+                    .openNewTab {
+                    }
             }
             navigationToolbar {
             }.enterUrlAndEnterToBrowser(displayUrl.toUri()) {

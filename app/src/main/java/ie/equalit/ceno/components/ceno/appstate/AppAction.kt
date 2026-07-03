@@ -5,11 +5,10 @@
 package ie.equalit.ceno.components.ceno.appstate
 
 import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.components.ceno.AppStore
+import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.Action
-import ie.equalit.ceno.components.ceno.AppStore
-import ie.equalit.ceno.home.CenoMessageCard
-import ie.equalit.ouinet.Ouinet.RunningState
 import org.json.JSONObject
 
 /** CENO: Ported from Fenix, significantly stripped down
@@ -31,5 +30,6 @@ sealed class AppAction : Action {
     data class SourceCountsChange(
         val sourceCounts: MutableMap<String, JSONObject?>
     ) : AppAction()
+
     data class OuicrawlSitesChange(val listIsHidden: Boolean) : AppAction()
 }

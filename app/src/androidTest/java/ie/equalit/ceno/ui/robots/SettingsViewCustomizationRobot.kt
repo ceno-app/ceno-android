@@ -1,14 +1,17 @@
 package ie.equalit.ceno.ui.robots
 
-import androidx.test.espresso.Espresso
+import android.view.KeyEvent
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
+import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.click
-import ie.equalit.ceno.R
 
 /**
  * Implementation of Robot Pattern for the settings customization menu.
@@ -40,6 +43,13 @@ class SettingsViewCustomizationRobot {
         cancelDialogButton().click()
     }
 
+    fun clickDownRecyclerView(count: Int) {
+        for (i in 1..count) {
+            recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
+            Thread.sleep(250)
+        }
+    }
+
     class Transition {
         fun settingsViewCustomization(interact: SettingsViewCustomizationRobot.() -> Unit): Transition {
             return Transition()
@@ -59,32 +69,50 @@ class SettingsViewCustomizationRobot {
         }
     }
 }
-private fun customizationSettingsView() = Espresso.onView(ViewMatchers.withText(R.string.preferences_customization))
 
-private fun changeAppIconButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
-private fun setAppThemeButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme))
-private fun setAppThemeSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_theme_summary))
+private fun recycleView() = onView(withId(R.id.recycler_view))
 
-private fun showHomeButtonToggle() = Espresso.onView(ViewMatchers.withText(R.string.preferences_show_home_button))
-private fun defaultBehaviorButton() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
-private fun defaultBehaviorSummary() = Espresso.onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
+private fun customizationSettingsView() =
+    onView(ViewMatchers.withText(R.string.preferences_customization))
+
+private fun changeAppIconButton() =
+    onView(ViewMatchers.withText(R.string.preferences_change_app_icon))
+
+private fun setAppThemeButton() = onView(ViewMatchers.withText(R.string.preferences_theme))
+private fun setAppThemeSummary() =
+    onView(ViewMatchers.withText(R.string.preferences_theme_summary))
+
+private fun showHomeButtonToggle() =
+    onView(ViewMatchers.withText(R.string.preferences_show_home_button))
+
+private fun defaultBehaviorButton() =
+    onView(ViewMatchers.withText(R.string.preferences_clear_behavior))
+
+private fun defaultBehaviorSummary() =
+    onView(ViewMatchers.withText(R.string.preferences_clear_behavior_summary))
 
 private fun assertCustomizationUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertCustomizationSettingsView() = customizationSettingsView()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertChangeAppIconButton() = changeAppIconButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSetAppThemeButton() = setAppThemeButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSetAppThemeSummary() = setAppThemeSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertShowHomeButtonToggle() = showHomeButtonToggle()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDefaultBehaviorButton() = defaultBehaviorButton()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertDefaultBehaviorSummary() = defaultBehaviorSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 

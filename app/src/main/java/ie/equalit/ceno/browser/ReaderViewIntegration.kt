@@ -13,7 +13,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import ie.equalit.ceno.R
-import mozilla.components.browser.state.selector.findCustomTabOrSelectedTab
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.store.BrowserStore
 import mozilla.components.browser.toolbar.BrowserToolbar
@@ -38,9 +37,10 @@ class ReaderViewIntegration(
     private val readerViewButton: BrowserToolbar.ToggleButton = BrowserToolbar.ToggleButton(
         image = ContextCompat.getDrawable(context, R.drawable.mozac_ic_reader_mode)!!,
         imageSelected = ContextCompat.getDrawable(context, R.drawable.mozac_ic_reader_mode)!!
-            .mutate().apply {
-            setTint(ContextCompat.getColor(context, R.color.photonBlue40))
-        },
+            .mutate()
+            .apply {
+                setTint(ContextCompat.getColor(context, R.color.photonBlue40))
+            },
         contentDescription = "Enable Reader View",
         contentDescriptionSelected = "Disable Reader View",
         selected = store.state.selectedTab?.readerState?.active ?: false,
@@ -80,35 +80,13 @@ class ReaderViewIntegration(
         return feature.onBackPressed()
     }
 
-    fun showReaderView(){
+    fun showReaderView() {
         return feature.showReaderView()
     }
 
     fun hideReaderView() {
         return feature.hideReaderView()
     }
-
-    /*
-    fun launch(enabled :Boolean) {
-        if (enabled) {
-            feature.showReaderView()
-        } else {
-            feature.hideReaderView()
-            feature.hideControls()
-            //readerViewAppearanceButton.hide()
-        }
-    }
-
-    companion object {
-        // This is a workaround to let the menu item find this integration and active "Find in Page" mode. That's a bit
-        // ridiculous and there's no need that we create the toolbar menu items at app start time. Instead the
-        // ToolbarIntegration should create them and get the FindInPageIntegration injected as a dependency if the
-        // menu items need them.
-        var launch: ((Boolean) -> Unit)? = null
-            private set
-
-    }
-     */
 }
 
 /**
@@ -120,7 +98,11 @@ class ReaderViewAppearanceButtonBehavior(
     context: Context,
     attrs: AttributeSet,
 ) : CoordinatorLayout.Behavior<FloatingActionButton>(context, attrs) {
-    override fun layoutDependsOn(parent: CoordinatorLayout, child: FloatingActionButton, dependency: View): Boolean {
+    override fun layoutDependsOn(
+        parent: CoordinatorLayout,
+        child: FloatingActionButton,
+        dependency: View
+    ): Boolean {
         if (dependency is FindInPageBar || dependency is BrowserToolbar) {
             return true
         }

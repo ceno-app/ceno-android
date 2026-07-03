@@ -12,7 +12,8 @@ import androidx.preference.PreferenceViewHolder
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 
-class RadioSearchEngineListPreference : SearchEngineListPreference, RadioGroup.OnCheckedChangeListener {
+class RadioSearchEngineListPreference : SearchEngineListPreference,
+    RadioGroup.OnCheckedChangeListener {
 
     override val itemResId: Int
         get() = R.layout.search_engine_radio_button
@@ -21,7 +22,11 @@ class RadioSearchEngineListPreference : SearchEngineListPreference, RadioGroup.O
     constructor(context: Context, attrs: AttributeSet) : super(context, attrs)
 
     @Suppress("unused")
-    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
+    constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(
+        context,
+        attrs,
+        defStyleAttr
+    )
 
     override fun onBindViewHolder(holder: PreferenceViewHolder) {
         super.onBindViewHolder(holder)
@@ -33,19 +38,21 @@ class RadioSearchEngineListPreference : SearchEngineListPreference, RadioGroup.O
     }
 
     override fun onCheckedChanged(group: RadioGroup, checkedId: Int) {
-        group.getChildAt(checkedId)?.let { selectedEngine ->
-            // check if the corresponding button was pressed or a11y focused.
-            val hasProperState = selectedEngine.isPressed || selectedEngine.isAccessibilityFocused
+        group.getChildAt(checkedId)
+            ?.let { selectedEngine ->
+                // check if the corresponding button was pressed or a11y focused.
+                val hasProperState =
+                    selectedEngine.isPressed || selectedEngine.isAccessibilityFocused
 
-            /* onCheckedChanged is called intermittently before the search engine table is full, so we
-               must check these conditions to prevent crashes and inconsistent states. */
-            if (group.childCount != searchEngines.count() || !hasProperState) {
-                return
+                /* onCheckedChanged is called intermittently before the search engine table is full, so we
+                   must check these conditions to prevent crashes and inconsistent states. */
+                if (group.childCount != searchEngines.count() || !hasProperState) {
+                    return
+                }
+
+                val newDefaultEngine = searchEngines[checkedId]
+
+                context.components.useCases.searchUseCases.selectSearchEngine(newDefaultEngine)
             }
-
-            val newDefaultEngine = searchEngines[checkedId]
-
-            context.components.useCases.searchUseCases.selectSearchEngine(newDefaultEngine)
-        }
     }
 }

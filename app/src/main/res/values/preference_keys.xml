@@ -37,6 +37,10 @@
     <string name="pref_key_show_search_suggestions" translatable="false">pref_key_show_search_suggestions</string>
     <string name="pref_key_update_search_engines" translatable="false">pref_key_update_search_engines</string>
     <string name="pref_key_theme" translatable="false">pref_key_theme</string>
+    <string name="pref_key_follow_system_theme" translatable="false">pref_key_follow_system_theme</string>
+    <string name="pref_key_dark_theme" translatable="false">pref_key_dark_theme</string>
+    <string name="pref_key_light_theme" translatable="false">pref_key_light_theme</string>
+    <string name="pref_key_battery_saver_theme" translatable="false">pref_key_battery_saver_theme</string>
     <string name="pref_key_change_language" translatable="false">pref_key_change_language</string>
 
     <string name="pref_key_shared_prefs_reload" translatable="false">pref_key_shared_prefs_reload</string>
@@ -101,6 +105,12 @@
     <string name="pref_key_secure_screen_personal" translatable="false">pref_key_secure_screen_personal</string>
     <string name="pref_key_verify_external_url" translatable="false">pref_key_verify_external_url</string>
     <string name="pref_key_website_sources_warning" translatable="false">pref_key_website_sources_warning</string>
+    <string name="pref_key_prompt" translatable="false">pref_key_prompt</string>
+    <string name="pref_key_clear_cache_only" translatable="false">pref_key_clear_cache_only</string>
+    <string name="pref_key_clear_cache_and_app_data" translatable="false">pref_key_clear_cache_and_app_data</string>
+    <string name="pref_key_dns_plain" translatable="false">pref_key_dns_plain</string>
+    <string name="pref_key_dns_https" translatable="false">pref_key_dns_https</string>
+    <string name="pref_key_dns_both" translatable="false">pref_key_dns_both</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->
