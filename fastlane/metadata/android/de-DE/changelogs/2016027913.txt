@@ -1,0 +1,3 @@
+Diese Version:
+- Behebt ein Problem, durch das die Ceno-Support-E-Mail-Adresse nicht automatisch eingefügt wurde
+- Aktualisiert Android Components auf Version 134.0.1

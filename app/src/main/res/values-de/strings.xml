@@ -441,4 +441,14 @@
     <string name="last_2_hours">Letzten 2 Stunden</string>
     <string name="secure_screen_category">Sicherer Bildschirm</string>
     <string name="preferences_secure_screen">Aktiviere Sicherer Bildschirm</string>
+    <string name="preferences_secure_screen_summary">Blendet die aktuelle Ansicht beim Wechseln zwischen Anwendungen aus und verhindert das Erstellen von Screenshots</string>
+    <string name="preferences_secure_screen_personal">Nur im privaten Browsermodus</string>
+    <string name="preferences_secure_screen_personal_summary">Der sichere Bildschirm wird nur im privaten Browsermodus aktiviert</string>
+    <string name="dialog_external_url_message">Klicken Sie auf „Weiter“, um die folgende URL zu öffnen:\n\n%1$s</string>
+    <string name="dialog_external_url_title">Möchten Sie URLs aus externen Anwendungen wirklich öffnen?</string>
+    <string name="preferences_verify_external_url">Warnung anzeigen, bevor URLs aus anderen Anwendungen geöffnet werden</string>
+    <string name="warning_title">Achtung</string>
+    <string name="warning_all_website_sources_disabled">Alle Website-Quellen sind deaktiviert. Bitte aktivieren Sie mindestens eine Quelle, um das Web weiter zu durchsuchen</string>
+    <string name="warning_public_website_sources_disabled">Alle für das Surfen im öffentlichen Modus erforderlichen Quellen sind deaktiviert; Web-Browsing ist nur im privaten Modus möglich</string>
+    <string name="warning_personal_website_sources_disabled">Alle für das Surfen im privaten Modus erforderlichen Quellen sind deaktiviert; Web-Browsing ist nur im öffentlichen Modus möglich</string>
 </resources>
