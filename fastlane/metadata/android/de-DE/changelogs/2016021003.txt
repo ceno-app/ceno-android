@@ -1,0 +1,17 @@
+Diese Version:
+
+Implementiert die erste „Clean Insights“-Metrikkampagne
+
+Fügt ein verstecktes Untermenü für Entwicklerwerkzeuge hinzu
+
+Fügt englische Lokalisierungszeichenfolgen hinzu
+
+Unterstützt monochrome Launcher-Symbole
+
+Aktualisiert Android Components auf Version 133.0.3
+
+Fügt auf der Startseite eine Statusanzeige für die Verbindung zum Ceno-Netzwerk hinzu
+
+Aktualisiert das cacert.pem-Zertifikatsbundle
+
+Aktualisiert die Übersetzungen für verschiedene Sprachen und Regionen

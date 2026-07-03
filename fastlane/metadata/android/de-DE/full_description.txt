@@ -1,27 +1,19 @@
-Ceno (Censorship.No!) ist ein dezentraler mobiler Web-Browser. Er nutzt Peer-to-Peer-Technologie, um Webseiten auf dem Handy zu laden und speichert beliebte Inhalte durch kooperierende Peers. Ceno kann dazu genutzt werden, Zensur im Internet zu umgehen und anderen zu helfen auf blockierte Seiten zuzugreifen.
+Teilen Sie das Web! Ceno ist der weltweit erste Webbrowser, der mit jeder Installation besser wird. Er bietet ein gewohntes Interneterlebnis und nutzt Peer-to-Peer-Technologie, um Websites zwischen allen Teilnehmern bereitzustellen und zu teilen. Ceno kann außerdem verwendet werden, um Netzwerksperren zu umgehen und während eines Internetausfalls auf Inhalte zuzugreifen.
 
-Sage NEIN zu Zensur! Installiere heute den Ceno Browser und sei darauf vorbereitet wenn du das nächste mal 🔌 abgesteckt wirst.
+Ceno ist ein vollständig kostenloser Open-Source-Browser, der keine Registrierung erfordert. Er ist komplett werbefrei.
 
-🚫🌴 <strong>Widerstandsfähig.</strong>
-Ceno wurde mit Internet-Abschaltungen im Hinterkopf entworfen. Webseiten werden in einem globalen Netzwerk von Peers geteilt und in einem verteilten Cache gespeichert, falls traditionelle Netzwerke geblockt oder abgeschaltet werden.
+Wir erfassen einige anonymisierte App- und Netzwerkmetriken. Es werden keine personenbezogenen Daten erhoben, und die Daten werden niemals an Dritte weitergegeben. Die Erfassung von Metriken ist standardmäßig aktiviert und kann jederzeit über Einstellungen > Hintergrundmetriken > Ceno-Metriken deaktiviert werden. Weitere Informationen darüber, welche Daten erfasst werden, finden Sie in unserer <a href="https://ceno.app/privacy-policy/">Datenschutzerklärung</a>.
 
-🔓👀 <strong>Entsperre das Internet.</strong>
-Erreiche jede Webseite. Häufig angefragter Inhalt ist im Netzwerk zwischengespeichert und kann nicht gewaltsam entfernt werden.
+🔓 👀 Greifen Sie auf blockierte Medien und andere Websites zu. Kostenlos und anonym im persönlichen Modus.
 
-💲🌐 <strong>Reduziere Datenkosten.</strong>
-Durch das Verteilen vom Nutzerverkehr durch das Peer-to-Peer-Netzwerk lässt der Ceno Browser weniger Datenkosten entstehen, während er trotzdem Umgehungs-Fähigkeiten gewährleistet.
+🚫🌴 Bei einem Internetausfall in Ihrer Region können Sie weiterhin Nachrichten lesen und in Verbindung bleiben.
 
-📖👐  <strong>Frei und quelloffen.</strong>
-Der Ceno Browser wird mit Ouinet betrieben, einer quelloffenen Bibliothek die es Dritt-Entwicklern ermöglicht, das Ceno-Netzwerk für Peer-to-Peer Konnektivität in ihre eigenen Apps einzubauen.
+📱🤝📱 Leben Sie in einem Land mit freiem Internetzugang? Helfen Sie Menschen in anderen Ländern mit nur einem Fingertipp dabei, Zensur zu umgehen und auf unabhängige Informationen zuzugreifen. Erfahren Sie mehr <a href="https://ceno.network">auf unserer Website</a>.
 
-<strong>Wichtig:</strong> Ceno hat zwei Modi – Öffentlich und Privat. Du kannst leicht zwischen ihnen wechseln. Der öffentliche Modus bietet die beste Verbindung aber die wenigste Privatsphäre – Webseiten die du besuchst oder teilst werden in einem öffentlichen Register (BitTorrent) aufgezeichnet. Der private Modus tut dies nicht, läd aber langsamer und ineffizienter. <strong>Siehe <a href="https://censorship.no/user-manual">Benutzerhandbuch</a> für mehr Details zur Nutzung von Ceno.</strong>
+📖👐 Ceno Browser basiert auf Ouinet, einer Open-Source-Bibliothek. Den Quellcode der Anwendung finden Sie <a href="https://gitlab.com/censorship-no">auf GitLab</a>.
 
-<strong>Über eQualit.ie</strong>
-eQualit.ie entwickelt öffentliche und wiedernutzbare Systeme mit einem Fokus auf Privatsphäre, Online-Sicherheit und Informationsverwaltung. Unser Ziel ist es, zugängliche Technologie zu erstellen, und die für die Verteidigung der Menschenrechte und Freiheit im digitalen Zeitalter nötigen Fähigkeiten zu verbessern .
+🛠🦹🏻 Unser Produkt kann aufgrund der ständigen Weiterentwicklung von Zensurtechnologien gelegentlich instabil sein. Wir arbeiten kontinuierlich an Verbesserungen, um den Zugang zu Informationen sicherzustellen. Falls Websites langsam laden oder sich nicht öffnen lassen, deinstallieren Sie die App bitte nicht – versuchen Sie es in einigen Tagen erneut oder kontaktieren Sie unser Support-Team unter support@ceno.app.
 
-Um mehr über den Ceno Browser und seine verteilte Bibliothek Ouinet zu erfahren, besuche bitte: https://censorship.no
+Weitere Informationen zur Verwendung von Ceno finden Sie im <a href="https://ceno.network/user-manual/">Benutzerhandbuch</a> oder kontaktieren Sie uns unter support@ceno.app. Wir freuen uns über Feedback und entwickeln Ceno kontinuierlich weiter.
 
-<strong>Fragen / Brauchst du Hilfe?</strong>
-Erfahre mehr in dem <a href="https://censorship.no/user-manual/de/">Ceno Benutzerhandbuch</a> oder kontaktiere uns bei support@censorship.no. Wir freuen uns auf Feedback und verbessern Ceno kontinuierlich für seine Nutzer!
-
-Bleib vernetzt und hilf dabei, das Internet offen und zugänglich für alle zu halten!
+Ceno wird von <a href="https://equalitie.org">eQualit.ie</a> entwickelt.
