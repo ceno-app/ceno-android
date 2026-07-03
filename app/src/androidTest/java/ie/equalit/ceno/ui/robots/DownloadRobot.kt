@@ -1,24 +1,19 @@
 package ie.equalit.ceno.ui.robots
 
-import android.util.Log
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
 import ie.equalit.ceno.R
-import junit.framework.Assert.assertTrue
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
-import ie.equalit.ceno.helpers.TestAssetHelper.waitingTimeShort
 import ie.equalit.ceno.helpers.TestHelper.getPermissionAllowID
 import ie.equalit.ceno.helpers.TestHelper.packageName
 import ie.equalit.ceno.helpers.click
+import junit.framework.Assert.assertTrue
 
 class DownloadRobot {
     fun cancelDownload() {
@@ -31,7 +26,7 @@ class DownloadRobot {
         downloadButton.click()
     }
 
-    fun allowButtonExists() : Boolean {
+    fun allowButtonExists(): Boolean {
         return allowButton.waitForExists(waitingTime)
     }
 
@@ -39,7 +34,7 @@ class DownloadRobot {
         clickAllowButton()
     }
 
-    fun verifyDownloadPrompt(filename:String) {
+    fun verifyDownloadPrompt(filename: String) {
         onView(ViewMatchers.withId(R.id.title))
             .check(matches(withText(R.string.mozac_feature_downloads_dialog_download)))
         onView(ViewMatchers.withId(R.id.filename))
@@ -52,6 +47,7 @@ class DownloadRobot {
         }
     }
 }
+
 private fun downloadButton() =
     onView(ViewMatchers.withId(R.id.download_button))
         .check(matches(ViewMatchers.isDisplayed()))
@@ -87,6 +83,9 @@ private fun clickAllowButton() {
     allowButton.click()
 }
 
-private val closeDownloadButton = mDevice.findObject(UiSelector().resourceId("$packageName:id/close_button"))
-private val downloadButton = mDevice.findObject(UiSelector().resourceId("$packageName:id/download_button"))
-private val allowButton = mDevice.findObject(UiSelector().resourceId(getPermissionAllowID() + ":id/permission_allow_button"))
+private val closeDownloadButton =
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/close_button"))
+private val downloadButton =
+    mDevice.findObject(UiSelector().resourceId("$packageName:id/download_button"))
+private val allowButton =
+    mDevice.findObject(UiSelector().resourceId(getPermissionAllowID() + ":id/permission_allow_button"))

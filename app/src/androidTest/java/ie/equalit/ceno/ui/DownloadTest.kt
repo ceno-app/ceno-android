@@ -1,11 +1,5 @@
 package ie.equalit.ceno.ui
 
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Ignore
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
@@ -14,6 +8,12 @@ import ie.equalit.ceno.ui.robots.downloadRobot
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.notificationShade
 import ie.equalit.ceno.ui.robots.onboarding
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Ignore
+import org.junit.Rule
+import org.junit.Test
 
 class DownloadTest {
 
@@ -24,7 +24,7 @@ class DownloadTest {
 
     @Rule
     @JvmField
-    val retryTestRule = RetryTestRule(3)
+    val retryTestRule = RetryTestRule(1)
 
     @Before
     fun setUp() {
@@ -85,17 +85,20 @@ class DownloadTest {
             TestAssetHelper.getGenericAsset(mockWebServer, 1)
 
         navigationToolbar {
-        }.enterUrlAndEnterToBrowser (genericURL.url) {
+        }.enterUrlAndEnterToBrowser(genericURL.url) {
             verifyPageContent("Page content: 1")
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.clickShareButton {
-        }.clickSaveAsPDF {
-            if (allowButtonExists()) {
-                clickAllow()
+        }
+            .clickShareButton {
             }
-            verifyDownloadPrompt(genericURL.title)
-        }.clickDownload ()
+            .clickSaveAsPDF {
+                if (allowButtonExists()) {
+                    clickAllow()
+                }
+                verifyDownloadPrompt(genericURL.title)
+            }
+            .clickDownload()
     }
 }

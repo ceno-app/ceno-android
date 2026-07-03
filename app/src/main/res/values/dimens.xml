@@ -102,4 +102,18 @@
     <dimen name="mozac_browser_toolbar_page_action_separator_width">4dp</dimen>
 
     <dimen name="bookmark_select_folder_indent">10dp</dimen>
+
+    <!-- Preferences. -->
+    <dimen name="preference_button_height">48dp</dimen>
+    <dimen name="preference_radio_button_width">48dp</dimen>
+    <dimen name="preference_switch_button_width">52dp</dimen>
+    <dimen name="preference_button_margin_horizontal">14dp</dimen>
+    <dimen name="preference_button_margin_vertical">4dp</dimen>
+    <dimen name="preference_button_title_margin_horizontal">16dp</dimen>
+    <dimen name="preference_button_title_padding_vertical">6dp</dimen>
+    <dimen name="preference_button_title_letter_spacing">0.01</dimen>
+    <dimen name="preference_button_title_line_spacing">5sp</dimen>
+    <dimen name="preference_button_summary_padding_bottom">12dp</dimen>
+    <dimen name="preference_button_summary_letter_spacing">0.02</dimen>
+    <dimen name="preference_button_summary_line_spacing">4sp</dimen>
 </resources>

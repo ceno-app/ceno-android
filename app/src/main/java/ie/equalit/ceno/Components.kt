@@ -28,26 +28,17 @@ class Components(private val context: Context) {
     val core by lazy { Core(context) }
     val useCases by lazy {
         UseCases(
-            context,
-            core.engine,
-            core.store,
-            core.shortcutManager,
-            core.cenoTopSitesStorage
+            context, core.engine, core.store, core.shortcutManager, core.cenoTopSitesStorage
         )
     }
 
     val utils by lazy {
         Utilities(
-            context,
-            core.store,
-            useCases.sessionUseCases,
             useCases.searchUseCases,
             useCases.tabsUseCases,
-            useCases.customTabsUseCases
         )
     }
-    val services by lazy { Services(context) }
-    /* CENO F-Droid: Do not use firebase push */
+    val services by lazy { Services(context) }/* CENO F-Droid: Do not use firebase push */
     //val push by lazy { Push(context, analytics.crashReporter) }
 
     private val notificationManagerCompat = NotificationManagerCompat.from(context)

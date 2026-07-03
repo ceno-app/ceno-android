@@ -32,10 +32,13 @@ class SettingsViewTest {
     /* ktlint-disable no-blank-line-before-rbrace */ // This imposes unrgeadable grouping.
 
     // Grant the app access to the camera so that we can test the Firefox Accounts QR code reader
-    @Rule @JvmField
-    val grantPermissionRule: GrantPermissionRule = GrantPermissionRule.grant(android.Manifest.permission.CAMERA)
+    @Rule
+    @JvmField
+    val grantPermissionRule: GrantPermissionRule =
+        GrantPermissionRule.grant(android.Manifest.permission.CAMERA)
 
-    @get:Rule val browserActivityTestRule = BrowserActivityTestRule()
+    @get:Rule
+    val browserActivityTestRule = BrowserActivityTestRule()
 
     @Rule
     @JvmField
@@ -54,143 +57,150 @@ class SettingsViewTest {
     fun settingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            verifySettingsRecyclerViewToExist()
-            verifyNavigateUp()
-            verifyGeneralHeading()
-
-            // Get one item ahead of what we are verifying
-            // this is a workaround because the verify doesn't
-            // wait long enough for text to appear.
-            clickDownRecyclerView(2)
-            verifySearchButton()
-            verifySearchSummary()
-
-            clickDownRecyclerView(1)
-            verifyCustomizationButton()
-            verifyCustomizationSummary()
-
-            clickDownRecyclerView(1)
-            verifyOpenLinksInApps()
-
-            clickDownRecyclerView(1)
-            verifyMakeDefaultBrowserButton()
-
-            clickDownRecyclerView(1)
-            verifyBridgeModeToggle()
-            verifyBridgeModeSummary()
-
-            clickDownRecyclerView(1)
-            verifyShowOnboarding()
-
-            clickDownRecyclerView(1)
-            verifyBackgroundMetricsButton()
-
-            clickDownRecyclerView(1)
-            verifyDeleteBrowsingData()
-
-            clickDownRecyclerView(1)
-            verifyChangeLanguageButton()
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                clickDownRecyclerView(2)
-                verifyPermissionHeading()
-                Thread.sleep(5000)
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    verifyAllowNotification()
-                    clickDownRecyclerView(1)
-                }
-                verifyDisableBatteryOptimization()
-            }
-
-            clickDownRecyclerView(2)
-            verifyDataHeading()
-            verifyLocalCacheDisplay()
-            verifyLocalCacheDefaultValue()
-            verifyContentsSharedButton()
-            verifyContentsSharedDefaultValue()
-
-            clickDownRecyclerView(1)
-            verifyClearCachedContentButton()
-            verifyClearCachedContentSummary()
-
-            clickDownRecyclerView(1)
-            verifyDeveloperToolsHeading()
-
-            clickDownRecyclerView(1)
-            verifyWebsiteSourcesButton()
-            verifyWebsiteSourcesSummary()
-
-            clickDownRecyclerView(1)
-            verifyTrackingProtectionButton()
-            verifyTrackingProtectionSummary()
-
-            clickDownRecyclerView(1)
-            verifyCenoNetworkDetailsButton()
-            verifyCenoNetworkDetailsSummary()
-
-            clickDownRecyclerView(1)
-            verifyEnableLogFile()
-
-            clickDownRecyclerView(1)
-            verifyAboutHeading()
-
-            clickDownRecyclerView(1)
-            verifyCenoBrowserServiceDisplay()
-
-            clickDownRecyclerView(1)
-            verifyCenoVersionDisplay()
-
-            clickDownRecyclerView(1)
-            verifyGeckoviewVersionDisplay()
-
-            clickDownRecyclerView(1)
-            verifyOuinetVersionDisplay()
-
-            clickDownRecyclerView(1)
-            verifyAboutEqualitieButton()
-            // TODO: check if that the displayed values match some patterns
         }
+            .openSettings {
+                verifySettingsRecyclerViewToExist()
+                verifyNavigateUp()
+                verifyGeneralHeading()
+
+                // Get one item ahead of what we are verifying
+                // this is a workaround because the verify doesn't
+                // wait long enough for text to appear.
+                clickDownRecyclerView(2)
+                verifySearchButton()
+                verifySearchSummary()
+
+                clickDownRecyclerView(1)
+                verifyCustomizationButton()
+                verifyCustomizationSummary()
+
+                clickDownRecyclerView(1)
+                verifyOpenLinksInApps()
+
+                clickDownRecyclerView(1)
+                verifyMakeDefaultBrowserButton()
+
+                clickDownRecyclerView(1)
+                verifyBridgeModeToggle()
+                verifyBridgeModeSummary()
+
+                clickDownRecyclerView(1)
+                verifyShowOnboarding()
+
+                clickDownRecyclerView(1)
+                verifyBackgroundMetricsButton()
+
+                clickDownRecyclerView(1)
+                verifyDeleteBrowsingData()
+
+                clickDownRecyclerView(1)
+                verifyChangeLanguageButton()
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
+                    clickDownRecyclerView(2)
+                    verifyPermissionHeading()
+                    Thread.sleep(5000)
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                        verifyAllowNotification()
+                        clickDownRecyclerView(1)
+                    }
+                    verifyDisableBatteryOptimization()
+                }
+
+                clickDownRecyclerView(2)
+                verifyDataHeading()
+                verifyLocalCacheDisplay()
+                verifyLocalCacheDefaultValue()
+                verifyContentsSharedButton()
+                verifyContentsSharedDefaultValue()
+
+                clickDownRecyclerView(1)
+                verifyClearCachedContentButton()
+                verifyClearCachedContentSummary()
+
+                clickDownRecyclerView(1)
+                verifyDeveloperToolsHeading()
+
+                clickDownRecyclerView(1)
+                verifyWebsiteSourcesButton()
+                verifyWebsiteSourcesSummary()
+
+                clickDownRecyclerView(1)
+                verifyTrackingProtectionButton()
+                verifyTrackingProtectionSummary()
+
+                clickDownRecyclerView(1)
+                verifyCenoNetworkDetailsButton()
+                verifyCenoNetworkDetailsSummary()
+
+                clickDownRecyclerView(1)
+                verifyEnableLogFile()
+
+                clickDownRecyclerView(1)
+                verifyAboutHeading()
+
+                clickDownRecyclerView(1)
+                verifyCenoBrowserServiceDisplay()
+
+                clickDownRecyclerView(1)
+                verifyCenoVersionDisplay()
+
+                clickDownRecyclerView(1)
+                verifyGeckoviewVersionDisplay()
+
+                clickDownRecyclerView(1)
+                verifyOuinetVersionDisplay()
+
+                clickDownRecyclerView(1)
+                verifyAboutEqualitieButton()
+                // TODO: check if that the displayed values match some patterns
+            }
     }
 
     @Test
     fun privacySettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(17)
-            verifyTrackingProtectionButton()
-            Thread.sleep(5000)
-        }.openSettingsViewPrivacy {
-            verifyPrivacyUpButton()
-            verifyTrackingProtectionHeading()
-            verifyTPEnableInNormalBrowsing()
-            verifyTPEnableinPrivateBrowsing()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(17)
+                verifyTrackingProtectionButton()
+                Thread.sleep(5000)
+            }
+            .openSettingsViewPrivacy {
+                verifyPrivacyUpButton()
+                verifyTrackingProtectionHeading()
+                verifyTPEnableInNormalBrowsing()
+                verifyTPEnableinPrivateBrowsing()
+            }
     }
 
     @Test
     fun setDefaultBrowserTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-        }.makeDefaultBrowser {
-            verifyAndroidDefaultApps()
         }
+            .openSettings {
+            }
+            .makeDefaultBrowser {
+                verifyAndroidDefaultApps()
+            }
     }
 
     @Test
     fun aboutReferenceBrowserTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(24)
-            Thread.sleep(5000)
-        }.openSettingsViewAboutPage {
-            verifyAboutBrowser()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(24)
+                Thread.sleep(5000)
+            }
+            .openSettingsViewAboutPage {
+                verifyAboutBrowser()
+            }
     }
 
     @Test
@@ -199,15 +209,19 @@ class SettingsViewTest {
         val url = "m.youtube.com"
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            verifyOpenLinksInApps()
-            clickOpenLinksInApps()
-        }.goBack {
-        }.enterUrlAndEnterToBrowser(url.toUri()) {
-            clickOpenInAppPromptButton()
-        }.checkExternalApps {
-            verifyYouTubeApp()
         }
+            .openSettings {
+                verifyOpenLinksInApps()
+                clickOpenLinksInApps()
+            }
+            .goBack {
+            }
+            .enterUrlAndEnterToBrowser(url.toUri()) {
+                clickOpenInAppPromptButton()
+            }
+            .checkExternalApps {
+                verifyYouTubeApp()
+            }
         mDevice.pressHome()
     }
 
@@ -215,104 +229,115 @@ class SettingsViewTest {
     fun sourcesSettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(16)
-            Thread.sleep(5000)
-        }.openSettingsViewSources {
-            verifySourcesUpButton()
-            verifySourcesSettings()
-            verifyWebsiteCheckbox()
-            verifyWebsiteSummary()
-            verifyPrivatelyCheckbox()
-            verifyPrivatelySummary()
-            verifyPubliclyCheckbox()
-            verifyPubliclySummary()
-            verifySharedCheckbox()
-            verifySharedSummary()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(16)
+                Thread.sleep(5000)
+            }
+            .openSettingsViewSources {
+                verifySourcesUpButton()
+                verifySourcesSettings()
+                verifyWebsiteCheckbox()
+                verifyWebsiteSummary()
+                verifyPrivatelyCheckbox()
+                verifyPrivatelySummary()
+                verifyPubliclyCheckbox()
+                verifyPubliclySummary()
+                verifySharedCheckbox()
+                verifySharedSummary()
+            }
     }
 
     @Test
     fun networkDetailsSettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(18)
-            verifyCenoNetworkDetailsButton()
-            Thread.sleep(5000)
-        }.openSettingsViewNetworkDetails {
-            verifySourcesUpButton()
-            verifyNetworkDetailsSettings()
-            clickDownRecyclerView(3)
-            verifyGeneralHeading()
-            verifyOuinetProtocolDisplay()
-            verifyReachabilityStatusDisplay()
-            verifyUpnpStatusDisplay()
-            verifyLocalProxyEndpointDisplay()
-            verifyLocalFrontendEndpointDisplay()
-            clickDownRecyclerView(5)
-            verifyUdpHeading()
-            verifyLocalUdpEndpointsDisplay()
-            verifyExternalUdpEndpointsDisplay()
-            verifyPublicUdpEndpointsDisplay()
-            clickDownRecyclerView(2)
-            verifyBtBootstrapsHeading()
-            verifyExtraBtBootstrapsButton()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(18)
+                verifyCenoNetworkDetailsButton()
+                Thread.sleep(5000)
+            }
+            .openSettingsViewNetworkDetails {
+                verifySourcesUpButton()
+                verifyNetworkDetailsSettings()
+                clickDownRecyclerView(4)
+                verifyGeneralHeading()
+                verifyOuinetProtocolDisplay()
+                verifyUpnpStatusDisplay()
+                verifyLocalProxyEndpointDisplay()
+                verifyLocalFrontendEndpointDisplay()
+                clickDownRecyclerView(3)
+                verifyDnsProtocolHeading()
+                verifySystemDnsOption()
+                verifyDohOnlyOption()
+                verifyDohWithFallbackOption()
+                clickDownRecyclerView(4)
+                verifyUdpHeading()
+                verifyLocalUdpEndpointsDisplay()
+                verifyExternalUdpEndpointsDisplay()
+                verifyPublicUdpEndpointsDisplay()
+                clickDownRecyclerView(2)
+                verifyBtBootstrapsHeading()
+                verifyExtraBtBootstrapsButton()
+            }
     }
 
     @Test
     fun developerToolsSettingsItemsTest() {
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(24)
-            verifyCenoVersionDisplay()
-            for (i in 0..8) {
-                clickCenoVersionDisplay()
-                Thread.sleep(2000)
-            }
-            Thread.sleep(5000)
-            verifyAdditionalDeveloperToolsButton()
-        }.openSettingsViewDeveloperTools {
-            verifyDeveloperToolsUpButton()
-            verifyDeveloperToolsHeading()
-            verifyRemoteDebugging()
-            toggleRemoteDebuggingOn()
-            toggleRemoteDebuggingOff()
-            verifyExportOuinetLog()
-            clickExportOuinetLog()
-            verifyExportOuinetLogDescription()
-            verifyExportOuinetLogDownload()
-            verifyExportOuinetLogView()
-            mDevice.pressBack()
-            verifyAnnouncementSource()
-            verifyAnnouncementSourceSummary()
-            clickAnnouncementSource()
-            verifyAnnouncementOption1()
-            verifyAnnouncementOption2()
-            verifyAnnouncementOption3()
-            clickCancelDialog()
-            verifyAnnouncementExpiration()
-            toggleAnnouncementExpirationOn()
-            toggleAnnouncementExpirationOff()
-            verifyTestMetrics()
-            clickTestMetrics()
-            verifyTestMetricsSuccess()
-            clickOkDialog()
-        }.goBack {
-            Thread.sleep(5000)
-            verifyCenoVersionDisplay()
-            for (i in 0..8) {
-                clickCenoVersionDisplay()
-                Thread.sleep(2000)
-            }
-            Thread.sleep(5000)
-            verifyAdditionalDeveloperToolsButtonGone()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(24)
+                verifyCenoVersionDisplay()
+                for (i in 0..8) {
+                    clickCenoVersionDisplay()
+                    Thread.sleep(2000)
+                }
+                Thread.sleep(5000)
+                verifyAdditionalDeveloperToolsButton()
+            }
+            .openSettingsViewDeveloperTools {
+                verifyDeveloperToolsUpButton()
+                verifyDeveloperToolsHeading()
+                verifyRemoteDebugging()
+                toggleRemoteDebuggingOn()
+                toggleRemoteDebuggingOff()
+                verifyExportOuinetLog()
+                clickExportOuinetLog()
+                verifyExportOuinetLogDescription()
+                verifyExportOuinetLogDownload()
+                verifyExportOuinetLogView()
+                mDevice.pressBack()
+                verifyAnnouncementSource()
+                verifyAnnouncementSourceSummary()
+                clickAnnouncementSource()
+                verifyAnnouncementOption1()
+                verifyAnnouncementOption2()
+                verifyAnnouncementOption3()
+                clickCancelDialog()
+                verifyAnnouncementExpiration()
+                toggleAnnouncementExpirationOn()
+                toggleAnnouncementExpirationOff()
+                verifyTestMetrics()
+                clickTestMetrics()
+                verifyTestMetricsSuccess()
+                clickOkDialog()
+            }
+            .goBack {
+                Thread.sleep(5000)
+                verifyCenoVersionDisplay()
+                for (i in 0..8) {
+                    clickCenoVersionDisplay()
+                    Thread.sleep(2000)
+                }
+                Thread.sleep(5000)
+                verifyAdditionalDeveloperToolsButtonGone()
+            }
     }
 
     // TODO: log assertion is unreliable on Android 8- and Android 14+
@@ -322,19 +347,22 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyOpenSettingsExists()
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(20)
-            Thread.sleep(5000)
-            verifyEnableLogFile()
-            clickEnableLogFile()
-            Thread.sleep(5000)
-            verifyExportLogButton()
-        }.goBack {
-        }.enterUrlAndEnterToBrowser("https://example.com".toUri()){
-            // Do something that will generate ouinet logs
-            Thread.sleep(5000)
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(20)
+                Thread.sleep(5000)
+                verifyEnableLogFile()
+                clickEnableLogFile()
+                Thread.sleep(5000)
+                verifyExportLogButton()
+            }
+            .goBack {
+            }
+            .enterUrlAndEnterToBrowser("https://example.com".toUri()) {
+                // Do something that will generate ouinet logs
+                Thread.sleep(5000)
+            }
         assert(LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
@@ -345,19 +373,22 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyOpenSettingsExists()
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(20)
-            Thread.sleep(5000)
-            verifyEnableLogFile()
-            clickEnableLogFile()
-            Thread.sleep(5000)
-            verifyExportLogButtonGone()
-        }.goBack {
-        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()){
-            // Do something else that will generate ouinet logs
-            Thread.sleep(5000)
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(20)
+                Thread.sleep(5000)
+                verifyEnableLogFile()
+                clickEnableLogFile()
+                Thread.sleep(5000)
+                verifyExportLogButtonGone()
+            }
+            .goBack {
+            }
+            .enterUrlAndEnterToBrowser("https://ouinet.work".toUri()) {
+                // Do something else that will generate ouinet logs
+                Thread.sleep(5000)
+            }
         assert(!LogHelper.findInLogs("[DEBUG]", 10000))
     }
 
@@ -371,31 +402,38 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyOpenSettingsExists()
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(20)
-            Thread.sleep(5000)
-            verifyEnableLogFile()
-            clickEnableLogFile()
-        }.goBack {
-        }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(2000)
-            verifyBridgeModeToggle()
-            verifyBridgeModeSummary()
-            clickBridgeModeToggle()
-            waitForBridgeModeDialog()
-            Thread.sleep(15000)
-            waitForThankYouDialog()
-            clickOk()
-        }.goBack {
-        }.openThreeDotMenu {
-        }.openSettings {
-            // Settings page must be reopened for ouinet status API
-            // to be requested again and this message to be logged
-            Thread.sleep(1000)
-            assert(LogHelper.findInLogs("bridge_announcement=true"))
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(20)
+                Thread.sleep(5000)
+                verifyEnableLogFile()
+                clickEnableLogFile()
+            }
+            .goBack {
+            }
+            .openThreeDotMenu {
+            }
+            .openSettings {
+                Thread.sleep(2000)
+                verifyBridgeModeToggle()
+                verifyBridgeModeSummary()
+                clickBridgeModeToggle()
+                waitForBridgeModeDialog()
+                Thread.sleep(15000)
+                waitForThankYouDialog()
+                clickOk()
+            }
+            .goBack {
+            }
+            .openThreeDotMenu {
+            }
+            .openSettings {
+                // Settings page must be reopened for ouinet status API
+                // to be requested again and this message to be logged
+                Thread.sleep(1000)
+                assert(LogHelper.findInLogs("bridge_announcement=true"))
+            }
     }
 
     @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
@@ -425,15 +463,17 @@ class SettingsViewTest {
         navigationToolbar {
         }.openThreeDotMenu {
             verifyOpenSettingsExists()
-        }.openSettings {
-            Thread.sleep(5000)
-            clickDownRecyclerView(11)
-            Thread.sleep(2000)
-            verifyBackgroundMetricsButton()
-        }.openSettingsViewMetrics {
-            Thread.sleep(1000)
-            verifyCrashReportingButton()
-            verifyMetricsButton()
         }
+            .openSettings {
+                Thread.sleep(5000)
+                clickDownRecyclerView(11)
+                Thread.sleep(2000)
+                verifyBackgroundMetricsButton()
+            }
+            .openSettingsViewMetrics {
+                Thread.sleep(1000)
+                verifyCrashReportingButton()
+                verifyMetricsButton()
+            }
     }
 }

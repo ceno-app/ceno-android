@@ -9,13 +9,13 @@ import android.os.Bundle
 import android.util.AttributeSet
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
+import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
 import mozilla.components.browser.state.action.WebExtensionAction
 import mozilla.components.concept.engine.EngineSession
 import mozilla.components.concept.engine.EngineView
 import mozilla.components.concept.engine.window.WindowRequest
 import mozilla.components.lib.state.ext.consumeFrom
-import ie.equalit.ceno.R
-import ie.equalit.ceno.ext.components
 
 /**
  * An activity to show the pop up action of a web extension.
@@ -30,9 +30,10 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
         setContentView(R.layout.activity_add_on_settings)
 
         webExtensionId = requireNotNull(intent.getStringExtra("web_extension_id"))
-        intent.getStringExtra("web_extension_name")?.let {
-            title = it
-        }
+        intent.getStringExtra("web_extension_name")
+            ?.let {
+                title = it
+            }
 
         addonSettingsEngineView = findViewById<View>(R.id.addonSettingsEngineView) as EngineView
 
@@ -41,7 +42,10 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
             addonSettingsEngineView?.render(session)
             consumePopupSession()
         } else {
-            (findViewById<View>(R.id.addonSettingsEngineView).consumeFrom(components.core.store, this) { state ->
+            (findViewById<View>(R.id.addonSettingsEngineView).consumeFrom(
+                components.core.store,
+                this
+            ) { state ->
                 state.extensions[webExtensionId]?.let { extState ->
                     extState.popupSession?.let {
                         if (engineSession == null) {
@@ -55,14 +59,21 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
         }
     }
 
-    override fun onCreateView(parent: View?, name: String, context: Context, attrs: AttributeSet): View? {
+    override fun onCreateView(
+        parent: View?,
+        name: String,
+        context: Context,
+        attrs: AttributeSet
+    ): View? {
 
         webExtensionId = requireNotNull(intent.getStringExtra("web_extension_id"))
 
         engineSession = components.core.store.state.extensions[webExtensionId]?.popupSession
 
         return when (name) {
-            EngineView::class.java.name -> components.core.engine.createView(context, attrs).asView()
+            EngineView::class.java.name -> components.core.engine.createView(context, attrs)
+                .asView()
+
             else -> super.onCreateView(parent, name, context, attrs)
         }
     }
@@ -80,8 +91,7 @@ class WebExtensionActionPopupActivity : AppCompatActivity(), EngineSession.Obser
     override fun onWindowRequest(windowRequest: WindowRequest) {
         if (windowRequest.type == WindowRequest.Type.CLOSE) {
             onBackPressedDispatcher.onBackPressed()
-        }
-        else {
+        } else {
             /* CENO: Handle links in popups by loading the requested url in a new tab and closing the popup */
             components.useCases.tabsUseCases.selectOrAddTab(windowRequest.url)
             onBackPressedDispatcher.onBackPressed()

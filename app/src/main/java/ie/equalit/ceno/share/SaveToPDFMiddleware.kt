@@ -1,34 +1,15 @@
 package ie.equalit.ceno.share
 
-import android.content.Context
-import androidx.annotation.VisibleForTesting
-import ie.equalit.ceno.R
-import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.ext.components
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.BrowserAction
 import mozilla.components.browser.state.action.EngineAction
-import mozilla.components.browser.state.selector.findTab
 import mozilla.components.browser.state.state.BrowserState
-import mozilla.components.browser.state.state.TabSessionState
 import mozilla.components.lib.state.Middleware
 import mozilla.components.lib.state.Store
-import org.mozilla.geckoview.GeckoSession
-import java.io.IOException
 
 /**
- * [BrowserAction] middleware reacting in response to Save to PDF related [Action]s.
- *
- * @param context An Application context.
- * @param mainScope Coroutine scope to launch coroutines.
- * @param nimbusEventStore Nimbus event store for recording events.
+ * [BrowserAction] middleware reacting in response to Save to PDF related actions.
  */
-class SaveToPDFMiddleware(
-    private val context: Context,
-    private val mainScope: CoroutineScope = CoroutineScope(Dispatchers.Main),
-) : Middleware<BrowserState, BrowserAction> {
+class SaveToPDFMiddleware : Middleware<BrowserState, BrowserAction> {
 
     override fun invoke(
         store: Store<BrowserState, BrowserAction>,
@@ -37,44 +18,29 @@ class SaveToPDFMiddleware(
     ) {
         when (action) {
             is EngineAction.SaveToPdfAction -> {
-//                postTelemetryTapped(ctx.state.findTab(action.tabId), isPrint = false)
-                // Continue to generate the PDF, passing through here to add telemetry
                 next(action)
             }
 
             is EngineAction.SaveToPdfCompleteAction -> {
-//                postTelemetryCompleted(ctx.state.findTab(action.tabId), isPrint = false)
+                // TODO: not yet implemented
             }
 
             is EngineAction.SaveToPdfExceptionAction -> {
-//                context.components.appStore.dispatch(
-//                    AppAction.UpdateStandardSnackbarErrorAction(
-//                        StandardSnackbarError(
-//                            context.getString(R.string.unable_to_save_to_pdf_error),
-//                        ),
-//                    ),
-//                )
-//                postTelemetryFailed(ctx.state.findTab(action.tabId), action.throwable, isPrint = false)
+                // TODO: not yet implemented
             }
 
             is EngineAction.PrintContentAction -> {
-//                postTelemetryTapped(ctx.state.findTab(action.tabId), isPrint = true)
-                // Continue to print, passing through here to add telemetry
                 next(action)
             }
+
             is EngineAction.PrintContentCompletedAction -> {
-//                postTelemetryCompleted(ctx.state.findTab(action.tabId), isPrint = true)
+                // TODO: not yet implemented
             }
+
             is EngineAction.PrintContentExceptionAction -> {
-//                context.components.appStore.dispatch(
-//                    AppAction.UpdateStandardSnackbarErrorAction(
-//                        StandardSnackbarError(
-//                            context.getString(R.string.unable_to_print_page_error),
-//                        ),
-//                    ),
-//                )
-//                postTelemetryFailed(ctx.state.findTab(action.tabId), action.throwable, isPrint = true)
+                // TODO: not yet implemented
             }
+
             else -> {
                 next(action)
             }

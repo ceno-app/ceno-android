@@ -17,69 +17,77 @@ import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
-import kotlinx.serialization.json.Json
 import java.util.Locale
 
 object Settings {
     fun shouldShowOnboarding(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_onboarding), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_onboarding), false
+            )
 
     fun shouldShowStandbyWarning(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_standby_warning), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_standby_warning), false
+            )
 
     fun shouldShowHomeButton(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_home_button), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_home_button), false
+            )
 
     fun shouldShowSearchSuggestions(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_search_suggestions), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_search_suggestions), false
+            )
 
     fun shouldUpdateSearchEngines(context: Context): Boolean =
-            PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-                    context.getString(R.string.pref_key_update_search_engines), false
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_update_search_engines), false
             )
 
     fun shouldShowDeveloperTools(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_developer_tools), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_developer_tools), false
+            )
 
     fun shouldShowConsentDialog(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_show_metrics_consent_dialog), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_show_metrics_consent_dialog), false
+            )
 
     fun shouldBackdateCleanInsights(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_clean_insights_backdate), false
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_clean_insights_backdate), false
+            )
 
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
         PreferenceManager.getDefaultSharedPreferences(context)
-                .edit() {
-                    putBoolean(key, value)
+            .edit {
+                putBoolean(key, value)
             }
     }
 
     fun setShowOnboarding(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_onboarding)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
+
     fun setAllowNotifications(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_notifications)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -87,7 +95,7 @@ object Settings {
     fun setShowStandbyWarning(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_standby_warning)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -95,7 +103,7 @@ object Settings {
     fun setShowDeveloperTools(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_developer_tools)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -103,7 +111,7 @@ object Settings {
     fun setBackdateCleanInsights(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_clean_insights_backdate)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -111,59 +119,76 @@ object Settings {
     fun setAppIcon(context: Context, value: String?) {
         val key = context.getString(R.string.pref_key_selected_app_icon)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, value)
             }
     }
 
-    fun appIcon(context: Context) : AppIcon? {
-        val componentName =  PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_selected_app_icon), AppIcon.DEFAULT.componentName
-        )
+    fun appIcon(context: Context): AppIcon? {
+        val componentName = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_selected_app_icon),
+                AppIcon.DEFAULT.componentName
+            )
         return componentName?.let { AppIcon.from(it) }
     }
 
-    fun getAppTheme(context: Context) : Int {
-        val themeString = PreferenceManager.getDefaultSharedPreferences(context).getString(
-                context.getString(R.string.pref_key_theme), context.getString(R.string.preferences_theme_default)
-        )
+    fun getAppTheme(context: Context): Int {
+        val themeString = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_theme),
+                context.getString(R.string.preferences_theme_default)
+            )
         return themeString!!.toInt()
     }
 
-    fun deleteOpenTabs(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_delete_open_tabs), false
-        )
+    fun setAppTheme(context: Context, themeString: String) {
+        val key = context.getString(R.string.pref_key_theme)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit {
+                putString(key, themeString)
+            }
     }
 
-    fun deleteBrowsingHistory(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_delete_browsing_history), false
-        )
+    fun deleteOpenTabs(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_delete_open_tabs), false
+            )
     }
 
-    fun deleteCookies(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_delete_cookies_now), false
-        )
+    fun deleteBrowsingHistory(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_delete_browsing_history), false
+            )
     }
 
-    fun deleteCache(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_delete_cache_now), false
-        )
+    fun deleteCookies(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_delete_cookies_now), false
+            )
     }
 
-    fun deleteSitePermissions(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_delete_site_permissions), false
-        )
+    fun deleteCache(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_delete_cache_now), false
+            )
+    }
+
+    fun deleteSitePermissions(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_delete_site_permissions), false
+            )
     }
 
     fun setDeleteOpenTabs(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_delete_open_tabs)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -171,7 +196,7 @@ object Settings {
     fun setDeleteBrowsingHistory(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_delete_browsing_history)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -179,7 +204,7 @@ object Settings {
     fun setDeleteCookies(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_delete_cookies_now)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -187,29 +212,32 @@ object Settings {
     fun setDeleteCache(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_delete_cache_now)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
+
     fun setDeleteSitePermissions(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_delete_site_permissions)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
 
     fun showCrashReportingPermissionNudge(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_crash_happened), false
-        ) && PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_show_crash_reporting_permission), true
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_crash_happened), false
+            ) && PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_show_crash_reporting_permission), true
+            )
 
     fun toggleCrashReportingPermissionNudge(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_crash_reporting_permission)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -217,7 +245,7 @@ object Settings {
     fun setCrashReportingPermissionValue(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_crash_reporting)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -226,7 +254,7 @@ object Settings {
     fun setCrashHappened(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_happened)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -241,10 +269,11 @@ object Settings {
             }
     }
 
-    fun isCrashReportingPermissionGranted(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_allow_crash_reporting), false
-        )
+    fun isCrashReportingPermissionGranted(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_allow_crash_reporting), false
+            )
     }
 
     fun alwaysAllowCrashReporting(context: Context) {
@@ -258,16 +287,17 @@ object Settings {
         setCrashReportingPermissionValue(context, false)
     }
 
-    fun wasCrashSuccessfullyLogged(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_crash_was_logged), false
-        )
+    fun wasCrashSuccessfullyLogged(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_crash_was_logged), false
+            )
     }
 
     fun logSuccessfulCrashEvent(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_crash_was_logged)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }
@@ -283,58 +313,65 @@ object Settings {
             }
     }
 
-    fun isAnnouncementExpirationDisabled(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_rss_announcement_expire_disable), false
-        )
+    fun isAnnouncementExpirationDisabled(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_rss_announcement_expire_disable), false
+            )
     }
 
     fun getSwipedAnnouncementGuids(context: Context): List<String>? {
-        val guids = PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_rss_past_announcement_data), null
-        ) ?: return null
+        val guids = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_rss_past_announcement_data), null
+            ) ?: return null
 
         return guids.split(" ")
     }
 
-    fun addSwipedAnnouncementGuid(context: Context, guid : String) {
+    fun addSwipedAnnouncementGuid(context: Context, guid: String) {
         val key = context.getString(R.string.pref_key_rss_past_announcement_data)
 
         val list = (getSwipedAnnouncementGuids(context)?.toMutableList() ?: mutableListOf())
         list.add(guid)
 
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, list.joinToString(" "))
             }
     }
 
-    fun getAnnouncementData(context: Context) : RssAnnouncementResponse? {
-        val localValue = PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_rss_announcement_data), null
-        )
+    fun getAnnouncementData(context: Context): RssAnnouncementResponse? {
+        val localValue = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_rss_announcement_data), null
+            )
 
         val swipedGuids = getSwipedAnnouncementGuids(context)
 
-        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)?.let { rssAnnouncementResponse ->
+        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
+            ?.let { rssAnnouncementResponse ->
 
-            val response = RssAnnouncementResponse(
-                title = rssAnnouncementResponse.title,
-                link = rssAnnouncementResponse.link,
-                text = rssAnnouncementResponse.text,
-                items = buildList {
-                    rssAnnouncementResponse.items.forEach {
-                        val pubDate : String = it.guid.split("/")[1]
-                        val isExpired = pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(context)
-                        if((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
-                            add(it)
+                val response = RssAnnouncementResponse(
+                    title = rssAnnouncementResponse.title,
+                    link = rssAnnouncementResponse.link,
+                    text = rssAnnouncementResponse.text,
+                    items = buildList {
+                        rssAnnouncementResponse.items.forEach {
+                            val pubDate: String = it.guid.split("/")[1]
+                            val isExpired =
+                                pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(
+                                    context
+                                )
+                            if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
+                                add(it)
+                            }
                         }
                     }
-                }
-            )
-            return if(response.items.isEmpty()) null else response
+                )
+                return if (response.items.isEmpty()) null else response
 
-        }
+            }
 
         return null
 
@@ -343,7 +380,7 @@ object Settings {
     fun saveAnnouncementData(context: Context, announcementData: RssAnnouncementResponse?) {
         val key = context.getString(R.string.pref_key_rss_announcement_data)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(key, Gson().toJson(announcementData))
             }
     }
@@ -351,16 +388,18 @@ object Settings {
     fun clearAnnouncementData(context: Context) {
         val key = context.getString(R.string.pref_key_rss_announcement_data)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 remove(key)
             }
     }
 
-    fun getRSSAnnouncementUrl(context: Context, locale : String) :String {
+    fun getRSSAnnouncementUrl(context: Context, locale: String): String {
         val baseUrl = context.getString(R.string.ceno_base_url)
-        val source = PreferenceManager.getDefaultSharedPreferences(context).getString(
-            context.getString(R.string.pref_key_rss_announcement_source), context.getString(R.string.preferences_announcement_source_default)
-        )
+        val source = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_rss_announcement_source),
+                context.getString(R.string.preferences_announcement_source_default)
+            )
         return when (source) {
             "1" -> "${baseUrl}/${locale}/rss-announce.xml"
             "2" -> "${baseUrl}/${locale}/rss-announce-draft.xml"
@@ -369,34 +408,62 @@ object Settings {
         }
     }
 
-    fun isOuinetMetricsEnabled(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_metrics_ouinet), true
-        )
+    fun isOuinetMetricsEnabled(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_metrics_ouinet), true
+            )
     }
 
-    fun isDohEnabled(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_doh_enabled), true
-        )
+    fun isDohEnabled(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_doh_enabled), true
+            )
     }
 
-    fun setOuinetMetricsEnabled(context: Context, newValue:Boolean) {
+    fun getDnsProtocols(context: Context): MutableSet<String> {
+        val dnsProtocols: MutableSet<String> = mutableSetOf()
+        if (PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(
+                    context.getString(R.string.pref_key_dns_plain), true
+                )
+        )
+            dnsProtocols.add("plain")
+        if (PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(
+                    context.getString(R.string.pref_key_dns_https), true
+                )
+        )
+            dnsProtocols.add("https")
+        if (PreferenceManager.getDefaultSharedPreferences(context)
+                .getBoolean(
+                    context.getString(R.string.pref_key_dns_both), true
+                )
+        ) {
+            dnsProtocols.add("plain")
+            dnsProtocols.add("https")
+        }
+        return dnsProtocols
+    }
+
+    fun setOuinetMetricsEnabled(context: Context, newValue: Boolean) {
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(context.getString(R.string.pref_key_metrics_ouinet), newValue)
             }
     }
 
     fun saveOuicrawlData(context: Context, ouicrawlData: String) {
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putString(context.getString(R.string.pref_key_ouicrawl_data), ouicrawlData)
             }
     }
 
-    fun getOuicrawlData(context: Context) : List<OuicrawlSite>? {
-        val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context).getString(context.getString(R.string.pref_key_ouicrawl_data), null)
+    fun getOuicrawlData(context: Context): List<OuicrawlSite>? {
+        val ouicrawlData = PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(context.getString(R.string.pref_key_ouicrawl_data), null)
         try {
             val ouicrawlSites = ouicrawlData?.let {
                 context.components.json.decodeFromString<OuicrawledSitesListItem>(
@@ -409,11 +476,10 @@ object Settings {
                 val sites =
                     ouicrawlSites?.filter { it.Language == localeCode }
                 return sites
-            }
-            else {
+            } else {
                 // double check if device is in a locale we want to filter for
                 val countryCode = CenoLocationUtils(context.application).currentCountry
-                val sites = when(countryCode) {
+                val sites = when (countryCode) {
                     "RU" -> ouicrawlSites?.filter { it.Language == "ru" }
                     "UA" -> ouicrawlSites?.filter { it.Language == "uk" }
                     "IR" -> ouicrawlSites?.filter { it.Language == "fa" }
@@ -421,26 +487,28 @@ object Settings {
                 }
                 return sites
             }
-        } catch (e:IllegalArgumentException) {
+        } catch (_: IllegalArgumentException) {
             return null
         }
     }
 
-    fun secureScreen(context: Context) : Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_secure_screen), true
-        )
+    fun secureScreen(context: Context): Boolean {
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_secure_screen), true
+            )
     }
 
     fun shouldVerifyExternalUrl(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context).getBoolean(
-            context.getString(R.string.pref_key_verify_external_url), true
-        )
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_verify_external_url), true
+            )
 
     fun setVerifyExternalUrl(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_verify_external_url)
         PreferenceManager.getDefaultSharedPreferences(context)
-            .edit() {
+            .edit {
                 putBoolean(key, value)
             }
     }

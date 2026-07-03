@@ -1,7 +1,6 @@
 package ie.equalit.ceno.bookmarks.edit
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
@@ -9,6 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.MenuProvider
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -34,14 +34,10 @@ class SelectBookmarkFolderFragment : Fragment(), MenuProvider {
     private val sharedViewModel: BookmarksSharedViewModel by activityViewModels()
     private var bookmarkNode: BookmarkNode? = null
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSelectBookmarkFolderBinding.inflate(inflater, container, false)
 
         return binding.root
@@ -60,7 +56,6 @@ class SelectBookmarkFolderFragment : Fragment(), MenuProvider {
 
     override fun onResume() {
         super.onResume()
-//        showToolbar(getString(R.string.bookmark_select_folder_fragment_label))
 
         val args: SelectBookmarkFolderFragmentArgs by navArgs()
 

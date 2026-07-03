@@ -12,14 +12,16 @@ import androidx.test.espresso.Espresso.openActionBarOverflowOrOptionsMenu
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.espresso.matcher.ViewMatchers.hasSibling
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withEffectiveVisibility
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiSelector
 import androidx.test.uiautomator.Until
-import junit.framework.Assert
-import org.junit.Assert.assertNull
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.waitAndInteract
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
@@ -28,7 +30,9 @@ import ie.equalit.ceno.helpers.TestHelper
 import ie.equalit.ceno.helpers.assertIsSelected
 import ie.equalit.ceno.helpers.click
 import ie.equalit.ceno.helpers.matchers.TabMatcher
+import junit.framework.Assert
 import org.hamcrest.CoreMatchers.allOf
+import org.junit.Assert.assertNull
 
 /**
  * Implementation of Robot Pattern for the tab tray menu.
@@ -45,8 +49,10 @@ class TabTrayMenuRobot {
     fun verifyNewTabButton() = assertNewTabButton()
     fun verifyRegularBrowsingTab(isSelected: Boolean) =
         regularTabs().assertIsSelected(isSelected)
+
     fun verifyPrivateBrowsingTab(isSelected: Boolean) =
         privateTabs().assertIsSelected(isSelected)
+
     fun verifyThereAreNotPrivateTabsOpen() = assertThereAreNoPrivateTabsOpen()
     fun verifyThereIsOnePrivateTabOpen() = assertPrivateTabs()
     fun verifyThereIsOneTabOpen() = tab().check(matches(isDisplayed()))
@@ -72,7 +78,10 @@ class TabTrayMenuRobot {
             return NavigationToolbarRobot.Transition()
         }
 
-        fun openMoreOptionsMenu(context: Context, interact: TabTrayMoreOptionsMenuRobot.() -> Unit): TabTrayMoreOptionsMenuRobot.Transition {
+        fun openMoreOptionsMenu(
+            context: Context,
+            interact: TabTrayMoreOptionsMenuRobot.() -> Unit
+        ): TabTrayMoreOptionsMenuRobot.Transition {
             // The 3dot "More options" button is actually an Android Options Menu (check tabstray_menu.xml) not a View that we treat as a menu
             openActionBarOverflowOrOptionsMenu(context)
 
@@ -86,13 +95,19 @@ class TabTrayMenuRobot {
             return NavigationToolbarRobot()
         }
 
-        fun closeTabXButton(title: String, interact: NavigationToolbarRobot.() -> Unit): NavigationToolbarRobot.Transition {
+        fun closeTabXButton(
+            title: String,
+            interact: NavigationToolbarRobot.() -> Unit
+        ): NavigationToolbarRobot.Transition {
             closeTabButtonTabTray(title).click()
             NavigationToolbarRobot().interact()
             return NavigationToolbarRobot.Transition()
         }
 
-        fun clickOpenTab(title: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
+        fun clickOpenTab(
+            title: String,
+            interact: BrowserRobot.() -> Unit
+        ): BrowserRobot.Transition {
             openTab(title).clickAndWaitForNewWindow()
 
             BrowserRobot().interact()
@@ -104,23 +119,31 @@ class TabTrayMenuRobot {
 private fun regularTabs() = onView(ViewMatchers.withContentDescription("Tabs"))
 private fun privateTabs() = onView(ViewMatchers.withContentDescription("Personal tabs"))
 private fun goBackButton() = onView(ViewMatchers.withContentDescription("back"))
-private fun newTabButton() = onView(ViewMatchers.withContentDescription(R.string.menu_action_add_tab))
-private fun closeTabButtonTabTray(text : String): ViewInteraction {
+private fun newTabButton() =
+    onView(ViewMatchers.withContentDescription(R.string.menu_action_add_tab))
+
+private fun closeTabButtonTabTray(text: String): ViewInteraction {
     return onView(allOf(withId(R.id.mozac_browser_tabstray_close), hasSibling(withText(text))))
 }
+
 private fun tab() = onView(TabMatcher.withText("CENO Homepage"))
 
 private fun assertRegularBrowsingTabs() = regularTabs()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertPrivateBrowsingTabs() = privateTabs()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertGoBackButton() = goBackButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertNewTabButton() = newTabButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertPrivateTabs() {
     mDevice.wait(Until.findObject(By.text("Private Browsing")), waitingTime)
 }
+
 private fun assertThereAreNoPrivateTabsOpen() {
     val obj = mDevice.wait(Until.findObject(By.text("Private Browsing")), waitingTimeShort)
     try {
@@ -135,7 +158,8 @@ private fun assertExistingOpenTabs(title: String) {
     mDevice.findObject(UiSelector().resourceId("${TestHelper.packageName}:id/tabsTray"))
         .waitForExists(waitingTime)
     Assert.assertTrue(
-        mDevice.findObject(UiSelector().textContains(title)).waitForExists(waitingTime),
+        mDevice.findObject(UiSelector().textContains(title))
+            .waitForExists(waitingTime),
     )
 }
 

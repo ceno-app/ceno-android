@@ -14,9 +14,9 @@ import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 
 class BookmarkNodeViewHolder(
-    private val  view: WebsiteListItemView,
+    private val view: WebsiteListItemView,
     private val interactor: BookmarkViewInteractor
-): RecyclerView.ViewHolder(view)  {
+) : RecyclerView.ViewHolder(view) {
     var item: BookmarkNode? = null
 
     private val menu: BookmarkItemMenu = BookmarkItemMenu(view.context)
@@ -43,11 +43,11 @@ class BookmarkNodeViewHolder(
         view.setSelectionInteractor(item, interactor)
 
         CoroutineScope(Dispatchers.Default).launch {
-            menu.updateMenu(item.type, item.guid)
+            menu.updateMenu(item.type)
         }
 
         CoroutineScope(Dispatchers.Default).launch {
-            menu.updateMenu(item.type, item.guid)
+            menu.updateMenu(item.type)
         }
 
         // Hide menu button if this item is a root folder or is selected
@@ -64,16 +64,13 @@ class BookmarkNodeViewHolder(
             }
         }
 
-//        if (payload.selectedChanged) {
-//            containerView.changeSelected(item in mode.selectedItems)
-//        }
         val useTitleFallback = item.type == BookmarkNodeType.ITEM && item.title.isNullOrBlank()
         if (payload.titleChanged) {
             view.titleView.text = if (useTitleFallback) item.url else item.title
         } else if (payload.urlChanged && useTitleFallback) {
             view.titleView.text = item.url
         }
-//
+        //
         if (payload.urlChanged) {
             view.urlView.text = item.url
         }
@@ -95,6 +92,7 @@ class BookmarkNodeViewHolder(
             // Item has a http/https URL
             url != null && url.startsWith("http") ->
                 context.components.core.icons.loadIntoView(iconView, url)
+
             else ->
                 iconView.setImageDrawable(null)
         }

@@ -42,7 +42,11 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
     lateinit var themeManager: ThemeManager
     lateinit var browsingModeManager: BrowsingModeManager
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         themeManager = (activity as BrowserActivity).themeManager
         browsingModeManager = (activity as BrowserActivity).browsingModeManager
         return inflater.inflate(R.layout.fragment_tabstray, container, false)
@@ -60,7 +64,7 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
             { closeTabsTray(true) },
         ) {
             /* CENO: check if current tab is normal/private, set tabs panel and filter to match */
-            if(requireComponents.core.store.state.selectedTab?.content?.private == true) {
+            if (requireComponents.core.store.state.selectedTab?.content?.private == true) {
                 it.content.private
             } else {
                 !it.content.private
@@ -70,7 +74,11 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         val tabsPanel: TabsPanel = view.findViewById(R.id.tabsPanel)
         val tabsToolbar: TabsToolbar = view.findViewById(R.id.tabsToolbar)
 
-        tabsPanel.initialize(tabsFeature, browsingModeManager, updateTabsToolbar = ::updateTabsToolbar)
+        tabsPanel.initialize(
+            tabsFeature,
+            browsingModeManager,
+            updateTabsToolbar = ::updateTabsToolbar
+        )
         tabsToolbar.initialize(tabsFeature, browsingModeManager, ::closeTabsTray)
         scrollToTabPosition()
     }
@@ -98,10 +106,9 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
      * with or without a new blank tab? */
     private fun closeTabsTray(newTab: Boolean = false) {
         findNavController().popBackStack() //This way, clicking back-button on the next fragment would not lead back here
-        if(newTab) {
+        if (newTab) {
             findNavController().navigate(R.id.action_global_home)
-        }
-        else {
+        } else {
             findNavController().navigate(R.id.action_global_browser)
         }
     }
@@ -127,8 +134,11 @@ class TabsTrayFragment : Fragment(), UserInteractionHandler {
         val layoutManager = LinearLayoutManager(context)
         val thumbnailLoader = ThumbnailLoader(context.components.core.thumbnailStorage)
         val trayStyling = TabsTrayStyling(
-                itemBackgroundColor = Color.TRANSPARENT,
-                itemTextColor = ContextCompat.getColor(requireContext(), R.color.fx_mobile_text_color_primary)
+            itemBackgroundColor = Color.TRANSPARENT,
+            itemTextColor = ContextCompat.getColor(
+                requireContext(),
+                R.color.fx_mobile_text_color_primary
+            )
         )
         val viewHolderProvider: ViewHolderProvider = { viewGroup ->
             val view = LayoutInflater.from(context)

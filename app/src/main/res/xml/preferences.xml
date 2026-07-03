@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
-        android:layout="@layout/preference_category_style"
+        android:layout="@layout/preference_category_no_icon_style"
         android:title="@string/general_category">
 
         <androidx.preference.Preference
@@ -77,7 +77,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout="@layout/preference_category_style"
+        android:layout="@layout/preference_category_no_icon_style"
         android:key="@string/pref_permissions_category"
         android:title="@string/ceno_permissions_category">
 
@@ -95,7 +95,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout="@layout/preference_category_style"
+        android:layout="@layout/preference_category_no_icon_style"
         android:title="@string/ceno_data_category"
         android:key="@string/pref_data_category">
 
@@ -123,7 +123,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout="@layout/preference_category_style"
+        android:layout="@layout/preference_category_no_icon_style"
         android:title="@string/developer_tools_category">
 
         <androidx.preference.Preference
@@ -171,7 +171,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:layout="@layout/preference_category_style"
+        android:layout="@layout/preference_category_no_icon_style"
         android:title="@string/about_category">
 
         <androidx.preference.Preference

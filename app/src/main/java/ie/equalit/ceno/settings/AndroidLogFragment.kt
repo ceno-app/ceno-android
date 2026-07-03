@@ -40,7 +40,11 @@ class AndroidLogFragment : Fragment(), MenuProvider {
     private var adapter = LogTextAdapter()
     private var isLoading = true
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
         _binding = FragmentAndroidLogBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -50,9 +54,11 @@ class AndroidLogFragment : Fragment(), MenuProvider {
         requireActivity().addMenuProvider(this, viewLifecycleOwner, Lifecycle.State.RESUMED)
 
         // get logs from internal storage
-        requireContext().openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt").bufferedReader().useLines { lines ->
-            allItems = lines.toMutableList()
-        }
+        requireContext().openFileInput("${getString(R.string.ceno_android_logs_file_name)}.txt")
+            .bufferedReader()
+            .useLines { lines ->
+                allItems = lines.toMutableList()
+            }
         Log.d(TAG, "${allItems.size} logs retrieved")
 
         // Set adapter and load initial data
@@ -66,7 +72,8 @@ class AndroidLogFragment : Fragment(), MenuProvider {
 
                 if (!isLoading
                     && loadedItemCount < allItems.size
-                    && (layoutManager.childCount + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.itemCount) {
+                    && (layoutManager.childCount + layoutManager.findFirstVisibleItemPosition()) >= layoutManager.itemCount
+                ) {
                     loadMoreData()
                 }
             }
@@ -81,7 +88,10 @@ class AndroidLogFragment : Fragment(), MenuProvider {
 
     private fun loadInitialData() {
 
-        Log.d(TAG, "Loading first ${if (allItems.size < itemsPerBatch) allItems.size else itemsPerBatch} logs")
+        Log.d(
+            TAG,
+            "Loading first ${if (allItems.size < itemsPerBatch) allItems.size else itemsPerBatch} logs"
+        )
 
         // Load the initial set of data
         val initialData = loadBatchOfItems(0)
@@ -124,7 +134,9 @@ class AndroidLogFragment : Fragment(), MenuProvider {
             title = getString(R.string.ceno_android_logs_file_name)
             setDisplayHomeAsUpEnabled(true)
             setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar).toDrawable())
+                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
+                    .toDrawable()
+            )
         }
     }
 
@@ -139,7 +151,7 @@ class AndroidLogFragment : Fragment(), MenuProvider {
     }
 
     override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
-        when(menuItem.itemId) {
+        when (menuItem.itemId) {
             R.id.share_logs -> {
                 val directions = NavGraphDirections.actionGlobalShareFragment(
                     arrayOf(
@@ -148,11 +160,20 @@ class AndroidLogFragment : Fragment(), MenuProvider {
                             title = "Logs",
                         ),
                     )
-                ).apply {
-                    setLogsFilePath("${ContextCompat.getString(requireContext(), R.string.ceno_android_logs_file_name)}.txt")
-                }
+                )
+                    .apply {
+                        setLogsFilePath(
+                            "${
+                                ContextCompat.getString(
+                                    requireContext(),
+                                    R.string.ceno_android_logs_file_name
+                                )
+                            }.txt"
+                        )
+                    }
                 findNavController().navigate(directions)
             }
+
             R.id.download_logs -> {
                 Log.d(TAG, "download")
                 (activity as BrowserActivity).getLogfileLocation.launch(getString(R.string.ceno_android_logs_file_name))

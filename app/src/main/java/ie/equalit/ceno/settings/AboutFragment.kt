@@ -28,40 +28,42 @@ import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentAboutBinding
-import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.ext.requireComponents
 import mozilla.components.Build
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_BUILDID
 import org.mozilla.geckoview.BuildConfig.MOZ_APP_VERSION
-
 
 class AboutFragment : Fragment() {
 
     private var _binding: FragmentAboutBinding? = null
     private val binding get() = _binding!!
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        _binding = FragmentAboutBinding.inflate(inflater, container,false)
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View {
+        _binding = FragmentAboutBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     @SuppressLint("ClickableViewAccessibility")
+    @Suppress("LongMethod")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        val appName = requireContext().resources.getString(R.string.app_name)
         (activity as AppCompatActivity).title = getString(R.string.preferences_about_page)
 
         val aboutText = try {
-            val packageInfo = requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
-            val geckoVersion = PackageInfoCompat.getLongVersionCode(packageInfo).toString() + " GV: " +
-                MOZ_APP_VERSION + "-" + MOZ_APP_BUILDID
+            val packageInfo =
+                requireContext().packageManager.getPackageInfo(requireContext().packageName, 0)
+            val geckoVersion = PackageInfoCompat.getLongVersionCode(packageInfo)
+                .toString() + " GV: " +
+                    MOZ_APP_VERSION + "-" + MOZ_APP_BUILDID
             String.format(
                 "%s (Build #%s)\n",
                 packageInfo.versionName,
                 geckoVersion,
             )
-        } catch (e: PackageManager.NameNotFoundException) {
+        } catch (_: PackageManager.NameNotFoundException) {
             ""
         }
 
@@ -73,30 +75,62 @@ class AboutFragment : Fragment() {
             Build.APPLICATION_SERVICES_VERSION,
         )
 
-        setLinkTextView(requireContext(), binding.btnWebsite, resources.getString(R.string.website_button_text))
+        setLinkTextView(
+            requireContext(),
+            binding.btnWebsite,
+            resources.getString(R.string.website_button_text)
+        )
+
         binding.btnWebsite.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.website_button_link))
         )
 
-        setLinkTextView(requireContext(), binding.btnSourcecode, resources.getString(R.string.source_code_button_text))
+        setLinkTextView(
+            requireContext(),
+            binding.btnSourcecode,
+            resources.getString(R.string.source_code_button_text)
+        )
+
         binding.btnSourcecode.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.source_code_button_link))
         )
-        setLinkTextView(requireContext(), binding.btnSupport, resources.getString(R.string.support_button_text))
+
+        setLinkTextView(
+            requireContext(),
+            binding.btnSupport,
+            resources.getString(R.string.support_button_text)
+        )
+
         binding.btnSupport.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.support_button_link))
         )
 
-        setLinkTextView(requireContext(), binding.btnWebsiteEq, resources.getString(R.string.website_button_text))
+        setLinkTextView(
+            requireContext(),
+            binding.btnWebsiteEq,
+            resources.getString(R.string.website_button_text)
+        )
+
         binding.btnWebsiteEq.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.website_eq_button_link))
         )
-        setLinkTextView(requireContext(), binding.btnNews, resources.getString(R.string.eq_news_button_text))
+
+        setLinkTextView(
+            requireContext(),
+            binding.btnNews,
+            resources.getString(R.string.eq_news_button_text)
+        )
+
         binding.btnNews.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.eq_news_button_link))
         )
 
-        setLinkTextView(requireContext(), binding.btnValues, resources.getString(R.string.eq_values_button_text))
+        setLinkTextView(
+            requireContext(),
+            binding.btnValues,
+            resources.getString(R.string.eq_values_button_text)
+        )
+
         binding.btnValues.setOnClickListener(
             getOnClickListenerForLink(resources.getString(R.string.eq_values_button_link))
         )
@@ -108,6 +142,7 @@ class AboutFragment : Fragment() {
             findNavController().popBackStack()
             findNavController().navigate(R.id.action_global_settings)
         }
+
         callback.isEnabled = true
     }
 
@@ -115,7 +150,7 @@ class AboutFragment : Fragment() {
         private const val TAG = "AboutFragment"
 
         @SuppressLint("ClickableViewAccessibility")
-        fun setLinkTextView (context: Context, textView : TextView, text : String) {
+        fun setLinkTextView(context: Context, textView: TextView, text: String) {
             val notClickedString = SpannableString(text)
             notClickedString.setSpan(
                 URLSpan(""),
@@ -126,7 +161,12 @@ class AboutFragment : Fragment() {
             textView.setText(notClickedString, TextView.BufferType.SPANNABLE)
             val clickedString = SpannableString(notClickedString)
             clickedString.setSpan(
-                BackgroundColorSpan(ContextCompat.getColor(context, R.color.fx_mobile_text_color_secondary)), 0, notClickedString.length,
+                BackgroundColorSpan(
+                    ContextCompat.getColor(
+                        context,
+                        R.color.fx_mobile_text_color_secondary
+                    )
+                ), 0, notClickedString.length,
                 Spanned.SPAN_INCLUSIVE_EXCLUSIVE
             )
             textView.setOnTouchListener { v, event ->
@@ -136,6 +176,7 @@ class AboutFragment : Fragment() {
                         textView.setText(notClickedString, TextView.BufferType.SPANNABLE)
                         v.performClick()
                     }
+
                     MotionEvent.ACTION_CANCEL -> textView.setText(
                         notClickedString,
                         TextView.BufferType.SPANNABLE
@@ -146,7 +187,7 @@ class AboutFragment : Fragment() {
         }
     }
 
-    private fun getOnClickListenerForLink (url : String) : View.OnClickListener {
+    private fun getOnClickListenerForLink(url: String): View.OnClickListener {
         return View.OnClickListener {
             val browserActivity = activity as BrowserActivity
             browserActivity.openToBrowser(url, newTab = true)

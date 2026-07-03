@@ -9,7 +9,7 @@ import mozilla.components.concept.menu.candidate.TextStyle
 import mozilla.components.concept.storage.BookmarkNodeType
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 
-class BookmarkItemMenu (
+class BookmarkItemMenu(
     private val context: Context,
     var onItemTapped: ((Item) -> Unit)? = null
 ) {
@@ -22,6 +22,7 @@ class BookmarkItemMenu (
         Delete,
         ;
     }
+
     val menuController: MenuController by lazy { BrowserMenuController() }
 
     internal fun menuItems(itemType: BookmarkNodeType): List<TextMenuCandidate> {
@@ -83,7 +84,7 @@ class BookmarkItemMenu (
     /**
      * Update the menu items for the type of bookmark.
      */
-    suspend fun updateMenu(itemType: BookmarkNodeType, itemId: String) {
+    fun updateMenu(itemType: BookmarkNodeType) {
         menuController.submitList(menuItems(itemType))
     }
 }

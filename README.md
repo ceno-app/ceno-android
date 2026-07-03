@@ -50,7 +50,7 @@ From testing to translations to bug reporting and merge requests, there are lots
 ### Developer Build
 To build debug versions of Ceno Browser, enter the checkout directory and execute the following commands,
 ```
-cp local.propeties.sample local.properties
+cp local.properties.sample local.properties
 ANDROID_HOME=/path/to/Android/Sdk ./gradlew assembleDebug
 ```
 The resulting apks will be copied to the `output/debug/` directory.

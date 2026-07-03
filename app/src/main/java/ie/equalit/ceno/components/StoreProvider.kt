@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.get
 import mozilla.components.lib.state.Store
 
-
 /**
  * Generic ViewModel to wrap a State object for state restoration.
  *

@@ -59,15 +59,16 @@ class LocaleTests {
         }
         navigationToolbar {
         }.openThreeDotMenu {
-        }.openSettings {
-            Thread.sleep(1000)
-            // Must click down further than the options
-            // for test to succeed on smaller screen devices
-            clickDownRecyclerView(11)
-            Thread.sleep(1000)
-            verifyChangeLanguageButton()
-            clickChangeLanguageButton()
         }
+            .openSettings {
+                Thread.sleep(1000)
+                // Must click down further than the options
+                // for test to succeed on smaller screen devices
+                clickDownRecyclerView(11)
+                Thread.sleep(1000)
+                verifyChangeLanguageButton()
+                clickChangeLanguageButton()
+            }
         locale {
             verifyChangeLanguageDialog()
         }.changeLanguage("French")

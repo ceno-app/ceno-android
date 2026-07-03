@@ -7,13 +7,13 @@ package ie.equalit.ceno.helpers
 import android.net.Uri
 import android.os.Handler
 import android.os.Looper
+import ie.equalit.ceno.helpers.ext.toUri
 import okhttp3.mockwebserver.Dispatcher
 import okhttp3.mockwebserver.MockResponse
 import okhttp3.mockwebserver.MockWebServer
 import okhttp3.mockwebserver.RecordedRequest
 import okio.Buffer
 import okio.source
-import ie.equalit.ceno.helpers.ext.toUri
 import java.io.IOException
 import java.io.InputStream
 
@@ -26,7 +26,9 @@ object MockWebServerHelper {
         messages.forEach { message ->
             val response = MockResponse().setBody("<html><body>$message</body></html>")
             mockServer.enqueue(response)
-            val endpoint = mockServer.url(uniquePath++.toString()).toString().toUri()!!
+            val endpoint = mockServer.url(uniquePath++.toString())
+                .toString()
+                .toUri()!!
             uris += endpoint
         }
         return uris
@@ -48,12 +50,14 @@ class AndroidAssetDispatcher : Dispatcher() {
     private val mainThreadHandler = Handler(Looper.getMainLooper())
 
     override fun dispatch(request: RecordedRequest): MockResponse {
-        val assetManager = androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets
+        val assetManager =
+            androidx.test.platform.app.InstrumentationRegistry.getInstrumentation().context.assets
         try {
             val pathWithoutQueryParams = Uri.parse(request.path!!.drop(1)).path
-            assetManager.open(pathWithoutQueryParams!!).use { inputStream ->
-                return fileToResponse(pathWithoutQueryParams, inputStream)
-            }
+            assetManager.open(pathWithoutQueryParams!!)
+                .use { inputStream ->
+                    return fileToResponse(pathWithoutQueryParams, inputStream)
+                }
         } catch (e: IOException) { // e.g. file not found.
             // We're on a background thread so we need to forward the exception to the main thread.
             mainThreadHandler.postAtFrontOfQueue { throw e }
@@ -71,7 +75,7 @@ private fun fileToResponse(path: String, file: InputStream): MockResponse {
 }
 
 @Throws(IOException::class)
-private fun fileToBytes(file: InputStream): Buffer? {
+private fun fileToBytes(file: InputStream): Buffer {
     val result = Buffer()
     result.writeAll(file.source())
     return result

@@ -16,21 +16,34 @@ class AddToHomeScreenRobot {
         cancelAddToHomeScreenButton().waitForExists(waitingTime)
         cancelAddToHomeScreenButton().click()
     }
+
     fun clickAddAutomaticallyToHomeScreenButton() {
         addAutomaticallyToHomeScreenButton().waitForExists(waitingTime)
         addAutomaticallyToHomeScreenButton().click()
     }
 
     class Transition {
-        fun openHomeScreenShortcut(title: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
-            mDevice.findObject(UiSelector().textContains(title)).waitForExists(waitingTime)
-            mDevice.findObject((UiSelector().textContains(title))).clickAndWaitForNewWindow(waitingTime)
+        fun openHomeScreenShortcut(
+            title: String,
+            interact: BrowserRobot.() -> Unit
+        ): BrowserRobot.Transition {
+            mDevice.findObject(UiSelector().textContains(title))
+                .waitForExists(waitingTime)
+            mDevice.findObject((UiSelector().textContains(title)))
+                .clickAndWaitForNewWindow(waitingTime)
 
             BrowserRobot().interact()
             return BrowserRobot.Transition()
         }
     }
 
-    private fun cancelAddToHomeScreenButton() = mDevice.findObject(UiSelector().textContains("Cancel").clickable(true))
-    private fun addAutomaticallyToHomeScreenButton() = mDevice.findObject(UiSelector().textContains("Add").clickable(true))
+    private fun cancelAddToHomeScreenButton() = mDevice.findObject(
+        UiSelector().textContains("Cancel")
+            .clickable(true)
+    )
+
+    private fun addAutomaticallyToHomeScreenButton() = mDevice.findObject(
+        UiSelector().textContains("Add")
+            .clickable(true)
+    )
 }

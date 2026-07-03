@@ -35,7 +35,10 @@ class TooltipsTest {
             dispatcher = AndroidAssetDispatcher()
             start()
         }
-        mDevice.wait(Until.gone(By.res("${TestHelper.packageName}:id/iv_standby_logo")), TestAssetHelper.waitingTime)
+        mDevice.wait(
+            Until.gone(By.res("${TestHelper.packageName}:id/iv_standby_logo")),
+            TestAssetHelper.waitingTime
+        )
     }
 
     @After

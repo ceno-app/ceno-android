@@ -33,7 +33,8 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
             viewLifecycleOwner
         )
 
-        binding.campaignCrashReporting.isChecked = Settings.isCrashReportingPermissionGranted(requireContext())
+        binding.campaignCrashReporting.isChecked =
+            Settings.isCrashReportingPermissionGranted(requireContext())
         binding.campaignOuinetMetrics.isChecked = Settings.isOuinetMetricsEnabled(requireContext())
         binding.campaignCrashReporting.onCheckListener = { newValue ->
             controller.crashReporting(newValue)
@@ -44,7 +45,8 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
 
         val privacyPolicyUrl = requireContext().getString(R.string.privacy_policy_url)
         binding.privacyPolicy.setOnClickListener {
-            val dialog = WebViewPopupPanel(requireContext(), context as LifecycleOwner, privacyPolicyUrl)
+            val dialog =
+                WebViewPopupPanel(requireContext(), context as LifecycleOwner, privacyPolicyUrl)
             dialog.show()
         }
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -58,9 +60,10 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
     override fun onResume() {
         super.onResume()
 
-        getCheckboxes().iterator().forEach {
-            it.visibility = View.VISIBLE
-        }
+        getCheckboxes().iterator()
+            .forEach {
+                it.visibility = View.VISIBLE
+            }
         getActionBar().apply {
             show()
             setTitle(R.string.preferences_metrics_campaign)
@@ -69,10 +72,12 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
                 ContextCompat.getColor(
                     requireContext(),
                     R.color.ceno_action_bar
-                ).toDrawable()
+                )
+                    .toDrawable()
             )
         }
     }
+
     private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
 
     override fun onPause() {
@@ -90,7 +95,6 @@ class MetricsCampaignFragment : Fragment(R.layout.fragment_metrics_campaign) {
             binding.campaignCrashReporting,
         )
     }
-
 
     companion object {
         private const val TAG = "MetricsCampaignFragment"

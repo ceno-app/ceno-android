@@ -8,6 +8,6 @@
     style="@style/PreferenceSectionHeader"
     android:layout_width="match_parent"
     android:layout_height="@dimen/section_header_height"
-    android:layout_marginStart="@dimen/top_bar_no_icon_alignment_margin_start"
+    android:layout_marginStart="@dimen/preference_margin_start"
     android:gravity="start|center_vertical"
     app:allowDividerAbove="true" />

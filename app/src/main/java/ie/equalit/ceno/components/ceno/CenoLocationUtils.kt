@@ -5,11 +5,11 @@ import android.app.Application
 import android.content.Context
 import android.telephony.TelephonyManager
 import android.text.TextUtils
-import java.util.*
+import java.util.Locale
 import java.util.logging.Logger
 
-class CenoLocationUtils constructor(app: Application) {
-    private val appContext: Context
+class CenoLocationUtils(app: Application) {
+    private val appContext: Context = app.applicationContext
 
     /**
      * This guesses the current country from the first of these sources that
@@ -60,9 +60,5 @@ class CenoLocationUtils constructor(app: Application) {
         private val LOG = Logger.getLogger(
             CenoLocationUtils::class.java.name
         )
-    }
-
-    init {
-        appContext = app.applicationContext
     }
 }

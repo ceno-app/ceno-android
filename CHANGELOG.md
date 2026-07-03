@@ -5,7 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.9.3 - 2026-06-11
+## v2.10.0 - Unreleased
+
+### Added
+
+- Radio buttons for theme, clear button behavior, and DoH settings options
+
+### Fixed
+
+- 300+ warnings in source code were addressed, remaining warnings added to detekt-baseline.xml
+- Backing out of Bookmarks directories would send you to homepage instead of up a directory level
+- Changing option that required restarting of Ceno Network Service would result in service never
+  being restarted, fixed by updating Ouinet library
+
+### Changed
+
+- Applied consistent code style formatting to source code
+- Update Android-Components to v152.0.4
+- Update Ouinet to v1.6.8
+
+## [v2.9.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.3) - 2026-06-11
 
 ### Fixed
 

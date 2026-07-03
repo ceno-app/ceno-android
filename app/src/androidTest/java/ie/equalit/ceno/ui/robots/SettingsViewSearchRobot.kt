@@ -41,15 +41,21 @@ private fun searchUpButton() = Espresso.onView(ViewMatchers.withContentDescripti
 
 private fun searchSettingsView() = Espresso.onView(ViewMatchers.withText("Choose search engine"))
 
-private fun getSearchSuggestionsToggle() = Espresso.onView(ViewMatchers.withText("Get search suggestions"))
-private fun searchSuggestionsSummary() = Espresso.onView(ViewMatchers.withText("Ceno will send what you type in the address bar to your search engine"))
+private fun getSearchSuggestionsToggle() =
+    Espresso.onView(ViewMatchers.withText("Get search suggestions"))
+
+private fun searchSuggestionsSummary() =
+    Espresso.onView(ViewMatchers.withText("Ceno will send what you type in the address bar to your search engine"))
+
 private fun assertSearchUpButton() {
     mDevice.wait(Until.findObject(By.text("Navigate up")), TestAssetHelper.waitingTimeShort)
 }
+
 private fun assertSearchSettingsView() = searchSettingsView()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertGetSearchSuggestionsToggle() = getSearchSuggestionsToggle()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
 private fun assertSearchSuggestionsSummary() = searchSuggestionsSummary()
     .check(ViewAssertions.matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

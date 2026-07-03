@@ -5,10 +5,10 @@
 package ie.equalit.ceno.home.topsites
 
 import android.content.Context
+import ie.equalit.ceno.R
 import mozilla.components.browser.menu.BrowserMenuBuilder
 import mozilla.components.browser.menu.item.SimpleBrowserMenuItem
 import mozilla.components.feature.top.sites.TopSite
-import ie.equalit.ceno.R
 
 /**
  * Helper class for building a context menu for a top site item.
@@ -62,27 +62,6 @@ class TopSiteItemMenu(
             } else {
                 null
             },
-            /* CENO: There are currently no provided sites in CENO */
-            /*
-            if (isProvidedSite) {
-                SimpleBrowserMenuItem(
-                    context.getString(R.string.top_sites_menu_settings)
-                ) {
-                    onItemTapped.invoke(Item.Settings)
-                }
-            } else {
-                null
-            },
-            if (isProvidedSite) {
-                SimpleBrowserMenuItem(
-                    context.getString(R.string.top_sites_menu_sponsor_privacy)
-                ) {
-                    onItemTapped.invoke(Item.SponsorPrivacy)
-                }
-            } else {
-                null
-            }
-             */
         )
     }
 }

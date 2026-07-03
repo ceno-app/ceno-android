@@ -6,11 +6,6 @@ package ie.equalit.ceno.ui
 
 import android.os.Build
 import androidx.test.filters.SdkSuppress
-import okhttp3.mockwebserver.MockWebServer
-import org.junit.After
-import org.junit.Before
-import org.junit.Rule
-import org.junit.Test
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
@@ -19,6 +14,11 @@ import ie.equalit.ceno.ui.robots.browser
 import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import ie.equalit.ceno.ui.robots.standby
+import okhttp3.mockwebserver.MockWebServer
+import org.junit.After
+import org.junit.Before
+import org.junit.Rule
+import org.junit.Test
 
 class ContextMenusTest {
 
@@ -132,9 +132,10 @@ class ContextMenusTest {
         navigationToolbar {
         }.enterUrlAndEnterToBrowser(pageLinks.url) {
             longClickMatchingText("Link 1")
-        }.clickContextShareLink {
-            verifyShareContentPanel()
         }
+            .clickContextShareLink {
+                verifyShareContentPanel()
+            }
     }
 
     @SdkSuppress(minSdkVersion = 31)

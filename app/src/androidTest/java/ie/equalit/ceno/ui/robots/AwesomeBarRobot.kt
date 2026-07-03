@@ -14,19 +14,21 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withSubstring
 import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiSelector
-import junit.framework.Assert.assertTrue
-import org.hamcrest.CoreMatchers.allOf
 import ie.equalit.ceno.R
 import ie.equalit.ceno.helpers.Constants.LONG_CLICK_DURATION
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.helpers.TestHelper.packageName
+import junit.framework.Assert.assertTrue
+import org.hamcrest.CoreMatchers.allOf
 
 /**
  * Implementation of Robot Pattern for awesomebar.
  */
 class AwesomeBarRobot {
 
-    fun verifySearchSuggestion(searchSuggestionTitle: String) = assertSearchSuggestion(searchSuggestionTitle)
+    fun verifySearchSuggestion(searchSuggestionTitle: String) =
+        assertSearchSuggestion(searchSuggestionTitle)
+
     fun verifyLinkFromClipboard(clipboardLink: String) = assertLinkFromClipboard(clipboardLink)
     fun verifyPastedToolbarText(expectedText: String) = assertPastedToolbarText(expectedText)
     fun verifyAwesomeBarExists() = assertAwesomeBarExists()
@@ -35,7 +37,8 @@ class AwesomeBarRobot {
         mDevice.findObject(
             UiSelector()
                 .textContains("Search or enter address"),
-        ).waitForExists(waitingTime)
+        )
+            .waitForExists(waitingTime)
         awesomeBar().setText(searchTerm)
     }
 
@@ -54,10 +57,12 @@ class AwesomeBarRobot {
 
     fun clickPasteText() {
         // Click again Copy from the text selection toolbar
-        mDevice.findObject(UiSelector().textContains("Paste")).waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains("Paste"))
+            .waitForExists(waitingTime)
         var pasteText = mDevice.findObject(By.textContains("Paste"))
         if (pasteText == null) {
-            mDevice.findObject(UiSelector().textContains("PASTE")).waitForExists(waitingTime)
+            mDevice.findObject(UiSelector().textContains("PASTE"))
+                .waitForExists(waitingTime)
             pasteText = mDevice.findObject(By.textContains("PASTE"))
         }
         pasteText.click()
@@ -84,8 +89,12 @@ class AwesomeBarRobot {
             return NavigationToolbarRobot.Transition()
         }
 
-        fun clickSearchSuggestion(searchSuggestionTitle: String, interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
-            val searchSuggestion = mDevice.findObject(UiSelector().textContains(searchSuggestionTitle))
+        fun clickSearchSuggestion(
+            searchSuggestionTitle: String,
+            interact: BrowserRobot.() -> Unit
+        ): BrowserRobot.Transition {
+            val searchSuggestion =
+                mDevice.findObject(UiSelector().textContains(searchSuggestionTitle))
             searchSuggestion.clickAndWaitForNewWindow()
 
             BrowserRobot().interact()

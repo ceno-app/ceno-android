@@ -6,8 +6,8 @@ package ie.equalit.ceno.helpers
 
 import androidx.test.espresso.IdlingResource
 import androidx.test.platform.app.InstrumentationRegistry
-import mozilla.components.browser.state.selector.selectedTab
 import ie.equalit.ceno.BrowserApplication
+import mozilla.components.browser.state.selector.selectedTab
 
 /**
  * An IdlingResource implementation that waits until the current session is not loading anymore.
@@ -23,7 +23,7 @@ class SessionLoadedIdlingResource : IdlingResource {
 
     override fun isIdleNow(): Boolean {
         val context = InstrumentationRegistry.getInstrumentation().targetContext.applicationContext
-            as BrowserApplication
+                as BrowserApplication
 
         val store = context.components.core.store
 
