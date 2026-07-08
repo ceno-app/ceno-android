@@ -1,0 +1,8 @@
+### Изменено
+
+- Обновлены компоненты Android до версии v150.0.3
+- Обновлен модуль управления разрешениями для классов downloadsPermissions, promptsPermissions и sitePermissions
+- Для декодера JSON установлены значения ignoreUnknownKeys = true и explicitNulls = false
+- Обновлен Ouinet до версии v1.6.7
+- Обновлены переводы для различных локалей
+- Удалены разрешения READ_MEDIA_IMAGES и READ_MEDIA_VIDEO
