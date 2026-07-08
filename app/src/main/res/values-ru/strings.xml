@@ -477,4 +477,7 @@
     <string name="preferences_secure_screen_summary">Эта функция скрывает Ceno при переключении приложений и запрещает скриншоты</string>
     <string name="preferences_secure_screen_personal">Только в личном режиме</string>
     <string name="preferences_secure_screen_personal_summary">Защита экрана включена только во время использования личного режима</string>
+    <string name="dns_protocol_only_system">Использовать только системный DNS</string>
+    <string name="dns_protocol_only_over_https">Использовать только DNS-over-HTTPS</string>
+    <string name="dns_category">DNS Протокол</string>
 </resources>
