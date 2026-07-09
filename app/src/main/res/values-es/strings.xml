@@ -453,4 +453,5 @@
     <string name="warning_public_website_sources_disabled">Todos los orígenes necesarios para explorar en modo público están inhabilitadas; la navegación por web es posible solo en el modo personal</string>
     <string name="warning_personal_website_sources_disabled">Todos los orígenes necesarios para explorar en modo personal están inhabilitadas, la navegación web es posible solo en modo público</string>
     <string name="dns_protocol_only_system">Solo utilice el DNS del sistema</string>
+    <string name="dns_protocol_only_over_https">Solo utilice DNS-over-HTTPS</string>
 </resources>
