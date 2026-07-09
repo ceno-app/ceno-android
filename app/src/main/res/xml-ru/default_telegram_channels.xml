@@ -1,0 +1,91 @@
+<telegram_channels xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <channel>
+        <title stringRes="default_channel_1_title">agentstvonews</title>
+        <url>https://tg.ceno.app/ru/agentstvonews/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_2_title">ArkHelps</title>
+        <url>https://tg.ceno.app/ru/ArkHelps/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_3_title">asiansofrussia</title>
+        <url>https://tg.ceno.app/ru/asiansofrussia/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_4_title">cenochannel</title>
+        <url>https://tg.ceno.app/ru/cenochannel/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_5_title">CorruptionTV</title>
+        <url>https://tg.ceno.app/ru/CorruptionTV/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_6_title">deptone</title>
+        <url>https://tg.ceno.app/ru/deptone/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_7_title">eschulmann</title>
+        <url>https://tg.ceno.app/ru/eschulmann/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_8_title">femagainstwar</title>
+        <url>https://tg.ceno.app/ru/femagainstwar/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_9_title">freeburyatiafoundation</title>
+        <url>https://tg.ceno.app/ru/freeburyatiafoundation/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_10_title">iditelesom_help</title>
+        <url>https://tg.ceno.app/ru/iditelesom_help/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_11_title">kedr_media</title>
+        <url>https://tg.ceno.app/ru/kedr_media/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_12_title">kosa_media</title>
+        <url>https://tg.ceno.app/ru/kosa_media/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_13_title">meduzalive</title>
+        <url>https://tg.ceno.app/ru/meduzalive/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_14_title">no_torture</title>
+        <url>https://tg.ceno.app/ru/no_torture/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_15_title">novaya_pishet</title>
+        <url>https://tg.ceno.app/ru/novaya_pishet/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_16_title">ovdinfo</title>
+        <url>https://tg.ceno.app/ru/ovdinfo/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_17_title">parniplus_com</title>
+        <url>https://tg.ceno.app/ru/parniplus_com/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_18_title">peaceplea</title>
+        <url>https://tg.ceno.app/ru/peaceplea/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_19_title">russianlgbtnet</title>
+        <url>https://tg.ceno.app/ru/russianlgbtnet/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_20_title">spherequeer</title>
+        <url>https://tg.ceno.app/ru/spherequeer/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_21_title">truestorymedia</title>
+        <url>https://tg.ceno.app/ru/truestorymedia/</url>
+    </channel>
+    <channel>
+        <title stringRes="default_channel_22_title">zatelecom</title>
+        <url>https://tg.ceno.app/ru/zatelecom/</url>
+    </channel>
+</telegram_channels>

@@ -1,0 +1,7 @@
+<telegram_channels xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <channel>
+        <title stringRes="default_channel_1_title">aljazeeraenglishnews</title>
+        <url>https://tg.ceno.app/en/aljazeeraenglishnews/</url>
+    </channel>
+</telegram_channels>
