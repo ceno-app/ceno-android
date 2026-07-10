@@ -426,7 +426,7 @@
     <string name="pin_unpin_to_cache_failed">خطا! به‌روزرسانی حافظه پنهان ناموفق بود.</string>
     <string name="preferences_hide_ouicrawl_feed">پنهان کردن فید رسانه‌های آزاد</string>
     <string name="preferences_ouinet_enable_doh">استفاده از DNS بر روی HTTPS</string>
-    <string name="updating_doh_dialog_title">به‌روزرسانی تنظیمات DNS بر روی HTTPS</string>
+    <string name="updating_doh_dialog_title">به‌روزرسانی تنظیمات پروتکل DNS</string>
     <string name="last_2_hours">۲ ساعت گذشته</string>
     <string name="preferences_test_metrics">داده‌های آماری آزمایشی سنو</string>
     <string name="test_metrics_submitting">در حال ارسال داده آماری آزمایشی</string>
@@ -444,4 +444,8 @@
     <string name="warning_all_website_sources_disabled">همه منابع وب‌سایت غیرفعال هستند. برای ادامه مرور وب، لطفا حداقل یکی از منابع را فعال کنید</string>
     <string name="warning_public_website_sources_disabled">تمام منابع لازم برای مرور در حالت عمومی غیرفعال شده‌اند؛ مرور وب فقط در حالت شخصی امکان‌پذیر است</string>
     <string name="warning_personal_website_sources_disabled">تمام منابع لازم برای مرور در حالت شخصی غیرفعال شده‌اند؛ مرور وب فقط در حالت عمومی امکان‌پذیر است</string>
+    <string name="dns_protocol_only_system">فقط از دی ان اس سیستم استفاده کن</string>
+    <string name="dns_protocol_only_over_https">فقط از DNS روی HTTPS استفاده کنید</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS روی HTTPS با قابلیت بازگشت به DNS سیستم</string>
+    <string name="dns_category">پروتکل دی ان اس</string>
 </resources>
