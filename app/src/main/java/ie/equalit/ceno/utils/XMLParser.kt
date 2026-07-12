@@ -2,6 +2,7 @@ package ie.equalit.ceno.utils
 
 import android.content.Context
 import android.content.res.XmlResourceParser
+import androidx.compose.ui.res.stringResource
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem
@@ -194,6 +195,74 @@ object XMLParser {
                             "topsite" -> {
                                 topsiteItems.add(
                                     Pair(currentTopsiteTitle, currentTopsiteUrl)
+                                )
+                            }
+
+                            else -> {}
+                        }
+                    }
+                }
+            }
+            return topsiteItems
+        } catch (_: XmlPullParserException) {
+            return null
+        }
+    }
+
+
+    fun parseTelegramChannelsXml(
+        parser: XmlResourceParser,
+        context: Context
+    ): MutableList<Pair<String, String>>? {
+
+        try {
+            var currentTelegramChannel = ""
+            var currentChannelTitle = ""
+            val topsiteItems = mutableListOf<Pair<String, String>>()
+
+            var tag = ""
+            var isTitleFromAttribute = false
+
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                when (parser.eventType) {
+                    XmlPullParser.START_TAG -> {
+                        tag = parser.name
+                        when (tag) {
+                            "channel" -> {
+                                currentChannelTitle = ""
+                                currentTelegramChannel = ""
+                            }
+
+                            "title" -> {
+                                if (parser.attributeCount > 0) {
+                                    val stringResource = parser.getAttributeResourceValue(0, 0)
+                                    currentChannelTitle = context.getString(stringResource)
+                                    isTitleFromAttribute = true
+                                }
+                            }
+                        }
+                    }
+
+                    XmlPullParser.TEXT -> {
+                        when (tag) {
+                            "channel" -> {
+                                if (!isTitleFromAttribute)
+                                    currentChannelTitle = parser.text.trim()
+                                isTitleFromAttribute = false
+                            }
+
+                            "url" -> {
+                                currentTelegramChannel = parser.text.trim()
+                            }
+                        }
+                    }
+
+                    XmlPullParser.END_TAG -> {
+                        tag = ""
+                        when (parser.name) {
+                            "channel" -> {
+                                topsiteItems.add(
+                                    Pair(currentChannelTitle, currentTelegramChannel)
                                 )
                             }
 

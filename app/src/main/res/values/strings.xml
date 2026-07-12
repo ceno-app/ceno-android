@@ -501,4 +501,43 @@
     <string name="dns_protocol_only_over_https">Use only DNS-over-HTTPS</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS with fallback to system DNS</string>
     <string name="dns_category">DNS Protocol</string>
+
+    <!-- telegram channels (en) -->
+    <string name="default_channel_1_title">aljazeeraenglishnews</string>
+    <!-- telegram channels (ir) -->
+    <string name="default_channel_1_title_ir">bbcpersion</string>
+    <string name="default_channel_2_title_ir">euronewspe</string>
+    <string name="default_channel_3_title_ir">Farsi_Iranwire</string>
+    <string name="default_channel_4_title_ir">Hengaw_Org</string>
+    <string name="default_channel_5_title_ir">hranews</string>
+    <string name="default_channel_6_title_ir">IranintlTV</string>
+    <string name="default_channel_7_title_ir">ManotoTV</string>
+    <string name="default_channel_8_title_ir">paskoocheh</string>
+    <string name="default_channel_9_title_ir">radiofarda</string>
+    <string name="default_channel_10_title_ir">tavaanatech</string>
+    <string name="default_channel_11_title_ir">VahidOnline</string>
+    <!-- telegram channels (ru) -->
+    <string name="default_channel_1_title_ru">agentstvonews</string>
+    <string name="default_channel_2_title_ru">ArkHelps</string>
+    <string name="default_channel_3_title_ru">asiansofrussia</string>
+    <string name="default_channel_4_title_ru">cenochannel</string>
+    <string name="default_channel_5_title_ru">CorruptionTV</string>
+    <string name="default_channel_6_title_ru">deptone</string>
+    <string name="default_channel_7_title_ru">eschulmann</string>
+    <string name="default_channel_8_title_ru">femagainstwar</string>
+    <string name="default_channel_9_title_ru">freeburyatiafoundation</string>
+    <string name="default_channel_10_title_ru">iditelesom_help</string>
+    <string name="default_channel_11_title_ru">kedr_media</string>
+    <string name="default_channel_12_title_ru">kosa_media</string>
+    <string name="default_channel_13_title_ru">meduzalive</string>
+    <string name="default_channel_14_title_ru">no_torture</string>
+    <string name="default_channel_15_title_ru">novaya_pishet</string>
+    <string name="default_channel_16_title_ru">ovdinfo</string>
+    <string name="default_channel_17_title_ru">parniplus_com</string>
+    <string name="default_channel_18_title_ru">peaceplea</string>
+    <string name="default_channel_19_title_ru">russianlgbtnet</string>
+    <string name="default_channel_20_title_ru">spherequeer</string>
+    <string name="default_channel_21_title_ru">truestorymedia</string>
+    <string name="default_channel_22_title_ru">zatelecom</string>
+    <string name="default_telegram_channel">https://tg.ceno.app</string>
 </resources>

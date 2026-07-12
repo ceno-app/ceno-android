@@ -1,47 +1,47 @@
 <telegram_channels xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <channel>
-        <title stringRes="default_channel_1_title">bbcpersion</title>
+        <title stringRes="@string/default_channel_1_title_ir">bbcpersion</title>
         <url>https://tg.ceno.app/ir/bbcpersian/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_2_title">euronewspe</title>
+        <title stringRes="@string/default_channel_2_title_ir">euronewspe</title>
         <url>https://tg.ceno.app/ir/euronewspe/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_3_title">Farsi_Iranwire</title>
+        <title stringRes="@string/default_channel_3_title_ir">Farsi_Iranwire</title>
         <url>https://tg.ceno.app/ir/Farsi_Iranwire/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_4_title">Hengaw_Org</title>
+        <title stringRes="@string/default_channel_4_title_ir">Hengaw_Org</title>
         <url>https://tg.ceno.app/ir/Hengaw_Org/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_5_title">hranews</title>
+        <title stringRes="@string/default_channel_5_title_ir">hranews</title>
         <url>https://tg.ceno.app/ir/hranews/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_6_title">IranintlTV</title>
+        <title stringRes="@string/default_channel_6_title_ir">IranintlTV</title>
         <url>https://tg.ceno.app/ir/IranintlTV/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_7_title">ManotoTV</title>
+        <title stringRes="@string/default_channel_7_title_ir">ManotoTV</title>
         <url>https://tg.ceno.app/ir/ManotoTV/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_8_title">paskoocheh</title>
+        <title stringRes="@string/default_channel_8_title_ir">paskoocheh</title>
         <url>https://tg.ceno.app/ir/paskoocheh/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_9_title">radiofarda</title>
+        <title stringRes="@string/default_channel_9_title_ir">radiofarda</title>
         <url>https://tg.ceno.app/ir/>radiofarda/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_10_title">tavaanatech</title>
+        <title stringRes="@string/default_channel_10_title_ir">tavaanatech</title>
         <url>https://tg.ceno.app/ir/tavaanatech/</url>
     </channel>
     <channel>
-        <title stringRes="default_channel_11_title">VahidOnline</title>
+        <title stringRes="@string/default_channel_11_title_ir">VahidOnline</title>
         <url>https://tg.ceno.app/ir/VahidOnline/</url>
     </channel>
 </telegram_channels>
