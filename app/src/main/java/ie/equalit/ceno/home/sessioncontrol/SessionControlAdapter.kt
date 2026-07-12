@@ -37,6 +37,7 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.SECTION_HEADER.value -> R.layout.home_section_header_layout
             HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD.value ->
                 R.layout.component_telegram_top_sites_pager
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
@@ -93,7 +94,7 @@ class SessionControlAdapter internal constructor(
             }
 
             is TopSitePagerViewHolder -> {
-                if(getItemViewType(position) == TopSitePagerViewHolder.telegramChannelType.value)
+                if (getItemViewType(position) == TopSitePagerViewHolder.telegramChannelType.value)
                     holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
                 else holder.bind((item as AdapterItem.TopSitePager).topSites)
             }
