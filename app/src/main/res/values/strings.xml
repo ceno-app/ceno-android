@@ -540,4 +540,5 @@
     <string name="default_channel_21_title_ru">truestorymedia</string>
     <string name="default_channel_22_title_ru">zatelecom</string>
     <string name="default_telegram_channel">https://tg.ceno.app</string>
+    <string name="telegram_topsites_title">Telegram</string>
 </resources>

@@ -111,6 +111,56 @@ sealed class AdapterItem(val type: HomepageCardType) {
     }
 
     /**
+     * Copied from TopSitePager
+     */
+    data class TelegramChannelsTopSitePager(val topSites: List<TopSite>) :
+        AdapterItem(TopSitePagerViewHolder.telegramChannelType) {
+        override fun sameAs(other: AdapterItem): Boolean {
+            return other is TopSitePager
+        }
+
+        override fun contentsSameAs(other: AdapterItem): Boolean {
+            val newTopSites = (other as? TopSitePager) ?: return false
+            if (newTopSites.topSites.size != this.topSites.size) return false
+            val newSitesSequence = newTopSites.topSites.asSequence()
+            val oldTopSites = this.topSites.asSequence()
+            return newSitesSequence.zip(oldTopSites)
+                .all { (new, old) -> new == old }
+        }
+
+        /**
+         * Returns a payload if there's been a change, or null if not, but adds a "dummy" item for
+         * each deleted [TopSite]. This is done in order to more easily identify the actual views
+         * that need to be removed in [TopSitesPagerAdapter.update].
+         *
+         * See https://github.com/mozilla-mobile/fenix/pull/20189#issuecomment-877124730
+         */
+        @Suppress("ComplexCondition")
+        override fun getChangePayload(newItem: AdapterItem): Any? {
+            val newTopSites = (newItem as? TopSitePager)
+            val oldTopSites = this
+
+            if (newTopSites == null || newTopSites.topSites.size > oldTopSites.topSites.size ||
+                ((newTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE)
+                        != (oldTopSites.topSites.size > TopSitePagerViewHolder.TOP_SITES_PER_PAGE))
+            ) {
+                return null
+            }
+
+            val changed = mutableSetOf<Pair<Int, TopSite>>()
+
+            for ((index, item) in oldTopSites.topSites.withIndex()) {
+                val changedItem =
+                    newTopSites.topSites.getOrNull(index) ?: TopSite.Frecent(-1, "REMOVED", "", 0)
+                if (changedItem != item) {
+                    changed.add((Pair(index, changedItem)))
+                }
+            }
+            return if (changed.isNotEmpty()) TopSitePagerPayload(changed) else null
+        }
+    }
+
+    /**
      * True if this item represents the same value as other. Used by [AdapterItemDiffCallback].
      */
     open fun sameAs(other: AdapterItem) = this::class == other::class

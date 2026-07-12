@@ -63,7 +63,7 @@ internal fun normalModeAdapterItems(
     }
 
     if (telegramChannels.isNotEmpty()) {
-        items.add(AdapterItem.TopSitePager(telegramChannels))
+        items.add(AdapterItem.TelegramChannelsTopSitePager(telegramChannels))
     }
 
     if (!hideOuicrawlFeed && ouicrawlSites != null) {

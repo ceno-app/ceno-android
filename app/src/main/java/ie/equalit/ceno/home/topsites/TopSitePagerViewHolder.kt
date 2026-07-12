@@ -67,6 +67,7 @@ class TopSitePagerViewHolder(
 
     companion object {
         val homepageCardType = HomepageCardType.TOPSITES_CARD
+        val telegramChannelType = HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD
         const val TOP_SITES_MAX_PAGE_SIZE = 2
         const val TOP_SITES_PER_PAGE = 8
     }

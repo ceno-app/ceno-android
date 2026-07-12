@@ -35,6 +35,8 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_announcement_item
             HomepageCardType.OUICRAWLED_SITE_CARD.value -> R.layout.home_ouicraw_site_item
             HomepageCardType.SECTION_HEADER.value -> R.layout.home_section_header_layout
+            HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD.value ->
+                R.layout.component_telegram_top_sites_pager
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
@@ -44,7 +46,8 @@ class SessionControlAdapter internal constructor(
             TopPlaceholderViewHolder.homepageCardType.value -> TopPlaceholderViewHolder(view)
             CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
             CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view, interactor)
-            TopSitePagerViewHolder.homepageCardType.value -> TopSitePagerViewHolder(
+            TopSitePagerViewHolder.homepageCardType.value,
+            TopSitePagerViewHolder.telegramChannelType.value -> TopSitePagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
@@ -90,7 +93,9 @@ class SessionControlAdapter internal constructor(
             }
 
             is TopSitePagerViewHolder -> {
-                holder.bind((item as AdapterItem.TopSitePager).topSites)
+                if(getItemViewType(position) == TopSitePagerViewHolder.telegramChannelType.value)
+                    holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
+                else holder.bind((item as AdapterItem.TopSitePager).topSites)
             }
 
             is CenoMessageViewHolder -> {
