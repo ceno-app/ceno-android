@@ -1,0 +1,18 @@
+
+### Fixed
+
+- Crash triggered if Ouinet status is missing metrics_delete_after key/value
+
+### Changed
+
+- Updated build system to strip Mozilla debug logs from release builds
+- Moved settings options related to opening links to permissions subsection of main settings page
+- Update Android-Components to v152.0.6
+- Update Ouinet to v1.6.9
+- Update uBlock Origin to 1.72.2
+- Update translations for various locales
+
+## [v2.10.0](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.10.0) - 2026-07-06
+## [v2.0.0a2](https://gitlab.com/ceno-app/ceno-android/-/tags/v2.0.0a2) - 2022-10-19
+
+- See changes [v2.0.0a2..v2.0.0a2](https://gitlab.com/ceno-app/ceno-android/-/compare/v2.0.0a1..v2.0.0a2)
