@@ -37,7 +37,6 @@
     <string name="dialog_cancel">Cancelar</string>
     <string name="top_sites_sponsored_label">Patrocinado</string>
     <string name="browser_menu_refresh">Atualizar</string>
-    <string name="preferences_add_ons">Extensões</string>
     <string name="browser_menu_add_to_homescreen">Adicionar ao ecrã inicial</string>
     <string name="browser_menu_remove_from_shortcuts">Remover dos atalhos</string>
     <string name="shortcut_max_limit_content">Remova um atalho para adicionar um novo. Toque e segure o atalho, então selecione \"Remover\".</string>

@@ -75,9 +75,6 @@ class SettingsViewTest {
                 verifyCustomizationSummary()
 
                 clickDownRecyclerView(1)
-                verifyOpenLinksInApps()
-
-                clickDownRecyclerView(1)
                 verifyMakeDefaultBrowserButton()
 
                 clickDownRecyclerView(1)
@@ -96,16 +93,22 @@ class SettingsViewTest {
                 clickDownRecyclerView(1)
                 verifyChangeLanguageButton()
 
+                clickDownRecyclerView(1)
+                verifyPermissionHeading()
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-                    clickDownRecyclerView(2)
-                    verifyPermissionHeading()
+                    clickDownRecyclerView(1)
                     Thread.sleep(5000)
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                         verifyAllowNotification()
                         clickDownRecyclerView(1)
                     }
                     verifyDisableBatteryOptimization()
+                    clickDownRecyclerView(1)
                 }
+                verifyOpenLinksInApps()
+
+                clickDownRecyclerView(1)
+                verifyWarnOpeningUrlsFromApps()
 
                 clickDownRecyclerView(2)
                 verifyDataHeading()
@@ -211,6 +214,7 @@ class SettingsViewTest {
         }.openThreeDotMenu {
         }
             .openSettings {
+                clickDownRecyclerView(13)
                 verifyOpenLinksInApps()
                 clickOpenLinksInApps()
             }
@@ -232,7 +236,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(16)
+                clickDownRecyclerView(17)
                 Thread.sleep(5000)
             }
             .openSettingsViewSources {
@@ -256,7 +260,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(18)
+                clickDownRecyclerView(19)
                 verifyCenoNetworkDetailsButton()
                 Thread.sleep(5000)
             }
@@ -292,7 +296,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(24)
+                clickDownRecyclerView(25)
                 verifyCenoVersionDisplay()
                 for (i in 0..8) {
                     clickCenoVersionDisplay()
@@ -350,7 +354,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(20)
+                clickDownRecyclerView(21)
                 Thread.sleep(5000)
                 verifyEnableLogFile()
                 clickEnableLogFile()
@@ -376,7 +380,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(20)
+                clickDownRecyclerView(21)
                 Thread.sleep(5000)
                 verifyEnableLogFile()
                 clickEnableLogFile()
@@ -405,7 +409,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(20)
+                clickDownRecyclerView(21)
                 Thread.sleep(5000)
                 verifyEnableLogFile()
                 clickEnableLogFile()
@@ -466,7 +470,7 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(11)
+                clickDownRecyclerView(12)
                 Thread.sleep(2000)
                 verifyBackgroundMetricsButton()
             }
