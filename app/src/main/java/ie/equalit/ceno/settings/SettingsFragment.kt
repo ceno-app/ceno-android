@@ -320,7 +320,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         } else {
             getPreference(pref_key_disable_battery_opt)?.isVisible = false
-            getPreferenceCategory(R.string.pref_permissions_category)?.isVisible = false
         }
     }
 
