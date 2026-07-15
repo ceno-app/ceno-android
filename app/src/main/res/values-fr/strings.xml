@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">Suivant</string>
     <string name="browser_menu_refresh">Actualiser</string>
     <string name="browser_menu_stop">Arrêter</string>
-    <string name="preferences_add_ons">Modules complémentaires</string>
     <string name="browser_menu_settings">Paramètres</string>
     <string name="browser_menu_desktop_site">Demander la version pour ordinateur</string>
     <string name="browser_menu_add_to_homescreen">Ajouter à l’écran d’accueil</string>

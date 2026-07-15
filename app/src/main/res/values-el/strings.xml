@@ -60,7 +60,6 @@
     <string name="private_browsing_title">Ιδιωτική περιήγηση</string>
     <string name="menu_share_with">Κοινή χρήση με…</string>
     <string name="bookmark_menu_open_in_private_tab_button">Άνοιγμα σε ιδιωτική καρτέλα</string>
-    <string name="preferences_add_ons">Πρόσθετα</string>
     <string name="menu_action_add_tab">Προσθήκη νέας καρτέλας</string>
     <string name="preferences_remote_debugging">Απομακρυσμένη αποσφαλμάτωση μέσω USB</string>
     <string name="browser_menu_forward">Εμπρός</string>

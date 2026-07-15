@@ -36,7 +36,6 @@
     <string name="browser_menu_refresh">Yenile</string>
     <string name="browser_menu_back">Geri</string>
     <string name="browser_menu_stop">Durdur</string>
-    <string name="preferences_add_ons">Eklentiler</string>
     <string name="delete_browsing_data_prompt_allow">Sil</string>
     <string name="preferences_delete_browsing_data_snackbar">Gezinme verileri silindi</string>
     <string name="preferences_delete_browsing_data_browsing_data_title">Gezinme geçmişi ve site verileri</string>
@@ -419,7 +418,7 @@
     <string name="pin_unpin_to_cache_failed">Hata! Önbellek güncellemesi başarısız oldu.</string>
     <string name="preferences_hide_ouicrawl_feed">Ücretsiz Medya beslemesini gizle</string>
     <string name="preferences_ouinet_enable_doh">HTTPS üzerinden DNS kullanın</string>
-    <string name="updating_doh_dialog_title">HTTPS üzerinden DNS ayarlarını güncelleme</string>
+    <string name="updating_doh_dialog_title">DNS Protokol ayarlarını güncelleme</string>
     <string name="preferences_test_metrics">Ceno Ölçümlerini Test Et</string>
     <string name="test_metrics_submitting">Test ölçümü gönderiliyor</string>
     <string name="test_metrics_dialog_success">Test ölçümü yerel istemciye gönderildi</string>
@@ -437,4 +436,8 @@
     <string name="warning_all_website_sources_disabled">Web sitesinin tüm kaynakları devre dışı bırakılmıştır. Web\'de gezinmeye devam etmek için lütfen en az bir kaynağı etkinleştirin</string>
     <string name="warning_public_website_sources_disabled">Herkese açık modda gezinmek için gerekli tüm kaynaklar devre dışı bırakılmıştır; Web\'de gezinme yalnızca kişisel modda mümkündür</string>
     <string name="warning_personal_website_sources_disabled">Kişisel modda gezinmek için gerekli tüm kaynaklar devre dışı bırakılmıştır; Web\'de gezinme yalnızca genel modda mümkündür</string>
+    <string name="dns_protocol_only_system">Sadece sistem DNS\'ini kullan</string>
+    <string name="dns_category">DNS Protokolü</string>
+    <string name="dns_protocol_only_over_https">Yalnızca HTTPS üzerinden DNS kullan</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">Sistem DNS\'ine geri dönüş özellikli HTTPS üzerinden DNS</string>
 </resources>

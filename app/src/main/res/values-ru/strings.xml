@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">Вперёд</string>
     <string name="browser_menu_refresh">Обновить</string>
     <string name="browser_menu_stop">Остановить</string>
-    <string name="preferences_add_ons">Расширения</string>
     <string name="browser_menu_settings">Параметры</string>
     <string name="browser_menu_desktop_site">Версия для ПК</string>
     <string name="browser_menu_add_to_homescreen">Добавить на гл. экран</string>
@@ -477,4 +476,7 @@
     <string name="preferences_secure_screen_summary">Эта функция скрывает Ceno при переключении приложений и запрещает скриншоты</string>
     <string name="preferences_secure_screen_personal">Только в личном режиме</string>
     <string name="preferences_secure_screen_personal_summary">Защита экрана включена только во время использования личного режима</string>
+    <string name="dns_protocol_only_system">Использовать только системный DNS</string>
+    <string name="dns_protocol_only_over_https">Использовать только DNS-over-HTTPS</string>
+    <string name="dns_category">DNS Протокол</string>
 </resources>
