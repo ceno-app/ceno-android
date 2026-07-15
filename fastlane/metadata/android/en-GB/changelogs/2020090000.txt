@@ -1,0 +1,17 @@
+### Added
+
+- Prompt to be shown when external app requests to load a URL
+- Secure screen feature to hide view when app is in background and prevent screenshots
+- Warnings to be shown depending on which website sources are unchecked
+
+### Fixed
+
+- Search engine selection displayed incorrectly after change
+
+### Changed
+
+- Default list of shortcuts updated for RU and UA locales
+- Update Android-Components to v148.0.2
+- Update Ouinet to v1.6.4
+- Increase on-device retention of metrics records to a maximum of 30 days
+- Update version code generation of nightly builds to use Kotlin plugin

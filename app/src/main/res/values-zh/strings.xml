@@ -442,9 +442,12 @@
     <string name="test_metrics_submitting">提交测试指标</string>
     <string name="test_metrics_dialog_success">测试指标提交至本地客户端</string>
     <string name="test_metrics_dialog_failed">测试指标未提交到本地客户端</string>
-    <string name="updating_doh_dialog_title">更新基于HTTPS的DNS设置</string>
+    <string name="updating_doh_dialog_title">更新DNS协议设置</string>
     <string name="preferences_test_metrics">测试CENO指标</string>
     <string name="dialog_external_url_title">你确定要打开外部应用程序的链接（URL）吗？</string>
     <string name="preferences_verify_external_url">在打开其他应用的URL前显示警告</string>
     <string name="dialog_external_url_message">点击“继续”以打开下列URL -\n\n%1$s</string>
+    <string name="last_2_hours">还剩2小时</string>
+    <string name="warning_title">警告</string>
+    <string name="dns_protocol_only_system">仅仅使用系统DNS</string>
 </resources>
