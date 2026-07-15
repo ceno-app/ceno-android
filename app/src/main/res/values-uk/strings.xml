@@ -441,7 +441,7 @@
     <string name="pin_unpin_to_cache_failed">Помилка! Не вдалося оновити кеш.</string>
     <string name="preferences_hide_ouicrawl_feed">Приховати стрічку безкоштовних медіафайлів</string>
     <string name="preferences_ouinet_enable_doh">Використовувати DNS замість HTTPS</string>
-    <string name="updating_doh_dialog_title">Оновлення налаштувань DNS через HTTPS</string>
+    <string name="updating_doh_dialog_title">Оновлення налаштувань DNS Protocol</string>
     <string name="preferences_test_metrics">Тестування показників Ceno</string>
     <string name="test_metrics_submitting">Надсилання тестової метрики</string>
     <string name="test_metrics_dialog_success">Тестовий показник, надісланий локальному клієнту</string>
@@ -459,4 +459,8 @@
     <string name="warning_all_website_sources_disabled">Всі джерела вебсайту вимкнені. Будь-ласка увімкніть щонайменше одне джерело щоб продовжити переглядати веб сторінки</string>
     <string name="warning_public_website_sources_disabled">Всі потрібні джерела для перегляду в публічному режимі є вимкнені; Перегляд сторінок можливий тільки в персональному режимі</string>
     <string name="warning_personal_website_sources_disabled">Всі потрібні джерела для перегляду в публічному режимі є вимкнені; Перегляд сторінок можливий тільки в публічному режимі</string>
+    <string name="dns_protocol_only_system">Використовувати тільки системний DNS</string>
+    <string name="dns_protocol_only_over_https">Використовувати тільки DNS-over-HTTPS</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS з відкочуванням до системного DNS</string>
+    <string name="dns_category">DNS Протокол</string>
 </resources>
