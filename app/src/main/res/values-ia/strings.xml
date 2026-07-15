@@ -65,7 +65,6 @@
     <string name="preference_choose_search_engine">Seliger motor de recerca</string>
     <string name="setting_item_selected">%s seligite</string>
     <string name="set_default_search_engine">Definir le motor de recerca predeterminate</string>
-    <string name="preferences_add_ons">Additivos</string>
     <string name="preferences_delete_browsing_data_cookies">Cookies</string>
     <string name="preferences_delete_browsing_data_cached_files">Imagines e files in cache</string>
     <string name="delete_browsing_data_prompt_message_3">Ceno delera le datos de navigation seligite.</string>

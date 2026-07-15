@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">前进</string>
     <string name="browser_menu_refresh">刷新</string>
     <string name="browser_menu_stop">停止</string>
-    <string name="preferences_add_ons">附加组件</string>
     <string name="browser_menu_settings">设置</string>
     <string name="browser_menu_desktop_site">桌面版网站</string>
     <string name="browser_menu_add_to_homescreen">添加到主屏幕</string>

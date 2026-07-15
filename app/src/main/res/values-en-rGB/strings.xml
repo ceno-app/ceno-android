@@ -210,7 +210,6 @@
     <string name="delete_browsing_data_prompt_allow">Delete</string>
     <string name="delete_browsing_data_prompt_message_3">Ceno will delete the selected browsing data.</string>
     <string name="preference_select_preferred_engine">Select your preferred engine:</string>
-    <string name="preferences_add_ons">Add-ons</string>
     <string name="secure_connection">Connection is secure</string>
     <string name="insecure_connection">Connection is not secure</string>
     <string name="not_applicable">N/A</string>
