@@ -447,7 +447,7 @@
     <string name="pin_unpin_to_cache_failed">Erro! Atualização de cache falhou.</string>
     <string name="preferences_hide_ouicrawl_feed">Esconder Feed de Mídia Livre</string>
     <string name="preferences_ouinet_enable_doh">Usar DNS sobre HTTPS</string>
-    <string name="updating_doh_dialog_title">Atualizar DNS sobre configurações HTTPS</string>
+    <string name="updating_doh_dialog_title">Atualizando as configurações do protocolo DNS</string>
     <string name="test_metrics_dialog_failed">A métrica de teste não foi enviada ao cliente local</string>
     <string name="preferences_test_metrics">Teste de Métricas Ceno</string>
     <string name="test_metrics_submitting">Enviando métrica de teste</string>
@@ -465,4 +465,8 @@
     <string name="warning_all_website_sources_disabled">Todas as fontes do site estão desativadas. Ative pelo menos uma fonte para continuar navegando na web</string>
     <string name="warning_public_website_sources_disabled">Todas as fontes necessárias para navegar no modo público estão desativadas; a navegação na Web só é possível no modo pessoal</string>
     <string name="warning_personal_website_sources_disabled">Todas as fontes necessárias para navegar no modo privado estão desativadas; a navegação na Web só é possível no modo público</string>
+    <string name="dns_protocol_only_system">Use apenas o DNS do sistema</string>
+    <string name="dns_protocol_only_over_https">Use apenas DNS-over-HTTPS</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS com fallback para o DNS do sistema</string>
+    <string name="dns_category">Protocolo DNS</string>
 </resources>
