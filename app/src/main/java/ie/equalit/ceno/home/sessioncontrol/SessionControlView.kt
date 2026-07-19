@@ -51,11 +51,11 @@ internal fun normalModeAdapterItems(
 
     // TODO: Get the url from a more standard source (ask grant)
     val shortcutTopSites = topSites.filter {
-        !it.url.contains(telegramChannelsUrl)
+        !it.url.startsWith(telegramChannelsUrl)
     }
 
     val telegramChannels = topSites.filter {
-        it.url.contains(telegramChannelsUrl)
+        it.url.startsWith(telegramChannelsUrl)
     }
 
     if (shortcutTopSites.isNotEmpty()) {
