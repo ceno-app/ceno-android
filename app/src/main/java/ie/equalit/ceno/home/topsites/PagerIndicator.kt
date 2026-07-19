@@ -9,6 +9,8 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.LinearLayout
+import android.widget.Space
+import androidx.compose.foundation.layout.Spacer
 import ie.equalit.ceno.R
 
 /**
@@ -53,6 +55,18 @@ class PagerIndicator : LinearLayout {
                     }
                 }
             )
+            if(!isLast) {
+                addView(Space(context),
+                    LayoutParams(
+                        dpToPx(DOT_SIZE_IN_DP),
+                        dpToPx(DOT_SIZE_IN_DP)
+                    ).apply {
+                        if (!isLast) {
+                            MarginLayoutParams(this).marginEnd = dpToPx(DOT_MARGIN)
+                        }
+                    }
+                )
+            }
         }
     }
 
