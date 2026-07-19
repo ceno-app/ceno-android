@@ -1,8 +1,4 @@
-/* This Source Code Form is subject to the terms of the Mozilla Public
- * License, v. 2.0. If a copy of the MPL was not distributed with this
- * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
-
-package ie.equalit.ceno.home.topsites
+package ie.equalit.ceno.home.telegram_channels
 
 import android.view.View
 import androidx.core.view.isVisible
@@ -13,16 +9,18 @@ import ie.equalit.ceno.databinding.ComponentTopSitesPagerBinding
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
+import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
+import ie.equalit.ceno.home.topsites.TopSitesAdapter
+import ie.equalit.ceno.home.topsites.TopSitesPagerAdapter
 import mozilla.components.feature.top.sites.TopSite
 
-class TopSitePagerViewHolder(
+class TelegramChannelsPagerViewHolder(
     view: View,
     viewLifecycleOwner: LifecycleOwner,
     interactor: TopSiteInteractor
-) : RecyclerView.ViewHolder(view) {
-
-    private val binding = ComponentTopSitesPagerBinding.bind(view)
-    private val topSitesPagerAdapter = TopSitesPagerAdapter(viewLifecycleOwner, interactor)
+) : RecyclerView.ViewHolder(view){
+    val binding = ComponentTopSitesPagerBinding.bind(view)
+    val topSitesPagerAdapter = TelegramChannelsPagerAdapter(viewLifecycleOwner, interactor)
     private val pageIndicator = binding.pageIndicator
     private var currentPage = 0
 
@@ -44,7 +42,7 @@ class TopSitePagerViewHolder(
         }
     }
 
-    fun update(payload: AdapterItem.TopSitePagerPayload) {
+    fun update(payload: AdapterItem.TelegramChannelPagerPayload) {
         // Due to offscreenPageLimit = 1 we need to update both pages manually here
         topSitesPagerAdapter.notifyItemChanged(0, payload)
         topSitesPagerAdapter.notifyItemChanged(1, payload)
@@ -66,7 +64,7 @@ class TopSitePagerViewHolder(
     }
 
     companion object {
-        val homepageCardType = HomepageCardType.TOPSITES_CARD
+        val homepageCardType = HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD
         const val TOP_SITES_MAX_PAGE_SIZE = 2
         const val TOP_SITES_PER_PAGE = 8
     }

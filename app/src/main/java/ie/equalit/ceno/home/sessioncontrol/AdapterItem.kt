@@ -13,6 +13,7 @@ import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
+import ie.equalit.ceno.home.telegram_channels.TelegramChannelsPagerViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 import mozilla.components.feature.top.sites.TopSite
 
@@ -60,6 +61,14 @@ sealed class AdapterItem(val type: HomepageCardType) {
      * [Pair.second] is the new [TopSite].
      */
     data class TopSitePagerPayload(
+        val changed: Set<Pair<Int, TopSite>>
+    )
+
+    /**
+     * Contains a set of [Pair]s where [Pair.first] is the index of the changed [TopSite] and
+     * [Pair.second] is the new [TopSite].
+     */
+    data class TelegramChannelPagerPayload(
         val changed: Set<Pair<Int, TopSite>>
     )
 
@@ -114,7 +123,7 @@ sealed class AdapterItem(val type: HomepageCardType) {
      * Copied from TopSitePager
      */
     data class TelegramChannelsTopSitePager(val topSites: List<TopSite>) :
-        AdapterItem(TopSitePagerViewHolder.telegramChannelType) {
+        AdapterItem(TelegramChannelsPagerViewHolder.homepageCardType) {
         override fun sameAs(other: AdapterItem): Boolean {
             return other is TopSitePager
         }
@@ -156,7 +165,7 @@ sealed class AdapterItem(val type: HomepageCardType) {
                     changed.add((Pair(index, changedItem)))
                 }
             }
-            return if (changed.isNotEmpty()) TopSitePagerPayload(changed) else null
+            return if (changed.isNotEmpty()) TelegramChannelPagerPayload(changed) else null
         }
     }
 

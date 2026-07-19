@@ -14,6 +14,7 @@ import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
+import ie.equalit.ceno.home.telegram_channels.TelegramChannelsPagerViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
 class SessionControlAdapter internal constructor(
@@ -47,8 +48,12 @@ class SessionControlAdapter internal constructor(
             TopPlaceholderViewHolder.homepageCardType.value -> TopPlaceholderViewHolder(view)
             CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
             CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view, interactor)
-            TopSitePagerViewHolder.homepageCardType.value,
-            TopSitePagerViewHolder.telegramChannelType.value -> TopSitePagerViewHolder(
+            TopSitePagerViewHolder.homepageCardType.value -> TopSitePagerViewHolder(
+                view = view,
+                viewLifecycleOwner = viewLifecycleOwner,
+                interactor = interactor
+            )
+            TelegramChannelsPagerViewHolder.homepageCardType.value -> TelegramChannelsPagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
@@ -93,10 +98,12 @@ class SessionControlAdapter internal constructor(
                 holder.bind((item as AdapterItem.CenoModeItem).mode)
             }
 
+            is TelegramChannelsPagerViewHolder -> {
+                holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
+            }
+
             is TopSitePagerViewHolder -> {
-                if (getItemViewType(position) == TopSitePagerViewHolder.telegramChannelType.value)
-                    holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
-                else holder.bind((item as AdapterItem.TopSitePager).topSites)
+                holder.bind((item as AdapterItem.TopSitePager).topSites)
             }
 
             is CenoMessageViewHolder -> {
