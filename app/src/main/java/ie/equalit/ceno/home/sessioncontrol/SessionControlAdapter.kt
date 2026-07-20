@@ -53,6 +53,7 @@ class SessionControlAdapter internal constructor(
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
             )
+
             TelegramChannelsPagerViewHolder.homepageCardType.value -> TelegramChannelsPagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,

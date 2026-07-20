@@ -2,7 +2,6 @@ package ie.equalit.ceno.utils
 
 import android.content.Context
 import android.content.res.XmlResourceParser
-import androidx.compose.ui.res.stringResource
 import ie.equalit.ceno.ext.extractATags
 import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.RssItem

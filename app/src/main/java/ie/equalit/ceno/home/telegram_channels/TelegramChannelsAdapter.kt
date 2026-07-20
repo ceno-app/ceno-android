@@ -13,7 +13,10 @@ class TelegramChannelsAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val interactor: TopSiteInteractor
 ) : ListAdapter<TopSite, TelegramChannelItemViewHolder>(TopSitesDiffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelegramChannelItemViewHolder {
+    override fun onCreateViewHolder(
+        parent: ViewGroup,
+        viewType: Int
+    ): TelegramChannelItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.telegram_channel_item, parent, false)
         return TelegramChannelItemViewHolder(view, viewLifecycleOwner, interactor)

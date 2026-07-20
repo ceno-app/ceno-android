@@ -9,16 +9,13 @@ import ie.equalit.ceno.databinding.ComponentTopSitesPagerBinding
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
-import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
-import ie.equalit.ceno.home.topsites.TopSitesAdapter
-import ie.equalit.ceno.home.topsites.TopSitesPagerAdapter
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerViewHolder(
     view: View,
     viewLifecycleOwner: LifecycleOwner,
     interactor: TopSiteInteractor
-) : RecyclerView.ViewHolder(view){
+) : RecyclerView.ViewHolder(view) {
     val binding = ComponentTopSitesPagerBinding.bind(view)
     val topSitesPagerAdapter = TelegramChannelsPagerAdapter(viewLifecycleOwner, interactor)
     private val pageIndicator = binding.pageIndicator

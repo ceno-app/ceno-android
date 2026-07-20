@@ -10,9 +10,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TelegramChannelPagerPayload
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder.Companion.TOP_SITES_PER_PAGE
-import ie.equalit.ceno.home.topsites.TopSiteViewHolder
-import ie.equalit.ceno.home.topsites.TopSitesAdapter
-import ie.equalit.ceno.home.topsites.TopSitesPagerAdapter
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerAdapter(

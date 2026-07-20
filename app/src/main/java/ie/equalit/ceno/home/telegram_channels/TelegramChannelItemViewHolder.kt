@@ -11,12 +11,9 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.TelegramChannelItemBinding
-import ie.equalit.ceno.databinding.TopSiteItemBinding
 import ie.equalit.ceno.ext.ceno.bitmapForUrl
-import ie.equalit.ceno.ext.ceno.loadIntoView
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
-import ie.equalit.ceno.home.topsites.TopSiteItemMenu
 import ie.equalit.ceno.utils.view.CenoViewHolder
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -35,7 +32,7 @@ class TelegramChannelItemViewHolder(
     @Suppress("LongMethod")
     fun bind(topSite: TopSite, position: Int) {
         binding.topSiteTitle.text = topSite.title
-//        binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+        //        binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
 
         if (topSite is TopSite.Provided) {
             binding.topSiteSubtitle.isVisible = true
@@ -62,6 +59,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_euronewspe_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -70,6 +68,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_Farsi_Iranwire_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -78,6 +77,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_Hengaw_Org_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -86,6 +86,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_hranews_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -94,6 +95,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_IranintlTV_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -102,6 +104,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_ManotoTV_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -110,6 +113,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_paskoocheh_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -118,6 +122,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_radiofarda_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -126,6 +131,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_tavaanatech_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -134,6 +140,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_VahidOnline_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -142,6 +149,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_agentstvonews_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -150,6 +158,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_ArkHelps_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -158,6 +167,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_asiansofrussia_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -166,6 +176,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_cenochannel_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -174,6 +185,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_CorruptionTV_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -182,6 +194,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_deptone_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -190,6 +203,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_eschulmann_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -198,6 +212,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_femagainstwar_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -206,6 +221,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_freeburyatiafoundation_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -214,6 +230,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_iditelesom_help_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -222,6 +239,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_kedr_media_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -230,6 +248,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_kosa_media_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -238,6 +257,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_meduzalive_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -246,6 +266,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_no_torture_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -254,6 +275,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_novaya_pishet_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -262,6 +284,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_ovdinfo_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -270,6 +293,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_parniplus_com_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -278,6 +302,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_peaceplea_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -286,6 +311,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_russianlgbtnet_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -294,6 +320,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_spherequeer_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -302,6 +329,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_truestorymedia_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -310,6 +338,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_zatelecom_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -318,6 +347,7 @@ class TelegramChannelItemViewHolder(
                         )
                     )
                 }
+
                 resources.getString(R.string.telegramchannel_aljazeeraenglishnews_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
