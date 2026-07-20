@@ -26,7 +26,8 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         const val CENO_PREFERENCES = "ceno_preferences"
 
         // The maximum number of top sites to display.
-        const val TOP_SITES_MAX_COUNT = 16
+        // 34 Telegram channels and 4 shortcuts
+        const val TOP_SITES_MAX_COUNT = 38
 
         /**
          * Only fetch top sites from the [ContileTopSitesProvider] when the number of default and

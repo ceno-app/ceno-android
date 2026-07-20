@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TelegramChannelPagerPayload
-import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TopSitePagerPayload
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder.Companion.TOP_SITES_PER_PAGE
 import ie.equalit.ceno.home.topsites.TopSiteViewHolder
@@ -23,7 +22,7 @@ class TelegramChannelsPagerAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelegramChannelViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.component_top_sites, parent, false)
+            .inflate(R.layout.component_telegram_channels, parent, false)
         return TelegramChannelViewHolder(view, viewLifecycleOwner, interactor)
     }
 
@@ -36,7 +35,7 @@ class TelegramChannelsPagerAdapter(
             onBindViewHolder(holder, position)
         } else {
             if (payloads[0] is TelegramChannelPagerPayload) {
-                val adapter = holder.binding.topSitesList.adapter as TelegramChannelsAdapter
+                val adapter = holder.binding.telegramChannelList.adapter as TelegramChannelsAdapter
                 val payload = payloads[0] as TelegramChannelPagerPayload
 
                 update(payload, position, adapter)
@@ -86,7 +85,7 @@ class TelegramChannelsPagerAdapter(
         }
 
     override fun onBindViewHolder(holder: TelegramChannelViewHolder, position: Int) {
-        val adapter = holder.binding.topSitesList.adapter as TelegramChannelsAdapter
+        val adapter = holder.binding.telegramChannelList.adapter as TelegramChannelsAdapter
         adapter.submitList(getItem(position))
     }
 

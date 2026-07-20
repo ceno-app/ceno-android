@@ -10,6 +10,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import ie.equalit.ceno.R
+import ie.equalit.ceno.databinding.TelegramChannelItemBinding
 import ie.equalit.ceno.databinding.TopSiteItemBinding
 import ie.equalit.ceno.ext.ceno.bitmapForUrl
 import ie.equalit.ceno.ext.ceno.loadIntoView
@@ -29,44 +30,12 @@ class TelegramChannelItemViewHolder(
     private val interactor: TopSiteInteractor
 ) : CenoViewHolder(view) {
     private lateinit var topSite: TopSite
-    private val binding = TopSiteItemBinding.bind(view)
-
-    init {
-        binding.topSiteItem.setOnLongClickListener {
-            interactor.onTopSiteMenuOpened()
-
-            val topSiteMenu = TopSiteItemMenu(
-                context = view.context,
-                topSite = topSite
-            ) { item ->
-                when (item) {
-                    is TopSiteItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
-                        topSite
-                    )
-
-                    is TopSiteItemMenu.Item.RenameTopSite -> interactor.onRenameTopSiteClicked(
-                        topSite
-                    )
-
-                    is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTopSiteClicked(
-                        topSite
-                    )
-                }
-            }
-            topSiteMenu.menuBuilder.build(view.context)
-                .show(anchor = it)
-            true
-        }
-    }
+    private val binding = TelegramChannelItemBinding.bind(view)
 
     @Suppress("LongMethod")
     fun bind(topSite: TopSite, position: Int) {
-        binding.topSiteItem.setOnClickListener {
-            interactor.onSelectTopSite(topSite, position)
-        }
-
         binding.topSiteTitle.text = topSite.title
-        binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
+//        binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
 
         if (topSite is TopSite.Provided) {
             binding.topSiteSubtitle.isVisible = true
@@ -359,7 +328,6 @@ class TelegramChannelItemViewHolder(
                 }
             }
         }
-
 
         this.topSite = topSite
     }
