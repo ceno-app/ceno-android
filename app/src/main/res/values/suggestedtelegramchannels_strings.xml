@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="telegramchannel_aljazeeraenglishnews_url" translatable="false">https://tg.ceno.app/en/aljazeeraenglishnews/</string>
+
+    <!-- IR -->
+    <string name="telegramchannel_bbcpersion_url" translatable="false">https://tg.ceno.app/ir/bbcpersian/</string>
+    <string name="telegramchannel_euronewspe_url" translatable="false">https://tg.ceno.app/ir/euronewspe/</string>
+    <string name="telegramchannel_Farsi_Iranwire_url" translatable="false">https://tg.ceno.app/ir/Farsi_Iranwire/</string>
+    <string name="telegramchannel_Hengaw_Org_url" translatable="false">https://tg.ceno.app/ir/Hengaw_Org/</string>
+    <string name="telegramchannel_hranews_url" translatable="false">https://tg.ceno.app/ir/hranews/</string>
+    <string name="telegramchannel_IranintlTV_url" translatable="false">https://tg.ceno.app/ir/IranintlTV/</string>
+    <string name="telegramchannel_ManotoTV_url" translatable="false">https://tg.ceno.app/ir/ManotoTV/</string>
+    <string name="telegramchannel_paskoocheh_url" translatable="false">https://tg.ceno.app/ir/paskoocheh/</string>
+    <string name="telegramchannel_radiofarda_url" translatable="false">https://tg.ceno.app/ir/radiofarda/</string>
+    <string name="telegramchannel_tavaanatech_url" translatable="false">https://tg.ceno.app/ir/tavaanatech/</string>
+    <string name="telegramchannel_VahidOnline_url" translatable="false">https://tg.ceno.app/ir/VahidOnline/</string>
+
+    <!-- RU -->
+    <string name="telegramchannel_agentstvonews_url" translatable="false">https://tg.ceno.app/ru/agentstvonews/</string>
+    <string name="telegramchannel_ArkHelps_url" translatable="false">https://tg.ceno.app/ru/ArkHelps/</string>
+    <string name="telegramchannel_asiansofrussia_url" translatable="false">https://tg.ceno.app/ru/asiansofrussia/</string>
+    <string name="telegramchannel_cenochannel_url" translatable="false">https://tg.ceno.app/ru/cenochannel/</string>
+    <string name="telegramchannel_CorruptionTV_url" translatable="false">https://tg.ceno.app/ru/CorruptionTV/</string>
+    <string name="telegramchannel_deptone_url" translatable="false">https://tg.ceno.app/ru/deptone/</string>
+    <string name="telegramchannel_eschulmann_url" translatable="false">https://tg.ceno.app/ru/eschulmann/</string>
+    <string name="telegramchannel_femagainstwar_url" translatable="false">https://tg.ceno.app/ru/femagainstwar/</string>
+    <string name="telegramchannel_freeburyatiafoundation_url" translatable="false">https://tg.ceno.app/ru/freeburyatiafoundation/</string>
+    <string name="telegramchannel_iditelesom_help_url" translatable="false">https://tg.ceno.app/ru/iditelesom_help/</string>
+    <string name="telegramchannel_kedr_media_url" translatable="false">https://tg.ceno.app/ru/kedr_media/</string>
+    <string name="telegramchannel_kosa_media_url" translatable="false">https://tg.ceno.app/ru/kosa_media/</string>
+    <string name="telegramchannel_meduzalive_url" translatable="false">https://tg.ceno.app/ru/meduzalive/</string>
+    <string name="telegramchannel_no_torture_url" translatable="false">https://tg.ceno.app/ru/no_torture/</string>
+    <string name="telegramchannel_novaya_pishet_url" translatable="false">https://tg.ceno.app/ru/novaya_pishet/</string>
+    <string name="telegramchannel_ovdinfo_url" translatable="false">https://tg.ceno.app/ru/ovdinfo/</string>
+    <string name="telegramchannel_parniplus_com_url" translatable="false">https://tg.ceno.app/ru/parniplus_com/</string>
+    <string name="telegramchannel_peaceplea_url" translatable="false">https://tg.ceno.app/ru/peaceplea/</string>
+    <string name="telegramchannel_russianlgbtnet_url" translatable="false">https://tg.ceno.app/ru/russianlgbtnet/</string>
+    <string name="telegramchannel_spherequeer_url" translatable="false">https://tg.ceno.app/ru/spherequeer/</string>
+    <string name="telegramchannel_truestorymedia_url" translatable="false">https://tg.ceno.app/ru/truestorymedia/</string>
+    <string name="telegramchannel_zatelecom_url" translatable="false">https://tg.ceno.app/ru/zatelecom/</string>
+</resources>

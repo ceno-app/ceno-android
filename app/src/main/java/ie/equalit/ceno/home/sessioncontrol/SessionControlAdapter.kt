@@ -98,12 +98,12 @@ class SessionControlAdapter internal constructor(
                 holder.bind((item as AdapterItem.CenoModeItem).mode)
             }
 
-            is TelegramChannelsPagerViewHolder -> {
-                holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
-            }
-
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)
+            }
+
+            is TelegramChannelsPagerViewHolder -> {
+                holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
             }
 
             is CenoMessageViewHolder -> {

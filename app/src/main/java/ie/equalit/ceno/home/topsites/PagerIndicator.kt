@@ -55,7 +55,7 @@ class PagerIndicator : LinearLayout {
                 ).apply {
                     if (!isLast) {
                         marginEnd = dpToPx(DOT_MARGIN)
-//                        MarginLayoutParams(this).marginEnd = dpToPx(DOT_MARGIN)
+                        MarginLayoutParams(this).marginEnd = dpToPx(DOT_MARGIN)
                     }
                 }
             )

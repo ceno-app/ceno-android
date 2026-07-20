@@ -7,26 +7,24 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
-import ie.equalit.ceno.home.topsites.TopSiteItemViewHolder
-import ie.equalit.ceno.home.topsites.TopSitesAdapter
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
     private val interactor: TopSiteInteractor
-) : ListAdapter<TopSite, TelegramItemViewHolder>(TopSitesDiffCallback) {
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelegramItemViewHolder {
+) : ListAdapter<TopSite, TelegramChannelItemViewHolder>(TopSitesDiffCallback) {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelegramChannelItemViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.telegram_channel_site_item, parent, false)
-        return TelegramItemViewHolder(view, viewLifecycleOwner, interactor)
+        return TelegramChannelItemViewHolder(view, viewLifecycleOwner, interactor)
     }
 
-    override fun onBindViewHolder(holder: TelegramItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: TelegramChannelItemViewHolder, position: Int) {
         holder.bind(getItem(position), position)
     }
 
     override fun onBindViewHolder(
-        holder: TelegramItemViewHolder,
+        holder: TelegramChannelItemViewHolder,
         position: Int,
         payloads: MutableList<Any>
     ) {

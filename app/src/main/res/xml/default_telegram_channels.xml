@@ -40,7 +40,7 @@
     </channel>
     <channel>
         <title stringRes="@string/default_channel_9_title_ir">radiofarda</title>
-        <url>https://tg.ceno.app/ir/>radiofarda/</url>
+        <url>https://tg.ceno.app/ir/radiofarda/</url>
     </channel>
     <channel>
         <title stringRes="@string/default_channel_10_title_ir">tavaanatech</title>
