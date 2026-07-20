@@ -31,6 +31,10 @@ class TelegramChannelItemViewHolder(
 
     @Suppress("LongMethod")
     fun bind(topSite: TopSite, position: Int) {
+        binding.telegramChannelItem.setOnClickListener {
+            interactor.onSelectTopSite(topSite, position)
+        }
+
         binding.topSiteTitle.text = topSite.title
         //        binding.topSiteTitle.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null)
 
