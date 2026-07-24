@@ -415,13 +415,6 @@ object Settings {
             )
     }
 
-    fun isDohEnabled(context: Context): Boolean {
-        return PreferenceManager.getDefaultSharedPreferences(context)
-            .getBoolean(
-                context.getString(R.string.pref_key_doh_enabled), true
-            )
-    }
-
     fun getDnsProtocols(context: Context): MutableSet<String> {
         val dnsProtocols: MutableSet<String> = mutableSetOf()
         if (PreferenceManager.getDefaultSharedPreferences(context)

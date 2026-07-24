@@ -34,7 +34,6 @@
 
         <PreferenceCategory
             android:title="@string/dns_category"
-            android:key="@string/pref_key_doh_enabled"
             android:layout="@layout/preference_category_style">
 
             <ie.equalit.ceno.settings.utils.RadioButtonPreference

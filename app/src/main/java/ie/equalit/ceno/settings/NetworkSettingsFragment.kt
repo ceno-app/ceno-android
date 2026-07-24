@@ -48,7 +48,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun setupDnsPreferences() {
-        val preferenceDohEnabled = getPreferenceCategory(R.string.pref_key_doh_enabled)
         val radioDnsPlain = getPreference(R.string.pref_key_dns_plain) as RadioButtonPreference
         val radioDnsHttps = getPreference(R.string.pref_key_dns_https) as RadioButtonPreference
         val radioDnsBoth = getPreference(R.string.pref_key_dns_both) as RadioButtonPreference
@@ -58,7 +57,6 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
             radioDnsBoth
         )
         if (requireComponents.ouinet.isDohDisabledForLocale()) {
-            preferenceDohEnabled?.isEnabled = false
             radioDnsPlain.updateRadioValue(true)
             radioDnsHttps.updateRadioValue(false)
             radioDnsBoth.updateRadioValue(false)
