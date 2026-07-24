@@ -51,7 +51,7 @@ class TelegramChannelsPagerViewHolder(
 
         // Don't show any page indicator if there is only 1 page.
         val numPages = if (topSites.size > TOP_SITES_PER_PAGE) {
-            TOP_SITES_MAX_PAGE_SIZE
+            chunkedTopSites.size
         } else {
             0
         }
