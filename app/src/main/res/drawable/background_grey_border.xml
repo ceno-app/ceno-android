@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright (c) 2020 DuckDuckGo
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -23,7 +22,7 @@
                 android:left="2dp"
                 android:top="2dp"
                 android:right="2dp"
-                android:bottom="2dp"/>
+                android:bottom="2dp" />
         </shape>
 
     </item>

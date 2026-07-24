@@ -170,8 +170,7 @@ if (isBuildingRelease || isBuildingNightly) {
     base {
         archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
     }
-}
-else {
+} else {
     base {
         archivesName = "${appId[2]}-${android.defaultConfig.versionName}"
     }

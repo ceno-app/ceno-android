@@ -1,5 +1,4 @@
-<telegram_channels xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<telegram_channels>
     <channel>
         <title stringRes="@string/default_channel_1_title_ru">agentstvonews</title>
         <url>https://tg.ceno.app/ru/agentstvonews/</url>

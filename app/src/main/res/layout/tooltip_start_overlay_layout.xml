@@ -104,6 +104,6 @@
             android:background="@android:color/transparent"
             android:text="@string/skip_the_tour_button"
             android:textAllCaps="false"
-            android:textColor="@color/tooltip_text_color"/>
+            android:textColor="@color/tooltip_text_color" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

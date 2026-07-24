@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<topsites xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<topsites>
     <topsite>
         <title stringRes="@string/default_top_site_1_title">Manual de Ceno</title>
         <url>https://ceno.app/user-manual/es/</url>
