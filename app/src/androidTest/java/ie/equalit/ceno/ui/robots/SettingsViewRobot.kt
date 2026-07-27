@@ -46,17 +46,16 @@ class SettingsViewRobot {
     fun verifySearchButton(): ViewInteraction = assertSearchButton()
     fun verifySearchSummary(): ViewInteraction = assertSearchSummary()
     fun verifyCustomizationButton(): ViewInteraction = assertCustomizationButton()
-    fun verifyCustomizationSummary(): ViewInteraction = assertCustomizationButton()
-    fun verifyOpenLinksInApps() = assertOpenLinksInApps()
-    fun verifyMakeDefaultBrowserButton() = assertMakeDefaultBrowserButton()
-    fun verifyAddOnsButton() = assertAddOnsButton()
+    fun verifyCustomizationSummary(): ViewInteraction = assertCustomizationSummary()
+    fun verifyOpenLinksInApps(): ViewInteraction = assertOpenLinksInApps()
+    fun verifyMakeDefaultBrowserButton(): ViewInteraction = assertMakeDefaultBrowserButton()
 
     fun verifyBridgeModeToggle(): ViewInteraction = assertBridgeModeToggle()
     fun verifyBridgeModeSummary(): ViewInteraction = assertBridgeModeSummary()
     fun verifyDeleteBrowsingData(): ViewInteraction = assertDeleteBrowsingData()
     fun verifyDisableBatteryOptimization(): Unit = assertDisableBatteryOptimizationButton()
     fun verifyShowOnboarding(): ViewInteraction = assertShowOnboarding()
-    fun verifyBackgroundMetricsButton() = assertBackgroundMetricsButton()
+    fun verifyBackgroundMetricsButton(): ViewInteraction = assertBackgroundMetricsButton()
 
     fun verifyDataHeading(): ViewInteraction = assertDataHeading()
     fun verifyLocalCacheDisplay(): ViewInteraction = assertLocalCacheDisplay()
@@ -66,14 +65,14 @@ class SettingsViewRobot {
     fun verifyClearCachedContentButton(): ViewInteraction = assertClearCachedContentButton()
     fun verifyClearCachedContentSummary(): ViewInteraction = assertClearCachedContentSummary()
 
-    fun verifyDeveloperToolsHeading() = assertDeveloperToolsHeading()
+    fun verifyDeveloperToolsHeading(): ViewInteraction = assertDeveloperToolsHeading()
     fun verifyCenoNetworkDetailsButton(): ViewInteraction = assertCenoNetworkDetailsButton()
     fun verifyCenoNetworkDetailsSummary(): ViewInteraction = assertCenoNetworkDetailsSummary()
     fun verifyEnableLogFile(): ViewInteraction = assertEnableLogFile()
     fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
-    fun verifyAdditionalDeveloperToolsButton() = assertAdditionalDeveloperToolsButton()
-    fun verifyAdditionalDeveloperToolsButtonGone() = assertAdditionalDeveloperToolsButtonGone()
+    fun verifyAdditionalDeveloperToolsButton(): ViewInteraction = assertAdditionalDeveloperToolsButton()
+    fun verifyAdditionalDeveloperToolsButtonGone(): ViewInteraction = assertAdditionalDeveloperToolsButtonGone()
     fun verifyExportLogButton(): ViewInteraction = assertExportLogButton()
     fun verifyExportLogButtonGone(): ViewInteraction = assertExportLogButtonGone()
 
@@ -83,11 +82,12 @@ class SettingsViewRobot {
     fun verifyCenoVersionDisplay(): ViewInteraction = assertCenoVersionDisplay()
     fun verifyGeckoviewVersionDisplay(): ViewInteraction = assertGeckoviewVersionDisplay()
     fun verifyOuinetVersionDisplay(): ViewInteraction = assertOuinetVersionDisplay()
-    fun verifyAboutEqualitieButton() = assertAboutEqualitieButton()
+    fun verifyAboutEqualitieButton(): ViewInteraction = assertAboutEqualitieButton()
     fun verifySettingsRecyclerViewToExist() = waitForSettingsRecyclerViewToExist()
-    fun verifyChangeLanguageButton() = assertChangeLanguageButton()
+    fun verifyChangeLanguageButton(): ViewInteraction = assertChangeLanguageButton()
     fun verifyPermissionHeading(): ViewInteraction = assertPermissionsHeading()
     fun verifyAllowNotification(): Unit = assertAllowNotificationButton()
+    fun verifyWarnOpeningUrlsFromApps(): ViewInteraction = assertWarnOpeningUrlsFromApps()
 
     fun clickOpenLinksInApps() = openLinksInAppsToggle().click()
     fun clickClearCacheButton() = clearCachedContentButton().click()
@@ -265,8 +265,6 @@ private fun openLinksInAppsToggle() = onView(
 private fun makeDefaultBrowserButton() =
     onView(withText(R.string.preferences_make_default_browser))
 
-private fun addOnsButton() = onView(withText(R.string.preferences_add_ons))
-
 private fun bridgeModeToggle() = onView(
     allOf(
         withId(R.id.switchWidget),
@@ -326,6 +324,7 @@ private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_abo
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
 private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
 private fun permissionsHeading() = onView(withText(R.string.ceno_permissions_category))
+private fun warnOpeningUrlsFromAppsToggle() = onView(withText(R.string.preferences_verify_external_url))
 
 private fun aboutEqualitieButton() =
     onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
@@ -359,9 +358,6 @@ private fun assertOpenLinksInApps() = openLinksInAppsToggle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertMakeDefaultBrowserButton() = makeDefaultBrowserButton()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertAddOnsButton() = addOnsButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertBridgeModeToggle() = bridgeModeToggle()
@@ -442,3 +438,6 @@ private fun assertChangeLanguageButton() = changeLanguageButton().check(matches(
 private fun assertAllowNotificationButton() {
     mDevice.wait(Until.findObject(By.text("Notifications")), waitingTime)
 }
+
+private fun assertWarnOpeningUrlsFromApps() = warnOpeningUrlsFromAppsToggle()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))

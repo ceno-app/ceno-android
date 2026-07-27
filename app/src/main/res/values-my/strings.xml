@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">ရှေ့သို့</string>
     <string name="browser_menu_refresh">ပြန်စပါ</string>
     <string name="browser_menu_stop">ရပ်ပါ</string>
-    <string name="preferences_add_ons">အတ်အွန်များ</string>
     <string name="browser_menu_settings">အပြင်အဆင်များ</string>
     <string name="browser_menu_add_to_homescreen">ပင်မစာမျက်နှာသို့ ထည့်ပါ</string>
     <string name="browser_menu_find_in_page">စာမျက်နှာထဲတွင် ရှာပါ</string>

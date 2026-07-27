@@ -41,3 +41,7 @@
     public static int v(...);
     public static int d(...);
 }
+
+-assumenosideeffects class mozilla.components.support.base.log.logger.Logger {
+    public final void debug(...);
+}
