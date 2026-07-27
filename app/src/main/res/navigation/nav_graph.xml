@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
@@ -50,11 +49,10 @@
         android:id="@+id/homeFragment"
         android:name="ie.equalit.ceno.home.HomeFragment"
         android:label="@string/ceno_notification_home_description"
-        tools:layout="@layout/fragment_home" >
+        tools:layout="@layout/fragment_home">
         <action
             android:id="@+id/action_homeFragment_to_networkSettingsFragment"
-            app:destination="@id/networkSettingsFragment"
-            />
+            app:destination="@id/networkSettingsFragment" />
     </fragment>
 
     <fragment
@@ -207,7 +205,7 @@
     <fragment
         android:id="@+id/networkSettingsFragment"
         android:name="ie.equalit.ceno.settings.NetworkSettingsFragment"
-        android:label="NetworkSettingsFragment" >
+        android:label="NetworkSettingsFragment">
         <argument
             android:name="showBridgeMode"
             app:argType="boolean"
@@ -222,8 +220,7 @@
     <fragment
         android:id="@+id/developerToolsSettingsFragment"
         android:name="ie.equalit.ceno.settings.DeveloperToolsSettingsFragment"
-        android:label="DeveloperToolsSettingsFragment" >
-    </fragment>
+        android:label="DeveloperToolsSettingsFragment"></fragment>
 
     <fragment
         android:id="@+id/androidLogFragment"
@@ -262,7 +259,9 @@
             app:argType="string"
             app:nullable="true" />
     </dialog>
-    <action android:id="@+id/action_global_androidLogFragment" app:destination="@id/androidLogFragment" />
+    <action
+        android:id="@+id/action_global_androidLogFragment"
+        app:destination="@id/androidLogFragment" />
     <action
         android:id="@+id/action_global_metricsCampaignFragment"
         app:destination="@id/metricsCampaignFragment" />
@@ -270,7 +269,7 @@
         android:id="@+id/bookmarkFragment"
         android:name="ie.equalit.ceno.bookmarks.BookmarkFragment"
         android:label="fragment_bookmark"
-        tools:layout="@layout/fragment_bookmark" >
+        tools:layout="@layout/fragment_bookmark">
         <argument
             android:name="currentRoot"
             app:argType="string" />

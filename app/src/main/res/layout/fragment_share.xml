@@ -13,14 +13,14 @@
         android:id="@+id/closeSharingScrim"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?scrim"/>
+        android:background="?scrim" />
 
     <FrameLayout
         android:id="@+id/closeSharingContent"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/sharingLayout"/>
+        app:layout_constraintBottom_toTopOf="@id/sharingLayout" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/sharingLayout"

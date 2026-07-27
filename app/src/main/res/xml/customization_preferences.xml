@@ -2,8 +2,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<androidx.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory
@@ -14,19 +13,19 @@
             android:key="@string/pref_key_follow_system_theme"
             android:title="@string/preferences_theme_option_0"
             android:layout="@layout/preference_radio_button"
-            android:defaultValue="true"/>
+            android:defaultValue="true" />
         <ie.equalit.ceno.settings.utils.RadioButtonPreference
             android:key="@string/pref_key_dark_theme"
             android:title="@string/preferences_theme_option_1"
-            android:layout="@layout/preference_radio_button"/>
+            android:layout="@layout/preference_radio_button" />
         <ie.equalit.ceno.settings.utils.RadioButtonPreference
             android:key="@string/pref_key_light_theme"
             android:title="@string/preferences_theme_option_2"
-            android:layout="@layout/preference_radio_button"/>
+            android:layout="@layout/preference_radio_button" />
         <ie.equalit.ceno.settings.utils.RadioButtonPreference
             android:key="@string/pref_key_battery_saver_theme"
             android:title="@string/preferences_theme_option_3"
-            android:layout="@layout/preference_radio_button"/>
+            android:layout="@layout/preference_radio_button" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -36,8 +35,7 @@
         <androidx.preference.Preference
             android:layout="@layout/preference_item_button"
             android:key="@string/pref_key_change_app_icon"
-            android:title="@string/preferences_change_app_icon"
-            />
+            android:title="@string/preferences_change_app_icon" />
 
     </PreferenceCategory>
 
@@ -48,19 +46,19 @@
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_toolbar_position"
-            android:title="@string/preferences_toolbar_position"/>
+            android:title="@string/preferences_toolbar_position" />
 
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_toolbar_hide"
             android:defaultValue="false"
-            android:title="@string/preferences_toolbar_hide"/>
+            android:title="@string/preferences_toolbar_hide" />
 
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_show_home_button"
             android:defaultValue="false"
-            android:title="@string/preferences_show_home_button"/>
+            android:title="@string/preferences_show_home_button" />
 
     </PreferenceCategory>
 
@@ -72,34 +70,34 @@
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_clear_in_toolbar"
             android:defaultValue="true"
-            android:title="@string/preferences_clear_in_toolbar"/>
+            android:title="@string/preferences_clear_in_toolbar" />
 
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_clear_in_menu"
             android:defaultValue="true"
-            android:title="@string/preferences_clear_in_menu"/>
+            android:title="@string/preferences_clear_in_menu" />
 
 
         <!-- Using preference for subcategory title to hide divider -->
         <androidx.preference.Preference
             android:title="@string/preferences_clear_behavior"
             android:layout="@layout/preference_category_style"
-            android:clickable="false"/>
+            android:clickable="false" />
 
-            <ie.equalit.ceno.settings.utils.RadioButtonPreference
-                android:key="@string/pref_key_prompt"
-                android:title="@string/preferences_clear_behavior_option_1"
-                android:layout="@layout/preference_radio_button"
-                android:defaultValue="true"/>
-            <ie.equalit.ceno.settings.utils.RadioButtonPreference
-                android:key="@string/pref_key_clear_cache_only"
-                android:title="@string/preferences_clear_behavior_option_2"
-                android:layout="@layout/preference_radio_button"/>
-            <ie.equalit.ceno.settings.utils.RadioButtonPreference
-                android:key="@string/pref_key_clear_cache_and_app_data"
-                android:title="@string/preferences_clear_behavior_option_3"
-                android:layout="@layout/preference_radio_button"/>
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_prompt"
+            android:title="@string/preferences_clear_behavior_option_1"
+            android:layout="@layout/preference_radio_button"
+            android:defaultValue="true" />
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_clear_cache_only"
+            android:title="@string/preferences_clear_behavior_option_2"
+            android:layout="@layout/preference_radio_button" />
+        <ie.equalit.ceno.settings.utils.RadioButtonPreference
+            android:key="@string/pref_key_clear_cache_and_app_data"
+            android:title="@string/preferences_clear_behavior_option_3"
+            android:layout="@layout/preference_radio_button" />
 
     </PreferenceCategory>
 
@@ -111,7 +109,14 @@
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_hide_ouicrawl_feed"
             android:defaultValue="false"
-            android:title="@string/preferences_hide_ouicrawl_feed"/>
+            android:title="@string/preferences_hide_ouicrawl_feed" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:layout="@layout/preference_switch_button"
+            android:key="@string/pref_key_verify_external_url"
+            android:defaultValue="true"
+            android:title="@string/preferences_verify_external_url"
+            app:singleLineTitle="false" />
     </PreferenceCategory>
 
     <PreferenceCategory
@@ -123,14 +128,14 @@
             android:key="@string/pref_key_secure_screen"
             android:title="@string/preferences_secure_screen"
             android:summary="@string/preferences_secure_screen_summary"
-            android:defaultValue="true"/>
+            android:defaultValue="true" />
 
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_secure_screen_personal"
             android:defaultValue="true"
             android:title="@string/preferences_secure_screen_personal"
-            android:summary="@string/preferences_secure_screen_personal_summary"/>
+            android:summary="@string/preferences_secure_screen_personal_summary" />
     </PreferenceCategory>
 
 </androidx.preference.PreferenceScreen>
