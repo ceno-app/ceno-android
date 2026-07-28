@@ -5,7 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.10.1 - 2026-07-15
+## v2.11.0 - 2026-07-28
+
+### Added
+
+- Initial implementation of Telegram channels homepage section
+
+### Changed
+
+- Re-enabled optimization and resource shrinking for release builds
+- Update Android-Components to v153.0.1
+- Update Ouinet to v1.6.10
+- Update Android Gradle Plugin to 9.3.1
+- Update Sentry to 8.48.0
+- Update translations for various locales
+
+## [v2.10.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.10.1) - 2026-07-15
 
 ### Fixed
 
