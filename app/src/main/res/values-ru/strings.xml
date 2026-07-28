@@ -458,7 +458,7 @@
     <string name="pin_unpin_to_cache_failed">Ошибка! Не удалось обновить кэш.</string>
     <string name="preferences_hide_ouicrawl_feed">Скрыть бесплатную медиа-ленту</string>
     <string name="preferences_ouinet_enable_doh">Использовать DNS через HTTPS</string>
-    <string name="updating_doh_dialog_title">Обновление настроек DNS через HTTPS</string>
+    <string name="updating_doh_dialog_title">Обновление настроек DNS</string>
     <string name="preferences_test_metrics">Проверка метрик Ceno</string>
     <string name="test_metrics_submitting">Отправка метрики теста</string>
     <string name="test_metrics_dialog_success">Метрика теста отправлена локальному клиенту</string>
@@ -479,4 +479,5 @@
     <string name="dns_protocol_only_system">Использовать только системный DNS</string>
     <string name="dns_protocol_only_over_https">Использовать только DNS-over-HTTPS</string>
     <string name="dns_category">DNS Протокол</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS с откатом к системному DNS</string>
 </resources>

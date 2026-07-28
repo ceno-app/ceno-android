@@ -486,4 +486,5 @@
     <string name="preferences_hide_ouicrawl_feed">اخفي صفحة الوسائط الحرة</string>
     <string name="updating_doh_dialog_title">يتم تحديث الDNS على اعدادات HTTPS</string>
     <string name="preferences_test_metrics">اختبار‏ مقاييس Ceno</string>
+    <string name="dns_protocol_only_over_https">amine</string>
 </resources>
