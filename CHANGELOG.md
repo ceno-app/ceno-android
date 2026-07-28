@@ -5,7 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.10.0 - Unreleased
+## v2.10.1 - 2026-07-15
+
+### Fixed
+
+- Crash triggered if Ouinet status is missing metrics_delete_after key/value
+
+### Changed
+
+- Updated build system to strip Mozilla debug logs from release builds
+- Moved settings options related to opening links to permissions subsection of main settings page
+- Update Android-Components to v152.0.6
+- Update Ouinet to v1.6.9
+- Update uBlock Origin to 1.72.2
+- Update translations for various locales
+
+## [v2.10.0](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.10.0) - 2026-07-06
 
 ### Added
 
@@ -23,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Applied consistent code style formatting to source code
 - Update Android-Components to v152.0.4
 - Update Ouinet to v1.6.8
+- Update translations for various locales
 
 ## [v2.9.3](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.9.3) - 2026-06-11
 

@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">Вперед</string>
     <string name="browser_menu_refresh">Оновити</string>
     <string name="browser_menu_stop">Зупинити</string>
-    <string name="preferences_add_ons">Розширення</string>
     <string name="browser_menu_settings">Налаштуваннях</string>
     <string name="browser_menu_desktop_site">Запит на версію на десктопі</string>
     <string name="browser_menu_add_to_homescreen">Додати на головний екран</string>

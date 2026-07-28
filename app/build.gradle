@@ -221,46 +221,43 @@ android.applicationVariants.all { variant ->
 
         // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
         // with ARM compatibility mode.
-
-        if (!isBuildingBundle) {
-            variant.outputs.each { output ->
-                def abi = output.getFilter("ABI")
-
-                /* CENO: Allow generated build date to be overwritten with a hard-coded build date
-                 */
-
-                def versionCode
-                if (variant.buildType.name == "release") {
-                    // Release version code, see this issue for format
-                    // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
-                    def (m, n, p) = localProperties['versionName'].tokenize('.')
-                    def mj = String.format("%02d", m as Integer)
-                    def min = String.format("%03d", n as Integer)
-                    def pt = String.format("%02d", p as Integer)
-                    def a
-                    switch (abi) {
-                        case 'armeabi-v7a': a = "0"; break
-                        case 'arm64-v8a': a = "1"; break
-                        case 'x86_64': a = "2"; break
-                        default: a = "3"; break
-                    }
-                    def r = (localProperties['revision'] ?: 0) as Integer
-                    versionCode = "2$mj$min$pt$a$r"
-                } else {
-                    /* Ceno: We use mozilla's versionCode generator for nightly builds
-                     * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
-                     * We should periodically check if any changes are made to it.
-                     */
-                    versionCode = Config.generateFennecVersionCode(abi)
-                }
-
-                /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
-                def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
-
-                println("versionCode for $abi = $versionCodeOverride")
-
-                output.versionCodeOverride = versionCodeOverride
+        variant.outputs.each { output ->
+            def abi = 'armeabi-v7a'
+            if (!isBuildingBundle) {
+                abi = output.getFilter("ABI")
             }
+
+            def versionCode
+            if (isBuildingRelease) {
+                // Release version code, see this issue for format
+                // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
+                def (m, n, p) = localProperties['versionName'].tokenize('.')
+                def mj = String.format("%02d", m as Integer)
+                def min = String.format("%03d", n as Integer)
+                def pt = String.format("%02d", p as Integer)
+                def a
+                switch (abi) {
+                    case 'armeabi-v7a': a = "0"; break
+                    case 'arm64-v8a': a = "1"; break
+                    case 'x86_64': a = "2"; break
+                    default: a = "3"; break
+                }
+                def r = (localProperties['revision'] ?: 0) as Integer
+                versionCode = "2$mj$min$pt$a$r"
+            } else {
+                /* Ceno: We use mozilla's versionCode generator for nightly builds
+                 * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
+                 * We should periodically check if any changes are made to it.
+                 */
+                versionCode = Config.generateFennecVersionCode(abi)
+            }
+
+            /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
+            def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
+
+            println("versionCode for $abi = $versionCodeOverride")
+
+            output.versionCodeOverride = versionCodeOverride
         }
 
         def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"

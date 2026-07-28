@@ -28,7 +28,6 @@
     <string name="browser_menu_forward">Avanzar</string>
     <string name="browser_menu_refresh">Actualizar</string>
     <string name="browser_menu_stop">Detener</string>
-    <string name="preferences_add_ons">Complementos</string>
     <string name="browser_menu_settings">Configuración</string>
     <string name="browser_menu_desktop_site">Solicitar sitio de escritorio</string>
     <string name="browser_menu_add_to_homescreen">Agregar a la Pantalla de inicio</string>

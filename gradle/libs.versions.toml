@@ -14,7 +14,7 @@ androidx_work = "2.11.2"
 androidx_r8 = "9.1.31"
 
 # Android Components
-android_components = "152.0.4"
+android_components = "152.0.6"
 
 # Google
 google_composecompiler = "1.5.15"
@@ -46,7 +46,7 @@ tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "1.6.8"
+ouinet_version = "1.6.9"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 

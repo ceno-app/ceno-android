@@ -243,7 +243,6 @@
     <string name="preference_show_search_suggestions">தேடல் பரிந்துரைகளைப் பெறுங்கள்</string>
     <string name="ceno_ouinet_connecting">செனோ நெட்வொர்க்குடன் இணைக்கிறது</string>
     <string name="ceno_ouinet_connected">செனோ நெட்வொர்க்குடன் இணைக்கப்பட்டுள்ளது</string>
-    <string name="preferences_add_ons">துணை நிரல்கள்</string>
     <string name="secure_connection">இணைப்பு பாதுகாப்பானது</string>
     <string name="browser_toolbar_home">வீடு</string>
     <string name="ceno_personal_browsing_description">தனிப்பட்ட தாவல்களிலிருந்து உள்ளடக்கத்தை பிற பயனர்களுடன் CENO பகிராது. உள்நுழைவு தேவைப்படும் தளங்களை நீங்கள் பார்வையிடலாம்.</string>

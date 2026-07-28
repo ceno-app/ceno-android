@@ -36,7 +36,7 @@ data class OuinetStatus(
     val logfile: Boolean,
     val max_cached_age: Int,
     val metrics_enabled: Boolean,
-    val metrics_delete_after: Long,
+    val metrics_delete_after: Long = 0,
     val origin_access: Boolean,
     val ouinet_build_id: String,
     val ouinet_protocol: Int,
