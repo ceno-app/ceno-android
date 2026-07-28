@@ -8,5 +8,6 @@ enum class HomepageCardType(val value: Int) {
     PERSONAL_MODE_CARD(5),
     ANNOUNCEMENTS_CARD(6),
     OUICRAWLED_SITE_CARD(7),
-    SECTION_HEADER(8)
+    SECTION_HEADER(8),
+    TELEGRAM_CHANNEL_TOPSITES_CARD(9),
 }

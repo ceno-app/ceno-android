@@ -23,28 +23,32 @@ fun assertEqualsWithDelta(expectedB: Bitmap, actualB: Bitmap, delta: Float) {
             val ePx = expectedB.getPixel(i, j)
             val aPx = actualB.getPixel(i, j)
             val warn = "Pixel ${i}x$j"
-            assertEquals("$warn a",
+            assertEquals(
+                "$warn a",
                 Color.alpha(ePx)
                     .toFloat(),
                 Color.alpha(aPx)
                     .toFloat(),
                 delta
             )
-            assertEquals("$warn r",
+            assertEquals(
+                "$warn r",
                 Color.red(ePx)
                     .toFloat(),
                 Color.red(aPx)
                     .toFloat(),
                 delta
             )
-            assertEquals("$warn g",
+            assertEquals(
+                "$warn g",
                 Color.green(ePx)
                     .toFloat(),
                 Color.green(aPx)
                     .toFloat(),
                 delta
             )
-            assertEquals("$warn b",
+            assertEquals(
+                "$warn b",
                 Color.blue(ePx)
                     .toFloat(),
                 Color.blue(aPx)

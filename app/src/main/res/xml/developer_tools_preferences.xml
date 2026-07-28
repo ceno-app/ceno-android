@@ -1,5 +1,4 @@
-<androidx.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.preference.SwitchPreferenceCompat
@@ -21,7 +20,7 @@
         android:summary="@string/preferences_announcement_source_summary"
         android:defaultValue="@string/preferences_announcement_source_default"
         android:entryValues="@array/preferences_announcement_source_values"
-        android:entries="@array/preferences_announcement_source_options"/>
+        android:entries="@array/preferences_announcement_source_options" />
 
     <androidx.preference.SwitchPreferenceCompat
         android:defaultValue="false"

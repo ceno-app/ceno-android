@@ -208,5 +208,73 @@ object XMLParser {
         }
     }
 
+
+    fun parseTelegramChannelsXml(
+        parser: XmlResourceParser,
+        context: Context
+    ): MutableList<Pair<String, String>>? {
+
+        try {
+            var currentTelegramChannel = ""
+            var currentChannelTitle = ""
+            val topsiteItems = mutableListOf<Pair<String, String>>()
+
+            var tag = ""
+            var isTitleFromAttribute = false
+
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                when (parser.eventType) {
+                    XmlPullParser.START_TAG -> {
+                        tag = parser.name
+                        when (tag) {
+                            "channel" -> {
+                                currentChannelTitle = ""
+                                currentTelegramChannel = ""
+                            }
+
+                            "title" -> {
+                                if (parser.attributeCount > 0) {
+                                    val stringResource = parser.getAttributeResourceValue(0, 0)
+                                    currentChannelTitle = context.getString(stringResource)
+                                    isTitleFromAttribute = true
+                                }
+                            }
+                        }
+                    }
+
+                    XmlPullParser.TEXT -> {
+                        when (tag) {
+                            "channel" -> {
+                                if (!isTitleFromAttribute)
+                                    currentChannelTitle = parser.text.trim()
+                                isTitleFromAttribute = false
+                            }
+
+                            "url" -> {
+                                currentTelegramChannel = parser.text.trim()
+                            }
+                        }
+                    }
+
+                    XmlPullParser.END_TAG -> {
+                        tag = ""
+                        when (parser.name) {
+                            "channel" -> {
+                                topsiteItems.add(
+                                    Pair(currentChannelTitle, currentTelegramChannel)
+                                )
+                            }
+
+                            else -> {}
+                        }
+                    }
+                }
+            }
+            return topsiteItems
+        } catch (_: XmlPullParserException) {
+            return null
+        }
+    }
+
     const val CENO_CUSTOM_PLACEHOLDER = "ceno_custom_placeholder"
 }

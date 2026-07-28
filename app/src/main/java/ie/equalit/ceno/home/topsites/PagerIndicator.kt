@@ -47,8 +47,12 @@ class PagerIndicator : LinearLayout {
                     setBackgroundResource(R.drawable.pager_dot)
                     isSelected = i == selectedIndex
                 },
-                LayoutParams(dpToPx(DOT_SIZE_IN_DP), dpToPx(DOT_SIZE_IN_DP)).apply {
+                LayoutParams(
+                    dpToPx(DOT_SIZE_IN_DP),
+                    dpToPx(DOT_SIZE_IN_DP)
+                ).apply {
                     if (!isLast) {
+                        marginEnd = dpToPx(DOT_MARGIN)
                         MarginLayoutParams(this).marginEnd = dpToPx(DOT_MARGIN)
                     }
                 }

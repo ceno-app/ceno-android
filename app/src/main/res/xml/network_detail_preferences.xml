@@ -2,9 +2,7 @@
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 
-<androidx.preference.PreferenceScreen
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
     <PreferenceCategory
         android:title="@string/general_category"
@@ -45,11 +43,11 @@
                 android:key="@string/pref_key_dns_https"
                 android:title="@string/dns_protocol_only_over_https"
                 android:layout="@layout/preference_radio_button"
-                android:defaultValue="true"/>
+                android:defaultValue="true" />
             <ie.equalit.ceno.settings.utils.RadioButtonPreference
                 android:key="@string/pref_key_dns_both"
                 android:title="@string/dns_protocol_over_https_with_fallback_to_system_dns"
-                android:layout="@layout/preference_radio_button"/>
+                android:layout="@layout/preference_radio_button" />
 
         </PreferenceCategory>
 

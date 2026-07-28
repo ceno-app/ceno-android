@@ -1,8 +1,8 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <resources xmlns:tools="http://schemas.android.com/tools">
+
     <style name="CenoMode.Card" parent="Mozac.Widgets.Favicon">
         <item name="cardBackgroundColor">@color/fx_mobile_layer_color_2</item>
         <item name="cardCornerRadius">@dimen/top_sites_card_radius</item>
@@ -38,13 +38,21 @@
         <item name="bottomSheetDialogTheme">@style/BottomSheet</item>
         <item name="android:textColorLink">@color/fx_mobile_text_color_accent</item>
 
-        <item name="mozacInputLayoutErrorTextColor"
-            tools:ignore="UnusedResources">@color/fx_mobile_text_color_warning</item>
-        <item name="mozacInputLayoutErrorIconColor"
-            tools:ignore="UnusedResources">@color/fx_mobile_text_color_warning</item>
-        <item name="mozacLoginSelectHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
-        <item name="mozacSelectCreditCardHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
-        <item name="mozacSelectAddressHeaderTextStyle" tools:ignore="UnusedResources">@style/SelectPromptHeaderTextStyle</item>
+        <item name="mozacInputLayoutErrorTextColor" tools:ignore="UnusedResources">
+            @color/fx_mobile_text_color_warning
+        </item>
+        <item name="mozacInputLayoutErrorIconColor" tools:ignore="UnusedResources">
+            @color/fx_mobile_text_color_warning
+        </item>
+        <item name="mozacLoginSelectHeaderTextStyle" tools:ignore="UnusedResources">
+            @style/SelectPromptHeaderTextStyle
+        </item>
+        <item name="mozacSelectCreditCardHeaderTextStyle" tools:ignore="UnusedResources">
+            @style/SelectPromptHeaderTextStyle
+        </item>
+        <item name="mozacSelectAddressHeaderTextStyle" tools:ignore="UnusedResources">
+            @style/SelectPromptHeaderTextStyle
+        </item>
 
         <!-- Design system color attributes -->
 
@@ -115,15 +123,25 @@
 
         <item name="fillLinkFromClipboard">@color/fill_link_from_clipboard_normal_theme</item>
         <item name="syncDisconnected">@color/sync_disconnected_icon_fill_normal_theme</item>
-        <item name="syncDisconnectedBackground">@color/sync_disconnected_background_normal_theme</item>
+        <item name="syncDisconnectedBackground">@color/sync_disconnected_background_normal_theme
+        </item>
         <item name="onboardingDarkGradientStartBackground">@color/photonViolet70</item>
         <item name="onboardingDarkGradientEndBackground">@color/photonViolet40</item>
         <item name="onboardingSelected">@color/onboarding_illustration_selected_normal_theme</item>
-        <item name="onboardingDeselected">@color/onboarding_illustration_deselected_normal_theme</item>
-        <item name="addOnPrivateBrowsingExteriorCircleBackground">@color/add_on_private_browsing_exterior_circle_background_normal_theme</item>
-        <item name="mozacPromptLoginEditTextCursorColor">@color/prompt_login_edit_text_cursor_color_normal_theme</item>
-        <item name="awesomeBarIndicatorColor">@color/search_suggestion_indicator_icon_color_normal_theme</item>
-        <item name="awesomeBarIndicatorBookmarkColor">@color/search_suggestion_indicator_icon_bookmark_color_normal_theme</item>
+        <item name="onboardingDeselected">@color/onboarding_illustration_deselected_normal_theme
+        </item>
+        <item name="addOnPrivateBrowsingExteriorCircleBackground">
+            @color/add_on_private_browsing_exterior_circle_background_normal_theme
+        </item>
+        <item name="mozacPromptLoginEditTextCursorColor">
+            @color/prompt_login_edit_text_cursor_color_normal_theme
+        </item>
+        <item name="awesomeBarIndicatorColor">
+            @color/search_suggestion_indicator_icon_color_normal_theme
+        </item>
+        <item name="awesomeBarIndicatorBookmarkColor">
+            @color/search_suggestion_indicator_icon_bookmark_color_normal_theme
+        </item>
         <item name="preferenceSectionHeader">@color/fx_mobile_text_color_accent</item>
         <item name="selectPromptHeaderTextColor">@color/fx_mobile_text_color_accent</item>
         <item name="menuItemButtonTintColor">@color/fx_mobile_text_color_accent</item>
@@ -177,13 +195,15 @@
         <item name="android:background">?android:attr/selectableItemBackgroundBorderless</item>
         <item name="android:textColor">?accentHighContrast</item>
         <item name="android:textFontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
-        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>    </style>
+        <item name="android:fontWeight" tools:ignore="NewApi">@integer/font_weight_medium</item>
+    </style>
 
-    <style name="DialogStyleNormal" parent="DialogStyleDark"/>
+    <style name="DialogStyleNormal" parent="DialogStyleDark" />
 
     <style name="Mozac.Browser.Menu" parent="" tools:ignore="UnusedResources">
         <item name="cardBackgroundColor">?attr/layer2</item>
     </style>
+
     <style name="Mozac.Browser.Menu2" parent="" tools:ignore="UnusedResources">
         <item name="cardBackgroundColor">?attr/layer2</item>
     </style>

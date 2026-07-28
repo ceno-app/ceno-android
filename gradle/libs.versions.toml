@@ -14,14 +14,14 @@ androidx_work = "2.11.2"
 androidx_r8 = "9.1.31"
 
 # Android Components
-android_components = "152.0.6"
+android_components = "153.0"
 
 # Google
 google_composecompiler = "1.5.15"
 google_material = "1.14.0"
 
 # Gradle
-gradle_android_plugin = "9.2.1"
+gradle_android_plugin = "9.3.1"
 gradle_kotlin_plugin = "2.2.21"
 
 # Kotlin
@@ -40,13 +40,13 @@ testing_jacoco = "0.8.15"
 testing_mockwebserver = "4.12.0"
 
 # Third Party
-sentry = "8.45.0"
+sentry = "8.48.0"
 gson = "2.14.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "1.6.9"
+ouinet_version = "1.6.10"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 

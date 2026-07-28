@@ -193,6 +193,9 @@ open class BrowserActivity : BaseActivity(),
         /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
         initializeTopSites()
 
+        /* CENO: need to initialize top telegram channels to be displayed in CenoHomeFragment */
+        initializeTelegramChannels()
+
         initializeSearchEngines()
 
         components.webExtensionPort.createPort()
@@ -600,6 +603,20 @@ open class BrowserActivity : BaseActivity(),
                     this, components.cenoPreferences, components.appStore
                 )
             )
+        }
+    }
+
+    /* CENO: Function to initialize telegram channels to storage and observer */
+    @OptIn(DelicateCoroutinesApi::class)
+    private fun initializeTelegramChannels() {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
+        val telegramChannels: List<Pair<String, String>> =
+            XMLParser.parseTelegramChannelsXml(
+                applicationContext.resources.getXml(R.xml.default_telegram_channels),
+                this
+            ) as List<Pair<String, String>>
+        GlobalScope.launch(Dispatchers.IO) {
+            // Can only add more sites now, cannot update for removed ones
+            components.core.cenoTopSitesStorage.addTopSites(telegramChannels)
         }
     }
 
