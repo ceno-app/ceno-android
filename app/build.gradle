@@ -260,10 +260,21 @@ android.applicationVariants.all { variant ->
             output.versionCodeOverride = versionCodeOverride
         }
 
+        def lintAnalyzeTaskName = "lintAnalyzeDebug"
+        tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
+        }
+
         def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
         tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
             lintTask.dependsOn(unzipUblockOrigin)
         }
+
+        def lintReportModelTaskName = "generateDebugLintReportModel"
+        tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
+        }
+
         def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
         tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
             lintTask.dependsOn(unzipUblockOrigin)
