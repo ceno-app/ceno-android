@@ -7,9 +7,12 @@ import androidx.annotation.VisibleForTesting
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import ie.equalit.ceno.R.layout.bookmark_list_item
+import ie.equalit.ceno.R.layout.bookmark_separator
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
+import kotlin.enums.enumEntries
 
 class BookmarkAdapter(private val emptyView: View, private val interactor: BookmarkViewInteractor) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -33,7 +36,7 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
         }
         // Display folders above all other bookmarks. Exclude separators.
         // For separator removal, see discussion in https://github.com/mozilla-mobile/fenix/issues/15214
-        val newTree = folders + notFolders - separators
+        val newTree = folders + notFolders - separators.toSet()
 
         val diffUtil = DiffUtil.calculateDiff(
             BookmarkDiffUtil(
@@ -93,10 +96,10 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
             .inflate(viewType, parent, false)
 
         return when (viewType) {
-            BookmarkNodeViewHolder.LAYOUT_ID ->
+            bookmark_list_item ->
                 BookmarkNodeViewHolder(view as WebsiteListItemView, interactor)
 
-            BookmarkSeparatorViewHolder.LAYOUT_ID ->
+            bookmark_separator ->
                 BookmarkSeparatorViewHolder(view)
 
             else -> throw IllegalStateException("ViewType $viewType does not match to a ViewHolder")
@@ -104,8 +107,8 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
     }
 
     override fun getItemViewType(position: Int) = when (tree[position].type) {
-        BookmarkNodeType.ITEM, BookmarkNodeType.FOLDER -> BookmarkNodeViewHolder.LAYOUT_ID
-        BookmarkNodeType.SEPARATOR -> BookmarkSeparatorViewHolder.LAYOUT_ID
+        BookmarkNodeType.ITEM, BookmarkNodeType.FOLDER -> bookmark_list_item
+        BookmarkNodeType.SEPARATOR -> bookmark_separator
     }
 
     override fun getItemCount(): Int = tree.size
@@ -155,4 +158,4 @@ data class BookmarkPayload(
     )
 }
 
-fun BookmarkNode.inRoots() = enumValues<BookmarkRoot>().any { it.id == guid }
+fun BookmarkNode.inRoots() = enumEntries<BookmarkRoot>().any { it.id == guid }
