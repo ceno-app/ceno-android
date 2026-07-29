@@ -82,6 +82,9 @@ class OuicrawledSiteViewHolder(
         difference.let {
             val minutes = (it.toInt() / 60000)
 
+            if (minutes < 0) {
+                return itemView.context.resources.getString(R.string.last_crawl_status_negative)
+            }
             if (minutes < 60) {
                 return itemView.context.resources.getQuantityString(
                     R.plurals.last_crawl_status_minutes,

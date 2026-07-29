@@ -453,6 +453,7 @@
     <string name="reminder_notification_title">Hey, it\'s been a while!</string>
     <string name="reminder_notification_text">Reopen Ceno to keep your cache available to other users</string>
     <string name="ouicrawl_sites_section_title">Free Media Feed</string>
+    <string name="last_crawl_status_negative">a moment ago</string>
     <plurals name="last_crawl_status_minutes">
         <item quantity="zero">a moment ago</item>
         <item quantity="one">%d minute ago</item>
