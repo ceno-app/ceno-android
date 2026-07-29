@@ -1,6 +1,5 @@
 package ie.equalit.ceno.bookmarks
 
-import android.annotation.SuppressLint
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
@@ -96,10 +95,5 @@ class BookmarkNodeViewHolder(
             else ->
                 iconView.setImageDrawable(null)
         }
-    }
-
-    companion object {
-        @SuppressLint("NonConstantResourceId")
-        const val LAYOUT_ID = R.layout.bookmark_list_item
     }
 }
