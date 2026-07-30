@@ -140,9 +140,7 @@ platform :android do
     ENV["VERSION_CODE_0"] = sh "echo 2${MAJOR}${MINOR}${PATCH}0${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_1"] = sh "echo 2${MAJOR}${MINOR}${PATCH}1${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_2"] = sh "echo 2${MAJOR}${MINOR}${PATCH}2${REVISION} | tr -d '\n'"
-    sh "sed -n \"/${VERSION_NAME}/,/# \\[v/p\" ../CHANGELOG.md \
-        | head -n -2 \
-        | tail -n +2 \
+    sh "sed \"1,/${VERSION_NAME}/d;/## \\[v/,\\$d\" ../CHANGELOG.md \
         > metadata/android/en-US/changelogs/${VERSION_CODE_0}.txt"
     # arm64-v8a version code
     sh "cp metadata/android/en-US/changelogs/${VERSION_CODE_0}.txt metadata/android/en-US/changelogs/${VERSION_CODE_1}.txt"
