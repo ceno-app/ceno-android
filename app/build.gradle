@@ -427,6 +427,8 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     androidTestImplementation libs.espresso.idlingresources
+    androidTestImplementation libs.espresso.contrib
+    androidTestImplementation libs.hamcrest
 
     androidTestImplementation libs.mockwebserver
     androidTestImplementation libs.tools.testrunner

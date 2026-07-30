@@ -7,12 +7,15 @@
 package ie.equalit.ceno.ui.robots
 
 import android.view.KeyEvent
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.hasDescendant
 import androidx.test.espresso.matcher.ViewMatchers.isClickable
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withChild
@@ -44,7 +47,6 @@ class SettingsViewRobot {
     fun verifyTrackingProtectionButton(): ViewInteraction = assertTrackingProtectionButton()
     fun verifyTrackingProtectionSummary(): ViewInteraction = assertTrackingProtectionSummary()
     fun verifySearchButton(): ViewInteraction = assertSearchButton()
-    fun verifySearchSummary(): ViewInteraction = assertSearchSummary()
     fun verifyCustomizationButton(): ViewInteraction = assertCustomizationButton()
     fun verifyCustomizationSummary(): ViewInteraction = assertCustomizationSummary()
     fun verifyOpenLinksInApps(): ViewInteraction = assertOpenLinksInApps()
@@ -71,8 +73,12 @@ class SettingsViewRobot {
     fun verifyEnableLogFile(): ViewInteraction = assertEnableLogFile()
     fun verifyWebsiteSourcesButton(): ViewInteraction = assertWebsiteSourcesButton()
     fun verifyWebsiteSourcesSummary(): ViewInteraction = assertWebsiteSourcesSummary()
-    fun verifyAdditionalDeveloperToolsButton(): ViewInteraction = assertAdditionalDeveloperToolsButton()
-    fun verifyAdditionalDeveloperToolsButtonGone(): ViewInteraction = assertAdditionalDeveloperToolsButtonGone()
+    fun verifyAdditionalDeveloperToolsButton(): ViewInteraction =
+        assertAdditionalDeveloperToolsButton()
+
+    fun verifyAdditionalDeveloperToolsButtonGone(): ViewInteraction =
+        assertAdditionalDeveloperToolsButtonGone()
+
     fun verifyExportLogButton(): ViewInteraction = assertExportLogButton()
     fun verifyExportLogButtonGone(): ViewInteraction = assertExportLogButtonGone()
 
@@ -102,6 +108,24 @@ class SettingsViewRobot {
 
     fun clickCenoVersionDisplay() = cenoVersionDisplay().click()
 
+    fun verifySearchSummary(): ViewInteraction {
+        return if (mDevice.findObject(UiSelector().text("DuckDuckGo selected")).exists()) {
+            assertSearchSummaryDdg()
+        } else {
+            assertSearchSummaryGoogle()
+        }
+    }
+
+    fun scrollToText(text: String) {
+        onView(withId(R.id.recycler_view))
+            .perform(
+                // scrollTo will fail the test if no item matches.
+                RecyclerViewActions.scrollTo<RecyclerView.ViewHolder>(
+                    hasDescendant(withText(text))
+                )
+            )
+    }
+
     fun waitForBridgeModeDialogToExist() {
         mDevice.findObject(
             UiSelector()
@@ -126,12 +150,6 @@ class SettingsViewRobot {
         for (i in 1..count) {
             recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_DOWN))
             Thread.sleep(250)
-        }
-    }
-
-    fun clickUpRecyclerView(count: Int) {
-        for (i in 1..count) {
-            recycleView().perform(ViewActions.pressKey(KeyEvent.KEYCODE_DPAD_UP))
         }
     }
 
@@ -248,7 +266,8 @@ private fun generalHeading() = onView(withText(R.string.general_category))
 private fun trackingProtectionButton() = onView(withText(R.string.tracker_category))
 private fun trackingProtectionSummary() = onView(withText(R.string.preferences_privacy_summary))
 private fun searchButton() = onView(withText(R.string.set_default_search_engine))
-private fun searchSummary() = onView(withText("DuckDuckGo selected"))
+private fun searchSummaryDdg() = onView(withText("DuckDuckGo selected"))
+private fun searchSummaryGoogle() = onView(withText("Google selected"))
 
 //TODO: check for different search engines when they are set
 private fun customizationButton() =
@@ -324,7 +343,8 @@ private fun geckoviewVersionDisplay() = onView(withText(R.string.preferences_abo
 private fun ouinetVersionDisplay() = onView(withText(R.string.preferences_about_ouinet))
 private fun changeLanguageButton() = onView(withText(R.string.preferences_change_language))
 private fun permissionsHeading() = onView(withText(R.string.ceno_permissions_category))
-private fun warnOpeningUrlsFromAppsToggle() = onView(withText(R.string.preferences_verify_external_url))
+private fun warnOpeningUrlsFromAppsToggle() =
+    onView(withText(R.string.preferences_verify_external_url))
 
 private fun aboutEqualitieButton() =
     onView(allOf(isClickable(), withChild(withText(R.string.preferences_about_page))))
@@ -341,7 +361,10 @@ private fun assertTrackingProtectionSummary() = trackingProtectionSummary()
 private fun assertSearchButton() = searchButton()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
-private fun assertSearchSummary() = searchSummary()
+private fun assertSearchSummaryDdg() = searchSummaryDdg()
+    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
+
+private fun assertSearchSummaryGoogle() = searchSummaryGoogle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertCustomizationButton() = customizationButton()

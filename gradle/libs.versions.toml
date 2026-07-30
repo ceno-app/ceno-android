@@ -54,6 +54,8 @@ detekt = "1.23.8"
 jvm = "2.0.21"
 serialization = "1.9.25"
 material3Android = "1.4.0"
+espresso_contrib = "3.7.0"
+hamcrest = "3.0"
 
 
 [libraries]
@@ -148,12 +150,14 @@ tools-kotlingradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plu
 
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "testing_androidx_espresso" }
 espresso-idlingresources = { group = "androidx.test.espresso", name = "espresso-idling-resource", version.ref = "testing_androidx_espresso" }
+espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso_contrib" }
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "testing_mockwebserver" }
 orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "testing_androidx_orchestrator" }
 tools-testrules = { group = "androidx.test", name = "rules", version.ref = "testing_androidx_core" }
 tools-testrunner = { group = "androidx.test", name = "runner", version.ref = "testing_androidx_runner" }
 uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "testing_androidx_uiautomator" }
 junit_ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "testing_androidx_ext_junit" }
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 
 # CENO: Additional dependencies required */
 mozilla-featuretopsites = { group = "org.mozilla.components", name = "feature-top-sites", version.ref = "android_components" }
