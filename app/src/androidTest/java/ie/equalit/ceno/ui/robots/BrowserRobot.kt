@@ -78,6 +78,16 @@ class BrowserRobot {
         ).check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
     }
 
+    fun clickMatchingText(expectedText: String) {
+        mDevice.waitForWindowUpdate(packageName, waitingTime)
+        mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))
+            .waitForExists(waitingTime)
+        mDevice.findObject(UiSelector().textContains(expectedText))
+            .waitForExists(waitingTime)
+        val link = mDevice.findObject(By.textContains(expectedText))
+        link.click()
+    }
+
     fun longClickMatchingText(expectedText: String) {
         mDevice.waitForWindowUpdate(packageName, waitingTime)
         mDevice.findObject(UiSelector().resourceId("$packageName:id/engineView"))

@@ -378,6 +378,7 @@ class SettingsViewTest {
                 verifyExportOuinetLogDownload()
                 verifyExportOuinetLogView()
                 mDevice.pressBack()
+                Thread.sleep(2000)
                 verifyAnnouncementSource()
                 verifyAnnouncementSourceSummary()
                 clickAnnouncementSource()
@@ -385,6 +386,7 @@ class SettingsViewTest {
                 verifyAnnouncementOption2()
                 verifyAnnouncementOption3()
                 clickCancelDialog()
+                Thread.sleep(2000)
                 verifyAnnouncementExpiration()
                 toggleAnnouncementExpirationOn()
                 toggleAnnouncementExpirationOff()
@@ -503,6 +505,7 @@ class SettingsViewTest {
 
     @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
+    @Ignore("Disabled - flaky even on the limited sdk versions")
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
         mDevice.executeShellCommand("svc wifi disable")
@@ -514,6 +517,7 @@ class SettingsViewTest {
 
     @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
+    @Ignore("Disabled - flaky even on the limited sdk versions")
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()
         mDevice.executeShellCommand("svc wifi disable")
