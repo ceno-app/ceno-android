@@ -119,13 +119,16 @@ class ScreenshotGenerator {
                 takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
                 permissionAllowButton().waitForExists(waitingTime)
-                takeScreenshotWithWait("onboarding_permissions_notifications")
-                permissionAllowButton().click()
-
+                if (permissionAllowButton().exists()) {
+                    takeScreenshotWithWait("onboarding_permissions_notifications")
+                    permissionAllowButton().click()
+                }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
                     backgroundAllowButton().waitForExists(waitingTime)
-                    takeScreenshotWithWait("onboarding_permissions_optimisation")
-                    backgroundAllowButton().click()
+                    if (backgroundAllowButton().exists()) {
+                        takeScreenshotWithWait("onboarding_permissions_optimisation")
+                        backgroundAllowButton().click()
+                    }
                 }
             }
         }
@@ -202,7 +205,7 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(13)
+                clickDownRecyclerView(8)
                 Thread.sleep(1000)
             }
             .openSettingsViewDeleteBrowsingData {
@@ -221,7 +224,11 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(16)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    scrollToText("Website sources")
+                } else {
+                    clickDownRecyclerView(16)
+                }
                 Thread.sleep(1000)
             }
             .openSettingsViewSources {
@@ -238,7 +245,6 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(11)
                 Thread.sleep(1000)
             }
             .openSettingsViewMetrics {
@@ -362,7 +368,11 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(15)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    scrollToText("Content shared by you")
+                } else {
+                    clickDownRecyclerView(15)
+                }
                 Thread.sleep(1000)
                 verifyClearCachedContentButton()
                 takeScreenshotWithWait("cached_content_with_data")
@@ -371,6 +381,11 @@ class ScreenshotGenerator {
                 takeScreenshotWithWait("cached_content_list")
             }
             .goBack {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    scrollToText("Clear cached content")
+                } else {
+                    clickDownRecyclerView(15)
+                }
                 clickClearCacheButton()
                 takeScreenshotWithWait("cached_content_clear_dialog")
                 clickCancel()
@@ -411,7 +426,6 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(10)
                 Thread.sleep(1000)
                 verifyChangeLanguageButton()
             }

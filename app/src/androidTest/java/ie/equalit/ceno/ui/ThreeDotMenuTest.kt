@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui
 
+import android.os.Build
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -308,6 +309,9 @@ class ThreeDotMenuTest {
         }
             .openAddToHomeScreen {
                 clickAddAutomaticallyToHomeScreenButton()
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    mDevice.pressHome()
+                }
             }
             // Need to figure out how to press home button on Android 15? or all versions
             .openHomeScreenShortcut(defaultWebPage.title) {
