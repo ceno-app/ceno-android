@@ -213,22 +213,19 @@ class HomeFragment : BaseHomeFragment() {
             // Switch context to make network call
             withContext(Dispatchers.IO) {
                 context?.let { context ->
-                    getAnnouncements(context)
                     if (!CenoSettings.hideOuicrawlFeed(context))
                         getOuicrawlSites(context)
 
-                    // check for null and refresh homepage adapter if necessary
-                    // Set announcement data from local since filtering happens there (i.e Settings.getAnnouncementData())
-                    if (Settings.getAnnouncementData(context) != null) {
-                        withContext(Dispatchers.Main) {
-                            val state = context.components.appStore.state
-                            sessionControlView?.update(
-                                state,
-                                Settings.getAnnouncementData(context)?.items,
-                                Settings.getOuicrawlData(context)
-                            )
-                        }
+                    withContext(Dispatchers.Main) {
+                        val state = context.components.appStore.state
+                        sessionControlView?.update(
+                            state,
+                            Settings.getAnnouncementData(context)?.items,
+                            Settings.getOuicrawlData(context)
+                        )
                     }
+
+                    getAnnouncements(context)
                 }
             }
         }
@@ -487,6 +484,7 @@ class HomeFragment : BaseHomeFragment() {
             context,
             Request(
                 url = "https://schedule.ceno.app/schedule.json",
+                useCaches = true
             )
         )
         ouicrawlResponse?.let {
