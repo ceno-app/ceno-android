@@ -209,6 +209,18 @@ class HomeFragment : BaseHomeFragment() {
                 }
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            // Switch context to make network call
+            withContext(Dispatchers.IO) {
+                context?.let { context ->
+                    getAnnouncements(context)
+                }
+            }
+        }
+    }
+
+    private fun updateFreeMediaFeedView() {
         viewLifecycleOwner.lifecycleScope.launch {
             // Switch context to make network call
             withContext(Dispatchers.IO) {
@@ -308,6 +320,11 @@ class HomeFragment : BaseHomeFragment() {
                 isNetworkStatusDialogVisible = true
             }
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        updateFreeMediaFeedView()
     }
 
     override fun onStart() {
