@@ -330,6 +330,7 @@ class HomeFragment : BaseHomeFragment() {
     override fun onStart() {
         super.onStart()
         updateSessionControlView()
+        updateFreeMediaFeedView()
         showTooltip()
     }
 
