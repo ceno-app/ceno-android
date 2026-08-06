@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintHeight_default="wrap"
         app:layout_constraintHeight_min="48dp"
-        tools:text="@tools:sample/lorem"/>
+        tools:text="@tools:sample/lorem" />
 
     <TextView
         android:id="@android:id/summary"
@@ -38,7 +38,7 @@
         app:layout_constraintEnd_toEndOf="@android:id/title"
         app:layout_constraintStart_toStartOf="@android:id/title"
         app:layout_constraintTop_toBottomOf="@android:id/title"
-        tools:text="@tools:sample/lorem"/>
+        tools:text="@tools:sample/lorem" />
 
     <androidx.appcompat.widget.SwitchCompat
         android:id="@+id/switchWidget"

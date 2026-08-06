@@ -3,7 +3,7 @@
     android:height="170dp"
     android:viewportWidth="360"
     android:viewportHeight="498">
-  <path
-      android:pathData="M179,249m-249,0a249,249 0,1 1,498 0a249,249 0,1 1,-498 0"
-      android:fillColor="@color/tooltip_prompt_color" />
+    <path
+        android:pathData="M179,249m-249,0a249,249 0,1 1,498 0a249,249 0,1 1,-498 0"
+        android:fillColor="@color/tooltip_prompt_color" />
 </vector>

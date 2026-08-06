@@ -5,9 +5,9 @@ import android.graphics.Rect
 
 class PromptTextWithBtn(
     val buttonHeight: Float,
-):PromptText() {
+) : PromptText() {
 
-    var textSeparation : Float = 0.0f
+    var textSeparation: Float = 0.0f
     var btnLocation = PointF()
 
     var onUpdate: (() -> Unit)? = null
@@ -30,7 +30,8 @@ class PromptTextWithBtn(
         }
 
         btnLocation.x = mPrimaryTextLeft
-        btnLocation.y = mTextBounds.top + mPrimaryTextLayout.height + textSeparation + mSecondaryTextLayout.height + textSeparation
+        btnLocation.y =
+            mTextBounds.top + mPrimaryTextLayout.height + textSeparation + mSecondaryTextLayout.height + textSeparation
 
         onUpdate?.invoke()
     }

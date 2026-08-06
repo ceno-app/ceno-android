@@ -21,7 +21,8 @@ object TestAssetHelper {
         val url: Uri,
         val content: String,
         val title: String,
-        val displayUrl: String = ""
+        val displayUrl: String = "",
+        val fileName: String = ""
     )
 
     /**
@@ -53,7 +54,8 @@ object TestAssetHelper {
         val title = "Test_Page_$pageNum"
         val displayUrl = url.toString()
             .replaceFirst("^https?://(www\\.)?".toRegex(), "")
-        return TestAsset(url, content, title, displayUrl)
+        val fileName = "generic$pageNum.html.pdf"
+        return TestAsset(url, content, title, displayUrl, fileName)
     }
 
     fun getLoremIpsumAsset(server: MockWebServer): TestAsset {

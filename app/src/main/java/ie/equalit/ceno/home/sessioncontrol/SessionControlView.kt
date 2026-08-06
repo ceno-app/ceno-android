@@ -32,7 +32,9 @@ internal fun normalModeAdapterItems(
     announcements: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?,
-    hideOuicrawlFeed: Boolean
+    hideOuicrawlFeed: Boolean,
+    telegramChannelsUrl: String,
+    hideTelegramChannels: Boolean
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
 
@@ -48,10 +50,23 @@ internal fun normalModeAdapterItems(
     if (!isBridgeAnnouncementEnabled && settings.showBridgeAnnouncementCard)
         items.add(AdapterItem.CenoMessageItem(messageCard))
 
-
-    if (topSites.isNotEmpty()) {
-        items.add(AdapterItem.TopSitePager(topSites))
+    // TODO: Get the url from a more standard source (ask grant)
+    val shortcutTopSites = topSites.filter {
+        !it.url.startsWith(telegramChannelsUrl)
     }
+
+    val telegramChannels = topSites.filter {
+        it.url.startsWith(telegramChannelsUrl)
+    }
+
+    if (shortcutTopSites.isNotEmpty()) {
+        items.add(AdapterItem.TopSitePager(shortcutTopSites))
+    }
+
+    if (!hideTelegramChannels && telegramChannels.isNotEmpty()) {
+        items.add(AdapterItem.TelegramChannelsTopSitePager(telegramChannels))
+    }
+
     if (!hideOuicrawlFeed && ouicrawlSites != null) {
         items.add(AdapterItem.SectionHeaderItem)
         ouicrawlSites.forEach {
@@ -90,7 +105,9 @@ private fun AppState.toAdapterList(
     announcement: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?,
-    hideOuicrawlFeed: Boolean
+    hideOuicrawlFeed: Boolean,
+    telegramChannelsUrl: String,
+    hideTelegramChannels: Boolean,
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
@@ -107,7 +124,9 @@ private fun AppState.toAdapterList(
                     it
                 }
             },
-            hideOuicrawlFeed
+            hideOuicrawlFeed,
+            telegramChannelsUrl,
+            hideTelegramChannels
         )
 
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
@@ -161,7 +180,9 @@ class SessionControlView(
                 announcements,
                 CenoSettings.isBridgeAnnouncementEnabled(view.context),
                 ouicrawlSites,
-                CenoSettings.hideOuicrawlFeed(view.context)
+                CenoSettings.hideOuicrawlFeed(view.context),
+                ContextCompat.getString(view.context, R.string.default_telegram_channel),
+                CenoSettings.hideTelegramChannels(view.context)
             )
         )
         sessionControlAdapter.notifyDataSetChanged()

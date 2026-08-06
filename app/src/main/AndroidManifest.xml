@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -16,20 +15,18 @@
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
     <uses-permission
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
-        />
+        android:maxSdkVersion="28" />
     <uses-permission
         android:name="android.permission.READ_EXTERNAL_STORAGE"
-        android:maxSdkVersion="28"
-        />
+        android:maxSdkVersion="28" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PLAYBACK" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
 
     <application
@@ -48,7 +45,8 @@
             android:name="io.sentry.auto-init"
             android:value="false" />
 
-        <activity android:name="ie.equalit.ceno.BrowserActivity"
+        <activity
+            android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleInstance"
             android:icon="@mipmap/ic_launcher_default"
             android:roundIcon="@mipmap/ic_launcher_default_round"
@@ -63,6 +61,7 @@
                 android:name="android.resizeableActivity"
                 android:value="true"
                 android:resource="@bool/resizeable_activity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -217,33 +216,37 @@
         <activity
             android:name="ie.equalit.ceno.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
             android:name="ie.equalit.ceno.IntentReceiverActivity"
             android:relinquishTaskIdentity="true"
             android:taskAffinity=""
             android:exported="true"
-            android:excludeFromRecents="true" >
+            android:excludeFromRecents="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="mozilla.components.pwa.category.SHORTCUT" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:mimeType="text/html"/>
-                <data android:mimeType="text/plain"/>
-                <data android:mimeType="application/xhtml+xml"/>
+                <data android:mimeType="text/html" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="application/xhtml+xml" />
             </intent-filter>
 
             <intent-filter>
@@ -255,17 +258,17 @@
 
         <service
             android:name="ie.equalit.ceno.downloads.DownloadService"
-            android:foregroundServiceType="dataSync"
-            />
+            android:foregroundServiceType="dataSync" />
 
-        <service android:name="ie.equalit.ceno.media.MediaSessionService"
+        <service
+            android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false"
-            android:foregroundServiceType="mediaPlayback"
-            />
+            android:foregroundServiceType="mediaPlayback" />
 
-        <service android:name=".browser.notification.PublicNotificationService"
+        <service
+            android:name=".browser.notification.PublicNotificationService"
             android:exported="false"
-            android:foregroundServiceType="dataSync"/>
+            android:foregroundServiceType="dataSync" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

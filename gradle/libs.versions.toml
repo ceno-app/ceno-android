@@ -11,17 +11,16 @@ androidx_navigation = "2.9.8"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.2.0"
 androidx_work = "2.11.2"
-androidx_r8 = "9.1.31"
 
 # Android Components
-android_components = "152.0.6"
+android_components = "153.0.1"
 
 # Google
 google_composecompiler = "1.5.15"
 google_material = "1.14.0"
 
 # Gradle
-gradle_android_plugin = "9.2.1"
+gradle_android_plugin = "9.3.1"
 gradle_kotlin_plugin = "2.2.21"
 
 # Kotlin
@@ -40,13 +39,13 @@ testing_jacoco = "0.8.15"
 testing_mockwebserver = "4.12.0"
 
 # Third Party
-sentry = "8.45.0"
+sentry = "8.48.0"
 gson = "2.14.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
 # CENO: Versions for additional dependencies */
-ouinet_version = "1.6.9"
+ouinet_version = "1.6.10"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 
@@ -55,6 +54,8 @@ detekt = "1.23.8"
 jvm = "2.0.21"
 serialization = "1.9.25"
 material3Android = "1.4.0"
+espresso_contrib = "3.7.0"
+hamcrest = "3.0"
 
 
 [libraries]
@@ -141,7 +142,6 @@ androidx-safeargs = { group = "androidx.navigation", name = "navigation-safe-arg
 androidx-navigationfragment = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "androidx_navigation" }
 androidx-navigationui = { group = "androidx.navigation", name = "navigation-ui", version.ref = "androidx_navigation" }
 androidx-material3-android = { group = "androidx.compose.material3", name = "material3-android", version.ref = "material3Android" }
-androidx-r8 = { group = "com.android.tools", name = "r8", version.ref = "androidx_r8" }
 
 google-material = { group = "com.google.android.material", name = "material", version.ref = "google_material" }
 
@@ -150,12 +150,14 @@ tools-kotlingradle = { group = "org.jetbrains.kotlin", name = "kotlin-gradle-plu
 
 espresso-core = { group = "androidx.test.espresso", name = "espresso-core", version.ref = "testing_androidx_espresso" }
 espresso-idlingresources = { group = "androidx.test.espresso", name = "espresso-idling-resource", version.ref = "testing_androidx_espresso" }
+espresso-contrib = { group = "androidx.test.espresso", name = "espresso-contrib", version.ref = "espresso_contrib" }
 mockwebserver = { group = "com.squareup.okhttp3", name = "mockwebserver", version.ref = "testing_mockwebserver" }
 orchestrator = { group = "androidx.test", name = "orchestrator", version.ref = "testing_androidx_orchestrator" }
 tools-testrules = { group = "androidx.test", name = "rules", version.ref = "testing_androidx_core" }
 tools-testrunner = { group = "androidx.test", name = "runner", version.ref = "testing_androidx_runner" }
 uiautomator = { group = "androidx.test.uiautomator", name = "uiautomator", version.ref = "testing_androidx_uiautomator" }
 junit_ktx = { group = "androidx.test.ext", name = "junit-ktx", version.ref = "testing_androidx_ext_junit" }
+hamcrest = { group = "org.hamcrest", name = "hamcrest", version.ref = "hamcrest" }
 
 # CENO: Additional dependencies required */
 mozilla-featuretopsites = { group = "org.mozilla.components", name = "feature-top-sites", version.ref = "android_components" }

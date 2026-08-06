@@ -55,6 +55,7 @@ android {
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "Boolean", "SCREENSHOTS_IN_TESTS", localProperties['SCREENSHOTS_IN_TESTS'] ?: 'false'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
         buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)
@@ -76,10 +77,11 @@ android {
     }
 
     def releaseTemplate = {
-        shrinkResources = !project.hasProperty("disableOptimization")
-        minifyEnabled = !project.hasProperty("disableOptimization")
         proguardFiles = [getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro']
         matchingFallbacks = ['release'] // Use on the "release" build type in dependencies (AARs)
+        optimization {
+            enable = !project.hasProperty("disableOptimization")
+        }
     }
 
     buildFeatures {
@@ -170,8 +172,7 @@ if (isBuildingRelease || isBuildingNightly) {
     base {
         archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
     }
-}
-else {
+} else {
     base {
         archivesName = "${appId[2]}-${android.defaultConfig.versionName}"
     }
@@ -260,10 +261,21 @@ android.applicationVariants.all { variant ->
             output.versionCodeOverride = versionCodeOverride
         }
 
+        def lintAnalyzeTaskName = "lintAnalyzeDebug"
+        tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
+        }
+
         def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
         tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
             lintTask.dependsOn(unzipUblockOrigin)
         }
+
+        def lintReportModelTaskName = "generateDebugLintReportModel"
+        tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
+            lintTask.dependsOn(unzipUblockOrigin)
+        }
+
         def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
         tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
             lintTask.dependsOn(unzipUblockOrigin)
@@ -416,6 +428,8 @@ dependencies {
     androidTestImplementation libs.espresso.core
 
     androidTestImplementation libs.espresso.idlingresources
+    androidTestImplementation libs.espresso.contrib
+    androidTestImplementation libs.hamcrest
 
     androidTestImplementation libs.mockwebserver
     androidTestImplementation libs.tools.testrunner

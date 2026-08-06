@@ -11,8 +11,3 @@
 - Update Ouinet to v1.6.9
 - Update uBlock Origin to 1.72.2
 - Update translations for various locales
-
-## [v2.10.0](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.10.0) - 2026-07-06
-## [v2.0.0a2](https://gitlab.com/ceno-app/ceno-android/-/tags/v2.0.0a2) - 2022-10-19
-
-- See changes [v2.0.0a2..v2.0.0a2](https://gitlab.com/ceno-app/ceno-android/-/compare/v2.0.0a1..v2.0.0a2)

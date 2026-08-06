@@ -14,6 +14,7 @@ import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsPagerViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
 class SessionControlAdapter internal constructor(
@@ -35,6 +36,9 @@ class SessionControlAdapter internal constructor(
             HomepageCardType.ANNOUNCEMENTS_CARD.value -> R.layout.rss_announcement_item
             HomepageCardType.OUICRAWLED_SITE_CARD.value -> R.layout.home_ouicraw_site_item
             HomepageCardType.SECTION_HEADER.value -> R.layout.home_section_header_layout
+            HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD.value ->
+                R.layout.component_telegram_top_sites_pager
+
             else -> throw IllegalArgumentException("Invalid view type")
         }
 
@@ -45,6 +49,12 @@ class SessionControlAdapter internal constructor(
             CenoModeViewHolder.homepageCardType.value -> CenoModeViewHolder(view, interactor)
             CenoMessageViewHolder.homepageCardType.value -> CenoMessageViewHolder(view, interactor)
             TopSitePagerViewHolder.homepageCardType.value -> TopSitePagerViewHolder(
+                view = view,
+                viewLifecycleOwner = viewLifecycleOwner,
+                interactor = interactor
+            )
+
+            TelegramChannelsPagerViewHolder.homepageCardType.value -> TelegramChannelsPagerViewHolder(
                 view = view,
                 viewLifecycleOwner = viewLifecycleOwner,
                 interactor = interactor
@@ -91,6 +101,10 @@ class SessionControlAdapter internal constructor(
 
             is TopSitePagerViewHolder -> {
                 holder.bind((item as AdapterItem.TopSitePager).topSites)
+            }
+
+            is TelegramChannelsPagerViewHolder -> {
+                holder.bind((item as AdapterItem.TelegramChannelsTopSitePager).topSites)
             }
 
             is CenoMessageViewHolder -> {

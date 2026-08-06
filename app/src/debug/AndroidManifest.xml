@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!-- This Source Code Form is subject to the terms of the Mozilla Public
+<?xml version="1.0" encoding="utf-8"?><!-- This Source Code Form is subject to the terms of the Mozilla Public
    - License, v. 2.0. If a copy of the MPL was not distributed with this
    - file, You can obtain one at http://mozilla.org/MPL/2.0/. -->
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
@@ -14,22 +13,24 @@
         android:required="false" />
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES"/>
-    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO"/>
+    <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+    <uses-permission android:name="android.permission.READ_MEDIA_VIDEO" />
     <uses-permission android:name="android.permission.READ_MEDIA_VISUAL_USER_SELECTED" />
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.READ_EXTERNAL_STORAGE"
         tools:ignore="ScopedStorage" />
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE"/>
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
     <uses-permission android:name="android.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS" />
-    <uses-permission android:name="android.permission.POST_NOTIFICATIONS"/>
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <!-- Allows storing screenshots on external storage, where it can be accessed by ADB -->
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
+    <uses-permission
+        android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="32"
         tools:replace="android:maxSdkVersion"
         tools:ignore="ScopedStorage" />
@@ -40,7 +41,7 @@
         tools:ignore="ProtectedPermissions" />
 
     <!-- Allows changing SystemUI demo mode -->
-    <uses-feature android:name="tools.fastlane.screengrab.cleanstatusbar"/>
+    <uses-feature android:name="tools.fastlane.screengrab.cleanstatusbar" />
     <uses-permission
         android:name="android.permission.DUMP"
         tools:ignore="ProtectedPermissions" />
@@ -58,7 +59,8 @@
         android:name="ie.equalit.ceno.BrowserApplication"
         tools:replace="android:roundIcon">
 
-        <activity android:name="ie.equalit.ceno.BrowserActivity"
+        <activity
+            android:name="ie.equalit.ceno.BrowserActivity"
             android:launchMode="singleInstance"
             android:icon="@mipmap/ic_launcher_default"
             android:roundIcon="@mipmap/ic_launcher_default"
@@ -74,6 +76,7 @@
                 android:name="android.resizeableActivity"
                 android:value="true"
                 android:resource="@bool/resizeable_activity" />
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -219,33 +222,37 @@
         <activity
             android:name="ie.equalit.ceno.addons.WebExtensionActionPopupActivity"
             android:label="@string/mozac_feature_addons_addons"
-            android:theme="@style/Theme.AppCompat.Light"/>
+            android:theme="@style/Theme.AppCompat.Light" />
 
         <activity
             android:name="ie.equalit.ceno.IntentReceiverActivity"
             android:relinquishTaskIdentity="true"
             android:taskAffinity=""
             android:exported="true"
-            android:excludeFromRecents="true" >
+            android:excludeFromRecents="true">
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="mozilla.components.pwa.category.SHORTCUT" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
             </intent-filter>
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
+
                 <data android:scheme="http" />
                 <data android:scheme="https" />
-                <data android:mimeType="text/html"/>
-                <data android:mimeType="text/plain"/>
-                <data android:mimeType="application/xhtml+xml"/>
+                <data android:mimeType="text/html" />
+                <data android:mimeType="text/plain" />
+                <data android:mimeType="application/xhtml+xml" />
             </intent-filter>
 
             <intent-filter>
@@ -263,7 +270,8 @@
 
         <service android:name="ie.equalit.ceno.downloads.DownloadService" />
 
-        <service android:name="ie.equalit.ceno.media.MediaSessionService"
+        <service
+            android:name="ie.equalit.ceno.media.MediaSessionService"
             android:exported="false" />
 
         <provider

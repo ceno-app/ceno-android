@@ -1,9 +1,10 @@
 <?xml version="1.0" ?>
 <SmellBaseline>
-  <ManuallySuppressedIssues></ManuallySuppressedIssues>
+  <ManuallySuppressedIssues/>
   <CurrentIssues>
     <ID>CollapsibleIfStatements:AdapterItem.kt$AdapterItem.CenoAnnouncementItem$if (newItem != null) { if (newItem.mode == this.mode) { if (newItem.response.title != this.response.title) return false return super.contentsSameAs(other) } }</ID>
     <ID>CollapsibleIfStatements:ExportAndroidLogsDialog.kt$ExportAndroidLogsDialog$if (checkboxDebugLogs.isVisible) { //check if logfile is enabled if (checkboxDebugLogs.isChecked != CenoSettings.isCenoLogEnabled(context = this@ExportAndroidLogsDialog.context)) { // network request to update preference value CenoSettings.ouinetClientRequest( context = this@ExportAndroidLogsDialog.context, coroutineScope = lifecycleOwner.lifecycleScope, key = OuinetKey.LOGFILE, newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE, stringValue = null, object : OuinetResponseListener { override fun onSuccess(message: String, data: Any?) { CenoSettings.setCenoEnableLog( this@ExportAndroidLogsDialog.context, checkboxDebugLogs.isChecked ) } override fun onError() { Log.e( TAG, "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}" ) } } ) // network request to update log level based on preference value CenoSettings.ouinetClientRequest( context = this@ExportAndroidLogsDialog.context, coroutineScope = lifecycleOwner.lifecycleScope, key = OuinetKey.LOG_LEVEL, stringValue = if (checkboxDebugLogs.isChecked) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(), ouinetResponseListener = object : OuinetResponseListener { override fun onSuccess(message: String, data: Any?) { //restart ouinet fragment.requireComponents.ouinet.background.restartOuinet() } override fun onError() { Log.e( TAG, "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}" ) } } ) } }</ID>
+    <ID>CollapsibleIfStatements:ScreenshotGenerator.kt$ScreenshotGenerator$if (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.TIRAMISU) { if (permissionAllowButton().waitForExists(waitingTime)) { takeScreenshotWithWait("onboarding_permissions_notifications") permissionAllowButton().waitForExists(waitingTime) permissionAllowButton().click() } }</ID>
     <ID>ComplexCondition:WebExtensionActionPopupPanel.kt$WebExtensionActionPopupPanel$localCache &gt; 0F &amp;&amp; origin == 0F &amp;&amp; injector == 0F &amp;&amp; proxy == 0F &amp;&amp; distCache == 0F</ID>
     <ID>ComplexCondition:WebsiteSourceSettingsFragment.kt$WebsiteSourceSettingsFragment$!private &amp;&amp; !public &amp;&amp; !origin &amp;&amp; !shared</ID>
     <ID>ComplexCondition:XMLParser.kt$XMLParser$rssFeedTitle.isEmpty() || rssFeedLink.isEmpty() || rssFeedDescription.isEmpty() || rssFeedItems.isEmpty()</ID>
@@ -11,6 +12,7 @@
     <ID>CyclomaticComplexMethod:BrowserActivity.kt$BrowserActivity$@Suppress("LongMethod") override fun onCreate(savedInstanceState: Bundle?)</ID>
     <ID>CyclomaticComplexMethod:CenoSettings.kt$CenoSettings$@Suppress("LongMethod") fun ouinetClientRequest( context: Context, coroutineScope: CoroutineScope, key: OuinetKey, newValue: OuinetValue? = null, stringValue: String? = null, ouinetResponseListener: OuinetResponseListener? = null, shouldRefresh: Boolean = true, forMetrics: Boolean = false, metricsKey: String? = null )</ID>
     <ID>CyclomaticComplexMethod:EditBookmarkFragment.kt$EditBookmarkFragment$override fun onViewCreated(view: View, savedInstanceState: Bundle?)</ID>
+    <ID>CyclomaticComplexMethod:TelegramChannelItemViewHolder.kt$TelegramChannelItemViewHolder$@Suppress("LongMethod") fun bind(topSite: TopSite, position: Int)</ID>
     <ID>CyclomaticComplexMethod:TopSiteItemViewHolder.kt$TopSiteItemViewHolder$@Suppress("LongMethod") fun bind(topSite: TopSite, position: Int)</ID>
     <ID>CyclomaticComplexMethod:WebsiteSourceSettingsFragment.kt$WebsiteSourceSettingsFragment$private fun showWarningMessageIfNeeded(newValue: Boolean = false, key: OuinetKey?)</ID>
     <ID>CyclomaticComplexMethod:XMLParser.kt$XMLParser$@Suppress("LongMethod") fun parseRssXml(xmlString: String): RssAnnouncementResponse?</ID>
@@ -26,6 +28,7 @@
     <ID>ForbiddenComment:SaveToPDFMiddleware.kt$SaveToPDFMiddleware$// TODO: not yet implemented</ID>
     <ID>ForbiddenComment:ScreenshotGenerator.kt$ScreenshotGenerator$// TODO: implement check that page has finished loading</ID>
     <ID>ForbiddenComment:ScreenshotGenerator.kt$ScreenshotGenerator$// TODO: localize checking for success dialog instead of sleeping</ID>
+    <ID>ForbiddenComment:SessionControlView.kt$// TODO: Get the url from a more standard source (ask grant)</ID>
     <ID>ForbiddenComment:SettingsFragment.kt$SettingsFragment$/* Resetting the log settings is a workaround for ouinet logs disappearing after toggling bridge mode, * https://gitlab.com/ceno-app/ceno-browser/-/merge_requests/127#note_1795759444 * TODO: identify root cause of this behavior and remove workaround * */</ID>
     <ID>ForbiddenComment:SettingsViewRobot.kt$//TODO: check for different search engines when they are set</ID>
     <ID>ForbiddenComment:SettingsViewTest.kt$SettingsViewTest$// TODO: also relies on log assertion, which is unreliable on Android 14+</ID>
@@ -37,16 +40,15 @@
     <ID>ForbiddenComment:TabTrayMenuTest.kt$TabTrayMenuTest$//TODO: going back sometimes fails due to bug that takes user back to homepage too soon</ID>
     <ID>ForbiddenComment:ThreeDotMenuRobot.kt$ThreeDotMenuRobot.Transition$// TODO: these should return Robots for testing the extension popups</ID>
     <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$* Tests for verifying the main three dot menu options * * Including: * - Verify all menu items present * - Forward button navigates forward to a page * - Refresh button refreshes page content * - Share button opens app overlay menu * - Request desktop site toggle forwards to desktop view of web page (TBD) * - Find in page button can locate web page text * - Report issue button forwards to gitubh issues (TBD) * - Open settings button opens Settings sub-menu * * Not included: * - TODO: Request desktop site (user mockWebServer to parse request headers) * - Stop button stops page loading (covered by smoke tests)</ID>
-    <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$/* TODO: implement report issue in Ceno @Test fun reportIssueTest() { val loremIpsumWebPage = TestAssetHelper.getLoremIpsumAsset(mockWebServer) navigationToolbar { }.enterUrlAndEnterToBrowser(loremIpsumWebPage.url) { mDevice.waitForIdle() } navigationToolbar { }.openThreeDotMenu { }.reportIssue { mDevice.waitForIdle() verifyGithubUrl() } } */</ID>
+    <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$// TODO: fix verification of page content</ID>
     <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$// TODO: this feature is needs permissions for</ID>
-    <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$//TODO: Https-by-default currently disabled on homepage, add back when needed</ID>
     <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$//TODO: stop button only appears during load, needs special test case</ID>
-    <ID>ForbiddenComment:ThreeDotMenuTest.kt$ThreeDotMenuTest$//TODO: uBlock Origin takes some time to install, needs special test case</ID>
     <ID>ForbiddenComment:WebExtensionActionPopupPanel.kt$WebExtensionActionPopupPanel$// TODO: if more info about HTTPS is added, bring back this icon to indicate more info is available</ID>
     <ID>LargeClass:BaseBrowserFragment.kt$BaseBrowserFragment : FragmentUserInteractionHandler</ID>
     <ID>LargeClass:BaseHomeFragment.kt$BaseHomeFragment : FragmentUserInteractionHandler</ID>
     <ID>LargeClass:BookmarksTest.kt$BookmarksTest</ID>
     <ID>LargeClass:BrowserActivity.kt$BrowserActivity : BaseActivityNotificationListener</ID>
+    <ID>LargeClass:BrowserRobot.kt$BrowserRobot</ID>
     <ID>LargeClass:CenoModeViewHolder.kt$CenoModeViewHolder : BaseHomeCardViewHolder</ID>
     <ID>LargeClass:CenoSettings.kt$CenoSettings</ID>
     <ID>LargeClass:HomeFragment.kt$HomeFragment : BaseHomeFragment</ID>
@@ -55,13 +57,16 @@
     <ID>LargeClass:SettingsFragment.kt$SettingsFragment : PreferenceFragmentCompat</ID>
     <ID>LargeClass:SettingsViewTest.kt$SettingsViewTest</ID>
     <ID>LargeClass:TabTrayMenuTest.kt$TabTrayMenuTest</ID>
+    <ID>LargeClass:TelegramChannelItemViewHolder.kt$TelegramChannelItemViewHolder : CenoViewHolder</ID>
     <ID>LargeClass:ThreeDotMenuTest.kt$ThreeDotMenuTest</ID>
     <ID>LargeClass:ToolbarIntegration.kt$ToolbarIntegration : LifecycleAwareFeatureUserInteractionHandler</ID>
     <ID>LargeClass:TopSiteItemViewHolder.kt$TopSiteItemViewHolder : CenoViewHolder</ID>
+    <ID>LargeClass:XMLParser.kt$XMLParser</ID>
+    <ID>LongMethod:EditBookmarkFragment.kt$EditBookmarkFragment$override fun onViewCreated(view: View, savedInstanceState: Bundle?)</ID>
     <ID>LongMethod:SettingsViewTest.kt$SettingsViewTest$@Test fun settingsItemsTest()</ID>
     <ID>LongParameterList:BookmarkController.kt$DefaultBookmarkController$( private val activity: BrowserActivity, private val navController: NavController, private val clipboardManager: ClipboardManager?, private val scope: CoroutineScope, private val store: BookmarkFragmentStore, private val sharedViewModel: BookmarksSharedViewModel, private val loadBookmarkNode: suspend (String, Boolean) -&gt; BookmarkNode?, private val deleteBookmarkNodes: (Set&lt;BookmarkNode&gt;) -&gt; Unit, private val deleteBookmarkFolder: (Set&lt;BookmarkNode&gt;) -&gt; Unit, )</ID>
     <ID>LongParameterList:CenoTooltip.kt$CenoTooltip$( var fragment: Fragment, var target: Int, var primaryText: String, var secondaryText: String, var promptFocal: PromptFocal, isAutoFinish: Boolean = false, stopCaptureTouchOnFocal: Boolean = false, val buttonText: Int = R.string.btn_next, listener: (prompt: MaterialTapTargetPrompt, state: Int) -&gt; Unit, var onNextButtonPressListener: (view: View) -&gt; Unit )</ID>
-    <ID>LongParameterList:SessionControlView.kt$( prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: List&lt;RssItem&gt;?, isBridgeAnnouncementEnabled: Boolean, ouicrawlSites: List&lt;OuicrawlSite&gt;?, hideOuicrawlFeed: Boolean )</ID>
+    <ID>LongParameterList:SessionControlView.kt$( prefs: CenoPreferences, messageCard: CenoMessageCard, announcement: List&lt;RssItem&gt;?, isBridgeAnnouncementEnabled: Boolean, ouicrawlSites: List&lt;OuicrawlSite&gt;?, hideOuicrawlFeed: Boolean, telegramChannelsUrl: String, )</ID>
     <ID>MagicNumber:AndroidLogFragment.kt$AndroidLogFragment$100</ID>
     <ID>MagicNumber:AppIconsView.kt$AppIconsView.&lt;no name provided&gt;$4</ID>
     <ID>MagicNumber:BaseBrowserFragment.kt$BaseBrowserFragment.&lt;no name provided&gt;$100</ID>
@@ -80,6 +85,7 @@
     <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.OUICRAWLED_SITE_CARD$7</ID>
     <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.PERSONAL_MODE_CARD$5</ID>
     <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.SECTION_HEADER$8</ID>
+    <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.TELEGRAM_CHANNEL_TOPSITES_CARD$9</ID>
     <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.TOPSITES_CARD$3</ID>
     <ID>MagicNumber:HomepageCardType.kt$HomepageCardType.TOP_PLACE_CARD$4</ID>
     <ID>MagicNumber:LogReader.kt$LogReader$0xFF</ID>
@@ -121,25 +127,26 @@
     <ID>MaxLineLength:OnboardingRobot.kt$tooltipView().check(matches(withContentDescription("Public or Personal?. Use Public tabs for reading news, watching videos, and general web-surfing. In Public mode, you can also share web content with other Ceno users. Personal tabs are better suited for social media accounts, online shopping, and browsing websites you don't want to share with others.")))</ID>
     <ID>MaxLineLength:PermissionHandler.kt$PermissionHandler$(fragment.activity as BrowserActivity).requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)</ID>
     <ID>MaxLineLength:PermissionHandler.kt$PermissionHandler$context.checkSelfPermission(Manifest.permission.REQUEST_IGNORE_BATTERY_OPTIMIZATIONS) == PackageManager.PERMISSION_DENIED</ID>
-    <ID>MaxLineLength:PromptTextWithBtn.kt$PromptTextWithBtn$btnLocation.y = mTextBounds.top + mPrimaryTextLayout.height + textSeparation + mSecondaryTextLayout.height + textSeparation</ID>
     <ID>MaxLineLength:SessionControlView.kt$// IF THIS EVER CHANGES, REMEMBER TO UPDATE THE [_sessionControlInteractor : SessionControlInteractor] constructor in HomeFragment.kt.</ID>
     <ID>MaxLineLength:SettingsFragment.kt$SettingsFragment$findPreference&lt;Preference&gt;(requireContext().getPreferenceKey(pref_key_change_language))?.onPreferenceClickListener</ID>
     <ID>MaxLineLength:SettingsFragment.kt$SettingsFragment$stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()</ID>
     <ID>MaxLineLength:TabTrayMenuRobot.kt$TabTrayMenuRobot.Transition$// The 3dot "More options" button is actually an Android Options Menu (check tabstray_menu.xml) not a View that we treat as a menu</ID>
     <ID>MaxLineLength:TabsToolbar.kt$TabsToolbar$// tabsUseCases.addTab.invoke("about:privatebrowsing", selectTab = true, private = true)</ID>
     <ID>MaxLineLength:TabsTrayFragment.kt$TabsTrayFragment$findNavController().popBackStack()</ID>
-    <ID>MaxLineLength:ThreeDotMenuTest.kt$ThreeDotMenuTest$// Verifies the Synced tabs menu opens from a tab's 3 dot menu and displays the correct view if the user isn't signed in</ID>
     <ID>MaxLineLength:ToolbarIntegration.kt$ToolbarIntegration$navHost.childFragmentManager.findFragmentById(R.id.nav_host_fragment) as BaseBrowserFragment?</ID>
     <ID>NestedBlockDepth:BaseBrowserFragment.kt$BaseBrowserFragment.&lt;no name provided&gt;$@Suppress("LongMethod") override fun onPortMessage( message: Any, port: WebExtension.Port )</ID>
     <ID>NestedBlockDepth:CenoSettings.kt$CenoSettings$suspend fun webClientRequest(context: Context, request: Request): String?</ID>
     <ID>NestedBlockDepth:XMLParser.kt$XMLParser$@Suppress("LongMethod") fun parseRssXml(xmlString: String): RssAnnouncementResponse?</ID>
+    <ID>NestedBlockDepth:XMLParser.kt$XMLParser$fun parseTelegramChannelsXml( parser: XmlResourceParser, context: Context ): MutableList&lt;Pair&lt;String, String&gt;&gt;?</ID>
     <ID>NestedBlockDepth:XMLParser.kt$XMLParser$fun parseTopsitesXml( parser: XmlResourceParser, context: Context ): MutableList&lt;Pair&lt;String, String&gt;&gt;?</ID>
     <ID>TooManyFunctions:BrowserActivity.kt$BrowserActivity : BaseActivityNotificationListener</ID>
     <ID>TooManyFunctions:CenoSettings.kt$CenoSettings</ID>
     <ID>TooManyFunctions:Settings.kt$Settings</ID>
     <ID>TooManyFunctions:SettingsFragment.kt$SettingsFragment : PreferenceFragmentCompat</ID>
     <ID>UndocumentedPublicClass:AboutFragment.kt$AboutFragment : Fragment</ID>
+    <ID>UndocumentedPublicClass:AboutFragment.kt$AboutFragment$Companion</ID>
     <ID>UndocumentedPublicClass:AbstractPublicNotificationService.kt$AbstractPublicNotificationService : Service</ID>
+    <ID>UndocumentedPublicClass:AbstractPublicNotificationService.kt$AbstractPublicNotificationService$Companion</ID>
     <ID>UndocumentedPublicClass:AdapterItem.kt$AdapterItem</ID>
     <ID>UndocumentedPublicClass:AdapterItem.kt$AdapterItem$CenoAnnouncementItem : AdapterItem</ID>
     <ID>UndocumentedPublicClass:AdapterItem.kt$AdapterItem$CenoMessageItem : AdapterItem</ID>
@@ -152,6 +159,7 @@
     <ID>UndocumentedPublicClass:AdapterItem.kt$AdapterItemDiffCallback : ItemCallback</ID>
     <ID>UndocumentedPublicClass:AddBookmarkFolderFragment.kt$AddBookmarkFolderFragment : FragmentMenuProvider</ID>
     <ID>UndocumentedPublicClass:AndroidLogFragment.kt$AndroidLogFragment : FragmentMenuProvider</ID>
+    <ID>UndocumentedPublicClass:AndroidLogFragment.kt$AndroidLogFragment$Companion</ID>
     <ID>UndocumentedPublicClass:AppAction.kt$AppAction$BridgeCardChange : AppAction</ID>
     <ID>UndocumentedPublicClass:AppAction.kt$AppAction$Change : AppAction</ID>
     <ID>UndocumentedPublicClass:AppAction.kt$AppAction$ModeChange : AppAction</ID>
@@ -165,16 +173,24 @@
     <ID>UndocumentedPublicClass:AppIconsController.kt$DefaultAppIconsController : AppIconsController</ID>
     <ID>UndocumentedPublicClass:AppIconsInteractor.kt$AppIconsInteractor</ID>
     <ID>UndocumentedPublicClass:AppIconsModifier.kt$AppIcon</ID>
+    <ID>UndocumentedPublicClass:AppIconsModifier.kt$AppIcon$Companion</ID>
     <ID>UndocumentedPublicClass:AppIconsModifier.kt$AppIconModifier : IconModifier</ID>
     <ID>UndocumentedPublicClass:AppIconsModifier.kt$IconModifier</ID>
+    <ID>UndocumentedPublicClass:AppIconsModifier.kt$IconModifier$Companion</ID>
     <ID>UndocumentedPublicClass:AppIconsView.kt$AppIconsView</ID>
     <ID>UndocumentedPublicClass:AppViewHolder.kt$AppViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:AppViewHolder.kt$AppViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:BaseActivity.kt$BaseActivity : AppCompatActivity</ID>
+    <ID>UndocumentedPublicClass:BaseActivity.kt$BaseActivity$Companion</ID>
+    <ID>UndocumentedPublicClass:BaseBrowserFragment.kt$BaseBrowserFragment$Companion</ID>
     <ID>UndocumentedPublicClass:BaseHomeCardViewHolder.kt$BaseHomeCardViewHolder : ViewHolderOnCreateContextMenuListenerOnMenuItemClickListenerOnClickListener</ID>
+    <ID>UndocumentedPublicClass:BaseHomeCardViewHolder.kt$BaseHomeCardViewHolder$Companion</ID>
+    <ID>UndocumentedPublicClass:BaseHomeFragment.kt$BaseHomeFragment$Companion</ID>
     <ID>UndocumentedPublicClass:BaseMessageCard.kt$BaseMessageCard</ID>
     <ID>UndocumentedPublicClass:BookmarkAdapter.kt$BookmarkAdapter : Adapter</ID>
     <ID>UndocumentedPublicClass:BookmarkController.kt$BookmarkController</ID>
     <ID>UndocumentedPublicClass:BookmarkController.kt$DefaultBookmarkController : BookmarkController</ID>
+    <ID>UndocumentedPublicClass:BookmarkFragment.kt$BookmarkFragment$Companion</ID>
     <ID>UndocumentedPublicClass:BookmarkFragmentInteractor.kt$BookmarkFragmentInteractor : BookmarkViewInteractor</ID>
     <ID>UndocumentedPublicClass:BookmarkFragmentStore.kt$BookmarkFragmentAction$Change : BookmarkFragmentAction</ID>
     <ID>UndocumentedPublicClass:BookmarkFragmentStore.kt$BookmarkFragmentAction$Deselect : BookmarkFragmentAction</ID>
@@ -189,7 +205,11 @@
     <ID>UndocumentedPublicClass:BookmarkNodeViewHolder.kt$BookmarkNodeViewHolder : ViewHolder</ID>
     <ID>UndocumentedPublicClass:BookmarkSeparatorViewHolder.kt$BookmarkSeparatorViewHolder : ViewHolder</ID>
     <ID>UndocumentedPublicClass:BookmarkViewInteractor.kt$BookmarkViewInteractor</ID>
+    <ID>UndocumentedPublicClass:BrowserActivity.kt$BrowserActivity$Companion</ID>
     <ID>UndocumentedPublicClass:BrowserApplication.kt$BrowserApplication : Application</ID>
+    <ID>UndocumentedPublicClass:BrowserApplication.kt$BrowserApplication$Companion</ID>
+    <ID>UndocumentedPublicClass:BrowserFragment.kt$BrowserFragment$Companion</ID>
+    <ID>UndocumentedPublicClass:BrowsingModeManager.kt$BrowsingMode$Companion</ID>
     <ID>UndocumentedPublicClass:BrowsingModeManager.kt$BrowsingModeManager</ID>
     <ID>UndocumentedPublicClass:BrowsingModeManager.kt$DefaultBrowsingManager : BrowsingModeManager</ID>
     <ID>UndocumentedPublicClass:CachedGroupAdapter.kt$CachedGroupAdapter : BaseExpandableListAdapter</ID>
@@ -197,11 +217,16 @@
     <ID>UndocumentedPublicClass:CachedGroupAdapter.kt$CachedGroupAdapter$GroupClickListener</ID>
     <ID>UndocumentedPublicClass:CachedGroupAdapter.kt$CachedGroupAdapter$GroupItem</ID>
     <ID>UndocumentedPublicClass:CenoLocationUtils.kt$CenoLocationUtils</ID>
+    <ID>UndocumentedPublicClass:CenoLocationUtils.kt$CenoLocationUtils$Companion</ID>
     <ID>UndocumentedPublicClass:CenoMessageCard.kt$CenoMessageCard : BaseMessageCard</ID>
     <ID>UndocumentedPublicClass:CenoMessageViewHolder.kt$CenoMessageViewHolder : BaseHomeCardViewHolder</ID>
+    <ID>UndocumentedPublicClass:CenoMessageViewHolder.kt$CenoMessageViewHolder$Companion</ID>
+    <ID>UndocumentedPublicClass:CenoModeViewHolder.kt$CenoModeViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:CenoNetworkStatusDialog.kt$CenoNetworkStatusDialog</ID>
     <ID>UndocumentedPublicClass:CenoNotificationBroadcastReceiver.kt$CenoNotificationBroadcastReceiver : BroadcastReceiver</ID>
+    <ID>UndocumentedPublicClass:CenoNotificationBroadcastReceiver.kt$CenoNotificationBroadcastReceiver$Companion</ID>
     <ID>UndocumentedPublicClass:CenoNotificationBroadcastReceiver.kt$CenoNotificationBroadcastReceiver$NotificationListener</ID>
+    <ID>UndocumentedPublicClass:CenoPreferences.kt$CenoPreferences$Companion</ID>
     <ID>UndocumentedPublicClass:CenoSettings.kt$CenoSettings</ID>
     <ID>UndocumentedPublicClass:CenoSettings.kt$OuinetKey</ID>
     <ID>UndocumentedPublicClass:CenoSettings.kt$OuinetStatus</ID>
@@ -213,30 +238,41 @@
     <ID>UndocumentedPublicClass:CenoTooltip.kt$CenoTooltip</ID>
     <ID>UndocumentedPublicClass:CenoTourStartOverlay.kt$CenoTourStartOverlay</ID>
     <ID>UndocumentedPublicClass:ChangeIconFragment.kt$ChangeIconFragment : Fragment</ID>
+    <ID>UndocumentedPublicClass:ChangeIconFragment.kt$ChangeIconFragment$Companion</ID>
     <ID>UndocumentedPublicClass:ClearButtonFeature.kt$ClearButtonFeature</ID>
+    <ID>UndocumentedPublicClass:ClearButtonFeature.kt$ClearButtonFeature$Companion</ID>
     <ID>UndocumentedPublicClass:ContextMenuIntegration.kt$ContextMenuIntegration : LifecycleAwareFeature</ID>
     <ID>UndocumentedPublicClass:CustomLoadUrlUseCase.kt$CustomLoadUrlUseCase : LoadUrlUseCase</ID>
     <ID>UndocumentedPublicClass:CustomizationSettingsFragment.kt$CustomizationSettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:CustomizationSettingsFragment.kt$CustomizationSettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:DefaultTopSitesView.kt$DefaultTopSitesView : TopSitesView</ID>
     <ID>UndocumentedPublicClass:DeleteBrowsingDataController.kt$DefaultDeleteBrowsingDataController : DeleteBrowsingDataController</ID>
     <ID>UndocumentedPublicClass:DeleteBrowsingDataController.kt$DeleteBrowsingDataController</ID>
     <ID>UndocumentedPublicClass:DeleteBrowsingDataFragment.kt$DeleteBrowsingDataFragment : Fragment</ID>
+    <ID>UndocumentedPublicClass:DeleteBrowsingDataFragment.kt$DeleteBrowsingDataFragment$Companion</ID>
     <ID>UndocumentedPublicClass:DeleteBrowsingDataItem.kt$DeleteBrowsingDataItem : ConstraintLayout</ID>
     <ID>UndocumentedPublicClass:DeveloperToolsSettingsFragment.kt$DeveloperToolsSettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:DeveloperToolsSettingsFragment.kt$DeveloperToolsSettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:DimmedPromptBackground.kt$DimmedPromptBackground : CirclePromptBackground</ID>
     <ID>UndocumentedPublicClass:DownloadService.kt$DownloadService : AbstractFetchDownloadService</ID>
     <ID>UndocumentedPublicClass:EditBookmarkFragment.kt$EditBookmarkFragment : FragmentMenuProvider</ID>
     <ID>UndocumentedPublicClass:EngineProvider.kt$EngineProvider</ID>
     <ID>UndocumentedPublicClass:ExportAndroidLogsDialog.kt$ExportAndroidLogsDialog</ID>
+    <ID>UndocumentedPublicClass:ExportAndroidLogsDialog.kt$ExportAndroidLogsDialog$Companion</ID>
     <ID>UndocumentedPublicClass:ExtraBTBootstrapsDialog.kt$ExtraBTBootstrapsDialog</ID>
+    <ID>UndocumentedPublicClass:ExtraBTBootstrapsDialog.kt$ExtraBTBootstrapsDialog$Companion</ID>
     <ID>UndocumentedPublicClass:FailedToRetrieveResource.kt$FailedToRetrieveResource</ID>
     <ID>UndocumentedPublicClass:FindInPageIntegration.kt$FindInPageIntegration : LifecycleAwareFeatureUserInteractionHandler</ID>
+    <ID>UndocumentedPublicClass:FindInPageIntegration.kt$FindInPageIntegration$Companion</ID>
     <ID>UndocumentedPublicClass:HomeCardSwipeCallback.kt$HomeCardSwipeCallback : SimpleCallback</ID>
+    <ID>UndocumentedPublicClass:HomeFragment.kt$HomeFragment$Companion</ID>
     <ID>UndocumentedPublicClass:HomepageCardType.kt$HomepageCardType</ID>
     <ID>UndocumentedPublicClass:InstalledSearchEnginesSettingsFragment.kt$InstalledSearchEnginesSettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:InstalledSearchEnginesSettingsFragment.kt$InstalledSearchEnginesSettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:IntentReceiverActivity.kt$IntentReceiverActivity : Activity</ID>
     <ID>UndocumentedPublicClass:ItemOffsetDecoration.kt$ItemOffsetDecoration : ItemDecoration</ID>
     <ID>UndocumentedPublicClass:LanguageChangeDialog.kt$LanguageChangeDialog</ID>
+    <ID>UndocumentedPublicClass:LanguageChangeDialog.kt$LanguageChangeDialog$Companion</ID>
     <ID>UndocumentedPublicClass:LanguageChangeDialog.kt$LanguageChangeDialog$SetLanguageListener</ID>
     <ID>UndocumentedPublicClass:LoadExternalUrlDialog.kt$LoadExternalUrlDialog</ID>
     <ID>UndocumentedPublicClass:LogReader.kt$LogReader</ID>
@@ -247,10 +283,13 @@
     <ID>UndocumentedPublicClass:MetricsCampaignController.kt$DefaultMetricsCampaignController : MetricsCampaignController</ID>
     <ID>UndocumentedPublicClass:MetricsCampaignController.kt$MetricsCampaignController</ID>
     <ID>UndocumentedPublicClass:MetricsCampaignFragment.kt$MetricsCampaignFragment : Fragment</ID>
+    <ID>UndocumentedPublicClass:MetricsCampaignFragment.kt$MetricsCampaignFragment$Companion</ID>
     <ID>UndocumentedPublicClass:MetricsCampaignItem.kt$MetricsCampaignItem : ConstraintLayout</ID>
     <ID>UndocumentedPublicClass:MetricsKeys.kt$MetricsKeys</ID>
     <ID>UndocumentedPublicClass:NetworkMetrics.kt$NetworkMetrics</ID>
+    <ID>UndocumentedPublicClass:NetworkMetrics.kt$NetworkMetrics$Companion</ID>
     <ID>UndocumentedPublicClass:NetworkSettingsFragment.kt$NetworkSettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:NetworkSettingsFragment.kt$NetworkSettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:OuicrawlSite.kt$OuicrawlSite</ID>
     <ID>UndocumentedPublicClass:OuicrawlSite.kt$OuicrawledSitesListItem</ID>
     <ID>UndocumentedPublicClass:OuicrawledSiteMenu.kt$OuicrawledSiteMenu</ID>
@@ -258,17 +297,25 @@
     <ID>UndocumentedPublicClass:OuicrawledSiteMenu.kt$OuicrawledSiteMenu.Item$AddToShortcut : Item</ID>
     <ID>UndocumentedPublicClass:OuicrawledSiteMenu.kt$OuicrawledSiteMenu.Item$OpenInPersonalTab : Item</ID>
     <ID>UndocumentedPublicClass:OuicrawledSiteViewHolder.kt$OuicrawledSiteViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:OuicrawledSiteViewHolder.kt$OuicrawledSiteViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:Ouinet.kt$Ouinet</ID>
+    <ID>UndocumentedPublicClass:Ouinet.kt$Ouinet$Companion</ID>
     <ID>UndocumentedPublicClass:OuinetResponseListener.kt$OuinetResponseListener</ID>
+    <ID>UndocumentedPublicClass:PagerIndicator.kt$PagerIndicator$Companion</ID>
     <ID>UndocumentedPublicClass:PermissionHandler.kt$PermissionHandler : ActivityResultHandler</ID>
+    <ID>UndocumentedPublicClass:PermissionHandler.kt$PermissionHandler$Companion</ID>
     <ID>UndocumentedPublicClass:PersonalModeDescriptionViewHolder.kt$PersonalModeDescriptionViewHolder : CenoViewHolder</ID>
+    <ID>UndocumentedPublicClass:PersonalModeDescriptionViewHolder.kt$PersonalModeDescriptionViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:PictureInPictureIntegration.kt$PictureInPictureIntegration : LifecycleAwareFeature</ID>
     <ID>UndocumentedPublicClass:PrivacySettingsFragment.kt$PrivacySettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:PrivacySettingsFragment.kt$PrivacySettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:PrivatePage.kt$PrivatePage</ID>
     <ID>UndocumentedPublicClass:PromptTextWithBtn.kt$PromptTextWithBtn : PromptText</ID>
     <ID>UndocumentedPublicClass:PublicNotificationFeature.kt$PublicNotificationFeature&lt;T : AbstractPublicNotificationService&gt; : LifecycleAwareFeature</ID>
     <ID>UndocumentedPublicClass:PublicNotificationService.kt$PublicNotificationService : AbstractPublicNotificationService</ID>
+    <ID>UndocumentedPublicClass:PublicNotificationService.kt$PublicNotificationService$Companion</ID>
     <ID>UndocumentedPublicClass:RSSAnnouncementViewHolder.kt$RSSAnnouncementViewHolder : BaseHomeCardViewHolder</ID>
+    <ID>UndocumentedPublicClass:RSSAnnouncementViewHolder.kt$RSSAnnouncementViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:RSSAnnouncementViewHolder.kt$RSSAnnouncementViewHolder$RssAnnouncementSwipeListener</ID>
     <ID>UndocumentedPublicClass:RadioButtonPreference.kt$GroupableRadioButton</ID>
     <ID>UndocumentedPublicClass:RadioButtonPreference.kt$RadioButtonPreference : PreferenceGroupableRadioButton</ID>
@@ -278,8 +325,10 @@
     <ID>UndocumentedPublicClass:RssAnnouncementResponse.kt$RssItem</ID>
     <ID>UndocumentedPublicClass:SearchEngineListPreference.kt$SearchEngineListPreference : PreferenceCoroutineScope</ID>
     <ID>UndocumentedPublicClass:SectionHeaderViewHolder.kt$SectionHeaderViewHolder : CenoViewHolder</ID>
+    <ID>UndocumentedPublicClass:SectionHeaderViewHolder.kt$SectionHeaderViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:SelectBookmarkFolderAdapter.kt$SelectBookmarkFolderAdapter : ListAdapter</ID>
     <ID>UndocumentedPublicClass:SelectBookmarkFolderAdapter.kt$SelectBookmarkFolderAdapter$BookmarkFolderViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:SelectBookmarkFolderAdapter.kt$SelectBookmarkFolderAdapter$Companion</ID>
     <ID>UndocumentedPublicClass:SelectBookmarkFolderFragment.kt$SelectBookmarkFolderFragment : FragmentMenuProvider</ID>
     <ID>UndocumentedPublicClass:SentryEventProcessor.kt$SentryEventProcessor : EventProcessor</ID>
     <ID>UndocumentedPublicClass:SentryOptionsConfiguration.kt$SentryOptionsConfiguration</ID>
@@ -290,40 +339,62 @@
     <ID>UndocumentedPublicClass:SessionControlView.kt$SessionControlView</ID>
     <ID>UndocumentedPublicClass:Settings.kt$Settings</ID>
     <ID>UndocumentedPublicClass:SettingsFragment.kt$SettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:SettingsFragment.kt$SettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:ShareCloseView.kt$ShareCloseView</ID>
+    <ID>UndocumentedPublicClass:ShareController.kt$DefaultShareController$Companion</ID>
     <ID>UndocumentedPublicClass:ShareController.kt$ShareController$Result</ID>
     <ID>UndocumentedPublicClass:ShareFragment.kt$ShareFragment : BottomSheetDialogFragment</ID>
+    <ID>UndocumentedPublicClass:ShareFragment.kt$ShareFragment$Companion</ID>
     <ID>UndocumentedPublicClass:ShareTabsAdapter.kt$ShareTabsAdapter$ShareTabViewHolder : ViewHolder</ID>
     <ID>UndocumentedPublicClass:ShareToAppsView.kt$ShareToAppsView</ID>
     <ID>UndocumentedPublicClass:ShareViewModel.kt$ShareViewModel : AndroidViewModel</ID>
+    <ID>UndocumentedPublicClass:ShareViewModel.kt$ShareViewModel$Companion</ID>
     <ID>UndocumentedPublicClass:SiteContentGroupFragment.kt$SiteContentGroupFragment : FragmentGroupClickListener</ID>
+    <ID>UndocumentedPublicClass:SiteContentGroupFragment.kt$SiteContentGroupFragment$Companion</ID>
     <ID>UndocumentedPublicClass:SiteContentGroupFragment.kt$SiteContentGroupFragment$PinnedCacheGroup</ID>
+    <ID>UndocumentedPublicClass:StoreProvider.kt$StoreProvider$Companion</ID>
     <ID>UndocumentedPublicClass:SupportedLanguageProvider.kt$SupportedLanguageProvider</ID>
     <ID>UndocumentedPublicClass:TabCounterToolbarButton.kt$TabCounterToolbarButton : Action</ID>
     <ID>UndocumentedPublicClass:TabCounterView.kt$TabCounterView</ID>
     <ID>UndocumentedPublicClass:TabsPanel.kt$TabsPanel : TabLayoutOnTabSelectedListener</ID>
     <ID>UndocumentedPublicClass:TabsToolbar.kt$TabsToolbar : Toolbar</ID>
     <ID>UndocumentedPublicClass:TabsTouchHelper.kt$TabsTouchHelper : ItemTouchHelper</ID>
+    <ID>UndocumentedPublicClass:TabsTrayFragment.kt$TabsTrayFragment$Companion</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelItemViewHolder.kt$TelegramChannelItemViewHolder : CenoViewHolder</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelViewHolder.kt$TelegramChannelViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelViewHolder.kt$TelegramChannelViewHolder$Companion</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelsAdapter.kt$TelegramChannelsAdapter : ListAdapter</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelsPagerAdapter.kt$TelegramChannelsPagerAdapter : ListAdapter</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelsPagerViewHolder.kt$TelegramChannelsPagerViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:TelegramChannelsPagerViewHolder.kt$TelegramChannelsPagerViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:ThemeManager.kt$DefaultThemeManager : ThemeManager</ID>
     <ID>UndocumentedPublicClass:ThemeManager.kt$ThemeManager</ID>
     <ID>UndocumentedPublicClass:ToolbarIntegration.kt$ToolbarIntegration : LifecycleAwareFeatureUserInteractionHandler</ID>
+    <ID>UndocumentedPublicClass:TopPlaceholderViewHolder.kt$TopPlaceholderViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:TopSiteItemMenu.kt$TopSiteItemMenu$Item</ID>
     <ID>UndocumentedPublicClass:TopSiteItemMenu.kt$TopSiteItemMenu.Item$OpenInPrivateTab : Item</ID>
     <ID>UndocumentedPublicClass:TopSiteItemMenu.kt$TopSiteItemMenu.Item$RemoveTopSite : Item</ID>
     <ID>UndocumentedPublicClass:TopSiteItemMenu.kt$TopSiteItemMenu.Item$RenameTopSite : Item</ID>
     <ID>UndocumentedPublicClass:TopSiteItemViewHolder.kt$TopSiteItemViewHolder : CenoViewHolder</ID>
     <ID>UndocumentedPublicClass:TopSitePagerViewHolder.kt$TopSitePagerViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:TopSitePagerViewHolder.kt$TopSitePagerViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:TopSiteViewHolder.kt$TopSiteViewHolder : ViewHolder</ID>
+    <ID>UndocumentedPublicClass:TopSiteViewHolder.kt$TopSiteViewHolder$Companion</ID>
     <ID>UndocumentedPublicClass:TopSitesAdapter.kt$TopSitesAdapter : ListAdapter</ID>
     <ID>UndocumentedPublicClass:TopSitesPagerAdapter.kt$TopSitesPagerAdapter : ListAdapter</ID>
     <ID>UndocumentedPublicClass:Utils.kt$BookmarkNodeWithDepth</ID>
     <ID>UndocumentedPublicClass:WaitForOuinetRestartDialog.kt$WaitForOuinetRestartDialog</ID>
     <ID>UndocumentedPublicClass:WebExtensionActionPopupPanel.kt$WebExtensionActionPopupPanel : BottomSheetDialogObserver</ID>
+    <ID>UndocumentedPublicClass:WebExtensionActionPopupPanel.kt$WebExtensionActionPopupPanel$Companion</ID>
     <ID>UndocumentedPublicClass:WebExtensionPort.kt$WebExtensionPort</ID>
+    <ID>UndocumentedPublicClass:WebExtensionPort.kt$WebExtensionPort$Companion</ID>
+    <ID>UndocumentedPublicClass:WebExtensionToolbarFeature.kt$WebExtensionToolbarFeature$Companion</ID>
     <ID>UndocumentedPublicClass:WebViewPopupPanel.kt$WebViewPopupPanel : BottomSheetDialogObserver</ID>
+    <ID>UndocumentedPublicClass:WebViewPopupPanel.kt$WebViewPopupPanel$Companion</ID>
     <ID>UndocumentedPublicClass:WebsiteListItemView.kt$WebsiteListItemView : ConstraintLayout</ID>
     <ID>UndocumentedPublicClass:WebsiteListItemView.kt$WebsiteListItemView$ItemType</ID>
     <ID>UndocumentedPublicClass:WebsiteSourceSettingsFragment.kt$WebsiteSourceSettingsFragment : PreferenceFragmentCompat</ID>
+    <ID>UndocumentedPublicClass:WebsiteSourceSettingsFragment.kt$WebsiteSourceSettingsFragment$Companion</ID>
     <ID>UndocumentedPublicClass:XMLParser.kt$XMLParser</ID>
     <ID>UnusedParameter:ContentPanelRobot.kt$ContentPanelRobot.Transition$interact: ContentPanelRobot.() -&gt; Unit</ID>
     <ID>UnusedParameter:ExternalAppsRobot.kt$ExternalAppsRobot.Transition$interact: ExternalAppsRobot.() -&gt; Unit</ID>
@@ -352,6 +423,7 @@
     <ID>UnusedPrivateProperty:NetworkSettingsFragment.kt$NetworkSettingsFragment.Companion$private const val TAG = "NetworkSettingsFragment"</ID>
     <ID>UnusedPrivateProperty:PrivacySettingsFragment.kt$PrivacySettingsFragment.Companion$private const val TAG = "PrivacySettingsFragment"</ID>
     <ID>UnusedPrivateProperty:ScreenshotGenerator.kt$ScreenshotGenerator$i</ID>
+    <ID>UnusedPrivateProperty:SettingsViewCustomizationRobot.kt$SettingsViewCustomizationRobot$i</ID>
     <ID>UnusedPrivateProperty:SettingsViewNetworkDetailsRobot.kt$SettingsViewNetworkDetailsRobot$i</ID>
     <ID>UnusedPrivateProperty:SettingsViewRobot.kt$SettingsViewRobot$i</ID>
     <ID>UnusedPrivateProperty:SettingsViewTest.kt$SettingsViewTest$i</ID>
