@@ -1,0 +1,5 @@
+
+### Fixed
+
+- Unable to add shortcuts to homepage in previous release
+

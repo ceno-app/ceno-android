@@ -504,7 +504,7 @@
     <!-- telegram channels (en) -->
     <string name="default_channel_1_title">aljazeeraenglishnews</string>
     <!-- telegram channels (ir) -->
-    <string name="default_channel_1_title_ir">bbcpersion</string>
+    <string name="default_channel_1_title_ir">bbcpersian</string>
     <string name="default_channel_2_title_ir">euronewspe</string>
     <string name="default_channel_3_title_ir">Farsi_Iranwire</string>
     <string name="default_channel_4_title_ir">Hengaw_Org</string>
@@ -541,4 +541,5 @@
 
     <string name="default_telegram_channel">https://tg.ceno.app</string>
     <string name="telegram_topsites_title">Telegram</string>
+    <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
 </resources>

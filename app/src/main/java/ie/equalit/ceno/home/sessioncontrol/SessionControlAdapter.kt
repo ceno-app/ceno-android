@@ -14,7 +14,7 @@ import ie.equalit.ceno.home.TopPlaceholderViewHolder
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSiteViewHolder
 import ie.equalit.ceno.home.personal.PersonalModeDescriptionViewHolder
-import ie.equalit.ceno.home.telegram_channels.TelegramChannelsPagerViewHolder
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsPagerViewHolder
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder
 
 class SessionControlAdapter internal constructor(

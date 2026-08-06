@@ -2,7 +2,7 @@
  * License, v. 2.0. If a copy of the MPL was not distributed with this
  * file, You can obtain one at http://mozilla.org/MPL/2.0/. */
 
-package ie.equalit.ceno.home.telegram_channels
+package ie.equalit.ceno.home.telegramchannels
 
 import android.view.View
 import androidx.appcompat.content.res.AppCompatResources.getDrawable

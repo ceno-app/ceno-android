@@ -5,9 +5,11 @@ import androidx.core.net.toUri
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.rule.ActivityTestRule
 import ie.equalit.ceno.BrowserActivity
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.helpers.AndroidAssetDispatcher
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 import ie.equalit.ceno.ui.robots.backgroundAllowButton
+import ie.equalit.ceno.ui.robots.clickDefaultShortcut
 import ie.equalit.ceno.ui.robots.clickNext
 import ie.equalit.ceno.ui.robots.clickPermissions
 import ie.equalit.ceno.ui.robots.hasPermissions
@@ -50,7 +52,9 @@ class ScreenshotGenerator {
 
     @Before
     fun setUp() {
-        Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+        if (BuildConfig.SCREENSHOTS_IN_TESTS) {
+            Screengrab.setDefaultScreenshotStrategy(UiAutomatorScreenshotStrategy())
+        }
         CleanStatusBar.enableWithDefaults()
 
         mockWebServer = MockWebServer().apply {
@@ -65,15 +69,23 @@ class ScreenshotGenerator {
         mockWebServer.shutdown()
     }
 
+    fun takeScreenshot(name: String) {
+        if (BuildConfig.SCREENSHOTS_IN_TESTS) {
+            Screengrab.screenshot(name)
+        }
+    }
+
     fun takeScreenshotWithWait(name: String, wait: Long = 1000) {
         Thread.sleep(wait)
-        Screengrab.screenshot(name)
+        if (BuildConfig.SCREENSHOTS_IN_TESTS) {
+            Screengrab.screenshot(name)
+        }
     }
 
     fun onboardingScreenshots() {
         standby {
             waitForStandbyLogo()
-            Screengrab.screenshot("onboarding_standby")
+            takeScreenshot("onboarding_standby")
             waitForStandbyLogoGone()
         }
         onboarding {
@@ -91,11 +103,8 @@ class ScreenshotGenerator {
 
             waitForNextTooltipButton()
             takeScreenshotWithWait("onboarding_tour_3")
-        }
-        navigationToolbar {
-        }.enterUrlAndEnterToBrowser("https://ouinet.work".toUri()) {
-        }
-        onboarding {
+            clickNext()
+            clickDefaultShortcut()
             waitForNextTooltipButton()
             takeScreenshotWithWait("onboarding_tour_4")
             clickNext()
@@ -109,16 +118,16 @@ class ScreenshotGenerator {
                 waitForPermissionsTooltip()
                 takeScreenshotWithWait("onboarding_permissions")
                 clickPermissions()
-                if (backgroundAllowButton().waitForExists(waitingTime)) {
-                    takeScreenshotWithWait("onboarding_permissions_optimisation")
-                    backgroundAllowButton().waitForExists(waitingTime)
-                    backgroundAllowButton().click()
+                permissionAllowButton().waitForExists(waitingTime)
+                if (permissionAllowButton().exists()) {
+                    takeScreenshotWithWait("onboarding_permissions_notifications")
+                    permissionAllowButton().click()
                 }
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    if (permissionAllowButton().waitForExists(waitingTime)) {
-                        takeScreenshotWithWait("onboarding_permissions_notifications")
-                        permissionAllowButton().waitForExists(waitingTime)
-                        permissionAllowButton().click()
+                    backgroundAllowButton().waitForExists(waitingTime)
+                    if (backgroundAllowButton().exists()) {
+                        takeScreenshotWithWait("onboarding_permissions_optimisation")
+                        backgroundAllowButton().click()
                     }
                 }
             }
@@ -196,7 +205,7 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(13)
+                clickDownRecyclerView(8)
                 Thread.sleep(1000)
             }
             .openSettingsViewDeleteBrowsingData {
@@ -215,7 +224,11 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(16)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    scrollToText("Website sources")
+                } else {
+                    clickDownRecyclerView(16)
+                }
                 Thread.sleep(1000)
             }
             .openSettingsViewSources {
@@ -232,7 +245,6 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(11)
                 Thread.sleep(1000)
             }
             .openSettingsViewMetrics {
@@ -272,17 +284,17 @@ class ScreenshotGenerator {
                 for (i in 0..8) {
                     clickCenoVersionDisplay()
                 }
-                Screengrab.screenshot("additional_developer_tools")
+                takeScreenshot("additional_developer_tools")
                 // Wait for developer tool toasts to disappear
                 Thread.sleep(10000)
             }
             .openSettingsViewDeveloperTools {
-                Screengrab.screenshot("additional_developer_tools_settings")
+                takeScreenshot("additional_developer_tools_settings")
                 clickExportOuinetLog()
-                Screengrab.screenshot("additional_developer_tools_export_log")
+                takeScreenshot("additional_developer_tools_export_log")
                 mDevice.pressBack()
                 clickAnnouncementSource()
-                Screengrab.screenshot("additional_developer_tools_announcement_source")
+                takeScreenshot("additional_developer_tools_announcement_source")
                 clickCancelDialog()
             }
             .goBack {
@@ -356,7 +368,11 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(15)
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
+                    scrollToText("Content shared by you")
+                } else {
+                    clickDownRecyclerView(15)
+                }
                 Thread.sleep(1000)
                 verifyClearCachedContentButton()
                 takeScreenshotWithWait("cached_content_with_data")
@@ -365,6 +381,7 @@ class ScreenshotGenerator {
                 takeScreenshotWithWait("cached_content_list")
             }
             .goBack {
+                scrollToText("Clear cached content")
                 clickClearCacheButton()
                 takeScreenshotWithWait("cached_content_clear_dialog")
                 clickCancel()
@@ -405,7 +422,6 @@ class ScreenshotGenerator {
         }.openThreeDotMenu {
         }
             .openSettings {
-                clickDownRecyclerView(10)
                 Thread.sleep(1000)
                 verifyChangeLanguageButton()
             }
@@ -497,4 +513,3 @@ class ScreenshotGenerator {
         tabsTrayScreenshots()
     }
 }
-

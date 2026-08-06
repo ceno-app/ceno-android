@@ -93,6 +93,7 @@ class ThreeDotMenuRobot {
         }
 
         fun clickShareButton(interact: ShareOverlayRobot.() -> Unit): ShareOverlayRobot.Transition {
+            mDevice.waitForIdle(5000)
             shareButton().click()
             mDevice.waitForIdle()
             ShareOverlayRobot().interact()

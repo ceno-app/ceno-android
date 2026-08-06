@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui
 
+import android.os.Build
 import androidx.test.filters.SdkSuppress
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.uiautomator.UiDevice
@@ -93,11 +94,12 @@ class ThreeDotMenuTest {
 
     @Test
     fun threeDotMenuItemsTest() {
-        val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
+        val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 4)
         navigationToolbar {
             // pull up URL to ensure this is not a first-user 3 dot menu
         }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
             mDevice.waitForIdle()
+            clickMatchingText("Link 1")
         }
         navigationToolbar {
         }.openThreeDotMenu {
@@ -297,6 +299,7 @@ class ThreeDotMenuTest {
         navigationToolbar {
         }.openThreeDotMenu {
         }
+            // Need to skip or figure how to click cancel on Android 17
             .openAddToHomeScreen {
                 clickCancelAddToHomeScreenButton()
             }
@@ -306,12 +309,18 @@ class ThreeDotMenuTest {
         }
             .openAddToHomeScreen {
                 clickAddAutomaticallyToHomeScreenButton()
+                if (Build.VERSION.SDK_INT == Build.VERSION_CODES.VANILLA_ICE_CREAM) {
+                    mDevice.pressHome()
+                }
             }
+            // Need to figure out how to press home button on Android 15? or all versions
             .openHomeScreenShortcut(defaultWebPage.title) {
+                mDevice.waitForIdle()
                 verifyExternalUrlDialogTitle()
                 verifyExternalUrlDialogMessage()
                 verifyExternalUrlDialogCheckbox()
                 externalUrlContinueButton().click()
+                mDevice.waitForIdle()
                 verifyUrl(defaultWebPage.displayUrl)
             }
     }

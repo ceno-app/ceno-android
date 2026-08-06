@@ -7,6 +7,7 @@ import android.os.Build
 import android.os.PowerManager
 import androidx.core.content.ContextCompat
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewInteraction
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withContentDescription
@@ -80,6 +81,8 @@ fun startTooltipExists() {
 fun assertExitButton() {
     exitButton().check(matches(isDisplayed()))
 }
+
+fun clickDefaultShortcut() = defaultShortcut().click()
 
 private fun assertStartTooltip() {
     onView(withId(R.id.tv_start_tooltip_description)).check(matches(withText(R.string.start_tooltip_description)))
@@ -186,6 +189,7 @@ fun permissionAllowButton() = mDevice.findObject(
     UiSelector().resourceId("com.android.permissioncontroller:id/permission_allow_button")
 )
 
+private fun defaultShortcut(): ViewInteraction = onView(withText("Wikipedia"))
 private fun permissionDenyButton() = mDevice.findObject(
     UiSelector().resourceId("com.android.permissioncontroller:id/permission_deny_button")
 )

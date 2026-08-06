@@ -61,11 +61,7 @@ class LocaleTests {
         }.openThreeDotMenu {
         }
             .openSettings {
-                Thread.sleep(1000)
-                // Must click down further than the options
-                // for test to succeed on smaller screen devices
-                clickDownRecyclerView(11)
-                Thread.sleep(1000)
+                Thread.sleep(2000)
                 verifyChangeLanguageButton()
                 clickChangeLanguageButton()
             }

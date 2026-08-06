@@ -76,6 +76,7 @@ class SearchTest {
             }
             .clickToolbar {
                 typeText("generic1.html")
+                Thread.sleep(1000)
                 verifySearchSuggestion(defaultWebPage.title)
             }
             .clickSearchSuggestion(defaultWebPage.title) {

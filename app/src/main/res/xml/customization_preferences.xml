@@ -113,6 +113,12 @@
 
         <androidx.preference.SwitchPreferenceCompat
             android:layout="@layout/preference_switch_button"
+            android:key="@string/pref_key_hide_telegram_channels"
+            android:defaultValue="false"
+            android:title="@string/preferences_hide_telegram_channels" />
+
+        <androidx.preference.SwitchPreferenceCompat
+            android:layout="@layout/preference_switch_button"
             android:key="@string/pref_key_verify_external_url"
             android:defaultValue="true"
             android:title="@string/preferences_verify_external_url"

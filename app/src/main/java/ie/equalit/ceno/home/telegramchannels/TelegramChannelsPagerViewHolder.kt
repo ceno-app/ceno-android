@@ -1,4 +1,4 @@
-package ie.equalit.ceno.home.telegram_channels
+package ie.equalit.ceno.home.telegramchannels
 
 import android.view.View
 import androidx.core.view.isVisible

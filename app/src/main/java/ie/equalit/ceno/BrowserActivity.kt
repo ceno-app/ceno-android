@@ -56,6 +56,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
@@ -616,7 +617,19 @@ open class BrowserActivity : BaseActivity(),
             ) as List<Pair<String, String>>
         GlobalScope.launch(Dispatchers.IO) {
             // Can only add more sites now, cannot update for removed ones
-            components.core.cenoTopSitesStorage.addTopSites(telegramChannels)
+            val topsites = components.core.cenoTopSitesStorage
+                .getTopSites(CenoPreferences.TOP_SITES_MAX_COUNT)
+            val removeList = topsites.filter { ts ->
+                ts.url.startsWith(getString(R.string.default_telegram_channel)) &&
+                telegramChannels.find{ts.url == it.second} == null
+            }
+            val addList = telegramChannels.filter { tg ->
+                topsites.find{ it.url == tg.second} == null
+            }
+            removeList.forEach {
+                components.core.cenoTopSitesStorage.removeTopSite(it)
+            }
+            components.core.cenoTopSitesStorage.addTopSites(addList)
         }
     }
 

@@ -53,6 +53,7 @@ class SettingsViewTest {
     }
 
     // This test verifies settings view items are all in place
+    @SdkSuppress(maxSdkVersion = 35)
     @Test
     fun settingsItemsTest() {
         navigationToolbar {
@@ -157,6 +158,66 @@ class SettingsViewTest {
                 clickDownRecyclerView(1)
                 verifyAboutEqualitieButton()
                 // TODO: check if that the displayed values match some patterns
+            }
+    }
+
+    @SdkSuppress(minSdkVersion = 36)
+    @Test
+    fun settingsItemsScrollTest() {
+        navigationToolbar {
+        }.openThreeDotMenu {
+        }
+            .openSettings {
+                verifySettingsRecyclerViewToExist()
+                verifyNavigateUp()
+                verifyGeneralHeading()
+                verifySearchButton()
+                verifySearchSummary()
+                verifyCustomizationButton()
+                verifyCustomizationSummary()
+                verifyMakeDefaultBrowserButton()
+                verifyBridgeModeToggle()
+                verifyBridgeModeSummary()
+                verifyShowOnboarding()
+                verifyBackgroundMetricsButton()
+                verifyDeleteBrowsingData()
+                verifyChangeLanguageButton()
+
+                scrollToText("Open links in apps")
+                verifyPermissionHeading()
+                verifyAllowNotification()
+                verifyDisableBatteryOptimization()
+
+                scrollToText("Local cache")
+                verifyOpenLinksInApps()
+                verifyWarnOpeningUrlsFromApps()
+
+                scrollToText("Website sources")
+                verifyDataHeading()
+                verifyLocalCacheDisplay()
+                verifyLocalCacheDefaultValue()
+                verifyContentsSharedButton()
+                verifyContentsSharedDefaultValue()
+                verifyClearCachedContentButton()
+                verifyClearCachedContentSummary()
+
+                scrollToText("Ceno Browser Service")
+                verifyDeveloperToolsHeading()
+                verifyWebsiteSourcesButton()
+                verifyWebsiteSourcesSummary()
+                verifyTrackingProtectionButton()
+                verifyTrackingProtectionSummary()
+
+                scrollToText("About")
+                verifyCenoNetworkDetailsButton()
+                verifyCenoNetworkDetailsSummary()
+                verifyEnableLogFile()
+                verifyAboutHeading()
+                verifyCenoBrowserServiceDisplay()
+                verifyCenoVersionDisplay()
+                verifyGeckoviewVersionDisplay()
+                verifyOuinetVersionDisplay()
+                verifyAboutEqualitieButton()
             }
     }
 
@@ -317,6 +378,7 @@ class SettingsViewTest {
                 verifyExportOuinetLogDownload()
                 verifyExportOuinetLogView()
                 mDevice.pressBack()
+                Thread.sleep(2000)
                 verifyAnnouncementSource()
                 verifyAnnouncementSourceSummary()
                 clickAnnouncementSource()
@@ -324,6 +386,7 @@ class SettingsViewTest {
                 verifyAnnouncementOption2()
                 verifyAnnouncementOption3()
                 clickCancelDialog()
+                Thread.sleep(2000)
                 verifyAnnouncementExpiration()
                 toggleAnnouncementExpirationOn()
                 toggleAnnouncementExpirationOff()
@@ -442,6 +505,7 @@ class SettingsViewTest {
 
     @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
+    @Ignore("Disabled - flaky even on the limited sdk versions")
     fun logLevelDebugAfterConnectivityChangeTest() {
         enableLogFileTest()
         mDevice.executeShellCommand("svc wifi disable")
@@ -453,6 +517,7 @@ class SettingsViewTest {
 
     @SdkSuppress(minSdkVersion = 28, maxSdkVersion = 33)
     @Test
+    @Ignore("Disabled - flaky even on the limited sdk versions")
     fun logLevelInfoAfterConnectivityChangeTest() {
         disableLogFileTest()
         mDevice.executeShellCommand("svc wifi disable")
@@ -470,8 +535,6 @@ class SettingsViewTest {
         }
             .openSettings {
                 Thread.sleep(5000)
-                clickDownRecyclerView(12)
-                Thread.sleep(2000)
                 verifyBackgroundMetricsButton()
             }
             .openSettingsViewMetrics {

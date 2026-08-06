@@ -1,6 +1,6 @@
 <telegram_channels>
     <channel>
-        <title stringRes="@string/default_channel_1_title_ir">bbcpersion</title>
+        <title stringRes="@string/default_channel_1_title_ir">bbcpersian</title>
         <url>https://tg.ceno.app/ir/bbcpersian/</url>
     </channel>
     <channel>
