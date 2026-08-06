@@ -33,7 +33,8 @@ internal fun normalModeAdapterItems(
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?,
     hideOuicrawlFeed: Boolean,
-    telegramChannelsUrl: String
+    telegramChannelsUrl: String,
+    hideTelegramChannels: Boolean
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
 
@@ -62,7 +63,7 @@ internal fun normalModeAdapterItems(
         items.add(AdapterItem.TopSitePager(shortcutTopSites))
     }
 
-    if (telegramChannels.isNotEmpty()) {
+    if (!hideTelegramChannels && telegramChannels.isNotEmpty()) {
         items.add(AdapterItem.TelegramChannelsTopSitePager(telegramChannels))
     }
 
@@ -106,6 +107,7 @@ private fun AppState.toAdapterList(
     ouicrawlSites: List<OuicrawlSite>?,
     hideOuicrawlFeed: Boolean,
     telegramChannelsUrl: String,
+    hideTelegramChannels: Boolean,
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
@@ -123,7 +125,8 @@ private fun AppState.toAdapterList(
                 }
             },
             hideOuicrawlFeed,
-            telegramChannelsUrl
+            telegramChannelsUrl,
+            hideTelegramChannels
         )
 
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
@@ -178,7 +181,8 @@ class SessionControlView(
                 CenoSettings.isBridgeAnnouncementEnabled(view.context),
                 ouicrawlSites,
                 CenoSettings.hideOuicrawlFeed(view.context),
-                ContextCompat.getString(view.context, R.string.default_telegram_channel)
+                ContextCompat.getString(view.context, R.string.default_telegram_channel),
+                CenoSettings.hideTelegramChannels(view.context)
             )
         )
         sessionControlAdapter.notifyDataSetChanged()
