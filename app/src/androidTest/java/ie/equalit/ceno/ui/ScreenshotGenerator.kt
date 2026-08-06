@@ -381,11 +381,7 @@ class ScreenshotGenerator {
                 takeScreenshotWithWait("cached_content_list")
             }
             .goBack {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.BAKLAVA) {
-                    scrollToText("Clear cached content")
-                } else {
-                    clickDownRecyclerView(15)
-                }
+                scrollToText("Clear cached content")
                 clickClearCacheButton()
                 takeScreenshotWithWait("cached_content_clear_dialog")
                 clickCancel()
@@ -517,4 +513,3 @@ class ScreenshotGenerator {
         tabsTrayScreenshots()
     }
 }
-
