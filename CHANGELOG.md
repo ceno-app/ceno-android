@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
+- Add customization option to hide Telegram channel homepage section
 - Update Android-Components to v153.0.3
 - Update translations for various locales
 - Minor updates and fixes to automated UI tests
