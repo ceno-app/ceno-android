@@ -73,7 +73,7 @@ mozilla-conceptstorage = { group = "org.mozilla.components", name = "concept-sto
 
 mozilla-composeawesomebar = { group = "org.mozilla.components", name = "compose-awesomebar", version.ref = "android_components" }
 
-mozilla-browserenginegecko = { group = "ie.equalit.ouinet", name = "browser-engine-gecko-ceno", version.ref = "android_components" }
+mozilla-browserenginegecko = { group = "org.mozilla.components", name = "browser-engine-gecko", version.ref = "android_components" }
 mozilla-browserdomains = { group = "org.mozilla.components", name = "browser-domains", version.ref = "android_components" }
 mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "browser-session-storage", version.ref = "android_components" }
 mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
@@ -96,7 +96,7 @@ mozilla-featuresitepermissions = { group = "org.mozilla.components", name = "fea
 mozilla-featureintent = { group = "org.mozilla.components", name = "feature-intent", version.ref = "android_components" }
 mozilla-featuresearch = { group = "org.mozilla.components", name = "feature-search", version.ref = "android_components" }
 mozilla-featuresession = { group = "org.mozilla.components", name = "feature-session", version.ref = "android_components" }
-mozilla-featuretoolbar = { group = "ie.equalit.ouinet", name = "feature-toolbar-ceno", version.ref = "android_components" }
+mozilla-featuretoolbar = { group = "org.mozilla.components", name = "feature-toolbar", version.ref = "android_components" }
 mozilla-featuretabs = { group = "org.mozilla.components", name = "feature-tabs", version.ref = "android_components" }
 mozilla-featuredownloads = { group = "org.mozilla.components", name = "feature-downloads", version.ref = "android_components" }
 mozilla-featureprompts = { group = "org.mozilla.components", name = "feature-prompts", version.ref = "android_components" }
