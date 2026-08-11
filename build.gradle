@@ -3,25 +3,9 @@ import io.gitlab.arturbosch.detekt.Detekt
 
 buildscript {
     repositories {
-        if (project.hasProperty("googleRepo")) {
-            maven {
-                name "Google"
-                url project.property("googleRepo")
-                allowInsecureProtocol true // Local Nexus in CI uses HTTP
-            }
-        } else {
-            google()
-        }
-
-        if (project.hasProperty("centralRepo")) {
-            maven {
-                name "MavenCentral"
-                url project.property("centralRepo")
-                allowInsecureProtocol true // Local Nexus in CI uses HTTP
-            }
-        } else {
-            mavenCentral()
-        }
+        mavenLocal()
+        maven { url "https://plugins.gradle.org/m2/" }
+        google()
     }
 
     dependencies {
@@ -40,40 +24,9 @@ plugins {
 
 allprojects {
     repositories {
-        if (project.hasProperty("googleRepo")) {
-            maven {
-                name "Google"
-                url project.property("googleRepo")
-                allowInsecureProtocol true // Local Nexus in CI uses HTTP
-            }
-        } else {
-            google()
-        }
-
-        maven {
-            name "Mozilla Nightly"
-            url "https://nightly.maven.mozilla.org/maven2"
-        }
-
-        maven {
-            name "Mozilla"
-            url "https://maven.mozilla.org/maven2"
-        }
-
-        maven {
-            url "https://jitpack.io"
-        }
-
-
-        if (project.hasProperty("centralRepo")) {
-            maven {
-                name "MavenCentral"
-                url project.property("centralRepo")
-                allowInsecureProtocol true // Local Nexus in CI uses HTTP
-            }
-        } else {
-            mavenCentral()
-        }
+        mavenLocal()
+        maven { url "https://plugins.gradle.org/m2/" }
+        google()
     }
 }
 

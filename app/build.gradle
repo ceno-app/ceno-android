@@ -61,19 +61,6 @@ android {
     }
 
     /* CENO: Add signing config for release builds */
-    signingConfigs {
-        release {
-            def releaseStoreFile = System.getenv('STORE_FILE') ?: localProperties['STORE_FILE']
-            storeFile file(releaseStoreFile ?: "$project.rootDir/debug.keystore-passwords")
-            storePassword System.getenv('STORE_PASSWORD') ?: localProperties['STORE_PASSWORD']
-            keyAlias System.getenv('KEY_ALIAS') ?: localProperties['KEY_ALIAS']
-            keyPassword System.getenv('KEY_PASSWORD') ?: localProperties['KEY_PASSWORD']
-
-            enableV1Signing true
-            enableV2Signing true
-            enableV3Signing true
-        }
-    }
 
     def releaseTemplate = {
         proguardFiles = [getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro']
@@ -100,15 +87,12 @@ android {
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
         release releaseTemplate >> {
-            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
         beta {
-            signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
         nightly {
-            signingConfig signingConfigs.release
             versionNameSuffix "-${baseBuildDate}"
             buildConfigField "boolean", "IS_RELEASED", "true"
         }
@@ -143,7 +127,11 @@ android {
             reset()
 
             //noinspection ChromeOsAbiSupport
-            include "armeabi-v7a", "arm64-v8a", "x86_64"
+            if (localProperties['ABI']) {
+                include localProperties['ABI']
+            } else {
+                include "armeabi-v7a", "arm64-v8a", "x86_64"
+            }
         }
     }
     androidResources {
@@ -162,18 +150,6 @@ tasks.configureEach { task ->
             task.name == 'mergeReleaseAssets') {
         task.dependsOn renameUblockXpi
         task.dependsOn unzipUblockOrigin
-    }
-}
-
-def apkDate = generatedApkDate
-def appId = android.defaultConfig.applicationId.tokenize('.')
-if (isBuildingRelease || isBuildingNightly) {
-    base {
-        archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
-    }
-} else {
-    base {
-        archivesName = "${appId[2]}-${android.defaultConfig.versionName}"
     }
 }
 
@@ -289,25 +265,6 @@ android.applicationVariants.all { variant ->
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
     } else {
         buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
-    }
-
-// -------------------------------------------------------------------------------------------------
-// Set the name of the output apks and copy to project directory
-// -------------------------------------------------------------------------------------------------
-    if (variant.name != 'debug') {
-        variant.outputs.all { output ->
-            def abi = output.getFilter("ABI")
-            outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
-        }
-    }
-
-    variant.assembleProvider.configure { assemble ->
-        assemble.doLast {
-            copy {
-                from variant.outputs*.outputFile
-                into "$project.rootDir/output/${variant.name}/"
-            }
-        }
     }
 }
 
