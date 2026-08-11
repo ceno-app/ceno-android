@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.ui.robots
 
+import android.os.Build
 import androidx.test.uiautomator.UiSelector
 import ie.equalit.ceno.helpers.TestAssetHelper.waitingTime
 
@@ -38,12 +39,15 @@ class AddToHomeScreenRobot {
     }
 
     private fun cancelAddToHomeScreenButton() = mDevice.findObject(
-        UiSelector().textContains("Cancel")
-            .clickable(true)
+        UiSelector().text("Cancel")
     )
 
     private fun addAutomaticallyToHomeScreenButton() = mDevice.findObject(
-        UiSelector().textContains("Add")
-            .clickable(true)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            UiSelector().text("Add to home screen")
+        } else {
+            UiSelector().textContains("Add")
+                .clickable(true)
+        }
     )
 }

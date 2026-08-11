@@ -9,8 +9,8 @@ import ie.equalit.ceno.helpers.BrowserActivityTestRule
 import ie.equalit.ceno.helpers.RetryTestRule
 import ie.equalit.ceno.helpers.TestAssetHelper
 import ie.equalit.ceno.helpers.TestHelper
+import ie.equalit.ceno.ui.robots.clickDefaultShortcut
 import ie.equalit.ceno.ui.robots.clickNext
-import ie.equalit.ceno.ui.robots.navigationToolbar
 import ie.equalit.ceno.ui.robots.onboarding
 import okhttp3.mockwebserver.MockWebServer
 import org.junit.After
@@ -61,11 +61,8 @@ class TooltipsTest {
             clickNext()
             Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifyUrlTooltip()
-        }
-        navigationToolbar {
-        }.enterUrlAndEnterToBrowser(genericOneURL.url) {
-        }
-        onboarding {
+            clickNext()
+            clickDefaultShortcut()
             Thread.sleep(TestAssetHelper.waitingTimeShort)
             verifySourcesTooltip()
             clickNext()

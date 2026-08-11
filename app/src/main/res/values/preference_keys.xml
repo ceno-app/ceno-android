@@ -110,6 +110,7 @@
     <string name="pref_key_dns_plain" translatable="false">pref_key_dns_plain</string>
     <string name="pref_key_dns_https" translatable="false">pref_key_dns_https</string>
     <string name="pref_key_dns_both" translatable="false">pref_key_dns_both</string>
+    <string name="pref_key_hide_telegram_channels" translatable="false">pref_key_hide_telegram_channels</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

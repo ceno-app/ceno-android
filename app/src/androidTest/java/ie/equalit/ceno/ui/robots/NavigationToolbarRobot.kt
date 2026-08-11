@@ -140,7 +140,7 @@ fun navigateToSourcesAndSet(website: Boolean, private: Boolean, public: Boolean,
     }
         .openSettings {
             Thread.sleep(5000)
-            clickDownRecyclerView(18)
+            clickDownRecyclerView(16)
             Thread.sleep(5000)
             verifyWebsiteSourcesButton()
             verifyWebsiteSourcesSummary()
