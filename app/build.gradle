@@ -55,6 +55,7 @@ android {
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "Boolean", "SCREENSHOTS_IN_TESTS", localProperties['SCREENSHOTS_IN_TESTS'] ?: 'false'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
         buildConfigField "java.util.List<java.util.Map<String, String>>", "SCENARIO_LIST", getScenarioList(scenarioYaml)

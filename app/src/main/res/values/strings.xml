@@ -541,4 +541,5 @@
 
     <string name="default_telegram_channel">https://tg.ceno.app</string>
     <string name="telegram_topsites_title">Telegram</string>
+    <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
 </resources>

@@ -45,3 +45,6 @@
 -assumenosideeffects class mozilla.components.support.base.log.logger.Logger {
     public final void debug(...);
 }
+
+# Fix broken RSS parsing
+-keep class ie.equalit.ceno.home.RssAnnouncementResponse { *; }

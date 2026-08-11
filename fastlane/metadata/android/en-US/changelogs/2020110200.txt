@@ -1,0 +1,13 @@
+
+### Fixed
+
+- Last update times on Free Media feed were not updating or displaying as negative values
+- Unrecoverable crash when homepage announcements were fetched
+
+### Changed
+
+- Add customization option to hide Telegram channel homepage section
+- Update Android-Components to v153.0.3
+- Update translations for various locales
+- Minor updates and fixes to automated UI tests
+
