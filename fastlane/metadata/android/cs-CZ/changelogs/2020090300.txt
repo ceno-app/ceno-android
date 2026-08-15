@@ -1,0 +1,10 @@
+### Opraveno
+
+- Chyba, která ve výchozím nastavení zapínala ladicí protokolování na úrovni silly
+- Opravený odkaz na web na stránce O aplikaci
+
+### Změněno
+
+- Aktualizace Android-Components na v151.0.4
+- Aktualizace Sentry na 8.35.0 a zapnutí tombstonů
+- Aktualizace překladů pro různé jazyky

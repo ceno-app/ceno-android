@@ -1,0 +1,4 @@
+Toto vydání:
+- Aktualizuje rozšíření Ceno na v1.8.1
+- Aktualizuje Android-Components na v132.0.2
+- Aktualizuje Ouinet na v0.31.0

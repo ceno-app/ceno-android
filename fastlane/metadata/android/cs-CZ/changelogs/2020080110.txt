@@ -1,0 +1,7 @@
+Toto vydání:
+- Aktualizuje generování náhodných čísel, aby používalo SecureRandom
+- Opravuje chybu, kvůli které se panel karet neposouval k vybrané kartě
+- Aktualizuje rozšíření Ceno na v1.12.1
+- Implementuje autorizaci proxy pro místního klienta Ouinet
+- Opravuje chybějící kontext způsobující pád v HomeFragment
+- Opravuje výjimku null na stránce nastavení vyhledávače

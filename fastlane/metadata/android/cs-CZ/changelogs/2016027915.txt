@@ -1,0 +1,3 @@
+Toto vydání:
+- Opravuje nevyplněný e-mail podpory Ceno
+- Aktualizuje Android-Components na v134.0.1

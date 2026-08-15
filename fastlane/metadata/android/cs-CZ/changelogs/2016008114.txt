@@ -1,0 +1,7 @@
+Toto vydání:
+- Opravuje chyby související se změnou jazyka aplikace v nastavení
+- Aktualizuje Android-Components na v131.0
+- Aktualizuje různé knihovny Androidu
+- Opravuje chyby v nápovědě k oprávněním
+- Přidává možnost vybrat jazyk aplikace v úvodní nápovědě
+- Přidává možnost ukládat protokoly do úložiště a vylepšuje rozhraní pro sdílení protokolů

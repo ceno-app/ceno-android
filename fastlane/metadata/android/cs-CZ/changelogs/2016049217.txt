@@ -1,0 +1,3 @@
+Toto vydání:
+- Aktualizuje Android-Components na v138.0.0
+- Aktualizuje Gradle na 8.11.1 a Kotlin na 2.0.0

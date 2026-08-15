@@ -1,0 +1,6 @@
+Toto vydání:
+- Aktualizuje Ouinet na v1.2.0
+- Přidává funkci záložek
+- Používá nové schéma kódů verzí pro vydání
+- Aktualizuje Android-Components na v139.0.4
+- Aktualizuje Sentry na 8.13.2

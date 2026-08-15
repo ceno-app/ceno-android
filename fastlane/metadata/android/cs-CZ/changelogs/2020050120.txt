@@ -1,0 +1,4 @@
+Toto vydání:
+- Opravuje pád při vypršení časového limitu služby na popředí
+- Zachovává oznámení na domovské stránce
+- Aktualizuje Ouinet na v1.2.1

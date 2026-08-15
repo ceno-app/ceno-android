@@ -1,0 +1,17 @@
+### Přidáno
+
+- Výzva při požadavku externí aplikace načíst URL
+- Zabezpečená obrazovka skrývající aplikaci na pozadí a bránící snímkům obrazovky
+- Upozornění podle nezaškrtnutých zdrojů
+
+### Opraveno
+
+- Nesprávné zobrazení výběru vyhledávače po změně
+
+### Změněno
+
+- Výchozí seznam zkratek pro jazyky RU a UA
+- Android-Components na v148.0.2
+- Ouinet na v1.6.4
+- Uchovávání metrik v zařízení na 30 dní
+- Generování kódů verzí nočních sestavení používá plugin Kotlin

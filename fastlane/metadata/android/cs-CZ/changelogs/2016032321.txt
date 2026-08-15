@@ -1,0 +1,6 @@
+Toto vydání:
+- Opravuje nevyplněný e-mail podpory Ceno
+- Aktualizuje Android-Components na v135.0
+- Aktualizuje Ouinet na v0.31.1
+- Vypíná oznámení Služby prohlížeče Ceno
+- Přidává oznámení, které se zobrazí při prohlížení ve veřejném režimu

@@ -1,0 +1,7 @@
+Toto vydání:
+- Přidává do nastavení možnost změnit jazyk aplikace
+- Nahrazuje úvodní obrazovky úvodním průvodcem s nápovědami
+- Aktualizuje uživatelské rozhraní stránky pohotovostního režimu
+- Aktualizuje Android-Components na v130.0.1
+- Aktualizuje Ouinet na v0.29.1
+- Aktualizuje překlady pro různé jazyky
