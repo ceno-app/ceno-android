@@ -12,6 +12,9 @@ import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
@@ -30,6 +33,7 @@ import ie.equalit.ceno.home.sessioncontrol.DefaultSessionControlController
 import ie.equalit.ceno.home.sessioncontrol.SessionControlAdapter
 import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
@@ -44,6 +48,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import mozilla.components.concept.fetch.Request
 import mozilla.components.concept.storage.FrecencyThresholdOption
+import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.feature.top.sites.TopSitesConfig
 import mozilla.components.feature.top.sites.TopSitesFeature
 import mozilla.components.feature.top.sites.TopSitesFrecencyConfig
@@ -53,6 +58,7 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 import java.util.Locale
+import kotlin.getValue
 
 /**
  * A [BaseHomeFragment] subclass that will display the custom CENO Browser homepage
@@ -76,6 +82,9 @@ class HomeFragment : BaseHomeFragment() {
     private var ouinetStatus = RunningState.Started
 
     private var isNetworkStatusDialogVisible: Boolean = false
+
+    private val telegramChannelsViewModel: TelegramChannelsViewModel by viewModels()
+    private var telegramChannels: List<TopSite>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -150,6 +159,16 @@ class HomeFragment : BaseHomeFragment() {
         )
 
 
+        viewLifecycleOwner.lifecycleScope.launch {
+            telegramChannelsViewModel.channels
+                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+                .collect { channels ->
+                    telegramChannels = channels
+                    updateSessionControlView()
+                }
+        }
+        telegramChannelsViewModel.getChannels(requireContext())
+
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             topMargin = if (prefs.getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
@@ -200,7 +219,8 @@ class HomeFragment : BaseHomeFragment() {
                 sessionControlView?.update(
                     it,
                     Settings.getAnnouncementData(context)?.items /* From local storage */,
-                    Settings.getOuicrawlData(context)
+                    Settings.getOuicrawlData(context),
+                    telegramChannels
                 )
                 updateUI(it.mode)
                 updateSearch()
@@ -233,7 +253,8 @@ class HomeFragment : BaseHomeFragment() {
                         sessionControlView?.update(
                             state,
                             Settings.getAnnouncementData(context)?.items,
-                            Settings.getOuicrawlData(context)
+                            Settings.getOuicrawlData(context),
+                            telegramChannels
                         )
                     }
                     getAnnouncements(context)
