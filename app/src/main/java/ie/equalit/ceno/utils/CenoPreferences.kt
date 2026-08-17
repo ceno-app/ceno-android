@@ -14,6 +14,7 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
+import mozilla.components.support.ktx.android.content.stringPreference
 
 /**
  * A simple wrapper for SharedPreferences that makes reading preference a little bit easier.
@@ -89,6 +90,11 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
     var isSecureScreenPersonalOnly by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_secure_screen_personal),
         true
+    )
+
+    var telegramChannelsBookGuid by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_telegram_channels_bookmark_guid),
+        ""
     )
 
     /**

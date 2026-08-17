@@ -64,9 +64,11 @@ import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.WebExtensionState
@@ -610,26 +612,33 @@ open class BrowserActivity : BaseActivity(),
     /* CENO: Function to initialize telegram channels to storage and observer */
     @OptIn(DelicateCoroutinesApi::class)
     private fun initializeTelegramChannels() {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
-        val telegramChannels: List<Pair<String, String>> =
-            XMLParser.parseTelegramChannelsXml(
-                applicationContext.resources.getXml(R.xml.default_telegram_channels),
-                this
-            ) as List<Pair<String, String>>
-        GlobalScope.launch(Dispatchers.IO) {
-            // Can only add more sites now, cannot update for removed ones
-            val topsites = components.core.cenoTopSitesStorage
-                .getTopSites(CenoPreferences.TOP_SITES_MAX_COUNT)
-            val removeList = topsites.filter { ts ->
-                ts.url.startsWith(getString(R.string.default_telegram_channel)) &&
-                telegramChannels.find{ts.url == it.second} == null
+        if (components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
+            val telegramChannels: List<Pair<String, String>> =
+                XMLParser.parseTelegramChannelsXml(
+                    applicationContext.resources.getXml(R.xml.default_telegram_channels),
+                    this
+                ) as List<Pair<String, String>>
+
+            GlobalScope.launch(IO) {
+                val guid = components.core.bookmarksStorage.addFolder(
+                    BookmarkRoot.Mobile.id,
+                    getString(R.string.telegram_channels_bookmark_folder_title),
+                    null,
+                )
+                    .getOrNull()
+                    .toString()
+
+                telegramChannels.forEach { channelPair ->
+                    components.core.bookmarksStorage.addItem(
+                        parentGuid = guid,
+                        url = channelPair.second,
+                        title = channelPair.first,
+                        position = null
+                    )
+                }
+
+                components.cenoPreferences.telegramChannelsBookGuid = guid
             }
-            val addList = telegramChannels.filter { tg ->
-                topsites.find{ it.url == tg.second} == null
-            }
-            removeList.forEach {
-                components.core.cenoTopSitesStorage.removeTopSite(it)
-            }
-            components.core.cenoTopSitesStorage.addTopSites(addList)
         }
     }
 
