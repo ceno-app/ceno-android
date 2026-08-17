@@ -54,6 +54,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
+import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
@@ -118,6 +119,7 @@ open class BrowserActivity : BaseActivity(),
     private lateinit var alarmManager: AlarmManager
 
     private val telegramChannelsViewModel: TelegramChannelsViewModel by viewModels()
+    private val topSitesViewModel: TopSiteViewModel by viewModels()
 
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -197,12 +199,6 @@ open class BrowserActivity : BaseActivity(),
             components.core.store.state.selectedTab == null -> navHost.navController.navigate(R.id.action_global_home)
             else -> navHost.navController.navigate(R.id.action_global_browser)
         }
-
-        /* CENO: need to initialize top sites to be displayed in CenoHomeFragment */
-        initializeTopSites()
-
-        /* CENO: need to initialize top telegram channels to be displayed in CenoHomeFragment */
-        telegramChannelsViewModel.initializeTelegramChannels(applicationContext)
 
         initializeSearchEngines()
 
@@ -576,46 +572,6 @@ open class BrowserActivity : BaseActivity(),
             callback.run()
         }
     }
-
-    /* CENO: Function to initialize top site storage and observer */
-    @OptIn(DelicateCoroutinesApi::class)
-    private fun initializeTopSites() {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
-        val defaultTopSites: List<Pair<String, String>>? =
-            if (!components.cenoPreferences.defaultTopSitesAdded) {
-                XMLParser.parseTopsitesXml(
-                    applicationContext.resources.getXml(R.xml.default_topsites),
-                    this
-                ) as List<Pair<String, String>>
-            } else {
-                null
-            }
-        GlobalScope.launch(Dispatchers.IO) {
-            if (!components.cenoPreferences.defaultTopSitesAdded && defaultTopSites != null) {
-                components.core.cenoTopSitesStorage.addTopSites(defaultTopSites)
-                components.cenoPreferences.defaultTopSitesAdded = true
-            }
-            components.core.cenoTopSitesStorage.getTopSites(
-                totalSites = components.cenoPreferences.topSitesMaxLimit
-            )
-            components.appStore.dispatch(
-                AppAction.Change(
-                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
-                )
-            )
-        }
-
-        /* Register TopSitesStorageObserver, which will update AppStore when top sites are changed/added/removed */
-        components.core.cenoTopSitesStorage.apply {
-            register(
-                observer = TopSitesStorageObserver(
-                    this, components.cenoPreferences, components.appStore
-                )
-            )
-        }
-    }
-
-    /* CENO: Function to initialize telegram channels to storage and observer */
-    @OptIn(DelicateCoroutinesApi::class)
 
     private fun initializeSearchEngines() {
         components.core.store.dispatch(SearchAction.RefreshSearchEnginesAction)

@@ -25,6 +25,10 @@ class TelegramChannelsViewModel: ViewModel() {
 
     fun getChannels(context: Context) {
         viewModelScope.launch {
+            if (context.components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
+                initializeTelegramChannels(context)
+            }
+
             val telegramChannels: List<Pair<String, String>> =
                 XMLParser.parseTelegramChannelsXml(
                     context.resources.getXml(R.xml.default_telegram_channels),
@@ -54,36 +58,30 @@ class TelegramChannelsViewModel: ViewModel() {
         }
     }
 
-    fun initializeTelegramChannels(context: Context) {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
-        viewModelScope.launch {
-            if (context.components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
-                val telegramChannels: List<Pair<String, String>> =
-                    XMLParser.parseTelegramChannelsXml(
-                        context.resources.getXml(R.xml.default_telegram_channels),
-                        context
-                    ) as List<Pair<String, String>>
+    private suspend fun initializeTelegramChannels(context: Context) {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
+        val telegramChannels: List<Pair<String, String>> =
+            XMLParser.parseTelegramChannelsXml(
+                context.resources.getXml(R.xml.default_telegram_channels),
+                context
+            ) as List<Pair<String, String>>
 
-                val guid = context.components.core.bookmarksStorage.addFolder(
-                    BookmarkRoot.Mobile.id,
-                    context.getString(R.string.telegram_channels_bookmark_folder_title),
-                    null,
-                )
-                    .getOrNull()
-                    .toString()
+        val guid = context.components.core.bookmarksStorage.addFolder(
+            BookmarkRoot.Mobile.id,
+            context.getString(R.string.telegram_channels_bookmark_folder_title),
+            null,
+        )
+            .getOrNull()
+            .toString()
 
-                telegramChannels.forEach { channelPair ->
-                    context.components.core.bookmarksStorage.addItem(
-                        parentGuid = guid,
-                        url = channelPair.second,
-                        title = channelPair.first,
-                        position = null
-                    )
-                }
-
-                context.components.cenoPreferences.telegramChannelsBookGuid = guid
-
-                getChannels(context)
-            }
+        telegramChannels.forEach { channelPair ->
+            context.components.core.bookmarksStorage.addItem(
+                parentGuid = guid,
+                url = channelPair.second,
+                title = channelPair.first,
+                position = null
+            )
         }
+
+        context.components.cenoPreferences.telegramChannelsBookGuid = guid
     }
 }

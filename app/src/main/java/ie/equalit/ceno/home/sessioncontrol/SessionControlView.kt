@@ -26,7 +26,7 @@ import mozilla.components.feature.top.sites.TopSite
 @VisibleForTesting
 internal fun normalModeAdapterItems(
     settings: CenoPreferences,
-    topSites: List<TopSite>,
+    topSites: List<TopSite>?,
     messageCard: CenoMessageCard,
     mode: BrowsingMode,
     announcements: List<RssItem>?,
@@ -50,7 +50,7 @@ internal fun normalModeAdapterItems(
     if (!isBridgeAnnouncementEnabled && settings.showBridgeAnnouncementCard)
         items.add(AdapterItem.CenoMessageItem(messageCard))
 
-    if (topSites.isNotEmpty()) {
+    if (!topSites.isNullOrEmpty()) {
         items.add(AdapterItem.TopSitePager(topSites))
     }
 
@@ -98,6 +98,7 @@ private fun AppState.toAdapterList(
     ouicrawlSites: List<OuicrawlSite>?,
     hideOuicrawlFeed: Boolean,
     hideTelegramChannels: Boolean,
+    topSites: List<TopSite>?,
     telegramChannels: List<TopSite>?,
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
@@ -162,6 +163,7 @@ class SessionControlView(
         state: AppState,
         announcements: List<RssItem>?,
         ouicrawlSites: List<OuicrawlSite>?,
+        topSites: List<TopSite>?,
         telegramChannels: List<TopSite>?,
     ) {
         val messageCard = CenoMessageCard(
@@ -178,6 +180,7 @@ class SessionControlView(
                 ouicrawlSites,
                 CenoSettings.hideOuicrawlFeed(view.context),
                 CenoSettings.hideTelegramChannels(view.context),
+                topSites,
                 telegramChannels
             )
         )

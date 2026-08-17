@@ -16,6 +16,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -35,6 +36,7 @@ import ie.equalit.ceno.home.sessioncontrol.SessionControlInteractor
 import ie.equalit.ceno.home.sessioncontrol.SessionControlView
 import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import ie.equalit.ceno.home.topsites.DefaultTopSitesView
+import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tooltip.CenoTooltip
@@ -83,7 +85,9 @@ class HomeFragment : BaseHomeFragment() {
     private var isNetworkStatusDialogVisible: Boolean = false
 
     private val telegramChannelsViewModel: TelegramChannelsViewModel by viewModels()
+    private val topSitesViewModel: TopSiteViewModel by viewModels()
     private var telegramChannels: List<TopSite>? = null
+    private var topSites: List<TopSite>? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -103,14 +107,13 @@ class HomeFragment : BaseHomeFragment() {
 
         /* Run coroutine to update the top site store in case it changed since last load */
         scope.launch {
-            components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
-            components.appStore.dispatch(
-                AppAction.Change(
-                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
-                )
-            )
+//            components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
+//            components.appStore.dispatch(
+//                AppAction.Change(
+//                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
+//                )
+//            )
         }
-
         topSitesFeature.set(
             feature = TopSitesFeature(
                 view = DefaultTopSitesView(
@@ -158,16 +161,6 @@ class HomeFragment : BaseHomeFragment() {
         )
 
 
-        lifecycleScope.launch {
-            telegramChannelsViewModel.channels
-//                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
-                .collect { channels ->
-                    telegramChannels = channels
-                    updateSessionControlView()
-                }
-        }
-        telegramChannelsViewModel.getChannels(requireContext())
-
         (binding.homeAppBar.layoutParams as? CoordinatorLayout.LayoutParams)?.apply {
             topMargin = if (prefs.getBoolean(
                     requireContext().getPreferenceKey(R.string.pref_key_toolbar_position),
@@ -184,7 +177,30 @@ class HomeFragment : BaseHomeFragment() {
             ContextCompat.getDrawable(requireContext(), R.drawable.blank_background)
         (activity as AppCompatActivity).supportActionBar!!.hide()
 
+        loadHomepageItemsFromBookmark()
+
         return binding.root
+    }
+
+    private fun loadHomepageItemsFromBookmark() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                topSitesViewModel.topSites.collect { sites ->
+                    topSites = sites
+                    updateSessionControlView()
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                telegramChannelsViewModel.channels.collect { channels ->
+                    telegramChannels = channels
+                    updateSessionControlView()
+                }
+            }
+        }
+        telegramChannelsViewModel.getChannels(requireContext())
+        topSitesViewModel.getTopSites(requireContext())
     }
 
     /** CENO: Copied from Fenix
@@ -219,7 +235,8 @@ class HomeFragment : BaseHomeFragment() {
                     it,
                     Settings.getAnnouncementData(context)?.items /* From local storage */,
                     Settings.getOuicrawlData(context),
-                    telegramChannels
+                    topSites,
+                    telegramChannels,
                 )
                 updateUI(it.mode)
                 updateSearch()
@@ -253,6 +270,7 @@ class HomeFragment : BaseHomeFragment() {
                             state,
                             Settings.getAnnouncementData(context)?.items,
                             Settings.getOuicrawlData(context),
+                            topSites,
                             telegramChannels
                         )
                     }

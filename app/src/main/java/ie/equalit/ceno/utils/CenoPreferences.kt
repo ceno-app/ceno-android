@@ -92,6 +92,10 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         true
     )
 
+    var topSitesBookmarkGuid by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_top_sites_bookmark_guid),
+        ""
+    )
     var telegramChannelsBookGuid by stringPreference(
         appContext.getPreferenceKey(R.string.pref_telegram_channels_bookmark_guid),
         ""

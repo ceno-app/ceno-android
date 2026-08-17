@@ -543,5 +543,7 @@
     <string name="telegram_topsites_title">Telegram</string>
     <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
     <string name="pref_telegram_channels_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
+    <string name="pref_top_sites_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
     <string name="telegram_channels_bookmark_folder_title">Telegram channels</string>
+    <string name="shortcut_bookmark_label">Shortcut</string>
 </resources>
