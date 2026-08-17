@@ -44,7 +44,7 @@ class TopSiteViewModel: ViewModel() {
                         Pair(it.title ?: it.url, it.url)
                     }
                 }
-                else initializeTopSites(context)
+                initializeTopSites(context, defaultTopSites)
             }
 
             val topSites: MutableList<TopSite> = mutableListOf()
@@ -70,8 +70,11 @@ class TopSiteViewModel: ViewModel() {
         }
     }
 
-    private suspend fun initializeTopSites(context: Context) {
-        val defaultTopSites: List<Pair<String, String>> =
+    private suspend fun initializeTopSites(
+        context: Context,
+        defaultTopSites: List<Pair<String, String>>?
+    ) {
+        val defaultTopSites: List<Pair<String, String>> = defaultTopSites ?:
             XMLParser.parseTopsitesXml(
                 context.resources.getXml(R.xml.default_topsites),
                 context
