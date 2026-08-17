@@ -32,21 +32,19 @@ class TopSiteViewModel: ViewModel() {
                     context
                 ) as List<Pair<String, String>>
 
-            if (context.components.cenoPreferences.topSitesBookmarkGuid.isEmpty()) {
-                if(!context.components.cenoPreferences.defaultTopSitesAdded) {
-                    initializeTopSites(context)
-                }
+            if(context.components.cenoPreferences.topSitesBookmarkGuid.isEmpty()) {
                 /**
                  * The user customized version if available are maintained.
                  * The list if filtered to take only topsites and not the telegram channels.
                  */
-                else {
+                if (context.components.cenoPreferences.defaultTopSitesAdded) {
                     val topSites = context.components.core.cenoTopSitesStorage
                         .getTopSites(CenoPreferences.TOP_SITES_MAX_COUNT)
                     defaultTopSites = topSites.map {
                         Pair(it.title ?: it.url, it.url)
                     }
                 }
+                else initializeTopSites(context)
             }
 
             val topSites: MutableList<TopSite> = mutableListOf()
