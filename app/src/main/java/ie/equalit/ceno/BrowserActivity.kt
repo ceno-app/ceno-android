@@ -118,9 +118,6 @@ open class BrowserActivity : BaseActivity(),
     private lateinit var reminderNotificationIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
 
-    private val telegramChannelsViewModel: TelegramChannelsViewModel by viewModels()
-    private val topSitesViewModel: TopSiteViewModel by viewModels()
-
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
         setupThemeAndBrowsingMode(getModeFromIntentOrLastKnown())
