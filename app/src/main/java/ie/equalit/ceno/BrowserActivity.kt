@@ -21,7 +21,6 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
@@ -30,7 +29,6 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -46,32 +44,23 @@ import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
 import ie.equalit.ceno.browser.notification.CenoNotificationBroadcastReceiver
 import ie.equalit.ceno.browser.notification.PublicNotificationFeature
 import ie.equalit.ceno.browser.notification.PublicNotificationService
-import ie.equalit.ceno.components.ceno.TopSitesStorageObserver
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
-import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
-import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
-import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.WebExtensionState
@@ -84,7 +73,6 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import java.io.IOException
-import kotlin.getValue
 import kotlin.system.exitProcess
 
 /**

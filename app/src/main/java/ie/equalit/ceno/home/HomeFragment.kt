@@ -14,7 +14,6 @@ import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.preference.PreferenceManager
@@ -22,9 +21,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
-import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.databinding.FragmentHomeBinding
-import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
@@ -224,7 +221,7 @@ class HomeFragment : BaseHomeFragment() {
             context?.let { context ->
                 sessionControlView?.update(
                     it,
-                    Settings.getAnnouncementData(context)?.items /* From local storage */,
+                    Settings.getAnnouncementData(context)?.items, /* From local storage */
                     Settings.getOuicrawlData(context),
                     topSites,
                     telegramChannels,

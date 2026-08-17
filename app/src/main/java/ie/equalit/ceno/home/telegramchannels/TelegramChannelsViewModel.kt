@@ -6,19 +6,14 @@ import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
-import kotlinx.coroutines.Dispatchers.IO
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import mozilla.appservices.places.BookmarkRoot
-import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.feature.top.sites.TopSite
 
-class TelegramChannelsViewModel: ViewModel() {
+class TelegramChannelsViewModel : ViewModel() {
 
     private val _channels = MutableStateFlow<List<TopSite>?>(null)
     val channels = _channels.asStateFlow()
@@ -43,18 +38,19 @@ class TelegramChannelsViewModel: ViewModel() {
                     .getOrNull()
                     ?.map {
                         TopSite.Frecent(
-                            id = it.guid.hashCode().toLong(),
+                            id = it.guid.hashCode()
+                                .toLong(),
                             title = it.title,
                             url = it.url ?: "",
                             createdAt = it.dateAdded
                         )
                     }
-                if(!topSite.isNullOrEmpty()) {
+                if (!topSite.isNullOrEmpty()) {
                     topSites.add(topSite.first())
                 }
             }
 
-            _channels.update{ topSites }
+            _channels.update { topSites }
         }
     }
 
