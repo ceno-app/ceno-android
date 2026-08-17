@@ -56,7 +56,6 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
-import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState

@@ -18,10 +18,7 @@ import ie.equalit.ceno.home.RssItem
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
-import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.feature.top.sites.TopSite
-import kotlin.collections.isNotEmpty
-import kotlin.collections.map
 
 // This method got a little complex with the addition of the tab tray feature flag
 // When we remove the tabs from the home screen this will get much simpler again.

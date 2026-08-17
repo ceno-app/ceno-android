@@ -58,7 +58,6 @@ import mozilla.components.support.base.feature.ViewBoundFeatureWrapper
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
 import uk.co.samuelwall.materialtaptargetprompt.extras.focals.RectanglePromptFocal
 import java.util.Locale
-import kotlin.getValue
 
 /**
  * A [BaseHomeFragment] subclass that will display the custom CENO Browser homepage
