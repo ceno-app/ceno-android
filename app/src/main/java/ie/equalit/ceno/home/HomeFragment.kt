@@ -105,15 +105,6 @@ class HomeFragment : BaseHomeFragment() {
 
         //        components.appStore.dispatch(AppAction.ModeChange(themeManager.currentMode))
 
-        /* Run coroutine to update the top site store in case it changed since last load */
-        scope.launch {
-//            components.core.cenoTopSitesStorage.getTopSites(components.cenoPreferences.topSitesMaxLimit)
-//            components.appStore.dispatch(
-//                AppAction.Change(
-//                    topSites = components.core.cenoTopSitesStorage.cachedTopSites.sort()
-//                )
-//            )
-        }
         topSitesFeature.set(
             feature = TopSitesFeature(
                 view = DefaultTopSitesView(
