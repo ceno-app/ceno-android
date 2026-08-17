@@ -40,7 +40,9 @@ class TopSiteViewModel: ViewModel() {
                 if (context.components.cenoPreferences.defaultTopSitesAdded) {
                     val topSites = context.components.core.cenoTopSitesStorage
                         .getTopSites(CenoPreferences.TOP_SITES_MAX_COUNT)
-                    defaultTopSites = topSites.map {
+                    defaultTopSites  = topSites.filter {
+                        it.url != context.getString(R.string.default_telegram_channel)
+                    }.map {
                         Pair(it.title ?: it.url, it.url)
                     }
                 }
