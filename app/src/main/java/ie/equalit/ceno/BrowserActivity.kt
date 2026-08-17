@@ -21,6 +21,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
@@ -29,6 +30,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
@@ -51,6 +53,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
@@ -80,6 +83,7 @@ import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.utils.SafeIntent
 import mozilla.components.support.webextensions.WebExtensionPopupObserver
 import java.io.IOException
+import kotlin.getValue
 import kotlin.system.exitProcess
 
 /**
@@ -112,6 +116,8 @@ open class BrowserActivity : BaseActivity(),
 
     private lateinit var reminderNotificationIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
+
+    private val telegramChannelsViewModel: TelegramChannelsViewModel by viewModels()
 
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -196,7 +202,7 @@ open class BrowserActivity : BaseActivity(),
         initializeTopSites()
 
         /* CENO: need to initialize top telegram channels to be displayed in CenoHomeFragment */
-        initializeTelegramChannels()
+        telegramChannelsViewModel.initializeTelegramChannels(applicationContext)
 
         initializeSearchEngines()
 
@@ -610,36 +616,6 @@ open class BrowserActivity : BaseActivity(),
 
     /* CENO: Function to initialize telegram channels to storage and observer */
     @OptIn(DelicateCoroutinesApi::class)
-    private fun initializeTelegramChannels() {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
-        if (components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
-            val telegramChannels: List<Pair<String, String>> =
-                XMLParser.parseTelegramChannelsXml(
-                    applicationContext.resources.getXml(R.xml.default_telegram_channels),
-                    this
-                ) as List<Pair<String, String>>
-
-            GlobalScope.launch(IO) {
-                val guid = components.core.bookmarksStorage.addFolder(
-                    BookmarkRoot.Mobile.id,
-                    getString(R.string.telegram_channels_bookmark_folder_title),
-                    null,
-                )
-                    .getOrNull()
-                    .toString()
-
-                telegramChannels.forEach { channelPair ->
-                    components.core.bookmarksStorage.addItem(
-                        parentGuid = guid,
-                        url = channelPair.second,
-                        title = channelPair.first,
-                        position = null
-                    )
-                }
-
-                components.cenoPreferences.telegramChannelsBookGuid = guid
-            }
-        }
-    }
 
     private fun initializeSearchEngines() {
         components.core.store.dispatch(SearchAction.RefreshSearchEnginesAction)

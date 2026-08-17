@@ -6,11 +6,15 @@ import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.flowOf
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.feature.top.sites.TopSite
 
@@ -46,7 +50,40 @@ class TelegramChannelsViewModel: ViewModel() {
                 }
             }
 
-            _channels.value = topSites
+            _channels.update{ topSites }
+        }
+    }
+
+    fun initializeTelegramChannels(context: Context) {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
+        viewModelScope.launch {
+            if (context.components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
+                val telegramChannels: List<Pair<String, String>> =
+                    XMLParser.parseTelegramChannelsXml(
+                        context.resources.getXml(R.xml.default_telegram_channels),
+                        context
+                    ) as List<Pair<String, String>>
+
+                val guid = context.components.core.bookmarksStorage.addFolder(
+                    BookmarkRoot.Mobile.id,
+                    context.getString(R.string.telegram_channels_bookmark_folder_title),
+                    null,
+                )
+                    .getOrNull()
+                    .toString()
+
+                telegramChannels.forEach { channelPair ->
+                    context.components.core.bookmarksStorage.addItem(
+                        parentGuid = guid,
+                        url = channelPair.second,
+                        title = channelPair.first,
+                        position = null
+                    )
+                }
+
+                context.components.cenoPreferences.telegramChannelsBookGuid = guid
+
+                getChannels(context)
+            }
         }
     }
 }

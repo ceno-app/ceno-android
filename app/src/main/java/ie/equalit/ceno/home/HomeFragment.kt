@@ -158,9 +158,9 @@ class HomeFragment : BaseHomeFragment() {
         )
 
 
-        viewLifecycleOwner.lifecycleScope.launch {
+        lifecycleScope.launch {
             telegramChannelsViewModel.channels
-                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
+//                .flowWithLifecycle(lifecycle, Lifecycle.State.STARTED)
                 .collect { channels ->
                     telegramChannels = channels
                     updateSessionControlView()
