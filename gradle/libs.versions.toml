@@ -2,9 +2,9 @@
 
 # AndroidX
 androidx_activity_compose = "1.13.0"
-androidx_appcompat = "1.7.1"
-androidx_compose = "1.11.3"
-androidx_constraintlayout = "2.2.1"
+androidx_appcompat = "1.8.0"
+androidx_compose = "1.12.0"
+androidx_constraintlayout = "2.2.2"
 androidx_core = "1.19.0"
 androidx_lifecycle = "2.11.0"
 androidx_navigation = "2.9.8"
@@ -21,7 +21,7 @@ google_material = "1.14.0"
 
 # Gradle
 gradle_android_plugin = "9.3.1"
-gradle_kotlin_plugin = "2.2.21"
+gradle_kotlin_plugin = "2.3.21"
 
 # Kotlin
 kotlin_coroutines = "1.11.0"
@@ -51,7 +51,7 @@ snakeyaml_version = "2.2"
 
 ktlint_version = "0.49.1"
 detekt = "1.23.8"
-jvm = "2.0.21"
+jvm = "2.3.21"
 serialization = "1.9.25"
 material3Android = "1.4.0"
 espresso_contrib = "3.7.0"
