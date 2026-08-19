@@ -28,6 +28,7 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getUrl
+import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -80,6 +81,7 @@ class ToolbarIntegration(
     private val readerViewIntegration: ReaderViewIntegration? = null,
     private val bookmarkTapped: ((String, String) -> Unit)? = null
 ) : LifecycleAwareFeature, UserInteractionHandler {
+    val topSitesViewModel = TopSiteViewModel()
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
     }
@@ -198,29 +200,12 @@ class ToolbarIntegration(
             TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_add_to_shortcuts),
             ) {
-                scope.launch {
-                    //val context = swipeRefresh.context
-                    val numPinnedSites = context.components.core.cenoTopSitesStorage.cachedTopSites
-                        .filter { it is TopSite.Default || it is TopSite.Pinned }.size
-
-                    if (numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit) {
-                        AlertDialog.Builder(context)
-                            .apply {
-                                setTitle(R.string.shortcut_max_limit_title)
-                                setMessage(R.string.shortcut_max_limit_content)
-                                setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
-                                    dialog.dismiss()
-                                }
-                                create()
-                            }
-                            .show()
-                    } else {
-                        sessionState.let {
-                            with(context.components.useCases.cenoTopSitesUseCase) {
-                                addPinnedSites(it.content.title, it.content.url)
-                            }
-                        }
-                    }
+                sessionState.let {
+                    topSitesViewModel.addToTopSites(
+                        context,
+                        it.content.title,
+                        it.content.url
+                    )
                 }
             }
         }

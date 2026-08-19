@@ -11,6 +11,8 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import mozilla.appservices.places.BookmarkRoot
+import mozilla.components.concept.storage.BookmarkNode
+import mozilla.components.concept.storage.BookmarkNodeType
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsViewModel : ViewModel() {
@@ -20,41 +22,56 @@ class TelegramChannelsViewModel : ViewModel() {
 
     fun getChannels(context: Context) {
         viewModelScope.launch {
-            if (context.components.cenoPreferences.telegramChannelsBookGuid.isEmpty()) {
-                initializeTelegramChannels(context)
+            var guid = context.components.cenoPreferences.telegramChannelsBookGuid
+            if (guid.isEmpty()) {
+                guid = initializeTelegramChannels(context)
             }
 
-            val telegramChannels: List<Pair<String, String>> =
-                XMLParser.parseTelegramChannelsXml(
-                    context.resources.getXml(R.xml.default_telegram_channels),
-                    context
-                ) as List<Pair<String, String>>
+            val tree = context.components.core.bookmarksStorage
+                .getTree(guid, true)
+                .getOrNull()
+                ?.children
 
-            val topSites: MutableList<TopSite> = mutableListOf()
-
-            telegramChannels.forEach { tgChan ->
-                val topSite = context.components.core.bookmarksStorage
-                    .getBookmarksWithUrl(tgChan.second)
-                    .getOrNull()
-                    ?.map {
-                        TopSite.Frecent(
-                            id = it.guid.hashCode()
-                                .toLong(),
-                            title = it.title,
-                            url = it.url ?: "",
-                            createdAt = it.dateAdded
-                        )
-                    }
-                if (!topSite.isNullOrEmpty()) {
-                    topSites.add(topSite.first())
+            val topSites = mutableListOf<TopSite>()
+            tree?.forEach {
+                if(it.type == BookmarkNodeType.FOLDER) {
+                    topSites.addAll(getChildren(it))
+                }
+                else {
+                    topSites.add(TopSite.Frecent(
+                        id = it.guid.hashCode()
+                            .toLong(),
+                        title = it.title,
+                        url = it.url ?: "",
+                        createdAt = it.dateAdded
+                    ))
                 }
             }
-
             _channels.update { topSites }
         }
     }
 
-    private suspend fun initializeTelegramChannels(context: Context) {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
+    private fun getChildren(bookmarkNode: BookmarkNode) : List<TopSite>{
+        val children = mutableListOf<TopSite>()
+        bookmarkNode.children!!.forEach { folder ->
+            if(folder.type == BookmarkNodeType.FOLDER) {
+                children.addAll(getChildren(folder))
+            }
+            else {
+                children.add(
+                    TopSite.Frecent(
+                        id = folder.guid.hashCode()
+                            .toLong(),
+                        title = folder.title,
+                        url = folder.url ?: "",
+                        createdAt = folder.dateAdded
+                    )
+                )}
+        }
+        return children
+    }
+
+    private suspend fun initializeTelegramChannels(context: Context): String {/*  Launch a coroutine to initialize top site storage cache and update it in the store */
         val telegramChannels: List<Pair<String, String>> =
             XMLParser.parseTelegramChannelsXml(
                 context.resources.getXml(R.xml.default_telegram_channels),
@@ -79,5 +96,6 @@ class TelegramChannelsViewModel : ViewModel() {
         }
 
         context.components.cenoPreferences.telegramChannelsBookGuid = guid
+        return guid
     }
 }
