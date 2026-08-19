@@ -184,17 +184,7 @@ class ToolbarIntegration(
             TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_remove_from_shortcuts),
             ) {
-                scope.launch {
-                    val removedTopSite: TopSite? =
-                        context.components.core.cenoPinnedSiteStorage
-                            .getPinnedSites()
-                            .find { it.url == sessionState.content.url }
-                    if (removedTopSite != null) {
-                        with(context.components.useCases.cenoTopSitesUseCase) {
-                            removeTopSites(removedTopSite)
-                        }
-                    }
-                }
+                topSitesViewModel.removeTopSite(context, sessionState.content.url)
             }
         } else {
             TextMenuCandidate(
@@ -206,6 +196,7 @@ class ToolbarIntegration(
                         it.content.title,
                         it.content.url
                     )
+                    isCurrentUrlPinned = true
                 }
             }
         }
@@ -390,15 +381,15 @@ class ToolbarIntegration(
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */
         scope.launch {
-            context.components.appStore.flow()
-                .map { state -> state.topSites }
-                .distinctUntilChanged()
-                .collect { topSites ->
-                    isCurrentUrlPinned = topSites
-                        .find { it.url == store.state.selectedTab?.content?.url } != null
-                    /* Resubmit menu items in case state of pinned sites changed */
-                    menuController.submitList(menuItems(store.state.selectedTab))
-                }
+            if(!store.state.selectedTab?.content?.url.isNullOrEmpty()) {
+                isCurrentUrlPinned =
+                    topSitesViewModel.isTopSite(context, store.state.selectedTab!!.content.url)
+                menuController.submitList(menuItems(store.state.selectedTab))
+            }
+            topSitesViewModel.refresh.collect {
+                isCurrentUrlPinned = it
+                menuController.submitList(menuItems(store.state.selectedTab))
+            }
         }
 
         /* CENO: launch coroutine to observe for changes to the current tab URL
@@ -408,9 +399,10 @@ class ToolbarIntegration(
                 .map { state -> state.selectedTab?.content?.url }
                 .distinctUntilChanged()
                 .collect { newUrl ->
-                    isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
-                        .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
-                        .find { it.url == newUrl } != null
+                    newUrl?.let {
+                        isCurrentUrlPinned =
+                            topSitesViewModel.isTopSite(context, newUrl)
+                    }
                     isCurrentUrlBookmarked = newUrl?.let { url ->
                         context.components.core.bookmarksStorage
                             .getBookmarksWithUrl(url)
@@ -418,6 +410,7 @@ class ToolbarIntegration(
                             .any { it.url == url }
                     } == true
                 }
+
         }
 
         /* CENO: this coroutine must also monitor for changes to the extensions

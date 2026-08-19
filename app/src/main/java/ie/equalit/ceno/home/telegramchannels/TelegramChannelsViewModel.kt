@@ -34,30 +34,30 @@ class TelegramChannelsViewModel : ViewModel() {
 
             val topSites = mutableListOf<TopSite>()
             tree?.forEach {
-                if(it.type == BookmarkNodeType.FOLDER) {
+                if (it.type == BookmarkNodeType.FOLDER) {
                     topSites.addAll(getChildren(it))
-                }
-                else {
-                    topSites.add(TopSite.Frecent(
-                        id = it.guid.hashCode()
-                            .toLong(),
-                        title = it.title,
-                        url = it.url ?: "",
-                        createdAt = it.dateAdded
-                    ))
+                } else {
+                    topSites.add(
+                        TopSite.Frecent(
+                            id = it.guid.hashCode()
+                                .toLong(),
+                            title = it.title,
+                            url = it.url ?: "",
+                            createdAt = it.dateAdded
+                        )
+                    )
                 }
             }
             _channels.update { topSites }
         }
     }
 
-    private fun getChildren(bookmarkNode: BookmarkNode) : List<TopSite>{
+    private fun getChildren(bookmarkNode: BookmarkNode): List<TopSite> {
         val children = mutableListOf<TopSite>()
         bookmarkNode.children!!.forEach { folder ->
-            if(folder.type == BookmarkNodeType.FOLDER) {
+            if (folder.type == BookmarkNodeType.FOLDER) {
                 children.addAll(getChildren(folder))
-            }
-            else {
+            } else {
                 children.add(
                     TopSite.Frecent(
                         id = folder.guid.hashCode()
@@ -66,7 +66,8 @@ class TelegramChannelsViewModel : ViewModel() {
                         url = folder.url ?: "",
                         createdAt = folder.dateAdded
                     )
-                )}
+                )
+            }
         }
         return children
     }
