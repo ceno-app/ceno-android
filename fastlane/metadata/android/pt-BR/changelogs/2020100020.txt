@@ -1,0 +1,16 @@
+### Adicionado
+
+- Opções por botão de rádio para tema, botão limpar e DoH
+
+### Corrigido
+
+- Resolução de mais de 300 alertas no código-fonte
+- Botão voltar nos favoritos redirecionava à home em vez da pasta anterior
+- Serviço Ceno Network não reiniciava após alterar opções; corrigido na biblioteca Ouinet
+
+### Alterado
+
+- Formatação do código padronizada
+- Android-Components para v152.0.4
+- Ouinet para v1.6.8
+- Atualização de traduções para diversos idiomas

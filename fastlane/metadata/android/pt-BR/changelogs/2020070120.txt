@@ -1,0 +1,5 @@
+Notas de atualização:
+- Atualização do Ouinet para v1.4.2
+- Atualização do Android-Components para v145.0
+- Atualização do cacert.pem com pacote de 04/11/2025
+- Pequenas atualizações em diversas traduções

@@ -1,0 +1,8 @@
+Notas de atualização:
+- Atualização dos Android-Components para a v137.0
+- Atualização da extensão Ceno para a v1.9.0
+- Atualização da extensão uBlock Origin para a v1.63.2
+- Refatoração da lista de grupos em cache
+- Inclusão do número de caches locais nas contagens de fontes do Ceno
+- Atualização do e-mail de suporte do Ceno
+- Problema conhecido: as extensões pré-instaladas não estão localizadas

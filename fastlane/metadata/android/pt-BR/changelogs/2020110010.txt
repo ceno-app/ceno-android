@@ -1,0 +1,12 @@
+### Adicionado
+
+- Implementação inicial da seção de canais do Telegram na página inicial
+
+### Alterado
+
+- Reativação de otimização e redução de recursos em builds de versão
+- Android-Components para v153.0.1
+- Ouinet para v1.6.10
+- Android Gradle Plugin para v9.3.1
+- Sentry para v8.48.0
+- Atualização de traduções para diversos idiomas

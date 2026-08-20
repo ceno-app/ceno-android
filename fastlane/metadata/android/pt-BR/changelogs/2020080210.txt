@@ -1,0 +1,9 @@
+Notas de atualização:
+- Métricas para versão e opção de ponte
+- Correção de JsonDecodingException em CenoSettings
+- Correção de IllegalStateException em CenoTooltip
+- Correção no travamento ao exportar logs
+- Feed de mídia filtrado por idioma
+- Android-Components para v147.0.2
+- Ouinet para v1.6.2
+- Atualização em várias traduções

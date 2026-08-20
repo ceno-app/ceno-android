@@ -1,0 +1,7 @@
+Notas de atualização:
+- Adiciona opção nas configurações para alterar o idioma do aplicativo
+- Substitui as telas de boas-vindas por uma introdução guiada por dicas na tela
+- Atualização na interface da página de espera
+- Atualiza os Android-Components para a v130.0.1
+- Atualiza o Ouinet para a v0.29.1
+- Atualização das traduções para diversos idiomas

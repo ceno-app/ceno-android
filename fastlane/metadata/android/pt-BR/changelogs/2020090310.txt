@@ -1,0 +1,10 @@
+### Corrigido
+
+- Logs de depuração ativados por padrão no nível silly
+- Link do site quebrado na página Sobre
+
+### Alterado
+
+- Android-Components para v151.0.4
+- Sentry para v8.35.0 com tombstones ativados
+- Atualização de traduções para diversos idiomas

@@ -1,0 +1,2 @@
+Notas de atualização:
+- Atualização do arquivo AndroidManifest.xml

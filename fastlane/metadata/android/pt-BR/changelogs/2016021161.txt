@@ -1,0 +1,9 @@
+Notas de atualização:
+- Implementação inicial da campanha de métricas "Clean Insights"
+- Adição de um submenu oculto de ferramentas do desenvolvedor
+- Adição de textos para o idioma inglês (en)
+- Suporte a ícones monocromáticos no inicializador
+- Atualização dos Android-Components para a v133.0.3
+- Adição de um indicador de status de conexão da rede Ceno na página inicial
+- Atualização do pacote cacert.pem
+- Atualização das traduções para diversos idiomas
