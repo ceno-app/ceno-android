@@ -1,0 +1,8 @@
+### Alterado
+
+- Android-Components para v150.0.3
+- Atualização do iniciador de permissões para downloads, prompts e sites
+- Ajuste de ignoreUnknownKeys para true e explicitNulls para false no JSON
+- Ouinet para v1.6.7
+- Atualização de traduções para diversos idiomas
+- Remoção das permissões READ_MEDIA_IMAGES e READ_MEDIA_VIDEO

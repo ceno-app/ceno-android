@@ -1,0 +1,7 @@
+Notas de atualização:
+- Correção de falhas ao alterar o idioma do aplicativo nas configurações
+- Atualização dos Android-Components para a v131.0
+- Atualização de diversas bibliotecas do Android
+- Correção de falhas nas dicas de permissões
+- Adição da opção de selecionar o idioma do aplicativo na dica de boas-vindas
+- Adição da opção de salvar logs no armazenamento e melhorias na interface de compartilhamento de logs

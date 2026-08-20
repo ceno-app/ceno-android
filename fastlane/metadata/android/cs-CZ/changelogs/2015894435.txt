@@ -1,0 +1,7 @@
+Toto oficiální vydání:
+- Mění vzhled vyskakovacího okna Zdroje Ceno
+- Aktualizuje knihovnu Android-Components na v109.2.0
+- Aktualizuje Ouinet na v0.21.6
+- Opravuje mazání položek v adresním řádku při psaní
+- Mění rozložení a chování navigačních tlačítek v nabídce
+- Drobně aktualizuje překlady

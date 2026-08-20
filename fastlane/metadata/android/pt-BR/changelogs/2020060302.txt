@@ -1,0 +1,11 @@
+Notas de atualização:
+- SDK de compilação atualizado para v36
+- Atualização do Sentry para v8.20.0 e AndroidX Core para v1.17
+- Solução para suporte a tela ponta a ponta
+- Atualização do Ouinet para v1.4.0
+- Porta dinâmica para frontend e proxy
+- Opção para seguir o tema do sistema
+- Correção de bugs no log, notificações e erro
+- Atualização do Android-Components para v143.0.3
+- cacert.pem atualizado (09/09/2025)
+- Extensão Ceno para v1.10.0

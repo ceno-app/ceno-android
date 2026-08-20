@@ -1,0 +1,8 @@
+### Změněno
+
+- Aktualizace Android-Components na v150.0.3
+- Aktualizace spouštěče oprávnění pro downloadsPermissions, promptsPermissions a sitePermissions
+- Nastavení ignoreUnknownKeys na true a explicitNulls na false pro dekodér JSON
+- Aktualizace Ouinet na v1.6.7
+- Aktualizace překladů pro různé jazyky
+- Odstranění oprávnění READ_MEDIA_IMAGES a READ_MEDIA_VIDEO

@@ -1,0 +1,7 @@
+Notas de atualização:
+- Atualiza os Android-Components para a versão 129.0.2
+- Atualiza o Ouinet para a versão v0.28.0
+- Atualiza a UI da página "Sobre" com novos links e logotipos atualizados
+- Define a posição padrão da barra de ferramentas no topo para o Android 7.1 e versões anteriores
+- Refatora os recursos de texto (strings)
+- Atualiza as traduções para determinados idiomas

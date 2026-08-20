@@ -29,13 +29,15 @@ def isBuildingNightly = gradle.startParameter.taskNames.any { it.toLowerCase().c
 android {
     namespace 'ie.equalit.ceno'
 
-    compileSdkVersion Config.COMPILE_SDK_VERSION
-
-
     defaultConfig {
         applicationId "ie.equalit.ceno"
+        buildToolsVersion Config.BUILD_TOOLS_VERSION
+        compileSdk {
+            version = release(Config.COMPILE_SDK_MAJOR_VERSION) {
+                minorApiLevel = Config.COMPILE_SDK_MINOR_VERSION
+            }
+        }
         minSdkVersion Config.MIN_SDK_VERSION
-        compileSdkVersion Config.COMPILE_SDK_VERSION
         targetSdkVersion Config.TARGET_SDK_VERSION
         versionCode 1
         versionName System.getenv('CENO_VERSION') ?: localProperties['versionName']

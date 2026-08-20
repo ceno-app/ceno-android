@@ -1,0 +1,12 @@
+Notas de atualização:
+- Botão voltar refatorado com OnBackPressedDispatcher
+- BrowserActivity abre como singleInstance
+- Uso de FLAG_ACTIVITY_CLEAR_TASK no lugar de NEW_TASK
+- Android Gradle Plugin para v8.13.0
+- Opção de fixar sites no cache
+- Menos logs padrão em versões de lançamento
+- Remoção da página de espera
+- Android-Components para v146.0.1
+- Opção para ocultar feed de mídia gratuita
+- Ouinet para v1.6.1
+- Alternância de DNS-over-HTTPS como padrão

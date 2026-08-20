@@ -2,9 +2,9 @@
 
 # AndroidX
 androidx_activity_compose = "1.13.0"
-androidx_appcompat = "1.7.1"
-androidx_compose = "1.11.3"
-androidx_constraintlayout = "2.2.1"
+androidx_appcompat = "1.8.0"
+androidx_compose = "1.12.0"
+androidx_constraintlayout = "2.2.2"
 androidx_core = "1.19.0"
 androidx_lifecycle = "2.11.0"
 androidx_navigation = "2.9.8"
@@ -13,7 +13,7 @@ androidx_swiperefreshlayout = "1.2.0"
 androidx_work = "2.11.2"
 
 # Android Components
-android_components = "153.0.3"
+android_components = "154.0"
 
 # Google
 google_composecompiler = "1.5.15"
@@ -21,7 +21,7 @@ google_material = "1.14.0"
 
 # Gradle
 gradle_android_plugin = "9.3.1"
-gradle_kotlin_plugin = "2.2.21"
+gradle_kotlin_plugin = "2.3.21"
 
 # Kotlin
 kotlin_coroutines = "1.11.0"
@@ -39,7 +39,7 @@ testing_jacoco = "0.8.15"
 testing_mockwebserver = "4.12.0"
 
 # Third Party
-sentry = "8.48.0"
+sentry = "8.53.0"
 gson = "2.14.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
@@ -49,9 +49,9 @@ ouinet_version = "1.6.10"
 relinker_version = "1.4.4"
 snakeyaml_version = "2.2"
 
-ktlint_version = "0.49.1"
+ktlint_version = "1.8.0"
 detekt = "1.23.8"
-jvm = "2.0.21"
+jvm = "2.3.21"
 serialization = "1.9.25"
 material3Android = "1.4.0"
 espresso_contrib = "3.7.0"
@@ -166,6 +166,7 @@ ouinet-omni = { group = "ie.equalit.ouinet", name = "ouinet-omni", version.ref =
 relinker = { group = "com.getkeepsafe.relinker", name = "relinker", version.ref = "relinker_version" }
 snakeyaml = { group = "org.yaml", name = "snakeyaml", version.ref = "snakeyaml_version" }
 fastlane-screengrab = { group = "tools.fastlane", name = "screengrab", version.ref = "fastlane_version" }
+ktlint = { group = "com.pinterest.ktlint", name = "ktlint-cli", version.ref = "ktlint_version"}
 
 [plugins]
 detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "detekt" }

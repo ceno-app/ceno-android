@@ -1,0 +1,11 @@
+### Corrigido
+
+- Exportação de log não funciona no idioma RTL
+- Falha quando a mídia gratuita tem menos de 5 itens
+- Falha ao voltar nas Configurações após mudar o idioma
+
+### Alterado
+
+- Nome padrão do arquivo de log agora é ceno_log
+- Atualiza Android-Components para v147.0.4
+- Atualiza Android Gradle Plugin para 8.13.2

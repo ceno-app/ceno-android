@@ -1,0 +1,12 @@
+### Corrigido
+
+- Falha quando o status do Ouinet não possui a chave metrics_delete_after
+
+### Alterado
+
+- Logs de depuração da Mozilla removidos em builds de versão
+- Opções de links movidas para a subseção de permissões
+- Android-Components para v152.0.6
+- Ouinet para v1.6.9
+- uBlock Origin para v1.72.2
+- Atualização de traduções para diversos idiomas

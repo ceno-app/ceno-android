@@ -1,0 +1,4 @@
+Notas de atualização:
+- Correção do erro de tempo limite que encerrava o serviço em primeiro plano
+- Permite que os anúncios da página inicial sejam permanentes
+- Atualização do Ouinet para a v1.2.1

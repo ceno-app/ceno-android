@@ -1,0 +1,9 @@
+Toto vydání:
+- Aktualizuje Android-Components na 142.0.1
+- Aktualizuje Sentry na 8.18.0
+- Aktualizuje Ouinet na v1.3.1
+- Odstraňuje zbývající použití OuinetNotification
+- Opravuje chybu, kdy aplikace nereagovala kvůli síťovým metrikám
+- Aktualizuje cacert.pem pomocí balíčku vygenerovaného v úterý 12. srpna 2025
+- Aktualizuje logo Ceno
+- Drobně aktualizuje různé překlady

@@ -5,7 +5,18 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.11.2 - 2026-08-10
+## v2.11.3 - 2026-08-20
+
+### Changed
+
+- Update compileSdk to 37.1
+- Update gradle wrapper to 9.7.0
+- Update Sentry to 8.53.0
+- Update Android-Components to 154.0
+- Update various other android and kotlin dependencies
+- Minor updates to translations for various locales
+
+## [v2.11.2](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.2) - 2026-08-10
 
 ### Fixed
 

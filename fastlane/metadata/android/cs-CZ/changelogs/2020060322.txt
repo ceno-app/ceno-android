@@ -1,0 +1,13 @@
+Toto vydání:
+- Aktualizuje SDK pro kompilaci na 36
+- Aktualizuje Sentry 8.20.0
+- Aktualizuje AndroidX Core 1.17
+- Přidává podporu zobrazení od okraje k okraji
+- Aktualizuje Ouinet 1.4.0
+- Umožňuje dynamický výběr portů frontendu a proxy
+- Přidává sledování systémového motivu
+- Opravuje export protokolů
+- Opravuje oznámení a chybovou stránku
+- Aktualizuje Android-Components na v143.0.3
+- Aktualizuje cacert.pem balíčkem z 9. září 2025 03:12:01 GMT
+- Aktualizuje rozšíření Ceno na v1.10.0

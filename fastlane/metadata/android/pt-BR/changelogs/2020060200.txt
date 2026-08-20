@@ -1,0 +1,9 @@
+Notas de atualização:
+- Atualização do Android-Components para v142.0.1
+- Atualização do Sentry para v8.18.0
+- Atualização do Ouinet para v1.3.1
+- Remoção do uso restante do OuinetNotification
+- Correção de erro de aplicativo não respondendo causado por métricas de rede
+- Atualização do cacert.pem com pacote de 12/08/2025
+- Atualização do logo do Ceno
+- Pequenas atualizações em diversas traduções
