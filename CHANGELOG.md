@@ -5,7 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.11.1 - 2026-07-30
+## v2.11.2 - 2026-08-10
+
+### Fixed
+
+- Last update times on Free Media feed were not updating or displaying as negative values
+- Unrecoverable crash when homepage announcements were fetched
+
+### Changed
+
+- Add customization option to hide Telegram channel homepage section
+- Update Android-Components to v153.0.3
+- Update translations for various locales
+- Minor updates and fixes to automated UI tests
+
+## [v2.11.1](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.1) - 2026-07-30
 
 ### Fixed
 
