@@ -1,0 +1,7 @@
+Toto opravné vydání:
+- Aktualizuje Android-Components na 129.0.2
+- Aktualizuje Ouinet na v0.28.0
+- Aktualizuje uživatelské rozhraní stránky O aplikaci o nové odkazy a aktualizovaná loga
+- Nastavuje výchozí umístění panelu nástrojů nahoře pro Android 7.1 a starší verze
+- Refaktoruje řetězce prostředků
+- Aktualizuje překlady pro některé jazyky

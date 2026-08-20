@@ -1,0 +1,5 @@
+Notas de atualização:
+- Atualização do Android-Components para v141.0.1
+- Correção de bugs menores
+- Melhoria no manuseio de anúncios para evitar falhas
+- Principais revisões de texto nas traduções para RU

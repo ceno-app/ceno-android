@@ -1,0 +1,4 @@
+Notas de atualização:
+- Atualização da extensão Ceno para a v1.8.1
+- Atualização dos Android-Components para a v132.0.2
+- Atualização do Ouinet para a v0.31.0

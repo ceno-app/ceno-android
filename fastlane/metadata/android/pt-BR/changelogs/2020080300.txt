@@ -1,0 +1,9 @@
+Corrigido:
+- Falha na exportação de log em idiomas da direita para a esquerda
+- Erro no feed de mídia com menos de 5 itens
+- Falha ao voltar nas configurações após alterar o idioma
+
+Alterado:
+- Nome padrão do arquivo de log alterado para ceno_log
+- Android-Components atualizado para v147.0.4
+- Android Gradle Plugin atualizado para 8.13.2

@@ -1,0 +1,17 @@
+### Přidáno
+
+- Přepínače motivu, chování tlačítka pro vymazání a nastavení DoH
+
+### Opraveno
+
+- Bylo vyřešeno více než 300 upozornění ve zdrojovém kódu; zbývající upozornění byla přidána do detekt-baseline.xml
+- Návrat z adresářů záložek vedl na domovskou stránku místo o úroveň výš
+- Změna volby vyžadující restart síťové služby Ceno způsobila, že se služba
+  nikdy nerestartovala; opraveno aktualizací knihovny Ouinet
+
+### Změněno
+
+- Použito konzistentní formátování stylu kódu ve zdrojovém kódu
+- Aktualizace Android-Components na v152.0.4
+- Aktualizace Ouinet na v1.6.8
+- Aktualizace překladů pro různé jazyky

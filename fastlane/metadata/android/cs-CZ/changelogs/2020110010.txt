@@ -1,0 +1,12 @@
+### Přidáno
+
+- Počáteční implementace sekce domovské stránky s kanály Telegramu
+
+### Změněno
+
+- Znovu povolena optimalizace a zmenšování prostředků pro sestavení vydání
+- Aktualizace Android-Components na v153.0.1
+- Aktualizace Ouinet na v1.6.10
+- Aktualizace pluginu Android Gradle na 9.3.1
+- Aktualizace Sentry na 8.48.0
+- Aktualizace překladů pro různé jazyky

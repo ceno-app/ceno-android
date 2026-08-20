@@ -1,0 +1,12 @@
+### Opraveno
+
+- Pád způsobený chybějícím klíčem nebo hodnotou metrics_delete_after ve stavu Ouinet
+
+### Změněno
+
+- Aktualizovaný systém sestavení odstraňuje ladicí protokoly Mozilly ze sestavení vydání
+- Přesunutí možností nastavení souvisejících s otevíráním odkazů do podsekce oprávnění hlavní stránky nastavení
+- Aktualizace Android-Components na v152.0.6
+- Aktualizace Ouinet na v1.6.9
+- Aktualizace uBlock Origin na 1.72.2
+- Aktualizace překladů pro různé jazyky

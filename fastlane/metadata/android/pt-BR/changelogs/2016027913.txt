@@ -1,0 +1,3 @@
+Notas de atualização:
+- Correção no preenchimento automático do e-mail de suporte do Ceno
+- Atualização dos Android-Components para a v134.0.1

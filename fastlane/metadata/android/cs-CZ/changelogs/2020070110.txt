@@ -1,0 +1,5 @@
+Toto vydání:
+- Aktualizuje Ouinet na v1.4.2
+- Aktualizuje Android-Components na v145.0
+- Aktualizuje cacert.pem pomocí balíčku vygenerovaného v úterý 4. listopadu 2025 v 04:12:02 GMT
+- Drobně aktualizuje různé překlady

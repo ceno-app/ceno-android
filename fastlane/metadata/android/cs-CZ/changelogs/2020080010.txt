@@ -1,0 +1,12 @@
+Toto vydání:
+- Upravuje navigaci Zpět přes OnBackPressedDispatcher
+- Spouští BrowserActivity jako singleInstance
+- Nahrazuje FLAG_ACTIVITY_NEW_TASK za FLAG_ACTIVITY_CLEAR_TASK
+- Aktualizuje Android Gradle plugin 8.13.0
+- Připíná weby do mezipaměti
+- Omezuje protokolování vydání
+- Odstraňuje stránku pohotovostního režimu
+- Aktualizuje Android-Components na v146.0.1
+- Skrývá kanál bezplatných médií
+- Aktualizuje Ouinet na v1.6.1
+- Nastavuje výchozí překladač DNS-over-HTTPS

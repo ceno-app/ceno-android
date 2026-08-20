@@ -1,0 +1,9 @@
+Toto vydání:
+- Aktualizuje Android-Components na 141.0
+- Přidává v Androidu 15 a novějším oznámení, které uživatele vybízí k opětovnému otevření Ceno
+- Aktualizuje výchozí navrhovaný web pro RU
+- Aktualizuje odkazy na web eQualitie na stránce O aplikaci
+- Přidává na domovskou stránku sekci se seznamem procházených webů
+- Znovu povoluje zavírání oznámení na domovské stránce přejetím
+- Zavádí sběr metrik chránící soukromí
+- Aktualizuje Ouinet na v1.3.0

@@ -1,0 +1,6 @@
+Notas de atualização:
+- Atualização do Ouinet para a v1.2.0
+- Adição do recurso de marcadores
+- Uso do novo esquema de código de versão para compilações de lançamento
+- Atualização dos Android-Components para a v139.0.4
+- Atualização do Sentry para a v8.13.2

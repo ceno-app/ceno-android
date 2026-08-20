@@ -1,0 +1,5 @@
+Esta versão de correção:
+- Atualiza os Android-Components para a versão 128.0.3
+- Corrige a falha de IllegalStateException relacionada ao ícone de status da barra de ferramentas
+- Pequenas melhorias na UI da página de erro, incluindo a ação de deslizar para atualizar
+- Atualiza as traduções para determinados idiomas, especialmente o persa

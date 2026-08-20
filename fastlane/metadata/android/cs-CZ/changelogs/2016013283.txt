@@ -1,0 +1,8 @@
+Toto vydání:
+- Aktualizuje Android-Components na v132.0
+- Aktualizuje testy uživatelského rozhraní
+- Opravuje nápovědy pro zařízení s malými obrazovkami
+- Refaktoruje oprávnění a přidává možnost je odvolat v Nastavení
+- Aktualizuje Ouinet na v0.30.1
+- Přidává do dialogu časového limitu pohotovostního režimu možnost „Přesto přejít do Ceno“
+- Opravuje chybu skrývání panelu nástrojů při posouvání

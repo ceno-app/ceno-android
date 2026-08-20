@@ -1,31 +1,19 @@
-Ceno (Censorship.No!) É um navegador móvel descentralizado. Ele usa tecnologia ponto a ponto para entregar sites ao seu dispositivo móvel e armazena em cache conteúdo popular com pares cooperantes. O Ceno pode ser usado para contornar a censura da Internet e ajudar outras pessoas a recuperar páginas bloqueadas.
+Compartilhe a Web! Ceno é o primeiro navegador do mundo que melhora a cada instalação. Oferecendo uma experiência comum de navegação, ele usa tecnologia ponto a ponto para entregar e compartilhar sites entre todos os participantes. O Ceno também pode ser usado para burlar restrições de rede e navegar durante bloqueios.
 
-Diga NÃO à censura!
-Instale o Ceno Browser hoje e esteja preparado para a próxima vez que você for desconectado.
+O Ceno é totalmente gratuito, código aberto e não exige cadastro. É livre de anúncios.
 
-🚫🌴 <strong>Off-line primeiro.</strong> 
-O Ceno foi projetado tendo em mente cenários de desligamento da Internet. Os sites são compartilhados por uma rede global de pares e armazenados em um cache distribuído para disponibilidade quando as redes tradicionais são bloqueadas ou ficam inativas. 
+Coletamos métricas anônimas do app e da rede. Nenhum dado pessoal é coletado nem compartilhado com terceiros. A coleta é ativada por padrão, mas pode ser desativada em `Configurações > Métricas em segundo plano > Métricas do Ceno`. Consulte nossa <a href="https://ceno.app/en/privacy_-policy.html/">Política de Privacidade</a> para mais detalhes.
 
-🔓👀 <strong>Desbloqueie a web.</strong>
-Acesse qualquer site. O conteúdo solicitado com frequência é armazenado em cache na rede e não pode ser removido à força. 
+🔓 👀 Acesse mídias e sites bloqueados. Gratuito e anônimo no Modo Pessoal.
 
-💲🌐 <strong>Reduza os custos de dados.</strong>
-Ao rotear o tráfego do usuário através de redes peer-to-peer, o Ceno Browser incorre em menos custos de dados, ao mesmo tempo que fornece aos usuários capacidade de evasão.
+🚫🌴 Em caso de bloqueio da internet na sua região, continue lendo notícias e conectado.
 
- 📖👐 <strong>Gratuito e de código aberto.</strong>
-O Ceno Browser é desenvolvido pela Ouinet, uma biblioteca de código aberto que permite que desenvolvedores terceirizados incorporem a rede Ceno em seus aplicativos para conectividade ponto a ponto.
+📱🤝📱 Mora em um país com internet livre? Ajude pessoas de outros países a burlar a censura e acessar informação independente com um toque. Saiba mais <a href="https://ceno.network">no nosso site</a>.
 
-<strong>Observação:</strong> Ceno não é uma ferramenta de anonimato: informações sobre sua navegação podem ser vazadas para outros usuários do Ceno, bem como o fato de seu aplicativo estar fornecendo conteúdo específico da web para terceiros. O conteúdo acessado com o aplicativo pode permanecer armazenado em texto não criptografado por algum tempo, no entanto, você pode limpar todo o conteúdo armazenado a qualquer momento usando o recurso 'Limpar agora'. 
+📖👐 O Ceno Browser é baseado na Ouinet, uma biblioteca de código aberto. Veja o código <a href="https://gitlab.com/censorship-no">no GitLab</a>.
 
-<strong>Anti-recursos do F-Droid:</strong>
-O código-fonte do Upstream Ceno usa bibliotecas pré-construídas da Mozilla que não são totalmente gratuitas. Para o lançamento do Ceno Browser F-Droid, corrigimos as partes não livres e construímos essas bibliotecas do zero.
+🛠🦹🏻 Nosso produto pode apresentar instabilidades devido à constante evolução das tecnologias de censura. Trabalhamos continuamente para garantir seu acesso. Se os sites demorarem a carregar ou não abrirem, não apague o app — tente novamente em alguns dias ou contate o suporte: support@ceno.app
 
-<strong>Sobre eQualit.ie</strong>
-A eQualit.ie desenvolve sistemas abertos e reutilizáveis com foco na privacidade, segurança online e gerenciamento de informações. O nosso objetivo é criar tecnologia acessível e melhorar o conjunto de competências necessárias para defender os direitos humanos e as liberdades na era digital.
+Veja o <a href="https://ceno.network/user-manual/">Manual do Usuário</a> para mais detalhes ou fale conosco em support@ceno.app. Adoramos receber feedback e seguimos aprimorando o Ceno para os usuários!
 
-Para saber mais sobre o Ceno Browser e sua biblioteca distribuída, Ouinet, visite https://censorship.no 
-
-<strong>Dúvidas/Precisa de suporte?</strong>
-Leia mais no <a href="https://censorship.no/user-manual/en/">Manual do usuário Ceno</a> ou entre em contato conosco pelo e-mail support@censorship.no. Adoramos receber feedback e estamos melhorando continuamente o Ceno para seus usuários!
-
-Fique conectado e ajude a manter a web aberta e acessível a todos!
+O Ceno é desenvolvido pela <a href="https://equalitie.org">eQualit.ie</a>

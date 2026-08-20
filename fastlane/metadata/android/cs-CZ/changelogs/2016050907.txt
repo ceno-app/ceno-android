@@ -1,0 +1,4 @@
+Toto vydání:
+- Aktualizuje Android-Components na v138.0.4
+- Aktualizuje cacert.pem pomocí balíčku vygenerovaného v úterý 20. května 2025 v 03:12:02 GMT
+- Aktualizuje překlady pro různé jazyky
