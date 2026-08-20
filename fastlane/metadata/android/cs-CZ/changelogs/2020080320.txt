@@ -1,0 +1,11 @@
+### Opraveno
+
+- Export protokolů nefungoval při nastavení aplikace na jazyk se směrem zprava doleva
+- Pád při méně než 5 položkách bezplatných médií
+- Pád při návratu v Nastavení po změně jazyka
+
+### Změněno
+
+- Výchozí název souboru protokolu je nyní ceno_log
+- Aktualizace Android-Components na v147.0.4
+- Aktualizace pluginu Android Gradle na 8.13.2

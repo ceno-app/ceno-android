@@ -1,0 +1,2 @@
+Toto vydání:
+- Aktualizuje AndroidManifest.xml

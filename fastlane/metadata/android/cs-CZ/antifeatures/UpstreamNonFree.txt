@@ -1,0 +1,1 @@
+Zdrojový kód Ceno používá předem sestavené knihovny od Mozilly, které nejsou zcela svobodné. Pro vydání Prohlížeče Ceno ve F-Droidu upravujeme nesvobodné části a tyto knihovny sestavujeme od základu.

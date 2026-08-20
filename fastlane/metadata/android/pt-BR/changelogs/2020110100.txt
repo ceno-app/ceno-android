@@ -1,0 +1,3 @@
+### Corrigido
+
+- Impossibilidade de adicionar atalhos à página inicial na versão anterior

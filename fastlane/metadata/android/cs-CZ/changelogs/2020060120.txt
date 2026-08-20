@@ -1,0 +1,5 @@
+Toto vydání:
+- Aktualizuje Android-Components na 141.0.1
+- Opravuje drobné chyby
+- Aktualizuje zpracování oznámení, aby se předešlo pádům
+- Provádí rozsáhlé textové úpravy překladů RU

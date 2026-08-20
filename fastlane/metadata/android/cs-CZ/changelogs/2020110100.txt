@@ -1,0 +1,3 @@
+### Opraveno
+
+- V předchozím vydání nebylo možné přidat zkratky na domovskou stránku

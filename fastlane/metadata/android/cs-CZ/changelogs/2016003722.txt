@@ -1,0 +1,9 @@
+Toto opravné vydání:
+- Přidává možnost exportovat protokoly ze stránky pohotovostního režimu
+- Odstraňuje službu automatického vyplňování z možností nastavení
+- Opravuje chybu uživatelského rozhraní, při které panel nástrojů zakrýval část webového zobrazení
+- Aktualizuje Android-Components na v130.0
+- Aktualizuje Ouinet na v0.29.0
+- Vynucuje umístění panelu nástrojů nahoře pro Android 7.1 a starší verze
+- Drobné opravy pádů
+- Aktualizuje překlady pro různé jazyky

@@ -1,0 +1,5 @@
+Notas de atualização:
+- Atualização dos Android-Components para a v138.0.3
+- Atualização do Gradle para a v8.11.1 e do Kotlin para a v2.0.0
+- Atualização do Sentry para a v8.11.1
+- Atualização do Gson para a v2.11.0

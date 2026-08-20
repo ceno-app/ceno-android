@@ -1,0 +1,19 @@
+Sdílejte web! Ceno je první webový prohlížeč na světě, který se s každou instalací zlepšuje. Nabízí běžné prohlížení internetu a využívá technologii peer-to-peer k doručování a sdílení webových stránek mezi všemi účastníky. Ceno lze použít také k obcházení síťových omezení a k prohlížení obsahu během výpadku internetu.
+
+Ceno je zcela bezplatný prohlížeč s otevřeným zdrojovým kódem, který nevyžaduje registraci. Je zcela bez reklam.
+
+Shromažďujeme některé anonymizované metriky o aplikaci a síti. Neshromažďujeme žádné osobní údaje a data nikdy nesdílíme s třetími stranami. Shromažďování metrik je ve výchozím nastavení zapnuté; kdykoli ho můžete vypnout pomocí přepínače `Settings > Background metrics > Ceno Metrics`. Další informace o tom, co shromažďujeme, najdete v našich <a href="https://ceno.app/privacy-policy/">zásadách ochrany soukromí</a>.
+
+🔓 👀 Získejte přístup k blokovaným médiím a dalším webovým stránkám. Bezplatně a anonymně v osobním režimu.
+
+🚫🌴 V případě vypnutí internetu ve vašem regionu budete stále moci číst zprávy a zůstat ve spojení.
+
+📱🤝📱  Žijete v zemi se svobodným přístupem k internetu? Pomozte lidem v jiných zemích obcházet cenzuru a získat přístup k nezávislým informacím jediným klepnutím. Další informace najdete <a href="https://ceno.network">na našem webu</a>.
+
+📖👐 Prohlížeč Ceno je postaven na knihovně Ouinet s otevřeným zdrojovým kódem. Kód aplikace si můžete prohlédnout <a href="https://gitlab.com/censorship-no">na GitLabu</a>.
+
+🛠🦹🏻  Náš produkt může být nestabilní kvůli neustálému vývoji cenzurních technologií. Neustále ho vylepšujeme, abychom vám zajistili přístup. Pokud se webové stránky načítají pomalu nebo se neotevřou, aplikaci prosím nemažte — zkuste ji znovu použít za několik dní nebo kontaktujte náš tým podpory: support@ceno.app
+
+Podrobnosti o používání Ceno najdete v <a href="https://ceno.network/user-manual/">uživatelské příručce</a> nebo nás kontaktujte na support@ceno.app. Rádi dostáváme zpětnou vazbu a Ceno pro jeho uživatele neustále vylepšujeme!
+
+Ceno vyvíjí <a href="https://equalitie.org">eQualit.ie</a>
