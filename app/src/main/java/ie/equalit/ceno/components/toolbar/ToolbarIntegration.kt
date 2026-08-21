@@ -7,7 +7,6 @@ package ie.equalit.ceno.components.toolbar
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.getSystemService
@@ -59,7 +58,6 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
 import mozilla.components.feature.toolbar.ToolbarFeature
-import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
@@ -178,30 +176,6 @@ class ToolbarIntegration(
         return RowMenuCandidate(rowMenuItems)
     }
 
-    /* CENO: Add menu option for adding or removing a shortcut from the homepage */
-    private fun shortcutMenuItem(sessionState: SessionState): MenuCandidate {
-        return if (isCurrentUrlPinned) {
-            TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_remove_from_shortcuts),
-            ) {
-                topSitesViewModel.removeTopSite(context, sessionState.content.url)
-            }
-        } else {
-            TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_add_to_shortcuts),
-            ) {
-                sessionState.let {
-                    topSitesViewModel.addToTopSites(
-                        context,
-                        it.content.title,
-                        it.content.url
-                    )
-                    isCurrentUrlPinned = true
-                }
-            }
-        }
-    }
-
     @Suppress("LongMethod")
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
@@ -289,8 +263,6 @@ class ToolbarIntegration(
                     scope.launch { webAppUseCases.addToHomescreen() }
                 }
             }
-            menuItemsList += shortcutMenuItem(sessionState)
-
 
             menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_find_in_page)
@@ -381,7 +353,7 @@ class ToolbarIntegration(
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */
         scope.launch {
-            if(!store.state.selectedTab?.content?.url.isNullOrEmpty()) {
+            if (!store.state.selectedTab?.content?.url.isNullOrEmpty()) {
                 isCurrentUrlPinned =
                     topSitesViewModel.isTopSite(context, store.state.selectedTab!!.content.url)
                 menuController.submitList(menuItems(store.state.selectedTab))
