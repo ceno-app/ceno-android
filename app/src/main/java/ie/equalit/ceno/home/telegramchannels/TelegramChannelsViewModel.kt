@@ -116,7 +116,7 @@ class TelegramChannelsViewModel : ViewModel() {
                 var child: BookmarkNode? = null
                 var position = 0
                 tree?.children?.forEachIndexed { index, node ->
-                    if(node.url == url) {
+                    if (node.url == url) {
                         child = node
                         position = index
                         return@forEachIndexed

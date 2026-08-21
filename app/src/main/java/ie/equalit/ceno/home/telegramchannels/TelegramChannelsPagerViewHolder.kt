@@ -9,7 +9,6 @@ import ie.equalit.ceno.databinding.ComponentTopSitesPagerBinding
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerViewHolder(

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsAdapter(

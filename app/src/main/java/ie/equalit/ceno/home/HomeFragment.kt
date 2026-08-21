@@ -192,7 +192,7 @@ class HomeFragment : BaseHomeFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 topSitesViewModel.refresh.collect { refresh ->
-                    if(refresh)
+                    if (refresh)
                         topSitesViewModel.getTopSites(requireContext())
                 }
             }
@@ -201,7 +201,7 @@ class HomeFragment : BaseHomeFragment() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
                 telegramChannelsViewModel.refresh.collect { refresh ->
-                    if(refresh)
+                    if (refresh)
                         telegramChannelsViewModel.getChannels(requireContext())
                 }
             }

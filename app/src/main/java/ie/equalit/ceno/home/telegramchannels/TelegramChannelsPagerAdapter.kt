@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TelegramChannelPagerPayload
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder.Companion.TOP_SITES_PER_PAGE
 import mozilla.components.feature.top.sites.TopSite
 

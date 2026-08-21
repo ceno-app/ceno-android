@@ -14,7 +14,6 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
@@ -22,9 +21,7 @@ import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
 
@@ -194,7 +191,7 @@ class DefaultSessionControlController(
     override fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean) {
         val url = "https://${ouicrawlSite.SiteURL}/"
         activity.lifecycleScope.launch {
-            if(topSiteViewModel.isTopSite(activity.applicationContext, url)) {
+            if (topSiteViewModel.isTopSite(activity.applicationContext, url)) {
                 topSiteViewModel.removeShortcut(
                     activity.applicationContext,
                     url,

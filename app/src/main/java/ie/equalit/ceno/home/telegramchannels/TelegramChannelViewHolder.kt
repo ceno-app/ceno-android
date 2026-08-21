@@ -5,7 +5,6 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.databinding.ComponentTelegramChannelsBinding
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.utils.CenoGridLayoutManager
 import mozilla.components.feature.top.sites.TopSite
 

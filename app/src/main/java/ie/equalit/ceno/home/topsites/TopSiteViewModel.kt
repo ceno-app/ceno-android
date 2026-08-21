@@ -1,21 +1,18 @@
 package ie.equalit.ceno.home.topsites
 
 import android.content.Context
-import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
@@ -132,7 +129,7 @@ class TopSiteViewModel : ViewModel() {
         return guid
     }
 
-    suspend fun isMaxReached(context: Context) : Boolean {
+    suspend fun isMaxReached(context: Context): Boolean {
         val guid = context.components.cenoPreferences.topSitesBookmarkGuid
 
         val tree = context.components.core.bookmarksStorage
@@ -150,7 +147,7 @@ class TopSiteViewModel : ViewModel() {
         onMaxReachedCallback: () -> Unit,
     ) {
         viewModelScope.launch {
-            if(isMaxReached(context)) {
+            if (isMaxReached(context)) {
                 onMaxReachedCallback()
             } else {
                 val guid = context.components.cenoPreferences.topSitesBookmarkGuid
@@ -176,7 +173,7 @@ class TopSiteViewModel : ViewModel() {
             var child: BookmarkNode? = null
             var position = 0
             tree?.children?.forEachIndexed { index, node ->
-                if(node.url == url) {
+                if (node.url == url) {
                     child = node
                     position = index
                     return@forEachIndexed
@@ -203,7 +200,8 @@ class TopSiteViewModel : ViewModel() {
         return context.components.core.bookmarksStorage
             .getTree(guid)
             .getOrNull()
-            ?.children?.find { it.url == url }.run {
+            ?.children?.find { it.url == url }
+            .run {
                 this != null
             }
     }
