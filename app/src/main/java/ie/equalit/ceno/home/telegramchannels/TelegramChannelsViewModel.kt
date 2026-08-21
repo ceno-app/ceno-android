@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
+import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
@@ -19,6 +21,9 @@ class TelegramChannelsViewModel : ViewModel() {
 
     private val _channels = MutableStateFlow<List<TopSite>?>(null)
     val channels = _channels.asStateFlow()
+
+    private val _refresh = MutableSharedFlow<Boolean>()
+    val refresh = _refresh.asSharedFlow()
 
     fun getChannels(context: Context) {
         viewModelScope.launch {
@@ -38,7 +43,7 @@ class TelegramChannelsViewModel : ViewModel() {
                     topSites.addAll(getChildren(it))
                 } else {
                     topSites.add(
-                        TopSite.Frecent(
+                        TopSite.Pinned(
                             id = it.guid.hashCode()
                                 .toLong(),
                             title = it.title,
@@ -59,7 +64,7 @@ class TelegramChannelsViewModel : ViewModel() {
                 children.addAll(getChildren(folder))
             } else {
                 children.add(
-                    TopSite.Frecent(
+                    TopSite.Pinned(
                         id = folder.guid.hashCode()
                             .toLong(),
                         title = folder.title,
@@ -98,5 +103,57 @@ class TelegramChannelsViewModel : ViewModel() {
 
         context.components.cenoPreferences.telegramChannelsBookGuid = guid
         return guid
+    }
+
+    fun renameTelegramChannel(context: Context, newName: String, url: String) {
+        viewModelScope.launch {
+            val guid = context.components.cenoPreferences.telegramChannelsBookGuid
+            guid.let {
+                val tree = context.components.core.bookmarksStorage
+                    .getTree(guid)
+                    .getOrNull()
+
+                var child: BookmarkNode? = null
+                var position = 0
+                tree?.children?.forEachIndexed { index, node ->
+                    if(node.url == url) {
+                        child = node
+                        position = index
+                        return@forEachIndexed
+                    }
+                }
+
+                child?.let {
+                    context.components.core.bookmarksStorage
+                        .deleteNode(it.guid)
+                    context.components.core.bookmarksStorage
+                        .addItem(
+                            guid,
+                            url = url,
+                            title = newName,
+                            position = position.toUInt(),
+                        )
+                }
+            }
+            _refresh.emit(true)
+        }
+    }
+
+    fun removeChannel(context: Context, url: String) {
+        viewModelScope.launch {
+            val guid = context.components.cenoPreferences.telegramChannelsBookGuid
+            guid.let {
+                val tree = context.components.core.bookmarksStorage
+                    .getTree(guid)
+                    .getOrNull()
+
+                val child = tree?.children?.find { it.url == url }
+                child?.let {
+                    context.components.core.bookmarksStorage
+                        .deleteNode(it.guid)
+                }
+            }
+            _refresh.emit(true)
+        }
     }
 }

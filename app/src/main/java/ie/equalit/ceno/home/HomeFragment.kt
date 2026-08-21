@@ -120,6 +120,8 @@ class HomeFragment : BaseHomeFragment() {
                 preferences = components.cenoPreferences,
                 appStore = components.appStore,
                 viewLifecycleScope = viewLifecycleOwner.lifecycleScope,
+                topSiteViewModel = topSitesViewModel,
+                telegramChanViewModel = telegramChannelsViewModel,
                 object : RSSAnnouncementViewHolder.RssAnnouncementSwipeListener {
                     override fun onSwipeCard(index: Int) {
                         /**
@@ -184,6 +186,23 @@ class HomeFragment : BaseHomeFragment() {
                 telegramChannelsViewModel.channels.collect { channels ->
                     telegramChannels = channels
                     updateSessionControlView()
+                }
+            }
+        }
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                topSitesViewModel.refresh.collect { refresh ->
+                    if(refresh)
+                        topSitesViewModel.getTopSites(requireContext())
+                }
+            }
+        }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewLifecycleOwner.repeatOnLifecycle(Lifecycle.State.STARTED) {
+                telegramChannelsViewModel.refresh.collect { refresh ->
+                    if(refresh)
+                        telegramChannelsViewModel.getChannels(requireContext())
                 }
             }
         }

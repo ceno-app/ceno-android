@@ -8,13 +8,14 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TelegramChannelPagerPayload
+import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
 import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder.Companion.TOP_SITES_PER_PAGE
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerAdapter(
     private val viewLifecycleOwner: LifecycleOwner,
-    private val interactor: TopSiteInteractor
+    private val interactor: TelegramChannelInteractor
 ) : ListAdapter<List<TopSite>, TelegramChannelViewHolder>(TelegramChannelDiffCallback) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TelegramChannelViewHolder {

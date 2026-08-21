@@ -65,12 +65,12 @@ class TopSiteViewModel : ViewModel() {
                     topSites.addAll(getChildren(it))
                 } else {
                     topSites.add(
-                        TopSite.Frecent(
+                        TopSite.Pinned(
                             id = it.guid.hashCode()
                                 .toLong(),
                             title = it.title,
                             url = it.url ?: "",
-                            createdAt = it.dateAdded
+                            createdAt = it.dateAdded,
                         )
                     )
                 }
@@ -86,7 +86,7 @@ class TopSiteViewModel : ViewModel() {
                 children.addAll(getChildren(folder))
             } else {
                 children.add(
-                    TopSite.Frecent(
+                    TopSite.Pinned(
                         id = folder.guid.hashCode()
                             .toLong(),
                         title = folder.title,
@@ -160,6 +160,40 @@ class TopSiteViewModel : ViewModel() {
         }
     }
 
+    fun renameTopSite(context: Context, newName: String, url: String) {
+        viewModelScope.launch {
+            val guid = context.components.cenoPreferences.topSitesBookmarkGuid
+            guid.let {
+                val tree = context.components.core.bookmarksStorage
+                    .getTree(guid)
+                    .getOrNull()
+
+                var child: BookmarkNode? = null
+                var position = 0
+                tree?.children?.forEachIndexed { index, node ->
+                    if(node.url == url) {
+                        child = node
+                        position = index
+                        return@forEachIndexed
+                    }
+                }
+
+                child?.let {
+                    context.components.core.bookmarksStorage
+                        .deleteNode(it.guid)
+                    context.components.core.bookmarksStorage
+                        .addItem(
+                            guid,
+                            url = url,
+                            title = newName,
+                            position = position.toUInt(),
+                        )
+                }
+            }
+            _refresh.emit(true)
+        }
+    }
+
     suspend fun isTopSite(context: Context, url: String): Boolean {
         return !context.components.core.bookmarksStorage
             .getBookmarksWithUrl(url)
@@ -167,19 +201,21 @@ class TopSiteViewModel : ViewModel() {
             .isNullOrEmpty()
     }
 
-    fun removeTopSite(context: Context, url: String) {
+    fun removeShortcut(context: Context, url: String) {
         viewModelScope.launch {
-            val guid = context.components.core.bookmarksStorage
-                .getBookmarksWithUrl(url)
-                .getOrNull()
-                ?.first()
-                ?.guid
+            val guid = context.components.cenoPreferences.topSitesBookmarkGuid
+            guid.let {
+                val tree = context.components.core.bookmarksStorage
+                    .getTree(guid)
+                    .getOrNull()
 
-            guid?.let {
-                context.components.core.bookmarksStorage
-                    .deleteNode(guid)
+                val child = tree?.children?.find { it.url == url }
+                child?.let {
+                    context.components.core.bookmarksStorage
+                        .deleteNode(it.guid)
+                }
             }
-            _refresh.emit(false)
+            _refresh.emit(true)
         }
     }
 }
