@@ -24,6 +24,7 @@ import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
 
@@ -191,22 +192,19 @@ class DefaultSessionControlController(
     }
 
     override fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean) {
+        val url = "https://${ouicrawlSite.SiteURL}/"
         activity.lifecycleScope.launch {
-            if (isTopSite) {
-                val removedTopSite: TopSite? =
-                    activity.components.core.cenoPinnedSiteStorage
-                        .getPinnedSites()
-                        .find { it.url == ("https://${ouicrawlSite.SiteURL}/") }
-                if (removedTopSite != null) {
-                    with(activity.components.useCases.cenoTopSitesUseCase) {
-                        removeTopSites(removedTopSite)
-                    }
-                }
+            if(topSiteViewModel.isTopSite(activity.applicationContext, url)) {
+                topSiteViewModel.removeShortcut(
+                    activity.applicationContext,
+                    url,
+                )
             } else {
-                val numPinnedSites = activity.components.core.cenoTopSitesStorage.cachedTopSites
-                    .filter { it is TopSite.Default || it is TopSite.Pinned }.size
-
-                if (numPinnedSites >= activity.components.cenoPreferences.topSitesMaxLimit) {
+                topSiteViewModel.addToTopSites(
+                    activity.applicationContext,
+                    ouicrawlSite.SiteName,
+                    url,
+                ) {
                     AlertDialog.Builder(activity)
                         .apply {
                             setTitle(R.string.shortcut_max_limit_title)
@@ -217,14 +215,9 @@ class DefaultSessionControlController(
                             create()
                         }
                         .show()
-                } else {
-                    with(activity.components.useCases.cenoTopSitesUseCase) {
-                        addPinnedSites(ouicrawlSite.SiteName, "https://${ouicrawlSite.SiteURL}/")
-                    }
                 }
             }
         }
-
     }
 
     override fun handleOnSectionHeaderClicked(listIsHidden: Boolean) {

@@ -142,16 +142,14 @@ class TelegramChannelsViewModel : ViewModel() {
     fun removeChannel(context: Context, url: String) {
         viewModelScope.launch {
             val guid = context.components.cenoPreferences.telegramChannelsBookGuid
-            guid.let {
-                val tree = context.components.core.bookmarksStorage
-                    .getTree(guid)
-                    .getOrNull()
+            val tree = context.components.core.bookmarksStorage
+                .getTree(guid)
+                .getOrNull()
 
-                val child = tree?.children?.find { it.url == url }
-                child?.let {
-                    context.components.core.bookmarksStorage
-                        .deleteNode(it.guid)
-                }
+            val child = tree?.children?.find { it.url == url }
+            child?.let {
+                context.components.core.bookmarksStorage
+                    .deleteNode(it.guid)
             }
             _refresh.emit(true)
         }

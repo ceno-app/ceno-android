@@ -8,12 +8,14 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
@@ -130,25 +132,29 @@ class TopSiteViewModel : ViewModel() {
         return guid
     }
 
-    fun addToTopSites(context: Context, title: String, url: String) {
-        viewModelScope.launch {
-            //val context = swipeRefresh.context
-            val numPinnedSites = context.components.core.cenoTopSitesStorage.cachedTopSites
-                .filter { it is TopSite.Default || it is TopSite.Pinned }.size
+    suspend fun isMaxReached(context: Context) : Boolean {
+        val guid = context.components.cenoPreferences.topSitesBookmarkGuid
 
-            if (numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit) {
-                AlertDialog.Builder(context)
-                    .apply {
-                        setTitle(R.string.shortcut_max_limit_title)
-                        setMessage(R.string.shortcut_max_limit_content)
-                        setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
-                            dialog.dismiss()
-                        }
-                        create()
-                    }
-                    .show()
+        val tree = context.components.core.bookmarksStorage
+            .getTree(guid)
+            .getOrNull()
+
+        val numPinnedSites = tree?.children?.size ?: 0
+        return numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit
+    }
+
+    fun addToTopSites(
+        context: Context,
+        title: String,
+        url: String,
+        onMaxReachedCallback: () -> Unit,
+    ) {
+        viewModelScope.launch {
+            if(isMaxReached(context)) {
+                onMaxReachedCallback()
             } else {
                 val guid = context.components.cenoPreferences.topSitesBookmarkGuid
+
                 context.components.core.bookmarksStorage.addItem(
                     parentGuid = guid,
                     url = url,
@@ -163,42 +169,43 @@ class TopSiteViewModel : ViewModel() {
     fun renameTopSite(context: Context, newName: String, url: String) {
         viewModelScope.launch {
             val guid = context.components.cenoPreferences.topSitesBookmarkGuid
-            guid.let {
-                val tree = context.components.core.bookmarksStorage
-                    .getTree(guid)
-                    .getOrNull()
+            val tree = context.components.core.bookmarksStorage
+                .getTree(guid)
+                .getOrNull()
 
-                var child: BookmarkNode? = null
-                var position = 0
-                tree?.children?.forEachIndexed { index, node ->
-                    if(node.url == url) {
-                        child = node
-                        position = index
-                        return@forEachIndexed
-                    }
+            var child: BookmarkNode? = null
+            var position = 0
+            tree?.children?.forEachIndexed { index, node ->
+                if(node.url == url) {
+                    child = node
+                    position = index
+                    return@forEachIndexed
                 }
+            }
 
-                child?.let {
-                    context.components.core.bookmarksStorage
-                        .deleteNode(it.guid)
-                    context.components.core.bookmarksStorage
-                        .addItem(
-                            guid,
-                            url = url,
-                            title = newName,
-                            position = position.toUInt(),
-                        )
-                }
+            child?.let {
+                context.components.core.bookmarksStorage
+                    .deleteNode(it.guid)
+                context.components.core.bookmarksStorage
+                    .addItem(
+                        guid,
+                        url = url,
+                        title = newName,
+                        position = position.toUInt(),
+                    )
             }
             _refresh.emit(true)
         }
     }
 
     suspend fun isTopSite(context: Context, url: String): Boolean {
-        return !context.components.core.bookmarksStorage
-            .getBookmarksWithUrl(url)
+        val guid = context.components.cenoPreferences.topSitesBookmarkGuid
+        return context.components.core.bookmarksStorage
+            .getTree(guid)
             .getOrNull()
-            .isNullOrEmpty()
+            ?.children?.find { it.url == url }.run {
+                this != null
+            }
     }
 
     fun removeShortcut(context: Context, url: String) {
