@@ -21,7 +21,6 @@ import ie.equalit.ceno.browser.BaseBrowserFragment
 import ie.equalit.ceno.browser.FindInPageIntegration
 import ie.equalit.ceno.browser.ReaderViewIntegration
 import ie.equalit.ceno.components.ceno.ClearButtonFeature
-import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt.HTTPS_BY_DEFAULT_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt.UBLOCK_ORIGIN_EXTENSION_ID
 import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
@@ -271,14 +270,6 @@ class ToolbarIntegration(
             }
 
             /* CENO: Only add extension menu items to list if there is a session and browserActions are not null */
-            cenoToolbarFeature.getBrowserAction(HTTPS_BY_DEFAULT_EXTENSION_ID)
-                ?.let {
-                    menuItemsList += TextMenuCandidate(
-                        text = context.getString(R.string.browser_menu_https_by_default),
-                        onClick = it
-                    )
-                }
-
             cenoToolbarFeature.getBrowserAction(UBLOCK_ORIGIN_EXTENSION_ID)
                 ?.let {
                     menuItemsList += TextMenuCandidate(
