@@ -14,6 +14,7 @@ import ie.equalit.ceno.ext.getPreferenceKey
 import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
+import mozilla.components.support.ktx.android.content.stringPreference
 
 /**
  * A simple wrapper for SharedPreferences that makes reading preference a little bit easier.
@@ -28,7 +29,7 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
         // The maximum number of top sites to display.
         // 34 Telegram channels
         // 16 Shortcuts
-        const val TOP_SITES_MAX_COUNT = 50
+        const val TOP_SITES_MAX_COUNT = 16
 
         /**
          * Only fetch top sites from the [ContileTopSitesProvider] when the number of default and
@@ -89,6 +90,15 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
     var isSecureScreenPersonalOnly by booleanPreference(
         appContext.getPreferenceKey(R.string.pref_key_secure_screen_personal),
         true
+    )
+
+    var topSitesBookmarkGuid by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_top_sites_bookmark_guid),
+        ""
+    )
+    var telegramChannelsBookGuid by stringPreference(
+        appContext.getPreferenceKey(R.string.pref_telegram_channels_bookmark_guid),
+        ""
     )
 
     /**

@@ -4,14 +4,14 @@ import android.view.View
 import androidx.lifecycle.LifecycleOwner
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.databinding.ComponentTelegramChannelsBinding
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
+import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
 import ie.equalit.ceno.utils.CenoGridLayoutManager
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelViewHolder(
     view: View,
     viewLifecycleOwner: LifecycleOwner,
-    interactor: TopSiteInteractor
+    interactor: TelegramChannelInteractor
 ) : RecyclerView.ViewHolder(view) {
 
     private val telegramChannelAdapter = TelegramChannelsAdapter(viewLifecycleOwner, interactor)

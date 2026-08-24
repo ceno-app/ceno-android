@@ -7,7 +7,6 @@ package ie.equalit.ceno.components.toolbar
 import android.content.Context
 import android.os.Bundle
 import android.view.inputmethod.InputMethodManager
-import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.getString
 import androidx.core.content.ContextCompat.getSystemService
@@ -28,6 +27,7 @@ import ie.equalit.ceno.components.ceno.WebExtensionToolbarFeature
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.getUrl
+import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.settings.CenoSettings
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
@@ -58,7 +58,6 @@ import mozilla.components.feature.pwa.WebAppUseCases
 import mozilla.components.feature.session.SessionUseCases
 import mozilla.components.feature.toolbar.ToolbarAutocompleteFeature
 import mozilla.components.feature.toolbar.ToolbarFeature
-import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.ext.flow
 import mozilla.components.lib.state.ext.flowScoped
 import mozilla.components.support.base.feature.LifecycleAwareFeature
@@ -80,6 +79,7 @@ class ToolbarIntegration(
     private val readerViewIntegration: ReaderViewIntegration? = null,
     private val bookmarkTapped: ((String, String) -> Unit)? = null
 ) : LifecycleAwareFeature, UserInteractionHandler {
+    val topSitesViewModel = TopSiteViewModel()
     private val shippedDomainsProvider = ShippedDomainsProvider().also {
         it.initialize(context)
     }
@@ -176,56 +176,6 @@ class ToolbarIntegration(
         return RowMenuCandidate(rowMenuItems)
     }
 
-    /* CENO: Add menu option for adding or removing a shortcut from the homepage */
-    private fun shortcutMenuItem(sessionState: SessionState): MenuCandidate {
-        return if (isCurrentUrlPinned) {
-            TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_remove_from_shortcuts),
-            ) {
-                scope.launch {
-                    val removedTopSite: TopSite? =
-                        context.components.core.cenoPinnedSiteStorage
-                            .getPinnedSites()
-                            .find { it.url == sessionState.content.url }
-                    if (removedTopSite != null) {
-                        with(context.components.useCases.cenoTopSitesUseCase) {
-                            removeTopSites(removedTopSite)
-                        }
-                    }
-                }
-            }
-        } else {
-            TextMenuCandidate(
-                text = context.getString(R.string.browser_menu_add_to_shortcuts),
-            ) {
-                scope.launch {
-                    //val context = swipeRefresh.context
-                    val numPinnedSites = context.components.core.cenoTopSitesStorage.cachedTopSites
-                        .filter { it is TopSite.Default || it is TopSite.Pinned }.size
-
-                    if (numPinnedSites >= context.components.cenoPreferences.topSitesMaxLimit) {
-                        AlertDialog.Builder(context)
-                            .apply {
-                                setTitle(R.string.shortcut_max_limit_title)
-                                setMessage(R.string.shortcut_max_limit_content)
-                                setPositiveButton(R.string.top_sites_max_limit_confirmation_button) { dialog, _ ->
-                                    dialog.dismiss()
-                                }
-                                create()
-                            }
-                            .show()
-                    } else {
-                        sessionState.let {
-                            with(context.components.useCases.cenoTopSitesUseCase) {
-                                addPinnedSites(it.content.title, it.content.url)
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
     @Suppress("LongMethod")
     private fun menuItems(sessionState: SessionState?): List<MenuCandidate> {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
@@ -313,8 +263,6 @@ class ToolbarIntegration(
                     scope.launch { webAppUseCases.addToHomescreen() }
                 }
             }
-            menuItemsList += shortcutMenuItem(sessionState)
-
 
             menuItemsList += TextMenuCandidate(
                 text = context.getString(R.string.browser_menu_find_in_page)
@@ -405,15 +353,15 @@ class ToolbarIntegration(
         /* CENO: launch coroutine to watch for changes to list of top sites
          * and update the isCurrentUrlPinned flag and resubmit */
         scope.launch {
-            context.components.appStore.flow()
-                .map { state -> state.topSites }
-                .distinctUntilChanged()
-                .collect { topSites ->
-                    isCurrentUrlPinned = topSites
-                        .find { it.url == store.state.selectedTab?.content?.url } != null
-                    /* Resubmit menu items in case state of pinned sites changed */
-                    menuController.submitList(menuItems(store.state.selectedTab))
-                }
+            if (!store.state.selectedTab?.content?.url.isNullOrEmpty()) {
+                isCurrentUrlPinned =
+                    topSitesViewModel.isTopSite(context, store.state.selectedTab!!.content.url)
+                menuController.submitList(menuItems(store.state.selectedTab))
+            }
+            topSitesViewModel.refresh.collect {
+                isCurrentUrlPinned = it
+                menuController.submitList(menuItems(store.state.selectedTab))
+            }
         }
 
         /* CENO: launch coroutine to observe for changes to the current tab URL
@@ -423,9 +371,10 @@ class ToolbarIntegration(
                 .map { state -> state.selectedTab?.content?.url }
                 .distinctUntilChanged()
                 .collect { newUrl ->
-                    isCurrentUrlPinned = context.components.core.cenoTopSitesStorage
-                        .getTopSites(context.components.cenoPreferences.topSitesMaxLimit)
-                        .find { it.url == newUrl } != null
+                    newUrl?.let {
+                        isCurrentUrlPinned =
+                            topSitesViewModel.isTopSite(context, newUrl)
+                    }
                     isCurrentUrlBookmarked = newUrl?.let { url ->
                         context.components.core.bookmarksStorage
                             .getBookmarksWithUrl(url)
@@ -433,6 +382,7 @@ class ToolbarIntegration(
                             .any { it.url == url }
                     } == true
                 }
+
         }
 
         /* CENO: this coroutine must also monitor for changes to the extensions
