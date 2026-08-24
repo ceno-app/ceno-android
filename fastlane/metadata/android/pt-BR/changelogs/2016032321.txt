@@ -1,0 +1,6 @@
+Notas de atualização:
+- Correção no preenchimento automático do e-mail de suporte do Ceno
+- Atualização dos Android-Components para a v135.0
+- Atualização do Ouinet para a v0.31.1
+- Desativação da notificação do Serviço do Ceno Browser
+- Adição de notificação para ser exibida ao navegar no modo público

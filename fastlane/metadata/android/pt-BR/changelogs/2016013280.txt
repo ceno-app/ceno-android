@@ -1,0 +1,8 @@
+Notas de atualização:
+- Atualização dos Android-Components para a v132.0
+- Atualização dos testes de interface (UI)
+- Correção das dicas para dispositivos com telas pequenas
+- Refatoração de permissões e adição da opção de revogá-las pelas Configurações
+- Atualização do Ouinet para a v0.30.1
+- Adição da opção "Ir para o Ceno mesmo assim" na caixa de diálogo de tempo limite de espera
+- Correção de falha ao rolar a tela para ocultar a barra de ferramentas

@@ -1,0 +1,9 @@
+Toto vydání:
+- Zavádí počáteční kampaň metrik „Clean Insights“
+- Přidává skrytou podnabídku nástrojů pro vývojáře
+- Přidává řetězce národního prostředí en
+- Podporuje jednobarevné ikony spouštěče
+- Aktualizuje Android-Components na v133.0.3
+- Přidává na domovskou stránku indikátor stavu připojení k síti Ceno
+- Aktualizuje balíček cacert.pem
+- Aktualizuje překlady pro různé jazyky

@@ -446,9 +446,22 @@
     <string name="pin_unpin_to_cache_failed">Erro! Atualização de cache falhou.</string>
     <string name="preferences_hide_ouicrawl_feed">Esconder Feed de Media Livre</string>
     <string name="preferences_ouinet_enable_doh">Usar DNS sobre HTTPS</string>
-    <string name="updating_doh_dialog_title">Atualizar DNS sobre as configurações HTTPS</string>
+    <string name="updating_doh_dialog_title">Atualização das configurações do protocolo DNS</string>
     <string name="preferences_test_metrics">Testar métricas do Ceno</string>
     <string name="test_metrics_submitting">Enviando de métrica de teste</string>
     <string name="test_metrics_dialog_success">Métrica de teste enviada ao cliente local</string>
     <string name="test_metrics_dialog_failed">A métrica de teste não foi enviada ao cliente local</string>
+    <string name="last_2_hours">Últimas 2 horas</string>
+    <string name="secure_screen_category">Tela Segura</string>
+    <string name="preferences_secure_screen">Ativar tela segura</string>
+    <string name="preferences_secure_screen_summary">Oculta a exibição ao alternar entre apps e bloqueia capturas de tela</string>
+    <string name="preferences_secure_screen_personal">Disponível apenas no modo pessoal</string>
+    <string name="preferences_secure_screen_personal_summary">A tela segura é aplicada apenas no modo pessoal</string>
+    <string name="dialog_external_url_message">Clique em continuar para abrir o link:\n\n%1$s</string>
+    <string name="dialog_external_url_title">Tem certeza de que deseja abrir links de outros aplicativos?</string>
+    <string name="preferences_verify_external_url">Avisar antes de abrir links de outros apps</string>
+    <string name="warning_title">Aviso</string>
+    <string name="warning_all_website_sources_disabled">Todas as fontes de sites estão desativadas. Ative pelo menos uma fonte para continuar navegando</string>
+    <string name="warning_public_website_sources_disabled">Todas as fontes para o modo público estão desativadas. A navegação só é possível no modo pessoal</string>
+    <string name="warning_personal_website_sources_disabled">Todas as fontes para o modo pessoal estão desativadas; A navegação só é possível no modo público</string>
 </resources>

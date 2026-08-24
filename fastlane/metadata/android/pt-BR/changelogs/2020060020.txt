@@ -1,0 +1,9 @@
+Notas de atualização:
+- Atualização do Android-Components para v141.0
+- Notificação no Android 15+ para reabrir o Ceno
+- Atualização do site sugerido padrão para RU
+- Links atualizados para o site da eQualitie na página Sobre
+- Nova seção na página inicial com sites indexados
+- Opção de deslizar para remover anúncios da página inicial reativada
+- Coleta de métricas com preservação de privacidade
+- Atualização do Ouinet para v1.3.0

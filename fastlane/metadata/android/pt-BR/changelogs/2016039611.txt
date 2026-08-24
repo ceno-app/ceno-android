@@ -1,0 +1,4 @@
+Notas de atualização:
+- Correção na sobreposição da barra de status, barra de ferramentas e conteúdo em dispositivos com Android 15
+- Atualização dos Android-Components para a v136.0
+- Correções menores de bugs

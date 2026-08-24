@@ -1,0 +1,7 @@
+Notas de atualização:
+- Geração de números aleatórios atualizada para SecureRandom
+- Correção de bug no painel de abas para rolar até a aba selecionada
+- Extensão Ceno atualizada para v1.12.1
+- Autenticação de proxy implementada no cliente local Ouinet
+- Correção de falha por contexto ausente no HomeFragment
+- Correção de exceção nula na página de configurações do buscador

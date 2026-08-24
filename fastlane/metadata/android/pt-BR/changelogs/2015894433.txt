@@ -1,8 +1,8 @@
-Versão oficial:
+Esta versão oficial:
 
-- Modifica a aparência do pop-up Ceno Sources
-- Atualiza a biblioteca Android-Components para a versão 109.2.0
-- Atualiza o Ouinet para a versão 0.21.6
-- Corrige a exclusão de entradas na barra de endereços durante a digitação
-- Altera o layout e o comportamento dos botões de navegação no menu
-- Pequenas atualizações nas traduções
+- Ajustado o visual da janela das Fontes do Ceno
+- Atualiza a biblioteca Android-Components para a v109.2.0
+- Atualiza o Ouinet para a v0.21.6
+- Corrige o erro ao apagar o que foi digitado na barra de endereços
+- Muda o layout e o funcionamento dos botões do menu de navegação
+- Ajustes finos nas traduções

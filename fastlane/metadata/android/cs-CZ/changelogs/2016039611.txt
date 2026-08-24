@@ -1,0 +1,4 @@
+Toto vydání:
+- Opravuje překrývání stavového řádku, panelu nástrojů a obsahu na zařízeních s Androidem 15
+- Aktualizuje Android-Components na v136.0
+- Drobné opravy chyb

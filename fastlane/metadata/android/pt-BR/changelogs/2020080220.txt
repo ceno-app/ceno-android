@@ -1,0 +1,13 @@
+Adicionado:
+- Métricas para versão do app e adesão à ponte
+
+Corrigido:
+- JsonDecodingException em CenoSettings
+- IllegalStateException em CenoTooltip.addButtons
+- Barra de progresso travada ao exportar logs
+
+Alterado:
+- Feed de mídia filtrado pelo idioma do sistema
+- Android-Components atualizado para v147.0.2
+- Ouinet atualizado para v1.6.2
+- Atualização em várias traduções

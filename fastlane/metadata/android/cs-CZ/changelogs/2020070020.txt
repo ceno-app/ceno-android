@@ -1,0 +1,5 @@
+Toto vydání:
+- Aktualizuje Ouinet na v1.4.1
+- Aktualizuje Android-Components na v144.0
+- Aktualizuje minSdk na 26
+- Opravuje chybu při sběru metrik

@@ -1,0 +1,8 @@
+Toto vydání:
+- Aktualizuje Android-Components na v137.0
+- Aktualizuje rozšíření Ceno na 1.9.0
+- Aktualizuje rozšíření uBlock Origin na 1.63.2
+- Refaktoruje seznam skupin v mezipaměti
+- Zahrnuje počet položek v lokální mezipaměti do počtu zdrojů Ceno
+- Aktualizuje e-mail podpory Ceno
+- Známý problém: Předinstalovaná rozšíření nejsou lokalizována

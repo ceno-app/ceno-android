@@ -1,0 +1,5 @@
+Notas de atualização:
+- Atualização do Ouinet para v1.4.1
+- Atualização do Android-Components para v144.0
+- Atualização do minSdk para 26
+- Correção de bug na coleta de métricas

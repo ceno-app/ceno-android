@@ -1,0 +1,4 @@
+Notas de atualização:
+- Atualização dos Android-Components para a v138.0.4
+- Atualização do arquivo cacert.pem com o pacote gerado em Terço, 20 de maio de 2025 às 03:12:02 GMT
+- Atualização das traduções para diversos idiomas

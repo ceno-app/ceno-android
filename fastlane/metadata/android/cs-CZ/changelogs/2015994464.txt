@@ -1,0 +1,5 @@
+Toto opravné vydání:
+- Aktualizuje Android-Components na 128.0.3
+- Opravuje pád IllegalStateException související s ikonou stavu v panelu nástrojů
+- Drobně vylepšuje uživatelské rozhraní chybové stránky včetně akce přejetí pro obnovení
+- Aktualizuje překlady pro některé jazyky, zejména perštinu

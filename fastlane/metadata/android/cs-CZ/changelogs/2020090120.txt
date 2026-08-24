@@ -1,0 +1,3 @@
+### Změněno
+
+- Aktualizace Android-Components na v149.0.2

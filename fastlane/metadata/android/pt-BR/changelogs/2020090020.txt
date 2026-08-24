@@ -1,0 +1,17 @@
+### Adicionado
+
+- Aviso ao abrir URL externa
+- Tela segura para segundo plano e bloqueio de print
+- Alerta para fontes de sites desmarcadas
+
+### Corrigido
+
+- Exibição do mecanismo de busca pós-alteração
+
+### Alterado
+
+- Atalhos padrão para os idiomas RU e UA
+- Android-Components para v148.0.2
+- Ouinet para v1.6.4
+- Retenção de métricas para até 30 dias
+- Geração de código de versão via plugin Kotlin
