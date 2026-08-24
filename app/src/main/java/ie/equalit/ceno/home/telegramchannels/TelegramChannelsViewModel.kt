@@ -3,6 +3,7 @@ package ie.equalit.ceno.home.telegramchannels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.google.android.material.internal.ViewUtils.getChildren
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
@@ -29,7 +30,14 @@ class TelegramChannelsViewModel : ViewModel() {
         viewModelScope.launch {
             var guid = context.components.cenoPreferences.telegramChannelsBookGuid
             if (guid.isEmpty()) {
-                guid = initializeTelegramChannels(context)
+                val presentGuid = getTelegramChannelsGuid(context)
+                guid = if(!presentGuid.isNullOrEmpty()) {
+                    context.components.cenoPreferences.telegramChannelsBookGuid = guid
+                    presentGuid
+                }
+                else {
+                    initializeTelegramChannels(context)
+                }
             }
 
             val tree = context.components.core.bookmarksStorage
@@ -55,6 +63,17 @@ class TelegramChannelsViewModel : ViewModel() {
             }
             _channels.update { topSites }
         }
+    }
+
+    private suspend fun getTelegramChannelsGuid(context: Context): String? {
+        val children = context.components.core.bookmarksStorage.getTree(
+            BookmarkRoot.Mobile.id,
+        )
+            .getOrNull()
+            ?.children
+        val channel = children
+            ?.find{ it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
+        return channel?.guid
     }
 
     private fun getChildren(bookmarkNode: BookmarkNode): List<TopSite> {
