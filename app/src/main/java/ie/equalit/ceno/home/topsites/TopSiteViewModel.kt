@@ -110,7 +110,7 @@ class TopSiteViewModel : ViewModel() {
 
         val guid = context.components.core.bookmarksStorage.addFolder(
             BookmarkRoot.Mobile.id,
-            context.getString(R.string.shortcut_bookmark_label),
+            context.getString(R.string.top_sites_title),
             null,
         )
             .getOrNull()

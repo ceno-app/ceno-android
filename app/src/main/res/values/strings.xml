@@ -545,7 +545,6 @@
     <string name="pref_telegram_channels_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
     <string name="pref_top_sites_bookmark_guid">pref_top_sites_bookmark_guid</string>
     <string name="telegram_channels_bookmark_folder_title">Telegram channels</string>
-    <string name="shortcut_bookmark_label">Shortcut</string>
     <string name="saved_in_bookmarks">Saved in \"Bookmarks\"</string>
     <string name="edit_bookmark_label">Edit</string>
 </resources>
