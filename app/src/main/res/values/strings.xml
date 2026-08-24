@@ -154,7 +154,6 @@
     <string name="crash_reporting_opt_out">You\'ve opted out of sharing crash reports. You can always opt in by going to Settings &gt; Crash reporting.</string>
     <string name="bt_sources_none">None</string>
     <string name="bt_invalid_ip_error">Invalid IP</string>
-    <string name="browser_menu_https_by_default" translatable="false">HTTPS by default</string>
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="default_top_site_1_title">Ceno Manual</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
