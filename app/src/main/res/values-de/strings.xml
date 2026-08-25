@@ -450,4 +450,8 @@
     <string name="warning_all_website_sources_disabled">Alle Website-Quellen sind deaktiviert. Bitte aktivieren Sie mindestens eine Quelle, um das Web weiter zu durchsuchen</string>
     <string name="warning_public_website_sources_disabled">Alle für das Surfen im öffentlichen Modus erforderlichen Quellen sind deaktiviert; Web-Browsing ist nur im privaten Modus möglich</string>
     <string name="warning_personal_website_sources_disabled">Alle für das Surfen im privaten Modus erforderlichen Quellen sind deaktiviert; Web-Browsing ist nur im öffentlichen Modus möglich</string>
+    <string name="dns_protocol_only_system">Nur System-DNS verwenden</string>
+    <string name="dns_protocol_only_over_https">Nur DNS-over-HTTPS verwenden</string>
+    <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS mit Fallback auf das System-DNS</string>
+    <string name="dns_category">DNS-Protokoll</string>
 </resources>
