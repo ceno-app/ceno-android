@@ -454,4 +454,6 @@
     <string name="dns_protocol_only_over_https">Nur DNS-over-HTTPS verwenden</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS mit Fallback auf das System-DNS</string>
     <string name="dns_category">DNS-Protokoll</string>
+    <string name="telegram_topsites_title">Telegram</string>
+    <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
 </resources>
