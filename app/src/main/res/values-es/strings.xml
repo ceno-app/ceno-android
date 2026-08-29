@@ -440,7 +440,7 @@
     <string name="test_metrics_dialog_failed">Las métricas de prueba no han sido enviadas al cliente local</string>
     <string name="dialog_external_url_message">Pulse continuar para abrir la siguiente URL -\n\n%1$s</string>
     <string name="dialog_external_url_title">¿Está seguir que desea abrir las URL desde aplicaciones externas?</string>
-    <string name="preferences_verify_external_url">Mostrar advertencias antes de abrir las URL desde otras aplicaciones</string>
+    <string name="preferences_verify_external_url">Advierta antes de abrir URLs de otras aplicaciones</string>
     <string name="secure_screen_category">Pantalla segura</string>
     <string name="preferences_secure_screen">Habilitar pantalla segura</string>
     <string name="preferences_secure_screen_summary">Oculta la vista actual cuando intercambia las aplicaciones y previene capturas de pantalla</string>
