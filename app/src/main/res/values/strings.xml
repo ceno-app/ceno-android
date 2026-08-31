@@ -542,4 +542,14 @@
     <string name="default_telegram_channel">https://tg.ceno.app</string>
     <string name="telegram_topsites_title">Telegram</string>
     <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
+
+
+    <!-- Warning fixes -->
+    <string name="mozac_browser_errorpages_archive_check_button">Check for the existence of an archived version</string>
+    <string name="mozac_browser_errorpages_archive_checking">Archive verification</string>
+    <string name="mozac_browser_errorpages_archive_retry">Try again.</string>
+    <string name="mozac_browser_errorpages_archive_search_web">Search the Web</string>
+    <string name="mozac_browser_errorpages_archive_unreachable">Unable to reach the archiving service.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title">Update address?</string>
+    <string name="mozac_browser_errorpages_archive_not_found">Archive version not found.</string>
 </resources>
