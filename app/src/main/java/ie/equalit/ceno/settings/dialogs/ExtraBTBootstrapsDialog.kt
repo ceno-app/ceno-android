@@ -99,7 +99,11 @@ class ExtraBTBootstrapsDialog(
             btSourcesMap.forEach {
                 linearLayout.addView(
                     CheckBox(context).apply {
-                        text = Locale("", it.key).displayCountry
+                        text = Locale.Builder()
+                            .setLanguage("")
+                            .setRegion(it.key)
+                            .build()
+                            .displayCountry
                         isChecked = CenoSettings.getLocalBTSources(context)
                             ?.contains(it.value) == true
                         isAllCaps = false
