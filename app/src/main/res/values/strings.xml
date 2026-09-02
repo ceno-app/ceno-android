@@ -546,4 +546,6 @@
     <string name="telegram_channels_bookmark_folder_title">Telegram channels</string>
     <string name="saved_in_bookmarks">Saved in \"Bookmarks\"</string>
     <string name="edit_bookmark_label">Edit</string>
+    <string name="preferences_log_level">Log level</string>
+    <string name="change_log_level">Change Log level</string>
 </resources>

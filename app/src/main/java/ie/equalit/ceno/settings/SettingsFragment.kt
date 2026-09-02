@@ -55,6 +55,7 @@ import ie.equalit.ceno.R.string.pref_key_background_metrics
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
+import ie.equalit.ceno.R.string.pref_key_log_level
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
@@ -90,6 +91,7 @@ import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
+import ie.equalit.ceno.settings.dialogs.LogLevelChangedDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
@@ -321,6 +323,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         } else {
             getPreference(pref_key_disable_battery_opt)?.isVisible = false
         }
+
+        // Log levels
+        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
+            ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
     }
 
     private fun setPreference(
@@ -340,6 +346,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     @Suppress("LongMethod")
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_android_log)?.isVisible =
+            CenoSettings.isCenoLogEnabled(requireContext())
+        getPreference(pref_key_log_level)?.isVisible =
             CenoSettings.isCenoLogEnabled(requireContext())
         (getPreference(pref_key_about_ceno) as LongClickPreference).let { preference ->
             preference.summary = CenoSettings.getCenoVersionString(requireContext())
@@ -365,6 +373,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
+            setPreference(getPreference(pref_key_log_level), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(
                 requireContext(),
@@ -418,6 +427,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_android_log),
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
+            )
+            setPreference(
+                getPreference(pref_key_log_level),
+                true,
+                clickListener = getClickListenerForLogLevelChange()
             )
             (getPreference(pref_key_about_ouinet) as LongClickPreference).let { preference ->
                 preference.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
@@ -602,6 +616,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 it.isEnabled = !(it.isEnabled)
                 it.isEnabled = !(it.isEnabled)
             }
+            getPreference(pref_key_log_level)?.let {
+                it.isVisible = newValue
+                it.isEnabled = !(it.isEnabled)
+                it.isEnabled = !(it.isEnabled)
+            }
             true
         }
     }
@@ -759,6 +778,27 @@ class SettingsFragment : PreferenceFragmentCompat() {
             )
 
             languageChangeDialog.getDialog()
+                .show()
+            true
+        }
+    }
+
+
+    private fun getClickListenerForLogLevelChange(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val logLevelDialog = LogLevelChangedDialog(
+                requireContext(),
+                object : LogLevelChangedDialog.SetLogLevelListener {
+                    override fun onLogLevelSelected(logLevel: Config.LogLevel) {
+                        ie.equalit.ceno.settings.Settings
+                            .setLogLevel(requireContext(), logLevel)
+                        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
+                            ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
+                    }
+                }
+            )
+
+            logLevelDialog.getDialog()
                 .show()
             true
         }
