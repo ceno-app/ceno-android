@@ -18,7 +18,6 @@ import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
 import ie.equalit.ouinet.Config
-import mozilla.components.support.base.log.Log.logLevel
 import java.util.Locale
 
 object Settings {

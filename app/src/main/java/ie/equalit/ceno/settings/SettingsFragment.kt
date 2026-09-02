@@ -55,7 +55,6 @@ import ie.equalit.ceno.R.string.pref_key_background_metrics
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
-import ie.equalit.ceno.R.string.pref_key_log_level
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
@@ -65,6 +64,7 @@ import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
 import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_log_level
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_privacy
@@ -85,7 +85,6 @@ import ie.equalit.ceno.R.string.toast_copied
 import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
-import ie.equalit.ceno.ext.getPreferenceCategory
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
@@ -792,7 +791,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     override fun onLogLevelSelected(logLevel: Config.LogLevel) {
                         ie.equalit.ceno.settings.Settings
                             .setLogLevel(requireContext(), logLevel)
-                        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
+                        findPreference<Preference>(
+                            requireContext().getPreferenceKey(
+                                pref_key_log_level
+                            )
+                        )?.summary =
                             ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
                     }
                 }

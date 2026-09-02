@@ -11,9 +11,7 @@ import androidx.core.content.ContextCompat.getString
 import androidx.core.view.children
 import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
-import ie.equalit.ceno.utils.language.SupportedLanguageProvider
 import ie.equalit.ouinet.Config
-import java.util.Locale
 
 class LogLevelChangedDialog(
     val context: Context,
