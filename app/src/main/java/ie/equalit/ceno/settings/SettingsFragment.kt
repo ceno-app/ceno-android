@@ -602,7 +602,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 context = requireContext(),
                 coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
+                stringValue = ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
             )
 
             // Set console output for GeckoRuntime,
@@ -874,7 +874,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
-            stringValue = if (newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
+            stringValue = ie.equalit.ceno.settings.Settings.getLogLevel(requireContext()),
             object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     logLevelReset = !newValue

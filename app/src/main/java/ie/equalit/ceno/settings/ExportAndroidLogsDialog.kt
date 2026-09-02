@@ -64,57 +64,54 @@ class ExportAndroidLogsDialog(
             setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
 
-                //enable debug logs
-                if (checkboxDebugLogs.isVisible) {
-                    //check if logfile is enabled
-                    if (checkboxDebugLogs.isChecked != CenoSettings.isCenoLogEnabled(context = this@ExportAndroidLogsDialog.context)) {
-                        // network request to update preference value
-                        CenoSettings.ouinetClientRequest(
-                            context = this@ExportAndroidLogsDialog.context,
-                            coroutineScope = lifecycleOwner.lifecycleScope,
-                            key = OuinetKey.LOGFILE,
-                            newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
-                            stringValue = null,
-                            object : OuinetResponseListener {
-                                override fun onSuccess(message: String, data: Any?) {
-                                    CenoSettings.setCenoEnableLog(
-                                        this@ExportAndroidLogsDialog.context,
-                                        checkboxDebugLogs.isChecked
-                                    )
-                                }
-
-                                override fun onError() {
-                                    Log.e(
-                                        TAG,
-                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
-                                    )
-                                }
+                //check if logfile is enabled
+                if (checkboxDebugLogs.isChecked != CenoSettings.isCenoLogEnabled(context = this@ExportAndroidLogsDialog.context)) {
+                    // network request to update preference value
+                    CenoSettings.ouinetClientRequest(
+                        context = this@ExportAndroidLogsDialog.context,
+                        coroutineScope = lifecycleOwner.lifecycleScope,
+                        key = OuinetKey.LOGFILE,
+                        newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
+                        stringValue = Settings.getLogLevel(this@ExportAndroidLogsDialog.context),
+                        object : OuinetResponseListener {
+                            override fun onSuccess(message: String, data: Any?) {
+                                CenoSettings.setCenoEnableLog(
+                                    this@ExportAndroidLogsDialog.context,
+                                    checkboxDebugLogs.isChecked
+                                )
                             }
-                        )
 
-                        // network request to update log level based on preference value
-                        CenoSettings.ouinetClientRequest(
-                            context = this@ExportAndroidLogsDialog.context,
-                            coroutineScope = lifecycleOwner.lifecycleScope,
-                            key = OuinetKey.LOG_LEVEL,
-                            stringValue = if (checkboxDebugLogs.isChecked) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
-                            ouinetResponseListener = object : OuinetResponseListener {
-                                override fun onSuccess(message: String, data: Any?) {
-                                    //restart ouinet
-                                    fragment.requireComponents.ouinet.background.restartOuinet()
-                                }
-
-                                override fun onError() {
-                                    Log.e(
-                                        TAG,
-                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
-                                    )
-                                }
-
+                            override fun onError() {
+                                Log.e(
+                                    TAG,
+                                    "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
+                                )
                             }
-                        )
+                        }
+                    )
 
-                    }
+                    // network request to update log level based on preference value
+                    CenoSettings.ouinetClientRequest(
+                        context = this@ExportAndroidLogsDialog.context,
+                        coroutineScope = lifecycleOwner.lifecycleScope,
+                        key = OuinetKey.LOG_LEVEL,
+                        stringValue = Settings.getLogLevel(this@ExportAndroidLogsDialog.context),
+                        ouinetResponseListener = object : OuinetResponseListener {
+                            override fun onSuccess(message: String, data: Any?) {
+                                //restart ouinet
+                                fragment.requireComponents.ouinet.background.restartOuinet()
+                            }
+
+                            override fun onError() {
+                                Log.e(
+                                    TAG,
+                                    "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
+                                )
+                            }
+
+                        }
+                    )
+
                 }
 
                 // Initialize Android logs
