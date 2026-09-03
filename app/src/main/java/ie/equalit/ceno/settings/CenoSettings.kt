@@ -5,6 +5,7 @@ import android.content.pm.PackageManager
 import android.os.Build
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.preference.PreferenceManager
 import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
@@ -398,7 +399,7 @@ object CenoSettings {
                 String.format(
                     "%s Build ID %s",
                     packageInfo.versionName,
-                    packageInfo.versionCode,
+                    PackageInfoCompat.getLongVersionCode(packageInfo)
                 )
             }
         } catch (_: PackageManager.NameNotFoundException) {
