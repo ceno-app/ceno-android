@@ -2,8 +2,10 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.preference.PreferenceManager
 import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
@@ -387,11 +389,19 @@ object CenoSettings {
     fun getCenoVersionString(context: Context): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            String.format(
-                "%s Build ID %s",
-                packageInfo.versionName,
-                packageInfo.versionCode,
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                String.format(
+                    "%s Build ID %s",
+                    packageInfo.versionName,
+                    packageInfo.longVersionCode,
+                )
+            } else {
+                String.format(
+                    "%s Build ID %s",
+                    packageInfo.versionName,
+                    PackageInfoCompat.getLongVersionCode(packageInfo)
+                )
+            }
         } catch (_: PackageManager.NameNotFoundException) {
             ""
         }

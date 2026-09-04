@@ -391,7 +391,7 @@ class ToolbarIntegration(
                     InputMethodManager::class.java
                 )?.showSoftInput(
                     toolbar.findViewById(R.id.mozac_browser_toolbar_edit_url_view),
-                    InputMethodManager.SHOW_IMPLICIT
+                    0
                 )
             }
         }
