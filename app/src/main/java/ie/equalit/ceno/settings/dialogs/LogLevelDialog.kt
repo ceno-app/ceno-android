@@ -49,41 +49,24 @@ class LogLevelDialog(
             // clear list
             allSupportedLogLevels.clear()
 
-            // Add currentLocale as first view
-            currentLogLevel?.let { current ->
-                val radioButton = LayoutInflater.from(context)
-                    .inflate(
-                        R.layout.item_langauge,
-                        radioGroup,
-                        false
-                    ) as RadioButton
-                radioButton.apply {
-                    isClickable = true
-                    text = current.name
-                }
-                radioGroup.addView(radioButton)
-                radioButton.performClick()
-
-                allSupportedLogLevels.add(current)
-            }
-
             // Add subsequent levels
             Config.LogLevel.entries.toTypedArray()
                 .forEach {
-                    if (it != currentLogLevel) {
-                        val radioButton = LayoutInflater.from(context)
-                            .inflate(
-                                R.layout.item_log_level,
-                                radioGroup,
-                                false
-                            ) as RadioButton
-                        radioButton.apply {
-                            isClickable = true
-                            text = it.name
-                        }
-                        radioGroup.addView(radioButton)
-                        allSupportedLogLevels.add(it)
+                    val radioButton = LayoutInflater.from(context)
+                        .inflate(
+                            R.layout.item_log_level,
+                            radioGroup,
+                            false
+                        ) as RadioButton
+                    radioButton.apply {
+                        isClickable = true
+                        text = it.name
                     }
+                    radioGroup.addView(radioButton)
+                    if (it == currentLogLevel) {
+                        radioButton.performClick()
+                    }
+                    allSupportedLogLevels.add(it)
                 }
         }
     }
