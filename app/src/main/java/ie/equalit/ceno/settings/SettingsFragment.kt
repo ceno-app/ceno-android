@@ -87,10 +87,12 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings.getLogLevel
+import ie.equalit.ceno.settings.Settings.setLogLevel
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
-import ie.equalit.ceno.settings.dialogs.LogLevelChangedDialog
+import ie.equalit.ceno.settings.dialogs.LogLevelDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
@@ -601,7 +603,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 context = requireContext(),
                 coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
+                stringValue = getLogLevel(requireContext())
             )
 
             // Set console output for GeckoRuntime,
@@ -785,18 +787,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForLogLevelChange(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            val logLevelDialog = LogLevelChangedDialog(
+            val logLevelDialog = LogLevelDialog(
                 requireContext(),
-                object : LogLevelChangedDialog.SetLogLevelListener {
+                object : LogLevelDialog.SetLogLevelListener {
                     override fun onLogLevelSelected(logLevel: Config.LogLevel) {
-                        ie.equalit.ceno.settings.Settings
-                            .setLogLevel(requireContext(), logLevel)
+                        setLogLevel(requireContext(), logLevel)
                         findPreference<Preference>(
                             requireContext().getPreferenceKey(
                                 pref_key_log_level
                             )
-                        )?.summary =
-                            ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
+                        )?.summary = getLogLevel(requireContext())
+
+                        // network request to update log level based on preference value
+                        CenoSettings.ouinetClientRequest(
+                            context = requireContext(),
+                            coroutineScope = viewLifecycleOwner.lifecycleScope,
+                            key = OuinetKey.LOG_LEVEL,
+                            stringValue = getLogLevel(requireContext())
+                        )
                     }
                 }
             )

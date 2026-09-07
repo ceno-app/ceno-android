@@ -13,7 +13,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ouinet.Config
 
-class LogLevelChangedDialog(
+class LogLevelDialog(
     val context: Context,
     private val setLogLevelChangeListener: SetLogLevelListener?
 ) {
@@ -26,7 +26,7 @@ class LogLevelChangedDialog(
 
         currentLogLevel = Config.LogLevel.valueOf(Settings.getLogLevel(context))
 
-        val logLevelChangeDialog = View.inflate(context, R.layout.log_level_change_dialog, null)
+        val logLevelChangeDialog = View.inflate(context, R.layout.log_level_dialog, null)
         val radioGroup = logLevelChangeDialog.findViewById<RadioGroup>(R.id.radio_group)
 
         builder.apply {

@@ -70,8 +70,7 @@ class ExportAndroidLogsDialog(
                         coroutineScope = lifecycleOwner.lifecycleScope,
                         key = OuinetKey.LOGFILE,
                         newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
-                        stringValue = Settings.getLogLevel(this@ExportAndroidLogsDialog.context),
-                        object : OuinetResponseListener {
+                        ouinetResponseListener = object : OuinetResponseListener {
                             override fun onSuccess(message: String, data: Any?) {
                                 CenoSettings.setCenoEnableLog(
                                     this@ExportAndroidLogsDialog.context,

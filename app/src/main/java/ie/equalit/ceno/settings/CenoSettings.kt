@@ -491,7 +491,7 @@ object CenoSettings {
         coroutineScope: CoroutineScope,
         key: OuinetKey,
         newValue: OuinetValue? = null,
-        stringValue: String? = Settings.getLogLevel(context),
+        stringValue: String? = null,
         ouinetResponseListener: OuinetResponseListener? = null,
         shouldRefresh: Boolean = true,
         forMetrics: Boolean = false,
