@@ -523,7 +523,7 @@ object Settings {
     }
 
     /**
-     * Defaults to INFO log if log level has not been set
+     * Defaults to DEBUG log if log level has not been set
      */
     fun getLogLevel(context: Context): String {
         val key = context.getString(R.string.pref_key_log_level)

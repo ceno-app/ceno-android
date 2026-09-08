@@ -101,6 +101,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
+import mozilla.components.support.base.log.Log.logLevel
 import mozilla.components.support.base.log.logger.Logger
 import org.mozilla.geckoview.BuildConfig
 import java.util.Locale
@@ -598,13 +599,29 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             )
 
-            // network request to update log level based on preference value
-            CenoSettings.ouinetClientRequest(
-                context = requireContext(),
-                coroutineScope = viewLifecycleOwner.lifecycleScope,
-                key = OuinetKey.LOG_LEVEL,
-                stringValue = getLogLevel(requireContext())
-            )
+            if(newValue == true) {
+                // network request to update log level based on preference value
+                CenoSettings.ouinetClientRequest(
+                    context = requireContext(),
+                    coroutineScope = viewLifecycleOwner.lifecycleScope,
+                    key = OuinetKey.LOG_LEVEL,
+                    stringValue = getLogLevel(requireContext()),
+                    ouinetResponseListener = object : OuinetResponseListener {
+                        override fun onSuccess(message: String, data: Any?) {
+                            //restart ouinet
+                            requireComponents.ouinet.background.restartOuinet()
+                        }
+
+                        override fun onError() {
+                            Log.e(
+                                TAG,
+                                "Failed to set log file to newValue: $logLevel"
+                            )
+                        }
+
+                    }
+                )
+            }
 
             // Set console output for GeckoRuntime,
             // debugLogging can only be set when EngineProvider is initialized
@@ -803,7 +820,24 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             context = requireContext(),
                             coroutineScope = viewLifecycleOwner.lifecycleScope,
                             key = OuinetKey.LOG_LEVEL,
-                            stringValue = getLogLevel(requireContext())
+                            newValue = OuinetValue.OTHER,
+                            stringValue = logLevel.name,
+                            ouinetResponseListener = object : OuinetResponseListener {
+                                override fun onSuccess(message: String, data: Any?) {
+                                    requireComponents.ouinet.background.shutdown(false) {
+                                        hasOuinetStopped = true
+                                    }
+                                    monitorOuinet()
+                                }
+
+                                override fun onError() {
+                                    Log.e(
+                                        TAG,
+                                        "Failed to set log file to newValue: $logLevel"
+                                    )
+                                }
+
+                            }
                         )
                     }
                 }
