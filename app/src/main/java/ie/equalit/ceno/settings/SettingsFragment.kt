@@ -885,7 +885,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
-            stringValue = ie.equalit.ceno.settings.Settings.getLogLevel(requireContext()),
+            stringValue = getLogLevel(requireContext()),
             object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     logLevelReset = !newValue
