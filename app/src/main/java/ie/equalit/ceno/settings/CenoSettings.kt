@@ -563,8 +563,7 @@ object CenoSettings {
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
                     OuinetKey.LOG_LEVEL,
-                    OuinetKey.LOGFILE
-                    -> {
+                    OuinetKey.LOGFILE -> {
                         if (response == null) {
                             Toast.makeText(
                                 context,

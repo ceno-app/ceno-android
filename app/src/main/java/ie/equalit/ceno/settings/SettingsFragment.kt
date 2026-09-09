@@ -327,7 +327,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         // Log levels
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
-            ie.equalit.ceno.settings.Settings.getLogLevel(requireContext())
+            getLogLevel(requireContext())
     }
 
     private fun setPreference(
@@ -598,10 +598,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             )
 
-            val logLevel = if(newValue == true) {
+            val logLevel = if (newValue == true) {
                 Config.LogLevel.DEBUG
-            }
-            else {
+            } else {
                 Config.LogLevel.INFO
             }
             // network request to update log level based on preference value
@@ -621,6 +620,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             )
                         )?.summary = getLogLevel(requireContext())
                     }
+
                     override fun onError() {
                         Log.e(
                             TAG,
