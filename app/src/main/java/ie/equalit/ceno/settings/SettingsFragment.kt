@@ -101,7 +101,6 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.state.selectedOrDefaultSearchEngine
 import mozilla.components.lib.state.ext.consumeFrom
-import mozilla.components.support.base.log.Log.logLevel
 import mozilla.components.support.base.log.logger.Logger
 import org.mozilla.geckoview.BuildConfig
 import java.util.Locale
@@ -599,29 +598,38 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             )
 
-            if(newValue == true) {
-                // network request to update log level based on preference value
-                CenoSettings.ouinetClientRequest(
-                    context = requireContext(),
-                    coroutineScope = viewLifecycleOwner.lifecycleScope,
-                    key = OuinetKey.LOG_LEVEL,
-                    stringValue = getLogLevel(requireContext()),
-                    ouinetResponseListener = object : OuinetResponseListener {
-                        override fun onSuccess(message: String, data: Any?) {
-                            //restart ouinet
-                            requireComponents.ouinet.background.restartOuinet()
-                        }
-
-                        override fun onError() {
-                            Log.e(
-                                TAG,
-                                "Failed to set log file to newValue: $logLevel"
-                            )
-                        }
-
-                    }
-                )
+            val logLevel = if(newValue == true) {
+                Config.LogLevel.DEBUG
             }
+            else {
+                Config.LogLevel.INFO
+            }
+            // network request to update log level based on preference value
+            CenoSettings.ouinetClientRequest(
+                context = requireContext(),
+                coroutineScope = viewLifecycleOwner.lifecycleScope,
+                key = OuinetKey.LOG_LEVEL,
+                newValue = OuinetValue.OTHER,
+                stringValue = logLevel.name,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        setLogLevel(requireContext(), logLevel)
+                        requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                        findPreference<Preference>(
+                            requireContext().getPreferenceKey(
+                                pref_key_log_level
+                            )
+                        )?.summary = getLogLevel(requireContext())
+                    }
+                    override fun onError() {
+                        Log.e(
+                            TAG,
+                            "Failed to set log level to: ${logLevel.name}"
+                        )
+                    }
+
+                }
+            )
 
             // Set console output for GeckoRuntime,
             // debugLogging can only be set when EngineProvider is initialized
@@ -808,13 +816,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 requireContext(),
                 object : LogLevelDialog.SetLogLevelListener {
                     override fun onLogLevelSelected(logLevel: Config.LogLevel) {
-                        setLogLevel(requireContext(), logLevel)
-                        findPreference<Preference>(
-                            requireContext().getPreferenceKey(
-                                pref_key_log_level
-                            )
-                        )?.summary = getLogLevel(requireContext())
-
                         // network request to update log level based on preference value
                         CenoSettings.ouinetClientRequest(
                             context = requireContext(),
@@ -824,19 +825,21 @@ class SettingsFragment : PreferenceFragmentCompat() {
                             stringValue = logLevel.name,
                             ouinetResponseListener = object : OuinetResponseListener {
                                 override fun onSuccess(message: String, data: Any?) {
-                                    requireComponents.ouinet.background.shutdown(false) {
-                                        hasOuinetStopped = true
-                                    }
-                                    monitorOuinet()
+                                    setLogLevel(requireContext(), logLevel)
+                                    requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                                    findPreference<Preference>(
+                                        requireContext().getPreferenceKey(
+                                            pref_key_log_level
+                                        )
+                                    )?.summary = getLogLevel(requireContext())
                                 }
 
                                 override fun onError() {
                                     Log.e(
                                         TAG,
-                                        "Failed to set log file to newValue: $logLevel"
+                                        "Failed to set log file to newValue: ${logLevel.name}"
                                     )
                                 }
-
                             }
                         )
                     }

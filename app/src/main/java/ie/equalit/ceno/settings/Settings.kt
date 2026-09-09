@@ -528,7 +528,7 @@ object Settings {
     fun getLogLevel(context: Context): String {
         val key = context.getString(R.string.pref_key_log_level)
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(key, Config.LogLevel.DEBUG.name)
+            .getString(key, Config.LogLevel.INFO.name)
             ?: throw Exception("LogLevel settings not found")
     }
 }

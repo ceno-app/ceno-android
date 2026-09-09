@@ -63,7 +63,7 @@ enum class OuinetKey(val command: String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
-    LOG_LEVEL("log_level"),
+    LOG_LEVEL("?loglevel"),
     CENO_METRICS("?metrics"),
     ADD_METRICS("api/metrics/set_key_value?record_id"),
     PINNED_GROUPS("api/groups/pinned"),
