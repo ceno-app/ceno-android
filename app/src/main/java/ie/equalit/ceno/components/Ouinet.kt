@@ -41,7 +41,7 @@ class Ouinet(
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
             .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
-            .setTlsCaCertStorePath(context.resources.getString(R.string.cacert_file_path))
+            .setTlsCaCertStoreDir(context.resources.getString(R.string.cacert_file_path))
             .setCacheType(context.resources.getString(R.string.cache_type))
             .setBtBootstrapExtras(getBtBootstrapExtras())
             .setListenOnTcp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
@@ -49,9 +49,12 @@ class Ouinet(
             .setErrorPagePath(getErrorPagePath())
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
-            .setMetricsServerUrl("https://endpoint-dev.ouinet.work/.well-known/endpoint")
-            .setMetricsServerToken(METRICS_SERVER_TOKEN)
-            .setMetricsServerTlsCaCert(BuildConfig.METRICS_TLS_CA_CERT)
+            .addMetricsServer(
+                "https://endpoint-dev.ouinet.work/.well-known/endpoint",
+                METRICS_SERVER_TOKEN,
+                BuildConfig.METRICS_TLS_CA_CERT,
+                0
+            )
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
             .setFrontEndAccessToken(metricsFrontendToken)
