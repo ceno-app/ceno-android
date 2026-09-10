@@ -1,5 +1,6 @@
 package ie.equalit.ceno.home
 
+import android.Manifest
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
@@ -21,6 +22,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
@@ -557,12 +559,16 @@ class HomeFragment : BaseHomeFragment() {
 
     private fun askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            requireComponents.permissionHandler.requestPostNotificationsPermission(this)
+            val permissions = mutableListOf( Manifest.permission.POST_NOTIFICATIONS)
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                permissions.add(Manifest.permission.ACCESS_LOCAL_NETWORK)
+            }
+            requireComponents.permissionHandler.multiplePermissionHandler(this, permissions.toTypedArray())
         } else {
             /* This is NOT Android 13, just ask to disable battery optimization */
             requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
         }
+
     }
 
     companion object {

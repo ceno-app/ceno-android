@@ -84,6 +84,14 @@ object Settings {
             }
     }
 
+    fun setAccessNetworkPermissionGranted(context: Context, value: Boolean) {
+        val key = context.getString(R.string.pref_key_access_network_access_granted)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit {
+                putBoolean(key, value)
+            }
+    }
+
     fun setAllowNotifications(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_allow_notifications)
         PreferenceManager.getDefaultSharedPreferences(context)

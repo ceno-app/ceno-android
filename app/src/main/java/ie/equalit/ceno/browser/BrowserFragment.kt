@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.browser
 
+import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -178,8 +179,14 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     private fun askForPermissions() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            requireComponents.permissionHandler.requestPostNotificationsPermission(this)
+            val permissions = mutableListOf(Manifest.permission.POST_NOTIFICATIONS)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                permissions.add(Manifest.permission.ACCESS_LOCAL_NETWORK)
+            }
+            requireComponents.permissionHandler.multiplePermissionHandler(
+                this,
+                permissions.toTypedArray()
+            )
         } else {
             /* This is NOT Android 13, just ask to disable battery optimization */
             requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())

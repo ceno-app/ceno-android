@@ -84,7 +84,6 @@ import ie.equalit.ceno.R.string.toast_copied
 import ie.equalit.ceno.R.string.tracker_category
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
-import ie.equalit.ceno.ext.getPreferenceCategory
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools

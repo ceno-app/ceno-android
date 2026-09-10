@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno
 
+import android.Manifest
 import android.app.ActivityManager
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -418,10 +419,19 @@ open class BrowserActivity : BaseActivity(),
         else -> super.onOptionsItemSelected(item)
     }
 
-    val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            Settings.setAllowNotifications(this, isGranted)
-            components.permissionHandler.requestBatteryOptimizationsOff(this)
+    val multiplePermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                val isGranted = permissions[Manifest.permission.POST_NOTIFICATIONS] ?: true
+                Settings.setAllowNotifications(this, isGranted)
+                components.permissionHandler.requestBatteryOptimizationsOff(this)
+            }
+
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                val isGranted = permissions[Manifest.permission.ACCESS_LOCAL_NETWORK] ?: true
+                Settings.setAccessNetworkPermissionGranted(this, isGranted)
+            }
         }
 
     val getLogfileLocation =
