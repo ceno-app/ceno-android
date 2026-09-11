@@ -170,9 +170,14 @@
 
         <androidx.preference.Preference
             android:defaultValue="false"
+            android:key="@string/pref_key_log_level"
+            android:title="@string/preferences_log_level"
+            app:iconSpaceReserved="false" />
+
+        <androidx.preference.Preference
+            android:defaultValue="false"
             android:key="@string/pref_key_additional_developer_tools"
             android:title="@string/preferences_additional_developer_tools"
-            app:isPreferenceVisible="false"
             app:iconSpaceReserved="false" />
 
     </PreferenceCategory>
