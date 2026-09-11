@@ -547,6 +547,7 @@
     <string name="edit_bookmark_label">Edit</string>
     <string name="preferences_log_level">Log level</string>
     <string name="change_log_level">Change log level</string>
+    <string name="preferences_ouinet_bundle_importer">Bundle importer</string>
 
 
     <!-- Warning fixes -->

@@ -66,6 +66,8 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForOuinetLogExport()
         getPreference(R.string.pref_key_test_metrics)?.onPreferenceClickListener =
             getClickListenerForMetricsTest()
+        getPreference(R.string.pref_key_ouinet_bundle_importer)?.onPreferenceClickListener =
+            getClickListenerForBundleImporter()
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
@@ -143,6 +145,15 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
                             .show()
                     }
                 }
+            )
+            true
+        }
+    }
+
+    private fun getClickListenerForBundleImporter(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(
+                R.id.action_networkSettingsFragment_to_networkSettingsComposeFragment
             )
             true
         }

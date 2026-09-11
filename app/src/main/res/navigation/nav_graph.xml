@@ -220,7 +220,21 @@
     <fragment
         android:id="@+id/developerToolsSettingsFragment"
         android:name="ie.equalit.ceno.settings.DeveloperToolsSettingsFragment"
-        android:label="DeveloperToolsSettingsFragment"></fragment>
+        android:label="DeveloperToolsSettingsFragment">
+        <action
+            android:id="@+id/action_networkSettingsFragment_to_networkSettingsComposeFragment"
+            app:destination="@id/networkSettingsComposeFragment"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/networkSettingsComposeFragment"
+        android:name="ie.equalit.ceno.settings.BundleImporterComposeFragment"
+        android:label="NetworkSettingsComposeFragment">
+    </fragment>
 
     <fragment
         android:id="@+id/androidLogFragment"

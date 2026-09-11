@@ -110,6 +110,7 @@
     <string name="pref_key_dns_https" translatable="false">pref_key_dns_https</string>
     <string name="pref_key_dns_both" translatable="false">pref_key_dns_both</string>
     <string name="pref_key_hide_telegram_channels" translatable="false">pref_key_hide_telegram_channels</string>
+    <string name="pref_key_ouinet_bundle_importer" translatable="false">pref_key_ouinet_bundle_importer</string>
 
     <!-- CENO: COPIED FROM FENIX -->
     <!-- Top Sites -->

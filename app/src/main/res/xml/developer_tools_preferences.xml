@@ -34,4 +34,9 @@
         android:title="@string/preferences_test_metrics"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        android:key="@string/pref_key_ouinet_bundle_importer"
+        android:title="@string/preferences_ouinet_bundle_importer"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>
