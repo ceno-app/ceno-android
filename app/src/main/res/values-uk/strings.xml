@@ -337,7 +337,6 @@
     <string name="ceno_network_status_connected">Повністю підключено до мережі Ceno. Заблоковані веб-сайти повинні бути доступними.</string>
     <string name="contact_support">Зверніться до служби підтримки</string>
     <string name="ceno_support_ticket_subject">Квиток служби підтримки Ceno</string>
-    <string name="preferences_clean_insights_backdate">Увімкнути метрики заднім числом</string>
     <string name="ceno_network_status_title">Стан мережі Ceno</string>
     <string name="clean_insights_sub_header">Ми хотіли б записати такі показники:</string>
     <string name="clean_insights_header">Допоможіть нам покращити Ceno!</string>
