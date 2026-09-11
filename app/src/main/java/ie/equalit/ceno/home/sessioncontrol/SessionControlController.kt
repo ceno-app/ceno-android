@@ -14,13 +14,13 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
+import ie.equalit.ceno.home.topsites.TopSiteViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.support.ktx.android.view.showKeyboard
@@ -69,6 +69,8 @@ interface SessionControlController {
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
 
     fun handleOnSectionHeaderClicked(listIsHidden: Boolean)
+    fun handleRemoveTelegramChannel(topSite: TopSite)
+    fun handleRenameTelegramChannel(topSite: TopSite)
 }
 
 @Suppress("TooManyFunctions", "LargeClass", "LongParameterList")
@@ -77,7 +79,9 @@ class DefaultSessionControlController(
     private val preferences: CenoPreferences,
     private val appStore: AppStore,
     private val viewLifecycleScope: CoroutineScope,
-    private val rssAnnouncementSwipeListener: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener?
+    private val topSiteViewModel: TopSiteViewModel,
+    private val telegramChanViewModel: TelegramChannelsViewModel,
+    private val rssAnnouncementSwipeListener: RSSAnnouncementViewHolder.RssAnnouncementSwipeListener?,
 ) : SessionControlController {
 
     override fun handleMenuOpened() {
@@ -99,15 +103,11 @@ class DefaultSessionControlController(
                     setTitle(R.string.rename_top_site)
                     setView(customLayout)
                     setPositiveButton(R.string.dialog_ok) { dialog, _ ->
-                        viewLifecycleScope.launch(Dispatchers.IO) {
-                            with(activity.components.useCases.cenoTopSitesUseCase) {
-                                updateTopSites(
-                                    topSite,
-                                    topSiteLabelEditText.text.toString(),
-                                    topSite.url
-                                )
-                            }
-                        }
+                        topSiteViewModel.renameTopSite(
+                            it.applicationContext,
+                            topSiteLabelEditText.text.toString(),
+                            topSite.url
+                        )
                         dialog.dismiss()
                     }
                     setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
@@ -123,11 +123,7 @@ class DefaultSessionControlController(
     }
 
     override fun handleRemoveTopSiteClicked(topSite: TopSite) {
-        viewLifecycleScope.launch(Dispatchers.IO) {
-            with(activity.components.useCases.cenoTopSitesUseCase) {
-                removeTopSites(topSite)
-            }
-        }
+        topSiteViewModel.removeShortcut(activity.applicationContext, topSite.url)
     }
 
     override fun handleSelectTopSite(topSite: TopSite, position: Int) {
@@ -193,22 +189,19 @@ class DefaultSessionControlController(
     }
 
     override fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean) {
+        val url = "https://${ouicrawlSite.SiteURL}/"
         activity.lifecycleScope.launch {
-            if (isTopSite) {
-                val removedTopSite: TopSite? =
-                    activity.components.core.cenoPinnedSiteStorage
-                        .getPinnedSites()
-                        .find { it.url == ("https://${ouicrawlSite.SiteURL}/") }
-                if (removedTopSite != null) {
-                    with(activity.components.useCases.cenoTopSitesUseCase) {
-                        removeTopSites(removedTopSite)
-                    }
-                }
+            if (topSiteViewModel.isTopSite(activity.applicationContext, url)) {
+                topSiteViewModel.removeShortcut(
+                    activity.applicationContext,
+                    url,
+                )
             } else {
-                val numPinnedSites = activity.components.core.cenoTopSitesStorage.cachedTopSites
-                    .filter { it is TopSite.Default || it is TopSite.Pinned }.size
-
-                if (numPinnedSites >= activity.components.cenoPreferences.topSitesMaxLimit) {
+                topSiteViewModel.addToTopSites(
+                    activity.applicationContext,
+                    ouicrawlSite.SiteName,
+                    url,
+                ) {
                     AlertDialog.Builder(activity)
                         .apply {
                             setTitle(R.string.shortcut_max_limit_title)
@@ -219,17 +212,49 @@ class DefaultSessionControlController(
                             create()
                         }
                         .show()
-                } else {
-                    with(activity.components.useCases.cenoTopSitesUseCase) {
-                        addPinnedSites(ouicrawlSite.SiteName, "https://${ouicrawlSite.SiteURL}/")
-                    }
                 }
             }
         }
-
     }
 
     override fun handleOnSectionHeaderClicked(listIsHidden: Boolean) {
         appStore.dispatch(AppAction.OuicrawlSitesChange(listIsHidden))
+    }
+
+    override fun handleRemoveTelegramChannel(topSite: TopSite) {
+        telegramChanViewModel.removeChannel(activity.applicationContext, topSite.url)
+    }
+
+    override fun handleRenameTelegramChannel(topSite: TopSite) {
+        activity.let {
+            val customLayout =
+                LayoutInflater.from(it)
+                    .inflate(R.layout.top_sites_rename_dialog, null)
+            val topSiteLabelEditText: EditText =
+                customLayout.findViewById(R.id.top_site_title)
+            topSiteLabelEditText.setText(topSite.title)
+
+            AlertDialog.Builder(it)
+                .apply {
+                    setTitle(R.string.rename_top_site)
+                    setView(customLayout)
+                    setPositiveButton(R.string.dialog_ok) { dialog, _ ->
+                        telegramChanViewModel.renameTelegramChannel(
+                            it.applicationContext,
+                            topSiteLabelEditText.text.toString(),
+                            topSite.url
+                        )
+                        dialog.dismiss()
+                    }
+                    setNegativeButton(R.string.dialog_cancel) { dialog, _ ->
+                        dialog.cancel()
+                    }
+                }
+                .show()
+                .also {
+                    topSiteLabelEditText.setSelection(0, topSiteLabelEditText.text.length)
+                    topSiteLabelEditText.showKeyboard()
+                }
+        }
     }
 }

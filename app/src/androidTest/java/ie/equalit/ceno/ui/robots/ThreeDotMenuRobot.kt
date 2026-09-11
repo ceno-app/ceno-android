@@ -57,7 +57,6 @@ class ThreeDotMenuRobot {
     fun verifyClearCenoButtonExists() = assertClearCenoButton()
     fun verifyAddToShortcutsButtonExists() = assertAddToShortcutsButton()
     fun verifyRemoveFromShortcutsButtonExists() = assertRemoveFromShortcutsButton()
-    fun verifyHttpsByDefaultButtonExists() = assertHttpsByDefaultButton()
     fun verifyUblockOriginButtonExists() = assertUblockOriginButton()
     fun verifyEnableReaderViewButton() = assertEnableReaderViewButton()
     fun verifyDisableReaderViewButton() = assertDisableReaderViewButton()
@@ -195,12 +194,6 @@ class ThreeDotMenuRobot {
             return BrowserRobot.Transition()
         }
 
-        fun openHttpsByDefault(interact: BrowserRobot.() -> Unit): BrowserRobot.Transition {
-            httpsByDefaultButton().click()
-            BrowserRobot().interact()
-            return BrowserRobot.Transition()
-        }
-
         fun clickReaderViewButton(interact: ReaderViewRobot.() -> Unit): ReaderViewRobot.Transition {
             enableReaderViewButton().click()
             mDevice.waitForWindowUpdate(packageName, waitingTime)
@@ -240,7 +233,6 @@ private fun addToHomescreenButton() = onView(withText("Add to Home screen"))
 private fun clearCenoButton() = onView(withText("Clear Ceno"))
 private fun addToShortcutsButton() = onView(withText("Add to shortcuts"))
 private fun removeFromShortcutsButton() = onView(withText("Remove from shortcuts"))
-private fun httpsByDefaultButton() = onView(withText("HTTPS by default"))
 private fun ublockOriginButton() = onView(withText("uBlock Origin"))
 
 private fun enableReaderViewButton() = onView(withText(R.string.browser_menu_enable_reader_view))
@@ -316,9 +308,6 @@ private fun assertAddToShortcutsButton() = addToShortcutsButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertRemoveFromShortcutsButton() = removeFromShortcutsButton()
-    .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertHttpsByDefaultButton() = httpsByDefaultButton()
     .check(matches(ViewMatchers.withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUblockOriginButton() = ublockOriginButton()

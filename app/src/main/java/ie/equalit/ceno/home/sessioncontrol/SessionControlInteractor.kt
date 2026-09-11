@@ -64,6 +64,44 @@ interface TopSiteInteractor {
     fun onTopSiteMenuOpened()
 }
 
+
+interface TelegramChannelInteractor {
+    /**
+     * Opens the given top site in private mode. Called when an user clicks on the "Open in private
+     * tab" top site menu item.
+     *
+     * @param topSite The top site that will be open in private mode.
+     */
+    fun onOpenInPrivateTabClicked(topSite: TopSite)
+
+    /**
+     * Opens a dialog to rename the given top site. Called when an user clicks on the "Rename" top site menu item.
+     *
+     * @param topSite The top site that will be renamed.
+     */
+    fun onRenameTelegramChannelClick(topSite: TopSite)
+
+    /**
+     * Removes the given top site. Called when an user clicks on the "Remove" top site menu item.
+     *
+     * @param topSite The top site that will be removed.
+     */
+    fun onRemoveTelegramChannelClicked(topSite: TopSite)
+
+    /**
+     * Selects the given top site. Called when a user clicks on a top site.
+     *
+     * @param topSite The top site that was selected.
+     * @param position The position of the top site.
+     */
+    fun onSelectTopSite(topSite: TopSite, position: Int)
+
+    /**
+     * Called when top site menu is opened.
+     */
+    fun onTopSiteMenuOpened()
+}
+
 interface OuicrawlSiteInteractor {
     fun onOuicrawlSiteMenuOpened()
     fun onOpenInPersonalTabClicked(ouicrawlSite: OuicrawlSite)
@@ -83,6 +121,7 @@ class SessionControlInteractor(
 ) :
 //OnboardingInteractor,
     TopSiteInteractor,
+    TelegramChannelInteractor,
     HomePageInteractor,
     OuicrawlSiteInteractor {
     override fun onOpenInPrivateTabClicked(topSite: TopSite) {
@@ -91,6 +130,14 @@ class SessionControlInteractor(
 
     override fun onRenameTopSiteClicked(topSite: TopSite) {
         controller.handleRenameTopSiteClicked(topSite)
+    }
+
+    override fun onRenameTelegramChannelClick(topSite: TopSite) {
+        controller.handleRenameTelegramChannel(topSite)
+    }
+
+    override fun onRemoveTelegramChannelClicked(topSite: TopSite) {
+        controller.handleRemoveTelegramChannel(topSite)
     }
 
     override fun onRemoveTopSiteClicked(topSite: TopSite) {

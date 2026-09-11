@@ -10,47 +10,11 @@ import java.util.Locale
 
 object Config {
     // Synchronized build configuration for all modules
-    const val COMPILE_SDK_VERSION = 37
+    const val BUILD_TOOLS_VERSION = "37.0.0"
+    const val COMPILE_SDK_MAJOR_VERSION = 37
+    const val COMPILE_SDK_MINOR_VERSION = 1
     const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 37
-
-    @JvmStatic
-    private fun generateDebugVersionName(): String {
-        val today = Date()
-        // Append the year (2 digits) and week in year (2 digits). This will make it easier to distinguish versions and
-        // identify ancient versions when debugging issues. However this will still keep the same version number during
-        // the week so that we do not end up with a lot of versions in tools like Sentry. As an extra this matches the
-        // sections we use in the changelog (weeks).
-        return SimpleDateFormat("1.0.yyww", Locale.US).format(today)
-    }
-
-    @JvmStatic
-    fun releaseVersionName(project: Project): String? {
-        // Note: release builds must have the `versionName` set. However, the gradle ecosystem makes this hard to
-        // ergonomically validate (sometimes IDEs default to a release variant and mysteriously fail due to the
-        // validation, sometimes devs just need a release build and specifying project properties is annoying in IDEs),
-        // so instead we'll allow the `versionName` to silently default to an empty string.
-        return if (project.hasProperty("versionName")) project.property("versionName").toString() else null
-    }
-
-    @JvmStatic
-    fun nightlyVersionName(project: Project): String {
-        // Nightly versions will use the version from "version.txt".
-        return readVersionFromFile(project)
-    }
-
-    @JvmStatic
-    fun readVersionFromFile(project: Project): String {
-        var mozconfig = project.gradle.extensions.extraProperties.get("mozconfig") as Map<*, *>;
-        var topsrcdir = mozconfig.get("topsrcdir") as String;
-        var versionPath = Paths.get(topsrcdir, "mobile/android/version.txt");
-        return project.file(versionPath).useLines { it.firstOrNull() ?: "" }
-    }
-
-    @JvmStatic
-    fun majorVersion(project: Project): String {
-        return readVersionFromFile(project).split(".")[0]
-    }
 
     private val fennecBaseVersionCode by lazy {
         val format = SimpleDateFormat("yyyyMMddHHmmss", Locale.US)

@@ -17,6 +17,7 @@ import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
+import ie.equalit.ouinet.Config
 import java.util.Locale
 
 object Settings {
@@ -62,12 +63,6 @@ object Settings {
                 context.getString(R.string.pref_show_metrics_consent_dialog), false
             )
 
-    fun shouldBackdateCleanInsights(context: Context): Boolean =
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .getBoolean(
-                context.getString(R.string.pref_key_clean_insights_backdate), false
-            )
-
     fun setUpdateSearchEngines(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_update_search_engines)
         PreferenceManager.getDefaultSharedPreferences(context)
@@ -102,14 +97,6 @@ object Settings {
 
     fun setShowDeveloperTools(context: Context, value: Boolean) {
         val key = context.getString(R.string.pref_key_show_developer_tools)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit {
-                putBoolean(key, value)
-            }
-    }
-
-    fun setBackdateCleanInsights(context: Context, value: Boolean) {
-        val key = context.getString(R.string.pref_key_clean_insights_backdate)
         PreferenceManager.getDefaultSharedPreferences(context)
             .edit {
                 putBoolean(key, value)
@@ -511,5 +498,23 @@ object Settings {
             .edit {
                 putBoolean(key, value)
             }
+    }
+
+    fun setLogLevel(context: Context, logLevel: Config.LogLevel) {
+        val key = context.getString(R.string.pref_key_log_level)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit {
+                putString(key, logLevel.name)
+            }
+    }
+
+    /**
+     * Defaults to DEBUG log if log level has not been set
+     */
+    fun getLogLevel(context: Context): String {
+        val key = context.getString(R.string.pref_key_log_level)
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(key, Config.LogLevel.INFO.name)
+            ?: throw Exception("LogLevel settings not found")
     }
 }

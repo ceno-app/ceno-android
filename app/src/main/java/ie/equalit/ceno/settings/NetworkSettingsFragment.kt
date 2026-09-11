@@ -87,10 +87,13 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
             )
         }
 
-        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[Locale(
-            "",
-            entry[0]
-        ).displayCountry] = entry[1]
+        for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) btSourcesMap[
+            Locale.Builder()
+                .setLanguage("")
+                .setRegion(entry[0])
+                .build()
+                .displayCountry
+        ] = entry[1]
         setupPreferences()
     }
 

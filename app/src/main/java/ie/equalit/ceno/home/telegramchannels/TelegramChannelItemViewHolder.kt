@@ -13,7 +13,8 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.TelegramChannelItemBinding
 import ie.equalit.ceno.ext.ceno.bitmapForUrl
 import ie.equalit.ceno.ext.components
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
+import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
+import ie.equalit.ceno.home.topsites.TopSiteItemMenu
 import ie.equalit.ceno.utils.view.CenoViewHolder
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -24,10 +25,38 @@ import mozilla.components.feature.top.sites.TopSite
 class TelegramChannelItemViewHolder(
     view: View,
     private val viewLifecycleOwner: LifecycleOwner,
-    private val interactor: TopSiteInteractor
+    private val interactor: TelegramChannelInteractor
 ) : CenoViewHolder(view) {
     private lateinit var topSite: TopSite
     private val binding = TelegramChannelItemBinding.bind(view)
+
+    init {
+        binding.telegramChannelItem.setOnLongClickListener {
+            interactor.onTopSiteMenuOpened()
+
+            val topSiteMenu = TopSiteItemMenu(
+                context = view.context,
+                topSite = topSite
+            ) { item ->
+                when (item) {
+                    is TopSiteItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
+                        topSite
+                    )
+
+                    is TopSiteItemMenu.Item.RenameTopSite -> interactor.onRenameTelegramChannelClick(
+                        topSite
+                    )
+
+                    is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTelegramChannelClicked(
+                        topSite
+                    )
+                }
+            }
+            topSiteMenu.menuBuilder.build(view.context)
+                .show(anchor = it)
+            true
+        }
+    }
 
     @Suppress("LongMethod")
     fun bind(topSite: TopSite, position: Int) {

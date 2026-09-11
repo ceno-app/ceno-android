@@ -133,10 +133,10 @@ platform :android do
     ENV["MINOR"] = sh "printf %03d $(echo $VERSION_NAME | cut -d . -f 2)"
     ENV["PATCH"] = sh "printf %02d $(echo $VERSION_NAME | cut -d . -f 3)"
     # TODO: get revision number from local.properties if set
-    #ENV["LOCAL_REVISION"] = sh " cat ../local.properties \
-    #                                | grep revision \
-    #                                | cut -d '=' -f2"
-    ENV["REVISION"] = sh "echo '0' | tr -d '\n'"
+    ENV["LOCAL_REVISION"] = sh " cat ../local.properties \
+                                    | grep revision \
+                                    | cut -d '=' -f2"
+    ENV["REVISION"] = sh "echo ${LOCAL_REVISION+1} | tr -d '\n'"
     ENV["VERSION_CODE_0"] = sh "echo 2${MAJOR}${MINOR}${PATCH}0${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_1"] = sh "echo 2${MAJOR}${MINOR}${PATCH}1${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_2"] = sh "echo 2${MAJOR}${MINOR}${PATCH}2${REVISION} | tr -d '\n'"

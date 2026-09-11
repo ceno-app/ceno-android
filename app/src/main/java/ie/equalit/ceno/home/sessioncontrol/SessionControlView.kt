@@ -26,15 +26,15 @@ import mozilla.components.feature.top.sites.TopSite
 @VisibleForTesting
 internal fun normalModeAdapterItems(
     settings: CenoPreferences,
-    topSites: List<TopSite>,
+    topSites: List<TopSite>?,
     messageCard: CenoMessageCard,
     mode: BrowsingMode,
     announcements: List<RssItem>?,
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?,
     hideOuicrawlFeed: Boolean,
-    telegramChannelsUrl: String,
-    hideTelegramChannels: Boolean
+    hideTelegramChannels: Boolean,
+    telegramChannels: List<TopSite>?
 ): List<AdapterItem> {
     val items = mutableListOf<AdapterItem>()
 
@@ -50,20 +50,11 @@ internal fun normalModeAdapterItems(
     if (!isBridgeAnnouncementEnabled && settings.showBridgeAnnouncementCard)
         items.add(AdapterItem.CenoMessageItem(messageCard))
 
-    // TODO: Get the url from a more standard source (ask grant)
-    val shortcutTopSites = topSites.filter {
-        !it.url.startsWith(telegramChannelsUrl)
+    if (!topSites.isNullOrEmpty()) {
+        items.add(AdapterItem.TopSitePager(topSites))
     }
 
-    val telegramChannels = topSites.filter {
-        it.url.startsWith(telegramChannelsUrl)
-    }
-
-    if (shortcutTopSites.isNotEmpty()) {
-        items.add(AdapterItem.TopSitePager(shortcutTopSites))
-    }
-
-    if (!hideTelegramChannels && telegramChannels.isNotEmpty()) {
+    if (!hideTelegramChannels && telegramChannels?.isNotEmpty() == true) {
         items.add(AdapterItem.TelegramChannelsTopSitePager(telegramChannels))
     }
 
@@ -106,8 +97,9 @@ private fun AppState.toAdapterList(
     isBridgeAnnouncementEnabled: Boolean,
     ouicrawlSites: List<OuicrawlSite>?,
     hideOuicrawlFeed: Boolean,
-    telegramChannelsUrl: String,
     hideTelegramChannels: Boolean,
+    topSites: List<TopSite>?,
+    telegramChannels: List<TopSite>?,
 ): List<AdapterItem> = when (mode) {
     BrowsingMode.Normal ->
         normalModeAdapterItems(
@@ -125,8 +117,8 @@ private fun AppState.toAdapterList(
                 }
             },
             hideOuicrawlFeed,
-            telegramChannelsUrl,
-            hideTelegramChannels
+            hideTelegramChannels,
+            telegramChannels
         )
 
     BrowsingMode.Personal -> personalModeAdapterItems(mode, announcement)
@@ -167,7 +159,13 @@ class SessionControlView(
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun update(state: AppState, announcements: List<RssItem>?, ouicrawlSites: List<OuicrawlSite>?) {
+    fun update(
+        state: AppState,
+        announcements: List<RssItem>?,
+        ouicrawlSites: List<OuicrawlSite>?,
+        topSites: List<TopSite>?,
+        telegramChannels: List<TopSite>?,
+    ) {
         val messageCard = CenoMessageCard(
             text = ContextCompat.getString(view.context, R.string.enable_bridge_card_text) + " " +
                     ContextCompat.getString(view.context, R.string.bridge_mode_ip_warning_text),
@@ -181,8 +179,9 @@ class SessionControlView(
                 CenoSettings.isBridgeAnnouncementEnabled(view.context),
                 ouicrawlSites,
                 CenoSettings.hideOuicrawlFeed(view.context),
-                ContextCompat.getString(view.context, R.string.default_telegram_channel),
-                CenoSettings.hideTelegramChannels(view.context)
+                CenoSettings.hideTelegramChannels(view.context),
+                topSites,
+                telegramChannels
             )
         )
         sessionControlAdapter.notifyDataSetChanged()

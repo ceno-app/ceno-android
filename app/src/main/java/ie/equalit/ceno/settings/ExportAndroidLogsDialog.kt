@@ -11,7 +11,6 @@ import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat.getString
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -20,13 +19,11 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getSizeInMB
-import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.home.HomeFragment
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_10_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_120_MINUTES
 import ie.equalit.ceno.settings.SettingsFragment.Companion.LOGS_LAST_5_MINUTES
 import ie.equalit.ceno.utils.LogReader
-import ie.equalit.ouinet.Config
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
@@ -63,61 +60,6 @@ class ExportAndroidLogsDialog(
             setView(logTimeFilterDialogView)
             setNegativeButton(R.string.dialog_cancel) { dialog: DialogInterface, _ -> dialog.cancel() }
             setPositiveButton(R.string.onboarding_battery_button) { _, _ ->
-
-                //enable debug logs
-                if (checkboxDebugLogs.isVisible) {
-                    //check if logfile is enabled
-                    if (checkboxDebugLogs.isChecked != CenoSettings.isCenoLogEnabled(context = this@ExportAndroidLogsDialog.context)) {
-                        // network request to update preference value
-                        CenoSettings.ouinetClientRequest(
-                            context = this@ExportAndroidLogsDialog.context,
-                            coroutineScope = lifecycleOwner.lifecycleScope,
-                            key = OuinetKey.LOGFILE,
-                            newValue = if (checkboxDebugLogs.isChecked) OuinetValue.ENABLE else OuinetValue.DISABLE,
-                            stringValue = null,
-                            object : OuinetResponseListener {
-                                override fun onSuccess(message: String, data: Any?) {
-                                    CenoSettings.setCenoEnableLog(
-                                        this@ExportAndroidLogsDialog.context,
-                                        checkboxDebugLogs.isChecked
-                                    )
-                                }
-
-                                override fun onError() {
-                                    Log.e(
-                                        TAG,
-                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
-                                    )
-                                }
-                            }
-                        )
-
-                        // network request to update log level based on preference value
-                        CenoSettings.ouinetClientRequest(
-                            context = this@ExportAndroidLogsDialog.context,
-                            coroutineScope = lifecycleOwner.lifecycleScope,
-                            key = OuinetKey.LOG_LEVEL,
-                            stringValue = if (checkboxDebugLogs.isChecked) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
-                            ouinetResponseListener = object : OuinetResponseListener {
-                                override fun onSuccess(message: String, data: Any?) {
-                                    //restart ouinet
-                                    fragment.requireComponents.ouinet.background.restartOuinet()
-                                }
-
-                                override fun onError() {
-                                    Log.e(
-                                        TAG,
-                                        "Failed to set log file to newValue: ${checkboxDebugLogs.isChecked}"
-                                    )
-                                }
-
-                            }
-                        )
-
-                    }
-                }
-
-                // Initialize Android logs
 
                 var logs: MutableList<String>
                 var logString: String
