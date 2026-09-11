@@ -22,7 +22,7 @@ if [ $UPLOAD_APKS -eq 1 ]; then
   -F "custom_id=ouinet-debug-androidTest-latest"
 fi
 
-DEVICES='["Samsung Galaxy Note 9-8.1", "Huawei P30-9.0", "Xiaomi Redmi Note 9-10.0", "Xiaomi Redmi Note 11-11.0", "Google Pixel 6-12.0", "Samsung Galaxy S23-13.0", "Samsung Galaxy S24-14.0", "Google Pixel 9-15.0", "Samsung Galaxy S26-16.0", "Google Pixel 9-17.0"]'
+DEVICES='["Samsung Galaxy Note 9-8.1", "Samsung Galaxy S20-10.0", "Xiaomi Redmi Note 11-11.0", "Google Pixel 6-12.0", "Samsung Galaxy S23-13.0", "Samsung Galaxy S24-14.0", "Google Pixel 9-15.0", "Samsung Galaxy S26-16.0", "Google Pixel 9-17.0"]'
 CONFIG='{"clearPackageData": "true", "deviceLogs": "true", "devices": '"${DEVICES}"', "app": "ouinet-debug-latest", "testSuite": "ouinet-debug-androidTest-latest", "locale": "en_US" }'
 # To start only specific tests, add to `class` option to config, e.g. "class": ["ie.equalit.ceno.ui.ScreenshotGenerator"]
 
