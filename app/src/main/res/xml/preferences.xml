@@ -76,14 +76,8 @@
         android:title="@string/ceno_permissions_category">
 
         <androidx.preference.Preference
-            android:key="@string/pref_key_allow_notifications"
-            android:title="@string/preferences_allow_notifications"
-            app:iconSpaceReserved="false"
-            app:isPreferenceVisible="true" />
-
-        <androidx.preference.Preference
-            android:key="@string/pref_key_disable_battery_opt"
-            android:title="@string/preferences_disable_battery_opt"
+            android:key="@string/pref_key_optimize_permissions"
+            android:title="@string/preferences_optimize_permissions"
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="true" />
 

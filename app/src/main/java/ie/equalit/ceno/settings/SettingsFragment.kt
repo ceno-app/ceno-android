@@ -56,6 +56,7 @@ import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
+import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
 import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
@@ -409,6 +410,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 clickListener = getClickListenerForCenoNetworkDetails()
             )
             setPreference(
+                getPreference(pref_key_optimize_permissions),
+                true,
+                clickListener = getClickListenerOptimizePermissions()
+            )
+            setPreference(
                 getPreference(pref_key_ceno_enable_log),
                 true,
                 changeListener = getChangeListenerForLogFileToggle()
@@ -558,6 +564,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         } else {
             defaultClickListener
+        }
+    }
+
+    private fun getClickListenerOptimizePermissions(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_optimizePermissionsFragment)
+            true
         }
     }
 

@@ -120,4 +120,5 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
 
     <string name="pref_key_access_network_access_granted" translatable="false">pref_key_access_network_access_granted</string>
+    <string name="pref_key_optimize_permissions">pref_key_optimize_permissions</string>
 </resources>
