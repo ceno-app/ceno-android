@@ -550,4 +550,6 @@
     <string name="preferences_access_local_network">Access local network</string>
     <string name="navigate_back_description">Navigate back</string>
     <string name="preferences_optimize_permissions">Optimize permissions</string>
+    <string name="back_button_description">back button</string>
+    <string name="optimize_permissions">Optimize permissions</string>
 </resources>

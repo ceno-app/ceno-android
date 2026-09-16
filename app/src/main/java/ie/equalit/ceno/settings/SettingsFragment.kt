@@ -9,7 +9,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -23,7 +22,6 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -51,13 +49,11 @@ import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
 import ie.equalit.ceno.R.string.pref_key_about_page
 import ie.equalit.ceno.R.string.pref_key_additional_developer_tools
-import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_background_metrics
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
 import ie.equalit.ceno.R.string.pref_key_ceno_download_android_log
 import ie.equalit.ceno.R.string.pref_key_ceno_enable_log
-import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ceno_groups_count
 import ie.equalit.ceno.R.string.pref_key_ceno_network_config
 import ie.equalit.ceno.R.string.pref_key_ceno_website_sources
@@ -65,8 +61,8 @@ import ie.equalit.ceno.R.string.pref_key_change_language
 import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
-import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
+import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_privacy
 import ie.equalit.ceno.R.string.pref_key_search_engine
@@ -78,8 +74,6 @@ import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.preferences_metrics_campaign
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
-import ie.equalit.ceno.R.string.status_disabled
-import ie.equalit.ceno.R.string.status_enabled
 import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
@@ -92,7 +86,6 @@ import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
-import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -116,14 +109,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var logLevelReset: Boolean = false
     private var developerToolsTapCount = 0
     private var developerToolsToast: Toast? = null
-
-    private val settingsViewModel: SettingsViewModel by viewModels()
-
-    private val defaultClickListener = OnPreferenceClickListener { preference ->
-        Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT)
-            .show()
-        true
-    }
 
     private val sharedPreferencesChangeListener =
         OnSharedPreferenceChangeListener { sharedPrefs, key ->

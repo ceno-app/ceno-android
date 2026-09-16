@@ -1,8 +1,6 @@
 package ie.equalit.ceno.home
 
-import android.Manifest
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -22,7 +20,6 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowserFragment
 import ie.equalit.ceno.browser.BrowsingMode
-import ie.equalit.ceno.components.PermissionHandler
 import ie.equalit.ceno.databinding.FragmentHomeBinding
 import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
