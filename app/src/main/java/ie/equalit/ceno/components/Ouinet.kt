@@ -57,6 +57,8 @@ class Ouinet(
             .setFrontEndAccessToken(metricsFrontendToken)
             .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
             .setDnsProtocols(dnsProtocols)
+            .setEnableLogFile(CenoSettings.isCenoLogEnabled(context))
+            .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
             .build()
     }
 

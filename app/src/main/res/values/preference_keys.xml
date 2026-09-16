@@ -85,7 +85,6 @@
     <string name="pref_key_additional_developer_tools" translatable="false">pref_key_additional_developer_tools</string>
     <string name="pref_key_rss_announcement_source" translatable="false">pref_key_rss_announcement_source</string>
     <string name="pref_key_rss_announcement_expire_disable" translatable="false">pref_key_rss_announcement_expire_disable</string>
-    <string name="pref_key_clean_insights_backdate" translatable="false">pref_key_clean_insights_backdate</string>
     <string name="pref_key_background_metrics" translatable="false">pref_key_background_metrics</string>
     <string name="pref_key_metrics_ouinet" translatable="false">pref_key_metrics_ouinet</string>
 
@@ -118,6 +117,8 @@
     <string name="pref_key_top_sites_max_limit" translatable="false">pref_key_top_sites_max_limit</string>
     <!-- CENO: END OF COPIED FROM FENIX -->
 
+
     <string name="pref_key_access_network_access_granted" translatable="false">pref_key_access_network_access_granted</string>
     <string name="pref_key_optimize_permissions">pref_key_optimize_permissions</string>
+    <string name="pref_key_log_level" translatable="false">pref_key_log_level</string>
 </resources>

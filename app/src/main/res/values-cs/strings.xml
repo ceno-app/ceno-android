@@ -440,7 +440,6 @@
     <string name="ceno_android_content_group_file_name" tools:ignore="UnusedResources">Obsah sdílený Ceno</string>
     <string name="last_2_hours">Poslední 2 hodiny</string>
     <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Exportovat seznam sdíleného obsahu?</string>
-    <string name="preferences_clean_insights_backdate">Povolit zpětné datování metrik</string>
     <string name="ceno_notification_confirm_description">Chcete z Ceno vymazat všechna svá data?</string>
     <string name="preferences_metrics_campaign">Metriky na pozadí</string>
     <string name="metrics_campaign_more_info">Další informace</string>

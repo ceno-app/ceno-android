@@ -356,7 +356,6 @@
     <string name="optional_metrics">Опциональные метрики:</string>
     <string name="preferences_announcement_source_option_2">Черновики</string>
     <string name="ceno_network_status_degraded">Соединяемся с сетью Ceno. Некоторые заблокированные сайты могут быть недоступны. Проверьте настройки вашего интернета. Если не помогает, экспортируйте логи и отправьте их разработчикам.</string>
-    <string name="preferences_clean_insights_backdate">Отправить данные при следующем запуске приложения</string>
     <string name="ceno_network_status_title">Индикатор подключения к сети</string>
     <string name="ceno_network_status_connected">Устройство подключено к сети Ceno. Обход блокировок активирован.</string>
     <string name="contact_support">Напишите в поддержку</string>

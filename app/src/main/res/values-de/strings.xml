@@ -346,7 +346,6 @@
         <item quantity="one">Sie sind %d Fingertipp davon entfernt, Entwicklerwerkzeuge zu deaktivieren</item>
         <item quantity="other">Sie sind %d Fingertipps davon entfernt, Entwicklerwerkzeuge zu deaktivieren</item>
     </plurals>
-    <string name="preferences_clean_insights_backdate">Aktiviere Metrik-Rückdatierung</string>
     <string name="ceno_network_status_title">Ceno Netzwerkstatus</string>
     <string name="ceno_sources_shared_by_ceno_cache">Aus dem Ceno-Cache</string>
     <string name="error_page_learn_more_2">Alle Zugriffsmechanismen in den Einstellungen sind aktiviert. Sonst kann Ceno einige Konnektivitätsprobleme beim Zugriff auf Inhalte nicht umgehen.</string>

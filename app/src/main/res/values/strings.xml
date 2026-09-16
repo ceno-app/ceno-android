@@ -412,7 +412,6 @@
     </plurals>
     <string name="developer_tools_enabled">Developer tools enabled</string>
     <string name="developer_tools_disabled">Developer tools disabled</string>
-    <string name="preferences_clean_insights_backdate">Enable metrics backdating</string>
     <string name="ceno_network_status_title">Ceno Network Status</string>
     <string name="ceno_network_status_connected">Fully connected to the Ceno network. Blocked websites should be accessible.</string>
     <string name="ceno_network_status_disconnected">Disconnected. Check your network settings or export logs for additional information.</string>
@@ -551,4 +550,16 @@
     <string name="preferences_optimize_permissions">Optimize permissions</string>
     <string name="back_button_description">back button</string>
     <string name="optimize_permissions">Optimize permissions</string>
+    <string name="preferences_log_level">Log level</string>
+    <string name="change_log_level">Change log level</string>
+
+
+    <!-- Warning fixes -->
+    <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Check for the existence of an archived version</string>
+    <string name="mozac_browser_errorpages_archive_checking" tools:ignore="UnusedResources">Archive verification</string>
+    <string name="mozac_browser_errorpages_archive_retry" tools:ignore="UnusedResources">Try again.</string>
+    <string name="mozac_browser_errorpages_archive_search_web" tools:ignore="UnusedResources">Search the Web</string>
+    <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Unable to reach the archiving service.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Update address?</string>
+    <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Archive version not found.</string>
 </resources>

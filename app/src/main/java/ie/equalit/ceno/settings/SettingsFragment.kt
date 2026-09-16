@@ -61,6 +61,11 @@ import ie.equalit.ceno.R.string.pref_key_change_language
 import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
+<<<<<<< app/src/main/java/ie/equalit/ceno/settings/SettingsFragment.kt
+=======
+import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
+import ie.equalit.ceno.R.string.pref_key_log_level
+>>>>>>> app/src/main/java/ie/equalit/ceno/settings/SettingsFragment.kt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
@@ -82,9 +87,12 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.settings.Settings.getLogLevel
+import ie.equalit.ceno.settings.Settings.setLogLevel
 import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
+import ie.equalit.ceno.settings.dialogs.LogLevelDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
@@ -284,6 +292,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
         getPreference(pref_key_bridge_announcement)?.summary =
             getString(bridge_mode_ip_warning_text)
+
+        // Log levels
+        findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
+            getLogLevel(requireContext())
     }
 
     private fun setPreference(
@@ -303,6 +315,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     @Suppress("LongMethod")
     private fun setupCenoSettings() {
         getPreference(pref_key_ceno_download_android_log)?.isVisible =
+            CenoSettings.isCenoLogEnabled(requireContext())
+        getPreference(pref_key_log_level)?.isVisible =
             CenoSettings.isCenoLogEnabled(requireContext())
         (getPreference(pref_key_about_ceno) as LongClickPreference).let { preference ->
             preference.summary = CenoSettings.getCenoVersionString(requireContext())
@@ -328,6 +342,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             setPreference(getPreference(pref_key_ceno_network_config), false)
             setPreference(getPreference(pref_key_ceno_enable_log), false)
             setPreference(getPreference(pref_key_ceno_download_android_log), false)
+            setPreference(getPreference(pref_key_log_level), false)
             /* Fetch ouinet status */
             CenoSettings.ouinetClientRequest(
                 requireContext(),
@@ -386,6 +401,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_download_android_log),
                 true,
                 clickListener = getClickListenerForAndroidLogExport()
+            )
+            setPreference(
+                getPreference(pref_key_log_level),
+                true,
+                clickListener = getClickListenerForLogLevelChange()
             )
             (getPreference(pref_key_about_ouinet) as LongClickPreference).let { preference ->
                 preference.summary = CenoSettings.getOuinetVersion(requireContext()) + " " +
@@ -528,12 +548,37 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 }
             )
 
+            val logLevel = if (newValue == true) {
+                Config.LogLevel.DEBUG
+            } else {
+                Config.LogLevel.INFO
+            }
             // network request to update log level based on preference value
             CenoSettings.ouinetClientRequest(
                 context = requireContext(),
                 coroutineScope = viewLifecycleOwner.lifecycleScope,
                 key = OuinetKey.LOG_LEVEL,
-                stringValue = if (newValue == true) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString()
+                newValue = OuinetValue.OTHER,
+                stringValue = logLevel.name,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        setLogLevel(requireContext(), logLevel)
+                        requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                        findPreference<Preference>(
+                            requireContext().getPreferenceKey(
+                                pref_key_log_level
+                            )
+                        )?.summary = getLogLevel(requireContext())
+                    }
+
+                    override fun onError() {
+                        Log.e(
+                            TAG,
+                            "Failed to set log level to: ${logLevel.name}"
+                        )
+                    }
+
+                }
             )
 
             // Set console output for GeckoRuntime,
@@ -543,6 +588,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
             // Immediately enable the export log button
             getPreference(pref_key_ceno_download_android_log)?.let {
+                it.isVisible = newValue
+                it.isEnabled = !(it.isEnabled)
+                it.isEnabled = !(it.isEnabled)
+            }
+            getPreference(pref_key_log_level)?.let {
                 it.isVisible = newValue
                 it.isEnabled = !(it.isEnabled)
                 it.isEnabled = !(it.isEnabled)
@@ -709,6 +759,49 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
+
+    private fun getClickListenerForLogLevelChange(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val logLevelDialog = LogLevelDialog(
+                requireContext(),
+                object : LogLevelDialog.SetLogLevelListener {
+                    override fun onLogLevelSelected(logLevel: Config.LogLevel) {
+                        // network request to update log level based on preference value
+                        CenoSettings.ouinetClientRequest(
+                            context = requireContext(),
+                            coroutineScope = viewLifecycleOwner.lifecycleScope,
+                            key = OuinetKey.LOG_LEVEL,
+                            newValue = OuinetValue.OTHER,
+                            stringValue = logLevel.name,
+                            ouinetResponseListener = object : OuinetResponseListener {
+                                override fun onSuccess(message: String, data: Any?) {
+                                    setLogLevel(requireContext(), logLevel)
+                                    requireComponents.cenoPreferences.sharedPrefsUpdate = true
+                                    findPreference<Preference>(
+                                        requireContext().getPreferenceKey(
+                                            pref_key_log_level
+                                        )
+                                    )?.summary = getLogLevel(requireContext())
+                                }
+
+                                override fun onError() {
+                                    Log.e(
+                                        TAG,
+                                        "Failed to set log file to newValue: ${logLevel.name}"
+                                    )
+                                }
+                            }
+                        )
+                    }
+                }
+            )
+
+            logLevelDialog.getDialog()
+                .show()
+            true
+        }
+    }
+
     private fun getClickListenerForCenoVersion(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             if (developerToolsTapCount >= TAPS_TO_TOGGLE_DEVELOPER_TOOLS) {
@@ -779,7 +872,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             coroutineScope = viewLifecycleOwner.lifecycleScope,
             key = OuinetKey.LOG_LEVEL,
             newValue = null,
-            stringValue = if (newValue) Config.LogLevel.DEBUG.toString() else Config.LogLevel.INFO.toString(),
+            stringValue = getLogLevel(requireContext()),
             object : OuinetResponseListener {
                 override fun onSuccess(message: String, data: Any?) {
                     logLevelReset = !newValue
