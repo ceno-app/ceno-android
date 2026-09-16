@@ -120,5 +120,4 @@
     <!-- CENO: END OF COPIED FROM FENIX -->
 
     <string name="pref_key_access_network_access_granted" translatable="false">pref_key_access_network_access_granted</string>
-    <string name="pref_key_log_level" translatable="false">pref_key_log_level</string>
 </resources>

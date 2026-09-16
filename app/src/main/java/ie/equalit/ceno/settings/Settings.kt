@@ -17,7 +17,6 @@ import ie.equalit.ceno.home.RssAnnouncementResponse
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.ouicrawl.OuicrawledSitesListItem
 import ie.equalit.ceno.settings.changeicon.appicons.AppIcon
-import ie.equalit.ouinet.Config
 import java.util.Locale
 
 object Settings {
@@ -520,23 +519,5 @@ object Settings {
             .edit {
                 putBoolean(key, value)
             }
-    }
-
-    fun setLogLevel(context: Context, logLevel: Config.LogLevel) {
-        val key = context.getString(R.string.pref_key_log_level)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit {
-                putString(key, logLevel.name)
-            }
-    }
-
-    /**
-     * Defaults to DEBUG log if log level has not been set
-     */
-    fun getLogLevel(context: Context): String {
-        val key = context.getString(R.string.pref_key_log_level)
-        return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(key, Config.LogLevel.INFO.name)
-            ?: throw Exception("LogLevel settings not found")
     }
 }
