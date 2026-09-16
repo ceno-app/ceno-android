@@ -9,12 +9,14 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.core.content.res.ResourcesCompat
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tooltip.CenoTooltip
 import ie.equalit.ceno.tooltip.CenoTourStartOverlay
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.base.feature.UserInteractionHandler
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -29,6 +31,8 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
 
     private val toolbar: BrowserToolbar
         get() = requireView().findViewById(R.id.toolbar)
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -178,19 +182,10 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
     }
 
     private fun askForPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permissions = mutableListOf(Manifest.permission.POST_NOTIFICATIONS)
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
-                permissions.add(Manifest.permission.ACCESS_LOCAL_NETWORK)
-            }
-            requireComponents.permissionHandler.multiplePermissionHandler(
-                this,
-                permissions.toTypedArray()
-            )
-        } else {
-            /* This is NOT Android 13, just ask to disable battery optimization */
-            requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
-        }
+        settingsViewModel.requestPermissions(
+            requireActivity(),
+            this
+        )
     }
 
     companion object {

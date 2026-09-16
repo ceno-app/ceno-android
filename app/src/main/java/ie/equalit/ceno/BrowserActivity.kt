@@ -22,6 +22,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
@@ -55,6 +56,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
@@ -106,6 +108,8 @@ open class BrowserActivity : BaseActivity(),
 
     private lateinit var reminderNotificationIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -419,19 +423,16 @@ open class BrowserActivity : BaseActivity(),
         else -> super.onOptionsItemSelected(item)
     }
 
+    /**
+     * Needs to be launched from this activity to avoid risking a crash due being called after
+     * activity has changed STATE
+     */
     val multiplePermissionsLauncher =
         registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                val isGranted = permissions[Manifest.permission.POST_NOTIFICATIONS] ?: true
-                Settings.setAllowNotifications(this, isGranted)
-                components.permissionHandler.requestBatteryOptimizationsOff(this)
-            }
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
-                val isGranted = permissions[Manifest.permission.ACCESS_LOCAL_NETWORK] ?: true
-                Settings.setAccessNetworkPermissionGranted(this, isGranted)
-            }
+            settingsViewModel.onPermissionsGranted(
+                this,
+                permissions,
+            )
         }
 
     val getLogfileLocation =
