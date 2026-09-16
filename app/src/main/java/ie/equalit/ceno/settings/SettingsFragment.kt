@@ -61,11 +61,7 @@ import ie.equalit.ceno.R.string.pref_key_change_language
 import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
-<<<<<<< app/src/main/java/ie/equalit/ceno/settings/SettingsFragment.kt
-=======
-import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_log_level
->>>>>>> app/src/main/java/ie/equalit/ceno/settings/SettingsFragment.kt
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
 import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
