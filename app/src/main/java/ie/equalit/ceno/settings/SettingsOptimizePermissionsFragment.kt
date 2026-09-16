@@ -18,15 +18,18 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.LocalContext
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ui.settings.OptimizePermissionsScreen
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import kotlin.text.Typography.amp
 
 class SettingsOptimizePermissionsFragment: Fragment() {
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,7 +39,7 @@ class SettingsOptimizePermissionsFragment: Fragment() {
         return ComposeView(requireContext()).apply {
             setContent {
                 MaterialTheme {
-                    OptimizePermissionsScreen()
+                    OptimizePermissionsScreen(settingsViewModel)
                 }
             }
         }

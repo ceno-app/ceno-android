@@ -23,6 +23,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -91,6 +92,7 @@ import ie.equalit.ceno.settings.Settings.setShowDeveloperTools
 import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -114,6 +116,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var logLevelReset: Boolean = false
     private var developerToolsTapCount = 0
     private var developerToolsToast: Toast? = null
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     private val defaultClickListener = OnPreferenceClickListener { preference ->
         Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT)
@@ -295,32 +299,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
         getPreference(pref_key_bridge_announcement)?.summary =
             getString(bridge_mode_ip_warning_text)
-        // Update notifications
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getPreference(pref_key_allow_notifications)?.apply {
-                isVisible = true
-                onPreferenceClickListener = getClickListenerForAllowNotifications()
-                summary = if (requireComponents.permissionHandler.isAllowingPostNotifications())
-                    getString(status_enabled)
-                else getString(status_disabled)
-            }
-
-        } else {
-            getPreference(pref_key_allow_notifications)?.isVisible = false
-        }
-
-        // Update battery optimization
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            getPreference(pref_key_disable_battery_opt)?.apply {
-                isVisible = true
-                summary = if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations())
-                    getString(status_disabled)
-                else getString(status_enabled)
-                onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
-            }
-        } else {
-            getPreference(pref_key_disable_battery_opt)?.isVisible = false
-        }
     }
 
     private fun setPreference(
@@ -534,36 +512,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         return OnPreferenceClickListener {
             exportAndroidLogs()
             true
-        }
-    }
-
-    private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            OnPreferenceClickListener {
-                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-                    requireActivity().startActivity(this)
-                }
-                true
-            }
-        } else {
-            defaultClickListener
-        }
-    }
-
-    private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            OnPreferenceClickListener {
-                Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-                    requireActivity().startActivity(this)
-                }
-                true
-            }
-        } else {
-            defaultClickListener
         }
     }
 
