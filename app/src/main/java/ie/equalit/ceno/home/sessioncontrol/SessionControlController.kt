@@ -15,6 +15,7 @@ import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppAction
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.home.SectionHeaderViewHolder.ListState
 import ie.equalit.ceno.home.announcements.RSSAnnouncementViewHolder
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
@@ -68,7 +69,7 @@ interface SessionControlController {
 
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
 
-    fun handleOnSectionHeaderClicked(listIsHidden: Boolean)
+    fun handleOnSectionHeaderClicked(listState: ListState)
     fun handleRemoveTelegramChannel(topSite: TopSite)
     fun handleRenameTelegramChannel(topSite: TopSite)
 }
@@ -217,8 +218,8 @@ class DefaultSessionControlController(
         }
     }
 
-    override fun handleOnSectionHeaderClicked(listIsHidden: Boolean) {
-        appStore.dispatch(AppAction.OuicrawlSitesChange(listIsHidden))
+    override fun handleOnSectionHeaderClicked(listState: ListState) {
+        appStore.dispatch(AppAction.OuicrawlSitesChange(listState))
     }
 
     override fun handleRemoveTelegramChannel(topSite: TopSite) {

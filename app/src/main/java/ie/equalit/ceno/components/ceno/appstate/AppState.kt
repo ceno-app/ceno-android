@@ -5,6 +5,7 @@
 package ie.equalit.ceno.components.ceno.appstate
 
 import ie.equalit.ceno.browser.BrowsingMode
+import ie.equalit.ceno.home.SectionHeaderViewHolder.ListState
 import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.State
@@ -24,5 +25,5 @@ data class AppState(
     val ouinetStatus: RunningState = RunningState.Started,
     val showBridgeCard: Boolean = true,
     val sourceCounts: MutableMap<String, JSONObject?> = mutableMapOf(),
-    val ouicrawlListIsPartial: Boolean = true
+    val ouicrawlListState: ListState = ListState.HIDDEN
 ) : State
