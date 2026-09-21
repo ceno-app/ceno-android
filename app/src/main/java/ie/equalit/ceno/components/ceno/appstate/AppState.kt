@@ -25,5 +25,5 @@ data class AppState(
     val ouinetStatus: RunningState = RunningState.Started,
     val showBridgeCard: Boolean = true,
     val sourceCounts: MutableMap<String, JSONObject?> = mutableMapOf(),
-    val ouicrawlListState: ListState = ListState.HIDDEN
+    val ouicrawlListState: ListState = ListState.HIDDEN_HALF
 ) : State

@@ -19,7 +19,7 @@ class SectionHeaderViewHolder(
         VISIBLE
     }
 
-    var listState: ListState = ListState.HIDDEN
+    var listState: ListState = ListState.HIDDEN_HALF
 
     init {
         binding.tvSectionTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
