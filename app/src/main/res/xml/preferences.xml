@@ -68,31 +68,11 @@
             android:layout="@layout/ceno_clickable_preference"
             android:title="@string/preferences_change_language" />
 
-    </PreferenceCategory>
-
-    <PreferenceCategory
-        android:layout="@layout/preference_category_no_icon_style"
-        android:key="@string/pref_permissions_category"
-        android:title="@string/ceno_permissions_category">
-
         <androidx.preference.Preference
             android:key="@string/pref_key_optimize_permissions"
-            android:title="@string/preferences_optimize_permissions"
+            android:title="@string/ceno_permissions_category"
             app:iconSpaceReserved="false"
             app:isPreferenceVisible="true" />
-
-        <androidx.preference.SwitchPreferenceCompat
-            android:defaultValue="false"
-            android:key="@string/pref_key_launch_external_app"
-            android:title="@string/open_links_in_apps"
-            app:iconSpaceReserved="false" />
-
-        <androidx.preference.SwitchPreferenceCompat
-            android:defaultValue="true"
-            android:key="@string/pref_key_verify_external_url"
-            android:title="@string/preferences_verify_external_url"
-            app:singleLineTitle="false"
-            app:iconSpaceReserved="false" />
     </PreferenceCategory>
 
     <PreferenceCategory

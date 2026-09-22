@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ui.settings.OptimizePermissionsScreen
+import ie.equalit.ceno.ui.settings.PermissionsScreen
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 
 class SettingsOptimizePermissionsFragment : Fragment() {
@@ -89,7 +89,7 @@ class SettingsOptimizePermissionsFragment : Fragment() {
                             )
                         }
                     ) { innerPadding ->
-                        OptimizePermissionsScreen(
+                        PermissionsScreen(
                             modifier = Modifier
                                 .background(colorResource(R.color.ceno_home_background))
                                 .fillMaxSize()
