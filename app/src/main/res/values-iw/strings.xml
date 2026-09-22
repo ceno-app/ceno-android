@@ -175,4 +175,5 @@
         <item quantity="other">כתובות</item>
     </plurals>
     <string name="preferences_delete_browsing_data_cookies_subtitle">תצטרכו להתחבר מחדש לרוב האתרים</string>
+    <string name="edit_bookmark_label">edit</string>
 </resources>
