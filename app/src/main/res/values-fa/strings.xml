@@ -454,4 +454,5 @@
     <string name="default_channel_5_title_ir">خبرگزاری هرانا</string>
     <string name="preferences_hide_telegram_channels">مخفی کردن کانال‌های تلگرام</string>
     <string name="telegram_topsites_title">تلگرام</string>
+    <string name="edit_bookmark_label">ویرایش</string>
 </resources>
