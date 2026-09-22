@@ -89,6 +89,7 @@ class Core(private val context: Context) {
             ),
             trackingProtectionPolicy = createTrackingProtectionPolicy(prefs),
             historyTrackingDelegate = HistoryDelegate(lazyHistoryStorage),
+            httpsOnlyMode = Engine.HttpsOnlyMode.ENABLED
         )
         EngineProvider.createEngine(context, defaultSettings)
     }

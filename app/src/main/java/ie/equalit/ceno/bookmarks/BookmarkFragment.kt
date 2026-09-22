@@ -199,6 +199,9 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
                     }
                     setPositiveButton(R.string.delete_browsing_data_prompt_allow) { dialog: DialogInterface, _ ->
                         updatePendingBookmarksToDelete(selected)
+                        viewLifecycleOwner.lifecycleScope.launch(Main) {
+                            getDeleteOperation().invoke(requireContext())
+                        }
                         dialog.dismiss()
                     }
                     create().withCenterAlignedButtons()

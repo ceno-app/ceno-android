@@ -2,8 +2,10 @@ package ie.equalit.ceno.settings
 
 import android.content.Context
 import android.content.pm.PackageManager
+import android.os.Build
 import android.widget.Toast
 import androidx.core.content.edit
+import androidx.core.content.pm.PackageInfoCompat
 import androidx.preference.PreferenceManager
 import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
@@ -63,7 +65,7 @@ enum class OuinetKey(val command: String) {
     GROUPS_TXT("groups.txt"),
     LOGFILE("?logfile"),
     EXTRA_BOOTSTRAPS("?bt_extra_bootstraps"),
-    LOG_LEVEL("log_level"),
+    LOG_LEVEL("?loglevel"),
     CENO_METRICS("?metrics"),
     ADD_METRICS("api/metrics/set_key_value?record_id"),
     PINNED_GROUPS("api/groups/pinned"),
@@ -387,11 +389,19 @@ object CenoSettings {
     fun getCenoVersionString(context: Context): String {
         return try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            String.format(
-                "%s Build ID %s",
-                packageInfo.versionName,
-                packageInfo.versionCode,
-            )
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                String.format(
+                    "%s Build ID %s",
+                    packageInfo.versionName,
+                    packageInfo.longVersionCode,
+                )
+            } else {
+                String.format(
+                    "%s Build ID %s",
+                    packageInfo.versionName,
+                    PackageInfoCompat.getLongVersionCode(packageInfo)
+                )
+            }
         } catch (_: PackageManager.NameNotFoundException) {
             ""
         }
@@ -563,8 +573,7 @@ object CenoSettings {
                     OuinetKey.INJECTOR_ACCESS,
                     OuinetKey.DISTRIBUTED_CACHE,
                     OuinetKey.LOG_LEVEL,
-                    OuinetKey.LOGFILE
-                    -> {
+                    OuinetKey.LOGFILE -> {
                         if (response == null) {
                             Toast.makeText(
                                 context,

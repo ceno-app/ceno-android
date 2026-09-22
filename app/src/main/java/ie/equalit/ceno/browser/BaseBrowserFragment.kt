@@ -30,6 +30,7 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
@@ -54,6 +55,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.TabCounterView
 import ie.equalit.ceno.ui.theme.ThemeManager
 import ie.equalit.ouinet.Ouinet
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.flow.mapNotNull
@@ -1033,21 +1035,37 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             // Save bookmark
             try {
                 Result.runCatching {
-                    val parentGuid = bookmarksStorage
-                        .getRecentBookmarks(1)
-                        .getOrDefault(listOf())
-                        .firstOrNull()
-                        ?.parentGuid
-                        ?: BookmarkRoot.Mobile.id
+                    // This targets the App's root directory
+                    val parentGuid = BookmarkRoot.Mobile.id
 
                     bookmarksStorage.getBookmark(parentGuid)
-
-                    bookmarksStorage.addItem(
+                    val guid = bookmarksStorage.addItem(
                         parentGuid,
                         url = sessionUrl,
                         title = sessionTitle,
                         position = null,
                     )
+                        .getOrNull()
+
+                    view?.let {
+                        val snackbar = Snackbar
+                            .make(it, getString(R.string.saved_in_bookmarks), Snackbar.LENGTH_LONG)
+                        snackbar.setAction(getString(R.string.edit_bookmark_label)) {
+                            CoroutineScope(Main).launch {
+                                findNavController().navigate(
+                                    R.id.action_global_edit_bookmark,
+                                    Bundle().apply {
+                                        putString(BookmarkFragment.BOOKMARK_GUID, guid)
+                                    }
+                                )
+                            }
+                        }
+                        val view = snackbar.view
+                        val params = view.layoutParams as ViewGroup.MarginLayoutParams
+                        params.setMargins(32, 0, 32, 32)
+                        view.layoutParams = params
+                        snackbar.show()
+                    }
                 }
                     .getOrElse {
                         throw PlacesApiException.UrlParseFailed(reason = "no parent node")

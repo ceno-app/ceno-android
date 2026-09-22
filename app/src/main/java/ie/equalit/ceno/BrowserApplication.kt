@@ -84,12 +84,14 @@ open class BrowserApplication : Application() {
         WebExtensionSupport.initialize(
             runtime = components.core.engine,
             store = components.core.store,
-            onNewTabOverride = { _, engineSession, url, selected ->
-                val tabId = components.useCases.tabsUseCases.addTab(
-                    url = url,
-                    selectTab = selected,
-                    engineSession = engineSession,
-                )
+            onNewTabOverride = { _, engineSession, url, selected, isPrivate ->
+                val tabId =
+                    components.useCases.tabsUseCases.addTab(
+                        url = url,
+                        selectTab = selected,
+                        engineSession = engineSession,
+                        private = isPrivate,
+                    )
                 tabId
             },
             onCloseTabOverride = { _, sessionId ->

@@ -57,7 +57,6 @@
     <string name="confirm_groups_file_download_desc">A .txt file will be saved to your local storage.</string>
     <string name="ceno_network_status_connected">Fully connected to the Ceno network. Blocked websites should be accessible.</string>
     <string name="ceno_support_ticket_subject">Ceno Support Ticket</string>
-    <string name="preferences_clean_insights_backdate">Enable metrics backdating</string>
     <string name="preferences_clear_behavior_option_2">Clear Ceno cache only</string>
     <string name="ouinet_timeout_dialog_text">Ceno requires a connection to the internet to work. Please check your network settings.</string>
     <string name="preferences_delete_browsing_data_snackbar">Browsing data deleted</string>

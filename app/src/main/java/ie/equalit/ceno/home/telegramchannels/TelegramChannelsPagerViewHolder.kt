@@ -8,13 +8,13 @@ import androidx.viewpager2.widget.ViewPager2
 import ie.equalit.ceno.databinding.ComponentTopSitesPagerBinding
 import ie.equalit.ceno.home.HomepageCardType
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
+import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerViewHolder(
     view: View,
     viewLifecycleOwner: LifecycleOwner,
-    interactor: TopSiteInteractor
+    interactor: TelegramChannelInteractor
 ) : RecyclerView.ViewHolder(view) {
     val binding = ComponentTopSitesPagerBinding.bind(view)
     val topSitesPagerAdapter = TelegramChannelsPagerAdapter(viewLifecycleOwner, interactor)
@@ -35,7 +35,7 @@ class TelegramChannelsPagerViewHolder(
             // Retain one more TopSites pages to ensure a new layout request will measure the first page also.
             // Otherwise the second page with 3 TopSites will have the entire ViewPager only show
             // the first row of TopSites, hiding half of those shown on the first page.
-            offscreenPageLimit = 1
+            offscreenPageLimit = 3
         }
     }
 
@@ -43,6 +43,8 @@ class TelegramChannelsPagerViewHolder(
         // Due to offscreenPageLimit = 1 we need to update both pages manually here
         topSitesPagerAdapter.notifyItemChanged(0, payload)
         topSitesPagerAdapter.notifyItemChanged(1, payload)
+        topSitesPagerAdapter.notifyItemChanged(2, payload)
+        topSitesPagerAdapter.notifyItemChanged(3, payload)
     }
 
     fun bind(topSites: List<TopSite>) {

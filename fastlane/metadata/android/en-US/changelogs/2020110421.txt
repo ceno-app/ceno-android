@@ -1,0 +1,8 @@
+
+### Changed
+
+- Update Ouinet to 1.7.2
+- Update Android-Components to 155.0.1
+- Remove HTTPS-by-default extension and enable httpsOnlyMode on browser engine
+- Fix deprecation warnings in source code
+

@@ -115,7 +115,6 @@ class ThreeDotMenuTest {
             verifyAddToHomescreenButtonExists()
             verifyAddToShortcutsButtonExists()
             verifyFindInPageButtonExists()
-            verifyHttpsByDefaultButtonExists()
             verifyUblockOriginButtonExists()
             verifyBookmarksButtonExists()
             verifyOpenSettingsExists()
@@ -362,47 +361,6 @@ class ThreeDotMenuTest {
                 Thread.sleep(2000)
                 verifyUblockOriginTitle()
                 //verifyPageContent("Blocked on this page")
-            }
-            .goBack {}
-    }
-
-    @Test
-    fun httpsByDefaultTest() {
-        /* Regression test for https://gitlab.com/censorship-no/ceno-browser/-/issues/133 */
-        val defaultWebPage = TestAssetHelper.getGenericAsset(mockWebServer, 1)
-
-        navigationToolbar {
-        }.enterUrlAndEnterToBrowser(defaultWebPage.url) {
-            verifyPageContent("Page content: 1")
-        }
-        navigationToolbar {
-        }.openThreeDotMenu {
-            verifyHttpsByDefaultButtonExists()
-        }
-            .openHttpsByDefault {
-                Thread.sleep(2000)
-                verifyHttpsByDefaultTitle()
-                // TODO: fix verification of page content
-                //verifyPageContent("HTTPS is enabled by default for all navigations")
-            }
-            .goBack {}
-
-        navigationToolbar {
-        }.openContentSourcesSheet {
-            verifyContentSourcesSiteTitle()
-            verifyContentSourcesHeader()
-        }
-            .closeContentSourcesSheet {
-            }
-
-        navigationToolbar {
-        }.openThreeDotMenu {
-            verifyHttpsByDefaultButtonExists()
-        }
-            .openHttpsByDefault {
-                Thread.sleep(2000)
-                verifyHttpsByDefaultTitle()
-                //verifyPageContent("HTTPS is enabled by default for all navigations")
             }
             .goBack {}
     }

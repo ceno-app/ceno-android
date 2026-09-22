@@ -383,7 +383,6 @@
     <string name="preferences_announcement_expire_disable">إلغاء تفعيل تاريخ إنتهاء الإعلانات</string>
     <string name="developer_tools_enabled">خيارات المطور مفعلة</string>
     <string name="developer_tools_disabled">أدوات المطور غير مفعلة</string>
-    <string name="preferences_clean_insights_backdate">تفعيل تأريخ المقاييس المسبقة</string>
     <string name="ceno_network_status_title">حالة شبكة Ceno</string>
     <string name="ceno_network_status_connected">متصل بشبكة Ceno. المواقع المحظورة يمكن وصولها.</string>
     <string name="ceno_network_status_disconnected">غير متصل. تحقق من إعدادات اتصالك او استخراج السجلات لمزيد من المعلومات.</string>

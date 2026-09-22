@@ -264,7 +264,6 @@ class BrowserRobot {
             }
 
     fun verifyUblockOriginTitle(): ViewInteraction = assertUblockOriginTitle()
-    fun verifyHttpsByDefaultTitle(): ViewInteraction = assertHttpsByDefaultTitle()
 
     fun verifyExternalUrlDialogTitle(): ViewInteraction = assertExternalUrlDialogTitle()
     fun verifyExternalUrlDialogMessage(): ViewInteraction = assertExternalUrlDialogMessage()
@@ -335,8 +334,6 @@ private fun contextMenuSaveFileToDevice() =
 
 private fun uBlockOriginTitle() = onView(withText(R.string.browser_menu_ublock_origin))
 
-private fun httpsByDefaultTitle() = onView(withText(R.string.browser_menu_https_by_default))
-
 private fun externalUrlDialogTitle() =
     onView(withText(R.string.dialog_external_url_title))
 
@@ -362,9 +359,6 @@ private fun assertContextMenuSaveFileToDevice() = contextMenuSaveFileToDevice()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertUblockOriginTitle() = uBlockOriginTitle()
-    .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
-
-private fun assertHttpsByDefaultTitle() = httpsByDefaultTitle()
     .check(matches(withEffectiveVisibility(ViewMatchers.Visibility.VISIBLE)))
 
 private fun assertExternalUrlDialogTitle() = externalUrlDialogTitle()
