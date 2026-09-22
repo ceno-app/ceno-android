@@ -470,4 +470,5 @@
     <string name="warning_all_website_sources_disabled">Toutes les sources du site Web sont désactivées. Veuillez activer au moins une source pour continuer à naviguer sur le Web</string>
     <string name="warning_public_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode public sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode privé</string>
     <string name="warning_personal_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode privé sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode public</string>
+    <string name="edit_bookmark_label">Modifier</string>
 </resources>
