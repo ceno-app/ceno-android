@@ -452,4 +452,5 @@
     <string name="default_channel_10_title_ir">tavaanatech</string>
     <string name="preferences_hide_telegram_channels">Telegram kanallarını gizle</string>
     <string name="telegram_topsites_title">Telegram</string>
+    <string name="edit_bookmark_label">Düzenle</string>
 </resources>
