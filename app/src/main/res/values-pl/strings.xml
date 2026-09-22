@@ -471,4 +471,5 @@
     <string name="dialog_external_url_message">Click nadal otwiera się po URL.\n\n%1$s</string>
     <string name="last_2_hours">Ostatnie 2 godziny</string>
     <string name="preferences_secure_screen_personal_summary">Bezpieczny ekran jest wymuszany tylko podczas korzystania z trybu przeglądania prywatnego</string>
+    <string name="edit_bookmark_label">Edytuj</string>
 </resources>
