@@ -480,4 +480,5 @@
     <string name="dns_category">DNS Протокол</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS с откатом к системному DNS</string>
     <string name="default_channel_1_title">Новости Аль-Джазиры на английском</string>
+    <string name="edit_bookmark_label">Изменить</string>
 </resources>
