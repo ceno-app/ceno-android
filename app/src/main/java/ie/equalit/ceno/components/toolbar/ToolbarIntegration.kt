@@ -291,6 +291,7 @@ class ToolbarIntegration(
                         ShareData(
                             url = url,
                             title = sessionState.content.title,
+                            private = false,
                         ),
                     )
                 )
