@@ -3,7 +3,6 @@ package ie.equalit.ceno.home.telegramchannels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.internal.ViewUtils.getChildren
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
@@ -31,11 +30,10 @@ class TelegramChannelsViewModel : ViewModel() {
             var guid = context.components.cenoPreferences.telegramChannelsBookGuid
             if (guid.isEmpty()) {
                 val presentGuid = getTelegramChannelsGuid(context)
-                guid = if(!presentGuid.isNullOrEmpty()) {
+                guid = if (!presentGuid.isNullOrEmpty()) {
                     context.components.cenoPreferences.telegramChannelsBookGuid = guid
                     presentGuid
-                }
-                else {
+                } else {
                     initializeTelegramChannels(context)
                 }
             }
@@ -72,7 +70,7 @@ class TelegramChannelsViewModel : ViewModel() {
             .getOrNull()
             ?.children
         val channel = children
-            ?.find{ it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
+            ?.find { it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
         return channel?.guid
     }
 

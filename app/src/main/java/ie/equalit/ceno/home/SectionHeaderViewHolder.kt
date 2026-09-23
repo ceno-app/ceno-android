@@ -13,28 +13,62 @@ class SectionHeaderViewHolder(
 ) : CenoViewHolder(view) {
     private val binding = HomeSectionHeaderLayoutBinding.bind(itemView)
 
-    var listIsHidden: Boolean = true
+    enum class ListState {
+        HIDDEN,
+        HIDDEN_HALF,
+        VISIBLE
+    }
+
+    var listState: ListState = ListState.HIDDEN_HALF
 
     init {
         binding.tvSectionTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
             null,
             null,
-            if (listIsHidden) ContextCompat.getDrawable(
-                view.context,
-                R.drawable.ic_arrow_collapsed
-            ) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
+            when (listState) {
+                ListState.HIDDEN -> ContextCompat.getDrawable(
+                    view.context,
+                    R.drawable.ic_arrow_collapsed
+                )
+
+                ListState.HIDDEN_HALF -> ContextCompat.getDrawable(
+                    view.context,
+                    R.drawable.outline_arrows_more_down_24
+                )
+
+                ListState.VISIBLE -> ContextCompat.getDrawable(
+                    view.context,
+                    R.drawable.ic_arrow_expanded
+                )
+            },
             null
         )
         binding.tvSectionTitle.setOnClickListener {
-            listIsHidden = !listIsHidden
-            interactor.onSectionHeaderClicked(listIsHidden)
+            listState = when (listState) {
+                ListState.HIDDEN -> ListState.HIDDEN_HALF
+                ListState.HIDDEN_HALF -> ListState.VISIBLE
+                ListState.VISIBLE -> ListState.HIDDEN
+            }
+            interactor.onSectionHeaderClicked(listState)
             binding.tvSectionTitle.setCompoundDrawablesRelativeWithIntrinsicBounds(
                 null,
                 null,
-                if (listIsHidden) ContextCompat.getDrawable(
-                    view.context,
-                    R.drawable.ic_arrow_collapsed
-                ) else ContextCompat.getDrawable(view.context, R.drawable.ic_arrow_expanded),
+                when (listState) {
+                    ListState.HIDDEN -> ContextCompat.getDrawable(
+                        view.context,
+                        R.drawable.ic_arrow_collapsed
+                    )
+
+                    ListState.HIDDEN_HALF -> ContextCompat.getDrawable(
+                        view.context,
+                        R.drawable.outline_arrows_more_down_24
+                    )
+
+                    ListState.VISIBLE -> ContextCompat.getDrawable(
+                        view.context,
+                        R.drawable.ic_arrow_expanded
+                    )
+                },
                 null
             )
         }
