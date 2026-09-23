@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## v2.11.5 - 2026-09-23
 
+### Fixed
+
+- Crash when opening extra bootstrap configuration option
+
 ### Changed
 
 - Update Android-Components to 156.0.1
