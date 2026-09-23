@@ -34,6 +34,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.settings.PermissionsScreen
+import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 
 class SettingsOptimizePermissionsFragment : Fragment() {
@@ -115,9 +116,3 @@ class SettingsOptimizePermissionsFragment : Fragment() {
     }
 }
 
-@Composable
-private fun isNightMode() = when (AppCompatDelegate.getDefaultNightMode()) {
-    AppCompatDelegate.MODE_NIGHT_NO -> false
-    AppCompatDelegate.MODE_NIGHT_YES -> true
-    else -> isSystemInDarkTheme()
-}

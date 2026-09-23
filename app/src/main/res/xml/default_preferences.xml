@@ -8,7 +8,7 @@
         android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_launch_external_app"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_onboarding"
         android:defaultValue="true" />

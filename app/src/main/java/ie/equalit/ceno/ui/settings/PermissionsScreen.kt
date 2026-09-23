@@ -10,6 +10,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Switch
+import androidx.compose.material3.SwitchDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -29,13 +30,14 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.preference.PreferenceManager
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.getPreferenceKey
+import ie.equalit.ceno.ui.theme.ThemeUtils
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PermissionsScreen(
     modifier: Modifier = Modifier,
-    settingsViewModel: SettingsViewModel
+    settingsViewModel: SettingsViewModel,
 ) {
     val context = LocalContext.current
 
@@ -54,7 +56,7 @@ fun PermissionsScreen(
         mutableStateOf(
             prefs.getBoolean(
                 context.getPreferenceKey(R.string.pref_key_launch_external_app),
-                false
+                true
             )
         )
     }
@@ -69,6 +71,16 @@ fun PermissionsScreen(
     }
 
     val activity = LocalActivity.current
+
+    val isDarkTheme = ThemeUtils.isNightMode()
+
+    val switchCheckColor = colorResource(R.color.accent)
+
+    val switchTrackColor = if (!isDarkTheme) {
+        colorResource(R.color.ceno_blue_200)
+    } else {
+        colorResource(R.color.ceno_blue_800)
+    }
 
     LifecycleEventEffect(Lifecycle.Event.ON_RESUME) {
         settingsViewModel.checkPermissions(context)
@@ -172,7 +184,11 @@ fun PermissionsScreen(
                                 it
                             )
                         }
-                    }
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = switchCheckColor,
+                        checkedTrackColor = switchTrackColor
+                    )
                 )
             },
             colors = ListItemDefaults.colors(
@@ -205,7 +221,11 @@ fun PermissionsScreen(
                                 it
                             )
                         }
-                    }
+                    },
+                    colors = SwitchDefaults.colors(
+                        checkedThumbColor = switchCheckColor,
+                        checkedTrackColor = switchTrackColor
+                    )
                 )
             },
             colors = ListItemDefaults.colors(
