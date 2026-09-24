@@ -68,7 +68,7 @@ class SettingsOptimizePermissionsFragment : Fragment() {
                             TopAppBar(
                                 title = {
                                     Text(
-                                        stringResource(R.string.optimize_permissions),
+                                        stringResource(R.string.ceno_permissions_category),
                                         style = MaterialTheme.typography.bodyLarge,
                                         fontWeight = FontWeight.SemiBold
                                     )

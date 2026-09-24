@@ -8,7 +8,7 @@
         android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_launch_external_app"
-        android:defaultValue="true" />
+        android:defaultValue="false" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_onboarding"
         android:defaultValue="true" />
@@ -47,5 +47,8 @@
         android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_secure_screen"
+        android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_verify_external_url"
         android:defaultValue="true" />
 </PreferenceScreen>

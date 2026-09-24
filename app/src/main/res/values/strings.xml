@@ -548,7 +548,6 @@
 
     <string name="preferences_access_local_network">Access local network</string>
     <string name="back_button_description">back button</string>
-    <string name="optimize_permissions">Optimize permissions</string>
     <string name="preferences_log_level">Log level</string>
     <string name="change_log_level">Change log level</string>
 

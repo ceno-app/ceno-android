@@ -56,7 +56,7 @@ fun PermissionsScreen(
         mutableStateOf(
             prefs.getBoolean(
                 context.getPreferenceKey(R.string.pref_key_launch_external_app),
-                true
+                false
             )
         )
     }
@@ -65,7 +65,7 @@ fun PermissionsScreen(
         mutableStateOf(
             prefs.getBoolean(
                 context.getPreferenceKey(R.string.pref_key_verify_external_url),
-                false
+                true
             )
         )
     }
