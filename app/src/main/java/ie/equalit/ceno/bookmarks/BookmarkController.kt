@@ -113,6 +113,7 @@ class DefaultBookmarkController(
                 ShareData(
                     url = item.url,
                     title = item.title,
+                    private = false,
                 ),
             )
         )

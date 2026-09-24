@@ -12,6 +12,8 @@ import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.ktx.android.content.getColorFromAttr
 import mozilla.components.support.ktx.android.content.res.resolveAttribute
 import mozilla.components.support.ktx.android.view.createWindowInsetsController
+import mozilla.components.support.ktx.android.view.setNavigationBarTheme
+import mozilla.components.support.ktx.android.view.setStatusBarTheme
 
 abstract class ThemeManager {
     abstract var currentMode: BrowsingMode
@@ -24,7 +26,7 @@ abstract class ThemeManager {
     abstract fun applyStatusBarTheme()
 
     fun updateNavigationBar(window: Window, context: Context) {
-        window.navigationBarColor = context.getColorFromAttr(R.attr.layer1)
+        window.setNavigationBarTheme(context.getColorFromAttr(R.attr.layer1))
     }
 
     fun clearLightSystemBars(window: Window) {
@@ -35,14 +37,14 @@ abstract class ThemeManager {
     abstract fun applyTheme(toolbar: BrowserToolbar)
 
     fun updateLightSystemBars(window: Window, context: Context) {
-        window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+        window.setStatusBarTheme(context.getColorFromAttr(R.attr.layer1))
         window.createWindowInsetsController().isAppearanceLightStatusBars = true
         window.createWindowInsetsController().isAppearanceLightNavigationBars = true
         updateNavigationBar(window, context)
     }
 
     fun updateDarkSystemBars(window: Window, context: Context) {
-        window.statusBarColor = context.getColorFromAttr(R.attr.layer1)
+        window.setStatusBarTheme(context.getColorFromAttr(R.attr.layer1))
         window.createWindowInsetsController().isAppearanceLightStatusBars = false
         window.createWindowInsetsController().isAppearanceLightNavigationBars = false
         updateNavigationBar(window, context)

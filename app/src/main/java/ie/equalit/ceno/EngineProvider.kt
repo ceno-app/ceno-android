@@ -6,7 +6,6 @@ package ie.equalit.ceno
 
 import android.content.Context
 import ie.equalit.ceno.components.ceno.CenoWebExt
-import ie.equalit.ceno.components.ceno.HttpsByDefaultWebExt
 import ie.equalit.ceno.components.ceno.UblockOriginWebExt
 import ie.equalit.ceno.settings.CenoSettings
 import mozilla.components.browser.engine.gecko.GeckoEngine
@@ -50,7 +49,6 @@ object EngineProvider {
         ).also {
             WebCompatFeature.install(it)
             CenoWebExt.install(it)
-            HttpsByDefaultWebExt.install(it)
             UblockOriginWebExt.install(it)
         }
     }
