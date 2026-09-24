@@ -86,7 +86,7 @@ interface TelegramChannelInteractor {
      *
      * @param topSite The top site that will be removed.
      */
-    fun onRemoveTelegramChannelClicked(topSite: TopSite)
+    fun onHideTelegramChannel(topSite: TopSite)
 
     /**
      * Selects the given top site. Called when a user clicks on a top site.
@@ -136,8 +136,8 @@ class SessionControlInteractor(
         controller.handleRenameTelegramChannel(topSite)
     }
 
-    override fun onRemoveTelegramChannelClicked(topSite: TopSite) {
-        controller.handleRemoveTelegramChannel(topSite)
+    override fun onHideTelegramChannel(topSite: TopSite) {
+        controller.onHideTelegramChannel(topSite)
     }
 
     override fun onRemoveTopSiteClicked(topSite: TopSite) {

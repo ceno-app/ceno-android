@@ -34,20 +34,20 @@ class TelegramChannelItemViewHolder(
         binding.telegramChannelItem.setOnLongClickListener {
             interactor.onTopSiteMenuOpened()
 
-            val topSiteMenu = TopSiteItemMenu(
+            val topSiteMenu = TelegramChannelItemMenu(
                 context = view.context,
                 topSite = topSite
             ) { item ->
                 when (item) {
-                    is TopSiteItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
+                    is TelegramChannelItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
                         topSite
                     )
 
-                    is TopSiteItemMenu.Item.RenameTopSite -> interactor.onRenameTelegramChannelClick(
+                    is TelegramChannelItemMenu.Item.RenameTelegramChannel -> interactor.onRenameTelegramChannelClick(
                         topSite
                     )
 
-                    is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTelegramChannelClicked(
+                    is TelegramChannelItemMenu.Item.HideTelegramChannel -> interactor.onHideTelegramChannel(
                         topSite
                     )
                 }

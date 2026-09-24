@@ -3,7 +3,6 @@ package ie.equalit.ceno.home.telegramchannels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.internal.ViewUtils.getChildren
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
@@ -158,7 +157,7 @@ class TelegramChannelsViewModel : ViewModel() {
         }
     }
 
-    fun removeChannel(context: Context, url: String) {
+    fun onHideTelegramChannel(context: Context, url: String) {
         viewModelScope.launch {
             val guid = context.components.cenoPreferences.telegramChannelsBookGuid
             val tree = context.components.core.bookmarksStorage
@@ -167,8 +166,9 @@ class TelegramChannelsViewModel : ViewModel() {
 
             val child = tree?.children?.find { it.url == url }
             child?.let {
-                context.components.core.bookmarksStorage
-                    .deleteNode(it.guid)
+//                context.components.core.bookmarksStorage
+//                    .deleteNode(it.guid)
+                TODO()
             }
             _refresh.emit(true)
         }
