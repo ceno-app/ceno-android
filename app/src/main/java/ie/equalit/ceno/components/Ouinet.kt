@@ -110,8 +110,9 @@ class Ouinet(
         if (countryIsoCode.isNotEmpty()) {
             // Country code found, try getting bootstrap extras resource for this country
             for (entry in BuildConfig.BT_BOOTSTRAP_EXTRAS) {
-                if (countryIsoCode == entry[0]) {
-                    btbsxsStr = entry[1]
+                if (countryIsoCode == entry[0].split("_")[0]) {
+                    btbsxsStr += entry[1]
+                    btbsxsStr += " "
                 }
             }
         }

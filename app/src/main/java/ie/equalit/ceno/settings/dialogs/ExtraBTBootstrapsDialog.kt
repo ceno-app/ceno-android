@@ -52,10 +52,7 @@ class ExtraBTBootstrapsDialog(
                     if (child is CheckBox && child.isChecked) {
                         allSelectedIPs.add(
                             btSourcesMap.entries.find { e ->
-                                e.key.equals(
-                                    child.text.toString()
-                                        .trim(), ignoreCase = true
-                                )
+                                e.key == child.text
                             }?.value ?: child.text.toString()
                                 .trim()
                         )
@@ -99,11 +96,7 @@ class ExtraBTBootstrapsDialog(
             btSourcesMap.forEach {
                 linearLayout.addView(
                     CheckBox(context).apply {
-                        text = Locale.Builder()
-                            .setLanguage("")
-                            .setRegion(it.key)
-                            .build()
-                            .displayCountry
+                        text = it.key
                         isChecked = CenoSettings.getLocalBTSources(context)
                             ?.contains(it.value) == true
                         isAllCaps = false
@@ -128,6 +121,12 @@ class ExtraBTBootstrapsDialog(
                                     text = it
                                     isChecked = true
                                     isAllCaps = false
+                                    setTextColor(
+                                        ContextCompat.getColor(
+                                            context,
+                                            R.color.fx_mobile_text_color_primary
+                                        )
+                                    )
                                 }
                             )
                         }
