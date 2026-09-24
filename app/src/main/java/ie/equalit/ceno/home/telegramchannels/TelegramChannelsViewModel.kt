@@ -30,11 +30,10 @@ class TelegramChannelsViewModel : ViewModel() {
             var guid = context.components.cenoPreferences.telegramChannelsBookGuid
             if (guid.isEmpty()) {
                 val presentGuid = getTelegramChannelsGuid(context)
-                guid = if(!presentGuid.isNullOrEmpty()) {
+                guid = if (!presentGuid.isNullOrEmpty()) {
                     context.components.cenoPreferences.telegramChannelsBookGuid = guid
                     presentGuid
-                }
-                else {
+                } else {
                     initializeTelegramChannels(context)
                 }
             }
@@ -71,7 +70,7 @@ class TelegramChannelsViewModel : ViewModel() {
             .getOrNull()
             ?.children
         val channel = children
-            ?.find{ it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
+            ?.find { it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
         return channel?.guid
     }
 
@@ -166,8 +165,8 @@ class TelegramChannelsViewModel : ViewModel() {
 
             val child = tree?.children?.find { it.url == url }
             child?.let {
-//                context.components.core.bookmarksStorage
-//                    .deleteNode(it.guid)
+                //                context.components.core.bookmarksStorage
+                //                    .deleteNode(it.guid)
                 TODO()
             }
             _refresh.emit(true)

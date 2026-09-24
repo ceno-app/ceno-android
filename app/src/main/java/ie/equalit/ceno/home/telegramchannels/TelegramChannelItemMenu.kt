@@ -6,7 +6,6 @@ package ie.equalit.ceno.home.telegramchannels
 
 import android.content.Context
 import ie.equalit.ceno.R
-import ie.equalit.ceno.home.sessioncontrol.TopSiteInteractor
 import mozilla.components.browser.menu.BrowserMenuBuilder
 import mozilla.components.browser.menu.item.SimpleBrowserMenuItem
 import mozilla.components.feature.top.sites.TopSite
