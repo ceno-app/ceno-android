@@ -18,14 +18,17 @@ class BookmarkNodeViewHolder(
 ) : RecyclerView.ViewHolder(view) {
     var item: BookmarkNode? = null
 
-    private val menu: BookmarkItemMenu = BookmarkItemMenu(view.context)
-
     fun bind(
         item: BookmarkNode,
         mode: BookmarkFragmentState.Mode,
         payload: BookmarkPayload,
     ) {
         this.item = item
+
+        val isTelegramChannel = payload.modeChanged &&
+                item.parentGuid == view.context.components.cenoPreferences.telegramChannelsBookGuid
+
+        val menu = BookmarkItemMenu(view.context, isTelegramChannel = isTelegramChannel)
 
         menu.onItemTapped = { menuItem ->
             when (menuItem) {
@@ -35,6 +38,7 @@ class BookmarkNodeViewHolder(
                 BookmarkItemMenu.Item.OpenInNewTab -> interactor.onOpenInNormalTab(item)
                 BookmarkItemMenu.Item.OpenInPersonalTab -> interactor.onOpenInPersonalTab(item)
                 BookmarkItemMenu.Item.Delete -> interactor.onDelete(setOf(item))
+                BookmarkItemMenu.Item.Hide -> interactor.onHide(setOf(item))
             }
         }
         view.attachMenu(menu.menuController)

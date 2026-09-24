@@ -1,7 +1,9 @@
 package ie.equalit.ceno.bookmarks
 
+import android.R.attr.text
 import android.content.Context
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
 import mozilla.components.browser.menu2.BrowserMenuController
 import mozilla.components.concept.menu.MenuController
 import mozilla.components.concept.menu.candidate.TextMenuCandidate
@@ -11,7 +13,8 @@ import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class BookmarkItemMenu(
     private val context: Context,
-    var onItemTapped: ((Item) -> Unit)? = null
+    var onItemTapped: ((Item) -> Unit)? = null,
+    val isTelegramChannel: Boolean = false
 ) {
     enum class Item {
         Edit,
@@ -20,6 +23,7 @@ class BookmarkItemMenu(
         OpenInNewTab,
         OpenInPersonalTab,
         Delete,
+        Hide,
         ;
     }
 
@@ -72,12 +76,21 @@ class BookmarkItemMenu(
             } else {
                 null
             },
-            TextMenuCandidate(
-                text = context.getString(R.string.bookmark_menu_delete_button),
-                textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
-            ) {
-                onItemTapped?.invoke(Item.Delete)
-            },
+            if (isTelegramChannel) {
+                TextMenuCandidate(
+                    text = context.getString(R.string.hide_telegram_channel),
+                    textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
+                ) {
+                    onItemTapped?.invoke(Item.Hide)
+                }
+            } else {
+                TextMenuCandidate(
+                    text = context.getString(R.string.bookmark_menu_delete_button),
+                    textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
+                ) {
+                    onItemTapped?.invoke(Item.Delete)
+                }
+            }
         )
     }
 

@@ -70,6 +70,10 @@ class BookmarkFragmentInteractor(
         }
     }
 
+    override fun onHide(nodes: Set<BookmarkNode>) {
+        TODO("Not yet implemented")
+    }
+
     override fun onBackPressed() {
         bookmarksController.handleBackPressed()
     }
