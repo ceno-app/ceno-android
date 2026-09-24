@@ -3,14 +3,14 @@
 # AndroidX
 androidx_activity_compose = "1.13.0"
 androidx_appcompat = "1.8.0"
-androidx_compose = "1.12.0"
+androidx_compose = "1.12.1"
 androidx_constraintlayout = "2.2.2"
-androidx_core = "1.19.0"
+androidx_core = "1.19.1"
 androidx_lifecycle = "2.11.0"
-androidx_navigation = "2.9.8"
+androidx_navigation = "2.10.2"
 androidx_preference = "1.2.1"
 androidx_swiperefreshlayout = "1.2.0"
-androidx_work = "2.11.2"
+androidx_work = "2.12.0"
 
 # Android Components
 android_components = "156.0.1"
@@ -20,13 +20,13 @@ google_composecompiler = "1.5.15"
 google_material = "1.14.0"
 
 # Gradle
-gradle_android_plugin = "9.3.1"
+gradle_android_plugin = "9.3.3"
 gradle_kotlin_plugin = "2.3.21"
 
 # Kotlin
 kotlin_coroutines = "1.11.0"
 kotlin_serialization = "1.11.0"
-kotlin = "2.2.10"
+kotlin = "2.4.20"
 
 # Testing
 testing_androidx_core = "1.7.0"
@@ -34,24 +34,24 @@ testing_androidx_espresso = "3.7.0"
 testing_androidx_ext_junit = "1.3.0"
 testing_androidx_orchestrator = "1.6.1"
 testing_androidx_runner = "1.7.0"
-testing_androidx_uiautomator = "2.3.0"
+testing_androidx_uiautomator = "2.4.0"
 testing_jacoco = "0.8.15"
 testing_mockwebserver = "4.12.0"
 
 # Third Party
-sentry = "8.53.0"
+sentry = "8.57.0"
 gson = "2.14.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
 # CENO: Versions for additional dependencies */
 ouinet_version = "1.6.11"
-relinker_version = "1.4.4"
-snakeyaml_version = "2.2"
+relinker_version = "1.4.5"
+snakeyaml_version = "2.7"
 
 ktlint_version = "1.8.0"
 detekt = "1.23.8"
-jvm = "2.3.21"
+jvm = "2.4.20"
 serialization = "1.9.25"
 material3Android = "1.4.0"
 espresso_contrib = "3.7.0"
