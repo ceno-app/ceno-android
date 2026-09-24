@@ -27,7 +27,11 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     fun shouldShowPermissionsTooltip(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                !isIgnoringBatteryOptimizations() || !isAllowingPostNotifications()
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                    !isAllowingNetworkAccess()
+                } else {
+                    !isIgnoringBatteryOptimizations() || !isAllowingPostNotifications()
+                }
             } else {
                 !isIgnoringBatteryOptimizations()
             }
@@ -43,6 +47,18 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
         } else {
             // Before Android 12 (S), the battery optimization isn't needed -> Always "ignoring"
             true
+        }
+    }
+
+    @RequiresApi(Build.VERSION_CODES.CINNAMON_BUN)
+    fun isAllowingNetworkAccess(): Boolean {
+        return when (ContextCompat.checkSelfPermission(
+            context,
+            Manifest.permission.ACCESS_LOCAL_NETWORK
+        )) {
+            PackageManager.PERMISSION_GRANTED -> true
+            PackageManager.PERMISSION_DENIED -> false
+            else -> false
         }
     }
 
@@ -90,13 +106,8 @@ class PermissionHandler(private val context: Context) : ActivityResultHandler {
     }
 
     @RequiresApi(Build.VERSION_CODES.TIRAMISU)
-    fun requestPostNotificationsPermission(fragment: Fragment): Boolean {
-        return if (isAllowingPostNotifications()) {
-            false
-        } else {
-            (fragment.activity as BrowserActivity).requestPermissionLauncher.launch(Manifest.permission.POST_NOTIFICATIONS)
-            true
-        }
+    fun multiplePermissionHandler(fragment: Fragment, permissions: Array<String>) {
+        (fragment.activity as BrowserActivity).multiplePermissionsLauncher.launch(permissions)
     }
 
     override fun onActivityResult(requestCode: Int, data: Intent?, resultCode: Int): Boolean {
