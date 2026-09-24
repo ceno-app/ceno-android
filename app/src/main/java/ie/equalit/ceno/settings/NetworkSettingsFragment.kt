@@ -92,7 +92,7 @@ class NetworkSettingsFragment : PreferenceFragmentCompat() {
                 .setLanguage("")
                 .setRegion(entry[0])
                 .build()
-                .displayCountry
+                .country
         ] = entry[1]
         setupPreferences()
     }

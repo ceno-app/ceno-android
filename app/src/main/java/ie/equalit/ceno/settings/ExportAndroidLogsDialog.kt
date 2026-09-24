@@ -140,6 +140,7 @@ class ExportAndroidLogsDialog(
                             ShareData(
                                 url = "Logfile",
                                 title = "Logs",
+                                private = false,
                             ),
                         )
                     )

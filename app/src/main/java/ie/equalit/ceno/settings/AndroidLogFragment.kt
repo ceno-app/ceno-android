@@ -158,6 +158,7 @@ class AndroidLogFragment : Fragment(), MenuProvider {
                         ShareData(
                             url = "Logfile",
                             title = "Logs",
+                            private = false,
                         ),
                     )
                 )
