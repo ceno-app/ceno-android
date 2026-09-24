@@ -1,0 +1,5 @@
+
+### Fixed
+
+- Bug setting custom BitTorrent bootstraps via dialog
+

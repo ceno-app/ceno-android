@@ -2,7 +2,7 @@
 
 sdk.dir=/home/fdroid/android-sdk-linux
 
-versionName=2.11.6
+versionName=2.11.7
 buildId=
 
 # Manually replace with your ouinet configuration parameters
@@ -16,7 +16,7 @@ METRICS_PUB_KEY="-----BEGIN PUBLIC KEY-----\\nMCowBQYDK2VuAyEAmfqHeh9oZ4S42+NS9s
 METRICS_DELETE_AFTER=2592000L
 
 # Add any custom BT bootstrap nodes in an array of String pairs as shown below, 
-# where the first string is the country code for the bootstrap node 
+# where the first string is the country code and numeric id for the bootstrap node
 # and the second string is a space delimited series of hostnames 
 # (or IP addresses) for the bootstrap nodes for the given country
-#BT_BOOTSTRAP_EXTRAS={{"XX", "HOST1_COUNTRY_XX"}, {"XY", "HOST1_COUNTRY_XY"}, {"XZ", "HOST1_COUNTRY_XZ HOST2_COUNTRY_XZ"};
+#BT_BOOTSTRAP_EXTRAS={{"XX_1", "HOST_1_COUNTRY_XX"}, {"XY_1", "HOST_1_COUNTRY_XY"}, {"XY_2", "HOST_2_COUNTRY_XY"}, {"XZ_1", "HOST_1_COUNTRY_XZ"};
