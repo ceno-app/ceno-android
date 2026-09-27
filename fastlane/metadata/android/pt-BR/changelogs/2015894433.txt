@@ -1,5 +1,4 @@
 Esta versão oficial:
-
 - Ajustado o visual da janela das Fontes do Ceno
 - Atualiza a biblioteca Android-Components para a v109.2.0
 - Atualiza o Ouinet para a v0.21.6
