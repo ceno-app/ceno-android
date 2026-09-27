@@ -10,6 +10,7 @@ import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.engine.prompt.ShareData
@@ -38,6 +39,8 @@ interface BookmarkController {
     fun handleBookmarkFolderDeletion(nodes: Set<BookmarkNode>)
     fun handleBackPressed()
     fun handleSearch()
+    fun handleBookmarkHide(nodes: Set<BookmarkNode>)
+    fun handleBookmarkUnHide(node: BookmarkNode)
 }
 
 /**
@@ -57,6 +60,7 @@ class DefaultBookmarkController(
     private val loadBookmarkNode: suspend (String, Boolean) -> BookmarkNode?,
     private val deleteBookmarkNodes: (Set<BookmarkNode>) -> Unit,
     private val deleteBookmarkFolder: (Set<BookmarkNode>) -> Unit,
+    private val telegramChannelsViewModel: TelegramChannelsViewModel,
 ) : BookmarkController {
     override fun handleBookmarkChanged(item: BookmarkNode) {
         sharedViewModel.selectedFolder = item
@@ -156,5 +160,25 @@ class DefaultBookmarkController(
 
     override fun handleSearch() {
         //        TODO("Not yet implemented")
+    }
+
+    override fun handleBookmarkHide(nodes: Set<BookmarkNode>) {
+        nodes.forEach {
+            telegramChannelsViewModel.onHideTelegramChannel(
+                activity,
+                it.url ?: throw Exception("No URL for bookmark")
+            ) {
+                handleBackPressed()
+            }
+        }
+    }
+
+    override fun handleBookmarkUnHide(node: BookmarkNode) {
+        telegramChannelsViewModel.onUnHideTelegramChannel(
+            activity,
+            node.url ?: throw Exception("No URL for bookmark")
+        ) {
+            handleBackPressed()
+        }
     }
 }

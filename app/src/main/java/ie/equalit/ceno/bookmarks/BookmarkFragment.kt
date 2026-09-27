@@ -28,6 +28,7 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.components.StoreProvider
 import ie.equalit.ceno.databinding.FragmentBookmarkBinding
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -63,6 +64,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
     private var tree: BookmarkNode? = null
 
     private val sharedViewModel: BookmarksSharedViewModel by activityViewModels()
+    private val telegramChannelsViewModel: TelegramChannelsViewModel by activityViewModels()
 
     private var pendingBookmarksToDelete: MutableSet<BookmarkNode> = mutableSetOf()
 
@@ -89,6 +91,7 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
                 loadBookmarkNode = ::loadBookmarkNode,
                 deleteBookmarkNodes = ::deleteMulti,
                 deleteBookmarkFolder = ::showRemoveFolderDialog,
+                telegramChannelsViewModel = telegramChannelsViewModel,
             ),
         )
 

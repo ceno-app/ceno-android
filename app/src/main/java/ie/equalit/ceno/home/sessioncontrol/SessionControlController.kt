@@ -222,7 +222,7 @@ class DefaultSessionControlController(
     }
 
     override fun onHideTelegramChannel(topSite: TopSite) {
-        telegramChanViewModel.onHideTelegramChannel(activity.applicationContext, topSite.url)
+        telegramChanViewModel.onHideTelegramChannel(activity.applicationContext, topSite.url) {}
     }
 
     override fun handleRenameTelegramChannel(topSite: TopSite) {

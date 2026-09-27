@@ -71,7 +71,11 @@ class BookmarkFragmentInteractor(
     }
 
     override fun onHide(nodes: Set<BookmarkNode>) {
-        TODO("Not yet implemented")
+        bookmarksController.handleBookmarkHide(nodes)
+    }
+
+    override fun onUnHide(node: BookmarkNode) {
+        bookmarksController.handleBookmarkUnHide(node)
     }
 
     override fun onBackPressed() {

@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.ceno.loadIntoView
+import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,6 +18,7 @@ class BookmarkNodeViewHolder(
     private val interactor: BookmarkViewInteractor
 ) : RecyclerView.ViewHolder(view) {
     var item: BookmarkNode? = null
+    val hiddenTelegramChannelsPref = view.context.cenoPreferences().hiddenTelegramChannelsGuid
 
     fun bind(
         item: BookmarkNode,
@@ -28,7 +30,11 @@ class BookmarkNodeViewHolder(
         val isTelegramChannel = payload.modeChanged &&
                 item.parentGuid == view.context.components.cenoPreferences.telegramChannelsBookGuid
 
-        val menu = BookmarkItemMenu(view.context, isTelegramChannel = isTelegramChannel)
+        val menu = BookmarkItemMenu(
+            view.context,
+            isTelegramChannel = isTelegramChannel,
+            isTelegramChannelHidden = hiddenTelegramChannelsPref.contains(item.guid)
+        )
 
         menu.onItemTapped = { menuItem ->
             when (menuItem) {
@@ -39,6 +45,7 @@ class BookmarkNodeViewHolder(
                 BookmarkItemMenu.Item.OpenInPersonalTab -> interactor.onOpenInPersonalTab(item)
                 BookmarkItemMenu.Item.Delete -> interactor.onDelete(setOf(item))
                 BookmarkItemMenu.Item.Hide -> interactor.onHide(setOf(item))
+                BookmarkItemMenu.Item.UnHide -> interactor.onUnHide(item)
             }
         }
         view.attachMenu(menu.menuController)
@@ -80,6 +87,14 @@ class BookmarkNodeViewHolder(
 
         if (payload.iconChanged) {
             updateIcon(item)
+        }
+
+        if (hiddenTelegramChannelsPref.contains(item.guid)) {
+            view.titleView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_disabled))
+            view.urlView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_disabled))
+        } else {
+            view.titleView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_primary))
+            view.urlView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_primary))
         }
     }
 
