@@ -69,7 +69,7 @@ interface SessionControlController {
 
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
 
-    fun handleOnSectionHeaderClicked(listIsHidden: Boolean)
+    fun handleOnSectionHeaderClicked(listState: ListState)
     fun onHideTelegramChannel(topSite: TopSite)
     fun handleRenameTelegramChannel(topSite: TopSite)
 }
