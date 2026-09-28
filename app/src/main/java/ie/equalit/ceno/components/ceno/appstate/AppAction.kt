@@ -6,6 +6,7 @@ package ie.equalit.ceno.components.ceno.appstate
 
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.components.ceno.AppStore
+import ie.equalit.ceno.home.SectionHeaderViewHolder.ListState
 import ie.equalit.ouinet.Ouinet.RunningState
 import mozilla.components.feature.top.sites.TopSite
 import mozilla.components.lib.state.Action
@@ -31,5 +32,5 @@ sealed class AppAction : Action {
         val sourceCounts: MutableMap<String, JSONObject?>
     ) : AppAction()
 
-    data class OuicrawlSitesChange(val listIsHidden: Boolean) : AppAction()
+    data class OuicrawlSitesChange(val listState: ListState) : AppAction()
 }
