@@ -15,8 +15,11 @@ import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 import kotlin.enums.enumEntries
 
-class BookmarkAdapter(private val emptyView: View, private val interactor: BookmarkViewInteractor) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BookmarkAdapter(
+    private val emptyView: View,
+    private val interactor: BookmarkViewInteractor,
+    private val onTelegramChannelHiddenStateChangeCallback: (String?) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @VisibleForTesting
     var tree: List<BookmarkNode> = listOf()
@@ -133,12 +136,16 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
             } else {
                 BookmarkPayload()
             }
+            this.onTelegramChannelHiddenChangeCallback = onTelegramChannelHiddenStateChangeCallback
             bind(tree[position], mode, diffPayload)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? BookmarkNodeViewHolder)?.bind(tree[position], mode, BookmarkPayload())
+        val viewHolder = (holder as? BookmarkNodeViewHolder).apply {
+            this?.onTelegramChannelHiddenChangeCallback = onTelegramChannelHiddenStateChangeCallback
+        }
+        viewHolder?.bind(tree[position], mode, BookmarkPayload())
     }
 }
 

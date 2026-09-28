@@ -72,14 +72,14 @@ interface BookmarkViewInteractor {
      *
      * @param nodes the bookmark nodes to delete
      */
-    fun onHide(nodes: Set<BookmarkNode>)
+    fun onHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
 
     /**
      * UnHide a set of bookmark nodes.
      *
      * @param node the bookmark nodes to delete
      */
-    fun onUnHide(node: BookmarkNode)
+    fun onUnHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
 
     /**
      * Handles back presses for the bookmark screen, so navigation up the tree is possible.

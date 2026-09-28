@@ -18,7 +18,7 @@ class BookmarkNodeViewHolder(
     private val interactor: BookmarkViewInteractor
 ) : RecyclerView.ViewHolder(view) {
     var item: BookmarkNode? = null
-    val hiddenTelegramChannelsPref = view.context.cenoPreferences().hiddenTelegramChannelsGuid
+    var onTelegramChannelHiddenChangeCallback: (String?) -> Unit = {}
 
     fun bind(
         item: BookmarkNode,
@@ -29,6 +29,8 @@ class BookmarkNodeViewHolder(
 
         val isTelegramChannel = payload.modeChanged &&
                 item.parentGuid == view.context.components.cenoPreferences.telegramChannelsBookGuid
+
+        val hiddenTelegramChannelsPref = view.context.cenoPreferences().hiddenTelegramChannelsGuid
 
         val menu = BookmarkItemMenu(
             view.context,
@@ -44,8 +46,16 @@ class BookmarkNodeViewHolder(
                 BookmarkItemMenu.Item.OpenInNewTab -> interactor.onOpenInNormalTab(item)
                 BookmarkItemMenu.Item.OpenInPersonalTab -> interactor.onOpenInPersonalTab(item)
                 BookmarkItemMenu.Item.Delete -> interactor.onDelete(setOf(item))
-                BookmarkItemMenu.Item.Hide -> interactor.onHide(setOf(item))
-                BookmarkItemMenu.Item.UnHide -> interactor.onUnHide(item)
+                BookmarkItemMenu.Item.Hide -> {
+                    interactor.onHide(item) {
+                        onTelegramChannelHiddenChangeCallback(item.parentGuid)
+                    }
+                }
+                BookmarkItemMenu.Item.UnHide -> {
+                    interactor.onUnHide(item) {
+                        onTelegramChannelHiddenChangeCallback(item.parentGuid)
+                    }
+                }
             }
         }
         view.attachMenu(menu.menuController)

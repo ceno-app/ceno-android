@@ -39,8 +39,8 @@ interface BookmarkController {
     fun handleBookmarkFolderDeletion(nodes: Set<BookmarkNode>)
     fun handleBackPressed()
     fun handleSearch()
-    fun handleBookmarkHide(nodes: Set<BookmarkNode>)
-    fun handleBookmarkUnHide(node: BookmarkNode)
+    fun handleBookmarkHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
+    fun handleBookmarkUnHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
 }
 
 /**
@@ -163,23 +163,27 @@ class DefaultBookmarkController(
         //        TODO("Not yet implemented")
     }
 
-    override fun handleBookmarkHide(nodes: Set<BookmarkNode>) {
-        nodes.forEach {
-            telegramChannelsViewModel.onHideTelegramChannel(
-                activity,
-                it.url ?: throw Exception("No URL for bookmark")
-            ) {
-                handleBackPressed()
-            }
+    override fun handleBookmarkHide(
+        node: BookmarkNode,
+        onHiddenChangeCallback: (String?) -> Unit
+    ) {
+        telegramChannelsViewModel.onHideTelegramChannel(
+            activity,
+            node.url ?: throw Exception("No URL for bookmark")
+        ) {
+            onHiddenChangeCallback(node.guid)
         }
     }
 
-    override fun handleBookmarkUnHide(node: BookmarkNode) {
+    override fun handleBookmarkUnHide(
+        node: BookmarkNode,
+        onHiddenChangeCallback: (String?) -> Unit
+    ) {
         telegramChannelsViewModel.onUnHideTelegramChannel(
             activity,
             node.url ?: throw Exception("No URL for bookmark")
         ) {
-            handleBackPressed()
+            onHiddenChangeCallback(node.guid)
         }
     }
 }
