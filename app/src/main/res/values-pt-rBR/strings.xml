@@ -509,4 +509,13 @@
     <string name="pref_top_sites_bookmark_guid">pref_top_sites_bookmark_guid</string>
     <string name="telegram_channels_bookmark_folder_title">Canais do Telegram</string>
     <string name="saved_in_bookmarks">Salvo em \"Favoritos\"</string>
+    <string name="preferences_log_level">Nível de log</string>
+    <string name="change_log_level">Alterar nível de log</string>
+    <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Verifique a existência de uma versão arquivada</string>
+    <string name="mozac_browser_errorpages_archive_checking" tools:ignore="UnusedResources">Verificação de arquivo</string>
+    <string name="mozac_browser_errorpages_archive_retry" tools:ignore="UnusedResources">Tente novamente.</string>
+    <string name="mozac_browser_errorpages_archive_search_web" tools:ignore="UnusedResources">Pesquisar na Web</string>
+    <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Não foi possível contatar o serviço de arquivamento.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Atualizar endereço?</string>
+    <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Versão de arquivo não encontrada.</string>
 </resources>
