@@ -70,7 +70,7 @@ interface SessionControlController {
     fun handleAddToShortcuts(ouicrawlSite: OuicrawlSite, isTopSite: Boolean)
 
     fun handleOnSectionHeaderClicked(listState: ListState)
-    fun handleRemoveTelegramChannel(topSite: TopSite)
+    fun onHideTelegramChannel(topSite: TopSite)
     fun handleRenameTelegramChannel(topSite: TopSite)
 }
 
@@ -222,8 +222,8 @@ class DefaultSessionControlController(
         appStore.dispatch(AppAction.OuicrawlSitesChange(listState))
     }
 
-    override fun handleRemoveTelegramChannel(topSite: TopSite) {
-        telegramChanViewModel.removeChannel(activity.applicationContext, topSite.url)
+    override fun onHideTelegramChannel(topSite: TopSite) {
+        telegramChanViewModel.onHideTelegramChannel(activity.applicationContext, topSite.url) {}
     }
 
     override fun handleRenameTelegramChannel(topSite: TopSite) {

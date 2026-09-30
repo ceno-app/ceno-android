@@ -11,7 +11,9 @@ import mozilla.components.support.ktx.android.content.getColorFromAttr
 
 class BookmarkItemMenu(
     private val context: Context,
-    var onItemTapped: ((Item) -> Unit)? = null
+    var onItemTapped: ((Item) -> Unit)? = null,
+    val isTelegramChannel: Boolean = false,
+    val isTelegramChannelHidden: Boolean = false,
 ) {
     enum class Item {
         Edit,
@@ -20,6 +22,8 @@ class BookmarkItemMenu(
         OpenInNewTab,
         OpenInPersonalTab,
         Delete,
+        Hide,
+        UnHide,
         ;
     }
 
@@ -72,12 +76,30 @@ class BookmarkItemMenu(
             } else {
                 null
             },
-            TextMenuCandidate(
-                text = context.getString(R.string.bookmark_menu_delete_button),
-                textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
-            ) {
-                onItemTapped?.invoke(Item.Delete)
-            },
+            if (isTelegramChannel) {
+                if (isTelegramChannelHidden) {
+                    TextMenuCandidate(
+                        text = context.getString(R.string.unhide_telegram_channel),
+                        textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
+                    ) {
+                        onItemTapped?.invoke(Item.UnHide)
+                    }
+                } else {
+                    TextMenuCandidate(
+                        text = context.getString(R.string.hide_telegram_channel),
+                        textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
+                    ) {
+                        onItemTapped?.invoke(Item.Hide)
+                    }
+                }
+            } else {
+                TextMenuCandidate(
+                    text = context.getString(R.string.bookmark_menu_delete_button),
+                    textStyle = TextStyle(color = context.getColorFromAttr(R.attr.textWarning)),
+                ) {
+                    onItemTapped?.invoke(Item.Delete)
+                }
+            }
         )
     }
 
