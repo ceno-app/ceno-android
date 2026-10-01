@@ -12,14 +12,18 @@ import androidx.preference.PreferenceManager
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import io.sentry.android.core.SentryAndroid
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import mozilla.components.browser.state.action.SystemAction
 import mozilla.components.concept.engine.webextension.isUnsupported
 import mozilla.components.feature.addons.update.GlobalAddonDependencyProvider
 import mozilla.components.support.base.log.Log
+import mozilla.components.support.base.log.logger.Logger
 import mozilla.components.support.base.log.sink.AndroidLogSink
 import mozilla.components.support.ktx.android.content.isMainProcess
 import mozilla.components.support.ktx.android.content.runOnlyInMainProcess
@@ -29,7 +33,24 @@ import java.util.concurrent.TimeUnit
 import kotlin.system.exitProcess
 
 open class BrowserApplication : Application() {
-    val components by lazy { Components(this) }
+
+    /**
+     * Scope for long-running work that must outlive any individual activity. [SupervisorJob] keeps a failure in one
+     * child from cancelling the others.
+     */
+    private val applicationScope: CoroutineScope =
+        CoroutineScope(
+            SupervisorJob() +
+                    Dispatchers.Main +
+                    CoroutineExceptionHandler { _, throwable ->
+                        Logger.error(
+                            "ApplicationScope: Unhandled error: ${throwable.message}",
+                            throwable
+                        )
+                    }
+        )
+
+    val components by lazy { Components(this, applicationScope) }
 
     override fun onCreate() {
         super.onCreate()

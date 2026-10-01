@@ -48,4 +48,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_secure_screen"
         android:defaultValue="true" />
+    <androidx.preference.SwitchPreferenceCompat
+        android:key="@string/pref_key_verify_external_url"
+        android:defaultValue="true" />
 </PreferenceScreen>

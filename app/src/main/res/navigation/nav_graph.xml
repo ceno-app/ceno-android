@@ -146,6 +146,14 @@
             app:popEnterAnim="@anim/slide_back_in"
             app:popExitAnim="@anim/slide_back_out" />
 
+        <action
+            android:id="@+id/action_settingsFragment_to_optimizePermissionsFragment"
+            app:destination="@id/settingsOptimizePermissionsScreen"
+            app:enterAnim="@anim/slide_in"
+            app:exitAnim="@anim/slide_out"
+            app:popEnterAnim="@anim/slide_back_in"
+            app:popExitAnim="@anim/slide_back_out" />
+
     </fragment>
 
     <fragment
@@ -323,4 +331,9 @@
             android:id="@+id/action_bookmarkAddFolderFragment_to_bookmarkSelectFolderFragment"
             app:destination="@id/bookmarkSelectFolderFragment" />
     </fragment>
+
+    <fragment
+        android:id="@+id/settingsOptimizePermissionsScreen"
+        android:label="fragment_settings_optimize_permissions"
+        android:name="ie.equalit.ceno.settings.SettingsOptimizePermissionsFragment"/>
 </navigation>
