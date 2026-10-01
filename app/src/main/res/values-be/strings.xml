@@ -119,4 +119,5 @@
     <string name="preferences_ouinet_proxy_endpoint">ouinetLocalProxy</string>
     <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
     <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
+    <string name="edit_bookmark_label">Edit</string>
 </resources>

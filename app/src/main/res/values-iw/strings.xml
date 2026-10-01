@@ -16,7 +16,7 @@
     <string name="menu_share_with">שתף עם…</string>
     <string name="content_description_private_browsing_button">הפעל גלישה פרטית</string>
     <string name="bookmark_menu_open_in_private_tab_button">פתח בכרטיסיה פרטית</string>
-    <string name="shortcut_max_limit_content">כדי להוסיף קיצור דרך חדש, הסר אחד קיים. גע והחזק את קיצור הדרך, ובחר הסר.</string>
+    <string name="shortcut_max_limit_content">כדי להוסיף קיצור דרך חדש, הסר אחד קיים. גע והחזק על קיצור הדרך, ובחר \"הסר\".</string>
     <string name="browser_menu_settings">הגדרות</string>
     <string name="browser_menu_add_to_homescreen">הוספה למסך הבית</string>
     <string name="browser_menu_find_in_page">מצא בעמוד</string>
@@ -24,7 +24,7 @@
     <string name="menu_action_close_tabs_private">סגור את הכרטיסיות האישיות</string>
     <string name="menu_action_close_tabs">סגור את כל הכרטיסיות</string>
     <string name="preferences_remote_debugging">ניפוי באגים באמצעות USB</string>
-    <string name="preferences_tracking_protection_normal">הפעל במצב גלישה רגיל</string>
+    <string name="preferences_tracking_protection_normal">הפעל במצב גלישה ציבורית</string>
     <string name="preferences_tracking_protection_private">הפעל במצב גלישה פרטית</string>
     <string name="privacy">פרטיות</string>
     <string name="open_links_in_apps">פתח קישורים באפליקציות</string>
@@ -161,4 +161,19 @@
     <string name="preferences_ouinet_proxy_endpoint">ouinetLocalProxy</string>
     <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
     <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
+    <string name="change_language">שינוי שפה</string>
+    <string name="top_sites_title">קיצורי דרך</string>
+    <plurals name="preferences_delete_browsing_data_tabs_subtitle">
+        <item quantity="one">לשונית</item>
+        <item quantity="two">לשוניות</item>
+        <item quantity="other">לשוניות</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_browsing_data_title">היסטוריית גלישה ונתוני אתר</string>
+    <plurals name="preferences_delete_browsing_data_browsing_data_subtitle">
+        <item quantity="one">כתובת</item>
+        <item quantity="two">כתובות</item>
+        <item quantity="other">כתובות</item>
+    </plurals>
+    <string name="preferences_delete_browsing_data_cookies_subtitle">תצטרכו להתחבר מחדש לרוב האתרים</string>
+    <string name="edit_bookmark_label">edit</string>
 </resources>
