@@ -29,7 +29,7 @@
     <string name="preferences_tracking_protection_private">Aktivera i personligt surfläge</string>
     <string name="theme_category">Tema</string>
     <string name="private_browsing_title">Personligt surfande</string>
-    <string name="dialog_ok">Okej</string>
+    <string name="dialog_ok">OK</string>
     <string name="top_sites_sponsored_label">Sponsrad</string>
     <string name="browser_menu_refresh">Uppdatera</string>
     <string name="browser_menu_desktop_site">Begär PC sida</string>
@@ -476,4 +476,5 @@
     <string name="default_telegram_channel">https://tg.ceno.app</string>
     <string name="preferences_hide_telegram_channels">Dölj Telegram-kanaler</string>
     <string name="telegram_topsites_title">Telegram</string>
+    <string name="edit_bookmark_label">Redigera</string>
 </resources>
