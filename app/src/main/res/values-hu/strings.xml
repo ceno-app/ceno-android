@@ -242,4 +242,13 @@
     <string name="preferences_ouinet_frontend_endpoint">ouinetLocalFrontend</string>
     <string name="preferences_ouinet_enable_doh">settingsDnsOverHttps</string>
     <string name="edit_bookmark_label">edit</string>
+    <string name="status_enabled">Engedélyezve</string>
+    <string name="ceno_network_status_title">ouinetStatusTitle</string>
+    <string name="ceno_network_status_connected">ouinetStatusConnected</string>
+    <string name="ceno_network_status_disconnected">ouinetStatusDisconnected</string>
+    <string name="ceno_network_status_degraded">ouinetStatusDegraded</string>
+    <string name="contact_support">ouinetStatusContactSupport</string>
+    <string name="preferences_metrics_campaign">settingsBackgroundMetrics</string>
+    <string name="dns_protocol_only_system">Csak a rendszer DNS használata</string>
+    <string name="dns_protocol_only_over_https">Csak DNS-over-HTTPS használata</string>
 </resources>
