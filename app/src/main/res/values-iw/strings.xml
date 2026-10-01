@@ -176,4 +176,13 @@
     </plurals>
     <string name="preferences_delete_browsing_data_cookies_subtitle">תצטרכו להתחבר מחדש לרוב האתרים</string>
     <string name="edit_bookmark_label">edit</string>
+    <string name="status_enabled">מופעל</string>
+    <string name="ceno_network_status_title">ouinetStatusTitle</string>
+    <string name="ceno_network_status_connected">ouinetStatusConnected</string>
+    <string name="ceno_network_status_disconnected">ouinetStatusDisconnected</string>
+    <string name="ceno_network_status_degraded">ouinetStatusDegraded</string>
+    <string name="contact_support">ouinetStatusContactSupport</string>
+    <string name="preferences_metrics_campaign">settingsBackgroundMetrics</string>
+    <string name="dns_protocol_only_system">השתמש ב-DNS של המערכת בלבד</string>
+    <string name="dns_protocol_only_over_https">השתמש ב-DNS-over-HTTPS בלבד</string>
 </resources>
