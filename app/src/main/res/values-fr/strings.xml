@@ -471,4 +471,6 @@
     <string name="warning_public_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode public sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode privé</string>
     <string name="warning_personal_website_sources_disabled">Toutes les sources nécessaires à la navigation en mode privé sont désactivées ; la navigation sur le Web n\'est possible qu\'en mode public</string>
     <string name="edit_bookmark_label">Modifier</string>
+    <string name="dns_protocol_only_system">Utiliser uniquement le DNS du système</string>
+    <string name="dns_protocol_only_over_https">Utiliser uniquement DNS-over-HTTPS</string>
 </resources>
