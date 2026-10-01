@@ -15,6 +15,7 @@ import mozilla.components.support.ktx.android.content.PreferencesHolder
 import mozilla.components.support.ktx.android.content.booleanPreference
 import mozilla.components.support.ktx.android.content.intPreference
 import mozilla.components.support.ktx.android.content.stringPreference
+import mozilla.components.support.ktx.android.content.stringSetPreference
 
 /**
  * A simple wrapper for SharedPreferences that makes reading preference a little bit easier.
@@ -99,6 +100,11 @@ class CenoPreferences(private val appContext: Context) : PreferencesHolder {
     var telegramChannelsBookGuid by stringPreference(
         appContext.getPreferenceKey(R.string.pref_telegram_channels_bookmark_guid),
         ""
+    )
+
+    var hiddenTelegramChannelsGuid by stringSetPreference(
+        appContext.getPreferenceKey(R.string.pref_hidden_telegram_channels),
+        emptySet()
     )
 
     /**

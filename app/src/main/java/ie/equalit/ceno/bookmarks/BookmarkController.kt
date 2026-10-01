@@ -10,6 +10,7 @@ import ie.equalit.ceno.NavGraphDirections
 import ie.equalit.ceno.R
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 import mozilla.components.concept.engine.prompt.ShareData
@@ -38,6 +39,8 @@ interface BookmarkController {
     fun handleBookmarkFolderDeletion(nodes: Set<BookmarkNode>)
     fun handleBackPressed()
     fun handleSearch()
+    fun handleBookmarkHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
+    fun handleBookmarkUnHide(node: BookmarkNode, onHiddenChangeCallback: (String?) -> Unit)
 }
 
 /**
@@ -57,6 +60,7 @@ class DefaultBookmarkController(
     private val loadBookmarkNode: suspend (String, Boolean) -> BookmarkNode?,
     private val deleteBookmarkNodes: (Set<BookmarkNode>) -> Unit,
     private val deleteBookmarkFolder: (Set<BookmarkNode>) -> Unit,
+    private val telegramChannelsViewModel: TelegramChannelsViewModel,
 ) : BookmarkController {
     override fun handleBookmarkChanged(item: BookmarkNode) {
         sharedViewModel.selectedFolder = item
@@ -113,6 +117,7 @@ class DefaultBookmarkController(
                 ShareData(
                     url = item.url,
                     title = item.title,
+                    private = false,
                 ),
             )
         )
@@ -156,5 +161,29 @@ class DefaultBookmarkController(
 
     override fun handleSearch() {
         //        TODO("Not yet implemented")
+    }
+
+    override fun handleBookmarkHide(
+        node: BookmarkNode,
+        onHiddenChangeCallback: (String?) -> Unit
+    ) {
+        telegramChannelsViewModel.onHideTelegramChannel(
+            activity,
+            node.url ?: throw Exception("No URL for bookmark")
+        ) {
+            onHiddenChangeCallback(node.guid)
+        }
+    }
+
+    override fun handleBookmarkUnHide(
+        node: BookmarkNode,
+        onHiddenChangeCallback: (String?) -> Unit
+    ) {
+        telegramChannelsViewModel.onUnHideTelegramChannel(
+            activity,
+            node.url ?: throw Exception("No URL for bookmark")
+        ) {
+            onHiddenChangeCallback(node.guid)
+        }
     }
 }

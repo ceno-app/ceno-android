@@ -9,13 +9,17 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R.layout.bookmark_list_item
 import ie.equalit.ceno.R.layout.bookmark_separator
+import ie.equalit.ceno.ext.cenoPreferences
 import mozilla.appservices.places.BookmarkRoot
 import mozilla.components.concept.storage.BookmarkNode
 import mozilla.components.concept.storage.BookmarkNodeType
 import kotlin.enums.enumEntries
 
-class BookmarkAdapter(private val emptyView: View, private val interactor: BookmarkViewInteractor) :
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class BookmarkAdapter(
+    private val emptyView: View,
+    private val interactor: BookmarkViewInteractor,
+    private val onTelegramChannelHiddenStateChangeCallback: (String?) -> Unit,
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     @VisibleForTesting
     var tree: List<BookmarkNode> = listOf()
@@ -24,6 +28,10 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
 
     fun updateData(tree: BookmarkNode?, mode: BookmarkFragmentState.Mode) {
         val allNodes = tree?.children.orEmpty()
+        val hiddenTelegramChannelsPref =
+            emptyView.context.cenoPreferences().hiddenTelegramChannelsGuid
+        val hiddenTelegramChannels =
+            allNodes.filter { hiddenTelegramChannelsPref.contains(it.guid) }
         val folders: MutableList<BookmarkNode> = mutableListOf()
         val notFolders: MutableList<BookmarkNode> = mutableListOf()
         val separators: MutableList<BookmarkNode> = mutableListOf()
@@ -31,12 +39,16 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
             when (it.type) {
                 BookmarkNodeType.SEPARATOR -> separators.add(it)
                 BookmarkNodeType.FOLDER -> folders.add(it)
-                else -> notFolders.add(it)
+                else -> {
+                    if (!hiddenTelegramChannels.contains(it))
+                        notFolders.add(it)
+                }
             }
         }
         // Display folders above all other bookmarks. Exclude separators.
         // For separator removal, see discussion in https://github.com/mozilla-mobile/fenix/issues/15214
-        val newTree = folders + notFolders - separators.toSet()
+        val newTree = (folders + notFolders - separators.toSet()).toMutableList()
+        newTree += hiddenTelegramChannels
 
         val diffUtil = DiffUtil.calculateDiff(
             BookmarkDiffUtil(
@@ -124,12 +136,16 @@ class BookmarkAdapter(private val emptyView: View, private val interactor: Bookm
             } else {
                 BookmarkPayload()
             }
+            this.onTelegramChannelHiddenChangeCallback = onTelegramChannelHiddenStateChangeCallback
             bind(tree[position], mode, diffPayload)
         }
     }
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        (holder as? BookmarkNodeViewHolder)?.bind(tree[position], mode, BookmarkPayload())
+        val viewHolder = (holder as? BookmarkNodeViewHolder).apply {
+            this?.onTelegramChannelHiddenChangeCallback = onTelegramChannelHiddenStateChangeCallback
+        }
+        viewHolder?.bind(tree[position], mode, BookmarkPayload())
     }
 }
 

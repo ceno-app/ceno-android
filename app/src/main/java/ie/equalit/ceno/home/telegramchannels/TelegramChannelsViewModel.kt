@@ -3,7 +3,6 @@ package ie.equalit.ceno.home.telegramchannels
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.google.android.material.internal.ViewUtils.getChildren
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.utils.XMLParser
@@ -31,11 +30,10 @@ class TelegramChannelsViewModel : ViewModel() {
             var guid = context.components.cenoPreferences.telegramChannelsBookGuid
             if (guid.isEmpty()) {
                 val presentGuid = getTelegramChannelsGuid(context)
-                guid = if(!presentGuid.isNullOrEmpty()) {
+                guid = if (!presentGuid.isNullOrEmpty()) {
                     context.components.cenoPreferences.telegramChannelsBookGuid = guid
                     presentGuid
-                }
-                else {
+                } else {
                     initializeTelegramChannels(context)
                 }
             }
@@ -47,18 +45,20 @@ class TelegramChannelsViewModel : ViewModel() {
 
             val topSites = mutableListOf<TopSite>()
             tree?.forEach {
-                if (it.type == BookmarkNodeType.FOLDER) {
-                    topSites.addAll(getChildren(it))
-                } else {
-                    topSites.add(
-                        TopSite.Pinned(
-                            id = it.guid.hashCode()
-                                .toLong(),
-                            title = it.title,
-                            url = it.url ?: "",
-                            createdAt = it.dateAdded
+                if (!context.components.cenoPreferences.hiddenTelegramChannelsGuid.contains(it.guid)) {
+                    if (it.type == BookmarkNodeType.FOLDER) {
+                        topSites.addAll(getChildren(it))
+                    } else {
+                        topSites.add(
+                            TopSite.Pinned(
+                                id = it.guid.hashCode()
+                                    .toLong(),
+                                title = it.title,
+                                url = it.url ?: "",
+                                createdAt = it.dateAdded
+                            )
                         )
-                    )
+                    }
                 }
             }
             _channels.update { topSites }
@@ -72,7 +72,7 @@ class TelegramChannelsViewModel : ViewModel() {
             .getOrNull()
             ?.children
         val channel = children
-            ?.find{ it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
+            ?.find { it.title == context.getString(R.string.telegram_channels_bookmark_folder_title) }
         return channel?.guid
     }
 
@@ -158,7 +158,11 @@ class TelegramChannelsViewModel : ViewModel() {
         }
     }
 
-    fun removeChannel(context: Context, url: String) {
+    fun onHideTelegramChannel(
+        context: Context,
+        url: String,
+        onChangeCallback: (BookmarkNode) -> Unit
+    ) {
         viewModelScope.launch {
             val guid = context.components.cenoPreferences.telegramChannelsBookGuid
             val tree = context.components.core.bookmarksStorage
@@ -167,10 +171,33 @@ class TelegramChannelsViewModel : ViewModel() {
 
             val child = tree?.children?.find { it.url == url }
             child?.let {
-                context.components.core.bookmarksStorage
-                    .deleteNode(it.guid)
+                context.components.cenoPreferences.hiddenTelegramChannelsGuid =
+                    context.components.cenoPreferences.hiddenTelegramChannelsGuid
+                        .plus(it.guid)
+                onChangeCallback(child)
+                _refresh.emit(true)
             }
-            _refresh.emit(true)
+        }
+    }
+
+    fun onUnHideTelegramChannel(
+        context: Context,
+        url: String,
+        onChangeCallback: (BookmarkNode) -> Unit
+    ) {
+        viewModelScope.launch {
+            val guid = context.components.cenoPreferences.telegramChannelsBookGuid
+            val tree = context.components.core.bookmarksStorage
+                .getTree(guid)
+                .getOrNull()
+
+            val child = tree?.children?.find { it.url == url }
+            child?.let {
+                context.components.cenoPreferences.hiddenTelegramChannelsGuid =
+                    context.components.cenoPreferences.hiddenTelegramChannelsGuid.minusElement(it.guid)
+                onChangeCallback(child)
+                _refresh.emit(true)
+            }
         }
     }
 }

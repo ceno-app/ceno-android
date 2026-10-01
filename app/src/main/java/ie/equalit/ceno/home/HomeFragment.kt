@@ -1,7 +1,6 @@
 package ie.equalit.ceno.home
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -38,6 +37,7 @@ import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tooltip.CenoTooltip
 import ie.equalit.ceno.tooltip.CenoTourStartOverlay
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ceno.utils.XMLParser
 import ie.equalit.ouinet.Ouinet.RunningState
@@ -85,6 +85,8 @@ class HomeFragment : BaseHomeFragment() {
     private val topSitesViewModel: TopSiteViewModel by viewModels()
     private var telegramChannels: List<TopSite>? = null
     private var topSites: List<TopSite>? = null
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -556,13 +558,10 @@ class HomeFragment : BaseHomeFragment() {
     }
 
     private fun askForPermissions() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            /* This is Android 13 or later, ask for permission POST_NOTIFICATIONS */
-            requireComponents.permissionHandler.requestPostNotificationsPermission(this)
-        } else {
-            /* This is NOT Android 13, just ask to disable battery optimization */
-            requireComponents.permissionHandler.requestBatteryOptimizationsOff(requireActivity())
-        }
+        settingsViewModel.requestPermissions(
+            requireActivity(),
+            this
+        )
     }
 
     companion object {

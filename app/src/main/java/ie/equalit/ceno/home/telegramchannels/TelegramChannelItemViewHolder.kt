@@ -14,7 +14,6 @@ import ie.equalit.ceno.databinding.TelegramChannelItemBinding
 import ie.equalit.ceno.ext.ceno.bitmapForUrl
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.topsites.TopSiteItemMenu
 import ie.equalit.ceno.utils.view.CenoViewHolder
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
@@ -34,20 +33,20 @@ class TelegramChannelItemViewHolder(
         binding.telegramChannelItem.setOnLongClickListener {
             interactor.onTopSiteMenuOpened()
 
-            val topSiteMenu = TopSiteItemMenu(
+            val topSiteMenu = TelegramChannelItemMenu(
                 context = view.context,
                 topSite = topSite
             ) { item ->
                 when (item) {
-                    is TopSiteItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
+                    is TelegramChannelItemMenu.Item.OpenInPrivateTab -> interactor.onOpenInPrivateTabClicked(
                         topSite
                     )
 
-                    is TopSiteItemMenu.Item.RenameTopSite -> interactor.onRenameTelegramChannelClick(
+                    is TelegramChannelItemMenu.Item.RenameTelegramChannel -> interactor.onRenameTelegramChannelClick(
                         topSite
                     )
 
-                    is TopSiteItemMenu.Item.RemoveTopSite -> interactor.onRemoveTelegramChannelClicked(
+                    is TelegramChannelItemMenu.Item.HideTelegramChannel -> interactor.onHideTelegramChannel(
                         topSite
                     )
                 }
