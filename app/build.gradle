@@ -100,6 +100,7 @@ android {
     buildTypes {
         debug {
             applicationIdSuffix ".debug"
+            buildConfigField "boolean", "DEBUG", "true"
         }
         /* CENO: Add release build type, allows automatic signing of apks by gradle */
         release releaseTemplate >> {
@@ -114,6 +115,7 @@ android {
             signingConfig signingConfigs.release
             versionNameSuffix "-${baseBuildDate}"
             buildConfigField "boolean", "IS_RELEASED", "true"
+            buildConfigField "boolean", "DEBUG", "true"
         }
     }
 
@@ -170,6 +172,7 @@ tasks.configureEach { task ->
 
 def apkDate = generatedApkDate
 def appId = android.defaultConfig.applicationId.tokenize('.')
+def commitHash = 'git rev-parse --verify --short HEAD'.execute().text.trim()
 if (isBuildingRelease || isBuildingNightly) {
     base {
         archivesName = "${appId[2]}-${android.defaultConfig.versionName}-${apkDate}"
@@ -300,7 +303,12 @@ android.applicationVariants.all { variant ->
     if (variant.name != 'debug') {
         variant.outputs.all { output ->
             def abi = output.getFilter("ABI")
-            outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+            if (variant.name == 'nightly') {
+                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${commitHash}.apk"
+            }
+            else {
+                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+            }
         }
     }
 
