@@ -487,4 +487,18 @@
     <string name="default_telegram_channel">https://tg.ceno.app</string>
     <string name="telegram_topsites_title">Telegram</string>
     <string name="preferences_hide_telegram_channels">Sembunyikan kanal Telegram</string>
+    <string name="edit_bookmark_label">Mengubah</string>
+    <string name="pref_telegram_channels_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
+    <string name="pref_top_sites_bookmark_guid">pref_top_sites_bookmark_guid</string>
+    <string name="telegram_channels_bookmark_folder_title">Kanal Telegram</string>
+    <string name="saved_in_bookmarks">Disimpan di \"Markah\"</string>
+    <string name="preferences_log_level">Tingkat log</string>
+    <string name="change_log_level">Ubah tingkat log</string>
+    <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Periksa keberadaan versi yang diarsipkan</string>
+    <string name="mozac_browser_errorpages_archive_checking" tools:ignore="UnusedResources">Verifikasi arsip</string>
+    <string name="mozac_browser_errorpages_archive_retry" tools:ignore="UnusedResources">Coba lagi.</string>
+    <string name="mozac_browser_errorpages_archive_search_web" tools:ignore="UnusedResources">Cari di Web</string>
+    <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Tidak dapat menghubungi layanan pengarsipan.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Perbarui alamat?</string>
+    <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Versi arsip tidak ditemukan.</string>
 </resources>

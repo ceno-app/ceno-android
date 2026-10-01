@@ -437,7 +437,7 @@
     <string name="preferences_secure_screen_personal_summary">محافظت از صفحه فقط هنگام استفاده از حالت مرور شخصی اعمال می‌شود</string>
     <string name="dialog_external_url_message">برای باز کردن لینک زیر، روی «ادامه» بزنید: -\n\n%1$s</string>
     <string name="dialog_external_url_title">آیا مطمئنید که می‌خواهید لینک را از اپ‌های دیگر باز کنید؟</string>
-    <string name="preferences_verify_external_url">نمایش هشدار پیش از باز کردن لینک از اپ‌های دیگر</string>
+    <string name="preferences_verify_external_url">هشدار پیش از باز کردن پیوند از برنامه‌های دیگر</string>
     <string name="warning_title">هشدار</string>
     <string name="warning_all_website_sources_disabled">همه منابع وب‌سایت غیرفعال هستند. برای ادامه مرور وب، لطفا حداقل یکی از منابع را فعال کنید</string>
     <string name="warning_public_website_sources_disabled">تمام منابع لازم برای مرور در حالت عمومی غیرفعال شده‌اند؛ مرور وب فقط در حالت شخصی امکان‌پذیر است</string>
@@ -446,4 +446,13 @@
     <string name="dns_protocol_only_over_https">فقط از DNS روی HTTPS استفاده کنید</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS روی HTTPS با قابلیت بازگشت به DNS سیستم</string>
     <string name="dns_category">پروتکل دی ان اس</string>
+    <string name="default_channel_1_title">اخبار الجزیره انگلیسی</string>
+    <string name="default_channel_1_title_ir">بی‌بی‌سی‌فارسی</string>
+    <string name="default_channel_2_title_ir">یورونیوز فارسی</string>
+    <string name="default_channel_3_title_ir">فارسی_ایران‌وایر</string>
+    <string name="default_channel_4_title_ir">سازمان هه‌نگاو</string>
+    <string name="default_channel_5_title_ir">خبرگزاری هرانا</string>
+    <string name="preferences_hide_telegram_channels">مخفی کردن کانال‌های تلگرام</string>
+    <string name="telegram_topsites_title">تلگرام</string>
+    <string name="edit_bookmark_label">ویرایش</string>
 </resources>

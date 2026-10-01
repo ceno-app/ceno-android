@@ -1,0 +1,11 @@
+### Corrigido
+
+- Horários de última atualização no feed Free Media não atualizavam ou exibiam valores negativos
+- Falha irrecuperável ao buscar anúncios da página inicial
+
+### Alterado
+
+- Adicionada opção para ocultar a seção do canal do Telegram na página inicial
+- Atualização do Android-Components para v153.0.3
+- Atualização de traduções para vários idiomas
+- Pequenas atualizações e correções em testes automatizados de interface
