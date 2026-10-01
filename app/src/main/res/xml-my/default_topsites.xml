@@ -3,18 +3,18 @@
 <topsites>
     <topsite>
         <title stringRes="@string/default_top_site_1_title">Ceno လက်စွဲ</title>
-        <url>https://ceno.app/user-manual/my/</url>
+        <url>https://ceno.app/user-manual/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_2_title">Wikipedia</title>
+        <title>Wikipedia</title>
         <url>https://www.wikipedia.org/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_3_title">Myanmar NOW</title>
+        <title>Myanmar NOW</title>
         <url>https://myanmar-now.org/mm</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_4_title">Justice For Myanmar</title>
+        <title>Justice For Myanmar</title>
         <url>https://justiceformyanmar.org/</url>
     </topsite>
 </topsites>

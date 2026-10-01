@@ -111,12 +111,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">ထပ်မပြပါနှင့်</string>
     <string name="default_top_site_1_title">Ceno လက်စွဲ</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_my_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" tools:ignore="Untranslatable">Myanmar NOW</string>
-    <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_mynow_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">Justice For Myanmar</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_justicemy_url</string>
     <string name="preferences_about_ouinet">Ouinet</string>
     <string name="preferences_about_geckoview">GeckoView</string>
     <string name="preferences_clear_behavior_default">0</string>
