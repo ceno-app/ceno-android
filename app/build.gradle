@@ -6,11 +6,12 @@ plugins {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
+
+import com.android.build.api.variant.BuildConfigField
 import groovy.json.JsonOutput
 import org.yaml.snakeyaml.Yaml
 
@@ -183,141 +184,203 @@ if (isBuildingRelease || isBuildingNightly) {
     }
 }
 
-android.applicationVariants.all { variant ->
+//android.applicationVariants.all { variant ->
+androidComponents {
+    onVariants(selector().all()) { variant ->
 
 // -------------------------------------------------------------------------------------------------
 // Sentry: Read token from local file if it exists (Only release builds)
 // -------------------------------------------------------------------------------------------------
-    print("Sentry token:  " + variant.name)
-    try {
-        def token = new File("${rootDir}/.sentry_token").text.trim()
-        buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
-        println "(Added from .sentry_token file)"
-    } catch (FileNotFoundException ignored) {
-        buildConfigField 'String', 'SENTRY_TOKEN', 'null'
-        println(" :( ")
-    }
+        print("Sentry token:  " + variant.name)
+        try {
+            def token = new File("${rootDir}/.sentry_token").text.trim()
+//            buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
+            variant.buildConfigFields.put(
+                    "SENTRY_TOKEN",
+                    new BuildConfigField("String", '"' + token + '"', null)
+            )
+            println "(Added from .sentry_token file)"
+        } catch (FileNotFoundException ignored) {
+//            buildConfigField 'String', 'SENTRY_TOKEN', 'null'
+            variant.buildConfigFields.put(
+                    "SENTRY_TOKEN",
+                    new BuildConfigField("String", "null", null)
+            )
+            println(" :( ")
+        }
 
 // -------------------------------------------------------------------------------------------------
 // Activating crash reports with command line parameter.
 // -------------------------------------------------------------------------------------------------
-    if (project.hasProperty("crashReportEnabled") && project.property("crashReportEnabled") == "true") {
-        buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'true'
-    } else {
-        buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'false'
-    }
+        if (project.hasProperty("crashReportEnabled") && project.property("crashReportEnabled") == "true") {
+//            buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'true'
+            variant.buildConfigFields.put(
+                    "CRASH_REPORTING_ENABLED",
+                    new BuildConfigField("boolean", true, null)
+            )
+        } else {
+//            buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'false'
+            variant.buildConfigFields.put(
+                    "CRASH_REPORTING_ENABLED",
+                    new BuildConfigField("boolean", false, null)
+            )
+        }
 
 // -------------------------------------------------------------------------------------------------
 // Activating telemetry  with command line paramter.
 // -------------------------------------------------------------------------------------------------
 
-    if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
-        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
-    } else {
-        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
-    }
+        if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
+//            buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
+            variant.buildConfigFields.put(
+                    "TELEMETRY_ENABLED",
+                    new BuildConfigField("boolean", true, null)
+            )
+        } else {
+//            buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
+            variant.buildConfigFields.put(
+                    "TELEMETRY_ENABLED",
+                    new BuildConfigField("boolean", false, null)
+            )
+        }
 
 // -------------------------------------------------------------------------------------------------
 // Generating version codes for Google Play
 // -------------------------------------------------------------------------------------------------
-    if (variant.buildType.buildConfigFields['IS_RELEASED']?.value) {
-        // The Google Play Store does not allow multiple APKs for the same app that all have the
-        // same version code. Therefore we need to have different version codes for our ARM and x86
-        // builds.
+//        variant.buildType.buildConfigFields.containsKey('IS_RELEASED') {
+        def buildTypeName = variant.buildType
+        def buildTypeDsl = android.buildTypes.findByName(buildTypeName)
+        def isReleasedField = buildTypeDsl?.buildConfigFields?.get('IS_RELEASED')
+        def isReleasedValue = isReleasedField?.value
 
-        // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
-        // with ARM compatibility mode.
-        variant.outputs.each { output ->
-            def abi = 'armeabi-v7a'
-            if (!isBuildingBundle) {
-                abi = output.getFilter("ABI")
-            }
+//        if (variant.buildType.buildConfigFields['IS_RELEASED']?.value) {
+        if (isReleasedValue) {
+            // The Google Play Store does not allow multiple APKs for the same app that all have the
+            // same version code. Therefore we need to have different version codes for our ARM and x86
+            // builds.
 
-            def versionCode
-            if (isBuildingRelease) {
-                // Release version code, see this issue for format
-                // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
-                def (m, n, p) = localProperties['versionName'].tokenize('.')
-                def mj = String.format("%02d", m as Integer)
-                def min = String.format("%03d", n as Integer)
-                def pt = String.format("%02d", p as Integer)
-                def a
-                switch (abi) {
-                    case 'armeabi-v7a': a = "0"; break
-                    case 'arm64-v8a': a = "1"; break
-                    case 'x86_64': a = "2"; break
-                    default: a = "3"; break
+            // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
+            // with ARM compatibility mode.
+            variant.outputs.each { output ->
+                def abi = 'armeabi-v7a'
+//                if (!isBuildingBundle) {
+//                    abi = output.getFilter("ABI")
+//                }
+                if (!isBuildingBundle) {
+                    def abiFilter = output.filters.find { it.filterType.name() == "ABI" }
+                    if (abiFilter != null) {
+                        abi = abiFilter.identifier
+                    }
                 }
-                def r = (localProperties['revision'] ?: 0) as Integer
-                versionCode = "2$mj$min$pt$a$r"
-            } else {
-                /* Ceno: We use mozilla's versionCode generator for nightly builds
+
+                def versionCode
+                if (isBuildingRelease) {
+                    // Release version code, see this issue for format
+                    // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
+                    def (m, n, p) = localProperties['versionName'].tokenize('.')
+                    def mj = String.format("%02d", m as Integer)
+                    def min = String.format("%03d", n as Integer)
+                    def pt = String.format("%02d", p as Integer)
+                    def a
+                    switch (abi) {
+                        case 'armeabi-v7a': a = "0"; break
+                        case 'arm64-v8a': a = "1"; break
+                        case 'x86_64': a = "2"; break
+                        default: a = "3"; break
+                    }
+                    def r = (localProperties['revision'] ?: 0) as Integer
+                    versionCode = "2$mj$min$pt$a$r"
+                } else {
+                    /* Ceno: We use mozilla's versionCode generator for nightly builds
                  * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
                  * We should periodically check if any changes are made to it.
                  */
-                versionCode = Config.generateFennecVersionCode(abi)
+                    versionCode = Config.generateFennecVersionCode(abi)
+                }
+
+                /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
+//                def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
+                def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Integer
+
+                println("versionCode for $abi = $versionCodeOverride")
+
+//                output.versionCodeOverride = versionCodeOverride
+                output.versionCode.set(versionCodeOverride)
             }
 
-            /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
-            def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
+            def lintAnalyzeTaskName = "lintAnalyzeDebug"
+            tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
 
-            println("versionCode for $abi = $versionCodeOverride")
+            def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
+            tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
 
-            output.versionCodeOverride = versionCodeOverride
+            def lintReportModelTaskName = "generateDebugLintReportModel"
+            tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
+
+            def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
+            tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
         }
-
-        def lintAnalyzeTaskName = "lintAnalyzeDebug"
-        tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
-        tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintReportModelTaskName = "generateDebugLintReportModel"
-        tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
-        tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-    }
 
 // -------------------------------------------------------------------------------------------------
 // BuildConfig: Set flag for official builds; similar to MOZILLA_OFFICIAL in mozilla-central.
 // -------------------------------------------------------------------------------------------------
 
-    if (project.hasProperty("official") || gradle.hasProperty("localProperties.official")) {
-        buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
-    } else {
-        buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
-    }
+        if (project.hasProperty("official") || gradle.hasProperty("localProperties.official")) {
+//            buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
+            variant.buildConfigFields.put(
+                    "MOZILLA_OFFICIAL",
+                    new BuildConfigField("boolean", true, null)
+            )
+        } else {
+//            buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
+            variant.buildConfigFields.put(
+                    "MOZILLA_OFFICIAL",
+                    new BuildConfigField("boolean", false, null)
+            )
+        }
 
 // -------------------------------------------------------------------------------------------------
 // Set the name of the output apks and copy to project directory
 // -------------------------------------------------------------------------------------------------
-    if (variant.name != 'debug') {
-        variant.outputs.all { output ->
-            def abi = output.getFilter("ABI")
-            if (variant.name == 'nightly') {
-                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${commitHash}.apk"
-            }
-            else {
-                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+        if (variant.name != 'debug') {
+//            variant.outputs.all { output ->
+            variant.outputs.each { output ->
+                def abi = ""
+                def abiFilter = output.filters.find { it.filterType.name() == "ABI" }
+                if (abiFilter != null) {
+                    abi = abiFilter.identifier
+                }
+                def computedName = ""
+                if (variant.name == 'nightly') {
+//                    outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${commitHash}.apk"
+                    computedName = "${appId[2]}-${abi}-${variant.name}-${android.defaultConfig.versionName}-${commitHash}.apk"
+                } else {
+//                    outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
+                    computedName = "${appId[2]}-${abi}-${variant.name}-${android.defaultConfig.versionName}-${apkDate}.apk"
+                }
+                output.outputFileName.set(computedName)
             }
         }
-    }
 
-    variant.assembleProvider.configure { assemble ->
-        assemble.doLast {
-            copy {
-                from variant.outputs*.outputFile
-                into "$project.rootDir/output/${variant.name}/"
-            }
+//        variant.assembleProvider.configure { assemble ->
+//            assemble.doLast {
+//                copy {
+//                    from variant.outputs*.outputFile
+//                    into "$project.rootDir/output/${variant.name}/"
+//                }
+//            }
+//        }
+        project.tasks.register("copy${variant.name.capitalize()}Apk", Copy) {
+            from(variant.artifacts.get(SingleArtifact.APK.INSTANCE))
+            into "$project.rootDir/output/${variant.name}/"
         }
     }
 }
