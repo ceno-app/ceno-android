@@ -251,4 +251,87 @@
     <string name="preferences_metrics_campaign">settingsBackgroundMetrics</string>
     <string name="dns_protocol_only_system">Csak a rendszer DNS használata</string>
     <string name="dns_protocol_only_over_https">Csak DNS-over-HTTPS használata</string>
+    <string name="select_extra_bt_source">Válassz extra BitTorrent bootstrap-et</string>
+    <string name="customize_bittorrent_bootstrap_add_custom_bootstraps">Adj hozzá egyedi bootstrap-et</string>
+    <string name="thank_you_bridge_mode_enabled">Köszönjük, hogy áthidaló lettél, ezzel gyarapítva a Ceno hálózatát!</string>
+    <string name="crash_reporting_opt_in">Köszönjük, hogy megosztotta a összeomlási jelentést, amivel segíti a Ceno fejlesztését. A funkció kikapcsolható a Settings &gt; Crash reporting menüpont alatt.</string>
+    <string name="default_top_site_1_title">Ceno kézikönyv</string>
+    <string name="customize_extra_bittorrent_bootstrap">Extra BitTorrent bootstrap-ek</string>
+    <string name="onboarding_thanks_text" tools:ignore="UnusedResources">Azzal, hogy ön a Ceno felhasználója, segít az elérhető áthidalók hálózatát növelni, amivel cenzúrázott tartalmak elérését segíti.</string>
+    <string name="ouinet_client_fetch_fail">A beállítások módosítása sikertelen</string>
+    <string name="ouinet_client_fetch_success">A Ceno beállításai módosultak</string>
+    <string name="ceno_onboarding_start_title" tools:ignore="UnusedResources">Legyen a web mindenkié, \npeer-to-peer</string>
+    <string name="ceno_onboarding_start_text" tools:ignore="UnusedResources">A Ceno peer-to-peer alapja segít az embereknek a weboldal tartalmait régiókon belül vagy keresztül megosztani, ott ahol más kapcsolatokat megszakítottak, vagy megfigyelés alatt álnak.</string>
+    <string name="ceno_home_card_public_text">A legjobb kapcsolat, kevesebb adatvédelem. Ideális hírek olvasásához, videók nézéséhez és tartalmak megosztásához</string>
+    <string name="ceno_home_card_personal_text">Jó kapcsolat, több adatvédelem. Ideális fiókokba belépéshez, bármilyen nyom hagyása nélkül, megosztás nélkül</string>
+    <string name="onboarding_finish_button">Befejezés</string>
+    <string name="network_settings" tools:ignore="UnusedResources">Hálózati beállítások</string>
+    <string name="ouinet_taking_too_long_title" tools:ignore="UnusedResources">Sokáig tart?</string>
+    <string name="ceno_ouinet_connecting">Kapcsolódás a Ceno hálózatához</string>
+    <string name="ceno_ouinet_connected">Kapcsolódott a Ceno hálózatához</string>
+    <string name="ceno_ouinet_disconnected">Lekapcsolódott a Ceno hálózatáról</string>
+    <string name="ceno_sources_shared_by_local_cache">A böngésző gyorsítótárából</string>
+    <string name="ceno_personal_browsing_description">A Ceno nem fogja megosztani a személyes lapok tartalmát. Meglátogathat olyan weboldalakat, ahol belépés szükséges.</string>
+    <string name="public_browsing_mode_selected">publikus böngészési mód kiválasztva</string>
+    <string name="public_mode_icon">publikus mód ikonja</string>
+    <string name="personal_browsing_mode_selected">személyes böngészési mód kiválasztva</string>
+    <string name="personal_mode_icon">személyes mód ikonja</string>
+    <string name="ceno_log_file_saved">Log fájl sikeresen lementve</string>
+    <string name="ceno_log_file_saved_desc">A legnagyobb adatvédelem elérése érdekében minden személyes adat a log file-ból alaposan ki lett törölve.</string>
+    <string name="progress_dialog_log_export_header">Kérem várjon…</string>
+    <string name="progress_dialog_log_export_message">Log file-ok feldolgozása…</string>
+    <string name="last_5_minutes">Utóbbi 5 perc</string>
+    <string name="last_10_minutes">Utóbbi 10 perc</string>
+    <string name="last_2_hours">Utóbbi 2 óra</string>
+    <string name="all_logs" tools:ignore="UnusedResources">Az összes log</string>
+    <string name="canceled">Megszakítva</string>
+    <string name="bridge_announcement_dialog_text">Kérem várjon, amíg a Ceno böngésző szolgáltatása újraindul, hogy a változtatások érvénybe lépjenek.</string>
+    <string name="home_go_to_settings">Lépjen a Beállításokba</string>
+    <string name="standby_restarting_text" tools:ignore="UnusedResources">Újraindítás…</string>
+    <string name="download_site_content">Az oldal tartalmainak letöltése</string>
+    <string name="no_content_shared">Jelenleg nem oszt meg semmilyen tartalmat</string>
+    <string name="confirm_groups_file_download" tools:ignore="UnusedResources">Exportálja a megosztott tartalmak listáját?</string>
+    <string name="confirm_groups_file_download_desc" tools:ignore="UnusedResources">Egy .txt fájl lesz mentve a helyi Tárhelyre.</string>
+    <string name="confirm_clear_cached_content">Kitisztítja a gyorsítótárat?</string>
+    <string name="confirm_clear_cached_content_desc">A gyorsítótár hamarosan ki lesz tisztítva.</string>
+    <string name="clean_insights_header">Segítsen a Ceno-t jobbá tenni!</string>
+    <string name="clean_insights_sub_header">Szeretnénk az alábbi mértékeket felvenni.</string>
+    <string name="clean_insights_explainer">Hozzájárulása név nélkül történik és bármikor kikapcsolható a Settings &gt; Background metrics beállításoknál.</string>
+    <string name="optional_metrics">választható mértékek:</string>
+    <string name="device_type">Eszköz típusa</string>
+    <string name="device_locale">Eszköz tartózkodási helye (nyelv)</string>
+    <string name="clean_insights_opt_in">IGEN, BE AKAROK SZÁLLNI</string>
+    <string name="clean_insights_maybe_later">NEM, TALÁN KÉSŐBB</string>
+    <string name="thank_you_for_feedback" tools:ignore="UnusedResources">Köszönjük visszajelzését!</string>
+    <string name="submit" tools:ignore="UnusedResources">Küldés</string>
+    <plurals name="preferences_ceno_groups_count_subtitle">
+        <item quantity="one">%d oldal</item>
+        <item quantity="other">%d oldalak</item>
+    </plurals>
+    <string name="browser_menu_enable_reader_view">Olvasói nézet megjelenítése</string>
+    <string name="browser_menu_disable_reader_view">Olvasói nézet elrejtése</string>
+    <string name="error_page_title">Hiba oldal</string>
+    <string name="error_page_header">Hoppá! Nem sikerült az oldal betöltése.</string>
+    <string name="error_page_sub_header">Ez azt jelenti, hogy a Ceno megpróbálta az összes lehetséges módon elérni a weboldalt, de egyik sem sikerült:</string>
+    <string name="error_page_learn_more">Tudjon meg többet</string>
+    <string name="error_page_learn_more_header">Bizonyosodjon meg róla, hogy teljesülnek az alábbi követelmények ahhoz, hogy a Ceno működjön</string>
+    <string name="enable_debug_logs">Engedélyezze a debug logokat</string>
+    <string name="bridge_mode_category">Bejelentés áthidalóknak</string>
+    <string name="preferences_toolbar_position">Rakja a képernyő tetejére</string>
+    <string name="preferences_toolbar_hide">Lapozással eltüntethető</string>
+    <string name="preferences_show_home_button">Otthon gomb mutatása</string>
+    <string name="preferences_allow_crash_reporting_description">Küldjön jelentést a fejlesztőknek egy összeomlás után</string>
+    <string name="preferences_clear_in_toolbar">Eszköztár mutatása</string>
+    <string name="preferences_clear_in_menu">Menüben mutatás</string>
+    <string name="preferences_clear_behavior">Alap viselkedés</string>
+    <string name="preferences_clear_behavior_default">0</string>
+    <string name="preferences_clear_behavior_option_2">Csak a Ceno gyorsítótárának törtlése</string>
+    <string name="preferences_clear_behavior_option_3">Törölje az alkalmazás adatait és a Ceno gyorsítótárát</string>
+    <string name="preferences_change_app_icon">Alkalmazás ikonjának megváltoztatása</string>
+    <string name="preferences_theme_summary">Sötét, Világos, Akkumulátor Kímélő</string>
+    <string name="preferences_theme_option_0">Kövesse az eszköz témáját</string>
+    <string name="ceno_sources_category" tools:ignore="UnusedResources">Források</string>
+    <string name="preferences_change_language">Nyelv kiválasztása</string>
+    <string name="changeIconDialogTitle">Alkalmazza az új ikont?</string>
+    <string name="changeIconDialogMessage">Az alkalmazás be fog zárni, hogy alkalmazza a változtatásokat. Kérem jöjjön vissza, miután megcsodálta a gyönyörű új ikonját.</string>
 </resources>
