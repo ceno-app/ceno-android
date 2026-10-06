@@ -10,8 +10,6 @@ apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
 
-
-import com.android.build.api.variant.BuildConfigField
 import groovy.json.JsonOutput
 import org.yaml.snakeyaml.Yaml
 
@@ -265,21 +263,6 @@ androidComponents {
                 lintTask.dependsOn(unzipUblockOrigin)
             }
         }
-
-        /*
-         * BuildConfig: Set flag for official builds; similar to MOZILLA_OFFICIAL in mozilla-central.
-         */
-        if (project.hasProperty("official") || gradle.hasProperty("localProperties.official")) {
-            variant.buildConfigFields.put(
-                    "MOZILLA_OFFICIAL",
-                    new BuildConfigField("boolean", true, null)
-            )
-        } else {
-            variant.buildConfigFields.put(
-                    "MOZILLA_OFFICIAL",
-                    new BuildConfigField("boolean", false, null)
-            )
-        }
     }
 }
 
@@ -335,7 +318,6 @@ dependencies {
     implementation libs.mozilla.featureprompts
     implementation libs.mozilla.featurepwa
     implementation libs.mozilla.featurereaderview
-    implementation libs.mozilla.featurewebauthn
     implementation libs.mozilla.featurewebcompat
     implementation libs.mozilla.featurewebnotifications
     implementation libs.mozilla.featureshare
