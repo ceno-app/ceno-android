@@ -71,6 +71,14 @@ Clean build directory and re-build nightly apks and bundle
 
 Clean build directory and re-build nightly apks and bundle
 
+### android copyReleaseArtifacts
+
+```sh
+[bundle exec] fastlane android copyReleaseArtifacts
+```
+
+Copy releases artifacts to output directory
+
 ### android checksumRelease
 
 ```sh
