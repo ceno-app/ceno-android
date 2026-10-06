@@ -6,7 +6,6 @@ plugins {
 }
 
 apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
 apply plugin: 'kotlinx-serialization'
 apply plugin: 'androidx.navigation.safeargs'
 apply from: "$project.rootDir/automation/gradle/versionCode.gradle"
@@ -183,140 +182,85 @@ if (isBuildingRelease || isBuildingNightly) {
     }
 }
 
-android.applicationVariants.all { variant ->
+androidComponents {
+    onVariants(selector().all()) { variant ->
+        /*
+         * Generating version codes for Google Play
+         */
+        if (isBuildingRelease || isBuildingNightly) {
+            // The Google Play Store does not allow multiple APKs for the same app that all have the
+            // same version code. Therefore we need to have different version codes for our ARM and x86
+            // builds.
 
-// -------------------------------------------------------------------------------------------------
-// Sentry: Read token from local file if it exists (Only release builds)
-// -------------------------------------------------------------------------------------------------
-    print("Sentry token:  " + variant.name)
-    try {
-        def token = new File("${rootDir}/.sentry_token").text.trim()
-        buildConfigField 'String', 'SENTRY_TOKEN', '"' + token + '"'
-        println "(Added from .sentry_token file)"
-    } catch (FileNotFoundException ignored) {
-        buildConfigField 'String', 'SENTRY_TOKEN', 'null'
-        println(" :( ")
-    }
-
-// -------------------------------------------------------------------------------------------------
-// Activating crash reports with command line parameter.
-// -------------------------------------------------------------------------------------------------
-    if (project.hasProperty("crashReportEnabled") && project.property("crashReportEnabled") == "true") {
-        buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'true'
-    } else {
-        buildConfigField 'boolean', 'CRASH_REPORTING_ENABLED', 'false'
-    }
-
-// -------------------------------------------------------------------------------------------------
-// Activating telemetry  with command line paramter.
-// -------------------------------------------------------------------------------------------------
-
-    if (project.hasProperty("telemetry") && project.property("telemetry") == "true") {
-        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'true'
-    } else {
-        buildConfigField 'boolean', 'TELEMETRY_ENABLED', 'false'
-    }
-
-// -------------------------------------------------------------------------------------------------
-// Generating version codes for Google Play
-// -------------------------------------------------------------------------------------------------
-    if (variant.buildType.buildConfigFields['IS_RELEASED']?.value) {
-        // The Google Play Store does not allow multiple APKs for the same app that all have the
-        // same version code. Therefore we need to have different version codes for our ARM and x86
-        // builds.
-
-        // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
-        // with ARM compatibility mode.
-        variant.outputs.each { output ->
-            def abi = 'armeabi-v7a'
-            if (!isBuildingBundle) {
-                abi = output.getFilter("ABI")
-            }
-
-            def versionCode
-            if (isBuildingRelease) {
-                // Release version code, see this issue for format
-                // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
-                def (m, n, p) = localProperties['versionName'].tokenize('.')
-                def mj = String.format("%02d", m as Integer)
-                def min = String.format("%03d", n as Integer)
-                def pt = String.format("%02d", p as Integer)
-                def a
-                switch (abi) {
-                    case 'armeabi-v7a': a = "0"; break
-                    case 'arm64-v8a': a = "1"; break
-                    case 'x86_64': a = "2"; break
-                    default: a = "3"; break
+            // Our x86 builds need a higher version code to avoid installing ARM builds on an x86 device
+            // with ARM compatibility mode.
+            variant.outputs.each { output ->
+                def abi = 'armeabi-v7a'
+                if (!isBuildingBundle) {
+                    def abiFilter = output.filters.find { it.filterType.name() == "ABI" }
+                    if (abiFilter != null) {
+                        abi = abiFilter.identifier
+                    }
                 }
-                def r = (localProperties['revision'] ?: 0) as Integer
-                versionCode = "2$mj$min$pt$a$r"
-            } else {
-                /* Ceno: We use mozilla's versionCode generator for nightly builds
-                 * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
-                 * We should periodically check if any changes are made to it.
-                 */
-                versionCode = Config.generateFennecVersionCode(abi)
+
+                def versionCode
+                if (isBuildingRelease) {
+                    // Release version code, see this issue for format
+                    // https://gitlab.com/censorship-no/ceno-browser/-/issues/124
+                    def (m, n, p) = localProperties['versionName'].tokenize('.')
+                    def mj = String.format("%02d", m as Integer)
+                    def min = String.format("%03d", n as Integer)
+                    def pt = String.format("%02d", p as Integer)
+                    def a
+                    switch (abi) {
+                        case 'armeabi-v7a': a = "0"; break
+                        case 'arm64-v8a': a = "1"; break
+                        case 'x86_64': a = "2"; break
+                        default: a = "3"; break
+                    }
+                    def r = (localProperties['revision'] ?: 0) as Integer
+                    versionCode = "2$mj$min$pt$a$r"
+                } else {
+                    /* Ceno: We use mozilla's versionCode generator for nightly builds
+                     * copied from here, https://github.com/mozilla-firefox/firefox/blob/main/mobile/android/android-components/plugins/config/src/main/java/ConfigPlugin.kt
+                     * We should periodically check if any changes are made to it.
+                     */
+                    versionCode = Config.generateFennecVersionCode(abi)
+                }
+
+                def versionCodeOverride = versionCode.toString() as Integer
+
+                println("versionCode for $abi = $versionCodeOverride")
+
+                output.versionCode.set(versionCodeOverride)
+
+                def computedName = "${appId[2]}-${abi}-${variant.name}-${android.defaultConfig.versionName}"
+                if (isBuildingNightly) {
+                    computedName += "-${baseBuildDate}-${commitHash}.apk"
+                } else {
+                    computedName += "-${apkDate}.apk"
+                }
+                output.outputFileName.set(computedName)
             }
 
-            /* CENO: For F-Droid allow generated buildId to be overridden with value included in local.properties */
-            def versionCodeOverride = (localProperties['buildId'] ?: versionCode.toString()) as Long
-
-            println("versionCode for $abi = $versionCodeOverride")
-
-            output.versionCodeOverride = versionCodeOverride
-        }
-
-        def lintAnalyzeTaskName = "lintAnalyzeDebug"
-        tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
-        tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintReportModelTaskName = "generateDebugLintReportModel"
-        tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-
-        def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
-        tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
-            lintTask.dependsOn(unzipUblockOrigin)
-        }
-    }
-
-// -------------------------------------------------------------------------------------------------
-// BuildConfig: Set flag for official builds; similar to MOZILLA_OFFICIAL in mozilla-central.
-// -------------------------------------------------------------------------------------------------
-
-    if (project.hasProperty("official") || gradle.hasProperty("localProperties.official")) {
-        buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'true'
-    } else {
-        buildConfigField 'Boolean', 'MOZILLA_OFFICIAL', 'false'
-    }
-
-// -------------------------------------------------------------------------------------------------
-// Set the name of the output apks and copy to project directory
-// -------------------------------------------------------------------------------------------------
-    if (variant.name != 'debug') {
-        variant.outputs.all { output ->
-            def abi = output.getFilter("ABI")
-            if (variant.name == 'nightly') {
-                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${commitHash}.apk"
+            def lintAnalyzeTaskName = "lintAnalyzeDebug"
+            tasks.matching { it.name == lintAnalyzeTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
             }
-            else {
-                outputFileName = "${appId[2]}-${abi}-${variant.name}-${versionName}-${apkDate}.apk"
-            }
-        }
-    }
 
-    variant.assembleProvider.configure { assemble ->
-        assemble.doLast {
-            copy {
-                from variant.outputs*.outputFile
-                into "$project.rootDir/output/${variant.name}/"
+            def lintVitalAnalyzeTaskName = "lintVitalAnalyze${variant.name.capitalize()}"
+            tasks.matching { it.name == lintVitalAnalyzeTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
+
+            def lintReportModelTaskName = "generateDebugLintReportModel"
+            tasks.matching { it.name == lintReportModelTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
+            }
+
+            def lintVitalReportModelTaskName = "generate${variant.name.capitalize()}LintVitalReportModel"
+            tasks.matching { it.name == lintVitalReportModelTaskName }.configureEach { lintTask ->
+                lintTask.dependsOn(unzipUblockOrigin)
             }
         }
     }
@@ -374,7 +318,6 @@ dependencies {
     implementation libs.mozilla.featureprompts
     implementation libs.mozilla.featurepwa
     implementation libs.mozilla.featurereaderview
-    implementation libs.mozilla.featurewebauthn
     implementation libs.mozilla.featurewebcompat
     implementation libs.mozilla.featurewebnotifications
     implementation libs.mozilla.featureshare
@@ -385,7 +328,6 @@ dependencies {
     implementation libs.mozilla.uitabcounter
 
     implementation libs.mozilla.servicelocation
-    implementation libs.mozilla.servicesynclogins
 
     implementation libs.mozilla.supportutils
     implementation libs.mozilla.supportktx
