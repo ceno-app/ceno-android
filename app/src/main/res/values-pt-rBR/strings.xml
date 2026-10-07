@@ -518,4 +518,9 @@
     <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Não foi possível contatar o serviço de arquivamento.</string>
     <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Atualizar endereço?</string>
     <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Versão de arquivo não encontrada.</string>
+    <string name="pref_hidden_telegram_channels">pref_hidden_telegram_channels</string>
+    <string name="preferences_access_local_network">Acessar rede local</string>
+    <string name="back_button_description">botão de voltar</string>
+    <string name="hide_telegram_channel">Esconder</string>
+    <string name="unhide_telegram_channel">Desconsiderar</string>
 </resources>
