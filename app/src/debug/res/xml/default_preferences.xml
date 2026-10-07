@@ -35,7 +35,7 @@
         android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_ceno_enable_log"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_show_standby_warning"
         android:defaultValue="true" />
@@ -53,5 +53,5 @@
         android:defaultValue="true" />
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_allow_crash_reporting"
-        android:defaultValue="false" />
+        android:defaultValue="true" />
 </PreferenceScreen>

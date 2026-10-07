@@ -32,7 +32,6 @@ import androidx.preference.PreferenceManager
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import ie.equalit.ceno.BrowserActivity
-import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.addons.WebExtensionActionPopupPanel
 import ie.equalit.ceno.bookmarks.BookmarkFragment
@@ -84,7 +83,6 @@ import mozilla.components.feature.session.SessionFeature
 import mozilla.components.feature.session.SwipeRefreshFeature
 import mozilla.components.feature.sitepermissions.SitePermissionsFeature
 import mozilla.components.feature.tabs.WindowFeature
-import mozilla.components.feature.webauthn.WebAuthnFeature
 import mozilla.components.lib.state.ext.consumeFlow
 import mozilla.components.lib.state.ext.consumeFrom
 import mozilla.components.support.base.feature.UserInteractionHandler
@@ -121,7 +119,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
     private val pictureInPictureIntegration = ViewBoundFeatureWrapper<PictureInPictureIntegration>()
     private val swipeRefreshFeature = ViewBoundFeatureWrapper<SwipeRefreshFeature>()
     private val windowFeature = ViewBoundFeatureWrapper<WindowFeature>()
-    private val webAuthnFeature = ViewBoundFeatureWrapper<WebAuthnFeature>()
     protected var webExtensionActionPopupPanel: WebExtensionActionPopupPanel? = null
     private lateinit var runnable: Runnable
     private lateinit var progressBarTrackerRunnable: Runnable
@@ -435,18 +432,6 @@ abstract class BaseBrowserFragment : Fragment(), UserInteractionHandler {
             owner = this,
             view = view,
         )
-
-        if (BuildConfig.MOZILLA_OFFICIAL) {
-            webAuthnFeature.set(
-                feature = WebAuthnFeature(
-                    requireComponents.core.engine,
-                    requireActivity(),
-                    requireComponents.useCases.sessionUseCases.exitFullscreen::invoke,
-                ) { requireComponents.core.store.state.selectedTabId },
-                owner = this,
-                view = view,
-            )
-        }
 
         /* CENO: Add purge button to toolbar */
         if (prefs.getBoolean(

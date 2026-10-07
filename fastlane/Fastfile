@@ -102,6 +102,13 @@ platform :android do
     )
   end
 
+  desc "Copy releases artifacts to output directory"
+  lane :copyReleaseArtifacts do
+    sh "cp ../app/build/outputs/apk/release/*.apk ../output/release/."
+    sh "cp ../app/build/outputs/bundle/release/*.aab ../output/release/."
+  end
+
+
   desc "Create checksum of releases binaries"
   lane :checksumRelease do
     sh "sha256sum ../output/release/* > ../output/release/sha256sums.txt"
@@ -219,6 +226,7 @@ platform :android do
   lane :buildRelease do
       lint
       cleanAssembleRelease
+      copyReleaseArtifacts
       checksumRelease
   end
 

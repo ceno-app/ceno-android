@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <topsites>
     <topsite>
-        <title>Ceno Manual</title>
+        <title stringRes="@string/default_top_site_1_title">Ceno Manual</title>
         <url>https://ceno.app/user-manual/uk/</url>
     </topsite>
     <topsite>

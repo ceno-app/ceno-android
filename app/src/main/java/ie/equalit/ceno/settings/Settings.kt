@@ -8,6 +8,7 @@ import android.content.Context
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
@@ -517,12 +518,17 @@ object Settings {
     }
 
     /**
-     * Defaults to DEBUG log if log level has not been set
+     * Set default log level based on build variant
      */
     fun getLogLevel(context: Context): String {
         val key = context.getString(R.string.pref_key_log_level)
+        val default = if (BuildConfig.DEBUG) {
+            Config.LogLevel.SILLY.name
+        } else {
+            Config.LogLevel.INFO.name
+        }
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(key, Config.LogLevel.INFO.name)
+            .getString(key, default)
             ?: throw Exception("LogLevel settings not found")
     }
 }
