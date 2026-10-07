@@ -20,7 +20,7 @@
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
 
--dontobfuscate
+# -dontobfuscate
 
 ####################################################################################################
 # GeckoView built-ins
