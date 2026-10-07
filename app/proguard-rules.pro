@@ -48,3 +48,5 @@
 
 # Fix broken RSS parsing
 -keep class ie.equalit.ceno.home.RssAnnouncementResponse { *; }
+
+-keep class mozilla.components.concept.engine.prompt.ShareData
