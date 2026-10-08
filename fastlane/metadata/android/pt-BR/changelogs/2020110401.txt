@@ -1,0 +1,6 @@
+### Alterações
+
+- Atualização do Ouinet para a versão 1.7.2
+- Atualização do Android-Components para a versão 155.0.1
+- Remoção da extensão "HTTPS-by-default" e ativação do modo "httpsOnlyMode" no motor do navegador
+- Correção de avisos de depreciação no código-fonte

@@ -112,12 +112,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
     <string name="default_top_site_1_title">Manual de Ceno</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_es_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" tools:ignore="Untranslatable">El País</string>
-    <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_elpais_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">Infobae</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_infobae_url</string>
     <string name="onboarding_welcome_title">Bienvenido a Ceno</string>
     <string name="onboarding_permissions_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve el sistema operativo le pedirá permiso para \n \n- Desactivar la optimización de la batería. \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>
@@ -439,7 +434,7 @@
     <string name="test_metrics_dialog_failed">Las métricas de prueba no han sido enviadas al cliente local</string>
     <string name="dialog_external_url_message">Pulse continuar para abrir la siguiente URL -\n\n%1$s</string>
     <string name="dialog_external_url_title">¿Está seguir que desea abrir las URL desde aplicaciones externas?</string>
-    <string name="preferences_verify_external_url">Mostrar advertencias antes de abrir las URL desde otras aplicaciones</string>
+    <string name="preferences_verify_external_url">Advierta antes de abrir URLs de otras aplicaciones</string>
     <string name="secure_screen_category">Pantalla segura</string>
     <string name="preferences_secure_screen">Habilitar pantalla segura</string>
     <string name="preferences_secure_screen_summary">Oculta la vista actual cuando intercambia las aplicaciones y previene capturas de pantalla</string>
@@ -454,4 +449,5 @@
     <string name="dns_protocol_only_over_https">Solo utilice DNS-over-HTTPS</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS con retroceso al DNS del sistema</string>
     <string name="dns_category">Protocolo de DNS</string>
+    <string name="edit_bookmark_label">Editar</string>
 </resources>

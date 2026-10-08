@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno.components
 
+import kotlinx.coroutines.CoroutineScope
 import mozilla.components.feature.intent.processing.TabIntentProcessor
 import mozilla.components.feature.search.SearchUseCases
 import mozilla.components.feature.tabs.TabsUseCases
@@ -14,12 +15,17 @@ import mozilla.components.feature.tabs.TabsUseCases
 class Utilities(
     private val searchUseCases: SearchUseCases,
     private val tabsUseCases: TabsUseCases,
+    private val applicationScope: CoroutineScope,
 ) {
     /**
      * Provides intent processing functionality for ACTION_VIEW and ACTION_SEND intents,
      * along with external intent processors.
      */
     val intentProcessor by lazy {
-        TabIntentProcessor(tabsUseCases, searchUseCases.newTabSearch)
+        TabIntentProcessor(
+            tabsUseCases,
+            searchUseCases.newTabSearch,
+            applicationScope = applicationScope
+        )
     }
 }

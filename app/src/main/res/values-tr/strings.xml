@@ -439,4 +439,18 @@
     <string name="dns_category">DNS Protokolü</string>
     <string name="dns_protocol_only_over_https">Yalnızca HTTPS üzerinden DNS kullan</string>
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">Sistem DNS\'ine geri dönüş özellikli HTTPS üzerinden DNS</string>
+    <string name="default_channel_1_title">T.me/aljazeeraenglishnews</string>
+    <string name="default_channel_1_title_ir">T.me/bbcpersian</string>
+    <string name="default_channel_2_title_ir">euronewspe</string>
+    <string name="default_channel_3_title_ir">Farsi_Iranwire</string>
+    <string name="default_channel_4_title_ir">Hengaw_Org</string>
+    <string name="default_channel_5_title_ir">hranews</string>
+    <string name="default_channel_6_title_ir">IranintlTV</string>
+    <string name="default_channel_7_title_ir">ManotoTV</string>
+    <string name="default_channel_8_title_ir">paskoocheh</string>
+    <string name="default_channel_9_title_ir">radiofarda</string>
+    <string name="default_channel_10_title_ir">tavaanatech</string>
+    <string name="preferences_hide_telegram_channels">Telegram kanallarını gizle</string>
+    <string name="telegram_topsites_title">Telegram</string>
+    <string name="edit_bookmark_label">Düzenle</string>
 </resources>

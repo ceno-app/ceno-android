@@ -5,7 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.11.4 - 2026-09-09
+## v2.12.0 - 2026-10-07
+
+### Added
+
+- Prompt for local network permissions on Android 17 and later
+- Option to configure log-level
+
+### Changed
+
+- Shortcuts and Telegram channels are now managed via Bookmarks menu
+- Telegram channels can be individually hidden from homepage section
+- Free media feed can be now be fully collapsed
+- Migrated permissions options to separate settings sub-menu
+- Update Android-Components to 157.0.1
+- Minor updates to translations for various locales
+
+### Fixed
+
+- Broken Ceno user manual shortcut links for es and my locales
+- Obfuscation of release builds improved to 80%
+
+## [v2.11.7](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.7) - 2026-09-24
+
+### Fixed
+
+- Bug setting custom BitTorrent bootstraps via dialog
+
+## [v2.11.6](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.6) - 2026-09-24
+
+### Changed
+
+- Rollback Ouinet to v1.6.11
+
+## [v2.11.5](https://gitlab.com/ceno-app/ceno-android/-/tags/v2.11.5) - 2026-09-23
+
+### Fixed
+
+- Crash when opening extra bootstrap configuration option
+
+### Changed
+
+- Update Android-Components to 156.0.1
+
+## [v2.11.4](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.4) - 2026-09-09
 
 ### Changed
 

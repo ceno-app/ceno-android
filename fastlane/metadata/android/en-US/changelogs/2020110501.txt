@@ -1,0 +1,9 @@
+
+### Fixed
+
+- Crash when opening extra bootstrap configuration option
+
+### Changed
+
+- Update Android-Components to 156.0.1
+

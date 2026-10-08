@@ -1,5 +1,6 @@
 package ie.equalit.ceno.bookmarks
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.DialogInterface
 import android.os.Bundle
@@ -28,7 +29,9 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.components.StoreProvider
 import ie.equalit.ceno.databinding.FragmentBookmarkBinding
 import ie.equalit.ceno.ext.requireComponents
+import ie.equalit.ceno.home.telegramchannels.TelegramChannelsViewModel
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.Dispatchers.Main
 import kotlinx.coroutines.async
@@ -63,11 +66,13 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
     private var tree: BookmarkNode? = null
 
     private val sharedViewModel: BookmarksSharedViewModel by activityViewModels()
+    private val telegramChannelsViewModel: TelegramChannelsViewModel by activityViewModels()
 
     private var pendingBookmarksToDelete: MutableSet<BookmarkNode> = mutableSetOf()
 
     private lateinit var bookmarkAdapter: BookmarkAdapter
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -89,10 +94,16 @@ class BookmarkFragment : Fragment(), MenuProvider, UserInteractionHandler {
                 loadBookmarkNode = ::loadBookmarkNode,
                 deleteBookmarkNodes = ::deleteMulti,
                 deleteBookmarkFolder = ::showRemoveFolderDialog,
+                telegramChannelsViewModel = telegramChannelsViewModel,
             ),
         )
 
-        bookmarkAdapter = BookmarkAdapter(binding.bookmarksEmptyView, bookmarkInteractor)
+        bookmarkAdapter = BookmarkAdapter(binding.bookmarksEmptyView, bookmarkInteractor) { pg ->
+            consumeFrom(bookmarkStore) {
+                update(it)
+                bookmarkAdapter.notifyDataSetChanged()
+            }
+        }
         binding.bookmarkList.apply {
             adapter = bookmarkAdapter
         }

@@ -146,7 +146,7 @@ sealed class AdapterItem(val type: HomepageCardType) {
          */
         @Suppress("ComplexCondition")
         override fun getChangePayload(newItem: AdapterItem): Any? {
-            val newTopSites = (newItem as? TopSitePager)
+            val newTopSites = (newItem as? TelegramChannelsTopSitePager)
             val oldTopSites = this
 
             if (newTopSites == null || newTopSites.topSites.size > oldTopSites.topSites.size ||

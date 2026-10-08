@@ -1,7 +1,7 @@
-This release:
-- Adds settings option to change language of application
-- Replaces onboarding screens with tooltip-guided onboarding
-- Updates to Standby page UI
-- Updates Android-Components to v130.0.1
-- Updates Ouinet to v0.29.1
-- Updates translations for various locales
+Esta versão:
+- Adiciona uma opção nas configurações para alterar o idioma do aplicativo
+- Substitui as telas de integração inicial por uma integração guiada por dicas (tooltips)
+- Atualiza a interface da página de espera (Standby)
+- Atualiza o Android-Components para a versão v130.0.1
+- Atualiza o Ouinet para a versão v0.29.1
+- Atualiza traduções para diversos idiomas

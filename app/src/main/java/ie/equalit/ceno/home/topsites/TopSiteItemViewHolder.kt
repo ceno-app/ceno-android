@@ -119,33 +119,6 @@ class TopSiteItemViewHolder(
                     )
                 }
 
-                resources.getString(R.string.suggestedsites_apnews_url) -> {
-                    binding.faviconImage.setImageDrawable(
-                        getDrawable(
-                            itemView.context,
-                            R.drawable.suggestedsites_apnews
-                        )
-                    )
-                }
-
-                resources.getString(R.string.suggestedsites_reuters_url) -> {
-                    binding.faviconImage.setImageDrawable(
-                        getDrawable(
-                            itemView.context,
-                            R.drawable.suggestedsites_reuters
-                        )
-                    )
-                }
-
-                resources.getString(R.string.suggestedsites_elpais_url) -> {
-                    binding.faviconImage.setImageDrawable(
-                        getDrawable(
-                            itemView.context,
-                            R.drawable.suggestedsites_elpais
-                        )
-                    )
-                }
-
                 resources.getString(R.string.suggestedsites_infobae_url) -> {
                     binding.faviconImage.setImageDrawable(
                         getDrawable(
@@ -286,24 +259,6 @@ class TopSiteItemViewHolder(
                         getDrawable(
                             itemView.context,
                             R.drawable.default_top_site_2_favicon
-                        )
-                    )
-                }
-
-                resources.getString(R.string.default_top_site_3_url) -> {
-                    binding.faviconImage.setImageDrawable(
-                        getDrawable(
-                            itemView.context,
-                            R.drawable.default_top_site_3_favicon
-                        )
-                    )
-                }
-
-                resources.getString(R.string.default_top_site_4_url) -> {
-                    binding.faviconImage.setImageDrawable(
-                        getDrawable(
-                            itemView.context,
-                            R.drawable.default_top_site_4_favicon
                         )
                     )
                 }

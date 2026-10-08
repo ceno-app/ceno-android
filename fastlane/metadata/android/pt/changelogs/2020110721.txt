@@ -1,0 +1,3 @@
+### Corrigido
+
+- Corrigido um erro ao configurar bootstraps personalizados do BitTorrent pela caixa de diálogo

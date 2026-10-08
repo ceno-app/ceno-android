@@ -4,6 +4,7 @@
 
 package ie.equalit.ceno
 
+import android.Manifest
 import android.app.ActivityManager
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -21,6 +22,7 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
@@ -54,6 +56,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
 import io.sentry.android.core.SentryAndroid
@@ -105,6 +108,8 @@ open class BrowserActivity : BaseActivity(),
 
     private lateinit var reminderNotificationIntent: PendingIntent
     private lateinit var alarmManager: AlarmManager
+
+    private val settingsViewModel: SettingsViewModel by viewModels()
 
     @Suppress("LongMethod")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -418,10 +423,16 @@ open class BrowserActivity : BaseActivity(),
         else -> super.onOptionsItemSelected(item)
     }
 
-    val requestPermissionLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            Settings.setAllowNotifications(this, isGranted)
-            components.permissionHandler.requestBatteryOptimizationsOff(this)
+    /**
+     * Needs to be launched from this activity to avoid risking a crash due being called after
+     * activity has changed STATE
+     */
+    val multiplePermissionsLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            settingsViewModel.onPermissionsGranted(
+                this,
+                permissions,
+            )
         }
 
     val getLogfileLocation =

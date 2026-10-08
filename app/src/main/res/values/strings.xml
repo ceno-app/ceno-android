@@ -157,12 +157,7 @@
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="default_top_site_1_title">Ceno Manual</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" translatable="false">Wikipedia</string>
     <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" translatable="false">AP News</string>
-    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_apnews_url</string>
-    <string name="default_top_site_4_title" translatable="false">Reuters</string>
-    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_reuters_url</string>
     <string name="horizontal_ellipsis" translatable="false">…</string>
     <string name="onboarding_welcome_title">Welcome to Ceno</string>
     <string name="onboarding_btn_get_started">Get Started</string>
@@ -541,10 +536,14 @@
     <string name="telegram_topsites_title">Telegram</string>
     <string name="preferences_hide_telegram_channels">Hide Telegram channels</string>
     <string name="pref_telegram_channels_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
+    <string name="pref_hidden_telegram_channels">pref_hidden_telegram_channels</string>
     <string name="pref_top_sites_bookmark_guid">pref_top_sites_bookmark_guid</string>
     <string name="telegram_channels_bookmark_folder_title">Telegram channels</string>
     <string name="saved_in_bookmarks">Saved in \"Bookmarks\"</string>
     <string name="edit_bookmark_label">Edit</string>
+
+    <string name="preferences_access_local_network">Access local network</string>
+    <string name="back_button_description">back button</string>
     <string name="preferences_log_level">Log level</string>
     <string name="change_log_level">Change log level</string>
 
@@ -557,4 +556,6 @@
     <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Unable to reach the archiving service.</string>
     <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Update address?</string>
     <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Archive version not found.</string>
+    <string name="hide_telegram_channel">Hide</string>
+    <string name="unhide_telegram_channel">Unhide</string>
 </resources>

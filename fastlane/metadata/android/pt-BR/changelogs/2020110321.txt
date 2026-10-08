@@ -1,0 +1,8 @@
+### Alterações
+
+- Atualização do compileSdk para 37.1
+- Atualização do Gradle Wrapper para 9.7.0
+- Atualização do Sentry para 8.53.0
+- Atualização do Android-Components para 154.0
+- Atualização de várias outras dependências do Android e do Kotlin
+- Pequenas atualizações nas traduções para diversos idiomas/locais

@@ -9,7 +9,6 @@ import android.content.ClipboardManager
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences.OnSharedPreferenceChangeListener
-import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -50,7 +49,6 @@ import ie.equalit.ceno.R.string.pref_key_about_geckoview
 import ie.equalit.ceno.R.string.pref_key_about_ouinet
 import ie.equalit.ceno.R.string.pref_key_about_page
 import ie.equalit.ceno.R.string.pref_key_additional_developer_tools
-import ie.equalit.ceno.R.string.pref_key_allow_notifications
 import ie.equalit.ceno.R.string.pref_key_background_metrics
 import ie.equalit.ceno.R.string.pref_key_bridge_announcement
 import ie.equalit.ceno.R.string.pref_key_ceno_cache_size
@@ -63,9 +61,9 @@ import ie.equalit.ceno.R.string.pref_key_change_language
 import ie.equalit.ceno.R.string.pref_key_clear_ceno_cache
 import ie.equalit.ceno.R.string.pref_key_customization
 import ie.equalit.ceno.R.string.pref_key_delete_browsing_data
-import ie.equalit.ceno.R.string.pref_key_disable_battery_opt
 import ie.equalit.ceno.R.string.pref_key_log_level
 import ie.equalit.ceno.R.string.pref_key_make_default_browser
+import ie.equalit.ceno.R.string.pref_key_optimize_permissions
 import ie.equalit.ceno.R.string.pref_key_ouinet_state
 import ie.equalit.ceno.R.string.pref_key_privacy
 import ie.equalit.ceno.R.string.pref_key_search_engine
@@ -77,8 +75,6 @@ import ie.equalit.ceno.R.string.preferences_delete_browsing_data
 import ie.equalit.ceno.R.string.preferences_metrics_campaign
 import ie.equalit.ceno.R.string.setting_item_selected
 import ie.equalit.ceno.R.string.settings
-import ie.equalit.ceno.R.string.status_disabled
-import ie.equalit.ceno.R.string.status_enabled
 import ie.equalit.ceno.R.string.thank_you_bridge_mode_enabled
 import ie.equalit.ceno.R.string.title_success
 import ie.equalit.ceno.R.string.toast_copied
@@ -117,12 +113,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var logLevelReset: Boolean = false
     private var developerToolsTapCount = 0
     private var developerToolsToast: Toast? = null
-
-    private val defaultClickListener = OnPreferenceClickListener { preference ->
-        Toast.makeText(context, "${preference.title} Clicked", LENGTH_SHORT)
-            .show()
-        true
-    }
 
     private val sharedPreferencesChangeListener =
         OnSharedPreferenceChangeListener { sharedPrefs, key ->
@@ -298,32 +288,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
         )
         getPreference(pref_key_bridge_announcement)?.summary =
             getString(bridge_mode_ip_warning_text)
-        // Update notifications
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            getPreference(pref_key_allow_notifications)?.apply {
-                isVisible = true
-                onPreferenceClickListener = getClickListenerForAllowNotifications()
-                summary = if (requireComponents.permissionHandler.isAllowingPostNotifications())
-                    getString(status_enabled)
-                else getString(status_disabled)
-            }
-
-        } else {
-            getPreference(pref_key_allow_notifications)?.isVisible = false
-        }
-
-        // Update battery optimization
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            getPreference(pref_key_disable_battery_opt)?.apply {
-                isVisible = true
-                summary = if (requireComponents.permissionHandler.isIgnoringBatteryOptimizations())
-                    getString(status_disabled)
-                else getString(status_enabled)
-                onPreferenceClickListener = getClickListenerForDisableBatteryOpt()
-            }
-        } else {
-            getPreference(pref_key_disable_battery_opt)?.isVisible = false
-        }
 
         // Log levels
         findPreference<Preference>(requireContext().getPreferenceKey(pref_key_log_level))?.summary =
@@ -418,6 +382,11 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 getPreference(pref_key_ceno_network_config),
                 true,
                 clickListener = getClickListenerForCenoNetworkDetails()
+            )
+            setPreference(
+                getPreference(pref_key_optimize_permissions),
+                true,
+                clickListener = getClickListenerOptimizePermissions()
             )
             setPreference(
                 getPreference(pref_key_ceno_enable_log),
@@ -547,33 +516,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
     }
 
-    private fun getClickListenerForAllowNotifications(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            OnPreferenceClickListener {
-                Intent(Settings.ACTION_APP_NOTIFICATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-                    requireActivity().startActivity(this)
-                }
-                true
-            }
-        } else {
-            defaultClickListener
-        }
-    }
-
-    private fun getClickListenerForDisableBatteryOpt(): OnPreferenceClickListener {
-        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            OnPreferenceClickListener {
-                Intent(Settings.ACTION_IGNORE_BATTERY_OPTIMIZATION_SETTINGS).apply {
-                    addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    putExtra(Settings.EXTRA_APP_PACKAGE, requireActivity().packageName)
-                    requireActivity().startActivity(this)
-                }
-                true
-            }
-        } else {
-            defaultClickListener
+    private fun getClickListenerOptimizePermissions(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_settingsFragment_to_optimizePermissionsFragment)
+            true
         }
     }
 

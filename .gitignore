@@ -83,3 +83,4 @@ app/src/main/assets/addons/*.zip
 scenario.yaml
 fastlane-key.json
 fastlane/report.xml
+output

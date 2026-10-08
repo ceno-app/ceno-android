@@ -20,6 +20,7 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.getPreferenceKey
 import ie.equalit.ceno.media.MediaSessionService
 import ie.equalit.ceno.share.SaveToPDFMiddleware
+import kotlinx.coroutines.CoroutineScope
 import mozilla.components.browser.engine.gecko.permission.GeckoSitePermissionsStorage
 import mozilla.components.browser.icons.BrowserIcons
 import mozilla.components.browser.session.storage.SessionStorage
@@ -67,7 +68,10 @@ private const val DAY_IN_MINUTES = 24 * 60L
 /**
  * Component group for all core browser functionality.
  */
-class Core(private val context: Context) {
+class Core(
+    private val context: Context,
+    private val applicationScope: CoroutineScope
+) {
 
     /**
      * The browser engine component initialized based on the build
@@ -123,6 +127,7 @@ class Core(private val context: Context) {
                 RegionMiddleware(
                     context,
                     LocationService.default(),
+                    applicationScope = applicationScope,
                 ),
                 SearchMiddleware(context),
                 RecordingDevicesMiddleware(context, context.components.notificationsDelegate),
@@ -149,7 +154,7 @@ class Core(private val context: Context) {
      * The storage component for persisting browser tab sessions.
      */
     val sessionStorage: SessionStorage by lazy {
-        SessionStorage(context, engine)
+        SessionStorage(context, engine, applicationScope = applicationScope)
     }
 
     /**
@@ -234,7 +239,7 @@ class Core(private val context: Context) {
     }
 
     val fileUploadsDirCleaner: FileUploadsDirCleaner by lazy {
-        FileUploadsDirCleaner { context.cacheDir }
+        FileUploadsDirCleaner(scope = applicationScope) { context.cacheDir }
     }
 
     private fun provideDefaultAddonProvider(): AMOAddonsProvider {

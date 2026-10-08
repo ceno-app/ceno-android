@@ -15,6 +15,7 @@ import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.home.CenoMessageCard
 import ie.equalit.ceno.home.HomeCardSwipeCallback
 import ie.equalit.ceno.home.RssItem
+import ie.equalit.ceno.home.SectionHeaderViewHolder.ListState
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.utils.CenoPreferences
@@ -109,12 +110,13 @@ private fun AppState.toAdapterList(
             mode,
             announcement,
             isBridgeAnnouncementEnabled,
-            ouicrawlSites?.let {
-                if (ouicrawlListIsPartial && it.size > 5) {
-                    it.subList(0, 5)
-                } else {
-                    it
+            when (ouicrawlListState) {
+                ListState.HIDDEN -> emptyList()
+                ListState.HIDDEN_HALF -> {
+                    ouicrawlSites?.take(5)
                 }
+
+                ListState.VISIBLE -> ouicrawlSites
             },
             hideOuicrawlFeed,
             hideTelegramChannels,

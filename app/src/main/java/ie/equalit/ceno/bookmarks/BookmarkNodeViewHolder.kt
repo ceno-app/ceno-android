@@ -5,6 +5,7 @@ import androidx.core.view.isVisible
 import androidx.recyclerview.widget.RecyclerView
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.ceno.loadIntoView
+import ie.equalit.ceno.ext.cenoPreferences
 import ie.equalit.ceno.ext.components
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -17,8 +18,7 @@ class BookmarkNodeViewHolder(
     private val interactor: BookmarkViewInteractor
 ) : RecyclerView.ViewHolder(view) {
     var item: BookmarkNode? = null
-
-    private val menu: BookmarkItemMenu = BookmarkItemMenu(view.context)
+    var onTelegramChannelHiddenChangeCallback: (String?) -> Unit = {}
 
     fun bind(
         item: BookmarkNode,
@@ -26,6 +26,17 @@ class BookmarkNodeViewHolder(
         payload: BookmarkPayload,
     ) {
         this.item = item
+
+        val isTelegramChannel = payload.modeChanged &&
+                item.parentGuid == view.context.components.cenoPreferences.telegramChannelsBookGuid
+
+        val hiddenTelegramChannelsPref = view.context.cenoPreferences().hiddenTelegramChannelsGuid
+
+        val menu = BookmarkItemMenu(
+            view.context,
+            isTelegramChannel = isTelegramChannel,
+            isTelegramChannelHidden = hiddenTelegramChannelsPref.contains(item.guid)
+        )
 
         menu.onItemTapped = { menuItem ->
             when (menuItem) {
@@ -35,6 +46,16 @@ class BookmarkNodeViewHolder(
                 BookmarkItemMenu.Item.OpenInNewTab -> interactor.onOpenInNormalTab(item)
                 BookmarkItemMenu.Item.OpenInPersonalTab -> interactor.onOpenInPersonalTab(item)
                 BookmarkItemMenu.Item.Delete -> interactor.onDelete(setOf(item))
+                BookmarkItemMenu.Item.Hide -> {
+                    interactor.onHide(item) {
+                        onTelegramChannelHiddenChangeCallback(item.parentGuid)
+                    }
+                }
+                BookmarkItemMenu.Item.UnHide -> {
+                    interactor.onUnHide(item) {
+                        onTelegramChannelHiddenChangeCallback(item.parentGuid)
+                    }
+                }
             }
         }
         view.attachMenu(menu.menuController)
@@ -76,6 +97,14 @@ class BookmarkNodeViewHolder(
 
         if (payload.iconChanged) {
             updateIcon(item)
+        }
+
+        if (hiddenTelegramChannelsPref.contains(item.guid)) {
+            view.titleView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_disabled))
+            view.urlView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_disabled))
+        } else {
+            view.titleView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_primary))
+            view.urlView.setTextColor(view.context.getColor(R.color.fx_mobile_text_color_primary))
         }
     }
 

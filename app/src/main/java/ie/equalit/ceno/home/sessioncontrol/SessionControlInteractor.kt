@@ -5,6 +5,7 @@ package ie.equalit.ceno.home.sessioncontrol
 
 import ie.equalit.ceno.browser.BrowsingMode
 import ie.equalit.ceno.home.HomepageCardType
+import ie.equalit.ceno.home.SectionHeaderViewHolder.ListState
 import ie.equalit.ceno.home.ouicrawl.OuicrawlSite
 import mozilla.components.feature.top.sites.TopSite
 
@@ -21,7 +22,7 @@ interface HomePageInteractor {
 
     fun onUrlClicked(homepageCardType: HomepageCardType, url: String)
 
-    fun onSectionHeaderClicked(listIsHidden: Boolean)
+    fun onSectionHeaderClicked(listState: ListState)
 }
 
 /**
@@ -86,7 +87,7 @@ interface TelegramChannelInteractor {
      *
      * @param topSite The top site that will be removed.
      */
-    fun onRemoveTelegramChannelClicked(topSite: TopSite)
+    fun onHideTelegramChannel(topSite: TopSite)
 
     /**
      * Selects the given top site. Called when a user clicks on a top site.
@@ -136,8 +137,8 @@ class SessionControlInteractor(
         controller.handleRenameTelegramChannel(topSite)
     }
 
-    override fun onRemoveTelegramChannelClicked(topSite: TopSite) {
-        controller.handleRemoveTelegramChannel(topSite)
+    override fun onHideTelegramChannel(topSite: TopSite) {
+        controller.onHideTelegramChannel(topSite)
     }
 
     override fun onRemoveTopSiteClicked(topSite: TopSite) {
@@ -176,8 +177,8 @@ class SessionControlInteractor(
         controller.handleUrlClicked(homepageCardType, url)
     }
 
-    override fun onSectionHeaderClicked(listIsHidden: Boolean) {
-        controller.handleOnSectionHeaderClicked(listIsHidden)
+    override fun onSectionHeaderClicked(listState: ListState) {
+        controller.handleOnSectionHeaderClicked(listState)
     }
 
     override fun onOuicrawlSiteMenuOpened() {

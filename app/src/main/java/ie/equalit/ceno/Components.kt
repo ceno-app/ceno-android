@@ -18,14 +18,18 @@ import ie.equalit.ceno.components.ceno.AppStore
 import ie.equalit.ceno.components.ceno.appstate.AppState
 import ie.equalit.ceno.ext.ceno.sort
 import ie.equalit.ceno.utils.CenoPreferences
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.serialization.json.Json
 import mozilla.components.support.base.android.NotificationsDelegate
 
 /**
  * Provides access to all components.
  */
-class Components(private val context: Context) {
-    val core by lazy { Core(context) }
+class Components(
+    private val context: Context,
+    val applicationScope: CoroutineScope,
+) {
+    val core by lazy { Core(context, applicationScope = applicationScope) }
     val useCases by lazy {
         UseCases(
             context, core.engine, core.store, core.shortcutManager, core.cenoTopSitesStorage
@@ -36,6 +40,7 @@ class Components(private val context: Context) {
         Utilities(
             useCases.searchUseCases,
             useCases.tabsUseCases,
+            applicationScope
         )
     }
     val services by lazy { Services(context) }/* CENO F-Droid: Do not use firebase push */

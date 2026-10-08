@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.ListAdapter
 import ie.equalit.ceno.R
 import ie.equalit.ceno.home.sessioncontrol.AdapterItem.TelegramChannelPagerPayload
 import ie.equalit.ceno.home.sessioncontrol.TelegramChannelInteractor
-import ie.equalit.ceno.home.topsites.TopSitePagerViewHolder.Companion.TOP_SITES_PER_PAGE
 import mozilla.components.feature.top.sites.TopSite
 
 class TelegramChannelsPagerAdapter(
@@ -47,7 +46,7 @@ class TelegramChannelsPagerAdapter(
         adapter: TelegramChannelsAdapter
     ) {
         // Only currently selected page items need to be updated
-        val currentPageChangedItems = getCurrentPageChanges(payload, position)
+        val currentPageChangedItems = payload.changed
 
         // If no changes have been made to the current page no need to continue
         if (currentPageChangedItems.isEmpty()) return
@@ -56,30 +55,17 @@ class TelegramChannelsPagerAdapter(
         val refreshedItems: MutableList<TopSite> = mutableListOf()
         refreshedItems.addAll(adapter.currentList)
 
-        // Update new list with the changed items
+        //        // Update new list with the changed items
         currentPageChangedItems.forEach { item ->
-            val index = item.first - (position * TOP_SITES_PER_PAGE)
+            val index = item.first
             if (index in refreshedItems.indices) {
                 refreshedItems[index] = item.second
             }
         }
 
-        // Display the updated list without any of the removed items
+        //        // Display the updated list without any of the removed items
         adapter.submitList(refreshedItems.filter { it.id != -1L })
     }
-
-    /**
-     * @returns the changed only items for the currently specified page in [position]
-     */
-    @VisibleForTesting
-    internal fun getCurrentPageChanges(payload: TelegramChannelPagerPayload, position: Int) =
-        payload.changed.filter { changedPair ->
-            if (position == 0) {
-                changedPair.first < TOP_SITES_PER_PAGE
-            } else {
-                changedPair.first >= TOP_SITES_PER_PAGE
-            }
-        }
 
     override fun onBindViewHolder(holder: TelegramChannelViewHolder, position: Int) {
         val adapter = holder.binding.telegramChannelList.adapter as TelegramChannelsAdapter
