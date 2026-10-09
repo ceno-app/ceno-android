@@ -481,4 +481,12 @@
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS с откатом к системному DNS</string>
     <string name="default_channel_1_title">Новости Аль-Джазиры на английском</string>
     <string name="edit_bookmark_label">Изменить</string>
+    <string name="default_channel_1_title_ir">bbcpersian</string>
+    <string name="default_channel_2_title_ir">Евроновости пе</string>
+    <string name="default_channel_7_title_ir">МанотоТВ</string>
+    <string name="default_channel_9_title_ir">Радио фарда</string>
+    <string name="default_channel_10_title_ir">Таваанаtech</string>
+    <string name="default_channel_11_title_ir">ВахидОнлайн</string>
+    <string name="default_channel_4_title_ru">канал ceno</string>
+    <string name="default_channel_5_title_ru">КоррупцияТВ</string>
 </resources>
