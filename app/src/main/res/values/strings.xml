@@ -558,4 +558,6 @@
     <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Archive version not found.</string>
     <string name="hide_telegram_channel">Hide</string>
     <string name="unhide_telegram_channel">Unhide</string>
+
+    <string name="preferences_test_push_notifications">Test push notifications</string>
 </resources>

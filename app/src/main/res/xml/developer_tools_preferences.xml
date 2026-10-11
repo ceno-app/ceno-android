@@ -34,4 +34,10 @@
         android:title="@string/preferences_test_metrics"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        android:defaultValue="false"
+        android:key="@string/pref_key_test_push_notifications"
+        android:title="@string/preferences_test_push_notifications"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>

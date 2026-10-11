@@ -388,6 +388,9 @@ dependencies {
     androidTestImplementation libs.tools.testrules
     androidTestUtil libs.orchestrator
     androidTestImplementation libs.fastlane.screengrab
+
+    implementation 'org.codeberg.UnifiedPush:android-connector:3.3.5'
+    implementation("com.squareup.okhttp3:okhttp:4.12.0")
 }
 
 tasks.register('renameUblockXpi', Copy) {

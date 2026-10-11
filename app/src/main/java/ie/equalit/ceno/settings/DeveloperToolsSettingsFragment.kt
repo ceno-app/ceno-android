@@ -1,14 +1,18 @@
 package ie.equalit.ceno.settings
 
 import android.os.Bundle
+import android.text.InputType
 import android.util.Log
 import android.view.View
+import android.widget.EditText
 import android.widget.Toast
 import androidx.activity.addCallback
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
+import androidx.core.view.setPadding
+import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference.OnPreferenceChangeListener
 import androidx.preference.Preference.OnPreferenceClickListener
@@ -18,11 +22,13 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.download_logs
 import ie.equalit.ceno.R.string.ouinet_log_file_prompt_desc
 import ie.equalit.ceno.R.string.preferences_ceno_download_log
+import ie.equalit.ceno.R.string.preferences_test_push_notifications
 import ie.equalit.ceno.R.string.view_logs
 import ie.equalit.ceno.ext.getPreference
 import ie.equalit.ceno.ext.getSwitchPreferenceCompat
 import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.metrics.NetworkMetrics
+import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import mozilla.components.browser.state.action.ContentAction
@@ -31,6 +37,8 @@ import mozilla.components.browser.state.state.content.DownloadState
 import mozilla.components.browser.state.state.createTab
 
 class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
+
+    val settingsViewModel: SettingsViewModel by viewModels()
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.developer_tools_preferences, rootKey)
@@ -66,6 +74,47 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForOuinetLogExport()
         getPreference(R.string.pref_key_test_metrics)?.onPreferenceClickListener =
             getClickListenerForMetricsTest()
+        getPreference(R.string.pref_key_test_push_notifications)?.onPreferenceClickListener =
+            getClickListenerForTestPushNotifications()
+    }
+
+    private fun getClickListenerForTestPushNotifications(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            val url = Settings.getUnifiedPushNotificationsInstance(requireContext())
+
+            AlertDialog.Builder(requireContext())
+                .apply {
+                    setTitle(context.getString(preferences_test_push_notifications))
+                    setMessage("Push notification would be sent via: $url using and broadcasted through ntfy")
+                    val input = EditText(requireContext()).apply {
+                        setPadding(50)
+                        hint = "Enter a message"
+                    }
+                    input.inputType = InputType.TYPE_CLASS_TEXT
+
+                    setPositiveButton("Send") { dialog, _ ->
+                        val userInput = input.text.toString()
+                        if (userInput.isNotBlank()) {
+                            settingsViewModel.sendPushNotification(
+                                context,
+                                url,
+                                userInput
+                            )
+                        }
+                        dialog.dismiss()
+                    }
+
+                    setNegativeButton("Cancel") { dialog, _ ->
+                        dialog.cancel()
+                    }
+
+                    setView(input)
+
+                    create()
+                }
+                .show()
+            true
+        }
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {

@@ -531,4 +531,20 @@ object Settings {
             .getString(key, default)
             ?: throw Exception("LogLevel settings not found")
     }
+
+    fun setUnifiedPushNotificationsInstance(context: Context, instance: String) {
+        val key = context.getString(R.string.pref_key_test_push_notifications)
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .edit {
+                putString(key, instance)
+            }
+    }
+
+
+    fun getUnifiedPushNotificationsInstance(context: Context): String {
+        val key = context.getString(R.string.pref_key_test_push_notifications)
+        return PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(key, "")
+            ?: throw Exception("LogLevel settings not found")
+    }
 }

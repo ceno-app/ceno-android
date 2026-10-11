@@ -6,16 +6,24 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.Settings
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import okhttp3.OkHttpClient
+import okhttp3.Request
+import okhttp3.RequestBody.Companion.toRequestBody
+import org.unifiedpush.android.connector.UnifiedPush
 
 class SettingsViewModel : ViewModel() {
 
@@ -30,6 +38,18 @@ class SettingsViewModel : ViewModel() {
     private val _isIgnoringBatteryOptimization = MutableStateFlow(false)
     val isIgnoringBatteryOptimization: StateFlow<Boolean> =
         _isIgnoringBatteryOptimization.asStateFlow()
+
+    fun checkNotifications(activity: ComponentActivity) {
+        UnifiedPush.tryUseCurrentOrDefaultDistributor(activity) { success ->
+            if (success) {
+                // We have a distributor
+                // Register your app to the distributor
+                //                    UnifiedPush.register(activity, messageForDistributor, vapid)
+                UnifiedPush.register(activity)
+            }
+        }
+
+    }
 
     fun checkPermissions(context: Context) {
         viewModelScope.launch {
@@ -118,6 +138,47 @@ class SettingsViewModel : ViewModel() {
                 addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK)
                 data = Uri.fromParts("package", activity.packageName, null)
                 activity.startActivity(this)
+            }
+        }
+    }
+
+    fun sendPushNotification(
+        context: Context,
+        url: String,
+        userInput: String
+    ) {
+        viewModelScope.launch(Dispatchers.IO) {
+            val client = OkHttpClient()
+            val request = Request.Builder()
+                .url(url)
+                .post(userInput.toRequestBody())
+                .build()
+
+            try {
+                client.newCall(request)
+                    .execute()
+                    .use { response ->
+                        if (!response.isSuccessful) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                Toast.makeText(
+                                    context, response.body.toString(), Toast.LENGTH_LONG
+                                )
+                                    .show()
+                            }
+                        }
+                        withContext(Dispatchers.Main) {
+                            Toast.makeText(context, response.body?.toString(), Toast.LENGTH_LONG)
+                                .show()
+                        }
+                    }
+            } catch (e: Exception) {
+                e.printStackTrace()
+                withContext(Dispatchers.Main) {
+                    Toast.makeText(
+                        context, e.message, Toast.LENGTH_LONG
+                    )
+                        .show()
+                }
             }
         }
     }

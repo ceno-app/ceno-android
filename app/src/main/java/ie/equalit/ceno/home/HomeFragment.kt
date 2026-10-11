@@ -562,6 +562,7 @@ class HomeFragment : BaseHomeFragment() {
             requireActivity(),
             this
         )
+        settingsViewModel.checkNotifications(requireActivity())
     }
 
     companion object {
