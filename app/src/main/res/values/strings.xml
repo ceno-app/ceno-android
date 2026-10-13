@@ -558,4 +558,8 @@
     <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Archive version not found.</string>
     <string name="hide_telegram_channel">Hide</string>
     <string name="unhide_telegram_channel">Unhide</string>
+
+    <string name="view_ouicrawl_importer_progress">View Ceno Bundle importer progress</string>
+    <string name="ouicrawl_importer_progress">Ceno Bundle importer progress</string>
+    <string name="preferences_import_ceno_bundle">Import Ceno Bundle</string>
 </resources>

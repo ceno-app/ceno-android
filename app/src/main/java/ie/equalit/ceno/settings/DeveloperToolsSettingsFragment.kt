@@ -66,6 +66,15 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForOuinetLogExport()
         getPreference(R.string.pref_key_test_metrics)?.onPreferenceClickListener =
             getClickListenerForMetricsTest()
+        getPreference(R.string.pref_import_ceno_bundle)?.onPreferenceClickListener =
+            getClickListenerForImportCenoBundle()
+    }
+
+    private fun getClickListenerForImportCenoBundle(): OnPreferenceClickListener {
+        return OnPreferenceClickListener {
+            findNavController().navigate(R.id.action_developerToolsSettingsFragment_to_importCenoBundleFragment)
+            true
+        }
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {

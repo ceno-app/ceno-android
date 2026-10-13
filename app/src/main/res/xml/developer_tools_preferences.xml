@@ -34,4 +34,10 @@
         android:title="@string/preferences_test_metrics"
         app:iconSpaceReserved="false" />
 
+    <androidx.preference.Preference
+        android:defaultValue="false"
+        android:key="@string/pref_import_ceno_bundle"
+        android:title="@string/preferences_import_ceno_bundle"
+        app:iconSpaceReserved="false" />
+
 </androidx.preference.PreferenceScreen>

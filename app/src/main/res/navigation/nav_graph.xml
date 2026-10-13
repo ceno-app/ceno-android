@@ -228,7 +228,13 @@
     <fragment
         android:id="@+id/developerToolsSettingsFragment"
         android:name="ie.equalit.ceno.settings.DeveloperToolsSettingsFragment"
-        android:label="DeveloperToolsSettingsFragment"></fragment>
+        android:label="DeveloperToolsSettingsFragment">
+
+        <action
+            android:id="@+id/action_developerToolsSettingsFragment_to_importCenoBundleFragment"
+            app:destination="@id/importCenoBundleFragment"/>
+
+    </fragment>
 
     <fragment
         android:id="@+id/androidLogFragment"
@@ -336,4 +342,9 @@
         android:id="@+id/settingsOptimizePermissionsScreen"
         android:label="fragment_settings_optimize_permissions"
         android:name="ie.equalit.ceno.settings.SettingsOptimizePermissionsFragment"/>
+
+    <fragment
+        android:id="@+id/importCenoBundleFragment"
+        android:label="fragment_import_ceno_bundle"
+        android:name="ie.equalit.ceno.settings.ImportCenoBundleFragment"/>
 </navigation>
