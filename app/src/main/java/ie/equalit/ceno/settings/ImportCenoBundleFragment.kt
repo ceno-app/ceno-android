@@ -107,10 +107,9 @@ class ImportCenoBundleFragment: Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
     }
 
-    override fun onPause() {
-        super.onPause()
+    override fun onDestroy() {
+        super.onDestroy()
         // Show the parent toolbar again when leaving this fragment
         (activity as? AppCompatActivity)?.supportActionBar?.show()
     }
-
 }
