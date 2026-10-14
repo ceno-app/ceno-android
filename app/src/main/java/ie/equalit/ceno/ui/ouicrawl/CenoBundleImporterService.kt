@@ -61,16 +61,17 @@ class CenoBundleImporterService: Service() {
 
         viewModel.unzip(
             context = this,
-            intent = intent,
-            baseZipUri.toUri(),
-            latestZipUri.toUri()
-        ) { processing, progress ->
+            baseZipUri,
+            latestZipUri
+        ) { label, filename, total, progress ->
             val notification = createForegroundNotification(
                 intent,
                 R.drawable.ic_launcher_foreground,
-                100,
+                total,
                 progress,
-                processing
+                false,
+                title = if(total == 0) label else "Importing $label with $progress of $total items",
+                description = if(total == 0) "" else "Processing ${filename ?: "..."}"
             )
 
             startForeground(notificationId, notification.notification)
@@ -85,6 +86,8 @@ class CenoBundleImporterService: Service() {
         maxProgress: Int,
         progress: Int = 0,
         isProcessing: Boolean = false,
+        title: String = "",
+        description: String = "",
     ) : ForegroundInfo {
         val progress = progress + 1
         val pendingIntent = PendingIntent.getActivity(
@@ -93,9 +96,6 @@ class CenoBundleImporterService: Service() {
             intent,
             PendingIntent.FLAG_IMMUTABLE
         )
-
-        val title = "Importing progress"
-        val description = "Importing base..."
 
         val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(title)
@@ -127,6 +127,8 @@ class CenoBundleImporterService: Service() {
         val importance = NotificationManager.IMPORTANCE_DEFAULT
         val channel = NotificationChannel(CHANNEL_ID, progressChannelName, importance).apply {
             description = descriptionText
+            setSound(null, null)
+            enableVibration(false)
         }
         val notificationManager: NotificationManager =
             getSystemService(NotificationManager::class.java) as NotificationManager

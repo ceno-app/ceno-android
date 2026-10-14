@@ -59,15 +59,18 @@ fun CenoBundleImporterView(
 ) {
     val context = LocalContext.current
 
+    var baseFileUri by remember{ mutableStateOf("") }
     var baseFilename by remember{ mutableStateOf("") }
     var baseFileSize by remember{ mutableStateOf("") }
 
+    var latestFileUri by remember{ mutableStateOf("") }
     var latestFilename by remember{ mutableStateOf("") }
     var latestFileSize by remember{ mutableStateOf("") }
 
     val baseFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         context.contentResolver.takePersistableUriPermission(uri, flag)
+        baseFileUri = uri.toString()
         baseFilename = uri.getFileName(context.contentResolver)
         baseFileSize = uri.getQueryParameter(OpenableColumns.SIZE) ?: ""
     }
@@ -75,6 +78,7 @@ fun CenoBundleImporterView(
     val latestFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         context.contentResolver.takePersistableUriPermission(uri, flag)
+        latestFileUri = uri.toString()
         latestFilename = uri.getFileName(context.contentResolver)
         latestFileSize = uri.getQueryParameter(OpenableColumns.SIZE) ?: ""
     }
@@ -145,8 +149,8 @@ fun CenoBundleImporterView(
                 onClick = {
                     viewModel.processZips(
                         context = context,
-                        baseZipUri = baseFilename,
-                        latestZipUri = latestFilename
+                        baseZipUri = baseFileUri,
+                        latestZipUri = latestFileUri
                     )
                 },
                 enabled = baseFilename.isNotBlank() && latestFilename.isNotBlank()
