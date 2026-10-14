@@ -13,7 +13,7 @@ androidx_swiperefreshlayout = "1.2.0"
 androidx_work = "2.12.0"
 
 # Android Components
-android_components = "157.0.1"
+android_components = "158.0"
 
 # Google
 google_composecompiler = "1.5.15"
@@ -74,6 +74,7 @@ mozilla-conceptstorage = { group = "org.mozilla.components", name = "concept-sto
 mozilla-composeawesomebar = { group = "org.mozilla.components", name = "compose-awesomebar", version.ref = "android_components" }
 
 mozilla-browserenginegecko = { group = "ie.equalit.ouinet", name = "browser-engine-gecko-ceno", version.ref = "android_components" }
+mozilla-browsererrorpages = { group = "org.mozilla.components", name = "browser-errorpages", version.ref = "android_components" }
 mozilla-browserdomains = { group = "org.mozilla.components", name = "browser-domains", version.ref = "android_components" }
 mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "browser-session-storage", version.ref = "android_components" }
 mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
@@ -102,7 +103,6 @@ mozilla-featuredownloads = { group = "org.mozilla.components", name = "feature-d
 mozilla-featureprompts = { group = "org.mozilla.components", name = "feature-prompts", version.ref = "android_components" }
 mozilla-featurepwa = { group = "org.mozilla.components", name = "feature-pwa", version.ref = "android_components" }
 mozilla-featurereaderview = { group = "org.mozilla.components", name = "feature-readerview", version.ref = "android_components" }
-mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
 mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
 mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
 mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components" }
@@ -113,7 +113,6 @@ mozilla-uiicons = { group = "org.mozilla.components", name = "ui-icons", version
 mozilla-uitabcounter = { group = "org.mozilla.components", name = "ui-tabcounter", version.ref = "android_components" }
 
 mozilla-servicelocation = { group = "org.mozilla.components", name = "service-location", version.ref = "android_components" }
-mozilla-servicesynclogins = { group = "org.mozilla.components", name = "service-sync-logins", version.ref = "android_components" }
 
 mozilla-supportutils = { group = "org.mozilla.components", name = "support-utils", version.ref = "android_components" }
 mozilla-supportktx = { group = "org.mozilla.components", name = "support-ktx", version.ref = "android_components" }
