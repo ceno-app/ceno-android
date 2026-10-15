@@ -108,12 +108,6 @@ platform :android do
     sh "cp ../app/build/outputs/bundle/release/*.aab ../output/release/."
   end
 
-
-  desc "Create checksum of releases binaries"
-  lane :checksumRelease do
-    sh "sha256sum ../output/release/* > ../output/release/sha256sums.txt"
-  end
-
   desc "Create release notes from CHANGELOG.md to ${VERSION_CODE}.txt for nightly release"
   lane :createNightlyNotes do
     ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
@@ -130,8 +124,8 @@ platform :android do
         > metadata/android/en-US/changelogs/${VERSION_CODE}.txt"
   end
 
-  desc "Create and copy release notes from CHANGELOG.md to ${VERSION_CODE}.txt for production release"
-  lane :createReleaseNotes do
+  desc "Set env vars for version codes"
+  lane :setVersionCodes do
     ENV["LOCAL_VERSION"] = sh " cat ../local.properties \
                                     | grep versionName \
                                     | cut -d '=' -f2"
@@ -147,6 +141,11 @@ platform :android do
     ENV["VERSION_CODE_0"] = sh "echo 2${MAJOR}${MINOR}${PATCH}0${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_1"] = sh "echo 2${MAJOR}${MINOR}${PATCH}1${REVISION} | tr -d '\n'"
     ENV["VERSION_CODE_2"] = sh "echo 2${MAJOR}${MINOR}${PATCH}2${REVISION} | tr -d '\n'"
+  end
+
+  desc "Create and copy release notes from CHANGELOG.md to ${VERSION_CODE}.txt for production release"
+  lane :createReleaseNotes do
+    setVersionCodes
     sh "sed \"1,/${VERSION_NAME}/d;/## \\[v/,\\$d\" ../CHANGELOG.md \
         > metadata/android/en-US/changelogs/${VERSION_CODE_0}.txt"
     # arm64-v8a version code
@@ -183,7 +182,7 @@ platform :android do
       cleanAssembleDebugTest
       lint
       # Uploads debug apk to BrowserStack and starts tests
-      sh "../start_testsuite.sh -u"
+      sh "../scripts/start_testsuite.sh -u"
 
       # Make nightly builds and upload to Play Store internal test track
       cleanAssembleNightly
@@ -227,7 +226,27 @@ platform :android do
       lint
       cleanAssembleRelease
       copyReleaseArtifacts
-      checksumRelease
+  end
+
+  desc "Create checksum of releases binaries"
+  lane :checksumRelease do
+    Dir.chdir("../output/release") do
+      sh "rm -f sha256sums.txt*; \
+          sha256sum * > sha256sums.txt; \
+          gpg -ba -u ${GPG_ID_1} -u ${GPG_ID_2} sha256sums.txt"
+      end
+  end
+
+  desc "Upload release artifacts"
+  lane :uploadArtifacts do
+    setVersionCodes
+    sh "aws s3 cp ../output/release s3://ceno-download/ceno/v${VERSION_NAME} --recursive"
+  end
+
+  desc "Publish release to GitLab and Github"
+  lane :publishRelease do
+    setVersionCodes
+    sh "../scripts/publish_release.sh ${VERSION_NAME}"
   end
 
   desc "Publish metadata and screenshots to Play Store"

@@ -79,14 +79,6 @@ Clean build directory and re-build nightly apks and bundle
 
 Copy releases artifacts to output directory
 
-### android checksumRelease
-
-```sh
-[bundle exec] fastlane android checksumRelease
-```
-
-Create checksum of releases binaries
-
 ### android createNightlyNotes
 
 ```sh
@@ -94,6 +86,14 @@ Create checksum of releases binaries
 ```
 
 Create release notes from CHANGELOG.md to ${VERSION_CODE}.txt for nightly release
+
+### android setVersionCodes
+
+```sh
+[bundle exec] fastlane android setVersionCodes
+```
+
+Set env vars for version codes
 
 ### android createReleaseNotes
 
@@ -142,6 +142,30 @@ Prepare release APKS, AAB, and release notes
 ```
 
 Build release APKS, AAB, write checksum
+
+### android checksumRelease
+
+```sh
+[bundle exec] fastlane android checksumRelease
+```
+
+Create checksum of releases binaries
+
+### android uploadArtifacts
+
+```sh
+[bundle exec] fastlane android uploadArtifacts
+```
+
+Upload release artifacts
+
+### android publishRelease
+
+```sh
+[bundle exec] fastlane android publishRelease
+```
+
+Publish release to GitLab and Github
 
 ### android publishMetadata
 
