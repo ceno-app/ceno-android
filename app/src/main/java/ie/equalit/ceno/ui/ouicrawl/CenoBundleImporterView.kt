@@ -3,6 +3,7 @@ package ie.equalit.ceno.ui.ouicrawl
 import android.content.Intent
 import android.net.Uri
 import android.provider.OpenableColumns
+import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -25,6 +26,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -32,7 +34,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
+import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -60,44 +64,92 @@ fun CenoBundleImporterView(
     viewModel: CenoBundleImporterViewModel,
 ) {
     val context = LocalContext.current
+    val resources = LocalResources.current
 
     var baseFileUri by remember{ mutableStateOf("") }
     var baseFilename by remember{ mutableStateOf("") }
-    var baseFileSize by remember{ mutableStateOf("") }
 
     var latestFileUri by remember{ mutableStateOf("") }
     var latestFilename by remember{ mutableStateOf("") }
-    var latestFileSize by remember{ mutableStateOf("") }
+
+    var baseFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
+    var latestFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
+
+    var totalSize by remember{ mutableIntStateOf(0) }
 
     val baseFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         context.contentResolver.takePersistableUriPermission(uri, flag)
-        baseFileUri = uri.toString()
-        baseFilename = uri.getFileName(context.contentResolver)
-        baseFileSize = uri.getQueryParameter(OpenableColumns.SIZE) ?: ""
+        val tmpFileUri = uri.toString()
+        val tmpFilename = uri.getFileName(context.contentResolver)
+
+        val md = viewModel.getMetadata(
+            context = context,
+            zipUri = tmpFileUri,
+            filename = tmpFilename
+        )
+
+        val metaData = md?.first
+        if (metaData?.type == "base") {
+            baseFileMetaData = metaData
+            baseFileUri = tmpFileUri
+            baseFilename = tmpFilename
+            totalSize += md.second
+        }
+        else {
+            Toast.makeText(
+                context,
+                resources.getString(R.string.selected_file_is_not_a_base_zip),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     val latestFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
-        context.contentResolver.takePersistableUriPermission(uri, flag)
-        latestFileUri = uri.toString()
-        latestFilename = uri.getFileName(context.contentResolver)
-        latestFileSize = uri.getQueryParameter(OpenableColumns.SIZE) ?: ""
+        val tmpFileUri = uri.toString()
+        val tmpFilename = uri.getFileName(context.contentResolver)
+
+        val md = viewModel.getMetadata(
+            context = context,
+            zipUri = tmpFileUri,
+            filename = tmpFilename
+        )
+
+        val metaData = md?.first
+
+        if (metaData?.type == "update") {
+            context.contentResolver.takePersistableUriPermission(uri, flag)
+            latestFileMetaData = metaData
+            latestFileUri = tmpFileUri
+            latestFilename = tmpFilename
+            totalSize += md.second
+        }
+        else {
+            Toast.makeText(
+                context,
+                resources.getString(R.string.file_is_not_a_latest_zip),
+                Toast.LENGTH_LONG
+            ).show()
+        }
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(latestFilename, baseFilename) {
+        
         viewModel.setUiState(baseFilename.isNotBlank() && latestFilename.isNotBlank())
 
         if (baseFilename.isBlank()) {
             baseFileUri = ""
-            baseFileSize = ""
+            baseFileMetaData = null
+            totalSize = 0
         }
 
         if (latestFilename.isBlank()) {
             latestFileUri = ""
-            latestFileSize = ""
+            latestFileMetaData = null
+            totalSize = 0
         }
     }
 
@@ -105,8 +157,9 @@ fun CenoBundleImporterView(
         modifier = modifier
             .fillMaxSize()
     ) {
-        Column(Modifier
-            .padding(16.dp)
+        Column(
+            Modifier.padding(16.dp),
+            horizontalAlignment = Alignment.CenterHorizontally
         ) {
             val ouicrawlUrl = "https://build.ouinet.work/ouicrawl"
 
@@ -115,14 +168,17 @@ fun CenoBundleImporterView(
             ) {
                 Box {
                     Text(
-                        "Ceno bundles are zip files containing copies of websites. They can be downloaded from $ouicrawlUrl.",
+                        stringResource(
+                            R.string.ceno_bundles_are_zip_files_containing_copies_of_websites_they_can_be_downloaded_from,
+                            ouicrawlUrl
+                        ),
                         modifier = Modifier.padding(16.dp)
                     )
                 }
             }
             Spacer(Modifier.padding(8.dp))
 
-            Text("You must import a base zip and then a latest zip of a website to create a full copy of a website in your local cache")
+            Text(stringResource(R.string.you_must_import_a_base_zip_and_then_a_latest_zip_of_a_website_to_create_a_full_copy_of_a_website_in_your_local_cache))
 
             Spacer(Modifier.padding(16.dp))
 
@@ -134,7 +190,7 @@ fun CenoBundleImporterView(
             ZipImporterComponentView(
                 text = "Click to import base file",
                 filename = baseFilename,
-                fileSize = baseFileSize,
+                metadata = baseFileMetaData,
                 onCloseCallback = {
                     baseFilename = ""
                 }
@@ -152,7 +208,7 @@ fun CenoBundleImporterView(
             ZipImporterComponentView(
                 text = "Click to import latest file",
                 filename = latestFilename,
-                fileSize = latestFileSize,
+                metadata = latestFileMetaData,
                 onCloseCallback = {
                     latestFilename = ""
                 }
@@ -167,7 +223,8 @@ fun CenoBundleImporterView(
                     viewModel.processZips(
                         context = context,
                         baseZipUri = baseFileUri,
-                        latestZipUri = latestFileUri
+                        latestZipUri = latestFileUri,
+                        totalSize = totalSize
                     )
                     baseFilename = ""
                     latestFilename = ""
@@ -175,7 +232,7 @@ fun CenoBundleImporterView(
                 enabled = baseFilename.isNotBlank() && latestFilename.isNotBlank() && uiState
             ) {
                 Column {
-                    Text("Import")
+                    Text(stringResource(R.string.ceno_bundle_import))
                 }
             }
         }
@@ -186,7 +243,7 @@ fun CenoBundleImporterView(
 fun ZipImporterComponentView(
     text: String,
     filename: String?,
-    fileSize: String?,
+    metadata: CenoBundleImporterViewModel.CenoBundleMetaData?,
     onCloseCallback: () -> Unit,
     onClickCallback: () -> Unit,
 ) {
@@ -228,7 +285,21 @@ fun ZipImporterComponentView(
                     )
                 },
                 supportingContent = {
-                    Text( fileSize ?: "" )
+                    /**
+                     * {
+                     *     "version":1,
+                     *     "proto":6,
+                     *     "id":"0b188d92555807fb505c2fc8354a91dd0e10c8d9",
+                     *     "type": "base",
+                     *     "site":"arkhipov.syg.ma",
+                     *     "basefilename":"ouicrawl-arkhipov.syg.ma-base.zip",
+                     *     "basedate":"2026-10-01"
+                     * }
+                     */
+                    Column {
+                        Text(stringResource(R.string.version, metadata?.version ?: 0))
+                        Text(stringResource(R.string.site, metadata?.site ?: ""))
+                    }
                 },
                 trailingContent = {
                     IconButton(
@@ -254,7 +325,16 @@ fun ZipImporterComponentView_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             filename = null,
-            fileSize = "10.8 MB",
+            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
+                version = 1,
+                proto = 1,
+                id = "id",
+                type = "type",
+                site = "site.com",
+                basefilename = "basefilename.zip",
+                basedate = "12343434",
+                updatets = "123245"
+            ),
             onCloseCallback = {}
         ){}
     }
@@ -267,7 +347,16 @@ fun ZipImporterComponentView_filename_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             filename = "filename.zip",
-            fileSize = "10.8 MB",
+            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
+                version = 1,
+                proto = 1,
+                id = "id",
+                type = "type",
+                site = "site.com",
+                basefilename = "basefilename.zip",
+                basedate = "12343434",
+                updatets = "123245"
+            ),
             onCloseCallback = {}
         ){}
     }

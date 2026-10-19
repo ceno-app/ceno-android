@@ -49,11 +49,12 @@ class CenoBundleImporterService: Service() {
         intent ?: throw Exception("Intent should not be null")
         val baseZipUri = intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
         val latestZipUri = intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
+        val totalSize = intent.getIntExtra(TOTAL_SIZE, 0)
 
         val notification = createForegroundNotification(
             intent,
             R.drawable.ic_launcher_foreground,
-            100,
+            totalSize,
             0,
             true,
             title = getString(R.string.preparing_to_import),
@@ -64,22 +65,22 @@ class CenoBundleImporterService: Service() {
         components.ouinet.background.shutdown(false) {
             viewModel.unzip(
                 context = this,
-                baseZipUri,
-                latestZipUri,
-                progressCallback = { label, filename, total, progress ->
+                baseZipUri = baseZipUri,
+                latestZipUri = latestZipUri,
+                progressCallback = { label, filename, progress ->
                     val notification = createForegroundNotification(
                         intent,
                         R.drawable.ic_launcher_foreground,
-                        total,
+                        totalSize,
                         progress,
                         false,
-                        title = if (total == 0) label else getString(
+                        title = if (totalSize == 0) label else getString(
                             R.string.importing_with_of_items,
                             label,
                             progress,
-                            total
+                            totalSize
                         ),
-                        description = if (total == 0) "" else getString(
+                        description = if (totalSize == 0) "" else getString(
                             R.string.processing,
                             filename ?: "..."
                         )
@@ -91,7 +92,7 @@ class CenoBundleImporterService: Service() {
                 val notification = createForegroundNotification(
                     intent,
                     R.drawable.ic_launcher_foreground,
-                    100,
+                    totalSize,
                     0,
                     false,
                     title = getString(R.string.finished_importing),
@@ -178,5 +179,7 @@ class CenoBundleImporterService: Service() {
         const val BASE_ZIP_EXTRA = "BASE_ZIP_EXTRA"
         const val LATEST_ZIP_EXTRA = "LATEST_ZIP_EXTRA"
         const val CHANNEL_ID = "ie.ceno.bundle_importer"
+
+        const val TOTAL_SIZE = "TOTAL_SIZE"
     }
 }

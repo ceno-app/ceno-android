@@ -562,10 +562,17 @@
     <string name="view_ouicrawl_importer_progress">View Ceno Bundle importer progress</string>
     <string name="ouicrawl_importer_progress">Ceno Bundle importer progress</string>
     <string name="preferences_import_ceno_bundle">Import Ceno Bundle</string>
-    <string name="preparing_to_import">Preparing to import...</string>
+    <string name="preparing_to_import">Preparing to import…</string>
     <string name="shutting_down_ouinet_client">Shutting down Ouinet client</string>
     <string name="importing_with_of_items">Importing %1$s with %2$d of %3$d items</string>
     <string name="processing">Processing %1$s</string>
     <string name="finished_importing">Finished importing</string>
-    <string name="restarting_ouinet_client">Restarting Ouinet client...</string>
+    <string name="restarting_ouinet_client">Restarting Ouinet client…</string>
+    <string name="version">Version: %1$d</string>
+    <string name="site">Site: %1$s</string>
+    <string name="selected_file_is_not_a_base_zip">Selected file is not a base zip</string>
+    <string name="file_is_not_a_latest_zip">File is not a latest zip</string>
+    <string name="ceno_bundle_import">Import</string>
+    <string name="ceno_bundles_are_zip_files_containing_copies_of_websites_they_can_be_downloaded_from">Ceno bundles are zip files containing copies of websites. They can be downloaded from %1$s.</string>
+    <string name="you_must_import_a_base_zip_and_then_a_latest_zip_of_a_website_to_create_a_full_copy_of_a_website_in_your_local_cache">You must import a base zip and then a latest zip of a website to create a full copy of a website in your local cache</string>
 </resources>
