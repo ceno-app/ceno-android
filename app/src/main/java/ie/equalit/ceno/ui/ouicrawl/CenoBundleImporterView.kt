@@ -27,6 +27,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -75,8 +76,6 @@ fun CenoBundleImporterView(
     var baseFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
     var latestFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
 
-    var totalSize by remember{ mutableIntStateOf(0) }
-
     val baseFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
         context.contentResolver.takePersistableUriPermission(uri, flag)
@@ -85,16 +84,12 @@ fun CenoBundleImporterView(
 
         val md = viewModel.getMetadata(
             context = context,
-            zipUri = tmpFileUri,
             filename = tmpFilename
         )
-
-        val metaData = md?.first
-        if (metaData?.type == "base") {
-            baseFileMetaData = metaData
+        if (md?.type == "base") {
+            baseFileMetaData = md
             baseFileUri = tmpFileUri
             baseFilename = tmpFilename
-            totalSize += md.second
         }
         else {
             Toast.makeText(
@@ -112,18 +107,14 @@ fun CenoBundleImporterView(
 
         val md = viewModel.getMetadata(
             context = context,
-            zipUri = tmpFileUri,
             filename = tmpFilename
         )
 
-        val metaData = md?.first
-
-        if (metaData?.type == "update") {
+        if (md?.type == "update") {
             context.contentResolver.takePersistableUriPermission(uri, flag)
-            latestFileMetaData = metaData
+            latestFileMetaData = md
             latestFileUri = tmpFileUri
             latestFilename = tmpFilename
-            totalSize += md.second
         }
         else {
             Toast.makeText(
@@ -143,13 +134,11 @@ fun CenoBundleImporterView(
         if (baseFilename.isBlank()) {
             baseFileUri = ""
             baseFileMetaData = null
-            totalSize = 0
         }
 
         if (latestFilename.isBlank()) {
             latestFileUri = ""
             latestFileMetaData = null
-            totalSize = 0
         }
     }
 
@@ -183,12 +172,12 @@ fun CenoBundleImporterView(
             Spacer(Modifier.padding(16.dp))
 
             Text(
-                "Import base zip file",
+                stringResource(R.string.import_base_zip_file),
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(8.dp)
             )
             ZipImporterComponentView(
-                text = "Click to import base file",
+                text = stringResource(R.string.click_to_import_base_file),
                 filename = baseFilename,
                 metadata = baseFileMetaData,
                 onCloseCallback = {
@@ -201,12 +190,12 @@ fun CenoBundleImporterView(
             Spacer(Modifier.padding(16.dp))
 
             Text(
-                "Import latest zip file",
+                stringResource(R.string.import_latest_zip_file),
                 style = MaterialTheme.typography.labelMedium,
                 modifier = Modifier.padding(8.dp)
             )
             ZipImporterComponentView(
-                text = "Click to import latest file",
+                text = stringResource(R.string.click_to_import_latest_file),
                 filename = latestFilename,
                 metadata = latestFileMetaData,
                 onCloseCallback = {
@@ -224,7 +213,6 @@ fun CenoBundleImporterView(
                         context = context,
                         baseZipUri = baseFileUri,
                         latestZipUri = latestFileUri,
-                        totalSize = totalSize
                     )
                     baseFilename = ""
                     latestFilename = ""

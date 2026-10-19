@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
@@ -30,6 +31,7 @@ import java.net.URI
 import java.util.Map.entry
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
+import kotlin.io.copyTo
 
 class CenoBundleImporterViewModel: ViewModel() {
 
@@ -56,13 +58,11 @@ class CenoBundleImporterViewModel: ViewModel() {
         context: Context,
         baseZipUri: String,
         latestZipUri: String,
-        totalSize: Int,
     ) {
         _uiState.value = true
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
             putExtra(CenoBundleImporterService.BASE_ZIP_EXTRA, baseZipUri)
             putExtra(CenoBundleImporterService.LATEST_ZIP_EXTRA, latestZipUri)
-            putExtra(CenoBundleImporterService.TOTAL_SIZE, totalSize)
         }
         try {
             context.startForegroundService(intent)
@@ -76,18 +76,29 @@ class CenoBundleImporterViewModel: ViewModel() {
         context: Context,
         baseZipUri: String,
         latestZipUri: String,
-        progressCallback: (label: String, filename: String?, progress: Int) -> Unit,
+        progressCallback: (label: String, filename: String?, totalSize: Long, progress: Int) -> Unit,
         onFinishedCallback: () -> Unit,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             mapOf(Pair("base", baseZipUri.toUri()), Pair("latest", latestZipUri.toUri())).forEach { (label, uri) ->
                 val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
                 var progress = 0
-                ZipInputStream(context.contentResolver.openInputStream(baseZipUri.toUri())).use { zis ->
+                var totalSize = 0L
+
+                val outputFile = File(context.cacheDir, uri.getFileName(context.contentResolver))
+                ZipFile(outputFile).use { zip ->
+                    zip.entries()
+                        .iterator()
+                        .forEach {
+                            if (!it.isDirectory)
+                                totalSize += it.size
+                        }
+                }
+                ZipInputStream(context.contentResolver.openInputStream(uri)).use { zis ->
                     var entry = zis.nextEntry
                     while (entry != null) {
                         progress += 1
-                        progressCallback(label,entry.name, progress)
+                        progressCallback(label,entry.name, totalSize,progress)
                         val newFile = File(targetDirectory, entry.name)
 
                         val safePrefix = if (targetDirectory.endsWith(File.separator))
@@ -101,6 +112,7 @@ class CenoBundleImporterViewModel: ViewModel() {
                         if (entry.isDirectory) {
                             newFile.mkdirs()
                         } else {
+                            Log.d("CenoBundleImporterViewModel", "Unzipping $entry")
                             // Ensure parent directories exist for the file
                             newFile.parentFile?.mkdirs()
 
@@ -113,20 +125,16 @@ class CenoBundleImporterViewModel: ViewModel() {
                     }
                 }
             }
+            onFinishedCallback()
         }
-        onFinishedCallback()
     }
 
     fun getMetadata(
         context: Context,
-        zipUri: String,
         filename: String
-    ) : Pair<CenoBundleMetaData, Int>? {
-        context.contentResolver.openInputStream(zipUri.toUri())?.use { input ->
-            val outputFile = File(context.cacheDir, filename)
-            FileOutputStream(outputFile).use { output ->
-                input.copyTo(output)
-            }
+    ) : CenoBundleMetaData? {
+        val outputFile = File(context.cacheDir, filename)
+        try {
             ZipFile(outputFile).use { zip ->
                 val metaDataFile = zip.getEntry("metadata") ?: throw Exception("No metadata found for zip")
                 zip.getInputStream(metaDataFile).use { inputStream ->
@@ -139,9 +147,11 @@ class CenoBundleImporterViewModel: ViewModel() {
                     val jsonDecoder = Json {
                         ignoreUnknownKeys = true
                     }
-                    return Pair(jsonDecoder.decodeFromString<CenoBundleMetaData>(json), zip.size())
+                    return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
                 }
             }
+        } catch(e: Exception) {
+            e.printStackTrace()
         }
         return null
     }
