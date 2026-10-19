@@ -562,4 +562,10 @@
     <string name="view_ouicrawl_importer_progress">View Ceno Bundle importer progress</string>
     <string name="ouicrawl_importer_progress">Ceno Bundle importer progress</string>
     <string name="preferences_import_ceno_bundle">Import Ceno Bundle</string>
+    <string name="preparing_to_import">Preparing to import...</string>
+    <string name="shutting_down_ouinet_client">Shutting down Ouinet client</string>
+    <string name="importing_with_of_items">Importing %1$s with %2$d of %3$d items</string>
+    <string name="processing">Processing %1$s</string>
+    <string name="finished_importing">Finished importing</string>
+    <string name="restarting_ouinet_client">Restarting Ouinet client...</string>
 </resources>

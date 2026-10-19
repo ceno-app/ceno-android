@@ -6,11 +6,15 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
+import androidx.compose.runtime.MutableState
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
@@ -25,11 +29,19 @@ import java.util.zip.ZipInputStream
 
 class CenoBundleImporterViewModel: ViewModel() {
 
+    private var _uiState = MutableStateFlow(false)
+    var uiState: StateFlow<Boolean> = _uiState.asStateFlow()
+
+    fun setUiState(state: Boolean) {
+        _uiState.value = state
+    }
+
     fun processZips(
         context: Context,
         baseZipUri: String,
         latestZipUri: String,
     ) {
+        _uiState.value = true
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
             putExtra(CenoBundleImporterService.BASE_ZIP_EXTRA, baseZipUri)
             putExtra(CenoBundleImporterService.LATEST_ZIP_EXTRA, latestZipUri)
@@ -39,6 +51,7 @@ class CenoBundleImporterViewModel: ViewModel() {
         } catch(e: Exception) {
             e.printStackTrace()
         }
+        _uiState.value = false
     }
 
     fun unzip(
@@ -46,6 +59,7 @@ class CenoBundleImporterViewModel: ViewModel() {
         baseZipUri: String,
         latestZipUri: String,
         progressCallback: (label: String, filename: String?, totalSize: Int, progress: Int) -> Unit,
+        onFinishedCallback: () -> Unit,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
             mapOf(Pair("base", baseZipUri.toUri()), Pair("latest", latestZipUri.toUri())).forEach { (label, uri) ->
@@ -72,7 +86,10 @@ class CenoBundleImporterViewModel: ViewModel() {
                         progressCallback(label,entry.name, totalSize, progress)
                         val newFile = File(targetDirectory, entry.name)
 
-                        val safePrefix = if (targetDirectory.endsWith(File.separator)) targetDirectory.canonicalPath else targetDirectory.canonicalPath + File.separator
+                        val safePrefix = if (targetDirectory.endsWith(File.separator))
+                            targetDirectory.canonicalPath
+                        else targetDirectory.canonicalPath + File.separator
+
                         if (!newFile.canonicalPath.startsWith(safePrefix)) {
                             throw IOException("Security Exception: Path traversal detected!")
                         }
@@ -83,7 +100,6 @@ class CenoBundleImporterViewModel: ViewModel() {
                             // Ensure parent directories exist for the file
                             newFile.parentFile?.mkdirs()
 
-                            // Write file content
                             FileOutputStream(newFile).use { fos ->
                                 zis.copyTo(fos)
                             }
@@ -96,5 +112,6 @@ class CenoBundleImporterViewModel: ViewModel() {
 
             progressCallback("Bundle imported successfully", null,0, 0)
         }
+        onFinishedCallback()
     }
 }

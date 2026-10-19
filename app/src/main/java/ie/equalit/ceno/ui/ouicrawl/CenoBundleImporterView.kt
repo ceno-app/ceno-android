@@ -23,6 +23,7 @@ import androidx.compose.material3.ListItem
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -37,6 +38,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.core.net.toUri
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import mozilla.components.support.ktx.android.net.getFileName
@@ -83,6 +85,21 @@ fun CenoBundleImporterView(
         latestFileSize = uri.getQueryParameter(OpenableColumns.SIZE) ?: ""
     }
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
+    LaunchedEffect(latestFilename, baseFilename) {
+        viewModel.setUiState(baseFilename.isNotBlank() && latestFilename.isNotBlank())
+
+        if (baseFilename.isBlank()) {
+            baseFileUri = ""
+            baseFileSize = ""
+        }
+
+        if (latestFilename.isBlank()) {
+            latestFileUri = ""
+            latestFileSize = ""
+        }
+    }
 
     Column(
         modifier = modifier
@@ -152,8 +169,10 @@ fun CenoBundleImporterView(
                         baseZipUri = baseFileUri,
                         latestZipUri = latestFileUri
                     )
+                    baseFilename = ""
+                    latestFilename = ""
                 },
-                enabled = baseFilename.isNotBlank() && latestFilename.isNotBlank()
+                enabled = baseFilename.isNotBlank() && latestFilename.isNotBlank() && uiState
             ) {
                 Column {
                     Text("Import")

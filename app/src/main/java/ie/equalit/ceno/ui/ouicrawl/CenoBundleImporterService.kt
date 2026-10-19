@@ -11,9 +11,11 @@ import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
 import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.R
+import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 
 class CenoBundleImporterService: Service() {
@@ -45,36 +47,73 @@ class CenoBundleImporterService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent ?: throw Exception("Intent should not be null")
+        val baseZipUri = intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
+        val latestZipUri = intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
 
         val notification = createForegroundNotification(
             intent,
             R.drawable.ic_launcher_foreground,
             100,
             0,
-            true
+            true,
+            title = getString(R.string.preparing_to_import),
+            description = getString(R.string.shutting_down_ouinet_client)
         )
         startForeground(notificationId, notification.notification)
 
+        components.ouinet.background.shutdown(false) {
+            viewModel.unzip(
+                context = this,
+                baseZipUri,
+                latestZipUri,
+                progressCallback = { label, filename, total, progress ->
+                    val notification = createForegroundNotification(
+                        intent,
+                        R.drawable.ic_launcher_foreground,
+                        total,
+                        progress,
+                        false,
+                        title = if (total == 0) label else getString(
+                            R.string.importing_with_of_items,
+                            label,
+                            progress,
+                            total
+                        ),
+                        description = if (total == 0) "" else getString(
+                            R.string.processing,
+                            filename ?: "..."
+                        )
+                    )
 
-        val baseZipUri = intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
-        val latestZipUri = intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
+                    startForeground(notificationId, notification.notification)
+                },
+            ) {
+                val notification = createForegroundNotification(
+                    intent,
+                    R.drawable.ic_launcher_foreground,
+                    100,
+                    0,
+                    false,
+                    title = getString(R.string.finished_importing),
+                    description = getString(R.string.restarting_ouinet_client)
+                )
+                startForeground(notificationId, notification.notification)
 
-        viewModel.unzip(
-            context = this,
-            baseZipUri,
-            latestZipUri
-        ) { label, filename, total, progress ->
-            val notification = createForegroundNotification(
-                intent,
-                R.drawable.ic_launcher_foreground,
-                total,
-                progress,
-                false,
-                title = if(total == 0) label else "Importing $label with $progress of $total items",
-                description = if(total == 0) "" else "Processing ${filename ?: "..."}"
-            )
-
-            startForeground(notificationId, notification.notification)
+                components.ouinet.background.start {
+                    val notification = createForegroundNotification(
+                        intent,
+                        R.drawable.ic_launcher_foreground,
+                        100,
+                        0,
+                        true,
+                        title = getString(R.string.finished_importing),
+                        description = getString(R.string.restarting_ouinet_client)
+                    )
+                    startForeground(notificationId, notification.notification)
+//                    stopForeground(STOP_FOREGROUND_REMOVE)
+//                    stopSelf()
+                }
+            }
         }
 
         return START_STICKY
