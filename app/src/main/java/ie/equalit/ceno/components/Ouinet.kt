@@ -50,10 +50,16 @@ class Ouinet(
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
             .addMetricsServer(
-                "https://endpoint-dev.ouinet.work/.well-known/endpoint",
-                METRICS_SERVER_TOKEN,
-                BuildConfig.METRICS_TLS_CA_CERT,
-                0
+                BuildConfig.METRICS_SERVERS[0][0],
+                BuildConfig.METRICS_SERVERS[0][1],
+                BuildConfig.METRICS_SERVERS[0][2],
+                BuildConfig.METRICS_SERVERS[0][3].toInt(),
+            )
+            .addMetricsServer(
+                BuildConfig.METRICS_SERVERS[1][0],
+                BuildConfig.METRICS_SERVERS[1][1],
+                BuildConfig.METRICS_SERVERS[1][2],
+                BuildConfig.METRICS_SERVERS[1][3].toInt(),
             )
             .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
             .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
@@ -168,7 +174,6 @@ class Ouinet(
 
     companion object {
         private val CHAR_POOL = ('a'..'z') + ('A'..'Z') + ('0'..'9')
-        private const val METRICS_SERVER_TOKEN = "CcmPTtdB5unF8q74AlGf1XMHYuo9opst"
         const val PROXY_ACCESS_USER = "user"
         private const val TOKEN_LENGTH: Long = 27
         private const val ERROR_PAGE = "server500.html"

@@ -52,7 +52,7 @@ android {
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
-        buildConfigField "String", "METRICS_TLS_CA_CERT", localProperties['METRICS_TLS_CA_CERT']
+        buildConfigField "String[][]", "METRICS_SERVERS", localProperties['METRICS_SERVERS'] ?: '{{"","","",""}}'
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
