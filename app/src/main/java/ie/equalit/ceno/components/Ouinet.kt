@@ -68,6 +68,7 @@ class Ouinet(
             .setDnsProtocols(dnsProtocols)
             .setEnableLogFile(CenoSettings.isCenoLogEnabled(context))
             .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
+            .setDropSavedOpts(true)
             .build()
     }
 
