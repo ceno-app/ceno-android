@@ -84,7 +84,7 @@ fun CenoBundleImporterView(
 
         val md = viewModel.getMetadata(
             context = context,
-            filename = tmpFilename
+            uri = uri
         )
         if (md?.type == "base") {
             baseFileMetaData = md
@@ -107,7 +107,7 @@ fun CenoBundleImporterView(
 
         val md = viewModel.getMetadata(
             context = context,
-            filename = tmpFilename
+            uri = uri
         )
 
         if (md?.type == "update") {

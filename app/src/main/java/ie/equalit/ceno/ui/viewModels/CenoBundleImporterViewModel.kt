@@ -85,7 +85,15 @@ class CenoBundleImporterViewModel: ViewModel() {
                 var progress = 0
                 var totalSize = 0L
 
-                val outputFile = File(context.cacheDir, uri.getFileName(context.contentResolver))
+                val fileName = uri.getFileName(context.contentResolver) ?: "temp.zip"
+                val outputFile = File(context.cacheDir, fileName)
+
+                context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                    FileOutputStream(outputFile).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                } ?: throw Exception("Failed to read file input stream")
+
                 ZipFile(outputFile).use { zip ->
                     zip.entries()
                         .iterator()
@@ -94,6 +102,7 @@ class CenoBundleImporterViewModel: ViewModel() {
                                 totalSize += it.size
                         }
                 }
+
                 ZipInputStream(context.contentResolver.openInputStream(uri)).use { zis ->
                     var entry = zis.nextEntry
                     while (entry != null) {
@@ -131,27 +140,37 @@ class CenoBundleImporterViewModel: ViewModel() {
 
     fun getMetadata(
         context: Context,
-        filename: String
-    ) : CenoBundleMetaData? {
-        val outputFile = File(context.cacheDir, filename)
-        try {
-            ZipFile(outputFile).use { zip ->
-                val metaDataFile = zip.getEntry("metadata") ?: throw Exception("No metadata found for zip")
-                zip.getInputStream(metaDataFile).use { inputStream ->
-                    val size = inputStream.available()
-                    val buffer = ByteArray(size)
-                    inputStream.read(buffer)
-                    inputStream.close()
+        uri: Uri
+    ): CenoBundleMetaData? {
+        val fileName = uri.getFileName(context.contentResolver) ?: "temp.zip"
+        val outputFile = File(context.cacheDir, fileName)
 
-                    val json = String(buffer, Charsets.UTF_8)
-                    val jsonDecoder = Json {
-                        ignoreUnknownKeys = true
-                    }
-                    return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
+        try {
+            context.contentResolver.openInputStream(uri)?.use { inputStream ->
+                FileOutputStream(outputFile).use { outputStream ->
+                    inputStream.copyTo(outputStream)
                 }
+            } ?: return null
+
+            ZipFile(outputFile).use { zip ->
+                val metaDataFile = zip.getEntry("metadata")
+                    ?: throw IllegalArgumentException("No metadata found for zip")
+
+                val json = zip.getInputStream(metaDataFile).use { inputStream ->
+                    inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
+                }
+
+                val jsonDecoder = Json {
+                    ignoreUnknownKeys = true
+                }
+                return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
             }
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
+        } finally {
+            if (outputFile.exists()) {
+                outputFile.delete()
+            }
         }
         return null
     }
