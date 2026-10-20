@@ -1,15 +1,19 @@
 package ie.equalit.ceno.ui.ouicrawl
 
+import android.R.attr.description
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import androidx.compose.ui.res.stringResource
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat.startForeground
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
@@ -49,6 +53,7 @@ class CenoBundleImporterService: Service() {
         intent ?: throw Exception("Intent should not be null")
         val baseZipUri = intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
         val latestZipUri = intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
+        val siteName = intent.getStringExtra(SITE_NAME) ?: throw Exception("Site name not found")
 
         val notification = createForegroundNotification(
             intent,
@@ -61,62 +66,72 @@ class CenoBundleImporterService: Service() {
         )
         startForeground(notificationId, notification.notification)
 
-        components.ouinet.background.shutdown(false) {
-            viewModel.unzip(
-                context = this,
-                baseZipUri = baseZipUri,
-                latestZipUri = latestZipUri,
-                progressCallback = { label, filename, totalSize, progress ->
-                    val notification = createForegroundNotification(
-                        intent,
-                        R.drawable.ic_launcher_foreground,
-                        totalSize,
-                        progress,
-                        false,
-                        title = if (totalSize == 0L) label else getString(
-                            R.string.importing_with_of_items,
-                            label,
-                            progress,
-                            totalSize
-                        ),
-                        description = if (totalSize == 0L) "" else getString(
-                            R.string.processing,
-                            filename ?: "..."
-                        )
-                    )
+        try {
+            components.ouinet.background.shutdown(true)
+        } catch(e: Exception) {
+            e.printStackTrace()
+        }
 
-                    startForeground(notificationId, notification.notification)
-                },
-            ) {
+        unzip(
+            context = this,
+            intent = intent,
+            baseZipUri = baseZipUri,
+            latestZipUri = latestZipUri,
+            siteName = siteName,
+        )
+
+        return START_STICKY
+    }
+
+    private fun unzip(
+        context: Context,
+        intent: Intent,
+        baseZipUri: String,
+        latestZipUri: String,
+        siteName: String,
+    ) {
+        viewModel.unzip(
+            context = this,
+            baseZipUri = baseZipUri,
+            latestZipUri = latestZipUri,
+            progressCallback = { label, filename, totalSize, progress ->
                 val notification = createForegroundNotification(
                     intent,
                     R.drawable.ic_launcher_foreground,
-                    0,
-                    0,
+                    totalSize,
+                    progress,
                     false,
-                    title = getString(R.string.finished_importing),
-                    description = getString(R.string.restarting_ouinet_client)
+                    title = if (totalSize == 0L) label else getString(
+                        R.string.importing_with_of_items,
+                        label,
+                        progress,
+                        totalSize
+                    ),
+                    description = if (totalSize == 0L) "" else getString(
+                        R.string.processing,
+                        filename ?: "..."
+                    )
                 )
+
                 startForeground(notificationId, notification.notification)
-
-                components.ouinet.background.start {
-//                    val notification = createForegroundNotification(
-//                        intent,
-//                        R.drawable.ic_launcher_foreground,
-//                        0,
-//                        0,
-//                        true,
-//                        title = getString(R.string.finished_importing),
-//                        description = getString(R.string.restarting_ouinet_client)
-//                    )
-//                    startForeground(notificationId, notification.notification)
-                    stopForeground(STOP_FOREGROUND_REMOVE)
-                    stopSelf()
-                }
+            },
+        ) {
+            try {
+                components.ouinet.background.start{}
+            } catch(e: Exception) {
+                e.printStackTrace()
             }
+            val notification = createForegroundNotification(
+                intent,
+                R.drawable.ic_launcher_foreground,
+                0,
+                0,
+                false,
+                title = context.getString(R.string.finished_importing),
+                description = context.getString(R.string.site, siteName),
+            )
+            startForeground(notificationId, notification.notification)
         }
-
-        return START_STICKY
     }
 
     private fun createForegroundNotification(
@@ -143,7 +158,11 @@ class CenoBundleImporterService: Service() {
             .setOngoing(true)
             .setRequestPromotedOngoing(true)
             .setContentIntent(pendingIntent)
-            .setProgress(maxProgress.toInt(), progress, isProcessing)
+            .apply {
+                if (maxProgress != 0L) {
+                    this.setProgress(maxProgress.toInt(), progress, isProcessing)
+                }
+            }
 
         val notification = builder.build()
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
@@ -177,6 +196,7 @@ class CenoBundleImporterService: Service() {
     companion object {
         const val BASE_ZIP_EXTRA = "BASE_ZIP_EXTRA"
         const val LATEST_ZIP_EXTRA = "LATEST_ZIP_EXTRA"
+        const val SITE_NAME = "SITE_NAME"
         const val CHANNEL_ID = "ie.ceno.bundle_importer"
     }
 }

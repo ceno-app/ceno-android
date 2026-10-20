@@ -213,6 +213,7 @@ fun CenoBundleImporterView(
                         context = context,
                         baseZipUri = baseFileUri,
                         latestZipUri = latestFileUri,
+                        siteName = baseFileMetaData?.site ?: ""
                     )
                     baseFilename = ""
                     latestFilename = ""

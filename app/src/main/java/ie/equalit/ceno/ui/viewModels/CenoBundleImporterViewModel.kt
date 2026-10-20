@@ -58,11 +58,13 @@ class CenoBundleImporterViewModel: ViewModel() {
         context: Context,
         baseZipUri: String,
         latestZipUri: String,
+        siteName: String,
     ) {
         _uiState.value = true
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
             putExtra(CenoBundleImporterService.BASE_ZIP_EXTRA, baseZipUri)
             putExtra(CenoBundleImporterService.LATEST_ZIP_EXTRA, latestZipUri)
+            putExtra(CenoBundleImporterService.SITE_NAME, siteName)
         }
         try {
             context.startForegroundService(intent)
