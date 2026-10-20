@@ -2,16 +2,13 @@ package ie.equalit.ceno.ui.ouicrawl
 
 import android.content.Intent
 import android.net.Uri
-import android.provider.OpenableColumns
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -26,23 +23,18 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableLongStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalInspectionMode
 import androidx.compose.ui.platform.LocalResources
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import androidx.core.net.toUri
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
@@ -67,14 +59,22 @@ fun CenoBundleImporterView(
     val context = LocalContext.current
     val resources = LocalResources.current
 
-    var baseFileUri by remember{ mutableStateOf("") }
-    var baseFilename by remember{ mutableStateOf("") }
+    var baseFileUri by remember { mutableStateOf("") }
+    var baseFilename by remember { mutableStateOf("") }
 
-    var latestFileUri by remember{ mutableStateOf("") }
-    var latestFilename by remember{ mutableStateOf("") }
+    var latestFileUri by remember { mutableStateOf("") }
+    var latestFilename by remember { mutableStateOf("") }
 
-    var baseFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
-    var latestFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember { mutableStateOf(null) }
+    var baseFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember {
+        mutableStateOf(
+            null
+        )
+    }
+    var latestFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember {
+        mutableStateOf(
+            null
+        )
+    }
 
     val baseFilePicker = zipFilePickerManager { uri ->
         val flag = Intent.FLAG_GRANT_READ_URI_PERMISSION
@@ -90,13 +90,13 @@ fun CenoBundleImporterView(
             baseFileMetaData = md
             baseFileUri = tmpFileUri
             baseFilename = tmpFilename
-        }
-        else {
+        } else {
             Toast.makeText(
                 context,
                 resources.getString(R.string.selected_file_is_not_a_base_zip),
                 Toast.LENGTH_LONG
-            ).show()
+            )
+                .show()
         }
     }
 
@@ -115,20 +115,20 @@ fun CenoBundleImporterView(
             latestFileMetaData = md
             latestFileUri = tmpFileUri
             latestFilename = tmpFilename
-        }
-        else {
+        } else {
             Toast.makeText(
                 context,
                 resources.getString(R.string.file_is_not_a_latest_zip),
                 Toast.LENGTH_LONG
-            ).show()
+            )
+                .show()
         }
     }
 
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(latestFilename, baseFilename) {
-        
+
         viewModel.setUiState(baseFilename.isNotBlank() && latestFilename.isNotBlank())
 
         if (baseFilename.isBlank()) {
@@ -325,7 +325,7 @@ fun ZipImporterComponentView_preview() {
                 updatets = "123245"
             ),
             onCloseCallback = {}
-        ){}
+        ) {}
     }
 }
 
@@ -347,7 +347,7 @@ fun ZipImporterComponentView_filename_preview() {
                 updatets = "123245"
             ),
             onCloseCallback = {}
-        ){}
+        ) {}
     }
 }
 

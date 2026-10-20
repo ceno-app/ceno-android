@@ -1,6 +1,5 @@
 package ie.equalit.ceno.ui.ouicrawl
 
-import android.R.attr.description
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -11,22 +10,18 @@ import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import androidx.compose.ui.res.stringResource
 import androidx.core.app.NotificationCompat
-import androidx.core.app.ServiceCompat.startForeground
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.content.ContextCompat.getSystemService
-import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 
-class CenoBundleImporterService: Service() {
+class CenoBundleImporterService : Service() {
 
     private val viewModel = CenoBundleImporterViewModel()
 
-    private val notificationId = System.currentTimeMillis().toInt()
+    private val notificationId = System.currentTimeMillis()
+        .toInt()
 
     // Binder given to clients.
     private val binder = LocalBinder()
@@ -51,8 +46,10 @@ class CenoBundleImporterService: Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent ?: throw Exception("Intent should not be null")
-        val baseZipUri = intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
-        val latestZipUri = intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
+        val baseZipUri =
+            intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
+        val latestZipUri =
+            intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
         val siteName = intent.getStringExtra(SITE_NAME) ?: throw Exception("Site name not found")
 
         val notification = createForegroundNotification(
@@ -68,7 +65,7 @@ class CenoBundleImporterService: Service() {
 
         try {
             components.ouinet.background.shutdown(true)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
 
@@ -117,8 +114,8 @@ class CenoBundleImporterService: Service() {
             },
         ) {
             try {
-                components.ouinet.background.start{}
-            } catch(e: Exception) {
+                components.ouinet.background.start {}
+            } catch (e: Exception) {
                 e.printStackTrace()
             }
             val notification = createForegroundNotification(
@@ -142,7 +139,7 @@ class CenoBundleImporterService: Service() {
         isProcessing: Boolean = false,
         title: String = "",
         description: String = "",
-    ) : ForegroundInfo {
+    ): ForegroundInfo {
         val progress = progress + 1
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,

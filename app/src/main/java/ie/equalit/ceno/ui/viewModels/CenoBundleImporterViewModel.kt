@@ -1,13 +1,9 @@
 package ie.equalit.ceno.ui.viewModels
 
-import android.R.attr.label
-import android.R.id.input
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.core.net.toUri
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -17,23 +13,16 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import kotlinx.serialization.ExperimentalSerializationApi
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
-import kotlinx.serialization.json.JsonIgnoreUnknownKeys
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
-import java.io.FileInputStream
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
-import java.net.URI
-import java.util.Map.entry
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
-import kotlin.io.copyTo
 
-class CenoBundleImporterViewModel: ViewModel() {
+class CenoBundleImporterViewModel : ViewModel() {
 
     @Serializable
     data class CenoBundleMetaData(
@@ -68,7 +57,7 @@ class CenoBundleImporterViewModel: ViewModel() {
         }
         try {
             context.startForegroundService(intent)
-        } catch(e: Exception) {
+        } catch (e: Exception) {
             e.printStackTrace()
         }
         _uiState.value = false
@@ -82,7 +71,10 @@ class CenoBundleImporterViewModel: ViewModel() {
         onFinishedCallback: () -> Unit,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
-            mapOf(Pair("base", baseZipUri.toUri()), Pair("latest", latestZipUri.toUri())).forEach { (label, uri) ->
+            mapOf(
+                Pair("base", baseZipUri.toUri()),
+                Pair("latest", latestZipUri.toUri())
+            ).forEach { (label, uri) ->
                 val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
                 var progress = 0
                 var totalSize = 0L
@@ -90,11 +82,12 @@ class CenoBundleImporterViewModel: ViewModel() {
                 val fileName = uri.getFileName(context.contentResolver) ?: "temp.zip"
                 val outputFile = File(context.cacheDir, fileName)
 
-                context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                    FileOutputStream(outputFile).use { outputStream ->
-                        inputStream.copyTo(outputStream)
-                    }
-                } ?: throw Exception("Failed to read file input stream")
+                context.contentResolver.openInputStream(uri)
+                    ?.use { inputStream ->
+                        FileOutputStream(outputFile).use { outputStream ->
+                            inputStream.copyTo(outputStream)
+                        }
+                    } ?: throw Exception("Failed to read file input stream")
 
                 ZipFile(outputFile).use { zip ->
                     zip.entries()
@@ -109,7 +102,7 @@ class CenoBundleImporterViewModel: ViewModel() {
                     var entry = zis.nextEntry
                     while (entry != null) {
                         progress += 1
-                        progressCallback(label,entry.name, totalSize,progress)
+                        progressCallback(label, entry.name, totalSize, progress)
                         val newFile = File(targetDirectory, entry.name)
 
                         val safePrefix = if (targetDirectory.endsWith(File.separator))
@@ -148,19 +141,22 @@ class CenoBundleImporterViewModel: ViewModel() {
         val outputFile = File(context.cacheDir, fileName)
 
         try {
-            context.contentResolver.openInputStream(uri)?.use { inputStream ->
-                FileOutputStream(outputFile).use { outputStream ->
-                    inputStream.copyTo(outputStream)
-                }
-            } ?: return null
+            context.contentResolver.openInputStream(uri)
+                ?.use { inputStream ->
+                    FileOutputStream(outputFile).use { outputStream ->
+                        inputStream.copyTo(outputStream)
+                    }
+                } ?: return null
 
             ZipFile(outputFile).use { zip ->
                 val metaDataFile = zip.getEntry("metadata")
                     ?: throw IllegalArgumentException("No metadata found for zip")
 
-                val json = zip.getInputStream(metaDataFile).use { inputStream ->
-                    inputStream.bufferedReader(Charsets.UTF_8).use { it.readText() }
-                }
+                val json = zip.getInputStream(metaDataFile)
+                    .use { inputStream ->
+                        inputStream.bufferedReader(Charsets.UTF_8)
+                            .use { it.readText() }
+                    }
 
                 val jsonDecoder = Json {
                     ignoreUnknownKeys = true
