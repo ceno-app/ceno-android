@@ -578,5 +578,7 @@
     <string name="import_latest_zip_file">Import latest zip file</string>
     <string name="click_to_import_latest_file">Click to import latest file</string>
     <string name="importing_for">Importing %1$s for %2$s</string>
-    <string name="this_will_take_while">This will take while...</string>
+    <string name="this_will_take_while">This will take while…</string>
+    <string name="latest_update">Latest update: %1$s</string>
+    <string name="release_date">Release date: %1$s</string>
 </resources>

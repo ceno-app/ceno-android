@@ -1,14 +1,10 @@
 package ie.equalit.ceno.settings
 
-import android.app.NotificationChannel
-import android.app.NotificationManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -29,16 +25,13 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.fragment.app.Fragment
 import ie.equalit.ceno.R
-import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterView
-import ie.equalit.ceno.ui.settings.PermissionsScreen
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 
-class ImportCenoBundleFragment: Fragment() {
+class ImportCenoBundleFragment : Fragment() {
 
     private val cenoBundleImporterViewModel = CenoBundleImporterViewModel()
 

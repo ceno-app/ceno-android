@@ -11,6 +11,7 @@ import android.os.Binder
 import android.os.Build
 import android.os.IBinder
 import androidx.core.app.NotificationCompat
+import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
@@ -92,17 +93,17 @@ class CenoBundleImporterService : Service() {
             context = this,
             baseZipUri = baseZipUri,
             latestZipUri = latestZipUri,
-            progressCallback = { label, filename ->
+            progressCallback = { label ->
                 val notification = createForegroundNotification(
                     intent,
                     R.drawable.ic_launcher_foreground,
-                    if(label == "base") notificationId else notificationId,
+                    notificationId,
                     inProgress = true,
                     title = getString(R.string.importing_for, label, siteName),
                     description = getString(R.string.this_will_take_while)
                 )
 
-                startForeground(if(label == "base") notificationId else notificationId, notification.notification)
+                startForeground(notificationId, notification.notification)
             },
         ) {
             try {
@@ -110,6 +111,11 @@ class CenoBundleImporterService : Service() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            viewModel.storeImportedSite(
+                this,
+                viewModel.getMetadata(this, baseZipUri.toUri())!!,
+                viewModel.getMetadata(this, latestZipUri.toUri())!!,
+            )
             val notification = createForegroundNotification(
                 intent,
                 R.drawable.ic_launcher_foreground,
