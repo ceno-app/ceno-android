@@ -5,7 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.12.0 - 2026-10-07
+## v2.12.1 - 2026-10-21
+
+### Changed
+
+- Update Android-Components to 158.0.2
+- Update cacert.pem with bundle generated on Tue Oct 20 13:32:40 2026 GMT
+
+## [v2.12.0](https://gitlab.com/ceno-app/ceno-android/-/releases/2.12.0) - 2026-10-07
 
 ### Added
 
