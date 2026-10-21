@@ -389,7 +389,7 @@ dependencies {
     androidTestUtil libs.orchestrator
     androidTestImplementation libs.fastlane.screengrab
 
-    implementation("androidx.datastore:datastore-preferences:1.2.1")
+    implementation libs.androidx.datastore.preferences
 }
 
 tasks.register('renameUblockXpi', Copy) {

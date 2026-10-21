@@ -10,7 +10,9 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -19,14 +21,30 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import ie.equalit.ceno.ui.viewModels.dataStore
-
+import kotlinx.coroutines.flow.map
+import kotlinx.serialization.json.Json
 
 @Composable
 fun CenoBundleImportedSitesView(
     modifier: Modifier,
     cenoBundleImporterViewModel: CenoBundleImporterViewModel,
 ) {
+    val context = LocalContext.current
+    val storedSitesFlow = remember(context) {
+        context.dataStore.data.map { preferences ->
+            preferences[cenoBundleImporterViewModel.importedSitesKey] ?: ""
+        }
+    }
+
+    val ss by storedSitesFlow.collectAsStateWithLifecycle("")
     val storedSites by cenoBundleImporterViewModel.storedSites.collectAsStateWithLifecycle()
+
+    LaunchedEffect(ss) {
+        if (ss.isNotBlank()) {
+            cenoBundleImporterViewModel.loadSites(ss)
+        }
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()

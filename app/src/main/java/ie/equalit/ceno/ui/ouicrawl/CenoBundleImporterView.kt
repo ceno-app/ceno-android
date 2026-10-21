@@ -3,6 +3,7 @@ package ie.equalit.ceno.ui.ouicrawl
 import android.content.Intent
 import android.net.Uri
 import android.widget.Toast
+import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
@@ -36,6 +37,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.navigation.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import mozilla.components.support.ktx.android.net.getFileName
@@ -55,6 +57,7 @@ fun zipFilePickerManager(
 fun CenoBundleImporterView(
     modifier: Modifier = Modifier,
     viewModel: CenoBundleImporterViewModel,
+    onImportCallback: () -> Unit
 ) {
     val context = LocalContext.current
     val resources = LocalResources.current
@@ -217,6 +220,7 @@ fun CenoBundleImporterView(
                     )
                     baseFilename = ""
                     latestFilename = ""
+                    onImportCallback()
                 },
                 enabled = baseFilename.isNotBlank() && latestFilename.isNotBlank() && uiState
             ) {
@@ -356,7 +360,8 @@ fun ZipImporterComponentView_filename_preview() {
 fun CenoBundleImporterView_preview() {
     MaterialTheme {
         CenoBundleImporterView(
-            viewModel = remember { CenoBundleImporterViewModel() }
+            viewModel = remember { CenoBundleImporterViewModel() },
+            onImportCallback = {}
         )
     }
 }

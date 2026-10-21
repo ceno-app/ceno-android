@@ -16,6 +16,7 @@ androidx_work = "2.12.0"
 android_components = "157.0.1"
 
 # Google
+datastorePreferences = "1.2.1"
 google_composecompiler = "1.5.15"
 google_material = "1.14.0"
 
@@ -62,6 +63,7 @@ hamcrest = "3.0"
 
 # Kotlin
 
+androidx-datastore-preferences = { module = "androidx.datastore:datastore-preferences", version.ref = "datastorePreferences" }
 kotlin-coroutines = { group = "org.jetbrains.kotlinx", name = "kotlinx-coroutines-android", version.ref = "kotlin_coroutines" }
 kotlin-serialization = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlin_serialization" }
 mozilla-conceptawesomebar = { group = "org.mozilla.components", name = "concept-awesomebar", version.ref = "android_components" }

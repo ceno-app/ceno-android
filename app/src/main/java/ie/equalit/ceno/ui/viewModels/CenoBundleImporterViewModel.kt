@@ -51,7 +51,7 @@ class CenoBundleImporterViewModel : ViewModel() {
     )
 
 
-    private val importedSitesKey = stringPreferencesKey("importedSitesKey")
+    val importedSitesKey = stringPreferencesKey("importedSitesKey")
 
     private var _storedSites = MutableStateFlow<List<CenoBundleMetaData>>(emptyList())
     val storedSites: StateFlow<List<CenoBundleMetaData>> = _storedSites.asStateFlow()
@@ -170,21 +170,14 @@ class CenoBundleImporterViewModel : ViewModel() {
         return null
     }
 
-    fun getImportedSites(
-        context: Context
-    ) {
+    fun loadSites(sites: String) {
         viewModelScope.launch {
-            val importedSitesJson = context.dataStore.data
-                .map { preferences ->
-                    preferences[importedSitesKey]
-                }
-
-            if(!importedSitesJson.first().isNullOrBlank()) {
-                val jsonDecoder = Json {
-                    ignoreUnknownKeys = true
-                }
-                _storedSites.value = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(importedSitesJson.first()!!)
+            val jsonDecoder = Json {
+                ignoreUnknownKeys = true
             }
+
+            val storedSites = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(sites)
+            _storedSites.value = storedSites
         }
     }
 
@@ -193,6 +186,9 @@ class CenoBundleImporterViewModel : ViewModel() {
         baseMetaData: CenoBundleMetaData,
         latestMetaData: CenoBundleMetaData
     ) {
+        /**
+         * TODO: Ignore if already stored
+         */
         viewModelScope.launch {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true

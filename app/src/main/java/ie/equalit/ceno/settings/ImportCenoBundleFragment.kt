@@ -26,6 +26,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterView
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
@@ -77,6 +79,17 @@ class ImportCenoBundleFragment : Fragment() {
                                         )
                                     }
                                 },
+                                actions = {
+                                    IconButton(onClick = {
+                                        findNavController()
+                                            .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.outline_list_24),
+                                            stringResource(R.string.list_imported_sites)
+                                        )
+                                    }
+                                },
                                 colors = TopAppBarDefaults.topAppBarColors(
                                     containerColor = colorResource(R.color.ceno_action_bar)
                                 ),
@@ -87,7 +100,10 @@ class ImportCenoBundleFragment : Fragment() {
                         CenoBundleImporterView(
                             modifier = Modifier.padding(innerPadding),
                             viewModel = cenoBundleImporterViewModel
-                        )
+                        ) {
+                            findNavController()
+                                .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
+                        }
                     }
                 }
             }
