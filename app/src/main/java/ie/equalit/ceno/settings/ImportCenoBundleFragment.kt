@@ -99,6 +99,7 @@ class ImportCenoBundleFragment : Fragment() {
                     ) { innerPadding ->
                         CenoBundleImporterView(
                             modifier = Modifier.padding(innerPadding),
+                            isDarkTheme = isNightMode(),
                             viewModel = cenoBundleImporterViewModel
                         ) {
                             findNavController()

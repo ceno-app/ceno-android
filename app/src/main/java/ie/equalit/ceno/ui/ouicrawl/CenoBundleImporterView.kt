@@ -1,14 +1,17 @@
 package ie.equalit.ceno.ui.ouicrawl
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.net.Uri
 import android.widget.Toast
 import androidx.activity.compose.LocalActivity
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,9 +19,11 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.Button
 import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -31,6 +36,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalResources
+import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
@@ -57,6 +63,7 @@ fun zipFilePickerManager(
 fun CenoBundleImporterView(
     modifier: Modifier = Modifier,
     viewModel: CenoBundleImporterViewModel,
+    isDarkTheme: Boolean,
     onImportCallback: () -> Unit
 ) {
     val context = LocalContext.current
@@ -145,6 +152,18 @@ fun CenoBundleImporterView(
         }
     }
 
+    val cardColor = if (!isDarkTheme) {
+        colorResource(R.color.ceno_blue_200)
+    } else {
+        colorResource(R.color.ceno_blue_800)
+    }
+
+    val textColor = if (!isDarkTheme) {
+        colorResource(R.color.novaBlackA50)
+    } else {
+        colorResource(R.color.novaBlackA50)
+    }
+
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -157,20 +176,39 @@ fun CenoBundleImporterView(
 
             Card(
                 onClick = {},
+                colors = CardDefaults.cardColors(
+                    colorResource(R.color.ceno_blue_200)
+                )
             ) {
-                Box {
+                Row(Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp)
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.mozac_ic_information_24),
+                        "",
+                        modifier = Modifier
+                            .size(25.dp),
+                        tint = colorResource(R.color.ceno_blue_800)
+                    )
+                    Spacer(Modifier.size(8.dp))
                     Text(
                         stringResource(
                             R.string.ceno_bundles_are_zip_files_containing_copies_of_websites_they_can_be_downloaded_from,
                             ouicrawlUrl
                         ),
-                        modifier = Modifier.padding(16.dp)
+                        color = textColor
                     )
                 }
             }
             Spacer(Modifier.padding(8.dp))
 
-            Text(stringResource(R.string.you_must_import_a_base_zip_and_then_a_latest_zip_of_a_website_to_create_a_full_copy_of_a_website_in_your_local_cache))
+            Text(
+                stringResource(R.string.you_must_import_a_base_zip_and_then_a_latest_zip_of_a_website_to_create_a_full_copy_of_a_website_in_your_local_cache),
+                style = MaterialTheme.typography.labelMedium,
+                modifier = Modifier.padding(8.dp),
+                color = MaterialTheme.colorScheme.secondary
+            )
 
             Spacer(Modifier.padding(16.dp))
 
@@ -183,6 +221,7 @@ fun CenoBundleImporterView(
                 text = stringResource(R.string.click_to_import_base_file),
                 filename = baseFilename,
                 metadata = baseFileMetaData,
+                isDarkTheme = isDarkTheme,
                 onCloseCallback = {
                     baseFilename = ""
                 }
@@ -201,6 +240,7 @@ fun CenoBundleImporterView(
                 text = stringResource(R.string.click_to_import_latest_file),
                 filename = latestFilename,
                 metadata = latestFileMetaData,
+                isDarkTheme = isDarkTheme,
                 onCloseCallback = {
                     latestFilename = ""
                 }
@@ -236,13 +276,30 @@ fun CenoBundleImporterView(
 fun ZipImporterComponentView(
     text: String,
     filename: String?,
+    isDarkTheme: Boolean,
     metadata: CenoBundleImporterViewModel.CenoBundleMetaData?,
     onCloseCallback: () -> Unit,
     onClickCallback: () -> Unit,
 ) {
+
+    val cardColor = if (!isDarkTheme) {
+        colorResource(R.color.ceno_blue_200)
+    } else {
+        colorResource(R.color.ceno_blue_800)
+    }
+
+    val iconColors = if (!isDarkTheme) {
+        colorResource(R.color.ceno_blue_800)
+    } else {
+        colorResource(R.color.ceno_blue_200)
+    }
+
     Card(
         onClick = onClickCallback,
-        modifier = Modifier.fillMaxWidth()
+        modifier = Modifier.fillMaxWidth(),
+        colors = CardDefaults.cardColors(
+            containerColor = cardColor
+        ),
     ) {
         if (filename.isNullOrBlank()) {
             Column(
@@ -255,7 +312,7 @@ fun ZipImporterComponentView(
                     painter = painterResource(R.drawable.outline_folder_zip_24),
                     "",
                     modifier = Modifier.size(50.dp),
-                    tint = MaterialTheme.colorScheme.primary
+                    tint = iconColors
                 )
 
                 Text(text)
@@ -267,7 +324,7 @@ fun ZipImporterComponentView(
                         painter = painterResource(R.drawable.outline_folder_zip_24),
                         "",
                         modifier = Modifier.size(50.dp),
-                        tint = MaterialTheme.colorScheme.primary
+                        tint = iconColors
                     )
                 },
                 headlineContent = {
@@ -278,17 +335,6 @@ fun ZipImporterComponentView(
                     )
                 },
                 supportingContent = {
-                    /**
-                     * {
-                     *     "version":1,
-                     *     "proto":6,
-                     *     "id":"0b188d92555807fb505c2fc8354a91dd0e10c8d9",
-                     *     "type": "base",
-                     *     "site":"arkhipov.syg.ma",
-                     *     "basefilename":"ouicrawl-arkhipov.syg.ma-base.zip",
-                     *     "basedate":"2026-10-01"
-                     * }
-                     */
                     Column {
                         Text(stringResource(R.string.version, metadata?.version ?: 0))
                         Text(stringResource(R.string.site, metadata?.site ?: ""))
@@ -305,6 +351,9 @@ fun ZipImporterComponentView(
                         )
                     }
                 },
+                colors = ListItemDefaults.colors(
+                    containerColor = cardColor
+                )
             )
         }
     }
@@ -318,6 +367,7 @@ fun ZipImporterComponentView_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             filename = null,
+            isDarkTheme = false,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -340,6 +390,7 @@ fun ZipImporterComponentView_filename_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             filename = "filename.zip",
+            isDarkTheme = true,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -361,6 +412,7 @@ fun CenoBundleImporterView_preview() {
     MaterialTheme {
         CenoBundleImporterView(
             viewModel = remember { CenoBundleImporterViewModel() },
+            isDarkTheme = false,
             onImportCallback = {}
         )
     }
