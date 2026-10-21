@@ -564,8 +564,6 @@
     <string name="preferences_import_ceno_bundle">Import Ceno Bundle</string>
     <string name="preparing_to_import">Preparing to import…</string>
     <string name="shutting_down_ouinet_client">Shutting down Ouinet client</string>
-    <string name="importing_with_of_items">Importing %1$s with %2$d of %3$d items</string>
-    <string name="processing">Processing %1$s</string>
     <string name="finished_importing">Finished importing</string>
     <string name="restarting_ouinet_client">Restarting Ouinet client…</string>
     <string name="version">Version: %1$d</string>
@@ -579,4 +577,6 @@
     <string name="import_base_zip_file">Import base zip file</string>
     <string name="import_latest_zip_file">Import latest zip file</string>
     <string name="click_to_import_latest_file">Click to import latest file</string>
+    <string name="importing_for">Importing %1$s for %2$s</string>
+    <string name="this_will_take_while">This will take while...</string>
 </resources>

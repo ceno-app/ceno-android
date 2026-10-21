@@ -67,7 +67,7 @@ class CenoBundleImporterViewModel : ViewModel() {
         context: Context,
         baseZipUri: String,
         latestZipUri: String,
-        progressCallback: (label: String, filename: String?, totalSize: Long, progress: Int) -> Unit,
+        progressCallback: (label: String, filename: String?) -> Unit,
         onFinishedCallback: () -> Unit,
     ) {
         viewModelScope.launch(Dispatchers.IO) {
@@ -76,33 +76,10 @@ class CenoBundleImporterViewModel : ViewModel() {
                 Pair("latest", latestZipUri.toUri())
             ).forEach { (label, uri) ->
                 val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
-                var progress = 0
-                var totalSize = 0L
-
-                val fileName = uri.getFileName(context.contentResolver) ?: "temp.zip"
-                val outputFile = File(context.cacheDir, fileName)
-
-                context.contentResolver.openInputStream(uri)
-                    ?.use { inputStream ->
-                        FileOutputStream(outputFile).use { outputStream ->
-                            inputStream.copyTo(outputStream)
-                        }
-                    } ?: throw Exception("Failed to read file input stream")
-
-                ZipFile(outputFile).use { zip ->
-                    zip.entries()
-                        .iterator()
-                        .forEach {
-                            if (!it.isDirectory)
-                                totalSize += it.size
-                        }
-                }
-
                 ZipInputStream(context.contentResolver.openInputStream(uri)).use { zis ->
                     var entry = zis.nextEntry
+                    progressCallback(label, entry?.name)
                     while (entry != null) {
-                        progress += 1
-                        progressCallback(label, entry.name, totalSize, progress)
                         val newFile = File(targetDirectory, entry.name)
 
                         val safePrefix = if (targetDirectory.endsWith(File.separator))

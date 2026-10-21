@@ -20,8 +20,10 @@ class CenoBundleImporterService : Service() {
 
     private val viewModel = CenoBundleImporterViewModel()
 
-    private val notificationId = System.currentTimeMillis()
-        .toInt()
+    private val notificationId by lazy {
+        System.currentTimeMillis()
+            .toInt()
+    }
 
     // Binder given to clients.
     private val binder = LocalBinder()
@@ -55,27 +57,26 @@ class CenoBundleImporterService : Service() {
         val notification = createForegroundNotification(
             intent,
             R.drawable.ic_launcher_foreground,
-            100,
-            0,
-            true,
+            notificationId,
+            inProgress = true,
             title = getString(R.string.preparing_to_import),
             description = getString(R.string.shutting_down_ouinet_client)
         )
         startForeground(notificationId, notification.notification)
 
         try {
-            components.ouinet.background.shutdown(true)
+            components.ouinet.background.shutdown(false) {
+                unzip(
+                    context = this,
+                    intent = intent,
+                    baseZipUri = baseZipUri,
+                    latestZipUri = latestZipUri,
+                    siteName = siteName,
+                )
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
-
-        unzip(
-            context = this,
-            intent = intent,
-            baseZipUri = baseZipUri,
-            latestZipUri = latestZipUri,
-            siteName = siteName,
-        )
 
         return START_STICKY
     }
@@ -91,26 +92,17 @@ class CenoBundleImporterService : Service() {
             context = this,
             baseZipUri = baseZipUri,
             latestZipUri = latestZipUri,
-            progressCallback = { label, filename, totalSize, progress ->
+            progressCallback = { label, filename ->
                 val notification = createForegroundNotification(
                     intent,
                     R.drawable.ic_launcher_foreground,
-                    totalSize,
-                    progress,
-                    false,
-                    title = if (totalSize == 0L) label else getString(
-                        R.string.importing_with_of_items,
-                        label,
-                        progress,
-                        totalSize
-                    ),
-                    description = if (totalSize == 0L) "" else getString(
-                        R.string.processing,
-                        filename ?: "..."
-                    )
+                    if(label == "base") notificationId else notificationId,
+                    inProgress = true,
+                    title = getString(R.string.importing_for, label, siteName),
+                    description = getString(R.string.this_will_take_while)
                 )
 
-                startForeground(notificationId, notification.notification)
+                startForeground(if(label == "base") notificationId else notificationId, notification.notification)
             },
         ) {
             try {
@@ -121,9 +113,8 @@ class CenoBundleImporterService : Service() {
             val notification = createForegroundNotification(
                 intent,
                 R.drawable.ic_launcher_foreground,
-                0,
-                0,
-                false,
+                notificationId,
+                inProgress = false,
                 title = context.getString(R.string.finished_importing),
                 description = context.getString(R.string.site, siteName),
             )
@@ -134,13 +125,11 @@ class CenoBundleImporterService : Service() {
     private fun createForegroundNotification(
         intent: Intent,
         icon: Int,
-        maxProgress: Long,
-        progress: Int = 0,
-        isProcessing: Boolean = false,
+        notificationId: Int,
+        inProgress: Boolean,
         title: String = "",
         description: String = "",
     ): ForegroundInfo {
-        val progress = progress + 1
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
             0,
@@ -156,8 +145,8 @@ class CenoBundleImporterService : Service() {
             .setRequestPromotedOngoing(true)
             .setContentIntent(pendingIntent)
             .apply {
-                if (maxProgress != 0L) {
-                    this.setProgress(maxProgress.toInt(), progress, isProcessing)
+                if(inProgress) {
+                    this.setProgress(0, 0, true)
                 }
             }
 
