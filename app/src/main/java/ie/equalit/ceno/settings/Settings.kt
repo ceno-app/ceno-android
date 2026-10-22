@@ -9,6 +9,7 @@ import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
 import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
@@ -23,6 +24,8 @@ import ie.equalit.ouinet.Config
 import java.util.Locale
 
 object Settings {
+    const val TAG = "Settings"
+
     fun shouldShowOnboarding(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean(
@@ -365,9 +368,9 @@ object Settings {
                                     if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
                                         add(it)
                                     }
-                                } catch (e: Exception) {
+                                } catch (e: NullPointerException) {
                                     // In case of faulty json, ignore and continue with the others
-                                    Log.e("Settings.kt", e.toString(), e)
+                                    Log.e(TAG, e.toString(), e)
                                 }
                             }
                         }
@@ -375,8 +378,8 @@ object Settings {
                     return if (response.items.isEmpty()) null else response
 
                 }
-        } catch (e: Exception) {
-            Log.e("Settings.kt", e.toString(), e)
+        } catch (e: JsonParseException) {
+            Log.e(TAG, e.toString(), e)
         }
 
         return null

@@ -182,8 +182,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
                         getChangeListenerForBridgeAnnouncement()
                 }
-            } catch(e: Exception) {
-                Log.e(this.javaClass.name, e.message, e)
+            } catch (e: IllegalStateException) {
+                Log.e(TAG, e.message, e)
             }
         }
         if (arguments?.getBoolean(SCROLL_TO_BRIDGE) == true) {
