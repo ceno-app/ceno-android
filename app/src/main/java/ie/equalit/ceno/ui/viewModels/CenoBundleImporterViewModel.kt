@@ -4,7 +4,10 @@ import android.R.attr.name
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.os.Build
+import android.os.ParcelFileDescriptor
 import android.util.Log
+import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
@@ -21,20 +24,22 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.io.InputStream
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
 
 val Context.dataStore by preferencesDataStore(name = "ceno_bundle_importer_datastore")
 
 class CenoBundleImporterViewModel : ViewModel() {
-
 
     @Serializable
     data class CenoBundleMetaData(
@@ -47,7 +52,9 @@ class CenoBundleImporterViewModel : ViewModel() {
         val basedate: String,
         val updatets: String? = null,
         var latestMetaData: List<CenoBundleMetaData>? = null,
-        var importationDate: Long = System.currentTimeMillis()
+        var importationDate: Long = System.currentTimeMillis(),
+        var filename: String? = null,
+        var uri: String? = null
     )
 
 
@@ -56,6 +63,12 @@ class CenoBundleImporterViewModel : ViewModel() {
     private var _storedSites = MutableStateFlow<List<CenoBundleMetaData>>(emptyList())
     val storedSites: StateFlow<List<CenoBundleMetaData>> = _storedSites.asStateFlow()
 
+    private var _processingCounter = MutableStateFlow(0)
+    val processingCounter: StateFlow<Int> = _processingCounter.asStateFlow()
+
+    private var _processedFiles = MutableStateFlow<List<Pair<Boolean, CenoBundleMetaData>>>(emptyList())
+    val processedFiles: StateFlow<List<Pair<Boolean, CenoBundleMetaData>>> = _processedFiles.asStateFlow()
+
     private var _uiState = MutableStateFlow(false)
     val uiState: StateFlow<Boolean> = _uiState.asStateFlow()
 
@@ -63,17 +76,48 @@ class CenoBundleImporterViewModel : ViewModel() {
         _uiState.value = state
     }
 
-    fun processZips(
+    fun processSelectedFiles(
         context: Context,
-        baseZipUri: String,
-        latestZipUri: String,
-        siteName: String,
+        uris: List<Uri>
     ) {
+        _processedFiles.value = uris.map {
+            Pair(
+                true,
+                CenoBundleMetaData(
+                    version = 0,
+                    proto = 0,
+                    id = "",
+                    type = "",
+                    site = "",
+                    basefilename = "",
+                    basedate = "",
+                    uri = it.toString()
+                )
+            )
+        }
+
+        viewModelScope.launch(Dispatchers.IO) {
+            uris.forEach { uri ->
+                val fMd = getMetadata(
+                    context = context,
+                    uri = uri
+                )
+                fMd?.let { md ->
+                    _processedFiles.update { currentList ->
+                        currentList.map { site ->
+                            Pair(false, if (site.second.uri == md.uri) md else site.second)
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    fun processZips(context: Context) {
         _uiState.value = true
+        val bundles = Json.encodeToString<List<CenoBundleMetaData>>(_processedFiles.value.map{ it.second} )
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
-            putExtra(CenoBundleImporterService.BASE_ZIP_EXTRA, baseZipUri)
-            putExtra(CenoBundleImporterService.LATEST_ZIP_EXTRA, latestZipUri)
-            putExtra(CenoBundleImporterService.SITE_NAME, siteName)
+            putExtra(CenoBundleImporterService.ZIP_EXTRA, bundles)
         }
         try {
             context.startForegroundService(intent)
@@ -95,10 +139,14 @@ class CenoBundleImporterViewModel : ViewModel() {
                 Pair("base", baseZipUri.toUri()),
                 Pair("latest", latestZipUri.toUri())
             ).forEach { (label, uri) ->
+
                 val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
+
                 ZipInputStream(context.contentResolver.openInputStream(uri)).use { zis ->
                     var entry = zis.nextEntry
+
                     progressCallback(label)
+
                     while (entry != null) {
                         val newFile = File(targetDirectory, entry.name)
 
@@ -158,7 +206,10 @@ class CenoBundleImporterViewModel : ViewModel() {
                 val jsonDecoder = Json {
                     ignoreUnknownKeys = true
                 }
-                return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
+                return jsonDecoder.decodeFromString<CenoBundleMetaData>(json).apply {
+                    this.filename = uri.getFileName(context.contentResolver)
+                    this.uri = uri.toString()
+                }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -186,9 +237,6 @@ class CenoBundleImporterViewModel : ViewModel() {
         baseMetaData: CenoBundleMetaData,
         latestMetaData: CenoBundleMetaData
     ) {
-        /**
-         * TODO: Ignore if already stored
-         */
         viewModelScope.launch {
             val jsonDecoder = Json {
                 ignoreUnknownKeys = true

@@ -49,35 +49,35 @@ class CenoBundleImporterService : Service() {
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         intent ?: throw Exception("Intent should not be null")
-        val baseZipUri =
-            intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
-        val latestZipUri =
-            intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
-        val siteName = intent.getStringExtra(SITE_NAME) ?: throw Exception("Site name not found")
-
-        val notification = createForegroundNotification(
-            intent,
-            R.drawable.ic_launcher_foreground,
-            notificationId,
-            inProgress = true,
-            title = getString(R.string.preparing_to_import),
-            description = getString(R.string.shutting_down_ouinet_client)
-        )
-        startForeground(notificationId, notification.notification)
-
-        try {
-            components.ouinet.background.shutdown(false) {
-                unzip(
-                    context = this,
-                    intent = intent,
-                    baseZipUri = baseZipUri,
-                    latestZipUri = latestZipUri,
-                    siteName = siteName,
-                )
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
+//        val baseZipUri =
+//            intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
+//        val latestZipUri =
+//            intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
+//        val siteName = intent.getStringExtra(SITE_NAME) ?: throw Exception("Site name not found")
+//
+//        val notification = createForegroundNotification(
+//            intent,
+//            R.drawable.ic_launcher_foreground,
+//            notificationId,
+//            inProgress = true,
+//            title = getString(R.string.preparing_to_import),
+//            description = getString(R.string.shutting_down_ouinet_client)
+//        )
+//        startForeground(notificationId, notification.notification)
+//
+//        try {
+//            components.ouinet.background.shutdown(false) {
+//                unzip(
+//                    context = this,
+//                    intent = intent,
+//                    baseZipUri = baseZipUri,
+//                    latestZipUri = latestZipUri,
+//                    siteName = siteName,
+//                )
+//            }
+//        } catch (e: Exception) {
+//            e.printStackTrace()
+//        }
 
         return START_STICKY
     }
@@ -186,9 +186,7 @@ class CenoBundleImporterService : Service() {
     }
 
     companion object {
-        const val BASE_ZIP_EXTRA = "BASE_ZIP_EXTRA"
-        const val LATEST_ZIP_EXTRA = "LATEST_ZIP_EXTRA"
-        const val SITE_NAME = "SITE_NAME"
+        const val ZIP_EXTRA = "ZIP_EXTRA"
         const val CHANNEL_ID = "ie.ceno.bundle_importer"
     }
 }

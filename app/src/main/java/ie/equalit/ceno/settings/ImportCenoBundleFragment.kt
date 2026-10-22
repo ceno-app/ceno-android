@@ -5,7 +5,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -16,6 +20,7 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.platform.ComposeView
@@ -26,6 +31,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
@@ -59,6 +65,7 @@ class ImportCenoBundleFragment : Fragment() {
                 MaterialTheme(
                     colorScheme = if (isNightMode()) DarkColorScheme else LightColorScheme,
                 ) {
+                    val processedZips by cenoBundleImporterViewModel.processedFiles.collectAsStateWithLifecycle()
                     Scaffold(
                         topBar = {
                             TopAppBar(
@@ -95,16 +102,28 @@ class ImportCenoBundleFragment : Fragment() {
                                 ),
                                 modifier = Modifier.shadow(elevation = 8.dp)
                             )
+                        },
+                        bottomBar = {
+                            Button(
+                                onClick = {
+                                    cenoBundleImporterViewModel.processZips(context = context)
+                                    findNavController()
+                                        .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
+                                },
+                                enabled = processedZips.isNotEmpty()
+                            ) {
+                                Column {
+                                    Text(stringResource(R.string.ceno_bundle_import))
+                                }
+                            }
                         }
                     ) { innerPadding ->
                         CenoBundleImporterView(
-                            modifier = Modifier.padding(innerPadding),
+                            modifier = Modifier
+                                .padding(innerPadding),
                             isDarkTheme = isNightMode(),
                             viewModel = cenoBundleImporterViewModel
-                        ) {
-                            findNavController()
-                                .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
-                        }
+                        )
                     }
                 }
             }

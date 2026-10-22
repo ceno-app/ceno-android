@@ -6,6 +6,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -87,7 +89,8 @@ class ImportedCenoBundleFragment : Fragment() {
                         }
                     ) { innerPadding ->
                         CenoBundleImportedSitesView(
-                            modifier = Modifier.padding(innerPadding),
+                            modifier = Modifier
+                                .padding(innerPadding),
                             cenoBundleImporterViewModel = cenoBundleImporterViewModel
                         )
                     }
