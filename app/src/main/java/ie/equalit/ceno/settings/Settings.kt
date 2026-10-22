@@ -5,6 +5,7 @@
 package ie.equalit.ceno.settings
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
@@ -345,29 +346,38 @@ object Settings {
 
         val swipedGuids = getSwipedAnnouncementGuids(context)
 
-        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
-            ?.let { rssAnnouncementResponse ->
+        try {
+            Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
+                ?.let { rssAnnouncementResponse ->
 
-                val response = RssAnnouncementResponse(
-                    title = rssAnnouncementResponse.title,
-                    link = rssAnnouncementResponse.link,
-                    text = rssAnnouncementResponse.text,
-                    items = buildList {
-                        rssAnnouncementResponse.items.forEach {
-                            val pubDate: String = it.guid.split("/")[1]
-                            val isExpired =
-                                pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(
-                                    context
-                                )
-                            if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
-                                add(it)
+                    val response = RssAnnouncementResponse(
+                        title = rssAnnouncementResponse.title,
+                        link = rssAnnouncementResponse.link,
+                        text = rssAnnouncementResponse.text,
+                        items = buildList {
+                            rssAnnouncementResponse.items.forEach {
+                                try {
+                                    val pubDate: String = it.guid.split("/")[1]
+                                    val isExpired =
+                                        pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(
+                                            context
+                                        )
+                                    if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
+                                        add(it)
+                                    }
+                                } catch (e: Exception) {
+                                    // In case of faulty json, ignore and continue with the others
+                                    Log.e("Settings.kt", e.toString(), e)
+                                }
                             }
                         }
-                    }
-                )
-                return if (response.items.isEmpty()) null else response
+                    )
+                    return if (response.items.isEmpty()) null else response
 
-            }
+                }
+        } catch (e: Exception) {
+            Log.e("Settings.kt", e.toString(), e)
+        }
 
         return null
 
