@@ -246,7 +246,13 @@ platform :android do
   desc "Publish release to GitLab and Github"
   lane :publishRelease do
     setVersionCodes
-    sh "../scripts/publish_release.sh ${VERSION_NAME}"
+    Dir.chdir("../scripts") do
+        sh "./publish_release.sh ${VERSION_NAME}"
+        sh "./update_downloads.sh ${VERSION_NAME}"
+        sh "aws s3 cp ./downloads s3://ceno-download/ceno/latest --recursive"
+        sh "aws s3 cp ../output/release/sha256sums.txt s3://ceno-download/ceno/latest"
+        sh "aws s3 cp ../output/release/sha256sums.txt.asc s3://ceno-download/ceno/latest"
+    end
   end
 
   desc "Publish metadata and screenshots to Play Store"

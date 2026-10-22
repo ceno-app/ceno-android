@@ -1,8 +1,8 @@
 #!/bin/bash
 VERSION_NAME=$1
 BASE_URL="http://ceno-download.s3.amazonaws.com/ceno"
-APK_NAME_DATE=$(basename ../output/release/ceno-arm64-v8a-release-${VERSION_NAME}* | cut -c 24-45)
-AAB_NAME_DATE=$(basename ../output/release/ceno-${VERSION_NAME}* | cut -c 6-27)
+APK_NAME_DATE=$(basename ../output/release/ceno-arm64-v8a-release-${VERSION_NAME}* | cut -d'-' -f6- | cut -d'.' -f1)
+AAB_NAME_DATE=$(basename ../output/release/ceno-${VERSION_NAME}* | cut -d'-' -f3- | cut -d'-' -f-3)
 RELEASE_DATA="{ \
                 \"name\": \"Ceno for Android v${VERSION_NAME}\", \
                 \"tag_name\": \"v${VERSION_NAME}\", \
