@@ -164,6 +164,7 @@ tasks.configureEach { task ->
             task.name == 'mergeBetaAssets' ||
             task.name == 'mergeNightlyAssets' ||
             task.name == 'mergeReleaseAssets') {
+        task.dependsOn updateCacertBundle
         task.dependsOn renameUblockXpi
         task.dependsOn unzipUblockOrigin
     }
@@ -389,6 +390,11 @@ dependencies {
     androidTestImplementation libs.tools.testrules
     androidTestUtil libs.orchestrator
     androidTestImplementation libs.fastlane.screengrab
+}
+
+tasks.register('updateCacertBundle') {
+    def f = new File('app/src/main/assets/cacert.pem')
+    new URL('https://curl.se/ca/cacert.pem').withInputStream{ i -> f.withOutputStream{ it << i }}
 }
 
 tasks.register('renameUblockXpi', Copy) {
