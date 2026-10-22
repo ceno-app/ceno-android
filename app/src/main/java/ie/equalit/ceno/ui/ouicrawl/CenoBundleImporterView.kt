@@ -353,7 +353,8 @@ fun ZipImporterComponentView_preview() {
                 site = "site.com",
                 basefilename = "basefilename.zip",
                 basedate = "12343434",
-                updatets = "123245"
+                updatets = "123245",
+                filename = "ouicrawl-fa.wikipedia.org-base.zip"
             ),
             onCloseCallback = {}
         ) {}
@@ -376,7 +377,8 @@ fun ZipImporterComponentView_filename_preview() {
                 site = "site.com",
                 basefilename = "basefilename.zip",
                 basedate = "12343434",
-                updatets = "123245"
+                updatets = "123245",
+                filename = "ouicrawl-fa.wikipedia.org-base.zip"
             ),
             onCloseCallback = {}
         ) {}
