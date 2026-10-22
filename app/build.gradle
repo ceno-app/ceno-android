@@ -290,6 +290,7 @@ dependencies {
     implementation libs.mozilla.composeawesomebar
 
     implementation libs.mozilla.browserenginegecko
+    implementation libs.mozilla.browsererrorpages
     implementation libs.mozilla.browserdomains
     implementation libs.mozilla.browsertabstray
     implementation libs.mozilla.browsertoolbar
