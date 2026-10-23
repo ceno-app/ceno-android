@@ -59,7 +59,7 @@ fun CenoBundleImportedSitesView(
                 ImportedSitesView(
                     filename = site.basefilename,
                     site = site.site,
-                    latestUpdate = site.latestMetaData.orEmpty().first().importationDate.toString(),
+//                    latestUpdate = site.latestMetaData.orEmpty().first().importationDate.toString(),
                     releaseDate = site.basedate
                 ) {
 
@@ -78,7 +78,6 @@ fun CenoBundleImportedSitesView(
 fun ImportedSitesView(
     filename: String,
     site: String,
-    latestUpdate: String,
     releaseDate: String,
     onClick: () -> Unit
 ) {
@@ -95,7 +94,7 @@ fun ImportedSitesView(
                 Text(site)
             },
             supportingContent = {
-                Text(stringResource(R.string.latest_update, latestUpdate))
+//                Text(stringResource(R.string.latest_update, latestUpdate))
             },
             trailingContent = {
                 Text(stringResource(R.string.release_date, releaseDate))
@@ -114,7 +113,7 @@ private fun ImportedSitesView_preview() {
         ImportedSitesView(
             filename = "sample.org.zip",
             site = "sample.org",
-            latestUpdate = "Yesterday",
+//            latestUpdate = "Yesterday",
             releaseDate = "Monday"
         ) {}
     }

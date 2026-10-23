@@ -1,5 +1,7 @@
 package ie.equalit.ceno.ui.ouicrawl
 
+import android.R.attr.description
+import android.R.attr.label
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -10,12 +12,16 @@ import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import android.util.Log
 import androidx.core.app.NotificationCompat
+import androidx.core.app.ServiceCompat.startForeground
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
+import kotlinx.serialization.json.Json
 
 class CenoBundleImporterService : Service() {
 
@@ -48,36 +54,31 @@ class CenoBundleImporterService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        intent ?: throw Exception("Intent should not be null")
-//        val baseZipUri =
-//            intent.getStringExtra(BASE_ZIP_EXTRA) ?: throw Exception("Base zip uri not found")
-//        val latestZipUri =
-//            intent.getStringExtra(LATEST_ZIP_EXTRA) ?: throw Exception("Latest zip uri not found")
-//        val siteName = intent.getStringExtra(SITE_NAME) ?: throw Exception("Site name not found")
-//
-//        val notification = createForegroundNotification(
-//            intent,
-//            R.drawable.ic_launcher_foreground,
-//            notificationId,
-//            inProgress = true,
-//            title = getString(R.string.preparing_to_import),
-//            description = getString(R.string.shutting_down_ouinet_client)
-//        )
-//        startForeground(notificationId, notification.notification)
-//
-//        try {
-//            components.ouinet.background.shutdown(false) {
-//                unzip(
-//                    context = this,
-//                    intent = intent,
-//                    baseZipUri = baseZipUri,
-//                    latestZipUri = latestZipUri,
-//                    siteName = siteName,
-//                )
-//            }
-//        } catch (e: Exception) {
-//            e.printStackTrace()
-//        }
+        intent ?: return START_NOT_STICKY
+        val zipExtra = intent.getStringExtra(ZIP_EXTRA) ?: throw Exception("zip uri not found")
+
+        val notification = createForegroundNotification(
+            intent,
+            R.drawable.ic_launcher_foreground,
+            notificationId,
+            inProgress = true,
+            title = getString(R.string.preparing_to_import),
+            description = getString(R.string.shutting_down_ouinet_client)
+        )
+        startForeground(notificationId, notification.notification)
+
+        val cmd = Json.decodeFromString<List<CenoBundleImporterViewModel.CenoBundleMetaData>>(zipExtra)
+        try {
+            components.ouinet.background.shutdown(false) {
+                unzip(
+                    context = this,
+                    intent = intent,
+                    cmd = cmd,
+                )
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         return START_STICKY
     }
@@ -85,22 +86,21 @@ class CenoBundleImporterService : Service() {
     private fun unzip(
         context: Context,
         intent: Intent,
-        baseZipUri: String,
-        latestZipUri: String,
-        siteName: String,
+        cmd: List<CenoBundleImporterViewModel.CenoBundleMetaData>
     ) {
         viewModel.unzip(
             context = this,
-            baseZipUri = baseZipUri,
-            latestZipUri = latestZipUri,
-            progressCallback = { label ->
+            cmd = cmd,
+            progressCallback = { siteName, progress, total ->
                 val notification = createForegroundNotification(
                     intent,
                     R.drawable.ic_launcher_foreground,
                     notificationId,
                     inProgress = true,
-                    title = getString(R.string.importing_for, label, siteName),
-                    description = getString(R.string.this_will_take_while)
+                    title = getString(R.string.importing_for, siteName, siteName),
+                    description = getString(R.string.this_will_take_while),
+                    progress = progress,
+                    total = total
                 )
 
                 startForeground(notificationId, notification.notification)
@@ -111,18 +111,13 @@ class CenoBundleImporterService : Service() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            viewModel.storeImportedSite(
-                this,
-                viewModel.getMetadata(this, baseZipUri.toUri())!!,
-                viewModel.getMetadata(this, latestZipUri.toUri())!!,
-            )
             val notification = createForegroundNotification(
                 intent,
                 R.drawable.ic_launcher_foreground,
                 notificationId,
                 inProgress = false,
                 title = context.getString(R.string.finished_importing),
-                description = context.getString(R.string.site, siteName),
+                description = getString(R.string.sites_imported, cmd.size)
             )
             startForeground(notificationId, notification.notification)
         }
@@ -135,6 +130,8 @@ class CenoBundleImporterService : Service() {
         inProgress: Boolean,
         title: String = "",
         description: String = "",
+        progress: Int = 0,
+        total: Int = 0
     ): ForegroundInfo {
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
@@ -153,6 +150,8 @@ class CenoBundleImporterService : Service() {
             .apply {
                 if(inProgress) {
                     this.setProgress(0, 0, true)
+                } else {
+                    this.setProgress(total, progress, false)
                 }
             }
 

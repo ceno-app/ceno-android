@@ -1,5 +1,6 @@
 package ie.equalit.ceno.ui.viewModels
 
+import android.R.attr.label
 import android.R.attr.name
 import android.content.Context
 import android.content.Intent
@@ -51,7 +52,6 @@ class CenoBundleImporterViewModel : ViewModel() {
         val basefilename: String,
         val basedate: String,
         val updatets: String? = null,
-        var latestMetaData: List<CenoBundleMetaData>? = null,
         var importationDate: Long = System.currentTimeMillis(),
         var filename: String? = null,
         var uri: String? = null
@@ -129,24 +129,17 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     fun unzip(
         context: Context,
-        baseZipUri: String,
-        latestZipUri: String,
-        progressCallback: (label: String) -> Unit,
+        cmd: List<CenoBundleMetaData>,
+        progressCallback: (siteName: String, progress: Int, total: Int) -> Unit,
         onFinishedCallback: () -> Unit,
     ) {
+        val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
         viewModelScope.launch(Dispatchers.IO) {
-            mapOf(
-                Pair("base", baseZipUri.toUri()),
-                Pair("latest", latestZipUri.toUri())
-            ).forEach { (label, uri) ->
-
-                val targetDirectory = File(context.filesDir.toString() + "/ouinet/")
+            cmd.forEachIndexed { index, bundle ->
+                val uri = bundle.uri?.toUri() ?: throw Exception("uri not found")
 
                 ZipInputStream(context.contentResolver.openInputStream(uri)).use { zis ->
                     var entry = zis.nextEntry
-
-                    progressCallback(label)
-
                     while (entry != null) {
                         val newFile = File(targetDirectory, entry.name)
 
@@ -161,7 +154,7 @@ class CenoBundleImporterViewModel : ViewModel() {
                         if (entry.isDirectory) {
                             newFile.mkdirs()
                         } else {
-                            Log.d("CenoBundleImporterViewModel", "Unzipping $entry")
+                            Log.d(TAG, "Unzipping $entry")
                             // Ensure parent directories exist for the file
                             newFile.parentFile?.mkdirs()
 
@@ -173,6 +166,12 @@ class CenoBundleImporterViewModel : ViewModel() {
                         entry = zis.nextEntry
                     }
                 }
+
+                storeImportedSite(
+                    context,
+                    bundle
+                )
+                progressCallback(bundle.site, index + 1, cmd.size)
             }
             onFinishedCallback()
         }
@@ -235,7 +234,6 @@ class CenoBundleImporterViewModel : ViewModel() {
     fun storeImportedSite(
         context: Context,
         baseMetaData: CenoBundleMetaData,
-        latestMetaData: CenoBundleMetaData
     ) {
         viewModelScope.launch {
             val jsonDecoder = Json {
@@ -243,34 +241,28 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
 
             val currentData = context.dataStore.data.map {
-                it[importedSitesKey] ?: ""
+                it[importedSitesKey] ?: "[]"
             }
-            val storeJson = if(currentData.first().isBlank()) {
-                baseMetaData.latestMetaData = latestMetaData.latestMetaData
-                    ?.plus(latestMetaData) ?: listOf(latestMetaData)
-                jsonDecoder.encodeToString<List<CenoBundleMetaData>>(listOf(baseMetaData))
-            } else {
-                val currentJson = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(currentData.first()).toMutableList()
 
-                val currentMd = currentJson.find { it.id == latestMetaData.id }.run {
-                    if(this != null) {
-                        currentJson.remove(this)
-                        this.latestMetaData = listOf(latestMetaData)
-                        this
-                    } else {
-                        baseMetaData.latestMetaData = latestMetaData.latestMetaData
-                            ?.plus(latestMetaData) ?: listOf(latestMetaData)
-                        baseMetaData
-                    }
+            val currentJson = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(currentData.first()).toMutableList()
+
+            val currentMd = currentJson.find { it.id == baseMetaData.id }.run {
+                if(this != null) {
+                    currentJson.remove(this)
                 }
-
-                currentJson.add(currentMd)
-                jsonDecoder.encodeToString<List<CenoBundleMetaData>>(currentJson)
+                baseMetaData
             }
+
+            currentJson.add(currentMd)
+            val storeJson = jsonDecoder.encodeToString<List<CenoBundleMetaData>>(currentJson)
 
             context.dataStore.edit { preferences ->
                 preferences[importedSitesKey] = storeJson
             }
         }
+    }
+
+    companion object {
+        const val TAG = "CenoBundleImporterViewModel"
     }
 }
