@@ -1,25 +1,17 @@
 package ie.equalit.ceno.ui.viewModels
 
-import android.R.attr.label
-import android.R.attr.name
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.os.Build
-import android.os.ParcelFileDescriptor
 import android.util.Log
-import android.widget.Toast
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
-import androidx.datastore.preferences.core.stringSetPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
-import io.sentry.util.CollectionUtils.map
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -28,15 +20,16 @@ import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.encodeToString
+import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
-import java.io.InputStream
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
+import kotlin.collections.forEachIndexed
+import kotlin.collections.toMutableList
 
 val Context.dataStore by preferencesDataStore(name = "ceno_bundle_importer_datastore")
 
@@ -54,7 +47,8 @@ class CenoBundleImporterViewModel : ViewModel() {
         val updatets: String? = null,
         var importationDate: Long = System.currentTimeMillis(),
         var filename: String? = null,
-        var uri: String? = null
+        var uri: String? = null,
+        var isValid: Boolean? = true
     )
 
 
@@ -80,37 +74,60 @@ class CenoBundleImporterViewModel : ViewModel() {
         context: Context,
         uris: List<Uri>
     ) {
-        _processedFiles.value = uris.map {
-            Pair(
-                true,
-                CenoBundleMetaData(
-                    version = 0,
-                    proto = 0,
-                    id = "",
-                    type = "",
-                    site = "",
-                    basefilename = "",
-                    basedate = "",
-                    uri = it.toString()
+        val uris = uris.filter{ !_processedFiles.value.any { pf-> pf.second.uri == it.toString() } }
+        _processedFiles.update { cl ->
+            cl + uris.map { uri ->
+                Pair(
+                    true,
+                    CenoBundleMetaData(
+                        version = 0,
+                        proto = 0,
+                        id = "",
+                        type = "",
+                        site = "",
+                        basefilename = "",
+                        basedate = "",
+                        uri = uri.toString()
+                    )
                 )
-            )
+            }
         }
 
         viewModelScope.launch(Dispatchers.IO) {
+            val cmds: MutableList<CenoBundleMetaData> = mutableListOf()
             uris.forEach { uri ->
-                val fMd = getMetadata(
+                getMetadata(
                     context = context,
                     uri = uri
-                )
-                fMd?.let { md ->
-                    _processedFiles.update { currentList ->
-                        currentList.map { site ->
-                            Pair(false, if (site.second.uri == md.uri) md else site.second)
-                        }
-                    }
+                )?.let { cmds.add(it) }
+            }
+            _processedFiles.update { cl ->
+                cl.map { site ->
+                    Pair(false, cmds.find{ it.uri == site.second.uri } ?: site.second)
+                }
+            }
+            checkValidity(context)
+        }
+    }
+
+    private fun checkValidity(context: Context) {
+        viewModelScope.launch {
+            _processedFiles.update { cl ->
+                cl.map { site ->
+                    Pair(
+                        site.first,
+                        site.second.copy(
+                            isValid = isBaseAvailable(context, site.second)
+                        )
+                    )
                 }
             }
         }
+    }
+
+    fun removeProcessedFiles(context: Context, cmd: CenoBundleMetaData) {
+        _processedFiles.value = _processedFiles.value.filter { it.second.uri != cmd.uri }
+        checkValidity(context)
     }
 
     fun processZips(context: Context) {
@@ -167,10 +184,12 @@ class CenoBundleImporterViewModel : ViewModel() {
                     }
                 }
 
-                storeImportedSite(
-                    context,
-                    bundle
-                )
+                if (bundle.type == "base") {
+                    storeImportedBaseMetaData(
+                        context,
+                        bundle
+                    )
+                }
                 progressCallback(bundle.site, index + 1, cmd.size)
             }
             onFinishedCallback()
@@ -231,7 +250,25 @@ class CenoBundleImporterViewModel : ViewModel() {
         }
     }
 
-    fun storeImportedSite(
+    private suspend fun isBaseAvailable(context: Context, cmd: CenoBundleMetaData): Boolean {
+        if (_processedFiles.value.any {
+            it.second.type == "base" &&
+                    it.second.id == cmd.id &&
+                    it.second.site == cmd.site
+        })
+            return true
+
+        val currentData = context.dataStore.data.map {
+            it[importedSitesKey]
+        }
+
+        currentData.first() ?: return false
+
+        val cd = Json.decodeFromString<List<CenoBundleMetaData>>(currentData.first()!!)
+        return cd.any { it.id == cmd.id && it.site == cmd.site }
+    }
+
+    private fun storeImportedBaseMetaData(
         context: Context,
         baseMetaData: CenoBundleMetaData,
     ) {

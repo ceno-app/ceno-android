@@ -2,6 +2,7 @@ package ie.equalit.ceno.ui.ouicrawl
 
 import android.content.Intent
 import android.net.Uri
+import android.opengl.ETC1.isValid
 import android.widget.Toast
 import androidx.activity.compose.ManagedActivityResultLauncher
 import androidx.activity.compose.rememberLauncherForActivityResult
@@ -10,6 +11,7 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -48,6 +50,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.min
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ie.equalit.ceno.R
 import ie.equalit.ceno.ui.components.HorizontalPulsePlaceholder
@@ -74,23 +77,6 @@ fun CenoBundleImporterView(
     val context = LocalContext.current
     val resources = LocalResources.current
 
-    var baseFileUri by remember { mutableStateOf("") }
-    var baseFilename by remember { mutableStateOf("") }
-
-    var latestFileUri by remember { mutableStateOf("") }
-    var latestFilename by remember { mutableStateOf("") }
-
-    var baseFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember {
-        mutableStateOf(
-            null
-        )
-    }
-    var latestFileMetaData: CenoBundleImporterViewModel.CenoBundleMetaData? by remember {
-        mutableStateOf(
-            null
-        )
-    }
-    
     val zipCounter by viewModel.processingCounter.collectAsStateWithLifecycle()
     val processedZips by viewModel.processedFiles.collectAsStateWithLifecycle()
 
@@ -100,29 +86,6 @@ fun CenoBundleImporterView(
             context.contentResolver.takePersistableUriPermission(uri, flag)
             viewModel.processSelectedFiles(context, uris)
         }
-    }
-
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-    LaunchedEffect(latestFilename, baseFilename) {
-
-        viewModel.setUiState(baseFilename.isNotBlank() && latestFilename.isNotBlank())
-
-        if (baseFilename.isBlank()) {
-            baseFileUri = ""
-            baseFileMetaData = null
-        }
-
-        if (latestFilename.isBlank()) {
-            latestFileUri = ""
-            latestFileMetaData = null
-        }
-    }
-
-    val cardColor = if (!isDarkTheme) {
-        colorResource(R.color.ceno_blue_200)
-    } else {
-        colorResource(R.color.ceno_blue_800)
     }
 
     val textColor = if (!isDarkTheme) {
@@ -193,39 +156,41 @@ fun CenoBundleImporterView(
                 }
             }
 
-            if (processedZips.isEmpty()) {
-                ZipImporterComponentView(
-                    text = stringResource(R.string.click_to_import_file),
-                    metadata = null,
-                    isLoading = false,
-                    isDarkTheme = isDarkTheme,
-                    onCloseCallback = {
-                        TODO()
-                    }
-                ) {
-                    filePicker.launch(arrayOf("application/zip"))
+            ZipImporterComponentView(
+                text = stringResource(R.string.click_to_import_file),
+                metadata = null,
+                isLoading = false,
+                isDarkTheme = isDarkTheme,
+                minimize = processedZips.isNotEmpty(),
+                onCloseCallback = {
+                    TODO()
                 }
-            } else {
-                LazyColumn {
-                    items(
-                        items = processedZips,
-                        key = { items -> items.second.uri!! }
-                    ) { md ->
-                        ZipImporterComponentView(
-                            text = stringResource(R.string.click_to_import_file),
-                            metadata = md.second,
-                            isDarkTheme = isDarkTheme,
-                            isLoading = md.first,
-                            onCloseCallback = {
-                                TODO()
-                            }
-                        ) {
-                            filePicker.launch(arrayOf("application/zip"))
+            ) {
+                filePicker.launch(arrayOf("application/zip"))
+            }
+
+            Spacer(Modifier.size(8.dp))
+
+            LazyColumn(
+                verticalArrangement = Arrangement.spacedBy(8.dp)
+            ) {
+                items(
+                    items = processedZips,
+                    key = { items -> items.second.uri!! }
+                ) { md ->
+                    ZipImporterComponentView(
+                        text = stringResource(R.string.click_to_import_file),
+                        metadata = md.second,
+                        isDarkTheme = isDarkTheme,
+                        isLoading = md.first,
+                        onCloseCallback = {
+                            viewModel.removeProcessedFiles(context,md.second)
                         }
+                    ) {
+                        filePicker.launch(arrayOf("application/zip"))
                     }
                 }
             }
-
         }
     }
 }
@@ -236,11 +201,11 @@ fun ZipImporterComponentView(
     metadata: CenoBundleImporterViewModel.CenoBundleMetaData?,
     isDarkTheme: Boolean,
     isLoading: Boolean,
+    minimize: Boolean = false,
     onCloseCallback: () -> Unit,
     onClickCallback: () -> Unit,
 ) {
-
-    val cardColor = if (!isDarkTheme) {
+    val cardColor = if (!isDarkTheme || minimize) {
         colorResource(R.color.ceno_blue_200)
     } else {
         colorResource(R.color.ceno_blue_800)
@@ -252,6 +217,18 @@ fun ZipImporterComponentView(
         colorResource(R.color.ceno_blue_200)
     }
 
+    val invalidColor = if (!isDarkTheme) {
+        colorResource(R.color.snackbar_error_color)
+    } else {
+        colorResource(R.color.device_type_desktop_background)
+    }
+
+    val textColor = if (!isDarkTheme || minimize) {
+        colorResource(R.color.novaBlackA50)
+    } else {
+        colorResource(R.color.novaWhite)
+    }
+
     Card(
         onClick = onClickCallback,
         modifier = Modifier.fillMaxWidth(),
@@ -260,20 +237,40 @@ fun ZipImporterComponentView(
         ),
     ) {
         if (!isLoading && metadata == null) {
-            Column(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(16.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Icon(
-                    painter = painterResource(R.drawable.outline_folder_zip_24),
-                    "",
-                    modifier = Modifier.size(50.dp),
-                    tint = iconColors
-                )
+            if(!minimize) {
+                Column(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.outline_folder_zip_24),
+                        "",
+                        modifier = Modifier.size(50.dp),
+                        tint = iconColors
+                    )
 
-                Text(text)
+                    Text(text, color = textColor)
+                }
+            } else {
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.outline_folder_zip_24),
+                        "",
+                        modifier = Modifier.size(50.dp),
+                        tint = textColor
+                    )
+
+                    Spacer(Modifier.size(16.dp))
+
+                    Text(text, color = textColor)
+                }
             }
         } else {
             ListItem(
@@ -283,7 +280,7 @@ fun ZipImporterComponentView(
                         painter = painterResource(R.drawable.outline_folder_zip_24),
                         "",
                         modifier = Modifier.size(50.dp),
-                        tint = iconColors
+                        tint = if(metadata?.isValid == false ) invalidColor else iconColors
                     )
                 },
                 headlineContent = {
@@ -304,8 +301,19 @@ fun ZipImporterComponentView(
                         widthFraction = 0.5f
                     ) {
                         Column {
-                            Text(stringResource(R.string.version, metadata?.version ?: 0))
-                            Text(stringResource(R.string.site, metadata?.site ?: ""))
+                            if (metadata?.isValid == false) {
+                                Text(
+                                    stringResource(R.string.base_file_not_found),
+                                    color = invalidColor
+                                )
+                                Text(
+                                    stringResource(R.string.base_filename, metadata.basefilename),
+                                    color = invalidColor
+                                )
+                            } else {
+                                Text(stringResource(R.string.version, metadata?.version ?: 0))
+                                Text(stringResource(R.string.site, metadata?.site ?: ""))
+                            }
                         }
                     }
                 },
@@ -355,6 +363,57 @@ fun ZipImporterComponentView_preview() {
                 basedate = "12343434",
                 updatets = "123245",
                 filename = "ouicrawl-fa.wikipedia.org-base.zip"
+            ),
+            onCloseCallback = {}
+        ) {}
+    }
+}
+
+
+@Preview(showBackground = true)
+@Composable
+fun ZipImporterComponentView_invalid_preview() {
+    MaterialTheme {
+        ZipImporterComponentView(
+            text = "Click to import",
+            isDarkTheme = false,
+            isLoading = false,
+            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
+                version = 1,
+                proto = 1,
+                id = "id",
+                type = "type",
+                site = "site.com",
+                basefilename = "basefilename.zip",
+                basedate = "12343434",
+                updatets = "123245",
+                filename = "ouicrawl-fa.wikipedia.org-base.zip",
+                isValid = false
+            ),
+            onCloseCallback = {}
+        ) {}
+    }
+}
+
+@Preview(showBackground = true)
+@Composable
+fun ZipImporterComponentView_invalid_dark_preview() {
+    MaterialTheme {
+        ZipImporterComponentView(
+            text = "Click to import",
+            isDarkTheme = true,
+            isLoading = false,
+            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
+                version = 1,
+                proto = 1,
+                id = "id",
+                type = "type",
+                site = "site.com",
+                basefilename = "basefilename.zip",
+                basedate = "12343434",
+                updatets = "123245",
+                filename = "ouicrawl-fa.wikipedia.org-base.zip",
+                isValid = false
             ),
             onCloseCallback = {}
         ) {}
