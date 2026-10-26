@@ -110,7 +110,7 @@ class ImportCenoBundleFragment : Fragment() {
                                     findNavController()
                                         .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
                                 },
-                                enabled = processedZips.isNotEmpty()
+                                enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
                             ) {
                                 Column {
                                     Text(stringResource(R.string.ceno_bundle_import))

@@ -159,7 +159,6 @@ fun CenoBundleImporterView(
             ZipImporterComponentView(
                 text = stringResource(R.string.click_to_import_file),
                 metadata = null,
-                isLoading = false,
                 isDarkTheme = isDarkTheme,
                 minimize = processedZips.isNotEmpty(),
                 onCloseCallback = {
@@ -182,7 +181,6 @@ fun CenoBundleImporterView(
                         text = stringResource(R.string.click_to_import_file),
                         metadata = md.second,
                         isDarkTheme = isDarkTheme,
-                        isLoading = md.first,
                         onCloseCallback = {
                             viewModel.removeProcessedFiles(context,md.second)
                         }
@@ -200,11 +198,13 @@ fun ZipImporterComponentView(
     text: String,
     metadata: CenoBundleImporterViewModel.CenoBundleMetaData?,
     isDarkTheme: Boolean,
-    isLoading: Boolean,
     minimize: Boolean = false,
     onCloseCallback: () -> Unit,
     onClickCallback: () -> Unit,
 ) {
+    val isLoading = metadata?.isLoading == true
+    val isValid = metadata?.isValid == true
+
     val cardColor = if (!isDarkTheme || minimize) {
         colorResource(R.color.ceno_blue_200)
     } else {
@@ -280,7 +280,7 @@ fun ZipImporterComponentView(
                         painter = painterResource(R.drawable.outline_folder_zip_24),
                         "",
                         modifier = Modifier.size(50.dp),
-                        tint = if(metadata?.isValid == false ) invalidColor else iconColors
+                        tint = if(!isValid) invalidColor else iconColors
                     )
                 },
                 headlineContent = {
@@ -289,7 +289,7 @@ fun ZipImporterComponentView(
                         widthFraction = 1f
                     ) {
                         Text(
-                            metadata?.filename ?: "",
+                            metadata.filename ?: "",
                             maxLines = 1,
                             overflow = TextOverflow.Ellipsis,
                         )
@@ -301,7 +301,7 @@ fun ZipImporterComponentView(
                         widthFraction = 0.5f
                     ) {
                         Column {
-                            if (metadata?.isValid == false) {
+                            if (metadata.isValid == false) {
                                 Text(
                                     stringResource(R.string.base_file_not_found),
                                     color = invalidColor
@@ -311,8 +311,8 @@ fun ZipImporterComponentView(
                                     color = invalidColor
                                 )
                             } else {
-                                Text(stringResource(R.string.version, metadata?.version ?: 0))
-                                Text(stringResource(R.string.site, metadata?.site ?: ""))
+                                Text(stringResource(R.string.version, metadata.version))
+                                Text(stringResource(R.string.site, metadata.site))
                             }
                         }
                     }
@@ -352,7 +352,6 @@ fun ZipImporterComponentView_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             isDarkTheme = false,
-            isLoading = false,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -377,7 +376,6 @@ fun ZipImporterComponentView_invalid_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             isDarkTheme = false,
-            isLoading = false,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -402,7 +400,6 @@ fun ZipImporterComponentView_invalid_dark_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             isDarkTheme = true,
-            isLoading = false,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -427,7 +424,6 @@ fun ZipImporterComponentView_filename_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             isDarkTheme = true,
-            isLoading = false,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -451,7 +447,6 @@ fun ZipImporterComponentView_filename_loading_preview() {
         ZipImporterComponentView(
             text = "Click to import",
             isDarkTheme = true,
-            isLoading = true,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
                 version = 1,
                 proto = 1,
@@ -460,7 +455,8 @@ fun ZipImporterComponentView_filename_loading_preview() {
                 site = "site.com",
                 basefilename = "basefilename.zip",
                 basedate = "12343434",
-                updatets = "123245"
+                updatets = "123245",
+                isLoading = true
             ),
             onCloseCallback = {}
         ) {}

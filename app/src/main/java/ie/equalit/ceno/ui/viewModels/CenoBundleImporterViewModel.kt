@@ -3,6 +3,7 @@ package ie.equalit.ceno.ui.viewModels
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
+import android.opengl.ETC1.isValid
 import android.util.Log
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
@@ -11,10 +12,12 @@ import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
+import io.sentry.util.CollectionUtils.map
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
@@ -26,6 +29,7 @@ import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.util.zip.ZipException
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
 import kotlin.collections.forEachIndexed
@@ -48,7 +52,8 @@ class CenoBundleImporterViewModel : ViewModel() {
         var importationDate: Long = System.currentTimeMillis(),
         var filename: String? = null,
         var uri: String? = null,
-        var isValid: Boolean? = true
+        var isValid: Boolean? = true,
+        var isLoading: Boolean? = false
     )
 
 
@@ -87,7 +92,8 @@ class CenoBundleImporterViewModel : ViewModel() {
                         site = "",
                         basefilename = "",
                         basedate = "",
-                        uri = uri.toString()
+                        uri = uri.toString(),
+                        isLoading = true
                     )
                 )
             }
@@ -103,41 +109,54 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
             _processedFiles.update { cl ->
                 cl.map { site ->
-                    Pair(false, cmds.find{ it.uri == site.second.uri } ?: site.second)
+                    Pair(false, (cmds.find{ it.uri == site.second.uri } ?: site.second).apply {
+                        isLoading = false
+                    })
                 }
             }
             checkValidity(context)
         }
     }
 
-    private fun checkValidity(context: Context) {
+    private fun checkValidity(context: Context, newList: List<Pair<Boolean, CenoBundleMetaData>>? = null) {
         viewModelScope.launch {
-            _processedFiles.update { cl ->
-                cl.map { site ->
-                    Pair(
-                        site.first,
-                        site.second.copy(
-                            isValid = isBaseAvailable(context, site.second)
-                        )
+            val tmp = (newList ?: _processedFiles.value).map { site ->
+                Pair(
+                    site.first,
+                    site.second.copy(
+                        isValid = isBaseAvailable(context, site.second, newList),
                     )
-                }
+                )
+            }
+            _processedFiles.update { _ ->
+                tmp.sortedWith(
+                    compareBy<Pair<Boolean, CenoBundleMetaData>> { it.second.isValid }
+                        .thenBy { it.second.type }
+                )
             }
         }
     }
 
     fun removeProcessedFiles(context: Context, cmd: CenoBundleMetaData) {
-        _processedFiles.value = _processedFiles.value.filter { it.second.uri != cmd.uri }
-        checkValidity(context)
+        viewModelScope.launch {
+            val newList = _processedFiles.value.filter { it.second.uri != cmd.uri }
+            checkValidity(context, newList)
+        }
     }
 
     fun processZips(context: Context) {
         _uiState.value = true
-        val bundles = Json.encodeToString<List<CenoBundleMetaData>>(_processedFiles.value.map{ it.second} )
+        val bundles = Json.encodeToString<List<CenoBundleMetaData>>(
+            _processedFiles.value.filter{ it.second.isValid == true }.map{ it.second }
+        )
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
             putExtra(CenoBundleImporterService.ZIP_EXTRA, bundles)
         }
         try {
             context.startForegroundService(intent)
+            _processedFiles.update {
+                emptyList()
+            }
         } catch (e: Exception) {
             e.printStackTrace()
         }
@@ -176,11 +195,21 @@ class CenoBundleImporterViewModel : ViewModel() {
                             newFile.parentFile?.mkdirs()
 
                             FileOutputStream(newFile).use { fos ->
-                                zis.copyTo(fos)
+                                try {
+                                    zis.copyTo(fos)
+                                } catch(e: ZipException) {
+                                    e.printStackTrace()
+                                    Log.e(TAG, "Error unzipping $entry")
+                                }
                             }
                         }
-                        zis.closeEntry()
-                        entry = zis.nextEntry
+                        try {
+                            zis.closeEntry()
+                            entry = zis.nextEntry
+                        } catch(e: Exception) {
+                            e.printStackTrace()
+                            Log.e(TAG, "Error unzipping $entry", e)
+                        }
                     }
                 }
 
@@ -250,8 +279,12 @@ class CenoBundleImporterViewModel : ViewModel() {
         }
     }
 
-    private suspend fun isBaseAvailable(context: Context, cmd: CenoBundleMetaData): Boolean {
-        if (_processedFiles.value.any {
+    private suspend fun isBaseAvailable(
+        context: Context,
+        cmd: CenoBundleMetaData,
+        newList: List<Pair<Boolean, CenoBundleMetaData>>? = null
+    ): Boolean {
+        if ((newList ?: _processedFiles.value).any {
             it.second.type == "base" &&
                     it.second.id == cmd.id &&
                     it.second.site == cmd.site
