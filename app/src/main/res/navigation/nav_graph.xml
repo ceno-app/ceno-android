@@ -348,13 +348,7 @@
         android:label="fragment_import_ceno_bundle"
         android:name="ie.equalit.ceno.settings.ImportCenoBundleFragment">
         <action
-            android:id="@+id/action_importCenoBundleFragment_to_importedCenoBundleFragment"
-            app:destination="@id/importedCenoBundleFragment" />
+            android:id="@+id/action_importCenoBundleFragment_to_siteContentGroupFragment"
+            app:destination="@id/siteContentGroupFragment" />
     </fragment>
-
-    <fragment
-        android:id="@+id/importedCenoBundleFragment"
-        android:label="fragment_imported_ceno_bundle"
-        android:name="ie.equalit.ceno.settings.ImportedCenoBundleFragment"/>
-
 </navigation>

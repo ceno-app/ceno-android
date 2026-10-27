@@ -4,15 +4,33 @@ import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.opengl.ETC1.isValid
+import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
+import androidx.navigation.fragment.findNavController
+import ie.equalit.ceno.R
+import ie.equalit.ceno.R.string.no_content_shared
+import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
+import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.settings.OuinetKey
+import ie.equalit.ceno.settings.OuinetResponseListener
+import ie.equalit.ceno.settings.OuinetValue
+import ie.equalit.ceno.settings.SiteContentGroupFragment.PinnedCacheGroup
+import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
 import io.sentry.util.CollectionUtils.map
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -331,6 +349,112 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
         }
     }
+
+    private val _sharedSites = MutableStateFlow<List<CachedGroupAdapter.GroupItem>>(emptyList())
+    val sharedSites: StateFlow<List<CachedGroupAdapter.GroupItem>> = _sharedSites.asStateFlow()
+
+
+    fun getSharedContents(
+        context: Context,
+        groups: String
+    ) {
+        _sharedSites.value = convertToMap(context, groups)
+    }
+
+    private fun convertToMap(context: Context, groups: String): List<CachedGroupAdapter.GroupItem> {
+        val urls = groups.split("\n")
+        var pinnedUrls = mutableListOf<String>()
+        CenoSettings.ouinetClientRequest(
+            context,
+            viewModelScope,
+            OuinetKey.PINNED_GROUPS,
+            OuinetValue.OTHER,
+            ouinetResponseListener = object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    pinnedUrls = context.components.json
+                        .decodeFromString<PinnedCacheGroup>(message)
+                        .pinnedGroups.toMutableList()
+                }
+
+                override fun onError() {
+                    //TODO: Not yet implemented
+                }
+            }
+        )
+
+        val map = mutableMapOf<String, MutableList<CachedGroupAdapter.GroupChildItem>>()
+        for (url in urls) {
+            val parts = url.split("/")
+            val baseUrl = parts.first()
+
+            val isPinned = pinnedUrls.contains(url)
+            map[baseUrl] = if (map[baseUrl].isNullOrEmpty()) {
+                mutableListOf<CachedGroupAdapter.GroupChildItem>().apply {
+                    add(CachedGroupAdapter.GroupChildItem(url, isPinned))
+                }
+            } else {
+                map[baseUrl].apply {
+                    this!!.add(
+                        CachedGroupAdapter.GroupChildItem(
+                            url,
+                            isPinned
+                        )
+                    )
+                }!!
+            }
+        }
+
+        val result = mutableListOf<CachedGroupAdapter.GroupItem>()
+        map.keys.forEach {
+            result.add(CachedGroupAdapter.GroupItem(it, map[it]!!.toList()))
+        }
+
+        return result
+    }
+
+    fun prepareOuinetForNavigation(
+        context: Context,
+        onNavigationCallback: (String) -> Unit
+    ) {
+        viewModelScope.launch {
+            CenoSettings.ouinetClientRequest(
+                context = context,
+                coroutineScope = this,
+                key = OuinetKey.GROUPS_TXT,
+                ouinetResponseListener = object : OuinetResponseListener {
+                    override fun onSuccess(message: String, data: Any?) {
+                        if (message.trim()
+                                .isEmpty()
+                        ) {
+                            CoroutineScope(Dispatchers.Main).launch {
+                                Toast.makeText(
+                                    context,
+                                    context.getString(no_content_shared),
+                                    Toast.LENGTH_LONG
+                                )
+                                    .show()
+                            }
+                        } else {
+                            onNavigationCallback(message)
+                        }
+                    }
+
+                    override fun onError() {
+                        CoroutineScope(Dispatchers.Main).launch {
+                            Toast.makeText(
+                                context,
+                                ContextCompat.getString(context, ouinet_client_fetch_fail),
+                                LENGTH_SHORT
+                            )
+                                .show()
+                        }
+                    }
+                },
+                shouldRefresh = false
+            )
+        }
+    }
+
 
     companion object {
         const val TAG = "CenoBundleImporterViewModel"

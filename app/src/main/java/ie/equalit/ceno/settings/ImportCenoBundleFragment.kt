@@ -1,9 +1,12 @@
 package ie.equalit.ceno.settings
 
+import android.R.id.message
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -30,14 +33,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
+import ie.equalit.ceno.R.string.no_content_shared
+import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterView
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
+import org.mozilla.gecko.util.ThreadUtils.runOnUiThread
 
 class ImportCenoBundleFragment : Fragment() {
 
@@ -87,10 +95,7 @@ class ImportCenoBundleFragment : Fragment() {
                                     }
                                 },
                                 actions = {
-                                    IconButton(onClick = {
-                                        findNavController()
-                                            .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
-                                    }) {
+                                    IconButton(onClick = { navigateToSharedSites() } ) {
                                         Icon(
                                             painter = painterResource(R.drawable.outline_list_24),
                                             stringResource(R.string.list_imported_sites)
@@ -107,8 +112,7 @@ class ImportCenoBundleFragment : Fragment() {
                             Button(
                                 onClick = {
                                     cenoBundleImporterViewModel.processZips(context = context)
-                                    findNavController()
-                                        .navigate(R.id.action_importCenoBundleFragment_to_importedCenoBundleFragment)
+                                    navigateToSharedSites()
                                 },
                                 enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
                             ) {
@@ -126,6 +130,21 @@ class ImportCenoBundleFragment : Fragment() {
                         )
                     }
                 }
+            }
+        }
+    }
+
+    private fun navigateToSharedSites() {
+        cenoBundleImporterViewModel.prepareOuinetForNavigation(
+            requireContext(),
+        ) { message ->
+            runOnUiThread {
+                findNavController().navigate(
+                    R.id.action_importCenoBundleFragment_to_siteContentGroupFragment,
+                    Bundle().apply {
+                        putString("groups", message)
+                    }
+                )
             }
         }
     }

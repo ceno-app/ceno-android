@@ -12,6 +12,25 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
+import androidx.compose.material3.darkColorScheme
+import androidx.compose.material3.lightColorScheme
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.res.colorResource
+import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
@@ -22,33 +41,68 @@ import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
+import ie.equalit.ceno.ui.ouicrawl.CenoBundleImportedSitesView
+import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
+import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListener {
+class SiteContentGroupFragment : Fragment(){
 
-    private var _binding: FragmentSiteContentGroupBinding? = null
-    private val binding get() = _binding!!
+    private val cenoBundleImporterViewModel = CenoBundleImporterViewModel()
 
+    @OptIn(ExperimentalMaterial3Api::class)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        _binding = FragmentSiteContentGroupBinding.inflate(inflater, container, false)
-        return binding.root
-    }
+        return ComposeView(requireContext()).apply {
+            setContent {
+                val DarkColorScheme = darkColorScheme(
+                    background = colorResource(R.color.ceno_home_background),
+                )
 
-    override fun onResume() {
-        super.onResume()
-        getActionBar().apply {
-            show()
-            setTitle(R.string.preferences_ceno_groups_count)
-            setDisplayHomeAsUpEnabled(true)
-            setBackgroundDrawable(
-                ContextCompat.getColor(requireContext(), R.color.ceno_action_bar)
-                    .toDrawable()
-            )
+                val LightColorScheme = lightColorScheme(
+                    background = colorResource(R.color.ceno_home_background),
+                )
+                MaterialTheme(
+                    colorScheme = if (isNightMode()) DarkColorScheme else LightColorScheme,
+                ) {
+                    Scaffold(
+                        topBar = {
+                            TopAppBar(
+                                title = {
+                                    Text(
+                                        stringResource(R.string.preferences_ceno_groups_count),
+                                        style = MaterialTheme.typography.bodyLarge,
+                                        fontWeight = FontWeight.SemiBold
+                                    )
+                                },
+                                navigationIcon = {
+                                    IconButton(onClick = {
+                                        requireActivity().onBackPressedDispatcher.onBackPressed()
+                                    }) {
+                                        Icon(
+                                            painter = painterResource(R.drawable.mozac_ic_back),
+                                            stringResource(R.string.back_button_description)
+                                        )
+                                    }
+                                },
+                                colors = TopAppBarDefaults.topAppBarColors(
+                                    containerColor = colorResource(R.color.ceno_action_bar)
+                                ),
+                                modifier = Modifier.shadow(elevation = 8.dp)
+                            )
+                        }
+                    ) { innerPadding ->
+                        CenoBundleImportedSitesView(
+                            modifier = Modifier
+                                .padding(innerPadding),
+                            cenoBundleImporterViewModel = cenoBundleImporterViewModel
+                        )
+                    }
+                }
+            }
         }
     }
 
@@ -57,14 +111,9 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
 
         arguments?.getString("groups")
             ?.let { groups ->
-                binding.groupListing.setAdapter(
-                    CachedGroupAdapter(
-                        requireContext(),
-                        convertToMap(
-                            groups.trim()
-                        ),
-                        this
-                    )
+                cenoBundleImporterViewModel.getSharedContents(
+                    requireContext(),
+                    groups
                 )
             }
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
@@ -74,76 +123,20 @@ class SiteContentGroupFragment : Fragment(), CachedGroupAdapter.GroupClickListen
         callback.isEnabled = true
     }
 
-    private fun convertToMap(groups: String): List<CachedGroupAdapter.GroupItem> {
-
-        val urls = groups.split("\n")
-        var pinnedUrls = mutableListOf<String>()
-        CenoSettings.ouinetClientRequest(
-            requireContext(),
-            lifecycleScope,
-            OuinetKey.PINNED_GROUPS,
-            OuinetValue.OTHER,
-            ouinetResponseListener = object : OuinetResponseListener {
-                override fun onSuccess(message: String, data: Any?) {
-                    pinnedUrls = requireContext().components.json
-                        .decodeFromString<PinnedCacheGroup>(message)
-                        .pinnedGroups.toMutableList()
-                }
-
-                override fun onError() {
-                    //TODO: Not yet implemented
-                }
-            }
-        )
-
-        val map = mutableMapOf<String, MutableList<CachedGroupAdapter.GroupChildItem>>()
-        for (url in urls) {
-            val parts = url.split("/")
-            val baseUrl = parts.first()
-
-            val isPinned = pinnedUrls.contains(url)
-            map[baseUrl] = if (map[baseUrl].isNullOrEmpty()) {
-                mutableListOf<CachedGroupAdapter.GroupChildItem>().apply {
-                    add(CachedGroupAdapter.GroupChildItem(url, isPinned))
-                }
-            } else {
-                map[baseUrl].apply {
-                    this!!.add(
-                        CachedGroupAdapter.GroupChildItem(
-                            url,
-                            isPinned
-                        )
-                    )
-                }!!
-            }
-        }
-
-        val result = mutableListOf<CachedGroupAdapter.GroupItem>()
-        map.keys.forEach {
-            result.add(CachedGroupAdapter.GroupItem(it, map[it]!!.toList()))
-        }
-
-        return result
-    }
-
-    override fun onLinkClicked(url: String) {
-        (activity as BrowserActivity).openToBrowser(url = "https://$url", newTab = true)
-    }
-
-    override fun onPinChanged(url: String, isPinned: Boolean) {
-        CenoSettings.ouinetClientRequest(
-            requireContext(),
-            lifecycleScope,
-            if (isPinned) OuinetKey.PIN_TO_CACHE else OuinetKey.UNPIN_FROM_CACHE,
-            OuinetValue.OTHER,
-            url
-        )
-    }
-
-    private fun getActionBar() = (activity as AppCompatActivity).supportActionBar!!
-
     companion object {
         private const val TAG = "SiteContentGroupFragment"
+    }
+
+    override fun onResume() {
+        super.onResume()
+        // Hide the parent toolbar when this fragment is visible
+        (activity as? AppCompatActivity)?.supportActionBar?.hide()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        // Show the parent toolbar again when leaving this fragment
+        (activity as? AppCompatActivity)?.supportActionBar?.show()
     }
 
     @Serializable
