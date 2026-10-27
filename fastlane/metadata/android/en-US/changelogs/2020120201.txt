@@ -1,0 +1,6 @@
+
+### Fixed
+
+- NullPointerException related to rss-anounce.xml parsing will now be caught
+- IllegalStateException in SettingsFragment will now be caught
+

@@ -13,12 +13,12 @@ done
 if [ $UPLOAD_APKS -eq 1 ]; then
   curl -u "${BROWSERSTACK_USERNAME}:${BROWSERSTACK_ACCESS_KEY}" \
   -X POST "https://api-cloud.browserstack.com/app-automate/upload" \
-  -F "file=@${SCRIPT_DIR}/app/build/outputs/apk/debug/ceno-${VERSION}-arm64-v8a-debug.apk" \
+  -F "file=@${SCRIPT_DIR}/../app/build/outputs/apk/debug/ceno-${VERSION}-arm64-v8a-debug.apk" \
   -F "custom_id=ouinet-debug-latest"
 
   curl -u "${BROWSERSTACK_USERNAME}:${BROWSERSTACK_ACCESS_KEY}" \
   -X POST "https://api-cloud.browserstack.com/app-automate/espresso/test-suite" \
-  -F "file=@${SCRIPT_DIR}/app/build/outputs/apk/androidTest/debug/ceno-${VERSION}-debug-androidTest.apk" \
+  -F "file=@${SCRIPT_DIR}/../app/build/outputs/apk/androidTest/debug/ceno-${VERSION}-debug-androidTest.apk" \
   -F "custom_id=ouinet-debug-androidTest-latest"
 fi
 
