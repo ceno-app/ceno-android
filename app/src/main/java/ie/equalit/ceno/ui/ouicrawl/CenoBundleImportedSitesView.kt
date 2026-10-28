@@ -10,6 +10,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -47,6 +48,7 @@ fun CenoBundleImportedSitesView(
     var showModal by remember { mutableStateOf(false) }
 
     var selectedSite: CachedGroupAdapter.GroupItem? by remember{ mutableStateOf(null)}
+    var isOpened by remember(selectedSite){ mutableStateOf(selectedSite != null) }
 
     Column(
         modifier = modifier
@@ -56,13 +58,14 @@ fun CenoBundleImportedSitesView(
             items(sharedSites.filter{ it.name.isNotBlank() }) { site ->
                 ImportedSitesView(
                     site = site.name,
-                    releaseDate = "",
+                    opened = site == selectedSite && isOpened,
                     onOpenClicked = {
                         (activity as BrowserActivity)
                             .openToBrowser(url = "https://${site.name}", newTab = true)
                     }
                 ) {
                     selectedSite = site
+                    isOpened = true
                     showModal = true
                 }
 
@@ -83,7 +86,7 @@ fun CenoBundleImportedSitesView(
                 }
             ) {
                 showModal = false
-                selectedSite = ss
+                selectedSite = null
             }
         }
     }
@@ -92,13 +95,13 @@ fun CenoBundleImportedSitesView(
 @Composable
 fun ImportedSitesView(
     site: String,
-    releaseDate: String,
+    opened: Boolean = false,
     onOpenClicked: () -> Unit,
     onClick: () -> Unit
 ) {
     Column(
         Modifier
-            .clickable(onClick = onClick)
+            .clickable(onClick = onOpenClicked)
             .fillMaxWidth()
     ) {
         ListItem(
@@ -111,12 +114,19 @@ fun ImportedSitesView(
             headlineContent = {
                 Text(site)
             },
-            supportingContent = {
-//                Text(stringResource(R.string.latest_update, latestUpdate))
-            },
             trailingContent = {
-                TextButton(onClick = onOpenClicked) {
-                    Text(stringResource(R.string.shared_sites_open))
+//                TextButton(onClick = onOpenClicked) {
+//                    Text(stringResource(R.string.shared_sites_open))
+//                }
+                IconButton(onClick = onClick) {
+                    Icon(
+                        if (opened) {
+                            painterResource(R.drawable.mozac_ic_chevron_up_20)
+                        } else {
+                            painterResource(R.drawable.mozac_ic_chevron_down_20)
+                        },
+                        ""
+                    )
                 }
             },
             colors = ListItemDefaults.colors(
@@ -132,8 +142,6 @@ private fun ImportedSitesView_preview() {
     MaterialTheme {
         ImportedSitesView(
             site = "sample.org",
-//            latestUpdate = "Yesterday",
-            releaseDate = "Monday",
             onOpenClicked = {}
         ) {}
     }
