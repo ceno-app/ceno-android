@@ -489,4 +489,26 @@
     <string name="default_channel_11_title_ir">ВахидОнлайн</string>
     <string name="default_channel_4_title_ru">канал ceno</string>
     <string name="default_channel_5_title_ru">КоррупцияТВ</string>
+    <string name="saved_in_bookmarks">Сохранено в \"Закладки\"</string>
+    <string name="preferences_access_local_network">Доступ к локальной сети</string>
+    <string name="back_button_description">кнопка назад</string>
+    <string name="preferences_log_level">Уровень логгирования</string>
+    <string name="change_log_level">Изменить уровень логгирования</string>
+    <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Проверить наличие архивированной версии</string>
+    <string name="mozac_browser_errorpages_archive_checking" tools:ignore="UnusedResources">Верефикация архива</string>
+    <string name="mozac_browser_errorpages_archive_retry" tools:ignore="UnusedResources">Попробовать снова.</string>
+    <string name="mozac_browser_errorpages_archive_search_web" tools:ignore="UnusedResources">Поиск в Интернете</string>
+    <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Невозможно связаться до архивирующего сервиса.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Обновить адрес?</string>
+    <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Архивная версия не найдена.</string>
+    <string name="hide_telegram_channel">Спрятать</string>
+    <string name="unhide_telegram_channel">Показать</string>
+    <string name="default_channel_3_title_ir">IranWire</string>
+    <string name="default_channel_1_title_ru">agentstvonews</string>
+    <string name="default_channel_2_title_ru">ArkHelps</string>
+    <string name="default_channel_3_title_ru">asiansofrussia</string>
+    <string name="default_channel_6_title_ru">Dept One</string>
+    <string name="telegram_topsites_title">Telegram</string>
+    <string name="preferences_hide_telegram_channels">Спрятать Telegram канналы</string>
+    <string name="telegram_channels_bookmark_folder_title">Telegram каналы</string>
 </resources>
