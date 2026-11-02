@@ -109,13 +109,21 @@ class SiteContentGroupFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        arguments?.getString("groups")
-            ?.let { groups ->
-                cenoBundleImporterViewModel.getSharedContents(
-                    requireContext(),
-                    groups
-                )
+        if (arguments?.getString("groups").isNullOrBlank()) {
+            cenoBundleImporterViewModel.prepareOuinetForNavigation(
+                requireContext(),
+            ) {
+                cenoBundleImporterViewModel.getSharedContents(requireContext(), it)
             }
+        } else {
+            arguments?.getString("groups")
+                ?.let { groups ->
+                    cenoBundleImporterViewModel.getSharedContents(
+                        requireContext(),
+                        groups
+                    )
+                }
+        }
         val callback = requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             // Handle the back button event
             findNavController().popBackStack()
@@ -135,8 +143,10 @@ class SiteContentGroupFragment : Fragment(){
 
     override fun onDestroy() {
         super.onDestroy()
-        // Show the parent toolbar again when leaving this fragment
-        (activity as? AppCompatActivity)?.supportActionBar?.show()
+        // This did not come from the browser activity, so should show the toolbar
+        if (arguments?.getString("groups").isNullOrBlank()) {
+            (activity as? AppCompatActivity)?.supportActionBar?.show()
+        }
     }
 
     @Serializable

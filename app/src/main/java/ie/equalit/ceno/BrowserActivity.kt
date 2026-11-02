@@ -5,6 +5,7 @@
 package ie.equalit.ceno
 
 import android.Manifest
+import android.R.id.message
 import android.app.ActivityManager
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -21,9 +22,11 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
+import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
@@ -35,6 +38,9 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.findNavController
+import ie.equalit.ceno.R.string.no_content_shared
+import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BrowserFragment
@@ -52,10 +58,15 @@ import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
+import ie.equalit.ceno.services.CenoBundleImporterService
+import ie.equalit.ceno.settings.CenoSettings
+import ie.equalit.ceno.settings.OuinetKey
+import ie.equalit.ceno.settings.OuinetResponseListener
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
+import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
@@ -118,6 +129,12 @@ open class BrowserActivity : BaseActivity(),
         setContentView(R.layout.activity_main)
         if (intent.action == Intent.ACTION_VIEW) {
             loadExternalUrl(SafeIntent(intent))
+        }
+
+        window.decorView.post {
+            if (intent.action == CenoBundleImporterService.ACTION_TAP) {
+                navigateToSharedSites(SafeIntent(intent))
+            }
         }
 
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
@@ -468,6 +485,9 @@ open class BrowserActivity : BaseActivity(),
         if (safeIntent.action == Intent.ACTION_VIEW) {
             loadExternalUrl(safeIntent)
         }
+        if (safeIntent.action == CenoBundleImporterService.ACTION_TAP) {
+            navigateToSharedSites(safeIntent)
+        }
 
     }
 
@@ -652,5 +672,9 @@ open class BrowserActivity : BaseActivity(),
             components.utils.intentProcessor.process(safeIntent.unsafe)
             navHost.navController.navigate(R.id.action_global_browser)
         }
+    }
+
+    private fun navigateToSharedSites(safeIntent: SafeIntent) {
+        navHost.navController.navigate( R.id.siteContentGroupFragment, )
     }
 }

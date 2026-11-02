@@ -1,7 +1,5 @@
-package ie.equalit.ceno.ui.ouicrawl
+package ie.equalit.ceno.services
 
-import android.R.attr.description
-import android.R.attr.label
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,15 +10,15 @@ import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
-import android.util.Log
 import androidx.core.app.NotificationCompat
-import androidx.core.app.ServiceCompat.startForeground
-import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
+import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
+import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
+import ie.equalit.ceno.ui.viewModels.dataStore
 import kotlinx.serialization.json.Json
 
 class CenoBundleImporterService : Service() {
@@ -57,8 +55,13 @@ class CenoBundleImporterService : Service() {
         intent ?: return START_NOT_STICKY
         val zipExtra = intent.getStringExtra(ZIP_EXTRA) ?: throw Exception("zip uri not found")
 
+        val notificationIntent = Intent(this, BrowserActivity::class.java).apply {
+            action = ACTION_TAP
+            setFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
+        }
+
         val notification = createForegroundNotification(
-            intent,
+            notificationIntent,
             R.drawable.ic_launcher_foreground,
             notificationId,
             inProgress = true,
@@ -72,7 +75,7 @@ class CenoBundleImporterService : Service() {
             components.ouinet.background.shutdown(false) {
                 unzip(
                     context = this,
-                    intent = intent,
+                    intent = notificationIntent,
                     cmd = cmd,
                 )
             }
@@ -135,9 +138,9 @@ class CenoBundleImporterService : Service() {
     ): ForegroundInfo {
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
-            0,
+            System.currentTimeMillis().toInt(),
             intent,
-            PendingIntent.FLAG_IMMUTABLE
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
         val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
@@ -187,5 +190,7 @@ class CenoBundleImporterService : Service() {
     companion object {
         const val ZIP_EXTRA = "ZIP_EXTRA"
         const val CHANNEL_ID = "ie.ceno.bundle_importer"
+
+        const val ACTION_TAP = "ie.ceno.CenoBundleImporterService.ACTION_TAP"
     }
 }

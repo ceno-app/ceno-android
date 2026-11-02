@@ -3,22 +3,16 @@ package ie.equalit.ceno.ui.viewModels
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
-import android.opengl.ETC1.isValid
-import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.viewModelScope
-import androidx.navigation.fragment.findNavController
-import ie.equalit.ceno.R
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.ext.components
@@ -28,20 +22,17 @@ import ie.equalit.ceno.settings.OuinetResponseListener
 import ie.equalit.ceno.settings.OuinetValue
 import ie.equalit.ceno.settings.SiteContentGroupFragment.PinnedCacheGroup
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
-import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterService
-import io.sentry.util.CollectionUtils.map
+import ie.equalit.ceno.services.CenoBundleImporterService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.filter
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import kotlinx.serialization.Serializable
-import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.json.Json
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
@@ -284,17 +275,6 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
         }
         return null
-    }
-
-    fun loadSites(sites: String) {
-        viewModelScope.launch {
-            val jsonDecoder = Json {
-                ignoreUnknownKeys = true
-            }
-
-            val storedSites = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(sites)
-            _storedSites.value = storedSites
-        }
     }
 
     private suspend fun isBaseAvailable(

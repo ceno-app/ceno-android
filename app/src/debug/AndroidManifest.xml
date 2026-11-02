@@ -286,7 +286,7 @@
         </provider>
 
         <service
-            android:name=".ui.ouicrawl.CenoBundleImporterService"
+            android:name=".services.CenoBundleImporterService"
             android:exported="false"
             android:foregroundServiceType="dataSync">
             <intent-filter>
