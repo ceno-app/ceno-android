@@ -37,14 +37,12 @@ class Ouinet(
             FailedToRetrieveResource.createErrorPage(context),
             context
         )
-        config = Config.ConfigBuilder(context)
+        val cacheType = CenoSettings.getCacheType(context)
+        val configBuilder = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
-            //.setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
             .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
             .setTlsCaCertStoreDir(context.resources.getString(R.string.cacert_file_path))
-            .setCacheType(context.resources.getString(R.string.cache_type))
-            //.setI2pBep3Tracker("z2tfkf4t23gig3nfybnat2qarjl2f7dctcj63khfluqt2fdoikpa.b32.i2p")
-            .setI2pBep3Tracker("2qqoqlnajwd7qbtdfdn7enadnwktiqnn5ysear3ammt4dq6m65iq.b32.i2p")
+            .setCacheType(cacheType)
             .setBtBootstrapExtras(getBtBootstrapExtras())
             .setListenOnTcp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.PROXY_PORT)
             .setFrontEndEp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
@@ -71,7 +69,27 @@ class Ouinet(
             .setEnableLogFile(CenoSettings.isCenoLogEnabled(context))
             .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
             .setDropSavedOpts(true)
-            .build()
+
+        if (BuildConfig.INJECTOR_CREDENTIALS != "") {
+            configBuilder.setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
+        }
+
+        if (BuildConfig.INJECTOR_EP != "") {
+            configBuilder.setInjectorEp(BuildConfig.INJECTOR_EP)
+        }
+
+        if (cacheType == "ouisync") {
+            configBuilder.setOuisyncPageIndex(BuildConfig.OUISYNC_PAGE_INDEX )
+        }
+
+        if (cacheType == "bep3-http-over-i2p") {
+            configBuilder.setI2pBep3Tracker(BuildConfig.I2P_BEP3_TRACKER)
+                //.setEnableI2pServiceExt("127.0.0.1:7656")
+                .setEnableI2pServiceLib(true)
+                .addRequestField("X-Ouinet-Route: PublicInjector Bep3HTTPOverI2P")
+                .setDisableOriginAccess(true)
+        }
+        config = configBuilder.build()
     }
 
     fun setBackground(ctx: Context) {

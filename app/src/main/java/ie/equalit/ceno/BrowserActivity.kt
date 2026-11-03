@@ -227,6 +227,10 @@ open class BrowserActivity : BaseActivity(),
                 )
             }
         }
+
+        // Since Ouinet 1.8, the updateOuinetStatus method is not reliably updating the endpoints
+        // so added additional call to updateEndpoints() here
+        components.ouinet.updateEndpoints()
         updateOuinetStatus()
 
         if (Settings.isOuinetMetricsEnabled(this)) NetworkMetrics(

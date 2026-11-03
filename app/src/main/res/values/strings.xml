@@ -104,7 +104,6 @@
     <string name="remove_search_engine_id_2" translatable="false">ebay</string>
     <string name="default_search_engine_id" translatable="false">ddg</string>
     <string name="cacert_file_path" translatable="false">file:///android_asset/cacert.pem</string>
-    <string name="cache_type" translatable="false">bep3-http-over-i2p</string>
     <string name="loopback_ip" translatable="false">127.0.0.1</string>
     <string name="browser_toolbar_home">Home</string>
     <string name="crash_report_sent">Crash report sent!</string>
@@ -547,6 +546,21 @@
     <string name="preferences_log_level">Log level</string>
     <string name="change_log_level">Change log level</string>
 
+    <string name="preferences_cache_type">Cache type</string>
+    <string name="preferences_cache_type_default">bep5-http</string>
+    <string-array name="preferences_cache_type_values">
+        <item>bep5-http</item>
+        <item>bep3-http-over-i2p</item>
+        <item>ouisync</item>
+    </string-array>
+    <string-array name="preferences_cache_type_options">
+        <item>@string/preferences_cache_type_option_1</item>
+        <item>@string/preferences_cache_type_option_2</item>
+        <item>@string/preferences_cache_type_option_3</item>
+    </string-array>
+    <string name="preferences_cache_type_option_1">Ceno (bep5-http)</string>
+    <string name="preferences_cache_type_option_2">I2P (bep3-http-over-i2p)</string>
+    <string name="preferences_cache_type_option_3">Ouisync</string>
 
     <!-- Warning fixes -->
     <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Check for the existence of an archived version</string>

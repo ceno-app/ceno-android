@@ -46,9 +46,12 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
+        buildConfigField "String", "CACHE_TYPE", localProperties['CACHE_TYPE'] ?: '"bep5-http"'
         buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
         buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
+        buildConfigField "String", "INJECTOR_EP", localProperties['INJECTOR_EP'] ?: '""'
+        buildConfigField "String", "I2P_BEP3_TRACKER", localProperties['I2P_BEP3_TRACKER'] ?: '""'
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
@@ -56,6 +59,7 @@ android {
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "String", "OUISYNC_PAGE_INDEX", localProperties['OUISYNC_PAGE_INDEX'] ?: '""'
         buildConfigField "Boolean", "SCREENSHOTS_IN_TESTS", localProperties['SCREENSHOTS_IN_TESTS'] ?: 'false'
 
         buildConfigField "java.util.Map<String, String>", "CONFIG_MAP", getConfigMap(scenarioYaml)
