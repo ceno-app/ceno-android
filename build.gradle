@@ -131,6 +131,11 @@ subprojects {
                             testCoverageEnabled true
                         }
                     }
+                    release {
+                        ndk {
+                            debugSymbolLevel = "FULL"
+                        }
+                    }
                 }
                 kotlin {
                     compilerOptions{
