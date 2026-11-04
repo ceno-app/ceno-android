@@ -51,4 +51,7 @@
     <androidx.preference.SwitchPreferenceCompat
         android:key="@string/pref_key_allow_crash_reporting"
         android:defaultValue="false" />
+    <ListPreference
+        android:key="@string/pref_key_ouinet_cache_type"
+        android:defaultValue="@string/preferences_cache_type_default" />
 </PreferenceScreen>

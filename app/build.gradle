@@ -47,16 +47,16 @@ android {
         testInstrumentationRunnerArguments clearPackageData: 'true'
 
         buildConfigField "String", "CACHE_TYPE", localProperties['CACHE_TYPE'] ?: '"bep5-http"'
-        buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY']
-        buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS']
-        buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT']
+        buildConfigField "String", "CACHE_PUB_KEY", localProperties['CACHE_PUB_KEY'] ?: '"c9fd85cfc331e9e958e749349f7902625ae6d7bb9ca77bd53e00a9ee485ed15b"'
+        buildConfigField "String", "INJECTOR_CREDENTIALS", localProperties['INJECTOR_CREDENTIALS'] ?: '"ouinet:160d79874a52c2cbcdec58db1a8160a9"'
+        buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT'] ?: '"file:///android_asset/ssl-inj-cert.pem"'
         buildConfigField "String", "INJECTOR_EP", localProperties['INJECTOR_EP'] ?: '""'
         buildConfigField "String", "I2P_BEP3_TRACKER", localProperties['I2P_BEP3_TRACKER'] ?: '""'
         buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
-        buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: "0"
-        buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: "0"
+        buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: '"0"'
+        buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: '"0"'
         buildConfigField "String[][]", "METRICS_SERVERS", localProperties['METRICS_SERVERS'] ?: '{{"","","",""}}'
-        buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY']
+        buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY'] ?: '"MCowBQYDK2VuAyEAmfqHeh9oZ4S42+NS9s9unqcfqxzKIcKQfxBmk2osQA0="'
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
         buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
         buildConfigField "String", "OUISYNC_PAGE_INDEX", localProperties['OUISYNC_PAGE_INDEX'] ?: '""'

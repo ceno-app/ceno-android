@@ -6,6 +6,7 @@ import ie.equalit.ceno.EngineProvider
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
+import ie.equalit.ceno.ext.assetToString
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tabs.FailedToRetrieveResource
@@ -38,9 +39,13 @@ class Ouinet(
             context
         )
         val cacheType = CenoSettings.getCacheType(context)
+        val injectorTlsCert = BuildConfig.INJECTOR_TLS_CERT.assetToString(context)
+        val metricsTlsCert = BuildConfig.METRICS_SERVERS[0][2].assetToString(context)
+        val metricsPubKey =
+            "-----BEGIN PUBLIC KEY-----\n" + BuildConfig.METRICS_PUB_KEY + "\n-----END PUBLIC KEY-----"
         val configBuilder = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
-            .setInjectorTlsCert(BuildConfig.INJECTOR_TLS_CERT)
+            .setInjectorTlsCert(injectorTlsCert)
             .setTlsCaCertStoreDir(context.resources.getString(R.string.cacert_file_path))
             .setCacheType(cacheType)
             .setBtBootstrapExtras(getBtBootstrapExtras())
@@ -52,7 +57,7 @@ class Ouinet(
             .addMetricsServer(
                 BuildConfig.METRICS_SERVERS[0][0],
                 BuildConfig.METRICS_SERVERS[0][1],
-                BuildConfig.METRICS_SERVERS[0][2],
+                metricsTlsCert,
                 BuildConfig.METRICS_SERVERS[0][3].toInt(),
             )
             .addMetricsServer(
@@ -61,7 +66,7 @@ class Ouinet(
                 BuildConfig.METRICS_SERVERS[1][2],
                 BuildConfig.METRICS_SERVERS[1][3].toInt(),
             )
-            .setMetricsEncryptionKey(BuildConfig.METRICS_PUB_KEY)
+            .setMetricsEncryptionKey(metricsPubKey)
             .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
             .setFrontEndAccessToken(metricsFrontendToken)
             .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
@@ -79,7 +84,7 @@ class Ouinet(
         }
 
         if (cacheType == "ouisync") {
-            configBuilder.setOuisyncPageIndex(BuildConfig.OUISYNC_PAGE_INDEX )
+            configBuilder.setOuisyncPageIndex(BuildConfig.OUISYNC_PAGE_INDEX)
         }
 
         if (cacheType == "bep3-http-over-i2p") {

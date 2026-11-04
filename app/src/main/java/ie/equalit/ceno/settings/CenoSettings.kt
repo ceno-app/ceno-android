@@ -444,7 +444,7 @@ object CenoSettings {
     fun getCacheType(context: Context): String? =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getString(
-                context.getString(R.string.pref_key_ouinet_cache_type), null
+                context.getString(R.string.pref_key_ouinet_cache_type), BuildConfig.CACHE_TYPE
             )
 
     suspend fun webClientRequest(context: Context, request: Request): String? {

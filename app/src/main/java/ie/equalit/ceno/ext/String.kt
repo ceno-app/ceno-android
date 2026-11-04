@@ -6,8 +6,10 @@
 
 package ie.equalit.ceno.ext
 
+import android.content.Context
 import android.util.Patterns
 import mozilla.components.support.ktx.kotlin.sanitizeURL
+import java.io.File
 import java.text.SimpleDateFormat
 import java.time.Duration
 import java.time.OffsetDateTime
@@ -126,4 +128,19 @@ fun String.dateTimeDifference(): Long {
  */
 fun String.withoutScheme(): String {
     return sanitizeURL().substringAfter("://")
+}
+
+/**
+ * Helper function to return asset file as a string,
+ * if string provided is not a file path, just return the string
+ */
+fun String.assetToString(context: Context): String {
+    return if (this.startsWith("file:///android_asset")) {
+        val file = this.substring(this.lastIndexOf(File.separatorChar) + 1)
+        context.assets.open(file).bufferedReader().use {
+            it.readText()
+        }
+    } else {
+        this
+    }
 }
