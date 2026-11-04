@@ -22,6 +22,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toDrawable
 import androidx.core.os.LocaleListCompat
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.preference.Preference
@@ -90,6 +91,7 @@ import ie.equalit.ceno.settings.Settings.shouldShowDeveloperTools
 import ie.equalit.ceno.settings.dialogs.LanguageChangeDialog
 import ie.equalit.ceno.settings.dialogs.LogLevelDialog
 import ie.equalit.ceno.settings.dialogs.WaitForOuinetRestartDialog
+import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import ie.equalit.ceno.utils.CenoPreferences
 import ie.equalit.ouinet.Config
 import ie.equalit.ouinet.Ouinet
@@ -113,6 +115,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private var logLevelReset: Boolean = false
     private var developerToolsTapCount = 0
     private var developerToolsToast: Toast? = null
+
+    private val cenoBundleImporterViewModel: CenoBundleImporterViewModel by viewModels()
 
     private val sharedPreferencesChangeListener =
         OnSharedPreferenceChangeListener { sharedPrefs, key ->
@@ -652,42 +656,14 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
     private fun getClickListenerForCenoGroupsCounts(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
-            CenoSettings.ouinetClientRequest(
-                context = requireContext(),
-                coroutineScope = viewLifecycleOwner.lifecycleScope,
-                key = OuinetKey.GROUPS_TXT,
-                ouinetResponseListener = object : OuinetResponseListener {
-                    override fun onSuccess(message: String, data: Any?) {
-                        if (message.trim()
-                                .isEmpty()
-                        ) {
-                            Toast.makeText(
-                                requireContext(),
-                                getString(no_content_shared),
-                                Toast.LENGTH_LONG
-                            )
-                                .show()
-                        } else {
-                            findNavController().navigate(
-                                R.id.action_settingsFragment_to_siteContentGroupFragment,
-                                Bundle().apply {
-                                    putString("groups", message)
-                                }
-                            )
-                        }
+            cenoBundleImporterViewModel.prepareOuinetForNavigation(requireContext()) {
+                findNavController().navigate(
+                    R.id.action_settingsFragment_to_siteContentGroupFragment,
+                    Bundle().apply {
+                        putString("groups", it)
                     }
-
-                    override fun onError() {
-                        Toast.makeText(
-                            requireContext(),
-                            ContextCompat.getString(requireContext(), ouinet_client_fetch_fail),
-                            LENGTH_SHORT
-                        )
-                            .show()
-                    }
-                },
-                shouldRefresh = false
-            )
+                )
+            }
             true
         }
     }
