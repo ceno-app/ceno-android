@@ -1,16 +1,20 @@
 package ie.equalit.ceno.services
 
+import android.Manifest
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
+import androidx.core.app.NotificationManagerCompat
 import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.BrowserActivity
@@ -114,15 +118,12 @@ class CenoBundleImporterService : Service() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            val notification = createForegroundNotification(
-                intent,
+            showNotification(
                 R.drawable.ic_launcher_foreground,
-                notificationId,
-                inProgress = false,
-                title = context.getString(R.string.finished_importing),
-                description = getString(R.string.sites_imported, cmd.size)
+                getString(R.string.finished_importing),
+                getString(R.string.sites_imported, cmd.size),
+                intent
             )
-            startForeground(notificationId, notification.notification)
         }
     }
 
@@ -142,7 +143,6 @@ class CenoBundleImporterService : Service() {
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
-
         val builder = NotificationCompat.Builder(applicationContext, CHANNEL_ID)
             .setContentTitle(title)
             .setContentText(description)
@@ -185,6 +185,39 @@ class CenoBundleImporterService : Service() {
         val notificationManager: NotificationManager =
             getSystemService(NotificationManager::class.java) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+    }
+
+    private fun showNotification(
+        icon: Int,
+        title: String,
+        description: String,
+        intent: Intent
+    ) {
+        val pendingIntent = PendingIntent.getActivity(
+            applicationContext,
+            System.currentTimeMillis().toInt(),
+            intent,
+            PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
+        )
+
+        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+            .setSmallIcon(icon)
+            .setContentTitle(title)
+            .setContentText(description)
+            .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+            .setAutoCancel(true)
+            .setContentIntent(pendingIntent)
+
+        with(NotificationManagerCompat.from(this)) {
+            // double-check permission check here to satisfy IDE lint compiler warnings
+            if (ActivityCompat.checkSelfPermission(
+                    this@CenoBundleImporterService,
+                    Manifest.permission.POST_NOTIFICATIONS)
+                == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+
+                notify(notificationId, builder.build())
+            }
+        }
     }
 
     companion object {
