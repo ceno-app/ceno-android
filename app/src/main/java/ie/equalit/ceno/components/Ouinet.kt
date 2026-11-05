@@ -18,6 +18,9 @@ import java.io.FileOutputStream
 import java.io.IOException
 import java.security.SecureRandom
 
+// Extension functions for Ouinet 1.6 backwards compatibility
+import ie.equalit.ceno.ext.ouinet.*
+
 class Ouinet(
     private val context: Context
 ) {
@@ -40,7 +43,6 @@ class Ouinet(
         )
         val cacheType = CenoSettings.getCacheType(context)
         val injectorTlsCert = BuildConfig.INJECTOR_TLS_CERT.assetToString(context)
-        val metricsTlsCert = BuildConfig.METRICS_SERVERS[0][2].assetToString(context)
         val metricsPubKey =
             "-----BEGIN PUBLIC KEY-----\n" + BuildConfig.METRICS_PUB_KEY + "\n-----END PUBLIC KEY-----"
         val configBuilder = Config.ConfigBuilder(context)
@@ -54,18 +56,6 @@ class Ouinet(
             .setErrorPagePath(getErrorPagePath())
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
             .setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
-            .addMetricsServer(
-                BuildConfig.METRICS_SERVERS[0][0],
-                BuildConfig.METRICS_SERVERS[0][1],
-                metricsTlsCert,
-                BuildConfig.METRICS_SERVERS[0][3].toInt(),
-            )
-            .addMetricsServer(
-                BuildConfig.METRICS_SERVERS[1][0],
-                BuildConfig.METRICS_SERVERS[1][1],
-                BuildConfig.METRICS_SERVERS[1][2],
-                BuildConfig.METRICS_SERVERS[1][3].toInt(),
-            )
             .setMetricsEncryptionKey(metricsPubKey)
             .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
             .setFrontEndAccessToken(metricsFrontendToken)
@@ -74,6 +64,15 @@ class Ouinet(
             .setEnableLogFile(CenoSettings.isCenoLogEnabled(context))
             .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
             .setDropSavedOpts(true)
+
+        BuildConfig.METRICS_SERVERS.forEach { server ->
+            configBuilder.addMetricsServer(
+                server[0],
+                server[1],
+                server[2].assetToString(context),
+                server[3].toInt(),
+                )
+        }
 
         if (BuildConfig.INJECTOR_CREDENTIALS != "") {
             configBuilder.setInjectorCredentials(BuildConfig.INJECTOR_CREDENTIALS)
@@ -89,7 +88,6 @@ class Ouinet(
 
         if (cacheType == "bep3-http-over-i2p") {
             configBuilder.setI2pBep3Tracker(BuildConfig.I2P_BEP3_TRACKER)
-                //.setEnableI2pServiceExt("127.0.0.1:7656")
                 .setEnableI2pServiceLib(true)
                 .addRequestField("X-Ouinet-Route: PublicInjector Bep3HTTPOverI2P")
                 .setDisableOriginAccess(true)
