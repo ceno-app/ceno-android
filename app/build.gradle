@@ -394,7 +394,18 @@ dependencies {
 
 tasks.register('updateCacertBundle') {
     def f = new File('app/src/main/assets/cacert.pem')
-    new URL('https://curl.se/ca/cacert.pem').withInputStream{ i -> f.withOutputStream{ it << i }}
+    new URL('https://curl.se/ca/cacert.pem')
+            .withInputStream {
+                i -> f.withOutputStream { it << i }
+            }
+}
+
+tasks.register('updateUblockXpi') {
+    def f = new File('app/src/main/assets/addons/uBlock0@raymondhill.net.xpi')
+    new URL('https://addons.mozilla.org/firefox/downloads/file/5199068/ublock_origin.xpi')
+            .withInputStream {
+                i -> f.withOutputStream { it << i }
+            }
 }
 
 tasks.register('renameUblockXpi', Copy) {
