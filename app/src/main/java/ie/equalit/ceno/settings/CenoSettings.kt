@@ -433,18 +433,16 @@ object CenoSettings {
                 context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
             )
 
-    fun setCacheType(context: Context, text: String) {
-        val key = context.getString(R.string.pref_key_ouinet_cache_type)
-        PreferenceManager.getDefaultSharedPreferences(context)
-            .edit {
-                putString(key, text)
-            }
-    }
-
     fun getCacheType(context: Context): String? =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getString(
                 context.getString(R.string.pref_key_ouinet_cache_type), BuildConfig.CACHE_TYPE
+            )
+
+    fun isOuinetExperimentalEnabled(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ouinet_experimental), false
             )
 
     suspend fun webClientRequest(context: Context, request: Request): String? {

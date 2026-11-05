@@ -66,6 +66,8 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             getClickListenerForOuinetLogExport()
         getPreference(R.string.pref_key_test_metrics)?.onPreferenceClickListener =
             getClickListenerForMetricsTest()
+        getPreference(R.string.pref_key_ouinet_cache_type)?.isVisible =
+            CenoSettings.isOuinetExperimentalEnabled(requireContext())
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
