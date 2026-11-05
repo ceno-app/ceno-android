@@ -481,4 +481,58 @@
     <string name="dns_protocol_over_https_with_fallback_to_system_dns">DNS-over-HTTPS с откатом к системному DNS</string>
     <string name="default_channel_1_title">Новости Аль-Джазиры на английском</string>
     <string name="edit_bookmark_label">Изменить</string>
+    <string name="default_channel_1_title_ir">bbcpersian</string>
+    <string name="default_channel_2_title_ir">Евроновости пе</string>
+    <string name="default_channel_7_title_ir">МанотоТВ</string>
+    <string name="default_channel_9_title_ir">Радио фарда</string>
+    <string name="default_channel_10_title_ir">Таваанаtech</string>
+    <string name="default_channel_11_title_ir">ВахидОнлайн</string>
+    <string name="default_channel_4_title_ru">канал ceno</string>
+    <string name="default_channel_5_title_ru">CorruptionTV</string>
+    <string name="saved_in_bookmarks">Сохранено в \"Закладки\"</string>
+    <string name="preferences_access_local_network">Доступ к локальной сети</string>
+    <string name="back_button_description">кнопка назад</string>
+    <string name="preferences_log_level">Уровень логгирования</string>
+    <string name="change_log_level">Изменить уровень логгирования</string>
+    <string name="mozac_browser_errorpages_archive_check_button" tools:ignore="UnusedResources">Проверить наличие архивированной версии</string>
+    <string name="mozac_browser_errorpages_archive_checking" tools:ignore="UnusedResources">Верефикация архива</string>
+    <string name="mozac_browser_errorpages_archive_retry" tools:ignore="UnusedResources">Попробовать снова.</string>
+    <string name="mozac_browser_errorpages_archive_search_web" tools:ignore="UnusedResources">Поиск в Интернете</string>
+    <string name="mozac_browser_errorpages_archive_unreachable" tools:ignore="UnusedResources">Невозможно связаться до архивирующего сервиса.</string>
+    <string name="mozac_feature_prompts_update_address_prompt_title" tools:ignore="UnusedResources">Обновить адрес?</string>
+    <string name="mozac_browser_errorpages_archive_not_found" tools:ignore="UnusedResources">Архивная версия не найдена.</string>
+    <string name="hide_telegram_channel">Спрятать</string>
+    <string name="unhide_telegram_channel">Показать</string>
+    <string name="default_channel_3_title_ir">IranWire</string>
+    <string name="default_channel_1_title_ru">agentstvonews</string>
+    <string name="default_channel_2_title_ru">ArkHelps</string>
+    <string name="default_channel_3_title_ru">asiansofrussia</string>
+    <string name="default_channel_6_title_ru">Dept One</string>
+    <string name="telegram_topsites_title">Telegram</string>
+    <string name="preferences_hide_telegram_channels">Спрятать Telegram канналы</string>
+    <string name="telegram_channels_bookmark_folder_title">Telegram каналы</string>
+    <string name="default_channel_4_title_ir">Hengaw_Org</string>
+    <string name="default_channel_5_title_ir">hranews</string>
+    <string name="default_channel_6_title_ir">IranintlTV</string>
+    <string name="default_channel_8_title_ir">paskoocheh</string>
+    <string name="default_channel_7_title_ru">eschulmann</string>
+    <string name="default_channel_8_title_ru">femagainstwar</string>
+    <string name="default_channel_9_title_ru">freeburyatiafoundation</string>
+    <string name="default_channel_10_title_ru">iditelesom_help</string>
+    <string name="default_channel_11_title_ru">kedr_media</string>
+    <string name="default_channel_12_title_ru">kosa_media</string>
+    <string name="default_channel_13_title_ru">meduzalive</string>
+    <string name="default_channel_14_title_ru">no_torture</string>
+    <string name="default_channel_15_title_ru">novaya_pishet</string>
+    <string name="default_channel_16_title_ru">ovdinfo</string>
+    <string name="default_channel_17_title_ru">parniplus_com</string>
+    <string name="default_channel_18_title_ru">peaceplea</string>
+    <string name="default_channel_19_title_ru">russianlgbtnet</string>
+    <string name="default_channel_20_title_ru">spherequeer</string>
+    <string name="default_channel_21_title_ru">truestorymedia</string>
+    <string name="default_channel_22_title_ru">zatelecom</string>
+    <string name="default_telegram_channel">https://tg.ceno.app</string>
+    <string name="pref_telegram_channels_bookmark_guid">pref_telegram_channels_bookmark_guid</string>
+    <string name="pref_hidden_telegram_channels">pref_hidden_telegram_channels</string>
+    <string name="pref_top_sites_bookmark_guid">pref_top_sites_bookmark_guid</string>
 </resources>

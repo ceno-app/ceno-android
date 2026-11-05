@@ -1,0 +1,8 @@
+### Změněno
+
+- Aktualizace compileSdk na 37.1
+- Aktualizace Gradle wrapperu na 9.7.0
+- Aktualizace Sentry na 8.53.0
+- Aktualizace Android-Components na 154.0
+- Aktualizace dalších závislostí Androidu a Kotlinu
+- Drobné aktualizace překladů pro různé jazyky

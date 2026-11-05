@@ -1,0 +1,3 @@
+### Opraveno
+
+- Chyba při nastavování vlastních bootstrapů BitTorrentu v dialogu
