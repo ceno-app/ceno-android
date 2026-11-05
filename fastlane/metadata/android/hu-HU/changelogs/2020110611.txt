@@ -1,0 +1,3 @@
+### Változtatások
+
+- A Ouinet v1.6.11 visszavezetése

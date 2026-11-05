@@ -1,0 +1,6 @@
+### Változtatások
+
+- A Ouinet frissitve lett az 1.7.2 verzióra
+- A Android-Components frissitve lett az 155.0.1 verzióra
+- A HTTPS-by-default extensiont leváltotta a httpsOnlyMode a Böngésző motorban
+- Egyenletes jelzések az elavulásról a forráskódban
