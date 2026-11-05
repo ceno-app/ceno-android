@@ -402,7 +402,7 @@ tasks.register('updateCacertBundle') {
 
 tasks.register('updateUblockXpi') {
     def f = new File('app/src/main/assets/addons/uBlock0@raymondhill.net.xpi')
-    new URL('https://addons.mozilla.org/firefox/downloads/file/5199068/ublock_origin.xpi')
+    new URL('https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/addon-11423598-latest.xpi')
             .withInputStream {
                 i -> f.withOutputStream { it << i }
             }
