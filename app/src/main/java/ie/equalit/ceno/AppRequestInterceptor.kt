@@ -8,8 +8,8 @@ import android.content.Context
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.tabs.PrivatePage
 import mozilla.components.browser.errorpages.ErrorPages
-import mozilla.components.browser.errorpages.ErrorType
 import mozilla.components.concept.engine.EngineSession
+import mozilla.components.concept.engine.request.ErrorType
 import mozilla.components.concept.engine.request.RequestInterceptor
 
 /**

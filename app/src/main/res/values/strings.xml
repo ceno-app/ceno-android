@@ -157,12 +157,7 @@
     <string name="browser_menu_ublock_origin" translatable="false">uBlock Origin</string>
     <string name="default_top_site_1_title">Ceno Manual</string>
     <string name="default_top_site_1_url" translatable="false">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" translatable="false">Wikipedia</string>
     <string name="default_top_site_2_url" translatable="false">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" translatable="false">AP News</string>
-    <string name="default_top_site_3_url" translatable="false">@string/suggestedsites_apnews_url</string>
-    <string name="default_top_site_4_title" translatable="false">Reuters</string>
-    <string name="default_top_site_4_url" translatable="false">@string/suggestedsites_reuters_url</string>
     <string name="horizontal_ellipsis" translatable="false">…</string>
     <string name="onboarding_welcome_title">Welcome to Ceno</string>
     <string name="onboarding_btn_get_started">Get Started</string>

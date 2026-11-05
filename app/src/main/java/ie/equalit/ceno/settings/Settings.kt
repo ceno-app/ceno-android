@@ -5,9 +5,12 @@
 package ie.equalit.ceno.settings
 
 import android.content.Context
+import android.util.Log
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.google.gson.Gson
+import com.google.gson.JsonParseException
+import ie.equalit.ceno.BuildConfig
 import ie.equalit.ceno.R
 import ie.equalit.ceno.components.ceno.CenoLocationUtils
 import ie.equalit.ceno.ext.application
@@ -21,6 +24,8 @@ import ie.equalit.ouinet.Config
 import java.util.Locale
 
 object Settings {
+    const val TAG = "Settings"
+
     fun shouldShowOnboarding(context: Context): Boolean =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getBoolean(
@@ -344,29 +349,38 @@ object Settings {
 
         val swipedGuids = getSwipedAnnouncementGuids(context)
 
-        Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
-            ?.let { rssAnnouncementResponse ->
+        try {
+            Gson().fromJson(localValue, RssAnnouncementResponse::class.java)
+                ?.let { rssAnnouncementResponse ->
 
-                val response = RssAnnouncementResponse(
-                    title = rssAnnouncementResponse.title,
-                    link = rssAnnouncementResponse.link,
-                    text = rssAnnouncementResponse.text,
-                    items = buildList {
-                        rssAnnouncementResponse.items.forEach {
-                            val pubDate: String = it.guid.split("/")[1]
-                            val isExpired =
-                                pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(
-                                    context
-                                )
-                            if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
-                                add(it)
+                    val response = RssAnnouncementResponse(
+                        title = rssAnnouncementResponse.title,
+                        link = rssAnnouncementResponse.link,
+                        text = rssAnnouncementResponse.text,
+                        items = buildList {
+                            rssAnnouncementResponse.items.forEach {
+                                try {
+                                    val pubDate: String = it.guid.split("/")[1]
+                                    val isExpired =
+                                        pubDate.isDateMoreThanXDaysAway(30) && !isAnnouncementExpirationDisabled(
+                                            context
+                                        )
+                                    if ((swipedGuids == null || !swipedGuids.contains(it.guid)) && !isExpired) {
+                                        add(it)
+                                    }
+                                } catch (e: NullPointerException) {
+                                    // In case of faulty json, ignore and continue with the others
+                                    Log.e(TAG, e.toString(), e)
+                                }
                             }
                         }
-                    }
-                )
-                return if (response.items.isEmpty()) null else response
+                    )
+                    return if (response.items.isEmpty()) null else response
 
-            }
+                }
+        } catch (e: JsonParseException) {
+            Log.e(TAG, e.toString(), e)
+        }
 
         return null
 
@@ -517,12 +531,17 @@ object Settings {
     }
 
     /**
-     * Defaults to DEBUG log if log level has not been set
+     * Set default log level based on build variant
      */
     fun getLogLevel(context: Context): String {
         val key = context.getString(R.string.pref_key_log_level)
+        val default = if (BuildConfig.DEBUG) {
+            Config.LogLevel.SILLY.name
+        } else {
+            Config.LogLevel.INFO.name
+        }
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getString(key, Config.LogLevel.INFO.name)
+            .getString(key, default)
             ?: throw Exception("LogLevel settings not found")
     }
 }

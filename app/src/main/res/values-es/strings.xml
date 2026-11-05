@@ -112,12 +112,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">No volver a mostrar</string>
     <string name="default_top_site_1_title">Manual de Ceno</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_es_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" tools:ignore="Untranslatable">El País</string>
-    <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_elpais_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">Infobae</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_infobae_url</string>
     <string name="onboarding_welcome_title">Bienvenido a Ceno</string>
     <string name="onboarding_permissions_title">Permiso necesario</string>
     <string name="onboarding_battery_text">En breve el sistema operativo le pedirá permiso para \n \n- Desactivar la optimización de la batería. \n \nEsto es necesario para seguir compartiendo páginas web mientras la aplicación está en segundo plano</string>

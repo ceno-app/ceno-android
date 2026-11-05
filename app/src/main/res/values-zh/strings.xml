@@ -99,12 +99,7 @@
     <string name="ceno_notification_home_description">主页</string>
     <string name="default_top_site_1_title">Ceno指南</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_en_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" tools:ignore="Untranslatable">自由時報</string>
-    <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_ltn_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">報導者</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_twreporter_url</string>
     <string name="preferences_about_ceno">Ceno 浏览器</string>
     <string name="preferences_about_ouinet_protocol">Ouinet 协议</string>
     <string name="about_category">关于</string>

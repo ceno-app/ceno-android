@@ -4,15 +4,7 @@
         <url>https://ceno.app/user-manual/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_2_title">Wikipedia</title>
+        <title>Wikipedia</title>
         <url>https://www.wikipedia.org/</url>
-    </topsite>
-    <topsite>
-        <title stringRes="@string/default_top_site_3_title">AP News</title>
-        <url>https://apnews.com/</url>
-    </topsite>
-    <topsite>
-        <title stringRes="@string/default_top_site_4_title">Reuters</title>
-        <url>https://www.reuters.com/</url>
     </topsite>
 </topsites>

@@ -2,18 +2,14 @@
 <topsites>
     <topsite>
         <title stringRes="@string/default_top_site_1_title">Manual de Ceno</title>
-        <url>https://ceno.app/user-manual/es/</url>
+        <url>https://ceno.app/user-manual/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_2_title">Wikipedia</title>
+        <title>Wikipedia</title>
         <url>https://www.wikipedia.org/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_3_title">El País</title>
-        <url>https://elpais.com/internacional/</url>
-    </topsite>
-    <topsite>
-        <title stringRes="@string/default_top_site_4_title">Infobae</title>
+        <title>Infobae</title>
         <url>https://www.infobae.com/america/</url>
     </topsite>
 </topsites>

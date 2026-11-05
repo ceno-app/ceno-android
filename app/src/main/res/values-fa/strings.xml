@@ -111,12 +111,7 @@
     <string name="ceno_on_mobile_data_dialog_stop_showing">دوباره نشان نده</string>
     <string name="default_top_site_1_title">راهنمای سنو</string>
     <string name="default_top_site_1_url" tools:ignore="Untranslatable">@string/suggestedsites_ceno_fa_url</string>
-    <string name="default_top_site_2_title" tools:ignore="Untranslatable">Wikipedia</string>
     <string name="default_top_site_2_url" tools:ignore="Untranslatable">@string/suggestedsites_wikipedia_url</string>
-    <string name="default_top_site_3_title" tools:ignore="Untranslatable">پس‌کوچه</string>
-    <string name="default_top_site_3_url" tools:ignore="Untranslatable">@string/suggestedsites_paskooceh_url</string>
-    <string name="default_top_site_4_title" tools:ignore="Untranslatable">فکت‌نامه</string>
-    <string name="default_top_site_4_url" tools:ignore="Untranslatable">@string/suggestedsites_factnameh_url</string>
     <string name="preferences_clear_behavior_default">0</string>
     <string name="onboarding_permissions_title">مجوز لازم دارد</string>
     <string name="onboarding_welcome_title">به سنو خوش آمدید</string>

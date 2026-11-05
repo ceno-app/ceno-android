@@ -13,20 +13,20 @@ androidx_swiperefreshlayout = "1.2.0"
 androidx_work = "2.12.0"
 
 # Android Components
-android_components = "157.0"
+android_components = "159.0.1"
 
 # Google
 google_composecompiler = "1.5.15"
 google_material = "1.14.0"
 
 # Gradle
-gradle_android_plugin = "9.3.3"
-gradle_kotlin_plugin = "2.3.21"
+gradle_android_plugin = "9.4.0"
+gradle_kotlin_plugin = "2.4.21"
 
 # Kotlin
 kotlin_coroutines = "1.11.0"
-kotlin_serialization = "1.11.0"
-kotlin = "2.4.20"
+kotlin_serialization = "1.12.0"
+kotlin = "2.4.21"
 
 # Testing
 testing_androidx_core = "1.7.0"
@@ -36,11 +36,11 @@ testing_androidx_orchestrator = "1.6.1"
 testing_androidx_runner = "1.7.0"
 testing_androidx_uiautomator = "2.4.0"
 testing_jacoco = "0.8.15"
-testing_mockwebserver = "4.12.0"
+testing_mockwebserver = "5.5.1"
 
 # Third Party
-sentry = "8.57.0"
-gson = "2.14.0"
+sentry = "8.62.0"
+gson = "2.15.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
 
@@ -51,7 +51,7 @@ snakeyaml_version = "2.7"
 
 ktlint_version = "1.8.0"
 detekt = "1.23.8"
-jvm = "2.4.20"
+jvm = "2.4.21"
 serialization = "1.9.25"
 material3Android = "1.4.0"
 espresso_contrib = "3.7.0"
@@ -74,6 +74,7 @@ mozilla-conceptstorage = { group = "org.mozilla.components", name = "concept-sto
 mozilla-composeawesomebar = { group = "org.mozilla.components", name = "compose-awesomebar", version.ref = "android_components" }
 
 mozilla-browserenginegecko = { group = "ie.equalit.ouinet", name = "browser-engine-gecko-ceno", version.ref = "android_components" }
+mozilla-browsererrorpages = { group = "org.mozilla.components", name = "browser-errorpages", version.ref = "android_components" }
 mozilla-browserdomains = { group = "org.mozilla.components", name = "browser-domains", version.ref = "android_components" }
 mozilla-browsersessionstorage = { group = "org.mozilla.components", name = "browser-session-storage", version.ref = "android_components" }
 mozilla-browserstate = { group = "org.mozilla.components", name = "browser-state", version.ref = "android_components" }
@@ -102,7 +103,6 @@ mozilla-featuredownloads = { group = "org.mozilla.components", name = "feature-d
 mozilla-featureprompts = { group = "org.mozilla.components", name = "feature-prompts", version.ref = "android_components" }
 mozilla-featurepwa = { group = "org.mozilla.components", name = "feature-pwa", version.ref = "android_components" }
 mozilla-featurereaderview = { group = "org.mozilla.components", name = "feature-readerview", version.ref = "android_components" }
-mozilla-featurewebauthn = { group = "org.mozilla.components", name = "feature-webauthn", version.ref = "android_components" }
 mozilla-featurewebcompat = { group = "org.mozilla.components", name = "feature-webcompat", version.ref = "android_components" }
 mozilla-featurewebnotifications = { group = "org.mozilla.components", name = "feature-webnotifications", version.ref = "android_components" }
 mozilla-featureshare = { group = "org.mozilla.components", name = "feature-share", version.ref = "android_components" }
@@ -113,7 +113,6 @@ mozilla-uiicons = { group = "org.mozilla.components", name = "ui-icons", version
 mozilla-uitabcounter = { group = "org.mozilla.components", name = "ui-tabcounter", version.ref = "android_components" }
 
 mozilla-servicelocation = { group = "org.mozilla.components", name = "service-location", version.ref = "android_components" }
-mozilla-servicesynclogins = { group = "org.mozilla.components", name = "service-sync-logins", version.ref = "android_components" }
 
 mozilla-supportutils = { group = "org.mozilla.components", name = "support-utils", version.ref = "android_components" }
 mozilla-supportktx = { group = "org.mozilla.components", name = "support-ktx", version.ref = "android_components" }

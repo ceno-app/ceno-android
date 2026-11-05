@@ -6,15 +6,15 @@
         <url>https://ceno.app/user-manual/fa/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_2_title">Wikipedia</title>
+        <title>Wikipedia</title>
         <url>https://www.wikipedia.org/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_3_title">پس‌کوچه</title>
-        <url>http://paskoocheh.com/</url>
+        <title>پس‌کوچه</title>
+        <url>https://paskoocheh.com/</url>
     </topsite>
     <topsite>
-        <title stringRes="@string/default_top_site_4_title">فکت‌نامه</title>
+        <title>فکت‌نامه</title>
         <url>https://factnameh.com/fa</url>
     </topsite>
 </topsites>

@@ -5,7 +5,42 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## v2.11.7 - 2026-09-24
+## v2.12.2 - 2026-10-22
+
+### Fixed
+
+- NullPointerException related to rss-anounce.xml parsing will now be caught
+- IllegalStateException in SettingsFragment will now be caught
+
+## [v2.12.1](https://gitlab.com/ceno-app/ceno-android/-/releases/2.12.1) - 2026-10-21
+
+### Changed
+
+- Update Android-Components to 158.0.2
+- Update cacert.pem with bundle generated on Tue Oct 20 13:32:40 2026 GMT
+
+## [v2.12.0](https://gitlab.com/ceno-app/ceno-android/-/releases/2.12.0) - 2026-10-07
+
+### Added
+
+- Prompt for local network permissions on Android 17 and later
+- Option to configure log-level
+
+### Changed
+
+- Shortcuts and Telegram channels are now managed via Bookmarks menu
+- Telegram channels can be individually hidden from homepage section
+- Free media feed can be now be fully collapsed
+- Migrated permissions options to separate settings sub-menu
+- Update Android-Components to 157.0.1
+- Minor updates to translations for various locales
+
+### Fixed
+
+- Broken Ceno user manual shortcut links for es and my locales
+- Obfuscation of release builds improved to 80%
+
+## [v2.11.7](https://gitlab.com/ceno-app/ceno-android/-/releases/v2.11.7) - 2026-09-24
 
 ### Fixed
 

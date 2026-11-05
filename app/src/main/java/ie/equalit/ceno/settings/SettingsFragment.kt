@@ -170,16 +170,20 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
 
         view.consumeFrom(requireComponents.appStore, viewLifecycleOwner) {
-            CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
-            getPreference(pref_key_ouinet_state)?.summaryProvider =
-                Preference.SummaryProvider<Preference> {
-                    CenoSettings.getOuinetStateLocalized(requireContext())
+            try {
+                CenoSettings.setOuinetState(requireContext(), it.ouinetStatus.name)
+                getPreference(pref_key_ouinet_state)?.summaryProvider =
+                    Preference.SummaryProvider<Preference> {
+                        CenoSettings.getOuinetStateLocalized(requireContext())
+                    }
+                if (it.ouinetStatus == Ouinet.RunningState.Started) {
+                    bridgeAnnouncementDialog.dismiss()
+                    bridgeModeChanged = false
+                    getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
+                        getChangeListenerForBridgeAnnouncement()
                 }
-            if (it.ouinetStatus == Ouinet.RunningState.Started) {
-                bridgeAnnouncementDialog.dismiss()
-                bridgeModeChanged = false
-                getPreference(pref_key_bridge_announcement)?.onPreferenceChangeListener =
-                    getChangeListenerForBridgeAnnouncement()
+            } catch (e: IllegalStateException) {
+                Log.e(TAG, e.message, e)
             }
         }
         if (arguments?.getBoolean(SCROLL_TO_BRIDGE) == true) {

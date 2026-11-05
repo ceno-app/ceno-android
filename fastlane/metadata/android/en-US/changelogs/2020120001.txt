@@ -1,0 +1,20 @@
+
+### Added
+
+- Prompt for local network permissions on Android 17 and later
+- Option to configure log-level
+
+### Changed
+
+- Shortcuts and Telegram channels are now managed via Bookmarks menu
+- Telegram channels can be individually hidden from homepage section
+- Free media feed can be now be fully collapsed
+- Migrated permissions options to separate settings sub-menu
+- Update Android-Components to 157.0.1
+- Minor updates to translations for various locales
+
+### Fixed
+
+- Broken Ceno user manual shortcut links for es and my locales
+- Obfuscation of release builds improved to 80%
+
