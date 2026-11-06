@@ -9,7 +9,7 @@ updates:
       interval: "daily"
 
   # Enable version updates for bundle
-  - package-ecosystem: "Bundler"
+  - package-ecosystem: "bundler"
     # Look for `Gemfile.lock` in the `root` directory
     directory: "/"
     # Check for updates once daily
