@@ -527,5 +527,6 @@ clean {
         include '**/*.aab'
         include '**/*.apk'
         include '**/*.txt'
+        include '**/*.txt.asc'
     }
 }
