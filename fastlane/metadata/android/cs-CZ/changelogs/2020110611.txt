@@ -1,0 +1,3 @@
+### Změněno
+
+- Vrácení Ouinetu na verzi 1.6.11

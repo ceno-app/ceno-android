@@ -1,0 +1,6 @@
+### Změněno
+
+- Aktualizace Ouinetu na 1.7.2
+- Aktualizace Android-Components na 155.0.1
+- Odstranění rozšíření HTTPS-by-default a povolení httpsOnlyMode v jádru prohlížeče
+- Oprava varování k zastaralým rozhraním ve zdrojovém kódu

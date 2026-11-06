@@ -105,6 +105,9 @@ android {
         release releaseTemplate >> {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
         beta {
             signingConfig signingConfigs.release
@@ -164,6 +167,7 @@ tasks.configureEach { task ->
             task.name == 'mergeBetaAssets' ||
             task.name == 'mergeNightlyAssets' ||
             task.name == 'mergeReleaseAssets') {
+        task.dependsOn updateCacertBundle
         task.dependsOn renameUblockXpi
         task.dependsOn unzipUblockOrigin
     }
@@ -391,6 +395,22 @@ dependencies {
     androidTestImplementation libs.fastlane.screengrab
 }
 
+tasks.register('updateCacertBundle') {
+    def f = new File('app/src/main/assets/cacert.pem')
+    new URL('https://curl.se/ca/cacert.pem')
+            .withInputStream {
+                i -> f.withOutputStream { it << i }
+            }
+}
+
+tasks.register('updateUblockXpi') {
+    def f = new File('app/src/main/assets/addons/uBlock0@raymondhill.net.xpi')
+    new URL('https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/addon-11423598-latest.xpi')
+            .withInputStream {
+                i -> f.withOutputStream { it << i }
+            }
+}
+
 tasks.register('renameUblockXpi', Copy) {
     from('src/main/assets/addons/')
     include 'uBlock0@raymondhill.net.xpi'
@@ -507,5 +527,6 @@ clean {
         include '**/*.aab'
         include '**/*.apk'
         include '**/*.txt'
+        include '**/*.txt.asc'
     }
 }
