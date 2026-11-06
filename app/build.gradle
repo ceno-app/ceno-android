@@ -105,6 +105,9 @@ android {
         release releaseTemplate >> {
             signingConfig signingConfigs.release
             buildConfigField "boolean", "IS_RELEASED", "true"
+            ndk {
+                debugSymbolLevel = "FULL"
+            }
         }
         beta {
             signingConfig signingConfigs.release
