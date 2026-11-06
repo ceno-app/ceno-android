@@ -52,13 +52,13 @@ android {
         buildConfigField "String", "INJECTOR_TLS_CERT", localProperties['INJECTOR_TLS_CERT'] ?: '"file:///android_asset/ssl-inj-cert.pem"'
         buildConfigField "String", "INJECTOR_EP", localProperties['INJECTOR_EP'] ?: '""'
         buildConfigField "String", "I2P_BEP3_TRACKER", localProperties['I2P_BEP3_TRACKER'] ?: '""'
-        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{{"",""}}'
+        buildConfigField "String[][]", "BT_BOOTSTRAP_EXTRAS", localProperties['BT_BOOTSTRAP_EXTRAS'] ?: '{}'
         buildConfigField "String", "PROXY_PORT", localProperties['PROXY_PORT'] ?: '"0"'
         buildConfigField "String", "FRONTEND_PORT", localProperties['FRONTEND_PORT'] ?: '"0"'
-        buildConfigField "String[][]", "METRICS_SERVERS", localProperties['METRICS_SERVERS'] ?: '{{"","","",""}}'
+        buildConfigField "String[][]", "METRICS_SERVERS", localProperties['METRICS_SERVERS'] ?: '{}'
         buildConfigField "String", "METRICS_PUB_KEY", localProperties['METRICS_PUB_KEY'] ?: '"MCowBQYDK2VuAyEAmfqHeh9oZ4S42+NS9s9unqcfqxzKIcKQfxBmk2osQA0="'
         buildConfigField "Long", "METRICS_DELETE_AFTER", localProperties['METRICS_DELETE_AFTER'] ?: "2592000L"
-        buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{""}'
+        buildConfigField "String[]", "DOH_DISABLED_LOCALES", localProperties['DOH_DISABLED_LOCALES'] ?: '{}'
         buildConfigField "String", "OUISYNC_PAGE_INDEX", localProperties['OUISYNC_PAGE_INDEX'] ?: '""'
         buildConfigField "Boolean", "SCREENSHOTS_IN_TESTS", localProperties['SCREENSHOTS_IN_TESTS'] ?: 'false'
 

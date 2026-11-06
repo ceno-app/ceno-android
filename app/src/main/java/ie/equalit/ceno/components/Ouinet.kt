@@ -43,8 +43,6 @@ class Ouinet(
         )
         val cacheType = CenoSettings.getCacheType(context)
         val injectorTlsCert = BuildConfig.INJECTOR_TLS_CERT.assetToString(context)
-        val metricsPubKey =
-            "-----BEGIN PUBLIC KEY-----\n" + BuildConfig.METRICS_PUB_KEY + "\n-----END PUBLIC KEY-----"
         val configBuilder = Config.ConfigBuilder(context)
             .setCacheHttpPubKey(BuildConfig.CACHE_PUB_KEY)
             .setInjectorTlsCert(injectorTlsCert)
@@ -55,9 +53,6 @@ class Ouinet(
             .setFrontEndEp(context.getString(R.string.loopback_ip) + ":" + BuildConfig.FRONTEND_PORT)
             .setErrorPagePath(getErrorPagePath())
             .setDisableBridgeAnnouncement(!CenoSettings.isBridgeAnnouncementEnabled(context))
-            .setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
-            .setMetricsEncryptionKey(metricsPubKey)
-            .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
             .setFrontEndAccessToken(metricsFrontendToken)
             .setClientCredentials("$PROXY_ACCESS_USER:$proxyAccessPassword")
             .setDnsProtocols(dnsProtocols)
@@ -65,13 +60,21 @@ class Ouinet(
             .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
             .setDropSavedOpts(true)
 
-        BuildConfig.METRICS_SERVERS.forEach { server ->
-            configBuilder.addMetricsServer(
-                server[0],
-                server[1],
-                server[2].assetToString(context),
-                server[3].toInt(),
+        if (BuildConfig.METRICS_SERVERS.isNotEmpty()) {
+            val metricsPubKey =
+                "-----BEGIN PUBLIC KEY-----\n" + BuildConfig.METRICS_PUB_KEY + "\n-----END PUBLIC KEY-----"
+            configBuilder.setMetricsEnableOnStart(Settings.isOuinetMetricsEnabled(context))
+                .setMetricsEncryptionKey(metricsPubKey)
+                .setMetricsDeleteAfter(BuildConfig.METRICS_DELETE_AFTER.toString())
+
+            BuildConfig.METRICS_SERVERS.forEach { server ->
+                configBuilder.addMetricsServer(
+                    server[0],
+                    server[1],
+                    server[2].assetToString(context),
+                    server[3].toInt(),
                 )
+            }
         }
 
         if (BuildConfig.INJECTOR_CREDENTIALS != "") {

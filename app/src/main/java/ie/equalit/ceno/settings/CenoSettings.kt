@@ -46,7 +46,7 @@ data class OuinetStatus(
     val public_udp_endpoints: Array<String>? = null,
     val state: String,
     val udp_world_reachable: String? = null,
-    val current_metrics_record_id: String,
+    val current_metrics_record_id: String? = null,
     val dns_protocols: MutableSet<String>? = null,
     val injector_peers_n: Int,
     val injector_ready: Boolean,
@@ -494,7 +494,7 @@ object CenoSettings {
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
-        currentMetricsRecordId = status.current_metrics_record_id
+        currentMetricsRecordId = status.current_metrics_record_id ?: ""
         if (shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
@@ -547,7 +547,7 @@ object CenoSettings {
                                 try {
                                     currentMetricsRecordId = context.components.json
                                         .decodeFromString<OuinetStatus>(response)
-                                        .current_metrics_record_id
+                                        .current_metrics_record_id ?: ""
                                 } catch (e: JsonParseException) {
                                     Logger.error("Error decoding ouinet status for metrics: $e")
                                     return@launch
