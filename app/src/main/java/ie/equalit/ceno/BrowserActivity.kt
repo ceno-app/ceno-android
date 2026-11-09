@@ -75,6 +75,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.WebExtensionState
@@ -131,12 +132,6 @@ open class BrowserActivity : BaseActivity(),
             loadExternalUrl(SafeIntent(intent))
         }
 
-        window.decorView.post {
-            if (intent.action == CenoBundleImporterService.ACTION_TAP) {
-                navigateToSharedSites(SafeIntent(intent))
-            }
-        }
-
         navHost.navController.addOnDestinationChangedListener { _, destination, _ ->
             if ((destination.id == R.id.homeFragment || destination.id == R.id.browserFragment) && !hasRanChecksAndPermissions) {
                 hasRanChecksAndPermissions = true
@@ -149,6 +144,12 @@ open class BrowserActivity : BaseActivity(),
 
         components.useCases.customLoadUrlUseCase.onNoSelectedTab = { url ->
             openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
+        }
+
+        window.decorView.post {
+            if (intent.action == CenoBundleImporterService.ACTION_TAP) {
+                navigateToSharedSites(SafeIntent(intent))
+            }
         }
 
         Logger.info(" --------- Starting ouinet service")

@@ -11,6 +11,7 @@ import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.LinearProgressIndicator
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
@@ -29,6 +30,7 @@ import androidx.compose.ui.res.colorResource
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
@@ -49,11 +51,21 @@ fun CenoBundleImportedSitesView(
 
     var selectedSite: CachedGroupAdapter.GroupItem? by remember{ mutableStateOf(null)}
     var isOpened by remember(selectedSite){ mutableStateOf(selectedSite != null) }
+    val ouinetIsLoading by cenoBundleImporterViewModel.ouinetIsLoading.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
             .fillMaxSize()
     ) {
+        if (ouinetIsLoading) {
+            LinearProgressIndicator(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(16.dp),
+                color = colorResource(R.color.ceno_home_background),
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+        }
         LazyColumn {
             items(sharedSites.filter{ it.name.isNotBlank() }) { site ->
                 ImportedSitesView(

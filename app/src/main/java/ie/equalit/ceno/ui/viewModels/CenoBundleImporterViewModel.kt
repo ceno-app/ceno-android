@@ -25,6 +25,7 @@ import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import ie.equalit.ceno.services.CenoBundleImporterService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -32,6 +33,7 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import mozilla.components.support.ktx.android.net.getFileName
@@ -43,6 +45,8 @@ import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
 import kotlin.collections.forEachIndexed
 import kotlin.collections.toMutableList
+import kotlin.time.Duration.Companion.milliseconds
+import kotlin.time.Duration.Companion.seconds
 
 val Context.dataStore by preferencesDataStore(name = "ceno_bundle_importer_datastore")
 
@@ -76,6 +80,9 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     private var _processedFiles = MutableStateFlow<List<Pair<Boolean, CenoBundleMetaData>>>(emptyList())
     val processedFiles: StateFlow<List<Pair<Boolean, CenoBundleMetaData>>> = _processedFiles.asStateFlow()
+
+    private var _ouinetIsLoading = MutableStateFlow(false)
+    val ouinetIsLoading: StateFlow<Boolean> = _ouinetIsLoading.asStateFlow()
 
     private var _uiState = MutableStateFlow(false)
     val uiState: StateFlow<Boolean> = _uiState.asStateFlow()
@@ -282,6 +289,7 @@ class CenoBundleImporterViewModel : ViewModel() {
         cmd: CenoBundleMetaData,
         newList: List<Pair<Boolean, CenoBundleMetaData>>? = null
     ): Boolean {
+        if (cmd.type == "base") return true
         if ((newList ?: _processedFiles.value).any {
             it.second.type == "base" &&
                     it.second.id == cmd.id &&
@@ -394,9 +402,23 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     fun prepareOuinetForNavigation(
         context: Context,
-        onNavigationCallback: (String) -> Unit
+        onFinishedCallback: (String?) -> Unit
     ) {
-        viewModelScope.launch {
+        var refreshCount = 0
+
+        if (_sharedSites.value.isNotEmpty())
+            return
+
+        _ouinetIsLoading.value = true
+        viewModelScope.launch(Dispatchers.IO) {
+            while(context.components.ouinet.background.getState() != "Started") {
+                if (refreshCount >= 20) {
+                    _ouinetIsLoading.value = false
+                    return@launch
+                }
+                delay(1.seconds)
+                refreshCount += 1
+            }
             CenoSettings.ouinetClientRequest(
                 context = context,
                 coroutineScope = this,
@@ -415,7 +437,11 @@ class CenoBundleImporterViewModel : ViewModel() {
                                     .show()
                             }
                         } else {
-                            onNavigationCallback(message)
+                            getSharedContents(context, message)
+                            _ouinetIsLoading.value = false
+                            CoroutineScope(Dispatchers.Main).launch {
+                                onFinishedCallback(message)
+                            }
                         }
                     }
 
@@ -428,6 +454,8 @@ class CenoBundleImporterViewModel : ViewModel() {
                             )
                                 .show()
                         }
+
+                        _ouinetIsLoading.value = false
                     }
                 },
                 shouldRefresh = false

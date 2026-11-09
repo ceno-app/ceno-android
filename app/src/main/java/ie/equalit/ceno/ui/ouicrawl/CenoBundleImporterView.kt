@@ -75,9 +75,6 @@ fun CenoBundleImporterView(
     isDarkTheme: Boolean,
 ) {
     val context = LocalContext.current
-    val resources = LocalResources.current
-
-    val zipCounter by viewModel.processingCounter.collectAsStateWithLifecycle()
     val processedZips by viewModel.processedFiles.collectAsStateWithLifecycle()
 
     val filePicker = zipFilePickerManager { uris: List<Uri> ->

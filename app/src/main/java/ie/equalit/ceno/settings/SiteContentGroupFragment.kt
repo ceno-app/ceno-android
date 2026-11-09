@@ -40,6 +40,7 @@ import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
 import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.ext.requireComponents
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImportedSitesView
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
@@ -112,9 +113,7 @@ class SiteContentGroupFragment : Fragment(){
         if (arguments?.getString("groups").isNullOrBlank()) {
             cenoBundleImporterViewModel.prepareOuinetForNavigation(
                 requireContext(),
-            ) {
-                cenoBundleImporterViewModel.getSharedContents(requireContext(), it)
-            }
+            ) {}
         } else {
             arguments?.getString("groups")
                 ?.let { groups ->

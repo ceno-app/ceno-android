@@ -9,9 +9,11 @@ import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -109,15 +111,22 @@ class ImportCenoBundleFragment : Fragment() {
                             )
                         },
                         bottomBar = {
-                            Button(
-                                onClick = {
-                                    cenoBundleImporterViewModel.processZips(context = context)
-                                    navigateToSharedSites()
-                                },
-                                enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
+                            BottomAppBar(
+                                containerColor = if (isNightMode())
+                                    colorResource(R.color.ceno_home_background)
+                                else colorResource(R.color.ceno_home_background),
                             ) {
-                                Column {
-                                    Text(stringResource(R.string.ceno_bundle_import))
+                                Button(
+                                    onClick = {
+                                        cenoBundleImporterViewModel.processZips(context = context)
+                                        navigateToSharedSites()
+                                    },
+                                    enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
+                                    modifier = Modifier.fillMaxWidth()
+                                ) {
+                                    Column {
+                                        Text(stringResource(R.string.ceno_bundle_import))
+                                    }
                                 }
                             }
                         }
@@ -137,12 +146,12 @@ class ImportCenoBundleFragment : Fragment() {
     private fun navigateToSharedSites() {
         cenoBundleImporterViewModel.prepareOuinetForNavigation(
             requireContext(),
-        ) { message ->
+        ) {
             runOnUiThread {
                 findNavController().navigate(
                     R.id.action_importCenoBundleFragment_to_siteContentGroupFragment,
                     Bundle().apply {
-                        putString("groups", message)
+                        putString("groups", it)
                     }
                 )
             }
