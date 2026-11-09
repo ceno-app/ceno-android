@@ -39,7 +39,7 @@ testing_jacoco = "0.8.15"
 testing_mockwebserver = "5.5.1"
 
 # Third Party
-sentry = "8.62.0"
+sentry = "8.63.0"
 gson = "2.15.0"
 tooltips = "3.3.2"
 fastlane_version = "2.1.1"
