@@ -547,7 +547,6 @@
     <string name="change_log_level">Change log level</string>
 
     <string name="preferences_cache_type">Cache type</string>
-    <string name="preferences_cache_type_default">bep5-http</string>
     <string-array name="preferences_cache_type_values">
         <item>bep5-http</item>
         <item>bep3-http-over-i2p</item>
