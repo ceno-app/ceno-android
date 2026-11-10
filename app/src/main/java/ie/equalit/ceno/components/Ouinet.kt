@@ -16,7 +16,11 @@ import mozilla.components.support.base.log.logger.Logger
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.security.SecureRandom
+import kotlin.io.path.listDirectoryEntries
 
 // Extension functions for Ouinet 1.6 backwards compatibility
 import ie.equalit.ceno.ext.ouinet.*
@@ -91,7 +95,7 @@ class Ouinet(
 
         if (cacheType == "bep3-http-over-i2p") {
             configBuilder.setI2pBep3Tracker(BuildConfig.I2P_BEP3_TRACKER)
-                .setEnableI2pServiceLib(true)
+                .setEnableI2pServiceExe(getI2pdExe().toString())
                 .addRequestField("X-Ouinet-Route: PublicInjector Bep3HTTPOverI2P")
                 .setDisableOriginAccess(true)
         }
@@ -199,10 +203,30 @@ class Ouinet(
         }
     }
 
+    fun getI2pdExe(): Path {
+        require(!context.applicationInfo.nativeLibraryDir.isNullOrEmpty())
+        val libDir: Path
+        try {
+            libDir = Paths.get(context.applicationInfo.nativeLibraryDir)
+        } catch (exception: Exception) {
+            throw Exception("native lib dir is not parseable into a path", exception)
+        }
+        val exePath = libDir.resolve(I2PD_EXE)
+
+        if (!Files.exists(libDir)) {
+            throw IllegalArgumentException("the dir $libDir does not exist")
+        } else if (!Files.exists(exePath)) {
+            val ls = libDir.listDirectoryEntries().joinToString("\n")
+            throw IllegalArgumentException("the file $exePath does not exist, what exists in libDir is [$ls]")
+        }
+        return exePath
+    }
+
     companion object {
         private val CHAR_POOL = ('a'..'z') + ('A'..'Z') + ('0'..'9')
         const val PROXY_ACCESS_USER = "user"
         private const val TOKEN_LENGTH: Long = 27
         private const val ERROR_PAGE = "server500.html"
+        private const val I2PD_EXE = "libexeci2pd.so"
     }
 }
