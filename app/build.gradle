@@ -142,7 +142,11 @@ android {
             excludes += ['META-INF/atomicfu.kotlin_module']
         }
     }
-
+    packaging {
+        jniLibs {
+            useLegacyPackaging = true
+        }
+    }
 
     splits {
         abi {
