@@ -577,7 +577,6 @@
     <string name="you_can_select_multiple_zip_files_you_will_get_a_notification_once_processing_and_importation_begins_and_completes">You can select multiple .zip files, you will get a notification once processing and importation begins and completes.</string>
     <string name="base_file_not_found">Base file not found!</string>
     <string name="base_filename">Base filename: %1$s</string>
-    <string name="shared_sites_open">Open</string>
     <string name="ouinet_state">Ouinet state: %1$s…</string>
     <plurals name="sites_imported">
         <item quantity="one">%d site imported</item>
