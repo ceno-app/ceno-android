@@ -1,6 +1,6 @@
 #!/bin/bash
 VERSION_NAME=$1
-BASE_URL="http://ceno-download.s3.amazonaws.com/ceno"
+BASE_URL="https://ceno-download.s3.amazonaws.com/ceno"
 APK_NAME_DATE=$(basename ../output/release/ceno-arm64-v8a-release-${VERSION_NAME}* | cut -d'-' -f6- | cut -d'.' -f1)
 AAB_NAME_DATE=$(basename ../output/release/ceno-${VERSION_NAME}* | cut -d'-' -f3- | cut -d'-' -f-3)
 RELEASE_DATA="{ \
@@ -36,6 +36,12 @@ RELEASE_DATA="{ \
                 } \
               }"
 
+http_code=$(curl -LI https://gitlab.com/ceno-app/ceno-android/-/tags/v${VERSION_NAME} -o /dev/null -w '%{http_code}\n' -s)
+if [ ${http_code} != 200 ]; then
+  echo "Tag v${VERSION_NAME} doesn't exist in remote"
+  exit 1
+fi
+
 curl --request POST \
   -H "PRIVATE-TOKEN: ${GL_TOKEN}" \
   -H "Content-Type: application/json" \
@@ -62,3 +68,4 @@ for filename in ../output/release/*; do
     --data-binary "@${filename}" \
     "https://uploads.github.com/repos/ceno-app/ceno-android/releases/${ID}/assets?name=$(basename $filename)"
 done
+exit 0
