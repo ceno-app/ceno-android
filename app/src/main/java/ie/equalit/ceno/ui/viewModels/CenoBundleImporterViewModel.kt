@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
 import androidx.datastore.preferences.core.edit
@@ -16,6 +17,7 @@ import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.home.sessioncontrol.AdapterItem
 import ie.equalit.ceno.services.CenoBundleImporterService
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
@@ -441,48 +443,88 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
             _ouinetState.value = context.components.ouinet.background.getState()
 
-            CenoSettings.ouinetClientRequest(
-                context = context,
-                coroutineScope = this,
-                key = OuinetKey.GROUPS_TXT,
-                ouinetResponseListener = object : OuinetResponseListener {
-                    override fun onSuccess(message: String, data: Any?) {
-                        if (message.trim()
-                                .isEmpty()
-                        ) {
-                            CoroutineScope(Dispatchers.Main).launch {
-                                Toast.makeText(
-                                    context,
-                                    context.getString(no_content_shared),
-                                    Toast.LENGTH_LONG
-                                )
-                                    .show()
-                            }
-                        } else {
-                            fetchedGroups = message
-                            getSharedContents(context)
-                            _ouinetIsLoading.value = false
-                            CoroutineScope(Dispatchers.Main).launch {
-                                onFinishedCallback(message)
-                            }
-                        }
-                    }
+            getOuinetGroups(context, this, onFinishedCallback)
+        }
+    }
 
-                    override fun onError() {
+    private fun getOuinetGroups(
+        context: Context,
+        scope: CoroutineScope,
+        callback: (String) -> Unit
+    ) {
+        CenoSettings.ouinetClientRequest(
+            context = context,
+            coroutineScope = scope,
+            key = OuinetKey.GROUPS_TXT,
+            ouinetResponseListener = object : OuinetResponseListener {
+                override fun onSuccess(message: String, data: Any?) {
+                    if (message.trim()
+                            .isEmpty()
+                    ) {
                         CoroutineScope(Dispatchers.Main).launch {
                             Toast.makeText(
                                 context,
-                                ContextCompat.getString(context, ouinet_client_fetch_fail),
-                                LENGTH_SHORT
+                                context.getString(no_content_shared),
+                                Toast.LENGTH_LONG
                             )
                                 .show()
                         }
-
+                    } else {
+                        fetchedGroups = message
+                        getSharedContents(context)
                         _ouinetIsLoading.value = false
+                        CoroutineScope(Dispatchers.Main).launch {
+                            callback(message)
+                        }
                     }
-                },
-                shouldRefresh = false
+                }
+
+                override fun onError() {
+                    CoroutineScope(Dispatchers.Main).launch {
+                        Toast.makeText(
+                            context,
+                            ContextCompat.getString(context, ouinet_client_fetch_fail),
+                            LENGTH_SHORT
+                        )
+                            .show()
+                    }
+
+                    _ouinetIsLoading.value = false
+                }
+            },
+            shouldRefresh = false
+        )
+    }
+
+    fun onChildToggle(
+        context: Context,
+        parent: CachedGroupAdapter.GroupItem,
+        child: CachedGroupAdapter.GroupChildItem,
+        callback: () -> Unit
+    ) {
+        viewModelScope.launch {
+            CenoSettings.ouinetClientRequest(
+                context,
+                this,
+                if (child.isPinned) OuinetKey.PIN_TO_CACHE else OuinetKey.UNPIN_FROM_CACHE,
+                OuinetValue.OTHER,
+                child.url,
             )
+            _sharedSites.update {
+                _sharedSites.value.run {
+                    val newItems = this.toMutableList()
+                    val index = indexOfFirst { it.name == parent.name }
+                    newItems[index] = parent.copy(children = parent.children.map {
+                        if (it.url == child.url) {
+                            it.copy(isPinned = !it.isPinned)
+                        } else {
+                            it
+                        }
+                    })
+                    newItems
+                }
+            }
+            callback()
         }
     }
 

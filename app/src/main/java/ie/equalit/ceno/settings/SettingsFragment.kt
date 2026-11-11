@@ -659,12 +659,16 @@ class SettingsFragment : PreferenceFragmentCompat() {
     private fun getClickListenerForCenoGroupsCounts(): OnPreferenceClickListener {
         return OnPreferenceClickListener {
             cenoBundleImporterViewModel.prepareOuinetForNavigation(requireContext()) {
-                findNavController().navigate(
-                    R.id.action_settingsFragment_to_siteContentGroupFragment,
-                    Bundle().apply {
-                        putString("groups", it)
-                    }
-                )
+                try {
+                    findNavController().navigate(
+                        R.id.action_settingsFragment_to_siteContentGroupFragment,
+                        Bundle().apply {
+                            putString("groups", it)
+                        }
+                    )
+                } catch(e: Exception) {
+                    e.printStackTrace()
+                }
             }
             true
         }

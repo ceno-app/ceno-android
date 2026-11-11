@@ -79,35 +79,14 @@ class CachedGroupAdapter(
         binding.root.setOnClickListener {
             clickListener?.onLinkClicked(cacheItem.url)
         }
-        setIsPinned(cacheItem.isPinned, binding)
         binding.btnPinToCache.setOnClickListener { _ ->
             clickListener?.onPinChanged(cacheItem.url, !cacheItem.isPinned)
-            setIsPinned(!cacheItem.isPinned, binding)
             groupList[groupPosition].children[childPosition].isPinned = !cacheItem.isPinned
         }
         return binding.root
     }
 
-    private fun setIsPinned(
-        isPinned: Boolean,
-        binding: ExpandableListChildItemBinding
-    ) {
-        if (isPinned) {
-            binding.btnPinToCache.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context,
-                    R.drawable.ic_unpin
-                )
-            )
-        } else {
-            binding.btnPinToCache.setImageDrawable(
-                ContextCompat.getDrawable(
-                    context,
-                    R.drawable.ic_pin_cache
-                )
-            )
-        }
-    }
+
 
     data class GroupItem(val name: String, val children: List<GroupChildItem>)
 

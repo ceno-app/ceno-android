@@ -45,6 +45,7 @@ fun CenoBundleImportedSitesView(
     modifier: Modifier,
     cenoBundleImporterViewModel: CenoBundleImporterViewModel,
 ) {
+    val context = LocalContext.current
     val sharedSites by cenoBundleImporterViewModel.sharedSites.collectAsStateWithLifecycle()
     val activity = LocalActivity.current
     var showModal by remember { mutableStateOf(false) }
@@ -76,10 +77,6 @@ fun CenoBundleImportedSitesView(
                 ImportedSitesView(
                     site = site.name,
                     opened = site == selectedSite && isOpened,
-                    onOpenClicked = {
-                        (activity as BrowserActivity)
-                            .openToBrowser(url = "https://${site.name}", newTab = true)
-                    }
                 ) {
                     selectedSite = site
                     isOpened = true
@@ -100,6 +97,15 @@ fun CenoBundleImportedSitesView(
                 onChildClickCallback = { url ->
                     (activity as BrowserActivity)
                         .openToBrowser(url = "https://$url", newTab = true)
+                },
+                onChildPinnedCallback = { child ->
+                    cenoBundleImporterViewModel.onChildToggle(
+                        context,
+                        ss,
+                        child
+                    ) {
+                        selectedSite = sharedSites.find { it.name == ss.name }
+                    }
                 }
             ) {
                 showModal = false
@@ -113,14 +119,9 @@ fun CenoBundleImportedSitesView(
 fun ImportedSitesView(
     site: String,
     opened: Boolean = false,
-    onOpenClicked: () -> Unit,
     onClick: () -> Unit
 ) {
-    Column(
-        Modifier
-            .clickable(onClick = onOpenClicked)
-            .fillMaxWidth()
-    ) {
+    Column( Modifier.fillMaxWidth() ) {
         ListItem(
             leadingContent = {
                 Icon(
@@ -132,9 +133,6 @@ fun ImportedSitesView(
                 Text(site)
             },
             trailingContent = {
-//                TextButton(onClick = onOpenClicked) {
-//                    Text(stringResource(R.string.shared_sites_open))
-//                }
                 IconButton(onClick = onClick) {
                     Icon(
                         if (opened) {
@@ -149,6 +147,7 @@ fun ImportedSitesView(
             colors = ListItemDefaults.colors(
                 containerColor = colorResource(R.color.ceno_home_background)
             ),
+            modifier = Modifier.clickable(onClick = onClick)
         )
     }
 }
@@ -159,7 +158,6 @@ private fun ImportedSitesView_preview() {
     MaterialTheme {
         ImportedSitesView(
             site = "sample.org",
-            onOpenClicked = {}
         ) {}
     }
 }
