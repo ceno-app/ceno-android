@@ -31,24 +31,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
-import androidx.core.graphics.drawable.toDrawable
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.databinding.FragmentSiteContentGroupBinding
-import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ext.requireComponents
-import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImportedSitesView
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
-class SiteContentGroupFragment : Fragment(){
+class SiteContentGroupFragment : Fragment() {
 
     private val cenoBundleImporterViewModel = CenoBundleImporterViewModel()
 
@@ -110,10 +103,14 @@ class SiteContentGroupFragment : Fragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        if (arguments?.getString("groups").isNullOrBlank()) {
+        if (arguments?.getString("groups")
+                .isNullOrBlank()
+        ) {
             cenoBundleImporterViewModel.prepareOuinetForNavigation(
                 requireContext(),
-            ) {}
+            ) {
+                requireComponents.ouinet.background.startup()
+            }
         } else {
             arguments?.getString("groups")
                 ?.let { groups ->
@@ -143,7 +140,9 @@ class SiteContentGroupFragment : Fragment(){
     override fun onDestroy() {
         super.onDestroy()
         // This did not come from the browser activity, so should show the toolbar
-        if (arguments?.getString("groups").isNullOrBlank()) {
+        if (arguments?.getString("groups")
+                .isNullOrBlank()
+        ) {
             (activity as? AppCompatActivity)?.supportActionBar?.show()
         }
     }

@@ -5,24 +5,21 @@ import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.PendingIntent
 import android.app.Service
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.pm.ServiceInfo
 import android.os.Binder
 import android.os.Build
 import android.os.IBinder
+import androidx.compose.ui.res.pluralStringResource
 import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
-import androidx.core.net.toUri
 import androidx.work.ForegroundInfo
 import ie.equalit.ceno.BrowserActivity
 import ie.equalit.ceno.R
-import ie.equalit.ceno.browser.notification.AbstractPublicNotificationService
 import ie.equalit.ceno.ext.components
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
-import ie.equalit.ceno.ui.viewModels.dataStore
 import kotlinx.serialization.json.Json
 
 class CenoBundleImporterService : Service() {
@@ -74,11 +71,11 @@ class CenoBundleImporterService : Service() {
         )
         startForeground(notificationId, notification.notification)
 
-        val cmd = Json.decodeFromString<List<CenoBundleImporterViewModel.CenoBundleMetaData>>(zipExtra)
+        val cmd =
+            Json.decodeFromString<List<CenoBundleImporterViewModel.CenoBundleMetaData>>(zipExtra)
         try {
             components.ouinet.background.shutdown(false) {
                 unzip(
-                    context = this,
                     intent = notificationIntent,
                     cmd = cmd,
                 )
@@ -91,7 +88,6 @@ class CenoBundleImporterService : Service() {
     }
 
     private fun unzip(
-        context: Context,
         intent: Intent,
         cmd: List<CenoBundleImporterViewModel.CenoBundleMetaData>
     ) {
@@ -121,7 +117,11 @@ class CenoBundleImporterService : Service() {
             showNotification(
                 R.drawable.ic_launcher_foreground,
                 getString(R.string.finished_importing),
-                getString(R.string.sites_imported, cmd.size),
+                resources.getQuantityString(
+                    R.plurals.sites_imported,
+                    cmd.size,
+                    cmd.size,
+                ),
                 intent
             )
         }
@@ -139,7 +139,8 @@ class CenoBundleImporterService : Service() {
     ): ForegroundInfo {
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
-            System.currentTimeMillis().toInt(),
+            System.currentTimeMillis()
+                .toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -151,7 +152,7 @@ class CenoBundleImporterService : Service() {
             .setRequestPromotedOngoing(true)
             .setContentIntent(pendingIntent)
             .apply {
-                if(inProgress) {
+                if (inProgress) {
                     this.setProgress(0, 0, true)
                 } else {
                     this.setProgress(total, progress, false)
@@ -195,7 +196,8 @@ class CenoBundleImporterService : Service() {
     ) {
         val pendingIntent = PendingIntent.getActivity(
             applicationContext,
-            System.currentTimeMillis().toInt(),
+            System.currentTimeMillis()
+                .toInt(),
             intent,
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
@@ -212,8 +214,10 @@ class CenoBundleImporterService : Service() {
             // double-check permission check here to satisfy IDE lint compiler warnings
             if (ActivityCompat.checkSelfPermission(
                     this@CenoBundleImporterService,
-                    Manifest.permission.POST_NOTIFICATIONS)
-                == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU) {
+                    Manifest.permission.POST_NOTIFICATIONS
+                )
+                == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
+            ) {
 
                 notify(notificationId, builder.build())
             }

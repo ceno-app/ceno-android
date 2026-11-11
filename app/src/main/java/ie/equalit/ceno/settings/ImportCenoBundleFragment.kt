@@ -1,20 +1,16 @@
 package ie.equalit.ceno.settings
 
-import android.R.id.message
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.BottomAppBar
 import androidx.compose.material3.Button
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -28,6 +24,7 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.res.colorResource
@@ -35,15 +32,10 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import ie.equalit.ceno.R
-import ie.equalit.ceno.R.string.no_content_shared
-import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.ui.ouicrawl.CenoBundleImporterView
 import ie.equalit.ceno.ui.theme.ThemeUtils.isNightMode
 import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
@@ -65,6 +57,14 @@ class ImportCenoBundleFragment : Fragment() {
             )
 
             setContent {
+                val isNightMode = isNightMode()
+
+                val buttonColor = if (isNightMode) {
+                    colorResource(R.color.ceno_blue_200)
+                } else {
+                    colorResource(R.color.ceno_blue_800)
+                }
+
                 val DarkColorScheme = darkColorScheme(
                     background = colorResource(R.color.ceno_home_background),
                 )
@@ -73,7 +73,7 @@ class ImportCenoBundleFragment : Fragment() {
                     background = colorResource(R.color.ceno_home_background),
                 )
                 MaterialTheme(
-                    colorScheme = if (isNightMode()) DarkColorScheme else LightColorScheme,
+                    colorScheme = if (isNightMode) DarkColorScheme else LightColorScheme,
                 ) {
                     val processedZips by cenoBundleImporterViewModel.processedFiles.collectAsStateWithLifecycle()
                     Scaffold(
@@ -97,7 +97,7 @@ class ImportCenoBundleFragment : Fragment() {
                                     }
                                 },
                                 actions = {
-                                    IconButton(onClick = { navigateToSharedSites() } ) {
+                                    IconButton(onClick = { navigateToSharedSites() }) {
                                         Icon(
                                             painter = painterResource(R.drawable.outline_list_24),
                                             stringResource(R.string.list_imported_sites)
@@ -122,7 +122,11 @@ class ImportCenoBundleFragment : Fragment() {
                                         navigateToSharedSites()
                                     },
                                     enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
-                                    modifier = Modifier.fillMaxWidth()
+                                    modifier = Modifier.fillMaxWidth(),
+                                    shape = RectangleShape,
+                                    colors = ButtonDefaults.buttonColors(
+                                        containerColor = buttonColor
+                                    )
                                 ) {
                                     Column {
                                         Text(stringResource(R.string.ceno_bundle_import))

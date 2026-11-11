@@ -16,13 +16,13 @@ import androidx.lifecycle.viewModelScope
 import ie.equalit.ceno.R.string.no_content_shared
 import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.ext.components
+import ie.equalit.ceno.services.CenoBundleImporterService
 import ie.equalit.ceno.settings.CenoSettings
 import ie.equalit.ceno.settings.OuinetKey
 import ie.equalit.ceno.settings.OuinetResponseListener
 import ie.equalit.ceno.settings.OuinetValue
 import ie.equalit.ceno.settings.SiteContentGroupFragment.PinnedCacheGroup
 import ie.equalit.ceno.settings.adapters.CachedGroupAdapter
-import ie.equalit.ceno.services.CenoBundleImporterService
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -33,19 +33,18 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.Json
 import mozilla.components.support.ktx.android.net.getFileName
 import java.io.File
 import java.io.FileOutputStream
 import java.io.IOException
+import java.time.LocalDate
+import java.time.format.DateTimeParseException
+import java.time.temporal.ChronoUnit
 import java.util.zip.ZipException
 import java.util.zip.ZipFile
 import java.util.zip.ZipInputStream
-import kotlin.collections.forEachIndexed
-import kotlin.collections.toMutableList
-import kotlin.time.Duration.Companion.milliseconds
 import kotlin.time.Duration.Companion.seconds
 
 val Context.dataStore by preferencesDataStore(name = "ceno_bundle_importer_datastore")
@@ -72,30 +71,23 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     val importedSitesKey = stringPreferencesKey("importedSitesKey")
 
-    private var _storedSites = MutableStateFlow<List<CenoBundleMetaData>>(emptyList())
-    val storedSites: StateFlow<List<CenoBundleMetaData>> = _storedSites.asStateFlow()
-
-    private var _processingCounter = MutableStateFlow(0)
-    val processingCounter: StateFlow<Int> = _processingCounter.asStateFlow()
-
-    private var _processedFiles = MutableStateFlow<List<Pair<Boolean, CenoBundleMetaData>>>(emptyList())
-    val processedFiles: StateFlow<List<Pair<Boolean, CenoBundleMetaData>>> = _processedFiles.asStateFlow()
+    private var _processedFiles =
+        MutableStateFlow<List<Pair<Boolean, CenoBundleMetaData>>>(emptyList())
+    val processedFiles: StateFlow<List<Pair<Boolean, CenoBundleMetaData>>> =
+        _processedFiles.asStateFlow()
 
     private var _ouinetIsLoading = MutableStateFlow(false)
     val ouinetIsLoading: StateFlow<Boolean> = _ouinetIsLoading.asStateFlow()
 
-    private var _uiState = MutableStateFlow(false)
-    val uiState: StateFlow<Boolean> = _uiState.asStateFlow()
-
-    fun setUiState(state: Boolean) {
-        _uiState.value = state
-    }
+    val _ouinetState = MutableStateFlow("")
+    val ouinetState: StateFlow<String> = _ouinetState.asStateFlow()
 
     fun processSelectedFiles(
         context: Context,
         uris: List<Uri>
     ) {
-        val uris = uris.filter{ !_processedFiles.value.any { pf-> pf.second.uri == it.toString() } }
+        val uris =
+            uris.filter { !_processedFiles.value.any { pf -> pf.second.uri == it.toString() } }
         _processedFiles.update { cl ->
             cl + uris.map { uri ->
                 Pair(
@@ -125,7 +117,7 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
             _processedFiles.update { cl ->
                 cl.map { site ->
-                    Pair(false, (cmds.find{ it.uri == site.second.uri } ?: site.second).apply {
+                    Pair(false, (cmds.find { it.uri == site.second.uri } ?: site.second).apply {
                         isLoading = false
                     })
                 }
@@ -134,13 +126,16 @@ class CenoBundleImporterViewModel : ViewModel() {
         }
     }
 
-    private fun checkValidity(context: Context, newList: List<Pair<Boolean, CenoBundleMetaData>>? = null) {
+    private fun checkValidity(
+        context: Context,
+        newList: List<Pair<Boolean, CenoBundleMetaData>>? = null
+    ) {
         viewModelScope.launch {
             val tmp = (newList ?: _processedFiles.value).map { site ->
                 Pair(
                     site.first,
                     site.second.copy(
-                        isValid = isBaseAvailable(context, site.second, newList),
+                        isValid = isValidBundle(context, site.second, newList),
                     )
                 )
             }
@@ -161,9 +156,9 @@ class CenoBundleImporterViewModel : ViewModel() {
     }
 
     fun processZips(context: Context) {
-        _uiState.value = true
         val bundles = Json.encodeToString<List<CenoBundleMetaData>>(
-            _processedFiles.value.filter{ it.second.isValid == true }.map{ it.second }
+            _processedFiles.value.filter { it.second.isValid == true }
+                .map { it.second }
         )
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
             putExtra(CenoBundleImporterService.ZIP_EXTRA, bundles)
@@ -176,7 +171,6 @@ class CenoBundleImporterViewModel : ViewModel() {
         } catch (e: Exception) {
             e.printStackTrace()
         }
-        _uiState.value = false
     }
 
     fun unzip(
@@ -213,7 +207,7 @@ class CenoBundleImporterViewModel : ViewModel() {
                             FileOutputStream(newFile).use { fos ->
                                 try {
                                     zis.copyTo(fos)
-                                } catch(e: ZipException) {
+                                } catch (e: ZipException) {
                                     e.printStackTrace()
                                     Log.e(TAG, "Error unzipping $entry")
                                 }
@@ -222,7 +216,7 @@ class CenoBundleImporterViewModel : ViewModel() {
                         try {
                             zis.closeEntry()
                             entry = zis.nextEntry
-                        } catch(e: Exception) {
+                        } catch (e: Exception) {
                             e.printStackTrace()
                             Log.e(TAG, "Error unzipping $entry", e)
                         }
@@ -245,7 +239,7 @@ class CenoBundleImporterViewModel : ViewModel() {
         context: Context,
         uri: Uri
     ): CenoBundleMetaData? {
-        val fileName = uri.getFileName(context.contentResolver) ?: "temp.zip"
+        val fileName = uri.getFileName(context.contentResolver)
         val outputFile = File(context.cacheDir, fileName)
 
         try {
@@ -269,10 +263,11 @@ class CenoBundleImporterViewModel : ViewModel() {
                 val jsonDecoder = Json {
                     ignoreUnknownKeys = true
                 }
-                return jsonDecoder.decodeFromString<CenoBundleMetaData>(json).apply {
-                    this.filename = uri.getFileName(context.contentResolver)
-                    this.uri = uri.toString()
-                }
+                return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
+                    .apply {
+                        this.filename = uri.getFileName(context.contentResolver)
+                        this.uri = uri.toString()
+                    }
             }
         } catch (e: Exception) {
             e.printStackTrace()
@@ -284,17 +279,19 @@ class CenoBundleImporterViewModel : ViewModel() {
         return null
     }
 
-    private suspend fun isBaseAvailable(
+    private suspend fun isValidBundle(
         context: Context,
         cmd: CenoBundleMetaData,
         newList: List<Pair<Boolean, CenoBundleMetaData>>? = null
     ): Boolean {
+        if (hasBeenAWeek(cmd.basedate))
+            return false
         if (cmd.type == "base") return true
         if ((newList ?: _processedFiles.value).any {
-            it.second.type == "base" &&
-                    it.second.id == cmd.id &&
-                    it.second.site == cmd.site
-        })
+                it.second.type == "base" &&
+                        it.second.id == cmd.id &&
+                        it.second.site == cmd.site
+            })
             return true
 
         val currentData = context.dataStore.data.map {
@@ -305,6 +302,17 @@ class CenoBundleImporterViewModel : ViewModel() {
 
         val cd = Json.decodeFromString<List<CenoBundleMetaData>>(currentData.first()!!)
         return cd.any { it.id == cmd.id && it.site == cmd.site }
+    }
+
+    private fun hasBeenAWeek(dateString: String): Boolean {
+        return try {
+            val givenDate = LocalDate.parse(dateString)
+            val currentDate = LocalDate.now()
+            val daysBetween = ChronoUnit.DAYS.between(givenDate, currentDate)
+            daysBetween >= 7
+        } catch (e: DateTimeParseException) {
+            false
+        }
     }
 
     private fun storeImportedBaseMetaData(
@@ -320,14 +328,17 @@ class CenoBundleImporterViewModel : ViewModel() {
                 it[importedSitesKey] ?: "[]"
             }
 
-            val currentJson = jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(currentData.first()).toMutableList()
+            val currentJson =
+                jsonDecoder.decodeFromString<List<CenoBundleMetaData>>(currentData.first())
+                    .toMutableList()
 
-            val currentMd = currentJson.find { it.id == baseMetaData.id }.run {
-                if(this != null) {
-                    currentJson.remove(this)
+            val currentMd = currentJson.find { it.id == baseMetaData.id }
+                .run {
+                    if (this != null) {
+                        currentJson.remove(this)
+                    }
+                    baseMetaData
                 }
-                baseMetaData
-            }
 
             currentJson.add(currentMd)
             val storeJson = jsonDecoder.encodeToString<List<CenoBundleMetaData>>(currentJson)
@@ -340,13 +351,11 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     private val _sharedSites = MutableStateFlow<List<CachedGroupAdapter.GroupItem>>(emptyList())
     val sharedSites: StateFlow<List<CachedGroupAdapter.GroupItem>> = _sharedSites.asStateFlow()
+    private var fetchedGroups: String? = null
 
 
-    fun getSharedContents(
-        context: Context,
-        groups: String
-    ) {
-        _sharedSites.value = convertToMap(context, groups)
+    fun getSharedContents(context: Context, groups: String? = null) {
+        _sharedSites.value = convertToMap(context, groups ?: fetchedGroups!!)
     }
 
     private fun convertToMap(context: Context, groups: String): List<CachedGroupAdapter.GroupItem> {
@@ -400,18 +409,29 @@ class CenoBundleImporterViewModel : ViewModel() {
         return result
     }
 
+
+    /**
+     * Coming in here from BrowserActivity causes a restart of Ouinet.
+     * This is observed in ConnectivityManager.
+     * getState() and .isStopped run are set at different times, so checking against
+     * "Degraded" seems to be the best option.
+     */
     fun prepareOuinetForNavigation(
         context: Context,
         onFinishedCallback: (String?) -> Unit
     ) {
         var refreshCount = 0
 
-        if (_sharedSites.value.isNotEmpty())
+        if (_sharedSites.value.isNotEmpty()) {
+            onFinishedCallback(fetchedGroups)
             return
+        }
 
         _ouinetIsLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
-            while(context.components.ouinet.background.getState() != "Started") {
+            _ouinetState.value = context.components.ouinet.background.getState()
+            while (context.components.ouinet.background.getState() == "Degraded") {
+                _ouinetState.value = context.components.ouinet.background.getState()
                 if (refreshCount >= 20) {
                     _ouinetIsLoading.value = false
                     return@launch
@@ -419,6 +439,8 @@ class CenoBundleImporterViewModel : ViewModel() {
                 delay(1.seconds)
                 refreshCount += 1
             }
+            _ouinetState.value = context.components.ouinet.background.getState()
+
             CenoSettings.ouinetClientRequest(
                 context = context,
                 coroutineScope = this,
@@ -437,7 +459,8 @@ class CenoBundleImporterViewModel : ViewModel() {
                                     .show()
                             }
                         } else {
-                            getSharedContents(context, message)
+                            fetchedGroups = message
+                            getSharedContents(context)
                             _ouinetIsLoading.value = false
                             CoroutineScope(Dispatchers.Main).launch {
                                 onFinishedCallback(message)

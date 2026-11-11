@@ -52,6 +52,7 @@ fun CenoBundleImportedSitesView(
     var selectedSite: CachedGroupAdapter.GroupItem? by remember{ mutableStateOf(null)}
     var isOpened by remember(selectedSite){ mutableStateOf(selectedSite != null) }
     val ouinetIsLoading by cenoBundleImporterViewModel.ouinetIsLoading.collectAsStateWithLifecycle()
+    val ouinetState by cenoBundleImporterViewModel.ouinetState.collectAsStateWithLifecycle()
 
     Column(
         modifier = modifier
@@ -64,6 +65,10 @@ fun CenoBundleImportedSitesView(
                     .padding(16.dp),
                 color = colorResource(R.color.ceno_home_background),
                 trackColor = MaterialTheme.colorScheme.surfaceVariant
+            )
+            Text(
+                stringResource(R.string.ouinet_state, ouinetState),
+                modifier = Modifier.padding(start = 8.dp)
             )
         }
         LazyColumn {

@@ -285,15 +285,6 @@
                 android:resource="@xml/provider_paths" />
         </provider>
 
-        <service
-            android:name=".services.CenoBundleImporterService"
-            android:exported="false"
-            android:foregroundServiceType="dataSync">
-            <intent-filter>
-                <action android:name="androidx.work.impl.foreground.SystemForegroundService" />
-            </intent-filter>
-        </service>
-
     </application>
 
 </manifest>

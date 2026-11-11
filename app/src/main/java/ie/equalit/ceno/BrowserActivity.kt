@@ -4,8 +4,6 @@
 
 package ie.equalit.ceno
 
-import android.Manifest
-import android.R.id.message
 import android.app.ActivityManager
 import android.app.AlarmManager
 import android.app.PendingIntent
@@ -22,11 +20,9 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
-import android.widget.Toast.LENGTH_SHORT
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.Insets
 import androidx.core.graphics.drawable.toDrawable
@@ -38,9 +34,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import ie.equalit.ceno.R.string.no_content_shared
-import ie.equalit.ceno.R.string.ouinet_client_fetch_fail
 import ie.equalit.ceno.addons.WebExtensionActionPopupActivity
 import ie.equalit.ceno.base.BaseActivity
 import ie.equalit.ceno.browser.BrowserFragment
@@ -59,14 +52,10 @@ import ie.equalit.ceno.ext.setSecureScreen
 import ie.equalit.ceno.home.HomeFragment.Companion.BEGIN_TOUR_TOOLTIP
 import ie.equalit.ceno.metrics.NetworkMetrics
 import ie.equalit.ceno.services.CenoBundleImporterService
-import ie.equalit.ceno.settings.CenoSettings
-import ie.equalit.ceno.settings.OuinetKey
-import ie.equalit.ceno.settings.OuinetResponseListener
 import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.settings.SettingsFragment
 import ie.equalit.ceno.ui.theme.DefaultThemeManager
 import ie.equalit.ceno.ui.theme.ThemeManager
-import ie.equalit.ceno.ui.viewModels.CenoBundleImporterViewModel
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
 import ie.equalit.ceno.utils.sentry.SentryOptionsConfiguration
 import ie.equalit.ouinet.Ouinet.RunningState
@@ -75,7 +64,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import mozilla.components.browser.state.action.SearchAction
 import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.state.state.WebExtensionState
@@ -146,16 +134,14 @@ open class BrowserActivity : BaseActivity(),
             openToBrowser(url, newTab = true, private = themeManager.currentMode.isPersonal)
         }
 
-        window.decorView.post {
+        Logger.info(" --------- Starting ouinet service")
+        components.ouinet.setBackground(this)
+
+        components.ouinet.background.startup {
             if (intent.action == CenoBundleImporterService.ACTION_TAP) {
                 navigateToSharedSites(SafeIntent(intent))
             }
         }
-
-        Logger.info(" --------- Starting ouinet service")
-        components.ouinet.setBackground(this)
-
-        components.ouinet.background.startup()
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) Settings.setAllowNotifications(
             this, components.permissionHandler.isAllowingPostNotifications()
@@ -676,6 +662,8 @@ open class BrowserActivity : BaseActivity(),
     }
 
     private fun navigateToSharedSites(safeIntent: SafeIntent) {
-        navHost.navController.navigate( R.id.siteContentGroupFragment, )
+        runOnUiThread {
+            navHost.navController.navigate(R.id.siteContentGroupFragment)
+        }
     }
 }
