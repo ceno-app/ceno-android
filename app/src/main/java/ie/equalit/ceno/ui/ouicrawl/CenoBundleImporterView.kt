@@ -199,9 +199,6 @@ fun ZipImporterComponentView(
     onCloseCallback: () -> Unit,
     onClickCallback: () -> Unit,
 ) {
-    val isLoading = metadata?.isLoading == true
-    val isValid = metadata?.isValid == true
-
     val cardColor = if (!isDarkTheme || minimize) {
         colorResource(R.color.ceno_blue_200)
     } else {
@@ -233,7 +230,7 @@ fun ZipImporterComponentView(
             containerColor = cardColor
         ),
     ) {
-        if (!isLoading && metadata == null) {
+        if (metadata == null) {
             if(!minimize) {
                 Column(
                     modifier = Modifier
@@ -250,7 +247,8 @@ fun ZipImporterComponentView(
 
                     Text(text, color = textColor)
                 }
-            } else {
+            }
+            else {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
@@ -269,7 +267,8 @@ fun ZipImporterComponentView(
                     Text(text, color = textColor)
                 }
             }
-        } else {
+        }
+        else {
             ListItem(
                 modifier = Modifier.fillMaxWidth(),
                 leadingContent = {
@@ -277,12 +276,12 @@ fun ZipImporterComponentView(
                         painter = painterResource(R.drawable.outline_folder_zip_24),
                         "",
                         modifier = Modifier.size(50.dp),
-                        tint = if(!isValid) invalidColor else iconColors
+                        tint = if(metadata.invalidReason != null) invalidColor else iconColors
                     )
                 },
                 headlineContent = {
                     HorizontalPulsePlaceholder(
-                        isLoading = isLoading,
+                        isLoading = metadata.isLoading,
                         widthFraction = 1f
                     ) {
                         Text(
@@ -294,28 +293,47 @@ fun ZipImporterComponentView(
                 },
                 supportingContent = {
                     HorizontalPulsePlaceholder(
-                        isLoading = isLoading,
+                        isLoading = metadata.isLoading,
                         widthFraction = 0.5f
                     ) {
                         Column {
-                            if (metadata.isValid == false) {
-                                Text(
-                                    stringResource(R.string.base_file_not_found),
-                                    color = invalidColor
-                                )
-                                Text(
-                                    stringResource(R.string.base_filename, metadata.basefilename),
-                                    color = invalidColor
-                                )
-                            } else {
-                                Text(stringResource(R.string.version, metadata.version))
-                                Text(stringResource(R.string.site, metadata.site))
+                            when(metadata.invalidReason) {
+                                CenoBundleImporterViewModel.InvalidBundleReasons.MANIFEST_NOT_FOUND -> {
+                                    Text(
+                                        stringResource(R.string.manifest_file_not_found_in_zip),
+                                        color = invalidColor
+                                    )
+                                }
+                                CenoBundleImporterViewModel.InvalidBundleReasons.BASE_FILE_NOT_FOUND -> {
+                                    Text(
+                                        stringResource(R.string.base_file_not_found),
+                                        color = invalidColor
+                                    )
+                                    Text(
+                                        stringResource(R.string.base_filename, metadata.basefilename ?: ""),
+                                        color = invalidColor
+                                    )
+                                }
+                                CenoBundleImporterViewModel.InvalidBundleReasons.FILE_TOO_OLD -> {
+                                    Text(
+                                        stringResource(R.string.bundle_is_too_old_to_import),
+                                        color = invalidColor
+                                    )
+                                    Text(
+                                        stringResource(R.string.please_download_a_newer_version_from_the_crawl_site),
+                                        color = invalidColor
+                                    )
+                                }
+                                null -> {
+                                    Text(stringResource(R.string.version, metadata.version ?: ""))
+                                    Text(stringResource(R.string.site, metadata.site ?: ""))
+                                }
                             }
                         }
                     }
                 },
                 trailingContent = {
-                    if(isLoading) {
+                    if(metadata.isLoading) {
                         CircularProgressIndicator(
                             color = iconColors,
                             trackColor = cardColor,
@@ -358,7 +376,8 @@ fun ZipImporterComponentView_preview() {
                 basefilename = "basefilename.zip",
                 basedate = "12343434",
                 updatets = "123245",
-                filename = "ouicrawl-fa.wikipedia.org-base.zip"
+                filename = "ouicrawl-fa.wikipedia.org-base.zip",
+                isLoading = false
             ),
             onCloseCallback = {}
         ) {}
@@ -383,54 +402,8 @@ fun ZipImporterComponentView_invalid_preview() {
                 basedate = "12343434",
                 updatets = "123245",
                 filename = "ouicrawl-fa.wikipedia.org-base.zip",
-                isValid = false
-            ),
-            onCloseCallback = {}
-        ) {}
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ZipImporterComponentView_invalid_dark_preview() {
-    MaterialTheme {
-        ZipImporterComponentView(
-            text = "Click to import",
-            isDarkTheme = true,
-            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
-                version = 1,
-                proto = 1,
-                id = "id",
-                type = "type",
-                site = "site.com",
-                basefilename = "basefilename.zip",
-                basedate = "12343434",
-                updatets = "123245",
-                filename = "ouicrawl-fa.wikipedia.org-base.zip",
-                isValid = false
-            ),
-            onCloseCallback = {}
-        ) {}
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ZipImporterComponentView_filename_preview() {
-    MaterialTheme {
-        ZipImporterComponentView(
-            text = "Click to import",
-            isDarkTheme = true,
-            metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
-                version = 1,
-                proto = 1,
-                id = "id",
-                type = "type",
-                site = "site.com",
-                basefilename = "basefilename.zip",
-                basedate = "12343434",
-                updatets = "123245",
-                filename = "ouicrawl-fa.wikipedia.org-base.zip"
+                isLoading = false,
+                invalidReason = CenoBundleImporterViewModel.InvalidBundleReasons.MANIFEST_NOT_FOUND
             ),
             onCloseCallback = {}
         ) {}
@@ -445,6 +418,7 @@ fun ZipImporterComponentView_filename_loading_preview() {
             text = "Click to import",
             isDarkTheme = true,
             metadata = CenoBundleImporterViewModel.CenoBundleMetaData(
+                filename = "sample_file.zip",
                 version = 1,
                 proto = 1,
                 id = "id",

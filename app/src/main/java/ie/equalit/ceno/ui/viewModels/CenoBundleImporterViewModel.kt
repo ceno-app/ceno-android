@@ -6,6 +6,7 @@ import android.net.Uri
 import android.util.Log
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
+import androidx.compose.runtime.invalidateGroupsWithKey
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.core.net.toUri
@@ -53,21 +54,27 @@ val Context.dataStore by preferencesDataStore(name = "ceno_bundle_importer_datas
 
 class CenoBundleImporterViewModel : ViewModel() {
 
+    enum class InvalidBundleReasons {
+        MANIFEST_NOT_FOUND,
+        BASE_FILE_NOT_FOUND,
+        FILE_TOO_OLD,
+    }
+
     @Serializable
     data class CenoBundleMetaData(
-        val version: Int,
-        val proto: Int,
-        val id: String,
-        val type: String,
-        val site: String,
-        val basefilename: String,
-        val basedate: String,
+        var filename: String? = null,
+        var version: Int? = null,
+        val proto: Int? = null,
+        val id: String? = null,
+        val type: String? = null,
+        val site: String? = null,
+        val basefilename: String? = null,
+        val basedate: String? = null,
         val updatets: String? = null,
         var importationDate: Long = System.currentTimeMillis(),
-        var filename: String? = null,
         var uri: String? = null,
-        var isValid: Boolean? = true,
-        var isLoading: Boolean? = false
+        var isLoading: Boolean = true,
+        var invalidReason: InvalidBundleReasons? = null
     )
 
 
@@ -95,15 +102,8 @@ class CenoBundleImporterViewModel : ViewModel() {
                 Pair(
                     true,
                     CenoBundleMetaData(
-                        version = 0,
-                        proto = 0,
-                        id = "",
-                        type = "",
-                        site = "",
-                        basefilename = "",
-                        basedate = "",
-                        uri = uri.toString(),
-                        isLoading = true
+                        filename = uri.getFileName(context.contentResolver),
+                        uri = uri.toString()
                     )
                 )
             }
@@ -119,8 +119,9 @@ class CenoBundleImporterViewModel : ViewModel() {
             }
             _processedFiles.update { cl ->
                 cl.map { site ->
-                    Pair(false, (cmds.find { it.uri == site.second.uri } ?: site.second).apply {
-                        isLoading = false
+                    Pair(true, (cmds.find { it.uri == site.second.uri } ?: site.second).apply {
+                        filename = site.second.filename
+                        isLoading = true
                     })
                 }
             }
@@ -137,13 +138,14 @@ class CenoBundleImporterViewModel : ViewModel() {
                 Pair(
                     site.first,
                     site.second.copy(
-                        isValid = isValidBundle(context, site.second, newList),
+                        invalidReason = isValidBundle(context, site.second, newList),
+                        isLoading = false
                     )
                 )
             }
             _processedFiles.update { _ ->
                 tmp.sortedWith(
-                    compareBy<Pair<Boolean, CenoBundleMetaData>> { it.second.isValid }
+                    compareBy<Pair<Boolean, CenoBundleMetaData>> { it.second.invalidReason != null }
                         .thenBy { it.second.type }
                 )
             }
@@ -159,7 +161,7 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     fun processZips(context: Context) {
         val bundles = Json.encodeToString<List<CenoBundleMetaData>>(
-            _processedFiles.value.filter { it.second.isValid == true }
+            _processedFiles.value.filter { it.second.invalidReason != null }
                 .map { it.second }
         )
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
@@ -231,7 +233,7 @@ class CenoBundleImporterViewModel : ViewModel() {
                         bundle
                     )
                 }
-                progressCallback(bundle.site, index + 1, cmd.size)
+                progressCallback(bundle.site!!, index + 1, cmd.size)
             }
             onFinishedCallback()
         }
@@ -267,7 +269,7 @@ class CenoBundleImporterViewModel : ViewModel() {
                 }
                 return jsonDecoder.decodeFromString<CenoBundleMetaData>(json)
                     .apply {
-                        this.filename = uri.getFileName(context.contentResolver)
+                        this.filename = filename
                         this.uri = uri.toString()
                     }
             }
@@ -285,25 +287,32 @@ class CenoBundleImporterViewModel : ViewModel() {
         context: Context,
         cmd: CenoBundleMetaData,
         newList: List<Pair<Boolean, CenoBundleMetaData>>? = null
-    ): Boolean {
-        if (hasBeenAWeek(cmd.basedate))
-            return false
-        if (cmd.type == "base") return true
+    ): InvalidBundleReasons? {
+        if (cmd.type.isNullOrEmpty())
+            return InvalidBundleReasons.MANIFEST_NOT_FOUND
+
+        if (hasBeenAWeek(cmd.basedate!!))
+            return InvalidBundleReasons.FILE_TOO_OLD
+
+        if (cmd.type == "base") return null
+
         if ((newList ?: _processedFiles.value).any {
                 it.second.type == "base" &&
                         it.second.id == cmd.id &&
                         it.second.site == cmd.site
             })
-            return true
+            return null
 
         val currentData = context.dataStore.data.map {
             it[importedSitesKey]
         }
 
-        currentData.first() ?: return false
+        currentData.first() ?: return InvalidBundleReasons.BASE_FILE_NOT_FOUND
 
         val cd = Json.decodeFromString<List<CenoBundleMetaData>>(currentData.first()!!)
-        return cd.any { it.id == cmd.id && it.site == cmd.site }
+        return if (!cd.any { it.id == cmd.id && it.site == cmd.site })
+            InvalidBundleReasons.BASE_FILE_NOT_FOUND
+        else null
     }
 
     private fun hasBeenAWeek(dateString: String): Boolean {

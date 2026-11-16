@@ -121,7 +121,7 @@ class ImportCenoBundleFragment : Fragment() {
                                         cenoBundleImporterViewModel.processZips(context = context)
                                         navigateToSharedSites()
                                     },
-                                    enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.isValid == false },
+                                    enabled = processedZips.isNotEmpty() && !processedZips.any { it.second.invalidReason != null },
                                     modifier = Modifier.fillMaxWidth(),
                                     shape = RectangleShape,
                                     colors = ButtonDefaults.buttonColors(

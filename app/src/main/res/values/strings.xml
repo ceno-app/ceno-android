@@ -580,6 +580,9 @@
     <string name="ouinet_state">Ouinet state: %1$s…</string>
     <string name="notification_when_importation_is_completed">Notification when importation is completed</string>
     <string name="ceno_bundle_importer_finished">Ceno Bundle importer finished</string>
+    <string name="manifest_file_not_found_in_zip">Manifest file not found in zip</string>
+    <string name="please_download_a_newer_version_from_the_crawl_site">Please download a newer version from the crawl site</string>
+    <string name="bundle_is_too_old_to_import">Bundle is too old to import</string>
     <plurals name="sites_imported">
         <item quantity="one">%d site imported</item>
         <item quantity="other">%d sites imported</item>
