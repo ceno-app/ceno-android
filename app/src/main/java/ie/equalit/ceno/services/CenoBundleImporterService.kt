@@ -31,6 +31,11 @@ class CenoBundleImporterService : Service() {
             .toInt()
     }
 
+    private val finishedNotificationId by lazy {
+        System.currentTimeMillis()
+            .toInt()
+    }
+
     // Binder given to clients.
     private val binder = LocalBinder()
 
@@ -44,7 +49,7 @@ class CenoBundleImporterService : Service() {
     }
 
     override fun onCreate() {
-        createNotificationChannel()
+        createNotificationChannels()
         super.onCreate()
     }
 
@@ -114,6 +119,7 @@ class CenoBundleImporterService : Service() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
+            stopSelf()
             showNotification(
                 R.drawable.ic_launcher_foreground,
                 getString(R.string.finished_importing),
@@ -174,18 +180,31 @@ class CenoBundleImporterService : Service() {
         }
     }
 
-    private fun createNotificationChannel() {
+    private fun createNotificationChannels() {
         val progressChannelName = getString(R.string.ouicrawl_importer_progress)
         val descriptionText = getString(R.string.view_ouicrawl_importer_progress)
+
         val importance = NotificationManager.IMPORTANCE_DEFAULT
+
         val channel = NotificationChannel(CHANNEL_ID, progressChannelName, importance).apply {
             description = descriptionText
             setSound(null, null)
             enableVibration(false)
         }
+
         val notificationManager: NotificationManager =
             getSystemService(NotificationManager::class.java) as NotificationManager
         notificationManager.createNotificationChannel(channel)
+
+        val finishedChannelName = getString(R.string.ceno_bundle_importer_finished)
+        val finishedChannelDescription =
+            getString(R.string.notification_when_importation_is_completed)
+
+
+        val finishedChannel = NotificationChannel(FINISHED_CHANNEL_ID, finishedChannelName, importance).apply {
+            description = finishedChannelDescription
+        }
+        notificationManager.createNotificationChannel(finishedChannel)
     }
 
     private fun showNotification(
@@ -202,7 +221,7 @@ class CenoBundleImporterService : Service() {
             PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE
         )
 
-        val builder = NotificationCompat.Builder(this, CHANNEL_ID)
+        val builder = NotificationCompat.Builder(this, FINISHED_CHANNEL_ID)
             .setSmallIcon(icon)
             .setContentTitle(title)
             .setContentText(description)
@@ -219,7 +238,7 @@ class CenoBundleImporterService : Service() {
                 == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT < Build.VERSION_CODES.TIRAMISU
             ) {
 
-                notify(notificationId, builder.build())
+                notify(finishedNotificationId, builder.build())
             }
         }
     }
@@ -227,6 +246,7 @@ class CenoBundleImporterService : Service() {
     companion object {
         const val ZIP_EXTRA = "ZIP_EXTRA"
         const val CHANNEL_ID = "ie.ceno.bundle_importer"
+        const val FINISHED_CHANNEL_ID = "ie.ceno.bundle_importer.finished"
 
         const val ACTION_TAP = "ie.ceno.CenoBundleImporterService.ACTION_TAP"
     }

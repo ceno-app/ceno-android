@@ -138,16 +138,6 @@ class SiteContentGroupFragment : Fragment() {
         (activity as? AppCompatActivity)?.supportActionBar?.hide()
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        // This did not come from the browser activity, so should show the toolbar
-        if (arguments?.getString("groups")
-                .isNullOrBlank()
-        ) {
-            (activity as? AppCompatActivity)?.supportActionBar?.show()
-        }
-    }
-
     @Serializable
     data class PinnedCacheGroup(
         @SerialName("pinned_groups")

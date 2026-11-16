@@ -432,9 +432,9 @@ class CenoBundleImporterViewModel : ViewModel() {
         _ouinetIsLoading.value = true
         viewModelScope.launch(Dispatchers.IO) {
             _ouinetState.value = context.components.ouinet.background.getState()
-            while (context.components.ouinet.background.getState() == "Degraded") {
+            while (context.components.ouinet.background.getState() == "Degraded" || context.components.ouinet.background.getState() == "Stopping") {
                 _ouinetState.value = context.components.ouinet.background.getState()
-                if (refreshCount >= 20) {
+                if (refreshCount >= 30) {
                     _ouinetIsLoading.value = false
                     return@launch
                 }
