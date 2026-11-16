@@ -37,6 +37,10 @@ fun Config.ConfigBuilder.setI2pBep3Tracker(p0: String): Config.ConfigBuilder {
     return this
 }
 
+fun Config.ConfigBuilder.setEnableI2pServiceExe(p0: String): Config.ConfigBuilder {
+    return this
+}
+
 fun Config.ConfigBuilder.setEnableI2pServiceLib(p0: Boolean): Config.ConfigBuilder {
     return this
 }
