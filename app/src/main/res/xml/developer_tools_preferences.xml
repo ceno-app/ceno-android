@@ -34,4 +34,11 @@
         android:title="@string/preferences_test_metrics"
         app:iconSpaceReserved="false" />
 
+    <ListPreference
+        app:iconSpaceReserved="false"
+        android:key="@string/pref_key_ouinet_cache_type"
+        android:title="@string/preferences_cache_type"
+        android:entryValues="@array/preferences_cache_type_values"
+        android:entries="@array/preferences_cache_type_options" />
+
 </androidx.preference.PreferenceScreen>
