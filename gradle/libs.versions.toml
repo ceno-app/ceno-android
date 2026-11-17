@@ -34,7 +34,7 @@ testing_androidx_espresso = "3.7.0"
 testing_androidx_ext_junit = "1.3.0"
 testing_androidx_orchestrator = "1.6.1"
 testing_androidx_runner = "1.7.0"
-testing_androidx_uiautomator = "2.4.0"
+testing_androidx_uiautomator = "2.4.1"
 testing_jacoco = "0.8.15"
 testing_mockwebserver = "5.5.1"
 
