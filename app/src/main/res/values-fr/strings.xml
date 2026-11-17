@@ -183,7 +183,7 @@
     <string name="preferences_ceno_groups_count">Contenu partagé par vous</string>
     <string name="preferences_clear_ceno_cache">Effacer le contenu mis en cache</string>
     <string name="addon_placeholder">Aucun module complémentaire n’est proposé</string>
-    <string name="preferences_clear_ceno_cache_summary">ffacer le contenu Web mis dans le cache local</string>
+    <string name="preferences_clear_ceno_cache_summary">Effacer le contenu Web mis dans le cache local</string>
     <string name="clear_cache_success">Le cache a été effacé</string>
     <string name="clear_cache_fail">Échec d’effacement du cache. Réessayez bientôt</string>
     <string name="preferences_allow_notifications">Notifications</string>
