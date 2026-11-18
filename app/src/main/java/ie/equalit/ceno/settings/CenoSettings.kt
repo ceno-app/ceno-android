@@ -178,6 +178,23 @@ object CenoSettings {
             }
     }
 
+    fun isOriginAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_origin), true
+            )
+
+    fun isProxyAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_private), true
+            )
+
+    fun isInjectorAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_public), true
+            )
     fun getCenoCacheSize(context: Context): String? =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getString(
