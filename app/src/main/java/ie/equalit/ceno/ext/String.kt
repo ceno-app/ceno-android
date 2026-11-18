@@ -134,13 +134,15 @@ fun String.withoutScheme(): String {
  * Helper function to return asset file as a string,
  * if string provided is not a file path, just return the string
  */
-fun String.assetToString(context: Context): String {
-    return if (this.startsWith("file:///android_asset")) {
-        val file = this.substring(this.lastIndexOf(File.separatorChar) + 1)
-        context.assets.open(file).bufferedReader().use {
-            it.readText()
+fun String?.assetToString(context: Context): String? {
+    return this?.let {
+        if (this.startsWith("file:///android_asset")) {
+            val file = this.substring(this.lastIndexOf(File.separatorChar) + 1)
+            context.assets.open(file).bufferedReader().use {
+                it.readText()
+            }
+        } else {
+            this
         }
-    } else {
-        this
     }
 }

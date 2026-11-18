@@ -22,9 +22,6 @@ import java.nio.file.Paths
 import java.security.SecureRandom
 import kotlin.io.path.listDirectoryEntries
 
-// Extension functions for Ouinet 1.6 backwards compatibility
-import ie.equalit.ceno.ext.ouinet.*
-
 class Ouinet(
     private val context: Context
 ) {
