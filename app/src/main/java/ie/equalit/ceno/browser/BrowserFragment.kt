@@ -8,6 +8,7 @@ import android.Manifest
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import androidx.activity.addCallback
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -17,6 +18,7 @@ import ie.equalit.ceno.settings.Settings
 import ie.equalit.ceno.tooltip.CenoTooltip
 import ie.equalit.ceno.tooltip.CenoTourStartOverlay
 import ie.equalit.ceno.ui.viewModels.SettingsViewModel
+import mozilla.components.browser.state.selector.selectedTab
 import mozilla.components.browser.toolbar.BrowserToolbar
 import mozilla.components.support.base.feature.UserInteractionHandler
 import uk.co.samuelwall.materialtaptargetprompt.MaterialTapTargetPrompt
@@ -53,6 +55,15 @@ class BrowserFragment : BaseBrowserFragment(), UserInteractionHandler {
         }
 
         binding.swipeRefresh.visibility = View.VISIBLE
+
+        requireActivity().onBackPressedDispatcher.addCallback {
+            val session = requireComponents.core.store.state.selectedTab
+            if (session?.content?.canGoBack == true) {
+                requireComponents.useCases.sessionUseCases.goBack.invoke()
+            } else {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     @Suppress("LongMethod")
