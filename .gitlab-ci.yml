@@ -97,7 +97,6 @@ assembleDebug:
   artifacts:
     paths:
       - app/build/outputs/apk/
-      -
 
 # Make Bundle
 bundleDebug:
