@@ -75,8 +75,12 @@ allprojects {
             mavenCentral()
         }
         maven {
-            name "GitLab"
+            name "Ouinet GitLab"
             url "https://gitlab.com/api/v4/groups/5089370/-/packages/maven"
+        }
+        maven {
+            name "Ceno GitLab"
+            url "https://gitlab.com/api/v4/groups/105434229/-/packages/maven"
         }
     }
 }

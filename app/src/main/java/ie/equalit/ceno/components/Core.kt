@@ -194,7 +194,10 @@ class Core(
      */
     val geckoSitePermissionsStorage by lazy {
         val geckoRuntime = EngineProvider.getOrCreateRuntime(context)
-        GeckoSitePermissionsStorage(geckoRuntime, OnDiskSitePermissionsStorage(context))
+        GeckoSitePermissionsStorage(
+            geckoRuntime,
+            OnDiskSitePermissionsStorage(context, coroutineScope = applicationScope)
+        )
     }
 
     /**
