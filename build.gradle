@@ -74,6 +74,10 @@ allprojects {
         } else {
             mavenCentral()
         }
+        maven {
+            name "GitLab"
+            url "https://gitlab.com/api/v4/groups/5089370/-/packages/maven"
+        }
     }
 }
 

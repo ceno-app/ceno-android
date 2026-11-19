@@ -22,9 +22,6 @@ import java.nio.file.Paths
 import java.security.SecureRandom
 import kotlin.io.path.listDirectoryEntries
 
-// Extension functions for Ouinet 1.6 backwards compatibility
-import ie.equalit.ceno.ext.ouinet.*
-
 class Ouinet(
     private val context: Context
 ) {
@@ -62,6 +59,9 @@ class Ouinet(
             .setDnsProtocols(dnsProtocols)
             .setEnableLogFile(CenoSettings.isCenoLogEnabled(context))
             .setLogLevel(Config.LogLevel.valueOf(Settings.getLogLevel(context)))
+            .setDisableOriginAccess(!CenoSettings.isOriginAccessEnabled(context))
+            .setDisableInjectorAccess(!CenoSettings.isInjectorAccessEnabled(context))
+            .setDisableProxyAccess(!CenoSettings.isProxyAccessEnabled(context))
             .setDropSavedOpts(true)
 
         if (BuildConfig.METRICS_SERVERS.isNotEmpty()) {
@@ -97,7 +97,6 @@ class Ouinet(
             configBuilder.setI2pBep3Tracker(BuildConfig.I2P_BEP3_TRACKER)
                 .setEnableI2pServiceExe(getI2pdExe().toString())
                 .addRequestField("X-Ouinet-Route: PublicInjector Bep3HTTPOverI2P")
-                .setDisableOriginAccess(true)
         }
         config = configBuilder.build()
     }
