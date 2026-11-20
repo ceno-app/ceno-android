@@ -161,7 +161,7 @@ class CenoBundleImporterViewModel : ViewModel() {
 
     fun processZips(context: Context) {
         val bundles = Json.encodeToString<List<CenoBundleMetaData>>(
-            _processedFiles.value.filter { it.second.invalidReason != null }
+            _processedFiles.value.filter { it.second.invalidReason == null }
                 .map { it.second }
         )
         val intent = Intent(context, CenoBundleImporterService::class.java).apply {
