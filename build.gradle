@@ -64,7 +64,6 @@ allprojects {
             url "https://jitpack.io"
         }
 
-
         if (project.hasProperty("centralRepo")) {
             maven {
                 name "MavenCentral"
@@ -74,13 +73,21 @@ allprojects {
         } else {
             mavenCentral()
         }
-        maven {
-            name "Ouinet GitLab"
-            url "https://gitlab.com/api/v4/groups/5089370/-/packages/maven"
-        }
+
         maven {
             name "Ceno GitLab"
             url "https://gitlab.com/api/v4/groups/105434229/-/packages/maven"
+        }
+
+        if (project.hasProperty("ouinetRepo")) {
+            maven {
+                name "Ouinet GitLab"
+                url "https://gitlab.com/api/v4/groups/5089370/-/packages/maven"
+            }
+        }
+
+        if (project.hasProperty("mavenLocal")) {
+            mavenLocal()
         }
     }
 }
