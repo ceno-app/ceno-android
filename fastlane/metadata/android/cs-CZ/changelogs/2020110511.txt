@@ -1,0 +1,7 @@
+### Opraveno
+
+- Pád při otevření možnosti konfigurace dalších bootstrapů
+
+### Změněno
+
+- Aktualizace Android-Components na 156.0.1

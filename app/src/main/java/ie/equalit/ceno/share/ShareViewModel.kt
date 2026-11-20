@@ -97,7 +97,7 @@ class ShareViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     @WorkerThread
-    internal fun buildRecentAppsList(apps: List<AppShareOption>): List<AppShareOption> {
+    internal suspend fun buildRecentAppsList(apps: List<AppShareOption>): List<AppShareOption> {
         val recentAppsDatabase = recentAppsStorage.getRecentAppsUpTo(RECENT_APPS_LIMIT)
         val result: MutableList<AppShareOption> = ArrayList()
         for (recentApp in recentAppsDatabase) {

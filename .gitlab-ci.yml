@@ -6,7 +6,7 @@
 # Read more about this script on this blog post https://about.gitlab.com/2018/10/24/setting-up-gitlab-ci-for-android-projects/, by Jason Lenny
 # If you are interested in using Android with FastLane for publishing take a look at the Android-Fastlane template.
 
-image: eclipse-temurin:17.0.17_10-jdk-noble
+image: eclipse-temurin:17.0.21_9-jdk-noble
 
 variables:
 
@@ -23,7 +23,7 @@ variables:
   # There, look down below at the cli tools only, sdk tools package is of format:
   #        commandlinetools-os_type-ANDROID_SDK_TOOLS_latest.zip
   # when the script was last modified for latest compileSdkVersion, it was which is written down below
-  ANDROID_SDK_TOOLS: "14742923"
+  ANDROID_SDK_TOOLS: "15859902"
 
 # Packages installation before running script
 before_script:
@@ -57,7 +57,6 @@ before_script:
 
   # Create local.properties and output directory
   - cp local.properties.sample local.properties
-  - mkdir -p ./output
 
 cache:
   paths:
@@ -83,7 +82,7 @@ lintDebug:
     - ./gradlew -Pci --console=plain :app:lintDebug -PbuildDir=lint
   artifacts:
     paths:
-      - app/lint/reports/lint-results-debug.html
+      -  app/lint/reports/lint-results-debug.html
     expose_as: "lint-report"
     when: always
 
@@ -97,7 +96,19 @@ assembleDebug:
     - ./gradlew assembleDebug
   artifacts:
     paths:
-      - output/
+      - app/build/outputs/apk/
+
+# Make Bundle
+bundleDebug:
+  tags:
+    - docker
+  interruptible: true
+  stage: build
+  script:
+    - ./gradlew bundleDebug
+  artifacts:
+    paths:
+      - app/build/outputs/bundle/
 
 assembleAndroidTest:
   tags:
@@ -108,7 +119,7 @@ assembleAndroidTest:
     - ./gradlew assembleAndroidTest
   artifacts:
     paths:
-      - output/
+      - app/build/outputs/apk/
 
 # Run all tests, if any fails, interrupt the pipeline(fail it)
 debugTests:

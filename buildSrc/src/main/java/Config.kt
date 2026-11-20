@@ -12,7 +12,7 @@ object Config {
     // Synchronized build configuration for all modules
     const val BUILD_TOOLS_VERSION = "37.0.0"
     const val COMPILE_SDK_MAJOR_VERSION = 37
-    const val COMPILE_SDK_MINOR_VERSION = 1
+    const val COMPILE_SDK_MINOR_VERSION = 2
     const val MIN_SDK_VERSION = 26
     const val TARGET_SDK_VERSION = 37
 

@@ -1,0 +1,10 @@
+
+### Changed
+
+- Update uBlock Origin to 1.76.4
+- Bump versions on a few dependencies
+
+### Fixes
+
+- Typo in French translation
+

@@ -1,0 +1,11 @@
+### Opraveno
+
+- Časy poslední aktualizace zdroje Free Media se neaktualizovaly nebo se zobrazovaly jako záporné hodnoty
+- Neobnovitelný pád při načítání oznámení na domovské stránce
+
+### Změněno
+
+- Přidána možnost přizpůsobení pro skrytí sekce kanálů Telegramu na domovské stránce
+- Aktualizace Android-Components na verzi 153.0.3
+- Aktualizace překladů pro různé jazyky
+- Drobné aktualizace a opravy automatizovaných testů uživatelského rozhraní

@@ -31,7 +31,6 @@ data class OuinetStatus(
     val distributed_cache: Boolean,
     val external_udp_endpoints: Array<String>? = null,
     val injector_access: Boolean,
-    val is_upnp_active: String,
     val local_cache_size: Long? = null,
     val bridge_announcement: Boolean,
     val local_udp_endpoints: Array<String>? = null,
@@ -47,8 +46,7 @@ data class OuinetStatus(
     val public_udp_endpoints: Array<String>? = null,
     val state: String,
     val udp_world_reachable: String? = null,
-    val current_metrics_record_id: String,
-    val doh_enabled: Boolean,
+    val current_metrics_record_id: String? = null,
     val dns_protocols: MutableSet<String>? = null,
     val injector_peers_n: Int,
     val injector_ready: Boolean,
@@ -180,6 +178,23 @@ object CenoSettings {
             }
     }
 
+    fun isOriginAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_origin), true
+            )
+
+    fun isProxyAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_private), true
+            )
+
+    fun isInjectorAccessEnabled(context: Context) =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ceno_sources_public), true
+            )
     fun getCenoCacheSize(context: Context): String? =
         PreferenceManager.getDefaultSharedPreferences(context)
             .getString(
@@ -435,6 +450,18 @@ object CenoSettings {
                 context.getString(R.string.pref_key_ouinet_proxy_endpoint), null
             )
 
+    fun getCacheType(context: Context): String? =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getString(
+                context.getString(R.string.pref_key_ouinet_cache_type), BuildConfig.CACHE_TYPE
+            )
+
+    fun isOuinetExperimentalEnabled(context: Context): Boolean =
+        PreferenceManager.getDefaultSharedPreferences(context)
+            .getBoolean(
+                context.getString(R.string.pref_key_ouinet_experimental), false
+            )
+
     suspend fun webClientRequest(context: Context, request: Request): String? {
         var responseBody: String? = null
         var tries = 0
@@ -472,7 +499,9 @@ object CenoSettings {
         setCenoSourcesPrivate(context, status.proxy_access)
         setCenoSourcesPublic(context, status.injector_access)
         setCenoSourcesShared(context, status.distributed_cache)
-        setCenoCacheSize(context, bytesToString(status.local_cache_size!!))
+        status.local_cache_size?.let {
+            setCenoCacheSize(context, bytesToString(status.local_cache_size))
+        }
         setOuinetVersion(context, status.ouinet_version)
         setOuinetBuildId(context, status.ouinet_build_id)
         setOuinetProtocol(context, status.ouinet_protocol)
@@ -482,8 +511,7 @@ object CenoSettings {
         setExternalUdpEndpoint(context, status.external_udp_endpoints)
         setPublicUdpEndpoint(context, status.public_udp_endpoints)
         setExtraBitTorrentBootstrap(context, status.bt_extra_bootstraps)
-        setUpnpStatus(context, status.is_upnp_active)
-        currentMetricsRecordId = status.current_metrics_record_id
+        currentMetricsRecordId = status.current_metrics_record_id ?: ""
         if (shouldRefresh) context.components.cenoPreferences.sharedPrefsReload = true
     }
 
@@ -536,7 +564,7 @@ object CenoSettings {
                                 try {
                                     currentMetricsRecordId = context.components.json
                                         .decodeFromString<OuinetStatus>(response)
-                                        .current_metrics_record_id
+                                        .current_metrics_record_id ?: ""
                                 } catch (e: JsonParseException) {
                                     Logger.error("Error decoding ouinet status for metrics: $e")
                                     return@launch

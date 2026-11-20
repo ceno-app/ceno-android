@@ -75,6 +75,8 @@ class DeveloperToolsSettingsFragment : PreferenceFragmentCompat() {
             findNavController().navigate(R.id.action_developerToolsSettingsFragment_to_importCenoBundleFragment)
             true
         }
+        getPreference(R.string.pref_key_ouinet_cache_type)?.isVisible =
+            CenoSettings.isOuinetExperimentalEnabled(requireContext())
     }
 
     private fun getChangeListenerForRemoteDebugging(): OnPreferenceChangeListener {
